@@ -3,6 +3,31 @@
 import { useEffect, useRef, useState } from 'react'
 import { Globe, Search, BarChart2 } from 'lucide-react'
 
+function useIsMobile() {
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768)
+        check()
+        window.addEventListener('resize', check)
+        return () => window.removeEventListener('resize', check)
+    }, [])
+    return isMobile
+}
+
+function useInView() {
+    const ref = useRef(null)
+    const [inView, setInView] = useState(false)
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) setInView(true) },
+            { threshold: 0.1 }
+        )
+        if (ref.current) observer.observe(ref.current)
+        return () => observer.disconnect()
+    }, [])
+    return [ref, inView]
+}
+
 const PROBLEMS = [
     {
         icon: Globe,
@@ -27,47 +52,27 @@ const PROBLEMS = [
     },
 ]
 
-function useInView(threshold = 0.1) {
-    const ref = useRef(null)
-    const [inView, setInView] = useState(false)
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) setInView(true) },
-            { threshold }
-        )
-        if (ref.current) observer.observe(ref.current)
-        return () => observer.disconnect()
-    }, [threshold])
-
-    return [ref, inView]
-}
-
 export default function TheProblem() {
+    const isMobile = useIsMobile()
     const [headRef, headInView] = useInView()
 
     return (
-        <section style={{ padding: '5rem 1.5rem', backgroundColor: '#FAF8F4' }}>
+        <section style={{ padding: isMobile ? '3rem 1.25rem' : '5rem 1.5rem', backgroundColor: '#FAF8F4' }}>
             <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-
-                {/* Header */}
-                <div
-                    ref={headRef}
-                    style={{
-                        textAlign: 'center',
-                        marginBottom: '3.5rem',
-                        opacity: headInView ? 1 : 0,
-                        transform: headInView ? 'translateY(0)' : 'translateY(24px)',
-                        transition: 'opacity 0.6s ease, transform 0.6s ease',
-                    }}
-                >
+                <div ref={headRef} style={{
+                    textAlign: 'center',
+                    marginBottom: '2.5rem',
+                    opacity: headInView ? 1 : 0,
+                    transform: headInView ? 'translateY(0)' : 'translateY(24px)',
+                    transition: 'opacity 0.6s ease, transform 0.6s ease',
+                }}>
                     <span className="section-label">The Visibility Gap</span>
                     <h2 style={{
                         fontFamily: 'Montserrat, sans-serif',
                         fontWeight: 900,
                         color: '#1C1917',
                         lineHeight: 1.15,
-                        fontSize: 'clamp(1.75rem, 4vw, 3rem)',
+                        fontSize: isMobile ? '1.75rem' : 'clamp(1.75rem, 4vw, 3rem)',
                     }}>
                         Your Competitors Are Getting
                         <br />
@@ -80,71 +85,41 @@ export default function TheProblem() {
                         maxWidth: '520px',
                         margin: '1rem auto 0',
                         lineHeight: 1.7,
+                        fontSize: isMobile ? '0.95rem' : '1rem',
                     }}>
-                        Most local businesses in the Golden Triangle rely 100% on word of mouth
-                        and signage. That worked 20 years ago. Today, your customers search
-                        online first — and if you're not there, you don't exist.
+                        Most local businesses rely 100% on word of mouth and signage.
+                        That worked 20 years ago. Today, your customers search online
+                        first — and if you're not there, you don't exist.
                     </p>
                 </div>
 
-                {/* Cards */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                    gap: '1.5rem',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                    gap: '1.25rem',
                 }}>
                     {PROBLEMS.map((p, i) => {
                         const [cardRef, cardInView] = useInView()
                         const Icon = p.icon
                         return (
-                            <div
-                                key={p.title}
-                                ref={cardRef}
-                                style={{
-                                    background: 'white',
-                                    borderRadius: '1rem',
-                                    padding: '2rem',
-                                    border: '1px solid #f1f5f9',
-                                    opacity: cardInView ? 1 : 0,
-                                    transform: cardInView ? 'translateY(0)' : 'translateY(28px)',
-                                    transition: `opacity 0.55s ease ${i * 0.12}s, transform 0.55s ease ${i * 0.12}s`,
-                                    boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                                }}
-                            >
-                                <div style={{
-                                    width: '48px',
-                                    height: '48px',
-                                    background: p.iconBg,
-                                    borderRadius: '0.75rem',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    marginBottom: '1.25rem',
-                                }}>
+                            <div key={p.title} ref={cardRef} style={{
+                                background: 'white',
+                                borderRadius: '1rem',
+                                padding: '1.75rem',
+                                border: '1px solid #f1f5f9',
+                                opacity: cardInView ? 1 : 0,
+                                transform: cardInView ? 'translateY(0)' : 'translateY(28px)',
+                                transition: `opacity 0.55s ease ${i * 0.12}s, transform 0.55s ease ${i * 0.12}s`,
+                            }}>
+                                <div style={{ width: '48px', height: '48px', background: p.iconBg, borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
                                     <Icon size={22} color={p.iconColor} />
                                 </div>
-                                <h3 style={{
-                                    fontFamily: 'Montserrat, sans-serif',
-                                    fontWeight: 700,
-                                    fontSize: '1.25rem',
-                                    color: '#1C1917',
-                                    marginBottom: '0.75rem',
-                                }}>
-                                    {p.title}
-                                </h3>
-                                <p style={{
-                                    color: '#64748b',
-                                    fontFamily: 'Inter, sans-serif',
-                                    fontSize: '0.925rem',
-                                    lineHeight: 1.7,
-                                }}>
-                                    {p.description}
-                                </p>
+                                <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '1.15rem', color: '#1C1917', marginBottom: '0.75rem' }}>{p.title}</h3>
+                                <p style={{ color: '#64748b', fontFamily: 'Inter, sans-serif', fontSize: '0.9rem', lineHeight: 1.7 }}>{p.description}</p>
                             </div>
                         )
                     })}
                 </div>
-
             </div>
         </section>
     )

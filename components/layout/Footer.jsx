@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail, MapPin, ArrowRight } from 'lucide-react'
+import { Mail, MapPin, ArrowRight, Phone } from 'lucide-react'
 import { BRAND, DIGITAL_SERVICES, SIGNAGE_PRODUCTS } from '@/lib/constants'
 
 export default function Footer() {
@@ -37,6 +37,10 @@ export default function Footer() {
               <a href={'mailto:' + BRAND.email} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#94a3b8', fontSize: '0.875rem', textDecoration: 'none', fontFamily: 'Inter, sans-serif' }}>
                 <Mail size={14} style={{ color: '#F59E0B', flexShrink: 0 }} />
                 {BRAND.email}
+              </a>
+              <a href={BRAND.phoneHref} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#94a3b8', fontSize: '0.875rem', textDecoration: 'none', fontFamily: 'Inter, sans-serif' }}>
+                <Phone size={14} style={{ color: '#F59E0B', flexShrink: 0 }} />
+                {BRAND.phone}
               </a>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', color: '#94a3b8', fontSize: '0.875rem', fontFamily: 'Inter, sans-serif' }}>
                 <MapPin size={14} style={{ color: '#F59E0B', flexShrink: 0, marginTop: '2px' }} />
@@ -90,9 +94,9 @@ export default function Footer() {
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
               {[
-                { label: 'Portfolio',     href: '/portfolio' },
-                { label: 'Pricing',       href: '/pricing' },
-                { label: 'Contact Us',    href: '/contact' },
+                { label: 'Portfolio', href: '/portfolio' },
+                { label: 'Pricing', href: '/pricing' },
+                { label: 'Contact Us', href: '/contact' },
                 { label: 'Quote Request', href: '/quote-request' },
               ].map((link) => (
                 <li key={link.href}>

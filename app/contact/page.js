@@ -182,7 +182,7 @@ export default function ContactPage() {
                             </a>
 
                             {/* Phone */}
-                            <a href="tel:+18563835227" style={{ textDecoration: 'none' }}>
+                            <a href="tel:+14098006139" style={{ textDecoration: 'none' }}>
                                 <div
                                     style={{
                                         display: 'flex',
@@ -221,7 +221,7 @@ export default function ContactPage() {
                                             Call Us
                                         </p>
                                         <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.95rem', color: 'white' }}>
-                                            (856) 383-5227
+                                            (409) 800-6139
                                         </p>
                                     </div>
                                 </div>
@@ -345,7 +345,7 @@ export default function ContactPage() {
                                             type="email"
                                             name="email"
                                             required
-                                            placeholder="john@yourbusiness.com"
+                                            placeholder="john@email.com"
                                             value={form.email}
                                             onChange={handleChange}
                                             style={inputStyle}
@@ -360,7 +360,7 @@ export default function ContactPage() {
                                             name="message"
                                             required
                                             rows={5}
-                                            placeholder="Ask us anything — about our services, pricing, or whether we are the right fit for your business..."
+                                            placeholder="Ask us anything — about our services, pricing, or if you need any signs for your business..."
                                             value={form.message}
                                             onChange={handleChange}
                                             style={{ ...inputStyle, resize: 'vertical' }}

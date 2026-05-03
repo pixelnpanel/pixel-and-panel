@@ -4,6 +4,17 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Laptop, Tag, TrendingUp } from 'lucide-react'
 
+function useIsMobile() {
+    const [isMobile, setIsMobile] = useState(false)
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768)
+        check()
+        window.addEventListener('resize', check)
+        return () => window.removeEventListener('resize', check)
+    }, [])
+    return isMobile
+}
+
 function useInView() {
     const ref = useRef(null)
     const [inView, setInView] = useState(false)
@@ -46,20 +57,16 @@ const STEPS = [
 ]
 
 export default function HowItWorks() {
+    const isMobile = useIsMobile()
     const [ref, inView] = useInView()
 
     return (
-        <section
-            id="how-it-works"
-            ref={ref}
-            style={{ padding: '5rem 1.5rem', backgroundColor: '#FAF8F4' }}
-        >
+        <section id="how-it-works" ref={ref} style={{ padding: isMobile ? '3rem 1.25rem' : '5rem 1.5rem', backgroundColor: '#FAF8F4' }}>
             <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-                {/* Header */}
                 <div style={{
                     textAlign: 'center',
-                    marginBottom: '4rem',
+                    marginBottom: '3rem',
                     opacity: inView ? 1 : 0,
                     transform: inView ? 'translateY(0)' : 'translateY(24px)',
                     transition: 'opacity 0.6s ease, transform 0.6s ease',
@@ -69,7 +76,7 @@ export default function HowItWorks() {
                         fontFamily: 'Montserrat, sans-serif',
                         fontWeight: 900,
                         color: '#1C1917',
-                        fontSize: 'clamp(1.75rem, 4vw, 3rem)',
+                        fontSize: isMobile ? '1.75rem' : 'clamp(1.75rem, 4vw, 3rem)',
                         lineHeight: 1.15,
                     }}>
                         Simple. Trackable. Done Right.
@@ -81,32 +88,32 @@ export default function HowItWorks() {
                         maxWidth: '480px',
                         margin: '1rem auto 0',
                         lineHeight: 1.7,
+                        fontSize: isMobile ? '0.95rem' : '1rem',
                     }}>
                         Three steps. One agency. A system that connects your physical
                         presence to your digital one — and proves it's working.
                     </p>
                 </div>
 
-                {/* Steps */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                    gap: '2rem',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                    gap: isMobile ? '1.5rem' : '2rem',
                     marginBottom: '3rem',
                 }}>
                     {STEPS.map((step, i) => {
                         const Icon = step.icon
                         return (
-                            <div
-                                key={step.number}
-                                style={{
-                                    textAlign: 'center',
-                                    padding: '2rem 1.5rem',
-                                    opacity: inView ? 1 : 0,
-                                    transform: inView ? 'translateY(0)' : 'translateY(28px)',
-                                    transition: `opacity 0.55s ease ${0.2 + i * 0.15}s, transform 0.55s ease ${0.2 + i * 0.15}s`,
-                                }}
-                            >
+                            <div key={step.number} style={{
+                                textAlign: 'center',
+                                padding: isMobile ? '1.5rem' : '2rem 1.5rem',
+                                opacity: inView ? 1 : 0,
+                                transform: inView ? 'translateY(0)' : 'translateY(28px)',
+                                transition: `opacity 0.55s ease ${0.2 + i * 0.15}s, transform 0.55s ease ${0.2 + i * 0.15}s`,
+                                background: isMobile ? 'white' : 'transparent',
+                                borderRadius: isMobile ? '1rem' : '0',
+                                border: isMobile ? '1px solid #f1f5f9' : 'none',
+                            }}>
                                 <div style={{
                                     width: '56px',
                                     height: '56px',
@@ -134,7 +141,7 @@ export default function HowItWorks() {
                                 <h3 style={{
                                     fontFamily: 'Montserrat, sans-serif',
                                     fontWeight: 700,
-                                    fontSize: '1.1rem',
+                                    fontSize: isMobile ? '1.05rem' : '1.1rem',
                                     color: '#1C1917',
                                     marginBottom: '0.75rem',
                                     lineHeight: 1.3,
@@ -154,7 +161,6 @@ export default function HowItWorks() {
                     })}
                 </div>
 
-                {/* CTA */}
                 <div style={{ textAlign: 'center', opacity: inView ? 1 : 0, transition: 'opacity 0.6s ease 0.7s' }}>
                     <Link href="/quote-request" className="btn-amber">
                         Start with a Free Quote
