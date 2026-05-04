@@ -1,95 +1,124 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --color-brand-primary: #0369A1;
+  --color-brand-deep: #0369A1;
+  --color-brand-sky: #0EA5E9;
+  --color-brand-cream: #FAF8F4;
+  --color-brand-amber: #F59E0B;
+  --color-brand-dark: #1C1917;
+  --color-brand-navy: #0C1E3C;
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background-color: #FAF8F4;
+    color: #1C1917;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
 }
 
-body {
-  background-color: #FAF8F4;
-  color: #1C1917;
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+@layer components {
+  .btn-amber {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #F59E0B;
+    color: #1C1917;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-}
+  .btn-amber:hover {
+    background-color: #FBBF24;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.35);
+  }
 
-.btn-amber {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: #F59E0B;
-  color: #1C1917;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.875rem 1.5rem;
-  border-radius: 0.75rem;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-}
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.75rem;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
 
-.btn-amber:hover {
-  background-color: #FBBF24;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.35);
-}
+  .btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: transparent;
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.875rem 1.5rem;
-  border-radius: 0.75rem;
-  border: 2px solid rgba(255,255,255,0.35);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-}
+  .section-label {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #0EA5E9;
+    margin-bottom: 1rem;
+  }
 
-.btn-ghost:hover {
-  border-color: rgba(255,255,255,0.8);
-  background-color: rgba(255,255,255,0.1);
-}
-
-.section-label {
-  display: inline-block;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #0EA5E9;
-  margin-bottom: 1rem;
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 1rem;
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+  }
 }
