@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: 'https://www.pixelnpanel.com',
+    siteUrl: 'https://pixelnpanel.com',
     generateRobotsTxt: true,
     exclude: [],
     additionalPaths: async (config) => {
