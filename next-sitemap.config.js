@@ -2,5 +2,5 @@
 module.exports = {
     siteUrl: 'https://www.pixelnpanel.com',
     generateRobotsTxt: true,
-    exclude: ['/service-area/*'],
+    exclude: [],
 }
