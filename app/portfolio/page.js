@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 
 export const metadata = {
@@ -19,7 +17,6 @@ const projectTypes = [
 export default function PortfolioPage() {
     return (
         <>
-            <Navbar />
             <main>
                 <section
                     style={{
@@ -169,7 +166,6 @@ export default function PortfolioPage() {
                     </div>
                 </section>
             </main>
-            <Footer />
         </>
     )
 }

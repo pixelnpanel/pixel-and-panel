@@ -1,7 +1,5 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 import { DIGITAL_SERVICES } from '@/lib/constants'
 
@@ -89,7 +87,6 @@ export default async function DigitalServicePage({ params }) {
 
     return (
         <>
-            <Navbar />
             <main>
                 <section
                     style={{
@@ -239,7 +236,6 @@ export default async function DigitalServicePage({ params }) {
                     </div>
                 </section>
             </main>
-            <Footer />
         </>
     )
 }

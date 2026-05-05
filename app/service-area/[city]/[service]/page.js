@@ -1,7 +1,5 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
 import { ArrowRight, CheckCircle, Phone, Mail } from 'lucide-react'
 
 // ─── All city + service data ────────────────────────────────────────────────
@@ -135,7 +133,6 @@ export default async function ServiceAreaPage({ params }) {
 
     return (
         <>
-            <Navbar />
 
             {/* Hero */}
             <section style={{
@@ -347,8 +344,6 @@ export default async function ServiceAreaPage({ params }) {
                     </div>
                 </div>
             </section>
-
-            <Footer />
         </>
     )
 }

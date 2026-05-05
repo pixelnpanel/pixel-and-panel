@@ -1,8 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
 import { ArrowRight, CheckCircle, Mail, Clock, Phone } from 'lucide-react'
 
 export default function ContactPage() {
@@ -61,7 +59,6 @@ export default function ContactPage() {
 
     return (
         <>
-            <Navbar />
 
             <section style={{
                 minHeight: 'calc(100vh - 72px)',
@@ -412,7 +409,6 @@ export default function ContactPage() {
                 </div>
             </section>
 
-            <Footer />
         </>
     )
 }

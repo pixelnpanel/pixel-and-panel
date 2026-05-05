@@ -8,7 +8,7 @@ import { NAV_LINKS, BRAND } from '@/lib/constants'
 
 const MOBILE_NAV = [
   { label: 'Digital Services', href: '/digital' },
-  { label: 'Signage', href: '/signage' },
+  { label: 'Signage & Print', href: '/signage' },
   { label: 'Contact', href: '/contact' },
 ]
 

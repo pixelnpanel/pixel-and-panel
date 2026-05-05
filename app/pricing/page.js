@@ -1,8 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
 import { ArrowRight, CheckCircle, QrCode } from 'lucide-react'
 
 const WEBSITE_PACKAGES = [
@@ -218,7 +216,6 @@ function PricingCard({ pkg, isMonthly }) {
 export default function PricingPage() {
     return (
         <>
-            <Navbar />
 
             {/* Hero */}
             <section style={{
@@ -491,8 +488,6 @@ export default function PricingPage() {
                     </Link>
                 </div>
             </section>
-
-            <Footer />
         </>
     )
 }

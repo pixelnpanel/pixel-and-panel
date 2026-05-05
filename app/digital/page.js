@@ -1,7 +1,5 @@
 'use client'
 import Link from 'next/link'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
 import { Monitor, MapPin, Zap, QrCode, ArrowRight } from 'lucide-react'
 
 const SERVICES = [
@@ -42,7 +40,6 @@ const SERVICES = [
 export default function DigitalPage() {
     return (
         <>
-            <Navbar />
 
             {/* Hero */}
             <section style={{
@@ -252,7 +249,6 @@ export default function DigitalPage() {
                 </div>
             </section>
 
-            <Footer />
         </>
     )
 }

@@ -1,5 +1,3 @@
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
 import Hero from '@/components/sections/Hero'
 import TheProblem from '@/components/sections/TheProblem'
 import TheSolution from '@/components/sections/TheSolution'
@@ -16,7 +14,6 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <Navbar />
       <Hero />
       <TheProblem />
       <TheSolution />
@@ -24,7 +21,6 @@ export default function HomePage() {
       <WhyPixelAndPanel />
       <ServiceArea />
       <CTABanner />
-      <Footer />
     </>
   )
 }
