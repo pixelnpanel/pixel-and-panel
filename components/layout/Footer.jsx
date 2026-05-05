@@ -6,13 +6,12 @@ import { BRAND, DIGITAL_SERVICES } from '@/lib/constants'
 const FOOTER_SIGNAGE_PRODUCTS = [
   { name: 'Banners', href: '/signage?category=banners' },
   { name: 'Yard & Real Estate Signs', href: '/signage?category=yard-real-estate-signs' },
-  { name: 'Exterior Signs', href: '/signage?category=exterior-signs' },
   { name: 'Vehicle Graphics', href: '/signage?category=vehicle-graphics' },
-  { name: 'Safety & Industrial Signs', href: '/signage?category=safety-industrial-signs' },
-  { name: 'Vinyl Decals & Graphics', href: '/signage?category=vinyl-decals-graphics' },
-  { name: 'Window & Wall Graphics', href: '/signage?category=window-wall-graphics' },
-  { name: 'A-Frames & Sidewalk Signs', href: '/signage?category=a-frames-sidewalk-signs' },
+  { name: 'Vinyl Decals & Window Graphics', href: '/signage?category=vinyl-decals-window-graphics' },
+  { name: 'Business & Storefront Signs', href: '/signage?category=business-storefront-signs' },
   { name: 'Rigid Signs', href: '/signage?category=rigid-signs' },
+  { name: 'A-Frame & Event Displays', href: '/signage?category=a-frame-event-displays' },
+  { name: 'Print Marketing Materials', href: '/signage?category=print-marketing-materials' },
 ]
 
 export default function Footer() {
@@ -30,7 +29,6 @@ export default function Footer() {
             borderBottom: '1px solid rgba(255,255,255,0.08)',
           }}
         >
-          {/* Brand Column */}
           <div>
             <Link
               href="/"
@@ -134,7 +132,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Digital Services */}
           <div>
             <h4
               style={{
@@ -196,7 +193,6 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* Signage Products */}
           <div>
             <h4
               style={{
@@ -258,7 +254,6 @@ export default function Footer() {
             </Link>
           </div>
 
-          {/* Company */}
           <div>
             <h4
               style={{
@@ -316,7 +311,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div
           style={{
             display: 'flex',

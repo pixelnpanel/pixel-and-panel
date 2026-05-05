@@ -5,11 +5,11 @@ import { signageCategories } from '@/lib/signage-data'
 export const metadata = {
     title: 'Custom Signage & Print Beaumont TX | Pixel & Panel',
     description:
-        'Custom signs, banners, vehicle wraps, window graphics, trade show displays, safety signs, and print materials for businesses in Beaumont, Port Arthur, and Orange TX. Get a free quote from Pixel & Panel.',
+        'Custom banners, yard signs, vehicle graphics, window graphics, storefront signs, rigid signs, event displays, and print marketing materials for businesses in Beaumont, Port Arthur, and Orange TX.',
     openGraph: {
         title: 'Custom Signage & Print | Pixel & Panel — Beaumont TX',
         description:
-            'Storefront signs to vehicle wraps — full-service signage and print for Texas businesses.',
+            'Browse Pixel & Panel signage products by category and request a custom quote for your business.',
         url: 'https://pixelnpanel.com/signage',
     },
 }
@@ -17,19 +17,12 @@ export const metadata = {
 const CATEGORY_ORDER = [
     'banners',
     'yard-real-estate-signs',
-    'exterior-signs',
     'vehicle-graphics',
-    'safety-industrial-signs',
-    'vinyl-decals-graphics',
-    'window-wall-graphics',
-    'a-frames-sidewalk-signs',
+    'vinyl-decals-window-graphics',
+    'business-storefront-signs',
     'rigid-signs',
-    'flags-outdoor-displays',
-    'posters-large-format',
-    'trade-show-event-displays',
-    'tents-table-covers',
+    'a-frame-event-displays',
     'print-marketing-materials',
-    'apparel-transfers',
 ]
 
 function getOrderedCategories() {
