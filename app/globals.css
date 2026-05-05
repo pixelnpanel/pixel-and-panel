@@ -122,3 +122,23 @@
     border-radius: 1rem;
   }
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .smooth-scroll-area {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+}

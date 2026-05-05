@@ -26,6 +26,20 @@ export default function SignageHubClient({ categories }) {
         return categories.find((category) => category.slug === activeSlug) || categories[0]
     }, [activeSlug, categories])
 
+    const scrollToProducts = () => {
+        const element = productTopRef.current
+
+        if (!element) return
+
+        const headerOffset = 112
+        const topPosition = element.getBoundingClientRect().top + window.scrollY - headerOffset
+
+        window.scrollTo({
+            top: topPosition,
+            behavior: 'smooth',
+        })
+    }
+
     useEffect(() => {
         const categoryFromUrl = searchParams.get('category')
 
@@ -39,44 +53,27 @@ export default function SignageHubClient({ categories }) {
 
         setActiveSlug(categoryFromUrl)
 
-        window.requestAnimationFrame(() => {
-            setTimeout(() => {
-                const element = productTopRef.current
+        const timeout = setTimeout(() => {
+            scrollToProducts()
+        }, 100)
 
-                if (element) {
-                    const topPosition =
-                        element.getBoundingClientRect().top + window.scrollY - 110
-
-                    window.scrollTo({
-                        top: topPosition,
-                        behavior: 'smooth',
-                    })
-                }
-            }, 150)
-        })
+        return () => clearTimeout(timeout)
     }, [searchParams, categories])
 
     const handleCategoryClick = (slug) => {
+        if (slug === activeSlug) {
+            scrollToProducts()
+            return
+        }
+
         setActiveSlug(slug)
 
         router.replace(`${pathname}?category=${slug}`, {
             scroll: false,
         })
 
-        window.requestAnimationFrame(() => {
-            setTimeout(() => {
-                const element = productTopRef.current
-
-                if (element) {
-                    const topPosition =
-                        element.getBoundingClientRect().top + window.scrollY - 110
-
-                    window.scrollTo({
-                        top: topPosition,
-                        behavior: 'smooth',
-                    })
-                }
-            }, 50)
+        requestAnimationFrame(() => {
+            scrollToProducts()
         })
     }
 
@@ -87,19 +84,18 @@ export default function SignageHubClient({ categories }) {
             <main className="min-h-screen bg-brand-cream">
                 {/* HERO */}
                 <section className="relative overflow-hidden text-white px-6 pt-28 md:pt-32 pb-16 md:pb-20 bg-gradient-to-br from-brand-navy via-brand-deep to-brand-sky">
-                    <div className="absolute inset-0 opacity-20">
+                    <div className="absolute inset-0 opacity-15 pointer-events-none">
                         <div
                             className="absolute inset-0"
                             style={{
                                 backgroundImage:
-                                    'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.35) 1px, transparent 0)',
-                                backgroundSize: '28px 28px',
+                                    'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.32) 1px, transparent 0)',
+                                backgroundSize: '30px 30px',
                             }}
                         />
                     </div>
 
-                    <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-sky/30 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-brand-cream to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-brand-cream to-transparent pointer-events-none" />
 
                     <div className="relative max-w-6xl mx-auto text-center">
                         <p className="text-brand-amber text-sm font-bold uppercase tracking-widest mb-4">
@@ -141,7 +137,7 @@ export default function SignageHubClient({ categories }) {
                 {/* PRODUCT BROWSER */}
                 <section id="product-browser" className="px-6 py-10 md:py-12">
                     <div className="max-w-7xl mx-auto">
-                        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-7 items-start">
+                        <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-7 items-start">
                             {/* LEFT CATEGORY SIDEBAR */}
                             <aside className="lg:sticky lg:top-28">
                                 <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
@@ -154,8 +150,15 @@ export default function SignageHubClient({ categories }) {
                                         </div>
                                     </div>
 
-                                    {/* Desktop Category List */}
-                                    <div className="hidden lg:block max-h-[720px] overflow-y-auto">
+                                    {/* Desktop Category List - internal scroll restored */}
+                                    <div
+                                        className="hidden lg:block max-h-[74vh] overflow-y-auto overscroll-contain"
+                                        style={{
+                                            WebkitOverflowScrolling: 'touch',
+                                            scrollbarWidth: 'thin',
+                                            contain: 'content',
+                                        }}
+                                    >
                                         {categories.map((category) => {
                                             const isActive = category.slug === activeCategory.slug
 
@@ -164,13 +167,13 @@ export default function SignageHubClient({ categories }) {
                                                     key={category.slug}
                                                     type="button"
                                                     onClick={() => handleCategoryClick(category.slug)}
-                                                    className={`w-full text-left px-5 py-4 border-b border-gray-100 transition-colors flex items-center justify-between gap-3 ${isActive
+                                                    className={`w-full text-left px-5 py-4 border-b border-gray-100 transition-colors duration-150 flex items-center justify-between gap-3 ${isActive
                                                             ? 'bg-brand-deep text-white'
                                                             : 'bg-white text-brand-dark hover:bg-brand-cream'
                                                         }`}
                                                 >
                                                     <span>
-                                                        <span className="block font-heading font-bold text-sm">
+                                                        <span className="block font-heading font-bold text-sm leading-snug">
                                                             {category.name}
                                                         </span>
 
@@ -194,7 +197,10 @@ export default function SignageHubClient({ categories }) {
                                     </div>
 
                                     {/* Mobile Category List */}
-                                    <div className="lg:hidden flex overflow-x-auto gap-2 p-3">
+                                    <div
+                                        className="lg:hidden flex overflow-x-auto gap-2 p-3 overscroll-x-contain"
+                                        style={{ WebkitOverflowScrolling: 'touch' }}
+                                    >
                                         {categories.map((category) => {
                                             const isActive = category.slug === activeCategory.slug
 
@@ -203,7 +209,7 @@ export default function SignageHubClient({ categories }) {
                                                     key={category.slug}
                                                     type="button"
                                                     onClick={() => handleCategoryClick(category.slug)}
-                                                    className={`shrink-0 px-4 py-3 rounded-xl text-sm font-heading font-bold transition-colors ${isActive
+                                                    className={`shrink-0 px-4 py-3 rounded-xl text-sm font-heading font-bold transition-colors duration-150 ${isActive
                                                             ? 'bg-brand-deep text-white'
                                                             : 'bg-brand-cream text-brand-dark'
                                                         }`}
@@ -237,21 +243,18 @@ export default function SignageHubClient({ categories }) {
                             </aside>
 
                             {/* RIGHT PRODUCTS */}
-                            <section ref={productTopRef}>
+                            <section ref={productTopRef} className="scroll-mt-28">
                                 {/* COMPACT CATEGORY HEADER */}
                                 <div className="relative overflow-hidden rounded-2xl bg-brand-dark text-white shadow-sm mb-6 border border-white/10">
                                     <div
                                         className="absolute inset-0"
                                         style={{
                                             background: `linear-gradient(135deg, ${activeCategory.placeholderBg || '#0369A1'
-                                                } 0%, #0C1E3C 65%, #1C1917 100%)`,
+                                                } 0%, #0C1E3C 70%)`,
                                         }}
                                     />
 
-                                    <div className="absolute -top-10 -right-10 w-36 h-36 rounded-full bg-white/10 blur-2xl" />
-                                    <div className="absolute top-8 right-24 w-16 h-16 rounded-full bg-brand-amber/20 blur-xl" />
-
-                                    <div className="absolute inset-y-0 right-0 w-1/3 opacity-20">
+                                    <div className="absolute inset-y-0 right-0 w-1/3 opacity-15 pointer-events-none">
                                         <div className="absolute top-6 right-8 w-20 h-20 border border-white/30 rounded-2xl rotate-12" />
                                         <div className="absolute bottom-5 right-20 w-14 h-14 border border-white/20 rounded-full" />
                                         <div className="absolute top-16 right-28 w-3 h-3 bg-brand-amber rounded-full" />
@@ -277,7 +280,11 @@ export default function SignageHubClient({ categories }) {
                                     {activeCategory.products.map((product) => (
                                         <article
                                             key={product.slug}
-                                            className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
+                                            className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm transition-shadow duration-150"
+                                            style={{
+                                                contain: 'content',
+                                                willChange: 'auto',
+                                            }}
                                         >
                                             <div className="h-36 bg-gray-100 flex items-end p-5 border-b border-gray-200">
                                                 <div className="w-full">
@@ -302,7 +309,7 @@ export default function SignageHubClient({ categories }) {
 
                                                 <Link
                                                     href="/quote-request"
-                                                    className="inline-flex items-center gap-2 text-brand-deep font-heading font-bold uppercase tracking-wide text-sm hover:text-brand-amber transition-colors"
+                                                    className="inline-flex items-center gap-2 text-brand-deep font-heading font-bold uppercase tracking-wide text-sm hover:text-brand-amber transition-colors duration-150"
                                                 >
                                                     Request Quote <ArrowRight size={14} />
                                                 </Link>
