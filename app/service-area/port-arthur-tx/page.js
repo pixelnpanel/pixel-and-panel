@@ -12,6 +12,14 @@ const city = {
     "Mobile-first websites that make your business look professional and generate inquiries.",
     "Local SEO and Google Business Profile support for Port Arthur search visibility.",
   ],
+  featuredLinks: [
+    { label: "Vehicle Graphics", href: "/signage/vehicle-graphics", description: "Professional graphics for trucks, vans, trailers, and fleets." },
+    { label: "Metal Signs", href: "/signage/metal-signs", description: "Durable signs for properties, parking, safety, and facilities." },
+    { label: "Window Graphics", href: "/signage/window-graphics", description: "Storefront window lettering, decals, and promotional graphics." },
+    { label: "Vinyl Banners", href: "/signage/vinyl-banners", description: "Banners for events, job sites, storefronts, and promotions." },
+    { label: "Storefront Signs", href: "/signage/storefront-signs", description: "Business signs that make your location easier to find." },
+    { label: "Local SEO", href: "/digital/local-seo", description: "Improve online visibility for Port Arthur customer searches." },
+  ],
 };
 
 export const metadata = {

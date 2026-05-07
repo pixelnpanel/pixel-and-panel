@@ -4,14 +4,14 @@ import { Mail, MapPin, ArrowRight, Phone } from 'lucide-react'
 import { BRAND, DIGITAL_SERVICES } from '@/lib/constants'
 
 const FOOTER_SIGNAGE_PRODUCTS = [
-  { name: 'Banners',                     href: '/signage/banners' },
-  { name: 'Yard & Real Estate Signs',    href: '/signage/yard-real-estate-signs' },
-  { name: 'Vehicle Graphics',            href: '/signage/vehicle-graphics' },
-  { name: 'Vinyl Decals & Windows',      href: '/signage/vinyl-decals-window-graphics' },
-  { name: 'Business & Storefront Signs', href: '/signage/business-storefront-signs' },
-  { name: 'Rigid Signs',                 href: '/signage/rigid-signs' },
-  { name: 'A-Frame & Event Displays',    href: '/signage/a-frame-event-displays' },
-  { name: 'Print Marketing Materials',   href: '/signage/print-marketing-materials' },
+  { name: 'Vinyl Banners',    href: '/signage/vinyl-banners' },
+  { name: 'Yard Signs',       href: '/signage/yard-signs' },
+  { name: 'Vehicle Graphics', href: '/signage/vehicle-graphics' },
+  { name: 'Window Graphics',  href: '/signage/window-graphics' },
+  { name: 'Storefront Signs', href: '/signage/storefront-signs' },
+  { name: 'Metal Signs',      href: '/signage/metal-signs' },
+  { name: 'Business Cards',   href: '/signage/business-cards' },
+  { name: 'Flyers',           href: '/signage/flyers' },
 ]
 
 const footerLinkStyle = {

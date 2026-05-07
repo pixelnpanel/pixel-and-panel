@@ -12,6 +12,14 @@ const city = {
     "Professional websites that explain your services clearly and make contact easy.",
     "Local SEO and Google Business Profile improvements for Nederland search visibility.",
   ],
+  featuredLinks: [
+    { label: "Business Cards", href: "/signage/business-cards", description: "Clean cards for referrals, local networking, and follow-up." },
+    { label: "Flyers", href: "/signage/flyers", description: "Simple print pieces for offers, events, and service promotion." },
+    { label: "Yard Signs", href: "/signage/yard-signs", description: "Affordable signs for neighborhoods, job sites, and events." },
+    { label: "Vinyl Banners", href: "/signage/vinyl-banners", description: "Flexible banners for promotions and local announcements." },
+    { label: "Menus", href: "/signage/menus", description: "Printed menus for restaurants, food trucks, catering, and events." },
+    { label: "Website Development", href: "/digital/web-development", description: "Mobile-friendly websites that make your business easier to contact." },
+  ],
 };
 
 export const metadata = {

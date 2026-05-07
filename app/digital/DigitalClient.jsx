@@ -9,24 +9,28 @@ const SERVICES = [
   {
     icon: Monitor, color: '#0EA5E9', bg: 'rgba(14,165,233,0.08)',
     name: 'Website Development',
+    href: '/digital/web-development',
     description: 'A fast, professional website built to rank on Google and convert visitors into customers. Mobile-first, easy to update, and built to last.',
     features: ['Custom design built for your brand', 'Ranks in local Google search', 'Works perfectly on any device', 'You can update it yourself'],
   },
   {
     icon: MapPin, color: '#F59E0B', bg: 'rgba(245,158,11,0.08)',
     name: 'Local SEO & Google Profile',
+    href: '/digital/local-seo',
     description: 'Get found on Google Maps and in local search results before your competitors. We optimize your entire online presence for your service area.',
     features: ['Google Business Profile setup & optimization', 'Local keyword targeting', 'Citation building across directories', 'Monthly ranking reports'],
   },
   {
     icon: Zap, color: '#8B5CF6', bg: 'rgba(139,92,246,0.08)',
     name: 'CRM & Automation',
+    href: '/digital/crm-automation',
     description: 'Never lose a lead to slow follow-up again. Automated text and email responses so every new inquiry gets a reply in minutes — not days.',
     features: ['Automated lead follow-up', 'Text & email sequences', 'Pipeline tracking dashboard', 'Appointment booking integration'],
   },
   {
     icon: QrCode, color: '#10B981', bg: 'rgba(16,185,129,0.08)',
     name: 'QR Code Campaigns',
+    href: '/digital/qr-code-campaigns',
     description: 'Turn every sign you put up into a trackable marketing asset. Dynamic QR codes link your physical signage directly to your CRM.',
     features: ['Dynamic QR codes on every sign', 'Real-time scan tracking', 'Connects directly to your CRM', 'Campaign performance reports'],
   },
@@ -106,9 +110,14 @@ export default function DigitalPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/quote-request" className="btn-amber" style={{ justifyContent: 'center' }}>
-                    Get a Quote <ArrowRight size={14} />
-                  </Link>
+                  <div style={{ display: 'grid', gap: '0.75rem' }}>
+                    <Link href={service.href} className="btn-outline" style={{ justifyContent: 'center' }}>
+                      Learn More <ArrowRight size={14} />
+                    </Link>
+                    <Link href={`/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent('Digital Services')}`} className="btn-amber" style={{ justifyContent: 'center' }}>
+                      Get a Quote <ArrowRight size={14} />
+                    </Link>
+                  </div>
                 </motion.div>
               )
             })}

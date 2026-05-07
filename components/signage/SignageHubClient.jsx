@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowRight, Search, Box, MessageSquareText } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { fadeUp, scaleIn, stagger, viewport } from '@/lib/animations'
+import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
 
 export default function SignageHubClient({ categories }) {
     const router = useRouter()
@@ -35,6 +36,11 @@ export default function SignageHubClient({ categories }) {
         params.set('product', productName)
         params.set('category', categoryName)
         return `/quote-request?${params.toString()}`
+    }
+
+    const getProductLink = (product) => {
+        const productSlug = SIGNAGE_PRODUCT_SLUGS[product.slug]
+        return productSlug ? `/signage/${productSlug}` : '/signage'
     }
 
     return (
@@ -184,7 +190,9 @@ export default function SignageHubClient({ categories }) {
                                         )}
                                     </div>
                                     <div className="p-6">
-                                        <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
+                                        <Link href={getProductLink(product)} className="block">
+                                            <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
+                                        </Link>
                                         <p className="min-h-[96px] text-base leading-relaxed text-slate-600">{product.description}</p>
                                         {product.bestFor && (
                                             <div className="mt-5 border-t border-slate-100 pt-5">
@@ -193,9 +201,14 @@ export default function SignageHubClient({ categories }) {
                                                 </p>
                                             </div>
                                         )}
-                                        <Link href={createQuoteLink(product.name, selectedCategory.name)} className="mt-6 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]">
+                                        <div className="mt-6 flex flex-wrap gap-4">
+                                        <Link href={getProductLink(product)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]">
+                                            Learn More <ArrowRight size={15} />
+                                        </Link>
+                                        <Link href={createQuoteLink(product.name, selectedCategory.name)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition hover:text-[#0369A1]">
                                             Request Quote <ArrowRight size={15} />
                                         </Link>
+                                        </div>
                                     </div>
                                 </motion.article>
                             ))}

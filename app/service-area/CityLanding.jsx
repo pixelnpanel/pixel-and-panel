@@ -55,7 +55,21 @@ export default function CityLanding({ city }) {
         </div>
       </section>
 
-      <section className="bg-white px-6 py-14">
+      <section className="bg-white px-6 py-16">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-8">Popular Services in {city.name}</h2>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {city.featuredLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="white-card p-5 transition hover:-translate-y-1 hover:shadow-lg">
+                <h3 className="mb-2">{link.label}</h3>
+                <p className="text-sm leading-6 text-slate-600">{link.description}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-14">
         <div className="mx-auto flex max-w-5xl flex-col gap-4 sm:flex-row">
           <Link href="/digital" className="btn-outline">
             Explore Digital Services

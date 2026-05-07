@@ -8,6 +8,7 @@ module.exports = {
         '/opengraph-image.png',
         '/twitter-image.png',
         '/service-area/*/*',
+        '/digital/qr-campaigns',
     ],
     transform: async (config, path) => {
         if (path.match(/\.(png|jpg|jpeg|webp|gif|svg|ico)$/i)) {

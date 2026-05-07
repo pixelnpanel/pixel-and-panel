@@ -1,244 +1,171 @@
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import { ArrowRight, CheckCircle } from 'lucide-react'
-import { DIGITAL_SERVICES } from '@/lib/constants'
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowRight, CheckCircle } from "lucide-react";
+import { digitalServices, getDigitalService, getRelatedDigitalServices } from "@/lib/digital-services";
 
-const SERVICE_DETAILS = {
-    'web-development': {
-        headline: 'Website Development for Local Businesses',
-        intro: 'Fast, mobile-friendly websites designed to make your business look professional, show up on Google, and turn visitors into real leads.',
-        includes: [
-            'Custom website structure and copy guidance',
-            'Mobile-first responsive layout',
-            'Lead forms and quote request flow',
-            'Basic local SEO setup',
-            'Google Analytics-ready structure',
-        ],
-    },
-    'local-seo': {
-        headline: 'Local SEO & Google Business Profile Setup',
-        intro: 'Search-friendly setup for businesses that want to appear stronger on Google Maps and local search when customers nearby are ready to buy.',
-        includes: [
-            'Google Business Profile optimization',
-            'Local keyword planning',
-            'Service-area page strategy',
-            'Citation and directory guidance',
-            'Monthly improvement recommendations',
-        ],
-    },
-    'crm-automation': {
-        headline: 'CRM & Lead Follow-Up Automation',
-        intro: 'Simple systems that help you capture inquiries, organize leads, and follow up faster so good opportunities do not get lost.',
-        includes: [
-            'Lead capture workflow planning',
-            'Quote request form setup',
-            'Email follow-up structure',
-            'Pipeline organization',
-            'Simple automation recommendations',
-        ],
-    },
-    'qr-campaigns': {
-        headline: 'QR Code Campaigns for Signs & Print',
-        intro: 'Turn signs, banners, flyers, and business cards into trackable marketing tools with QR codes connected to useful landing pages.',
-        includes: [
-            'Custom QR code setup',
-            'Landing page planning',
-            'Campaign tracking structure',
-            'Print-ready QR placement guidance',
-            'Scan-to-call, scan-to-quote, or scan-to-menu options',
-        ],
-    },
+function JsonLd({ data }) {
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+        />
+    );
 }
 
 export function generateStaticParams() {
-    return DIGITAL_SERVICES.map((service) => ({
-        service: service.href.split('/').pop(),
-    }))
+    return digitalServices.map((service) => ({
+        service: service.slug,
+    }));
 }
 
 export async function generateMetadata({ params }) {
-    const { service: serviceSlug } = await params
-    const base = DIGITAL_SERVICES.find((item) => item.href.endsWith(`/${serviceSlug}`))
-    const detail = SERVICE_DETAILS[serviceSlug]
+    const { service: serviceSlug } = await params;
+    const service = getDigitalService(serviceSlug);
 
-    if (!base || !detail) {
+    if (!service) {
         return {
-            title: 'Digital Services',
-        }
+            title: "Digital Services",
+        };
     }
 
     return {
-        title: detail.headline,
-        description: detail.intro,
+        title: service.title,
+        description: service.description,
         alternates: {
-            canonical: `/digital/${serviceSlug}`,
+            canonical: `/digital/${service.slug}`,
         },
         openGraph: {
-            title: `${detail.headline} | Pixel & Panel`,
-            description: detail.intro,
-            url: `/digital/${serviceSlug}`,
+            title: `${service.title} | Pixel & Panel`,
+            description: service.description,
+            url: `/digital/${service.slug}`,
         },
-    }
+    };
 }
 
 export default async function DigitalServicePage({ params }) {
-    const { service: serviceSlug } = await params
-    const base = DIGITAL_SERVICES.find((item) => item.href.endsWith(`/${serviceSlug}`))
-    const detail = SERVICE_DETAILS[serviceSlug]
+    const { service: serviceSlug } = await params;
+    const service = getDigitalService(serviceSlug);
 
-    if (!base || !detail) notFound()
+    if (!service) notFound();
+
+    const quoteHref = `/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent("Digital Services")}`;
+    const related = getRelatedDigitalServices(service);
+    const breadcrumbs = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://pixelnpanel.com" },
+            { "@type": "ListItem", position: 2, name: "Digital Services", item: "https://pixelnpanel.com/digital" },
+            { "@type": "ListItem", position: 3, name: service.name, item: `https://pixelnpanel.com/digital/${service.slug}` },
+        ],
+    };
+    const faq = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: service.faqs.map(([question, answer]) => ({
+            "@type": "Question",
+            name: question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: answer,
+            },
+        })),
+    };
 
     return (
         <>
-            <main>
-                <section
-                    style={{
-                        background: 'linear-gradient(135deg, #0C1E3C 0%, #0369A1 100%)',
-                        padding: '7rem 1.5rem 4rem',
-                        color: 'white',
-                        textAlign: 'center',
-                    }}
-                >
-                    <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-                        <p
-                            style={{
-                                color: '#F59E0B',
-                                fontFamily: 'Montserrat, sans-serif',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.1em',
-                                fontSize: '0.8rem',
-                                marginBottom: '1rem',
-                            }}
-                        >
-                            Digital Services
-                        </p>
+            <JsonLd data={breadcrumbs} />
+            <JsonLd data={faq} />
 
-                        <h1
-                            style={{
-                                fontFamily: 'Montserrat, sans-serif',
-                                fontSize: 'clamp(2.25rem, 5vw, 4rem)',
-                                lineHeight: 1.05,
-                                fontWeight: 900,
-                                marginBottom: '1.25rem',
-                            }}
-                        >
-                            {detail.headline}
-                        </h1>
-
-                        <p
-                            style={{
-                                color: 'rgba(255,255,255,0.75)',
-                                fontFamily: 'Inter, sans-serif',
-                                fontSize: '1.1rem',
-                                lineHeight: 1.7,
-                                maxWidth: '680px',
-                                margin: '0 auto 2rem',
-                            }}
-                        >
-                            {detail.intro}
-                        </p>
-
-                        <Link
-                            href="/quote-request"
-                            style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '0.5rem',
-                                background: '#F59E0B',
-                                color: '#1C1917',
-                                fontFamily: 'Montserrat, sans-serif',
-                                fontWeight: 700,
-                                fontSize: '0.875rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.08em',
-                                padding: '1rem 2rem',
-                                borderRadius: '0.875rem',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            Request a Quote <ArrowRight size={15} />
-                        </Link>
+            <div className="bg-[#FAF8F4] text-[#1C1917]">
+                <section className="bg-[#0C1E3C] px-6 py-24 text-white">
+                    <div className="mx-auto max-w-5xl">
+                        <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/65" aria-label="Breadcrumb">
+                            <Link href="/" className="hover:text-white">Home</Link>
+                            <span>/</span>
+                            <Link href="/digital" className="hover:text-white">Digital Services</Link>
+                            <span>/</span>
+                            <span className="text-white">{service.name}</span>
+                        </nav>
+                        <p className="section-label" style={{ color: "#F59E0B" }}>Serving Beaumont, Nederland & Port Arthur, TX</p>
+                        <h1 style={{ color: "white" }}>{service.h1}</h1>
+                        <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">{service.intro}</p>
+                        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                            <Link href={quoteHref} className="btn-amber">
+                                Get a Website Quote <ArrowRight size={16} />
+                            </Link>
+                            <Link href="/digital" className="btn-ghost">
+                                View Digital Services
+                            </Link>
+                        </div>
                     </div>
                 </section>
 
-                <section style={{ padding: '5rem 1.5rem', background: '#FAF8F4' }}>
-                    <div
-                        style={{
-                            maxWidth: '980px',
-                            margin: '0 auto',
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                            gap: '2rem',
-                            alignItems: 'start',
-                        }}
-                    >
+                <section className="section-base">
+                    <div className="container-px grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
                         <div>
-                            <h2
-                                style={{
-                                    fontFamily: 'Montserrat, sans-serif',
-                                    color: '#1C1917',
-                                    fontSize: '2rem',
-                                    fontWeight: 900,
-                                    marginBottom: '1rem',
-                                }}
-                            >
-                                What you get
-                            </h2>
+                            <h2 className="mb-4">What This Includes</h2>
+                            <div className="grid gap-3">
+                                {service.includes.map((item) => (
+                                    <div key={item} className="white-card flex items-start gap-3 p-4">
+                                        <CheckCircle className="mt-1 h-5 w-5 flex-shrink-0 text-[#0369A1]" />
+                                        <span className="text-slate-700">{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
 
-                            <p
-                                style={{
-                                    fontFamily: 'Inter, sans-serif',
-                                    color: '#64748b',
-                                    lineHeight: 1.75,
-                                }}
-                            >
-                                Pixel & Panel combines design, local marketing, and practical business systems so your digital presence supports your real-world signage and sales.
+                        <div className="white-card p-7">
+                            <h2 className="mb-4">Built for Local Business Results</h2>
+                            <p className="text-slate-600">
+                                Pixel & Panel keeps digital work plain-English and action-focused.
+                                The goal is better visibility, better trust, and more useful ways
+                                for customers to contact your business.
+                            </p>
+                            <p className="mt-5 text-slate-600">
+                                Serving Beaumont, Nederland & Port Arthur, TX.
                             </p>
                         </div>
+                    </div>
+                </section>
 
-                        <div
-                            style={{
-                                background: 'white',
-                                border: '1px solid #e2e8f0',
-                                borderRadius: '1.25rem',
-                                padding: '2rem',
-                                boxShadow: '0 20px 50px rgba(15,23,42,0.08)',
-                            }}
-                        >
-                            <ul
-                                style={{
-                                    listStyle: 'none',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '0.9rem',
-                                }}
-                            >
-                                {detail.includes.map((item) => (
-                                    <li
-                                        key={item}
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'flex-start',
-                                            gap: '0.75rem',
-                                            fontFamily: 'Inter, sans-serif',
-                                            color: '#475569',
-                                            lineHeight: 1.6,
-                                        }}
-                                    >
-                                        <CheckCircle
-                                            size={18}
-                                            color="#0369A1"
-                                            style={{ flexShrink: 0, marginTop: '0.15rem' }}
-                                        />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                <section className="bg-white px-6 py-16">
+                    <div className="mx-auto max-w-4xl">
+                        <h2 className="mb-8 text-center">Questions About {service.name}</h2>
+                        <div className="grid gap-4">
+                            {service.faqs.map(([question, answer]) => (
+                                <div key={question} className="rounded-2xl border border-slate-200 bg-[#FAF8F4] p-5">
+                                    <h3 className="mb-2">{question}</h3>
+                                    <p className="text-slate-600">{answer}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </section>
-            </main>
+
+                <section className="section-base">
+                    <div className="container-px">
+                        <h2 className="mb-8">Related Digital Services</h2>
+                        <div className="grid gap-4 md:grid-cols-3">
+                            {related.map((item) => (
+                                <Link key={item.slug} href={`/digital/${item.slug}`} className="white-card p-5 transition hover:-translate-y-1 hover:shadow-lg">
+                                    <h3 className="mb-2">{item.name}</h3>
+                                    <p className="text-sm leading-6 text-slate-600">{item.description}</p>
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="mt-10 rounded-2xl bg-[#0C1E3C] p-8 text-center text-white">
+                            <h2 style={{ color: "white" }}>Want help choosing the right next step?</h2>
+                            <p className="mx-auto mt-3 max-w-2xl text-white/70">
+                                Tell us what you are trying to improve and we will recommend a practical starting point.
+                            </p>
+                            <Link href={quoteHref} className="btn-amber mt-6">
+                                Start a Project <ArrowRight size={16} />
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </>
-    )
+    );
 }
