@@ -5,8 +5,6 @@ import { CheckCircle2, ArrowRight, Package, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeUp, slideRight, stagger } from "@/lib/animations";
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjwjpye";
-
 export default function QuoteRequestClient({ selectedProduct = "", selectedCategory = "" }) {
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -25,23 +23,32 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
         setError("");
 
         const formData = new FormData(event.currentTarget);
-        const payload = Object.fromEntries(formData.entries());
+        const payload = {
+            name: String(formData.get("name") || ""),
+            email: String(formData.get("email") || ""),
+            phone: String(formData.get("phone") || ""),
+            productService: String(formData.get("productService") || ""),
+            message: String(formData.get("message") || ""),
+            company: String(formData.get("company") || ""),
+            sourcePage: typeof window !== "undefined" ? window.location.href : "Quote Request Page",
+        };
 
         try {
-            const response = await fetch(FORMSPREE_ENDPOINT, {
+            const response = await fetch("/api/quote", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
 
             if (!response.ok) {
-                throw new Error("Quote request failed");
+                const data = await response.json().catch(() => ({}));
+                throw new Error(data.error || "Quote request failed");
             }
 
             setSubmitted(true);
             event.currentTarget.reset();
-        } catch {
-            setError("Something went wrong. Please email us directly at hello@pixelnpanel.com.");
+        } catch (submitError) {
+            setError(submitError.message || "Unable to send quote request right now.");
         } finally {
             setLoading(false);
         }
@@ -137,7 +144,14 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                         ) : (
                         <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
                             <input type="hidden" name="productService" value={hiddenProductValue} />
-                            <input type="hidden" name="source" value="Quote Request Page" />
+                            <input
+                                type="text"
+                                name="company"
+                                tabIndex={-1}
+                                autoComplete="off"
+                                aria-hidden="true"
+                                className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0"
+                            />
 
                             <div>
                                 <label className="mb-2 block text-xs font-bold uppercase tracking-wide">Your Name *</label>

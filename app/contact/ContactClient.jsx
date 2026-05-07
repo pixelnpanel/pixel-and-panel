@@ -6,24 +6,47 @@ import { motion } from 'framer-motion'
 import { fadeUp, slideRight, stagger } from '@/lib/animations'
 
 export default function ContactPage() {
-    const [form, setForm] = useState({ name: '', email: '', message: '' })
+    const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
     const [submitted, setSubmitted] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
+        setError('')
+
+        const formData = new FormData(e.currentTarget)
+        const payload = {
+            name: String(formData.get('name') || ''),
+            email: String(formData.get('email') || ''),
+            phone: String(formData.get('phone') || ''),
+            subject: String(formData.get('subject') || ''),
+            message: String(formData.get('message') || ''),
+            company: String(formData.get('company') || ''),
+            sourcePage: typeof window !== 'undefined' ? window.location.href : 'Contact Page',
+        }
+
         try {
-            const response = await fetch('https://formspree.io/f/mnjwjpye', {
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(form),
+                body: JSON.stringify(payload),
             })
-            if (response.ok) { setSubmitted(true) }
-            else { alert('Something went wrong. Please email us directly at hello@pixelnpanel.com') }
-        } catch { alert('Something went wrong. Please email us directly at hello@pixelnpanel.com') }
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}))
+                throw new Error(data.error || 'Unable to send contact message right now.')
+            }
+
+            setSubmitted(true)
+            setForm({ name: '', email: '', phone: '', subject: '', message: '' })
+            e.currentTarget.reset()
+        } catch (submitError) {
+            setError(submitError.message || 'Unable to send contact message right now.')
+        }
         finally { setLoading(false) }
     }
 
@@ -122,6 +145,15 @@ export default function ContactPage() {
                                     <h2 style={{ color: '#1C1917', marginBottom: '0.5rem' }}>Send Us a Message</h2>
                                     <p style={{ color: '#94a3b8', fontFamily: 'var(--font-body)', fontSize: '0.875rem', marginBottom: '2rem' }}>No sales pitch. Just a real conversation.</p>
 
+                                    <input
+                                        type="text"
+                                        name="company"
+                                        tabIndex={-1}
+                                        autoComplete="off"
+                                        aria-hidden="true"
+                                        style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden', opacity: 0 }}
+                                    />
+
                                     <div style={{ marginBottom: '1.25rem' }}>
                                         <label style={labelStyle}>Your Name *</label>
                                         <input type="text" name="name" required placeholder="John Martinez" value={form.name} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
@@ -130,10 +162,24 @@ export default function ContactPage() {
                                         <label style={labelStyle}>Email Address *</label>
                                         <input type="email" name="email" required placeholder="john@email.com" value={form.email} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
+                                    <div style={{ marginBottom: '1.25rem' }}>
+                                        <label style={labelStyle}>Phone Number</label>
+                                        <input type="tel" name="phone" placeholder="(409) 800-6139" value={form.phone} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                    </div>
+                                    <div style={{ marginBottom: '1.25rem' }}>
+                                        <label style={labelStyle}>Subject</label>
+                                        <input type="text" name="subject" placeholder="Website, signs, print, or general question" value={form.subject} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                    </div>
                                     <div style={{ marginBottom: '2rem' }}>
                                         <label style={labelStyle}>Your Message *</label>
                                         <textarea name="message" required rows={5} placeholder="Ask us anything — about our services, pricing, or if you need any signs for your business..." value={form.message} onChange={handleChange} style={{ ...inputStyle, resize: 'vertical' }} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
+
+                                    {error && (
+                                        <p style={{ color: '#b91c1c', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '0.75rem', padding: '0.875rem 1rem', fontFamily: 'var(--font-body)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
+                                            {error}
+                                        </p>
+                                    )}
 
                                     <button type="submit" disabled={loading} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: loading ? '#FCD34D' : '#F59E0B', color: '#1C1917', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '1rem', borderRadius: '0.875rem', border: 'none', cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
                                         {loading ? 'Sending...' : <><span>Send Message</span><ArrowRight size={16} /></>}
