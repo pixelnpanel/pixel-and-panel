@@ -21,67 +21,82 @@ import {
   Search,
   ShieldCheck,
   Store,
-  Wrench,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeUp, stagger, staggerFast, viewport } from "@/lib/animations";
 
-const serviceSilos = [
-  {
-    eyebrow: "Digital Services",
-    title: "Get found online",
-    description:
-      "Websites, local SEO, Google Business Profile, CRM setup, and QR campaigns.",
-    href: "/digital",
-    accent: "#0EA5E9",
-    icon: MonitorSmartphone,
-    items: ["Website pages built for local search", "Google visibility basics", "QR campaigns that connect offline to online"],
-  },
-  {
-    eyebrow: "Signage & Print",
-    title: "Get noticed in person",
-    description:
-      "Banners, yard signs, vehicle graphics, storefront signs, business cards, flyers, menus, and more.",
-    href: "/signage",
-    accent: "#F59E0B",
-    icon: PanelTop,
-    items: ["Signs for storefronts and job sites", "Print materials for walk-ins and events", "Design guidance before production"],
-  },
-];
-
 const problemCards = [
   {
-    title: "Outdated or missing website",
-    description: "Customers look you up before they call. A slow, unclear, or missing site can cost real opportunities.",
+    title: "No website or outdated website",
+    description:
+      "Customers check you online before they call. A confusing site can make a good business look hard to trust.",
     icon: MonitorSmartphone,
   },
   {
-    title: "Weak Google visibility",
-    description: "If your business is hard to find on Google, nearby customers may choose someone else first.",
+    title: "Weak Google presence",
+    description:
+      "If nearby customers cannot find clear service, contact, and Google profile information, they move on fast.",
     icon: Search,
   },
   {
-    title: "Signs and print with no tracking",
-    description: "Print can work harder when QR codes connect signs, menus, cards, and flyers to measurable actions.",
+    title: "Signs with no lead tracking",
+    description:
+      "Signs get attention. QR codes and lead forms help turn that attention into scans, calls, and quote requests.",
     icon: QrCode,
   },
 ];
 
-const steps = [
+const solutionSteps = [
   {
-    title: "Build your online presence",
-    description: "Create a clear website and local search foundation so people can find you and understand what you offer.",
+    title: "Build",
+    description:
+      "Create a professional website and Google presence that explains what you do and makes contact easy.",
     icon: Globe2,
   },
   {
-    title: "Create signs and print that get attention",
-    description: "Design banners, storefront pieces, cards, flyers, menus, and vehicle graphics that match your business.",
+    title: "Promote",
+    description:
+      "Use signs, banners, vehicle graphics, and print materials to get noticed around town and on job sites.",
     icon: Megaphone,
   },
   {
-    title: "Connect everything with QR-powered tracking",
-    description: "Add smart QR paths so signs and print can send people to quote forms, menus, offers, or service pages.",
+    title: "Track",
+    description:
+      "Add QR codes and lead capture forms so customers can scan, call, request a quote, or take the next step.",
     icon: QrCode,
+  },
+];
+
+const serviceSilos = [
+  {
+    eyebrow: "Digital Services",
+    title: "Show up when nearby customers search on Google.",
+    description:
+      "Websites, local SEO, Google Business Profile, lead capture, and QR campaigns.",
+    href: "/digital",
+    cta: "View Digital Services",
+    accent: "#0EA5E9",
+    icon: MonitorSmartphone,
+    items: [
+      "Pages that turn visitors into calls and quote requests",
+      "Google-ready service content",
+      "QR paths that connect signs and print to the web",
+    ],
+  },
+  {
+    eyebrow: "Signage & Print",
+    title: "Get noticed in the real world.",
+    description:
+      "Banners, yard signs, vehicle graphics, storefront signs, business cards, flyers, menus, and more.",
+    href: "/signage",
+    cta: "View Signage & Print",
+    accent: "#F59E0B",
+    icon: PanelTop,
+    items: [
+      "Business signs that are easy to read",
+      "Print materials for handoffs, events, and walk-ins",
+      "QR-ready designs that give customers a next step",
+    ],
   },
 ];
 
@@ -100,37 +115,37 @@ const popularServices = [
   },
   {
     title: "Vehicle Graphics",
-    description: "Turn work vehicles into moving brand impressions with decals, magnets, and graphics.",
+    description: "Professional decals, lettering, magnets, and fleet graphics for work vehicles.",
     href: "/signage/vehicle-graphics",
     icon: Car,
   },
   {
     title: "Storefront Signs",
-    description: "Exterior and interior signage that helps customers recognize and trust your location.",
+    description: "Exterior and interior signs that help customers recognize your location.",
     href: "/signage/storefront-signs",
     icon: Store,
   },
   {
     title: "Business Cards",
-    description: "Professional cards that make follow-up easier after meetings, jobs, and local events.",
+    description: "Clean cards for referrals, networking, appointments, and follow-up.",
     href: "/signage/business-cards",
     icon: CreditCard,
   },
   {
     title: "Website Development",
-    description: "Fast, mobile-first websites with clear pages, quote paths, and local SEO structure.",
+    description: "Fast, mobile-first websites built around calls, quote requests, and trust.",
     href: "/digital/web-development",
     icon: MonitorSmartphone,
   },
   {
     title: "Local SEO",
-    description: "Improve how your business appears in local searches across Beaumont, Nederland, and Port Arthur.",
+    description: "Help nearby customers understand where you work and what services you offer.",
     href: "/digital/local-seo",
     icon: Search,
   },
   {
     title: "Google Business Profile",
-    description: "Set up and improve the listing many customers see before they visit or call.",
+    description: "Improve the listing many customers see before they call, visit, or request a quote.",
     href: "/digital/google-business-profile",
     icon: BadgeCheck,
   },
@@ -141,46 +156,50 @@ const cityCards = [
     city: "Beaumont",
     href: "/service-area/beaumont-tx",
     description:
-      "Websites, local SEO, banners, yard signs, vehicle graphics, and storefront signs for Beaumont service businesses, shops, and local organizations.",
+      "Website, local SEO, sign, and print support for Beaumont shops, contractors, service teams, and organizations.",
   },
   {
     city: "Nederland",
     href: "/service-area/nederland-tx",
     description:
-      "Business cards, flyers, yard signs, vinyl banners, menus, and website support for Nederland businesses that need practical visibility.",
+      "Practical visibility tools for Nederland businesses, from business cards and banners to websites and QR campaigns.",
   },
   {
     city: "Port Arthur",
     href: "/service-area/port-arthur-tx",
     description:
-      "Vehicle graphics, metal signs, window graphics, vinyl banners, storefront signs, and local SEO for Port Arthur businesses.",
+      "Digital and physical marketing support for Port Arthur businesses that need clearer paths to calls and quotes.",
   },
 ];
 
 const reasons = [
   {
-    title: "One partner for signs and digital",
-    description: "Keep your website, signs, print, and QR campaigns aligned instead of managing disconnected pieces.",
+    title: "Websites, signs, and QR codes working together",
+    description:
+      "Your website, signs, print materials, and QR codes should point customers toward the same clear next step.",
     icon: Building2,
   },
   {
     title: "Built for local business owners",
-    description: "Clear service pages, useful signs, and quote paths made for contractors, shops, restaurants, churches, schools, and service teams.",
-    icon: Wrench,
+    description:
+      "The work is shaped for contractors, shops, restaurants, churches, schools, clinics, and service-area teams.",
+    icon: Store,
   },
   {
     title: "Plain-English process",
-    description: "No heavy jargon. Just clear recommendations, practical options, and next steps you can understand.",
+    description:
+      "You get direct recommendations, useful options, and simple explanations without confusing technical language.",
     icon: ClipboardList,
   },
   {
     title: "Quote-first, no pressure",
-    description: "Start with what you need. We will help you choose the right next step before anything moves forward.",
+    description:
+      "Start with what you need. Pixel & Panel will recommend the right next step before any project moves forward.",
     icon: ShieldCheck,
   },
 ];
 
-function SectionIntro({ eyebrow, title, description, centered = true, light = false }) {
+function SectionIntro({ eyebrow, title, description, centered = true, light = false, id }) {
   return (
     <motion.div
       variants={stagger}
@@ -190,17 +209,21 @@ function SectionIntro({ eyebrow, title, description, centered = true, light = fa
       className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}
     >
       {eyebrow && (
-        <motion.p variants={fadeUp} className="section-label">
+        <motion.p
+          variants={fadeUp}
+          className="font-heading text-xs font-bold uppercase tracking-[0.16em]"
+          style={{ color: light ? "#F59E0B" : "#0369A1" }}
+        >
           {eyebrow}
         </motion.p>
       )}
-      <motion.h2 variants={fadeUp} className={light ? "text-white" : "text-[#1C1917]"}>
-        {title}
+      <motion.h2 id={id} variants={fadeUp} className={eyebrow ? "mt-4" : ""}>
+        <span className={light ? "text-white" : "text-[#1C1917]"}>{title}</span>
       </motion.h2>
       {description && (
         <motion.p
           variants={fadeUp}
-          className={light ? "mt-5 text-base leading-8 text-white/70 md:text-lg" : "mt-5 text-base leading-8 text-slate-600 md:text-lg"}
+          className={light ? "mt-5 text-base leading-8 text-white/72 md:text-lg" : "mt-5 text-base leading-8 text-slate-600 md:text-lg"}
         >
           {description}
         </motion.p>
@@ -209,33 +232,46 @@ function SectionIntro({ eyebrow, title, description, centered = true, light = fa
   );
 }
 
-function PhygitalVisual() {
+function HomepageVisual() {
+  const qrCells = [
+    1, 1, 1, 0, 1, 0,
+    1, 0, 1, 0, 0, 1,
+    1, 1, 1, 1, 0, 0,
+    0, 0, 1, 0, 1, 1,
+    1, 0, 0, 1, 0, 1,
+    0, 1, 1, 0, 1, 0,
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto w-full max-w-[520px]"
-      aria-label="Abstract visual showing websites, QR campaigns, and signage connected"
+      transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+      className="relative mx-auto w-full max-w-[540px]"
+      aria-label="Abstract visual showing a website, signage panel, and QR campaign working together"
     >
-      <div className="absolute -inset-6 rounded-[2rem] bg-[#0EA5E9]/15 blur-3xl" />
-      <div className="relative overflow-hidden rounded-[1.5rem] border border-white/15 bg-white/[0.08] p-4 shadow-2xl backdrop-blur-md sm:p-5">
-        <div className="rounded-[1.15rem] border border-white/10 bg-[#061A32]/85 p-4">
+      <div className="absolute -inset-4 rounded-[1.5rem] bg-[#0EA5E9]/15 blur-2xl" />
+      <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.08] p-4 shadow-2xl backdrop-blur-md sm:p-5">
+        <div className="rounded-xl border border-white/10 bg-[#1C1917]/35 p-4">
           <div className="mb-4 flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-[#F59E0B]" />
             <span className="h-3 w-3 rounded-full bg-[#0EA5E9]" />
             <span className="h-3 w-3 rounded-full bg-white/35" />
-            <span className="ml-auto rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/60">
+            <span className="ml-auto rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/65">
               pixelnpanel.com
             </span>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="rounded-2xl bg-white p-4 text-[#1C1917] shadow-xl">
-              <div className="mb-4 flex items-center justify-between">
+          <div className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
+            <div className="rounded-xl bg-white p-4 text-[#1C1917] shadow-xl">
+              <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase text-[#0369A1]">Website</p>
-                  <p className="mt-1 font-heading text-xl font-black">Local service page</p>
+                  <p className="font-heading text-xs font-bold uppercase tracking-[0.14em] text-[#0369A1]">
+                    Website
+                  </p>
+                  <p className="mt-1 font-heading text-xl font-black">
+                    Quote-ready page
+                  </p>
                 </div>
                 <MonitorSmartphone className="h-8 w-8 text-[#0EA5E9]" />
               </div>
@@ -245,41 +281,47 @@ function PhygitalVisual() {
                 <div className="h-3 w-10/12 rounded-full bg-slate-200" />
               </div>
               <div className="mt-5 grid grid-cols-2 gap-3">
-                <div className="rounded-xl bg-[#FAF8F4] p-3">
+                <div className="rounded-lg bg-[#FAF8F4] p-3">
                   <Search className="mb-2 h-5 w-5 text-[#0369A1]" />
                   <p className="text-xs font-bold">Google-ready</p>
                 </div>
-                <div className="rounded-xl bg-[#F59E0B]/15 p-3">
+                <div className="rounded-lg bg-[#F59E0B]/15 p-3">
                   <MousePointerClick className="mb-2 h-5 w-5 text-[#F59E0B]" />
-                  <p className="text-xs font-bold">Quote path</p>
+                  <p className="text-xs font-bold">Lead path</p>
                 </div>
               </div>
             </div>
 
             <div className="grid gap-4">
-              <div className="rounded-2xl border border-[#F59E0B]/35 bg-[#F59E0B]/15 p-4">
+              <div className="rounded-xl border border-[#F59E0B]/35 bg-[#F59E0B]/15 p-4">
                 <div className="mb-3 flex items-center gap-3">
                   <PanelTop className="h-6 w-6 text-[#F59E0B]" />
-                  <p className="font-heading text-sm font-black uppercase text-white">Signage</p>
+                  <p className="font-heading text-sm font-black uppercase tracking-[0.12em] text-white">
+                    Sign
+                  </p>
                 </div>
-                <div className="rounded-xl bg-[#F59E0B] p-4 text-center font-heading text-xl font-black uppercase text-[#1C1917]">
-                  Now Open
+                <div className="rounded-lg bg-[#F59E0B] p-4 text-center font-heading text-lg font-black uppercase tracking-[0.08em] text-[#1C1917]">
+                  Call Today
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
+              <div className="rounded-xl border border-white/10 bg-white/10 p-4">
                 <div className="flex items-center gap-4">
-                  <div className="grid h-20 w-20 shrink-0 grid-cols-4 gap-1 rounded-xl bg-white p-2">
-                    {Array.from({ length: 16 }).map((_, index) => (
+                  <div className="grid h-20 w-20 shrink-0 grid-cols-6 gap-1 rounded-lg bg-white p-2">
+                    {qrCells.map((cell, index) => (
                       <span
-                        key={index}
-                        className={index % 3 === 0 || index === 5 || index === 10 ? "rounded-sm bg-[#1C1917]" : "rounded-sm bg-slate-200"}
+                        key={`${cell}-${index}`}
+                        className={cell ? "rounded-sm bg-[#1C1917]" : "rounded-sm bg-slate-200"}
                       />
                     ))}
                   </div>
                   <div>
-                    <p className="font-heading text-sm font-black uppercase text-white">QR Campaign</p>
-                    <p className="mt-1 text-sm leading-6 text-white/65">Connect print to quote forms, menus, offers, and local pages.</p>
+                    <p className="font-heading text-sm font-black uppercase tracking-[0.12em] text-white">
+                      QR Code
+                    </p>
+                    <p className="mt-1 text-sm leading-6 text-white/65">
+                      Track scans from your signs.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -287,8 +329,11 @@ function PhygitalVisual() {
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-3">
-            {["Website", "QR", "Sign"].map((item) => (
-              <div key={item} className="rounded-xl border border-white/10 bg-white/[0.07] px-3 py-2 text-center text-xs font-bold uppercase tracking-wide text-white/70">
+            {["Found", "Noticed", "Contacted"].map((item) => (
+              <div
+                key={item}
+                className="rounded-lg border border-white/10 bg-white/[0.07] px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.12em] text-white/70"
+              >
                 {item}
               </div>
             ))}
@@ -309,12 +354,12 @@ function LinkCard({ item, variant = "light" }) {
         href={item.href}
         className={
           isDark
-            ? "group block h-full rounded-2xl border border-white/10 bg-white/[0.07] p-5 transition duration-200 hover:-translate-y-1 hover:border-[#F59E0B]/45 hover:bg-white/[0.1]"
-            : "group block h-full rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#0EA5E9]/35 hover:shadow-xl"
+            ? "group block h-full rounded-xl border border-white/10 bg-white/[0.07] p-5 transition duration-200 hover:-translate-y-1 hover:border-[#F59E0B]/45 hover:bg-white/[0.1]"
+            : "group block h-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#0EA5E9]/35 hover:shadow-xl"
         }
       >
         <div className="mb-5 flex items-start justify-between gap-4">
-          <span className={isDark ? "inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-[#F59E0B]" : "inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#0369A1]/10 text-[#0369A1]"}>
+          <span className={isDark ? "inline-flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-[#F59E0B]" : "inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]"}>
             <Icon className="h-5 w-5" />
           </span>
           <ArrowRight className={isDark ? "h-5 w-5 text-white/35 transition group-hover:translate-x-1 group-hover:text-[#F59E0B]" : "h-5 w-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#0369A1]"} />
@@ -331,66 +376,70 @@ function LinkCard({ item, variant = "light" }) {
 export default function HomeClient({ faqs }) {
   return (
     <div className="bg-[#FAF8F4] text-[#1C1917]">
-      <section className="relative overflow-hidden bg-[#071C35] pt-24 text-white md:pt-28">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(14,165,233,0.28),transparent_32%),radial-gradient(circle_at_84%_16%,rgba(245,158,11,0.16),transparent_28%),linear-gradient(135deg,#061A32_0%,#0369A1_58%,#0EA5E9_100%)]" />
-        <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:42px_42px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAF8F4] to-transparent" />
+      <section className="relative overflow-hidden bg-[#0369A1] pt-24 text-white md:pt-28" aria-labelledby="homepage-hero-title">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_58%,#0EA5E9_100%)]" />
+        <div className="absolute inset-0 opacity-18 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#FAF8F4] to-transparent" />
 
         <div className="container-px relative grid items-center gap-10 pb-20 md:pb-24 lg:grid-cols-[1.02fr_0.98fr]">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
             <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-sky-100 backdrop-blur">
               <span className="h-2.5 w-2.5 rounded-full bg-[#F59E0B]" />
-              Serving Beaumont, Nederland &amp; Port Arthur, TX
+              Serving Southeast Texas
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="font-heading text-[clamp(2.35rem,5vw,4.25rem)] font-black leading-[1.04] tracking-normal text-white">
-              Websites, Signs &amp; Print That Help Local Businesses Get Seen
+            <motion.h1 id="homepage-hero-title" variants={fadeUp} className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-black leading-[1.08] tracking-normal text-white">
+              Websites, Signs &amp; QR Campaigns
+              <span className="mt-2 block text-[#F59E0B]">
+                for Southeast Texas Businesses
+              </span>
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-base leading-8 text-white/75 md:text-lg">
-              Pixel &amp; Panel helps local businesses in Beaumont, Nederland, and Port Arthur build a stronger online presence, better signs, and QR-powered marketing that connects both.
+            <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
+              Pixel &amp; Panel helps local businesses get found online, get noticed in the real world, and turn attention into quote requests, calls, and customers.
             </motion.p>
 
-            <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Link href="/quote-request" className="btn-amber justify-center">
-                Get a Free Quote <ArrowRight className="h-4 w-4" />
+            <motion.div variants={fadeUp} className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-nowrap">
+              <Link href="/quote-request" className="btn-amber w-full justify-center whitespace-nowrap px-5 sm:w-auto">
+                Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/digital" className="btn-ghost justify-center">
+              <Link href="/digital" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
                 Digital Services
               </Link>
-              <Link href="/signage" className="btn-ghost justify-center">
+              <Link href="/signage" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
                 Signage &amp; Print
               </Link>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-9 grid gap-3 text-sm text-white/65 sm:grid-cols-3">
-              {["Your Vision. Made Visible.", "Online and offline visibility", "Quote-first process"].map((item) => (
+            <motion.div variants={fadeUp} className="mt-9 grid gap-3 text-sm text-white/68 sm:grid-cols-3">
+              {["Your Vision. Made Visible.", "Websites, signs, and QR codes working together", "Quote-first process"].map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-[#F59E0B]" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F59E0B]" />
                   <span>{item}</span>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          <PhygitalVisual />
+          <HomepageVisual />
         </div>
       </section>
 
-      <section className="section-base">
+      <section className="section-base" aria-labelledby="problem-heading">
         <div className="container-px">
           <SectionIntro
-            eyebrow="The Visibility Gap"
-            title="Your business may be visible on the street — but is it visible on Google?"
-            description="Most local customers move between the real world and the search bar. Your website, signs, print materials, and QR paths should work together."
+            id="problem-heading"
+            eyebrow="The Problem"
+            title="Your competitors are getting found. Are you?"
+            description="Customers move fast between Google, your website, your signs, and your contact options. Every piece should make the next step obvious."
           />
 
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 md:grid-cols-3">
             {problemCards.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.article key={item.title} variants={fadeUp} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#0369A1]/10 text-[#0369A1]">
+                <motion.article key={item.title} variants={fadeUp} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]">
                     <Icon className="h-6 w-6" />
                   </span>
                   <h3>{item.title}</h3>
@@ -402,27 +451,57 @@ export default function HomeClient({ faqs }) {
         </div>
       </section>
 
-      <section className="section-base bg-white">
+      <section className="section-base bg-white" aria-labelledby="solution-heading">
         <div className="container-px">
           <SectionIntro
-            eyebrow="Two Clear Service Silos"
-            title="Digital visibility and physical visibility, connected"
-            description="Choose the lane you need now, or start with a quote and we will recommend the right next step."
+            id="solution-heading"
+            eyebrow="The Solution"
+            title="One system for online and real-world visibility."
+            description="Pixel & Panel connects the pieces local businesses already need: a clear website, a stronger Google presence, professional signs, useful print materials, QR codes, and lead forms."
+          />
+
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 md:grid-cols-3">
+            {solutionSteps.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.article key={item.title} variants={fadeUp} className="rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm">
+                  <div className="mb-6 flex items-center justify-between">
+                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#F59E0B] text-[#1C1917]">
+                      <Icon className="h-6 w-6" />
+                    </span>
+                    <span className="font-heading text-4xl font-black text-[#0369A1]/15">0{index + 1}</span>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                </motion.article>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="section-base" aria-labelledby="services-heading">
+        <div className="container-px">
+          <SectionIntro
+            id="services-heading"
+            eyebrow="Services"
+            title="Websites, signs, and QR codes working together"
+            description="Choose the service lane you need now, or start with a quote request and Pixel & Panel will recommend the right next step."
           />
 
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-6 lg:grid-cols-2">
             {serviceSilos.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.article key={item.title} variants={fadeUp} className="relative overflow-hidden rounded-2xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm md:p-8">
-                  <div className="absolute right-0 top-0 h-28 w-28 rounded-bl-[4rem] opacity-15" style={{ backgroundColor: item.accent }} />
+                <motion.article key={item.eyebrow} variants={fadeUp} className="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+                  <div className="absolute right-0 top-0 h-28 w-28 rounded-bl-[3rem] opacity-15" style={{ backgroundColor: item.accent }} />
                   <div className="relative">
                     <div className="mb-6 flex items-center gap-4">
-                      <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white" style={{ backgroundColor: item.accent }}>
+                      <span className="inline-flex h-14 w-14 items-center justify-center rounded-lg text-white" style={{ backgroundColor: item.accent }}>
                         <Icon className="h-7 w-7" />
                       </span>
                       <div>
-                        <p className="text-xs font-bold uppercase tracking-widest text-slate-500">{item.eyebrow}</p>
+                        <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-slate-500">{item.eyebrow}</p>
                         <h3 className="mt-1">{item.title}</h3>
                       </div>
                     </div>
@@ -435,8 +514,8 @@ export default function HomeClient({ faqs }) {
                         </li>
                       ))}
                     </ul>
-                    <Link href={item.href} className="mt-7 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wider text-[#0369A1]">
-                      Explore {item.eyebrow} <ArrowRight className="h-4 w-4" />
+                    <Link href={item.href} className="mt-7 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#0EA5E9]">
+                      {item.cta} <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </motion.article>
@@ -446,65 +525,39 @@ export default function HomeClient({ faqs }) {
         </div>
       </section>
 
-      <section className="section-base bg-[#071C35] text-white">
+      <section className="section-base bg-[#1C1917] text-white" aria-labelledby="popular-services-heading">
         <div className="container-px">
           <SectionIntro
-            eyebrow="How It Works"
-            title="A practical path from attention to action"
-            description="We help people notice your business, understand what you offer, and take the next step."
-            light
-          />
-
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 md:grid-cols-3">
-            {steps.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <motion.article key={item.title} variants={fadeUp} className="rounded-2xl border border-white/10 bg-white/[0.07] p-6">
-                  <div className="mb-6 flex items-center justify-between">
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#F59E0B] text-[#1C1917]">
-                      <Icon className="h-6 w-6" />
-                    </span>
-                    <span className="font-heading text-4xl font-black text-white/15">0{index + 1}</span>
-                  </div>
-                  <h3 className="text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/65">{item.description}</p>
-                </motion.article>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="section-base">
-        <div className="container-px">
-          <SectionIntro
+            id="popular-services-heading"
             eyebrow="Popular Services"
             title="Start with the services local businesses ask for most"
-            description="These internal links point to real crawlable pages built for clear service intent."
+            description="Each card links to a real service page with details that help customers and search engines understand what Pixel & Panel offers."
+            light
           />
 
           <motion.div variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {popularServices.map((item) => (
-              <LinkCard key={item.href} item={item} />
+              <LinkCard key={item.href} item={item} variant="dark" />
             ))}
           </motion.div>
         </div>
       </section>
 
-      <section className="section-base bg-white">
+      <section className="section-base bg-white" aria-labelledby="service-area-heading">
         <div className="container-px">
           <SectionIntro
-            eyebrow="Local Service Area"
-            title="Built for Beaumont, Nederland & Port Arthur Businesses"
-            description="Focused local pages help customers find the services that fit their city and business needs."
+            id="service-area-heading"
+            eyebrow="Service Area"
+            title="Serving Southeast Texas Businesses"
+            description="Pixel & Panel works with businesses across Southeast Texas, starting with Beaumont, Nederland, Port Arthur, and nearby communities."
           />
 
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 md:grid-cols-3">
             {cityCards.map((city) => (
               <motion.div key={city.href} variants={fadeUp}>
-                <Link href={city.href} className="group block h-full rounded-2xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#F59E0B]/45 hover:shadow-xl">
+                <Link href={city.href} className="group block h-full rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#F59E0B]/45 hover:shadow-xl">
                   <div className="mb-5 flex items-center justify-between">
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-[#F59E0B]">
+                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#F59E0B]/15 text-[#F59E0B]">
                       <MapPin className="h-6 w-6" />
                     </span>
                     <ArrowRight className="h-5 w-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#F59E0B]" />
@@ -518,9 +571,10 @@ export default function HomeClient({ faqs }) {
         </div>
       </section>
 
-      <section className="section-base">
+      <section className="section-base" aria-labelledby="why-heading">
         <div className="container-px">
           <SectionIntro
+            id="why-heading"
             eyebrow="Why Pixel & Panel"
             title="Premium enough to trust, practical enough to use"
             description="The goal is simple: make your business easier to notice, easier to understand, and easier to contact."
@@ -530,8 +584,8 @@ export default function HomeClient({ faqs }) {
             {reasons.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.article key={item.title} variants={fadeUp} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#0369A1]/10 text-[#0369A1]">
+                <motion.article key={item.title} variants={fadeUp} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]">
                     <Icon className="h-6 w-6" />
                   </span>
                   <h3 className="text-xl">{item.title}</h3>
@@ -543,26 +597,27 @@ export default function HomeClient({ faqs }) {
         </div>
       </section>
 
-      <section className="section-base bg-[#071C35] text-white">
+      <section className="section-base bg-[#0369A1] text-white" aria-labelledby="portfolio-heading">
         <div className="container-px">
           <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             <SectionIntro
+              id="portfolio-heading"
               eyebrow="Portfolio"
               title="Portfolio Coming Together"
               description="Real project photos, signage examples, and website work will be added as projects are completed. For now, tell us what you need and we will guide you with options."
               centered={false}
               light
             />
-            <motion.div initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp} className="rounded-2xl border border-white/10 bg-white/[0.07] p-6 md:p-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp} className="rounded-xl border border-white/10 bg-white/[0.08] p-6 md:p-8">
               <div className="grid gap-4 sm:grid-cols-3">
                 {[
                   ["Website work", MonitorSmartphone],
                   ["Signage examples", PanelTop],
                   ["Print materials", FileText],
                 ].map(([label, Icon]) => (
-                  <div key={label} className="rounded-2xl bg-white/10 p-5 text-center">
+                  <div key={label} className="rounded-lg bg-white/10 p-5 text-center">
                     <Icon className="mx-auto mb-3 h-7 w-7 text-[#F59E0B]" />
-                    <p className="font-heading text-sm font-bold uppercase tracking-wider text-white/75">{label}</p>
+                    <p className="font-heading text-sm font-bold uppercase tracking-[0.12em] text-white/75">{label}</p>
                   </div>
                 ))}
               </div>
@@ -574,9 +629,10 @@ export default function HomeClient({ faqs }) {
         </div>
       </section>
 
-      <section className="section-base">
+      <section className="section-base" aria-labelledby="faq-heading">
         <div className="container-px">
           <SectionIntro
+            id="faq-heading"
             eyebrow="FAQ"
             title="Common homepage questions"
             description="Quick answers before you request a quote."
@@ -584,7 +640,7 @@ export default function HomeClient({ faqs }) {
 
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mx-auto mt-12 grid max-w-4xl gap-4">
             {faqs.map((faq) => (
-              <motion.article key={faq.question} variants={fadeUp} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <motion.article key={faq.question} variants={fadeUp} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="flex gap-4">
                   <HelpCircle className="mt-1 h-5 w-5 shrink-0 text-[#0369A1]" />
                   <div>
@@ -598,26 +654,26 @@ export default function HomeClient({ faqs }) {
         </div>
       </section>
 
-      <section className="px-4 pb-16 md:pb-24">
+      <section className="px-4 pb-16 md:pb-24" aria-labelledby="final-cta-heading">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
           variants={stagger}
-          className="mx-auto max-w-6xl overflow-hidden rounded-[1.5rem] bg-[#0369A1] px-6 py-14 text-center text-white shadow-2xl md:px-12"
+          className="mx-auto max-w-6xl overflow-hidden rounded-xl bg-[#1C1917] px-6 py-14 text-center text-white shadow-2xl md:px-12"
         >
-          <motion.p variants={fadeUp} className="section-label" style={{ color: "#F59E0B" }}>
+          <motion.p variants={fadeUp} className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
             Start a Project
           </motion.p>
-          <motion.h2 variants={fadeUp} className="mx-auto max-w-3xl text-white">
+          <motion.h2 id="final-cta-heading" variants={fadeUp} className="mx-auto mt-4 max-w-3xl text-white">
             Ready to Make Your Business Easier to Find?
           </motion.h2>
           <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/75">
-            Start with a free quote. Tell us what you need, and we will recommend the right next step.
+            Start with a quote request. Tell us what you need, and Pixel &amp; Panel will recommend the right next step.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-8 flex justify-center">
             <Link href="/quote-request" className="btn-amber">
-              Get a Free Quote <ArrowRight className="h-4 w-4" />
+              Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
           </motion.div>
         </motion.div>

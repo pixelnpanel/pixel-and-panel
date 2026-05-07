@@ -2,46 +2,46 @@ import HomeClient from "@/app/HomeClient";
 
 const homepageFaq = [
   {
-    question: "Do you only work in Beaumont, Nederland, and Port Arthur?",
+    question: "What does Pixel & Panel do?",
     answer:
-      "Those are the primary service areas we are focused on right now. Pixel & Panel helps local businesses in Beaumont, Nederland, and Port Arthur, TX with websites, signs, print, and QR-powered marketing.",
+      "Pixel & Panel helps local businesses get found online, get noticed in the real world, and turn attention into quote requests, calls, and customers through websites, local SEO, Google Business Profile support, signs, print materials, QR campaigns, and lead capture forms.",
   },
   {
-    question: "Can you help with both signs and websites?",
+    question: "Do you work outside Beaumont, Nederland, and Port Arthur?",
     answer:
-      "Yes. Pixel & Panel is built to connect physical visibility with digital visibility, so a business can get help with websites, local SEO, Google Business Profile, signs, print materials, and QR campaigns in one place.",
+      "Yes. Pixel & Panel works with businesses across Southeast Texas. Beaumont, Nederland, and Port Arthur are the current primary SEO service areas, but nearby businesses can still request a quote.",
   },
   {
-    question: "Do you offer quote requests online?",
+    question: "Can you help with both websites and signs?",
     answer:
-      "Yes. You can request a free quote online and include the product or service you are interested in, along with details like size, quantity, timing, and business goals.",
+      "Yes. Pixel & Panel can help with websites, local search, signs, print materials, and QR codes so your online and real-world visibility work together.",
   },
   {
     question: "Can QR codes be added to signs and print materials?",
     answer:
-      "Yes. QR codes can be added to banners, yard signs, menus, flyers, business cards, window graphics, and other printed materials to help connect offline attention with online action.",
+      "Yes. QR codes can be added to banners, yard signs, menus, flyers, business cards, window graphics, vehicle graphics, and other printed materials when the viewing distance and placement make sense.",
   },
   {
-    question: "Do you work with new businesses?",
+    question: "How do I request a quote?",
     answer:
-      "Yes. Pixel & Panel can help new businesses with starter websites, local search setup, business cards, storefront signs, banners, menus, and other launch materials.",
+      "Use the quote request form and share what you need, your timing, and any project details you already know. Pixel & Panel will review the request and recommend the right next step.",
   },
 ];
 
 export const metadata = {
   title: {
-    absolute: "Websites, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel",
+    absolute: "Pixel & Panel | Websites, Signs & QR Campaigns in Southeast Texas",
   },
   description:
-    "Pixel & Panel helps businesses in Beaumont, Nederland, and Port Arthur, TX with custom signs, print materials, websites, local SEO, and QR-powered marketing.",
+    "Pixel & Panel helps Southeast Texas businesses get found with websites, signs, QR campaigns, local SEO, and lead capture systems.",
   alternates: {
-    canonical: "/",
+    canonical: new URL("https://pixelnpanel.com/"),
   },
   openGraph: {
-    title: "Websites, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel",
+    title: "Pixel & Panel | Websites, Signs & QR Campaigns in Southeast Texas",
     description:
-      "Pixel & Panel helps businesses in Beaumont, Nederland, and Port Arthur, TX with custom signs, print materials, websites, local SEO, and QR-powered marketing.",
-    url: "/",
+      "Pixel & Panel helps Southeast Texas businesses get found with websites, signs, QR campaigns, local SEO, and lead capture systems.",
+    url: "https://pixelnpanel.com/",
     type: "website",
   },
 };
@@ -50,12 +50,37 @@ function JsonLd({ data }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
     />
   );
 }
 
 export default function HomePage() {
+  const businessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Pixel & Panel",
+    url: "https://pixelnpanel.com",
+    email: "hello@pixelnpanel.com",
+    telephone: "(409) 800-6139",
+    slogan: "Your Vision. Made Visible.",
+    areaServed: [
+      { "@type": "Place", name: "Southeast Texas" },
+      { "@type": "City", name: "Beaumont, TX" },
+      { "@type": "City", name: "Nederland, TX" },
+      { "@type": "City", name: "Port Arthur, TX" },
+    ],
+    knowsAbout: [
+      "Website development",
+      "Local SEO",
+      "Google Business Profile optimization",
+      "QR code campaigns",
+      "Lead capture forms",
+      "Custom signs",
+      "Print marketing materials",
+    ],
+  };
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -71,6 +96,7 @@ export default function HomePage() {
 
   return (
     <>
+      <JsonLd data={businessSchema} />
       <JsonLd data={faqSchema} />
       <HomeClient faqs={homepageFaq} />
     </>
