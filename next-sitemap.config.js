@@ -2,21 +2,26 @@
 module.exports = {
     siteUrl: 'https://pixelnpanel.com',
     generateRobotsTxt: true,
-    exclude: [],
+    exclude: [
+        '/icon.png',
+        '/apple-icon.png',
+        '/opengraph-image.png',
+        '/twitter-image.png',
+        '/service-area/*/*',
+    ],
+    transform: async (config, path) => {
+        if (path.match(/\.(png|jpg|jpeg|webp|gif|svg|ico)$/i)) {
+            return null
+        }
+
+        return {
+            loc: path,
+            changefreq: path.startsWith('/service-area/') ? 'monthly' : 'weekly',
+            priority: path === '/' ? 1.0 : path.startsWith('/service-area/') ? 0.8 : 0.7,
+            lastmod: new Date().toISOString(),
+        }
+    },
     additionalPaths: async (config) => {
-        const cities = ['beaumont-tx', 'port-arthur-tx', 'nederland-tx']
-        const services = ['yard-signs', 'vinyl-banners', 'car-magnets', 'metal-signs', 'vehicle-wraps', 'website-design', 'local-seo']
-        const paths = []
-        cities.forEach(city => {
-            services.forEach(service => {
-                paths.push({
-                    loc: `/service-area/${city}/${service}`,
-                    changefreq: 'monthly',
-                    priority: 0.8,
-                    lastmod: new Date().toISOString(),
-                })
-            })
-        })
-        return paths
+        return [await config.transform(config, '/quote-request')]
     },
 }

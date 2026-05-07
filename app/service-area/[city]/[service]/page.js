@@ -8,7 +8,7 @@ const CITIES = {
         name: 'Beaumont, TX',
         county: 'Jefferson County',
         region: 'Southeast Texas',
-        nearby: 'Port Arthur, Orange, and the surrounding Golden Triangle area',
+        nearby: 'Nederland, Port Arthur, and the surrounding Golden Triangle area',
         blurb: 'Beaumont is the commercial hub of Southeast Texas — home to thousands of small businesses in healthcare, petrochemical support, retail, and hospitality.',
     },
     'port-arthur-tx': {
@@ -118,8 +118,11 @@ export async function generateMetadata({ params }) {
     if (!city || !service) return {}
 
     return {
-        title: `${service.headline} in ${city.name} | Pixel & Panel`,
+        title: `${service.headline} in ${city.name}`,
         description: `Professional ${service.name.toLowerCase()} for businesses in ${city.name}. Custom design, fast turnaround, QR code tracking included. Get a free quote from Pixel & Panel.`,
+        alternates: {
+            canonical: `/service-area/${citySlug}/${serviceSlug}`,
+        },
         keywords: service.keywords.map(k => `${k} ${city.name}`).join(', '),
     }
 }
@@ -251,7 +254,7 @@ export default async function ServiceAreaPage({ params }) {
                                 marginBottom: '1.5rem',
                             }}>
                                 <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, color: 'white', fontSize: '1.1rem', marginBottom: '1.5rem' }}>
-                                    What's included
+                                    What&apos;s included
                                 </h3>
                                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
                                     {service.features.map((f) => (

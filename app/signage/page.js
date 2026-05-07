@@ -3,14 +3,17 @@ import SignageHubClient from '@/components/signage/SignageHubClient'
 import { signageCategories } from '@/lib/signage-data'
 
 export const metadata = {
-    title: 'Custom Signage & Print Beaumont TX | Pixel & Panel',
+    title: 'Custom Signage & Print Beaumont TX',
     description:
-        'Custom banners, yard signs, vehicle graphics, window graphics, storefront signs, rigid signs, event displays, and print marketing materials for businesses in Beaumont, Port Arthur, and Orange TX.',
+        'Custom banners, yard signs, vehicle graphics, window graphics, storefront signs, rigid signs, event displays, and print marketing materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
+    alternates: {
+        canonical: '/signage',
+    },
     openGraph: {
         title: 'Custom Signage & Print | Pixel & Panel — Beaumont TX',
         description:
             'Browse Pixel & Panel signage products by category and request a custom quote for your business.',
-        url: 'https://pixelnpanel.com/signage',
+        url: '/signage',
     },
 }
 

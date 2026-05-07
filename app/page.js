@@ -7,8 +7,13 @@ import ServiceArea from '@/components/sections/ServiceArea'
 import CTABanner from '@/components/sections/CTABanner'
 
 export const metadata = {
-  title: 'Pixel & Panel | Phygital Branding Agency — Beaumont, TX',
-  description: 'Pixel & Panel bridges physical signage and digital marketing for Texas businesses. Custom signs with QR tracking, websites, local SEO, and CRM automation.',
+  title: {
+    absolute: 'Websites, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel',
+  },
+  description: 'Pixel & Panel helps businesses in Beaumont, Nederland, and Port Arthur, TX with custom signs, print materials, websites, local SEO, and QR-powered marketing.',
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export default function HomePage() {

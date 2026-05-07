@@ -63,17 +63,20 @@ export async function generateMetadata({ params }) {
 
     if (!base || !detail) {
         return {
-            title: 'Digital Services | Pixel & Panel',
+            title: 'Digital Services',
         }
     }
 
     return {
-        title: `${detail.headline} | Pixel & Panel`,
+        title: detail.headline,
         description: detail.intro,
+        alternates: {
+            canonical: `/digital/${serviceSlug}`,
+        },
         openGraph: {
             title: `${detail.headline} | Pixel & Panel`,
             description: detail.intro,
-            url: `https://pixelnpanel.com/digital/${serviceSlug}`,
+            url: `/digital/${serviceSlug}`,
         },
     }
 }

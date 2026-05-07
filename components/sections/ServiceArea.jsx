@@ -1,160 +1,99 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import { MapPin, Truck, Globe } from 'lucide-react'
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
-  return isMobile
-}
-
-function useInView() {
-  const ref = useRef(null)
-  const [inView, setInView] = useState(false)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true) },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-  return [ref, inView]
-}
+import { motion } from 'framer-motion'
+import { fadeUp, stagger, viewport } from '@/lib/animations'
 
 const FEATURES = [
   {
-    icon: MapPin,
-    color: '#F59E0B',
+    icon: MapPin, color: '#F59E0B',
     title: 'We Come to You',
     body: 'We are a service area business — no storefront, no overhead passed on to you. We meet you where your business is.',
   },
   {
-    icon: Truck,
-    color: '#0EA5E9',
+    icon: Truck, color: '#0EA5E9',
     title: 'Signs Shipped Anywhere in Texas',
     body: 'Our signage is professionally produced and shipped directly to your door or job site. Fast turnaround, no surprises.',
   },
   {
-    icon: Globe,
-    color: '#4ade80',
+    icon: Globe, color: '#4ade80',
     title: 'Digital Services Work Everywhere',
     body: 'Your website, Google profile, and CRM work for your business 24/7 — no matter where in Texas you operate.',
   },
 ]
 
 export default function ServiceArea() {
-  const isMobile = useIsMobile()
-  const [ref, inView] = useInView()
-
   return (
-    <section ref={ref} style={{ padding: isMobile ? '3rem 1.25rem' : '5rem 1.5rem', backgroundColor: '#f8fafc' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+    // FIX: was #f8fafc — now matches brand cream #FAF8F4 for visual consistency
+    <section className="section-base" style={{ backgroundColor: '#FAF8F4' }}>
+      <div className="container-px">
 
-        <div style={{
-          textAlign: 'center',
-          marginBottom: '2.5rem',
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'translateY(0)' : 'translateY(24px)',
-          transition: 'opacity 0.6s ease, transform 0.6s ease',
-        }}>
-          <span className="section-label">How We Work</span>
-          <h2 style={{
-            fontFamily: 'Montserrat, sans-serif',
-            fontWeight: 900,
-            color: '#1C1917',
-            fontSize: isMobile ? '1.75rem' : 'clamp(1.75rem, 4vw, 3rem)',
-            lineHeight: 1.15,
-          }}>
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          style={{ textAlign: 'center', marginBottom: '2.5rem' }}
+        >
+          <motion.span variants={fadeUp} className="section-label">How We Work</motion.span>
+          <motion.h2 variants={fadeUp} style={{ color: '#1C1917' }}>
             We Serve Texas Businesses.
             <br />
             <span style={{ color: '#0369A1' }}>Wherever You Are.</span>
-          </h2>
-          <p style={{
-            color: '#64748b',
-            fontFamily: 'Inter, sans-serif',
-            marginTop: '1rem',
-            maxWidth: '480px',
-            margin: '1rem auto 0',
-            lineHeight: 1.7,
-            fontSize: isMobile ? '0.95rem' : '1rem',
-          }}>
+          </motion.h2>
+          <motion.p variants={fadeUp} style={{ color: '#64748b', marginTop: '1rem', maxWidth: '480px', margin: '1rem auto 0', lineHeight: 1.7 }}>
             No storefront. No showroom. Just results delivered to your door —
             physical or digital, we make it happen.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-          gap: '1.25rem',
-          marginBottom: '2rem',
-        }}>
-          {FEATURES.map((f, i) => {
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '1.25rem',
+            marginBottom: '2rem',
+          }}
+        >
+          {FEATURES.map((f) => {
             const Icon = f.icon
             return (
-              <div key={f.title} style={{
-                background: 'white',
-                borderRadius: '1rem',
-                padding: isMobile ? '1.5rem' : '2rem',
-                border: '1px solid #f1f5f9',
-                opacity: inView ? 1 : 0,
-                transform: inView ? 'translateY(0)' : 'translateY(28px)',
-                transition: `opacity 0.55s ease ${0.2 + i * 0.13}s, transform 0.55s ease ${0.2 + i * 0.13}s`,
-              }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  background: f.color + '18',
-                  borderRadius: '0.75rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '1.25rem',
-                }}>
+              <motion.div
+                key={f.title}
+                variants={fadeUp}
+                className="white-card"
+                style={{ padding: '2rem' }}
+              >
+                <div style={{ width: '48px', height: '48px', background: f.color + '18', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
                   <Icon size={22} color={f.color} />
                 </div>
-                <h3 style={{
-                  fontFamily: 'Montserrat, sans-serif',
-                  fontWeight: 700,
-                  fontSize: isMobile ? '1rem' : '1.05rem',
-                  color: '#1C1917',
-                  marginBottom: '0.75rem',
-                }}>
+                <h3 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>
                   {f.title}
                 </h3>
-                <p style={{
-                  color: '#64748b',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '0.9rem',
-                  lineHeight: 1.7,
-                }}>
+                <p style={{ color: '#64748b', fontSize: '0.9rem', lineHeight: 1.7 }}>
                   {f.body}
                 </p>
-              </div>
+              </motion.div>
             )
           })}
-        </div>
+        </motion.div>
 
-        <p style={{
-          textAlign: 'center',
-          color: '#94a3b8',
-          fontFamily: 'Inter, sans-serif',
-          fontSize: '0.875rem',
-          opacity: inView ? 1 : 0,
-          transition: 'opacity 0.6s ease 0.55s',
-        }}>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={viewport}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.875rem' }}
+        >
           Not sure if we cover your area?{' '}
           <a href="mailto:hello@pixelnpanel.com" style={{ color: '#0369A1', textDecoration: 'underline', fontWeight: 500 }}>
             Send us a message — we likely can help.
           </a>
-        </p>
+        </motion.p>
 
       </div>
     </section>

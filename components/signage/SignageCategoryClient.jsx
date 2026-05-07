@@ -227,7 +227,7 @@ export default function SignageCategoryClient({ category, allCategories }) {
                         </h2>
                         <p className="text-blue-200 text-lg mb-8 leading-relaxed">
                             Tell us your size, quantity, location, material preference, and deadline.
-                            We'll get back to you within one business day with an exact quote —
+                            We&apos;ll get back to you within one business day with an exact quote —
                             no guessing, no surprises.
                         </p>
                         <Link
