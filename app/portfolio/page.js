@@ -1,14 +1,14 @@
-import PortfolioClient from './PortfolioClient'
+import PortfolioClient from "./PortfolioClient";
 
 export const metadata = {
-    title: 'Portfolio',
-    description:
-        'A growing portfolio of signage, print, website, and phygital branding projects by Pixel & Panel.',
-    alternates: {
-        canonical: '/portfolio',
-    },
-}
+  title: "Portfolio | Pixel & Panel — Websites, Signs & Branding Work",
+  description:
+    "Explore Pixel & Panel portfolio examples for websites, signs, print materials, QR campaigns, and branding concepts for Southeast Texas businesses.",
+  alternates: {
+    canonical: "https://pixelnpanel.com/portfolio",
+  },
+};
 
 export default function PortfolioPage() {
-    return <PortfolioClient />
+  return <PortfolioClient />;
 }
