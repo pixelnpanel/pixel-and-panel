@@ -1,17 +1,20 @@
 import PricingClient from "./PricingClient";
 
 export const metadata = {
-  title: "Pricing",
+  title: {
+    absolute:
+      "Pricing | Pixel & Panel — Starter Websites, Signs & Visibility Packages",
+  },
   description:
-    "View Pixel & Panel website, local SEO, and digital marketing package pricing. Signage and print projects are quoted based on size, quantity, material, and timeline.",
+    "Simple starter pricing for Southeast Texas businesses. Pixel & Panel offers affordable website, visibility, QR campaign, and signage quote options for local businesses.",
   alternates: {
-    canonical: "/pricing",
+    canonical: "https://pixelnpanel.com/pricing",
   },
   openGraph: {
-    title: "Pricing | Pixel & Panel",
+    title: "Pricing | Pixel & Panel — Starter Websites, Signs & Visibility Packages",
     description:
-      "Transparent website and digital marketing pricing with custom quotes for signage and print projects.",
-    url: "/pricing",
+      "Simple starter pricing for Southeast Texas businesses, including websites, visibility setup, QR campaigns, and quote-based signage projects.",
+    url: "https://pixelnpanel.com/pricing",
   },
 };
 

@@ -38,11 +38,18 @@ export default function Footer() {
 
           {/* Brand column */}
           <div>
-            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', marginBottom: '1.25rem' }}>
-              <Image src="/logo/icon-512px.png" alt="Pixel & Panel" width={40} height={40} />
-              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 900, fontSize: '1rem', color: 'white' }}>
-                PIXEL <span style={{ color: '#F59E0B' }}>&amp;</span> PANEL
-              </span>
+            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none', marginBottom: '1.25rem' }}>
+              <Image
+                src="/logo/pixel-panel-wordmark.png"
+                alt="Pixel & Panel"
+                width={220}
+                height={29}
+                style={{
+                  height: 'auto',
+                  maxWidth: 'min(220px, 100%)',
+                  objectFit: 'contain',
+                }}
+              />
             </Link>
 
             <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: 1.7, marginBottom: '1.5rem', fontFamily: 'var(--font-body)' }}>

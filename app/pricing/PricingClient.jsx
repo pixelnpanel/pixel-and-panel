@@ -1,209 +1,817 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, CheckCircle, QrCode } from 'lucide-react'
+import {
+  ArrowRight,
+  BadgeCheck,
+  CheckCircle,
+  ClipboardCheck,
+  QrCode,
+  Sparkles,
+} from 'lucide-react'
 import { motion } from 'framer-motion'
 import { fadeUp, stagger, scaleIn, viewport } from '@/lib/animations'
 
 const WEBSITE_PACKAGES = [
   {
-    name: 'Starter Site', price: '997', description: 'A clean, fast, mobile-first website for businesses just getting started online.',
-    features: ['Up to 5 pages', 'Mobile-first responsive design', 'Contact form connected to your email', 'Google Business Profile setup', 'Basic local SEO optimization', 'Free domain connection', '1 round of revisions'],
-    cta: 'Get Started', highlight: false,
+    name: 'Launch Page',
+    price: 'Starting at $299',
+    description:
+      'A simple one-page website for personal brands, portfolios, or businesses that need a clean online starting point.',
+    bestFor:
+      'Personal brands, portfolios, simple landing pages, and early-stage businesses.',
+    features: [
+      'One-page website',
+      'Mobile-friendly design',
+      'Domain connection',
+      'Basic contact section',
+      'Professional email setup guidance',
+      '1 round of revisions',
+    ],
+    cta: 'Start with a Launch Page',
+    href: '/quote-request?product=Launch%20Page&category=Digital%20Services',
   },
   {
-    name: 'Business Site', price: '1,997', description: 'A full professional website built to rank on Google and convert visitors into leads.',
-    features: ['Up to 10 pages', 'Custom design built for your brand', 'Contact form + quote request form', 'Google Business Profile optimization', 'Full local SEO setup', 'Google Analytics integration', 'QR code campaign setup', '2 rounds of revisions'],
-    cta: 'Most Popular', highlight: true,
+    name: 'Starter Web Presence',
+    price: 'Starting at $499',
+    description:
+      'A clean starter website for new small businesses that need a professional online presence.',
+    bestFor:
+      'New businesses, contractors, solo service providers, and simple service businesses.',
+    features: [
+      'Up to 5 pages',
+      'Mobile-friendly design',
+      'Contact form connected to your email',
+      'Basic SEO setup',
+      'Domain connection',
+      'Professional email setup guidance',
+      '1 round of revisions',
+    ],
+    cta: 'Get a Starter Website',
+    href: '/quote-request?product=Starter%20Web%20Presence&category=Digital%20Services',
   },
   {
-    name: 'Growth Site', price: '3,497', description: 'A high-performance website with CRM integration and full digital marketing setup.',
-    features: ['Up to 20 pages', 'Premium custom design', 'CRM integration & automated follow-up', 'Full local SEO + content strategy', 'Google Business Profile management', 'QR code campaign tracking', 'Google Ads setup (ad spend separate)', '3 rounds of revisions'],
-    cta: 'Get Started', highlight: false,
+    name: 'Local Business Website',
+    price: 'Starting at $799',
+    badge: 'Most Popular',
+    tone: 'dark',
+    description:
+      'A stronger website package for local businesses that need service pages, lead capture, and better Google visibility.',
+    bestFor:
+      'Restaurants, contractors, auto shops, retail shops, local service businesses, and small teams.',
+    features: [
+      'Up to 7 pages',
+      'Custom homepage layout',
+      'Service pages',
+      'Contact or quote form',
+      'Professional email setup guidance',
+      'Google Business Profile setup or cleanup',
+      'Basic local SEO setup',
+      'Google Analytics setup',
+      '2 rounds of revisions',
+    ],
+    cta: 'Get a Local Website Quote',
+    href: '/quote-request?product=Local%20Business%20Website&category=Digital%20Services',
+  },
+  {
+    name: 'Website + Visibility Setup',
+    price: 'Starting at $999',
+    badge: 'Best Value',
+    tone: 'value',
+    description:
+      'A website and visibility package that connects your site, Google presence, lead capture, and QR campaign setup.',
+    bestFor: 'Businesses that want a complete starter visibility system.',
+    features: [
+      'Up to 10 pages',
+      'Website design and development',
+      'Local SEO page structure',
+      'Google Business Profile optimization',
+      'Quote/contact lead capture forms',
+      'QR code campaign setup',
+      'Basic analytics setup',
+      '2 rounds of revisions',
+    ],
+    cta: 'Build My Visibility System',
+    href: '/quote-request?product=Website%20%2B%20Visibility%20Setup&category=Digital%20Services',
   },
 ]
 
-const MONTHLY_PACKAGES = [
+const CARE_PLANS = [
   {
-    name: 'Local Presence', price: '297', period: '/month', description: 'Keep your Google Business Profile optimized and your local rankings growing.',
-    features: ['Google Business Profile management', 'Monthly post updates', 'Review monitoring & response', 'Local citation maintenance', 'Monthly ranking report'],
-    cta: 'Get Started', highlight: false,
+    name: 'Basic Care',
+    price: 'Starting at $19/mo',
+    features: [
+      'Monthly website check',
+      'Contact/quote form test',
+      'Basic uptime review',
+      'One small text update per month',
+    ],
   },
   {
-    name: 'Local SEO', price: '597', period: '/month', description: 'Full local SEO management to rank higher and get more calls from Google.',
-    features: ['Everything in Local Presence', 'On-page SEO optimization', 'Monthly content updates', 'Competitor tracking', 'Keyword ranking reports', 'Google Analytics review'],
-    cta: 'Most Popular', highlight: true,
+    name: 'Standard Care',
+    price: 'Starting at $39/mo',
+    features: [
+      'Everything in Basic Care',
+      'Small content or image edits',
+      'Basic SEO check',
+      'Monthly Google/profile visibility check',
+    ],
   },
   {
-    name: 'Full Digital', price: '997', period: '/month', description: 'Complete digital marketing management — SEO, CRM, and QR campaign tracking.',
-    features: ['Everything in Local SEO', 'CRM setup & automation', 'Lead follow-up sequences', 'QR code campaign tracking', 'Monthly performance dashboard', 'Priority support'],
-    cta: 'Get Started', highlight: false,
+    name: 'Growth Care',
+    price: 'Starting at $49/mo',
+    features: [
+      'Everything in Standard Care',
+      'Priority small edits',
+      'QR campaign/link check',
+      'Monthly improvement suggestions',
+    ],
   },
 ]
 
-function PricingCard({ pkg }) {
+const ADD_ONS = [
+  ['Extra website page', 'starting at $75/page'],
+  ['Landing page only', 'starting at $299'],
+  ['QR campaign setup', 'starting at $149'],
+  ['Google Business Profile cleanup', 'starting at $199'],
+  ['Basic logo refresh', 'starting at $149'],
+  ['Website care', 'starting at $19/mo'],
+]
+
+const SIGNAGE_EXAMPLES = [
+  'Vinyl banners',
+  'Yard signs',
+  'Vehicle graphics',
+  'Storefront signs',
+  'Metal signs',
+  'Business cards',
+  'Flyers',
+  'Menus',
+]
+
+const FAQS = [
+  {
+    q: 'Are these one-time prices?',
+    a: 'Website packages are starting prices for one-time builds. Larger projects, extra pages, special integrations, or rushed timelines may increase the quote.',
+  },
+  {
+    q: 'Do I own my website?',
+    a: 'Yes. You own your website content and design once the project is paid in full. Hosting, domain, email, and third-party tools may be billed separately by those providers.',
+  },
+  {
+    q: 'Is hosting included?',
+    a: 'Hosting is not included in the one-time website price unless specifically quoted. Pixel & Panel can recommend simple hosting options and help connect your domain.',
+  },
+  {
+    q: 'Is professional email included?',
+    a: 'Professional email setup guidance is included. If a paid email platform is needed, the client pays that provider directly.',
+  },
+  {
+    q: 'Can I start small and upgrade later?',
+    a: 'Yes. Many businesses start with a Launch Page or Starter Web Presence and add more pages, QR campaigns, SEO setup, or signage later.',
+  },
+  {
+    q: 'Do you offer signs and print too?',
+    a: 'Yes. Pixel & Panel offers signage and print quote options including banners, yard signs, vehicle graphics, storefront signs, business cards, flyers, menus, and more.',
+  },
+  {
+    q: 'Do you guarantee Google rankings?',
+    a: 'No. Pixel & Panel sets up the SEO foundation and helps your business become easier to find, but no ethical provider can guarantee exact Google rankings.',
+  },
+  {
+    q: 'Can I get discounted portfolio pricing?',
+    a: 'Possibly. Pixel & Panel is currently accepting selected founding client projects at discounted rates in exchange for honest feedback and portfolio permission.',
+  },
+]
+
+const colors = {
+  deep: 'var(--color-brand-deep)',
+  sky: 'var(--color-brand-sky)',
+  amber: 'var(--color-brand-amber)',
+  cream: 'var(--color-brand-cream)',
+  dark: 'var(--color-brand-dark)',
+  navy: 'var(--color-brand-navy)',
+}
+
+function SectionIntro({ label, title, copy, align = 'center' }) {
   return (
     <motion.div
-      variants={scaleIn}
+      variants={stagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport}
       style={{
-        background: pkg.highlight ? '#0C1E3C' : 'white',
-        borderRadius: '1.25rem', padding: '2rem',
-        border: pkg.highlight ? '2px solid #F59E0B' : '1px solid #f1f5f9',
-        display: 'flex', flexDirection: 'column', position: 'relative',
-        boxShadow: pkg.highlight ? '0 20px 60px rgba(12,30,60,0.2)' : '0 1px 4px rgba(0,0,0,0.04)',
+        textAlign: align,
+        maxWidth: '720px',
+        margin: align === 'center' ? '0 auto 3rem' : '0 0 2rem',
       }}
     >
-      {pkg.highlight && (
-        <div style={{ position: 'absolute', top: '-14px', left: '50%', transform: 'translateX(-50%)', background: '#F59E0B', color: '#1C1917', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.35rem 1.25rem', borderRadius: '100px', whiteSpace: 'nowrap' }}>
-          Most Popular
-        </div>
+      {label && (
+        <motion.span variants={fadeUp} className="section-label">
+          {label}
+        </motion.span>
       )}
+      <motion.h2 variants={fadeUp} style={{ color: colors.dark }}>
+        {title}
+      </motion.h2>
+      {copy && (
+        <motion.p
+          variants={fadeUp}
+          style={{
+            color: '#5f6f7d',
+            lineHeight: 1.75,
+            marginTop: '0.75rem',
+          }}
+        >
+          {copy}
+        </motion.p>
+      )}
+    </motion.div>
+  )
+}
 
-      <h3 style={{ color: pkg.highlight ? 'white' : '#1C1917', marginBottom: '0.5rem' }}>
+function PackageCard({ pkg }) {
+  const isDark = pkg.tone === 'dark'
+  const isValue = pkg.tone === 'value'
+
+  return (
+    <motion.article
+      variants={scaleIn}
+      className="white-card"
+      style={{
+        background: isDark ? colors.navy : 'white',
+        borderColor: isDark || isValue ? colors.amber : '#e8eef2',
+        borderWidth: isDark || isValue ? '2px' : '1px',
+        borderStyle: 'solid',
+        borderRadius: '1rem',
+        boxShadow: isDark
+          ? '0 24px 60px rgba(12, 30, 60, 0.22)'
+          : '0 16px 42px rgba(12, 30, 60, 0.08)',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100%',
+        padding: '1.5rem',
+        position: 'relative',
+      }}
+    >
+      {pkg.badge && (
+        <span
+          style={{
+            alignSelf: 'flex-start',
+            background: colors.amber,
+            borderRadius: '999px',
+            color: colors.dark,
+            fontFamily: 'var(--font-heading)',
+            fontSize: '0.72rem',
+            fontWeight: 800,
+            letterSpacing: '0.08em',
+            marginBottom: '1rem',
+            padding: '0.35rem 0.75rem',
+            textTransform: 'uppercase',
+          }}
+        >
+          {pkg.badge}
+        </span>
+      )}
+      <h3 style={{ color: isDark ? 'white' : colors.dark, marginBottom: '0.5rem' }}>
         {pkg.name}
       </h3>
-      <p style={{ color: pkg.highlight ? 'rgba(255,255,255,0.6)' : '#64748b', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+      <p
+        style={{
+          color: isDark ? 'rgba(255,255,255,0.72)' : '#5f6f7d',
+          lineHeight: 1.65,
+          marginBottom: '1.25rem',
+        }}
+      >
         {pkg.description}
       </p>
-      <div style={{ marginBottom: '1.5rem' }}>
-        <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 900, fontSize: '2.75rem', color: pkg.highlight ? 'white' : '#1C1917', lineHeight: 1 }}>
-          ${pkg.price}
-        </span>
-        {pkg.period ? (
-          <span style={{ color: pkg.highlight ? 'rgba(255,255,255,0.5)' : '#94a3b8', fontSize: '0.95rem' }}>{pkg.period}</span>
-        ) : (
-          <span style={{ color: pkg.highlight ? 'rgba(255,255,255,0.5)' : '#94a3b8', fontSize: '0.875rem', display: 'block', marginTop: '0.25rem' }}>one-time</span>
-        )}
+      <div
+        style={{
+          color: isDark ? 'white' : colors.dark,
+          fontFamily: 'var(--font-heading)',
+          fontSize: '1.65rem',
+          fontWeight: 900,
+          lineHeight: 1.1,
+          marginBottom: '1rem',
+        }}
+      >
+        {pkg.price}
       </div>
-      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1, marginBottom: '2rem', padding: 0 }}>
-        {pkg.features.map((f) => (
-          <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', fontSize: '0.875rem', color: pkg.highlight ? 'rgba(255,255,255,0.8)' : '#475569', lineHeight: 1.5 }}>
-            <CheckCircle size={15} color={pkg.highlight ? '#F59E0B' : '#0369A1'} style={{ flexShrink: 0, marginTop: '1px' }} />
-            {f}
+      <div
+        style={{
+          background: isDark ? 'rgba(255,255,255,0.08)' : '#F8FAFC',
+          borderRadius: '0.75rem',
+          color: isDark ? 'rgba(255,255,255,0.76)' : '#475569',
+          lineHeight: 1.6,
+          marginBottom: '1.25rem',
+          padding: '0.875rem',
+        }}
+      >
+        <strong
+          style={{
+            color: isDark ? colors.amber : colors.deep,
+            display: 'block',
+            fontFamily: 'var(--font-heading)',
+            fontSize: '0.78rem',
+            letterSpacing: '0.08em',
+            marginBottom: '0.3rem',
+            textTransform: 'uppercase',
+          }}
+        >
+          Best for
+        </strong>
+        {pkg.bestFor}
+      </div>
+      <ul
+        style={{
+          display: 'flex',
+          flex: 1,
+          flexDirection: 'column',
+          gap: '0.7rem',
+          listStyle: 'none',
+          margin: '0 0 1.5rem',
+          padding: 0,
+        }}
+      >
+        {pkg.features.map((feature) => (
+          <li
+            key={feature}
+            style={{
+              alignItems: 'flex-start',
+              color: isDark ? 'rgba(255,255,255,0.84)' : '#475569',
+              display: 'flex',
+              gap: '0.6rem',
+              lineHeight: 1.45,
+            }}
+          >
+            <CheckCircle
+              size={16}
+              color={isDark ? colors.amber : colors.deep}
+              style={{ flexShrink: 0, marginTop: '0.18rem' }}
+            />
+            <span>{feature}</span>
           </li>
         ))}
       </ul>
-      <Link href="/quote-request" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: '#F59E0B', color: '#1C1917', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.06em', padding: '0.875rem', borderRadius: '0.75rem', textDecoration: 'none', transition: 'opacity 0.2s' }}>
-        Get a Quote <ArrowRight size={14} />
+      <Link
+        href={pkg.href}
+        className="btn-amber"
+        style={{
+          justifyContent: 'center',
+          maxWidth: '100%',
+          textAlign: 'center',
+          whiteSpace: 'normal',
+        }}
+      >
+        {pkg.cta} <ArrowRight size={15} />
       </Link>
-    </motion.div>
+    </motion.article>
+  )
+}
+
+function CareCard({ plan }) {
+  return (
+    <motion.article
+      variants={fadeUp}
+      className="white-card"
+      style={{
+        borderRadius: '1rem',
+        boxShadow: '0 12px 34px rgba(12, 30, 60, 0.07)',
+        padding: '1.4rem',
+      }}
+    >
+      <h3 style={{ color: colors.dark, marginBottom: '0.5rem' }}>{plan.name}</h3>
+      <p
+        style={{
+          color: colors.deep,
+          fontFamily: 'var(--font-heading)',
+          fontSize: '1.25rem',
+          fontWeight: 800,
+          marginBottom: '1rem',
+        }}
+      >
+        {plan.price}
+      </p>
+      <ul
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.7rem',
+          listStyle: 'none',
+          margin: 0,
+          padding: 0,
+        }}
+      >
+        {plan.features.map((feature) => (
+          <li
+            key={feature}
+            style={{
+              alignItems: 'flex-start',
+              color: '#475569',
+              display: 'flex',
+              gap: '0.6rem',
+              lineHeight: 1.45,
+            }}
+          >
+            <ClipboardCheck
+              size={16}
+              color={colors.amber}
+              style={{ flexShrink: 0, marginTop: '0.16rem' }}
+            />
+            <span>{feature}</span>
+          </li>
+        ))}
+      </ul>
+    </motion.article>
   )
 }
 
 export default function PricingPage() {
   return (
     <>
-      {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg, #0C1E3C 0%, #0369A1 100%)', padding: '7rem 1.5rem 4rem', position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0)', backgroundSize: '36px 36px', pointerEvents: 'none' }} />
+      <section
+        style={{
+          background: `linear-gradient(135deg, ${colors.navy} 0%, ${colors.deep} 100%)`,
+          overflow: 'hidden',
+          padding: '7rem 1rem 4.5rem',
+          position: 'relative',
+          textAlign: 'center',
+        }}
+      >
+        <div
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0)',
+            backgroundSize: '36px 36px',
+            inset: 0,
+            pointerEvents: 'none',
+            position: 'absolute',
+          }}
+        />
         <motion.div
-          variants={stagger} initial="hidden" animate="visible"
-          style={{ position: 'relative', maxWidth: '700px', margin: '0 auto' }}
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          style={{ margin: '0 auto', maxWidth: '820px', position: 'relative' }}
         >
-          <motion.span variants={fadeUp} className="section-label">Transparent Pricing</motion.span>
+          <motion.span variants={fadeUp} className="section-label">
+            Founding Client Pricing
+          </motion.span>
           <motion.h1 variants={fadeUp} style={{ color: 'white', marginBottom: '1.25rem' }}>
-            Simple Pricing.
-            <br />
-            <span style={{ color: '#F59E0B' }}>No Surprises. No Contracts.</span>
+            Simple Starter Pricing for{' '}
+            <span style={{ color: colors.amber }}>Local Businesses</span>
           </motion.h1>
-          <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.05rem', lineHeight: 1.7 }}>
-            Every project starts with a free quote. Digital services are month-to-month — cancel anytime. Signage is quoted per project with no hidden fees.
+          <motion.p
+            variants={fadeUp}
+            style={{
+              color: 'rgba(255,255,255,0.76)',
+              fontSize: '1.05rem',
+              lineHeight: 1.75,
+              margin: '0 auto 1rem',
+              maxWidth: '720px',
+            }}
+          >
+            Pixel & Panel is currently offering founding client pricing for
+            Southeast Texas businesses that need a clean website, better Google
+            visibility, and a stronger way to turn attention into leads.
+          </motion.p>
+          <motion.p
+            variants={fadeUp}
+            style={{
+              color: colors.amber,
+              fontFamily: 'var(--font-heading)',
+              fontSize: '0.95rem',
+              fontWeight: 700,
+            }}
+          >
+            Pricing may increase as availability becomes limited.
           </motion.p>
         </motion.div>
       </section>
 
-      {/* Website Packages */}
-      <section className="section-base" style={{ backgroundColor: '#FAF8F4' }}>
+      <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <motion.span variants={fadeUp} className="section-label">One-Time Investment</motion.span>
-            <motion.h2 variants={fadeUp} style={{ color: '#1C1917' }}>Website Packages</motion.h2>
-            <motion.p variants={fadeUp} style={{ color: '#64748b', marginTop: '0.75rem', maxWidth: '480px', margin: '0.75rem auto 0' }}>
-              A one-time investment. You own your website outright — no monthly platform fees, no lock-in.
-            </motion.p>
+          <SectionIntro
+            label="Starter Website Packages"
+            title="Website Packages"
+            copy="Clear starting prices for businesses that need a professional online presence without a bloated marketing contract."
+          />
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            style={{
+              alignItems: 'stretch',
+              display: 'grid',
+              gap: '1.25rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            }}
+          >
+            {WEBSITE_PACKAGES.map((pkg) => (
+              <PackageCard key={pkg.name} pkg={pkg} />
+            ))}
           </motion.div>
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', alignItems: 'start' }}>
-            {WEBSITE_PACKAGES.map((pkg) => <PricingCard key={pkg.name} pkg={pkg} />)}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            style={{
+              color: '#5f6f7d',
+              lineHeight: 1.7,
+              margin: '2rem auto 0',
+              maxWidth: '780px',
+              textAlign: 'center',
+            }}
+          >
+            Looking for the services behind these packages? Review the{' '}
+            <Link href="/digital" style={{ color: colors.deep, fontWeight: 700 }}>
+              digital services
+            </Link>{' '}
+            page or request a quote when you are ready.
           </motion.div>
         </div>
       </section>
 
-      {/* Monthly Packages — FIX: was #f8fafc, now consistent cream */}
-      <section className="section-base" style={{ backgroundColor: '#FAF8F4' }}>
+      <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <motion.span variants={fadeUp} className="section-label">Monthly Services</motion.span>
-            <motion.h2 variants={fadeUp} style={{ color: '#1C1917' }}>Ongoing Digital Marketing</motion.h2>
-            <motion.p variants={fadeUp} style={{ color: '#64748b', marginTop: '0.75rem', maxWidth: '480px', margin: '0.75rem auto 0' }}>
-              Month-to-month. No contracts. Cancel anytime. Most clients see results within 60–90 days.
-            </motion.p>
-          </motion.div>
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', alignItems: 'start' }}>
-            {MONTHLY_PACKAGES.map((pkg) => <PricingCard key={pkg.name} pkg={pkg} />)}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Signage */}
-      <section className="section-base" style={{ backgroundColor: '#FAF8F4' }}>
-        <div className="container-px">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ maxWidth: '860px', margin: '0 auto', textAlign: 'center' }}>
-            <motion.span variants={fadeUp} className="section-label" style={{ color: '#F59E0B' }}>Physical Signage</motion.span>
-            <motion.h2 variants={fadeUp} style={{ color: '#1C1917', marginBottom: '1rem' }}>Signage is Quoted Per Project</motion.h2>
-            <motion.p variants={fadeUp} style={{ color: '#64748b', lineHeight: 1.75, maxWidth: '560px', margin: '0 auto 2rem' }}>
-              Every signage order is custom — size, quantity, material, and design all affect the final price. We quote every project individually so you get an accurate number, not a rough estimate. All signage includes a free QR code with tracking.
-            </motion.p>
-            <motion.div variants={stagger} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '0.875rem', marginBottom: '2.5rem', textAlign: 'left' }}>
-              {['Yard Signs', 'Vinyl Banners', 'Car Magnets', 'Metal Signs', 'Vehicle Wraps', 'Window Graphics', 'A-Frame Signs', 'Feather Flags'].map((item) => (
-                <motion.div key={item} variants={fadeUp} className="white-card" style={{ padding: '0.875rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: '#475569' }}>
-                  <QrCode size={14} color="#F59E0B" style={{ flexShrink: 0 }} />
-                  {item}
-                </motion.div>
-              ))}
-            </motion.div>
-            <motion.div variants={fadeUp}>
-              <Link href="/quote-request" className="btn-amber">
-                Get a Free Signage Quote <ArrowRight size={15} />
-              </Link>
-            </motion.div>
+          <SectionIntro
+            label="Optional Monthly Support"
+            title="Website Care Plans"
+            copy="Optional monthly support for small updates, form checks, basic SEO review, and keeping your website running smoothly."
+          />
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            style={{
+              display: 'grid',
+              gap: '1.25rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            }}
+          >
+            {CARE_PLANS.map((plan) => (
+              <CareCard key={plan.name} plan={plan} />
+            ))}
           </motion.div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="section-base" style={{ backgroundColor: '#FAF8F4' }}>
+      <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ maxWidth: '760px', margin: '0 auto' }}>
-            <motion.h2 variants={fadeUp} style={{ color: '#1C1917', marginBottom: '2.5rem', textAlign: 'center' }}>
-              Pricing Questions
-            </motion.h2>
-            {[
-              { q: 'Are there any contracts for monthly services?', a: 'No contracts, ever. All monthly digital services are month-to-month. You can cancel anytime with 30 days notice.' },
-              { q: 'What is included in the website price?', a: 'Design, development, copywriting guidance, basic SEO setup, contact form, and mobile optimization. Hosting is separate — we recommend Vercel (free tier available).' },
-              { q: 'How quickly can I get a signage quote?', a: 'We respond to all quote requests within 1 business day. Most signage orders are fulfilled within 5-7 business days after design approval.' },
-              { q: 'Do all signs really include a QR code?', a: 'Yes — every sign we produce includes a dynamic QR code at no extra charge. The QR code links to your website or landing page and tracks every scan.' },
-              { q: 'Can I bundle a website with monthly SEO?', a: 'Absolutely — and we recommend it. Clients who bundle a website build with ongoing SEO see significantly better results than either service alone.' },
-            ].map((item, i) => (
-              <motion.div key={i} variants={fadeUp} className="white-card" style={{ padding: '1.5rem', marginBottom: '1rem' }}>
-                <h4 style={{ color: '#1C1917', marginBottom: '0.625rem' }}>{item.q}</h4>
-                <p style={{ color: '#64748b', fontSize: '0.9rem', lineHeight: 1.7 }}>{item.a}</p>
+          <SectionIntro
+            label="Common Add-ons"
+            title="Add-ons"
+            copy="Simple add-ons are available when a starter package needs a few more pieces."
+          />
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            style={{
+              display: 'grid',
+              gap: '1rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
+            }}
+          >
+            {ADD_ONS.map(([name, price]) => (
+              <motion.div
+                key={name}
+                variants={fadeUp}
+                className="white-card"
+                style={{
+                  alignItems: 'flex-start',
+                  borderRadius: '1rem',
+                  display: 'flex',
+                  gap: '0.8rem',
+                  padding: '1rem',
+                }}
+              >
+                <BadgeCheck
+                  size={18}
+                  color={colors.deep}
+                  style={{ flexShrink: 0, marginTop: '0.15rem' }}
+                />
+                <div>
+                  <h3 style={{ color: colors.dark, fontSize: '1rem', marginBottom: '0.2rem' }}>
+                    {name}
+                  </h3>
+                  <p style={{ color: '#5f6f7d' }}>{price}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="section-base" style={{ background: '#0C1E3C', textAlign: 'center' }}>
+      <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} style={{ maxWidth: '640px', margin: '0 auto' }}>
-            <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>Not Sure What You Need?</motion.h2>
-            <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, marginBottom: '2rem' }}>
-              Tell us about your business and we will recommend exactly what makes sense for your budget and goals — no pressure, no jargon.
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            className="white-card"
+            style={{
+              border: `1px solid rgba(3, 105, 161, 0.18)`,
+              borderRadius: '1rem',
+              boxShadow: '0 18px 48px rgba(12, 30, 60, 0.08)',
+              display: 'grid',
+              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              padding: 'clamp(1.5rem, 4vw, 2.5rem)',
+            }}
+          >
+            <motion.div variants={fadeUp}>
+              <span className="section-label" style={{ color: colors.amber }}>
+                Quote-Based Signage
+              </span>
+              <h2 style={{ color: colors.dark, marginBottom: '1rem' }}>
+                Signage & Print Projects Are Quoted Individually
+              </h2>
+              <p style={{ color: '#5f6f7d', lineHeight: 1.75, marginBottom: '1.5rem' }}>
+                Every signage and print project depends on size, material,
+                quantity, design needs, and installation requirements. Request a
+                quote and Pixel & Panel will recommend the right option.
+              </p>
+              <Link
+                href="/quote-request?product=Signage%20Project&category=Signage"
+                className="btn-amber"
+                style={{ maxWidth: '100%', whiteSpace: 'normal' }}
+              >
+                Get a Signage Quote <ArrowRight size={15} />
+              </Link>
+            </motion.div>
+            <motion.div
+              variants={stagger}
+              style={{
+                display: 'grid',
+                gap: '0.85rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              }}
+            >
+              {SIGNAGE_EXAMPLES.map((item) => (
+                <motion.div
+                  key={item}
+                  variants={fadeUp}
+                  style={{
+                    alignItems: 'center',
+                    background: '#F8FAFC',
+                    borderRadius: '0.75rem',
+                    color: '#475569',
+                    display: 'flex',
+                    gap: '0.6rem',
+                    padding: '0.85rem',
+                  }}
+                >
+                  <QrCode size={16} color={colors.amber} style={{ flexShrink: 0 }} />
+                  {item}
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="section-base" style={{ backgroundColor: colors.cream }}>
+        <div className="container-px">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            style={{
+              background: colors.navy,
+              borderRadius: '1rem',
+              boxShadow: '0 22px 54px rgba(12, 30, 60, 0.18)',
+              color: 'white',
+              overflow: 'hidden',
+              padding: 'clamp(1.5rem, 5vw, 3rem)',
+              position: 'relative',
+            }}
+          >
+            <motion.div
+              variants={fadeUp}
+              style={{
+                alignItems: 'center',
+                display: 'inline-flex',
+                gap: '0.6rem',
+                marginBottom: '1rem',
+              }}
+            >
+              <Sparkles size={18} color={colors.amber} />
+              <span className="section-label" style={{ color: colors.amber, marginBottom: 0 }}>
+                Limited Availability
+              </span>
+            </motion.div>
+            <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
+              Founding Client Program
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              style={{
+                color: 'rgba(255,255,255,0.76)',
+                lineHeight: 1.75,
+                marginBottom: '1.75rem',
+                maxWidth: '820px',
+              }}
+            >
+              Pixel & Panel is accepting a limited number of Southeast Texas
+              businesses at starter pricing while we build our local portfolio.
+              Selected projects may qualify for discounted pricing in exchange
+              for honest feedback, portfolio permission, and a testimonial if
+              satisfied.
+            </motion.p>
+            <motion.div variants={fadeUp}>
+              <Link
+                href="/quote-request?product=Founding%20Client%20Program&category=Digital%20Services"
+                className="btn-amber"
+                style={{ maxWidth: '100%', whiteSpace: 'normal' }}
+              >
+                Ask About Founding Client Pricing <ArrowRight size={15} />
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="section-base" style={{ backgroundColor: colors.cream }}>
+        <div className="container-px">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            style={{ margin: '0 auto', maxWidth: '840px' }}
+          >
+            <motion.h2
+              variants={fadeUp}
+              style={{ color: colors.dark, marginBottom: '2rem', textAlign: 'center' }}
+            >
+              Pricing Questions
+            </motion.h2>
+            {FAQS.map((item) => (
+              <motion.article
+                key={item.q}
+                variants={fadeUp}
+                className="white-card"
+                style={{
+                  borderRadius: '1rem',
+                  marginBottom: '1rem',
+                  padding: '1.25rem',
+                }}
+              >
+                <h3 style={{ color: colors.dark, fontSize: '1.05rem', marginBottom: '0.55rem' }}>
+                  {item.q}
+                </h3>
+                <p style={{ color: '#5f6f7d', lineHeight: 1.7 }}>{item.a}</p>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section
+        className="section-base"
+        style={{ background: colors.navy, textAlign: 'center' }}
+      >
+        <div className="container-px">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            style={{ margin: '0 auto', maxWidth: '700px' }}
+          >
+            <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
+              Need Website, Visibility, or Signage Help?
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              style={{
+                color: 'rgba(255,255,255,0.72)',
+                lineHeight: 1.75,
+                marginBottom: '2rem',
+              }}
+            >
+              Tell Pixel & Panel what you need, and we will recommend a practical
+              starter option for your budget and timeline. You can also compare
+              the current{' '}
+              <Link href="/signage" style={{ color: colors.amber, fontWeight: 700 }}>
+                signage
+              </Link>{' '}
+              and{' '}
+              <Link href="/digital" style={{ color: colors.amber, fontWeight: 700 }}>
+                digital
+              </Link>{' '}
+              service options.
             </motion.p>
             <motion.div variants={fadeUp}>
               <Link href="/quote-request" className="btn-amber">
-                Get a Free Consultation <ArrowRight size={15} />
+                Request a Quote <ArrowRight size={15} />
               </Link>
             </motion.div>
           </motion.div>
