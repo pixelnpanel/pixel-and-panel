@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { ArrowRight, CheckCircle, Mail, Clock, Phone } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { fadeUp, slideRight, stagger } from '@/lib/animations'
@@ -90,7 +91,10 @@ export default function ContactPage() {
                         </motion.h1>
 
                         <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: '2.5rem', maxWidth: '420px' }}>
-                            Whether you have a question about our services, need help deciding what you need, or just want to say hello — we read every message personally.
+                            Whether you have a question about our services, need help deciding what you need, or just want to say hello — we read every message personally. If you want a softer first step, start with a{' '}
+                            <Link href="/free-visibility-check" style={{ color: '#F59E0B', fontWeight: 700 }}>
+                                Free Visibility Check
+                            </Link>.
                         </motion.p>
 
                         <motion.div variants={stagger} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

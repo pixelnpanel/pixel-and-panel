@@ -529,7 +529,11 @@ export default function PricingPage() {
             <Link href="/digital" style={{ color: colors.deep, fontWeight: 700 }}>
               digital services
             </Link>{' '}
-            page or request a quote when you are ready.
+            page, start with a{' '}
+            <Link href="/free-visibility-check" style={{ color: colors.deep, fontWeight: 700 }}>
+              free visibility check
+            </Link>{' '}
+            if you are still unsure, or request a quote when you are ready.
           </motion.div>
         </div>
       </section>
@@ -810,9 +814,14 @@ export default function PricingPage() {
               service options.
             </motion.p>
             <motion.div variants={fadeUp}>
-              <Link href="/quote-request" className="btn-amber">
-                Request a Quote <ArrowRight size={15} />
-              </Link>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.9rem', justifyContent: 'center' }}>
+                <Link href="/quote-request" className="btn-amber">
+                  Request a Quote <ArrowRight size={15} />
+                </Link>
+                <Link href="/free-visibility-check" className="btn-ghost">
+                  Free Visibility Check <ArrowRight size={15} />
+                </Link>
+              </div>
             </motion.div>
           </motion.div>
         </div>

@@ -448,6 +448,15 @@ export default function HomeClient({ faqs }) {
               );
             })}
           </motion.div>
+
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport} className="mt-10 text-center">
+            <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600">
+              Not sure where the gap is yet? Start with a free review before asking for a project quote.
+            </p>
+            <Link href="/free-visibility-check" className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
+              Start a Free Visibility Check <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 

@@ -117,6 +117,7 @@ export default function Footer() {
               {[
                 { label: 'Portfolio',      href: '/portfolio' },
                 { label: 'Pricing',        href: '/pricing' },
+                { label: 'Free Visibility Check', href: '/free-visibility-check' },
                 { label: 'Contact Us',     href: '/contact' },
                 { label: 'Quote Request',  href: '/quote-request' },
               ].map((link) => (

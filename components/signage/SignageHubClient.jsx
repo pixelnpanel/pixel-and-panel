@@ -134,6 +134,9 @@ export default function SignageHubClient({ categories }) {
                             <Link href="/quote-request" className="mt-5 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B]">
                                 Get a Free Quote <ArrowRight size={15} />
                             </Link>
+                            <Link href="/free-visibility-check" className="mt-3 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-white/75 transition hover:text-[#F59E0B]">
+                                Check Visibility First <ArrowRight size={15} />
+                            </Link>
                         </div>
                     </motion.aside>
 
@@ -232,9 +235,12 @@ export default function SignageHubClient({ categories }) {
                     <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
                         Send us what you need, and we&apos;ll help you choose the right material, size, finish, and installation option.
                     </motion.p>
-                    <motion.div variants={fadeUp} className="mt-8">
+                    <motion.div variants={fadeUp} className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <Link href="/quote-request" className="btn-amber">
                             Get a Free Quote <ArrowRight size={18} />
+                        </Link>
+                        <Link href="/free-visibility-check" className="btn-ghost">
+                            Free Visibility Check <ArrowRight size={18} />
                         </Link>
                     </motion.div>
                 </motion.div>

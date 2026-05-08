@@ -23,6 +23,9 @@ module.exports = {
         }
     },
     additionalPaths: async (config) => {
-        return [await config.transform(config, '/quote-request')]
+        return [
+            await config.transform(config, '/quote-request'),
+            await config.transform(config, '/free-visibility-check'),
+        ]
     },
 }

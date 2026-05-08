@@ -138,9 +138,14 @@ export default function DigitalPage() {
               Tell us about your business and we will recommend exactly
               what you need — no pressure, no jargon.
             </p>
-            <Link href="/quote-request" className="btn-amber">
-              Get a Free Consultation <ArrowRight size={15} />
-            </Link>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.9rem', justifyContent: 'center' }}>
+              <Link href="/quote-request" className="btn-amber">
+                Get a Free Consultation <ArrowRight size={15} />
+              </Link>
+              <Link href="/free-visibility-check" className="btn-ghost">
+                Free Visibility Check <ArrowRight size={15} />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
