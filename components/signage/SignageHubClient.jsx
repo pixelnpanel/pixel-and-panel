@@ -119,17 +119,7 @@ export default function SignageHubClient({ categories = [] }) {
         if (!normalizedSearchTerm) return selectedProducts
 
         return selectedProducts.filter((product) => {
-            const searchableText = [
-                product.name,
-                product.categoryName,
-                product.description,
-                ...(product.searchKeywords || []),
-            ]
-                .filter(Boolean)
-                .join(' ')
-                .toLowerCase()
-
-            return searchableText.includes(normalizedSearchTerm)
+            return getSearchableText(product).includes(normalizedSearchTerm)
         })
     }, [normalizedSearchTerm, selectedProducts])
 
@@ -419,7 +409,7 @@ export default function SignageHubClient({ categories = [] }) {
                         </motion.div>
 
                         {/* SEARCH */}
-                        <div className="mb-6 hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:block md:p-5">
+                        <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5">
                             <label htmlFor="signage-product-search" className="mb-2 block font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1]">
                                 Find a product
                             </label>
@@ -431,6 +421,7 @@ export default function SignageHubClient({ categories = [] }) {
                                     value={searchTerm}
                                     onChange={(event) => setSearchTerm(event.target.value)}
                                     placeholder="Search signs, banners, decals, cards..."
+                                    aria-label="Search signage products"
                                     className="w-full rounded-xl border border-slate-200 bg-[#FAF8F4] py-3.5 pl-12 pr-12 text-base text-[#1C1917] shadow-inner outline-none transition placeholder:text-slate-400 focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
                                 />
                                 {isSearchActive && (
@@ -594,13 +585,13 @@ export default function SignageHubClient({ categories = [] }) {
                 transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                 onClick={handleFloatingSearchClick}
                 tabIndex={isFloatingSearchVisible ? 0 : -1}
-                className={`fixed bottom-5 right-5 z-40 flex h-[52px] items-center justify-center overflow-hidden rounded-full border border-white/45 bg-[#F59E0B]/35 text-[#1C1917] shadow-[0_14px_36px_rgba(28,25,23,0.18),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-xl transition-colors hover:bg-[#F59E0B]/45 focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/25 md:hidden ${
+                className={`fixed bottom-24 right-4 z-40 flex h-[52px] items-center justify-center overflow-hidden rounded-full border border-white/45 bg-[#F59E0B]/35 text-[#FAF8F4] shadow-[0_14px_36px_rgba(28,25,23,0.18),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-xl transition-colors hover:bg-[#F59E0B]/45 focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/25 md:hidden ${
                     isFloatingSearchVisible ? 'pointer-events-auto' : 'pointer-events-none'
                 }`}
             >
                 <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_20%,rgba(255,255,255,0.65),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.2),rgba(245,158,11,0.18))]" />
                 <span className="relative flex items-center justify-center gap-2 whitespace-nowrap px-4">
-                    <Search size={19} strokeWidth={2.4} />
+                    <Search size={28} strokeWidth={2.35} />
                     <span className={`font-heading text-xs font-bold uppercase tracking-wide transition ${isSearchFabExpanded ? 'max-w-32 opacity-100' : 'max-w-0 opacity-0'}`}>
                         Search Products
                     </span>
