@@ -14,11 +14,22 @@ const stagger = {
     visible: { transition: { staggerChildren: 0.07 } },
 }
 
+const sortProductsByName = (products) => {
+    return products
+        .map((product, index) => ({ product, index }))
+        .sort((a, b) => (
+            a.product.name.localeCompare(b.product.name, undefined, { sensitivity: 'base' }) ||
+            a.index - b.index
+        ))
+        .map(({ product }) => product)
+}
+
 export default function SignageCategoryClient({ category, allCategories }) {
     // Related: up to 3 other categories (not current)
     const related = allCategories
         .filter((c) => c.slug !== category.slug)
         .slice(0, 3)
+    const sortedProducts = sortProductsByName(category.products || [])
 
     return (
         <main className="min-h-screen bg-brand-cream">
@@ -99,7 +110,7 @@ export default function SignageCategoryClient({ category, allCategories }) {
                         variants={stagger}
                         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
                     >
-                        {category.products.map((product) => (
+                        {sortedProducts.map((product) => (
                             <motion.div
                                 key={product.slug}
                                 variants={fadeUp}

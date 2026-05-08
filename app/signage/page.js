@@ -31,12 +31,12 @@ const CATEGORY_ORDER = [
 function getOrderedCategories() {
     const orderMap = new Map(CATEGORY_ORDER.map((slug, index) => [slug, index]))
 
-    return [...signageCategories].sort((a, b) => {
-        const aOrder = orderMap.has(a.slug) ? orderMap.get(a.slug) : 999
-        const bOrder = orderMap.has(b.slug) ? orderMap.get(b.slug) : 999
+    return signageCategories.map((category, index) => ({ category, index })).sort((a, b) => {
+        const aOrder = orderMap.has(a.category.slug) ? orderMap.get(a.category.slug) : 999
+        const bOrder = orderMap.has(b.category.slug) ? orderMap.get(b.category.slug) : 999
 
-        return aOrder - bOrder
-    })
+        return aOrder - bOrder || a.index - b.index
+    }).map(({ category }) => category)
 }
 
 export default function SignagePage() {

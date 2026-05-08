@@ -2,25 +2,93 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ArrowRight, Search, Box, MessageSquareText } from 'lucide-react'
+import { ArrowRight, Search, Box, MessageSquareText, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { fadeUp, scaleIn, stagger, viewport } from '@/lib/animations'
 import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
 
-export default function SignageHubClient({ categories }) {
+const ALL_PRODUCTS_SLUG = 'all-products'
+
+const sortProductsByName = (products) => {
+    return products
+        .map((product, index) => ({ product, index }))
+        .sort((a, b) => (
+            a.product.name.localeCompare(b.product.name, undefined, { sensitivity: 'base' }) ||
+            a.index - b.index
+        ))
+        .map(({ product }) => product)
+}
+
+export default function SignageHubClient({ categories = [] }) {
     const router = useRouter()
     const searchParams = useSearchParams()
     const productAreaRef = useRef(null)
+    const [searchTerm, setSearchTerm] = useState('')
 
-    const defaultCategorySlug = categories?.[0]?.slug || ''
+    const allProducts = useMemo(() => {
+        return sortProductsByName(categories.flatMap((category) =>
+            (category.products || []).map((product) => ({
+                ...product,
+                categoryName: category.name,
+                categorySlug: category.slug,
+            }))
+        ))
+    }, [categories])
+
+    const categoryOptions = useMemo(() => [
+        {
+            slug: ALL_PRODUCTS_SLUG,
+            name: 'All Products',
+            products: allProducts,
+            isAllProducts: true,
+        },
+        ...categories,
+    ], [allProducts, categories])
+
+    const defaultCategorySlug = ALL_PRODUCTS_SLUG
     const urlCategory = searchParams.get('category')
-    const selectedSlug = categories.some((cat) => cat.slug === urlCategory) ? urlCategory : defaultCategorySlug
+    const selectedSlug = categoryOptions.some((cat) => cat.slug === urlCategory) ? urlCategory : defaultCategorySlug
 
     const selectedCategory = useMemo(() => {
-        return categories.find((cat) => cat.slug === selectedSlug) || categories[0]
-    }, [categories, selectedSlug])
+        return categoryOptions.find((cat) => cat.slug === selectedSlug) || categoryOptions[0]
+    }, [categoryOptions, selectedSlug])
+
+    const selectedProducts = useMemo(() => {
+        if (selectedCategory?.isAllProducts) return allProducts
+
+        return sortProductsByName((selectedCategory?.products || []).map((product) => ({
+            ...product,
+            categoryName: selectedCategory.name,
+            categorySlug: selectedCategory.slug,
+        })))
+    }, [allProducts, selectedCategory])
+
+    const normalizedSearchTerm = searchTerm.trim().toLowerCase()
+    const isSearchActive = normalizedSearchTerm.length > 0
+
+    const filteredProducts = useMemo(() => {
+        if (!normalizedSearchTerm) return selectedProducts
+
+        return selectedProducts.filter((product) => {
+            const searchableText = [
+                product.name,
+                product.categoryName,
+                product.description,
+                ...(product.searchKeywords || []),
+            ]
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase()
+
+            return searchableText.includes(normalizedSearchTerm)
+        })
+    }, [normalizedSearchTerm, selectedProducts])
+
+    const selectedHeading = selectedCategory?.isAllProducts
+        ? 'All Signage & Print Products'
+        : selectedCategory.name
 
     const handleCategoryClick = (slug) => {
         const params = new URLSearchParams(searchParams.toString())
@@ -83,7 +151,7 @@ export default function SignageHubClient({ categories }) {
             <section className="border-b border-black/5 bg-white px-6 py-10">
                 <div className="mx-auto max-w-4xl text-center">
                     <p className="text-lg leading-relaxed text-slate-700 md:text-xl">
-                        Choose a category on the left and view the products on the right. Product quote buttons will automatically pre-select that product in the quote form.
+                        Choose a category and view the matching products. Product quote buttons will automatically pre-select that product in the quote form.
                     </p>
                 </div>
             </section>
@@ -97,7 +165,7 @@ export default function SignageHubClient({ categories }) {
                         initial={{ opacity: 0, x: -24 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                        className="lg:sticky lg:top-28 lg:self-start"
+                        className="hidden lg:sticky lg:top-28 lg:block lg:self-start"
                     >
                         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                             <div className="flex items-center gap-3 border-b border-slate-200 px-6 py-5">
@@ -105,7 +173,7 @@ export default function SignageHubClient({ categories }) {
                                 <h2 style={{ color: '#1C1917' }}>Categories</h2>
                             </div>
                             <div className="max-h-[72vh] overflow-y-auto">
-                                {categories.map((category) => {
+                                {categoryOptions.map((category) => {
                                     const isActive = category.slug === selectedCategory.slug
                                     return (
                                         <button key={category.slug} type="button" onClick={() => handleCategoryClick(category.slug)}
@@ -141,7 +209,46 @@ export default function SignageHubClient({ categories }) {
                     </motion.aside>
 
                     {/* RIGHT: PRODUCT AREA */}
-                    <div>
+                    <div className="min-w-0">
+                        {/* MOBILE CATEGORY CHIPS */}
+                        <section className="mb-6 lg:hidden" aria-labelledby="mobile-category-heading">
+                            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                                <div className="mb-4 flex items-center gap-3">
+                                    <Search size={20} className="shrink-0 text-[#0369A1]" />
+                                    <div>
+                                        <h2 id="mobile-category-heading" className="text-xl text-[#1C1917]">
+                                            Choose a category
+                                        </h2>
+                                        <p className="mt-1 text-sm text-slate-500">
+                                            Swipe sideways, then scroll down for products.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="-mx-1 overflow-x-auto pb-1">
+                                    <div className="flex w-max max-w-none gap-2 px-1">
+                                        {categoryOptions.map((category) => {
+                                            const isActive = category.slug === selectedCategory.slug
+                                            return (
+                                                <button
+                                                    key={category.slug}
+                                                    type="button"
+                                                    onClick={() => handleCategoryClick(category.slug)}
+                                                    className={`shrink-0 rounded-full border px-4 py-2.5 text-sm font-bold transition ${
+                                                        isActive
+                                                            ? 'border-[#0369A1] bg-[#0369A1] text-white shadow-sm'
+                                                            : 'border-slate-200 bg-[#FAF8F4] text-[#1C1917] hover:border-[#F59E0B]'
+                                                    }`}
+                                                    aria-pressed={isActive}
+                                                >
+                                                    {category.name}
+                                                </button>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                         {/* SELECTED CATEGORY HEADER */}
                         <motion.div
                             key={selectedCategory.slug}
@@ -153,69 +260,124 @@ export default function SignageHubClient({ categories }) {
                             <div className="absolute right-8 top-6 h-24 w-24 rounded-3xl border border-white/10 opacity-40 rotate-12" />
                             <div className="absolute right-20 top-20 h-16 w-16 rounded-full border border-white/10 opacity-30" />
                             <p className="section-label mb-3" style={{ color: 'rgba(255,255,255,0.6)' }}>Selected Category</p>
-                            <h2 style={{ color: 'white' }}>{selectedCategory.name}</h2>
-                            <p className="mt-4 text-white/75">{selectedCategory.products?.length || 0} products available</p>
+                            <h2 style={{ color: 'white' }}>{selectedHeading}</h2>
+                            <p className="mt-4 text-white/75">{selectedProducts.length} products available</p>
                         </motion.div>
 
+                        {/* SEARCH */}
+                        <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5">
+                            <label htmlFor="signage-product-search" className="mb-2 block font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1]">
+                                Find a product
+                            </label>
+                            <div className="relative">
+                                <Search size={20} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0369A1]" />
+                                <input
+                                    id="signage-product-search"
+                                    type="search"
+                                    value={searchTerm}
+                                    onChange={(event) => setSearchTerm(event.target.value)}
+                                    placeholder="Search signs, banners, decals, cards..."
+                                    className="w-full rounded-xl border border-slate-200 bg-[#FAF8F4] py-3.5 pl-12 pr-12 text-base text-[#1C1917] shadow-inner outline-none transition placeholder:text-slate-400 focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
+                                />
+                                {isSearchActive && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setSearchTerm('')}
+                                        className="absolute right-2 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#0EA5E9]"
+                                        aria-label="Clear product search"
+                                    >
+                                        <X size={18} />
+                                    </button>
+                                )}
+                            </div>
+                            {isSearchActive && (
+                                <div className="mt-4 flex flex-col gap-3 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
+                                    <p>
+                                        Search results for <span className="font-bold text-[#1C1917]">&ldquo;{searchTerm.trim()}&rdquo;</span>
+                                        {' '}<span className="font-bold text-[#0369A1]">{filteredProducts.length}</span> matching {filteredProducts.length === 1 ? 'product' : 'products'}
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSearchTerm('')}
+                                        className="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 px-4 py-2 font-heading text-xs font-bold uppercase tracking-wide text-[#0369A1] transition hover:border-[#F59E0B] hover:text-[#1C1917] sm:self-auto"
+                                    >
+                                        Clear Search <X size={14} />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
                         {/* PRODUCT GRID — cards animate in when category changes */}
-                        <motion.div
-                            key={selectedCategory.slug + '-grid'}
-                            variants={stagger}
-                            initial="hidden"
-                            animate="visible"
-                            className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
-                        >
-                            {selectedCategory.products?.map((product) => (
-                                <motion.article
-                                    key={product.slug || product.name}
-                                    variants={scaleIn}
-                                    className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
-                                >
-                                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
-                                        {product.image ? (
-                                            <Image
-                                                src={product.image}
-                                                alt={product.alt || `${product.name} — custom signage by Pixel & Panel`}
-                                                fill
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                                                className="object-cover transition duration-300 group-hover:scale-105"
-                                                loading="lazy"
-                                            />
-                                        ) : (
-                                            <div className="flex h-full flex-col justify-between p-6">
-                                                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#E0F2FE] text-[#0369A1]">
-                                                    <Box size={24} />
+                        {filteredProducts.length > 0 ? (
+                            <motion.div
+                                key={selectedCategory.slug + '-grid-' + normalizedSearchTerm}
+                                variants={stagger}
+                                initial="hidden"
+                                animate="visible"
+                                className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+                            >
+                                {filteredProducts.map((product) => (
+                                    <motion.article
+                                        key={`${product.categorySlug || selectedCategory.slug}-${product.slug || product.name}`}
+                                        variants={scaleIn}
+                                        className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
+                                    >
+                                        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                                            {product.image ? (
+                                                <Image
+                                                    src={product.image}
+                                                    alt={product.alt || `${product.name} — custom signage by Pixel & Panel`}
+                                                    fill
+                                                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                                                    className="object-cover transition duration-300 group-hover:scale-105"
+                                                    loading="lazy"
+                                                />
+                                            ) : (
+                                                <div className="flex h-full flex-col justify-between p-6">
+                                                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#E0F2FE] text-[#0369A1]">
+                                                        <Box size={24} />
+                                                    </div>
+                                                    <p className="font-mono text-xs leading-relaxed text-slate-500 line-clamp-2">
+                                                        {product.imagePlaceholder || `${product.name} — photo coming soon`}
+                                                    </p>
                                                 </div>
-                                                <p className="font-mono text-xs leading-relaxed text-slate-500 line-clamp-2">
-                                                    {product.imagePlaceholder || `${product.name} — photo coming soon`}
-                                                </p>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="p-6">
-                                        <Link href={getProductLink(product)} className="block">
-                                            <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
-                                        </Link>
-                                        <p className="min-h-[96px] text-base leading-relaxed text-slate-600">{product.description}</p>
-                                        {product.bestFor && (
-                                            <div className="mt-5 border-t border-slate-100 pt-5">
-                                                <p className="text-sm leading-relaxed text-slate-500">
-                                                    <span className="font-bold text-[#1C1917]">Best for:</span>{' '}{product.bestFor}
-                                                </p>
-                                            </div>
-                                        )}
-                                        <div className="mt-6 flex flex-wrap gap-4">
-                                        <Link href={getProductLink(product)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]">
-                                            Learn More <ArrowRight size={15} />
-                                        </Link>
-                                        <Link href={createQuoteLink(product.name, selectedCategory.name)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition hover:text-[#0369A1]">
-                                            Request Quote <ArrowRight size={15} />
-                                        </Link>
+                                            )}
                                         </div>
-                                    </div>
-                                </motion.article>
-                            ))}
-                        </motion.div>
+                                        <div className="p-6">
+                                            <Link href={getProductLink(product)} className="block">
+                                                <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
+                                            </Link>
+                                            <p className="min-h-[96px] text-base leading-relaxed text-slate-600">{product.description}</p>
+                                            {product.bestFor && (
+                                                <div className="mt-5 border-t border-slate-100 pt-5">
+                                                    <p className="text-sm leading-relaxed text-slate-500">
+                                                        <span className="font-bold text-[#1C1917]">Best for:</span>{' '}{product.bestFor}
+                                                    </p>
+                                                </div>
+                                            )}
+                                            <div className="mt-6 flex flex-wrap gap-4">
+                                                <Link href={getProductLink(product)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]">
+                                                    Learn More <ArrowRight size={15} />
+                                                </Link>
+                                                <Link href={createQuoteLink(product.name, product.categoryName || selectedCategory.name)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition hover:text-[#0369A1]">
+                                                    Request Quote <ArrowRight size={15} />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </motion.article>
+                                ))}
+                            </motion.div>
+                        ) : (
+                            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center shadow-sm">
+                                <h3 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>No matching products found.</h3>
+                                <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600">
+                                    Try searching for &ldquo;banner,&rdquo; &ldquo;yard sign,&rdquo; &ldquo;vehicle,&rdquo; &ldquo;window,&rdquo; &ldquo;menu,&rdquo; or &ldquo;business card.&rdquo;
+                                </p>
+                                <Link href="/quote-request?product=General%20Signage%20Help&category=Signage" className="btn-amber mt-6 inline-flex">
+                                    Request Help Choosing <ArrowRight size={18} />
+                                </Link>
+                            </div>
+                        )}
                     </div>
 
                 </div>

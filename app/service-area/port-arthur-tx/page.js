@@ -15,10 +15,21 @@ const city = {
   featuredLinks: [
     { label: "Vehicle Graphics", href: "/signage/vehicle-graphics", description: "Professional graphics for trucks, vans, trailers, and fleets." },
     { label: "Metal Signs", href: "/signage/metal-signs", description: "Durable signs for properties, parking, safety, and facilities." },
-    { label: "Window Graphics", href: "/signage/window-graphics", description: "Storefront window lettering, decals, and promotional graphics." },
-    { label: "Vinyl Banners", href: "/signage/vinyl-banners", description: "Banners for events, job sites, storefronts, and promotions." },
     { label: "Storefront Signs", href: "/signage/storefront-signs", description: "Business signs that make your location easier to find." },
+    { label: "Vinyl Banners", href: "/signage/vinyl-banners", description: "Banners for events, job sites, storefronts, and promotions." },
     { label: "Local SEO", href: "/digital/local-seo", description: "Improve online visibility for Port Arthur customer searches." },
+    { label: "Website Development", href: "/digital/web-development", description: "Service business websites built around calls and quote requests." },
+    { label: "QR Code Campaigns", href: "/digital/qr-code-campaigns", description: "Track scans from signs, print materials, and job site promotions." },
+  ],
+  reasons: [
+    "Port Arthur contractor and service businesses often need vehicle graphics, metal signs, storefront signs, and banners that look professional in the field.",
+    "Local SEO and websites help nearby customers understand services before they call or request a quote.",
+    "QR paths can connect signs and print materials to quote forms, service pages, or contact details.",
+  ],
+  faqs: [
+    ["What Port Arthur services are best for contractors?", "Vehicle graphics, metal signs, storefront signs, banners, websites, and local SEO are common fits for contractor and service business visibility."],
+    ["Can Pixel & Panel help with job site visibility?", "Yes. Banners, yard signs, vehicle graphics, and QR-linked pages can help make job sites and service vehicles easier to recognize."],
+    ["Do you guarantee Google rankings?", "No. Pixel & Panel improves local visibility foundations, but does not promise guaranteed rankings."],
   ],
 };
 

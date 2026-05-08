@@ -15,10 +15,20 @@ const city = {
   featuredLinks: [
     { label: "Web Development", href: "/digital/web-development", description: "Fast websites built for local search, calls, and quote requests." },
     { label: "Local SEO", href: "/digital/local-seo", description: "Improve the way Beaumont customers find your business online." },
-    { label: "Vinyl Banners", href: "/signage/vinyl-banners", description: "Durable banners for storefronts, events, fences, and promotions." },
-    { label: "Yard Signs", href: "/signage/yard-signs", description: "Affordable roadside and job site signs for local visibility." },
-    { label: "Vehicle Graphics", href: "/signage/vehicle-graphics", description: "Turn work vehicles into clear, professional brand assets." },
     { label: "Storefront Signs", href: "/signage/storefront-signs", description: "Make your location easier to find and trust." },
+    { label: "Vinyl Banners", href: "/signage/vinyl-banners", description: "Durable banners for storefronts, events, fences, and promotions." },
+    { label: "Vehicle Graphics", href: "/signage/vehicle-graphics", description: "Turn work vehicles into clear, professional brand assets." },
+    { label: "Google Business Profile", href: "/digital/google-business-profile", description: "Clean up the profile many Beaumont customers see before calling." },
+  ],
+  reasons: [
+    "Beaumont businesses often need both strong search visibility and clear storefront or vehicle branding.",
+    "Website development and local SEO help customers understand services before they call or request a quote.",
+    "Storefront signs, banners, and vehicle graphics make the same brand easier to recognize around town.",
+  ],
+  faqs: [
+    ["What Beaumont services are most common?", "Website development, local SEO, storefront signs, banners, and vehicle graphics are strong starting points for many Beaumont businesses."],
+    ["Can Pixel & Panel help if my Beaumont business already has a website?", "Yes. Pixel & Panel can review the site, Google profile, signage, and quote flow to find practical improvements."],
+    ["Can signs and online marketing work together?", "Yes. Banners, storefront signs, and vehicle graphics can point customers to useful website pages, quote forms, or QR campaigns."],
   ],
 };
 
