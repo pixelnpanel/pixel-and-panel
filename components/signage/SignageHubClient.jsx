@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowRight, Search, Box, MessageSquareText, X } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -21,11 +21,58 @@ const sortProductsByName = (products) => {
         .map(({ product }) => product)
 }
 
+const getProductKey = (product) => `${product.categorySlug || 'category'}-${product.slug || product.name}`
+
+const getSearchableText = (product) => [
+    product.name,
+    product.categoryName,
+    product.description,
+    ...(product.searchKeywords || []),
+    ...(product.tags || []),
+]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+
+const getProductSearchScore = (product, query) => {
+    if (!query) return 1
+
+    const name = (product.name || '').toLowerCase()
+    const category = (product.categoryName || '').toLowerCase()
+    const categorySlug = (product.categorySlug || '').toLowerCase()
+    const keywords = [...(product.searchKeywords || []), ...(product.tags || [])]
+        .join(' ')
+        .toLowerCase()
+    const description = (product.description || '').toLowerCase()
+    const queryWords = query.split(/\s+/).filter(Boolean)
+
+    let score = 0
+    if (name === query) score += 120
+    if (name.startsWith(query)) score += 80
+    if (name.includes(query)) score += 65
+    if (category.includes(query)) score += 38
+    if (keywords.includes(query)) score += 32
+    if (description.includes(query)) score += 14
+    if (categorySlug === 'vehicle-graphics' && queryWords.some((word) => ['car', 'cars', 'truck', 'trucks', 'van', 'vans', 'fleet', 'vehicle', 'vehicles'].includes(word))) score += 34
+    if (categorySlug === 'yard-real-estate-signs' && queryWords.some((word) => ['yard', 'lawn', 'realtor', 'realty', 'estate', 'open', 'house'].includes(word))) score += 26
+    if (categorySlug === 'vinyl-decals-window-graphics' && queryWords.some((word) => ['window', 'windows', 'glass', 'door', 'decal', 'decals', 'sticker', 'stickers'].includes(word))) score += 26
+
+    return score
+}
+
 export default function SignageHubClient({ categories = [] }) {
     const router = useRouter()
     const searchParams = useSearchParams()
     const productAreaRef = useRef(null)
+    const productGridRef = useRef(null)
+    const productCardRefs = useRef(new Map())
+    const mobileSearchInputRef = useRef(null)
     const [searchTerm, setSearchTerm] = useState('')
+    const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
+    const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false)
+    const [isSearchFabExpanded, setIsSearchFabExpanded] = useState(false)
+    const [mobileSearchTerm, setMobileSearchTerm] = useState('')
+    const [highlightedProductKey, setHighlightedProductKey] = useState('')
 
     const allProducts = useMemo(() => {
         return sortProductsByName(categories.flatMap((category) =>
@@ -89,6 +136,91 @@ export default function SignageHubClient({ categories = [] }) {
     const selectedHeading = selectedCategory?.isAllProducts
         ? 'All Signage & Print Products'
         : selectedCategory.name
+    const isAllProductsSelected = Boolean(selectedCategory?.isAllProducts)
+
+    const mobileSearchResults = useMemo(() => {
+        const query = mobileSearchTerm.trim().toLowerCase()
+
+        if (!query) return allProducts
+
+        return allProducts
+            .map((product, index) => ({
+                product,
+                index,
+                score: getProductSearchScore(product, query),
+            }))
+            .filter(({ product, score }) => score > 0 || getSearchableText(product).includes(query))
+            .sort((a, b) => (
+                b.score - a.score ||
+                a.product.name.localeCompare(b.product.name, undefined, { sensitivity: 'base' }) ||
+                a.index - b.index
+            ))
+            .map(({ product }) => product)
+    }, [allProducts, mobileSearchTerm])
+
+    useEffect(() => {
+        const updateFloatingSearchVisibility = () => {
+            if (typeof window === 'undefined') return
+
+            const isMobile = window.matchMedia('(max-width: 767px)').matches
+            const productArea = productAreaRef.current
+            const productGrid = productGridRef.current
+
+            if (!isMobile || !isAllProductsSelected || isSearchSheetOpen || !productArea || !productGrid) {
+                setIsFloatingSearchVisible(false)
+                return
+            }
+
+            const firstCard = productGrid.querySelector('[data-product-card="true"]')
+            const cardHeight = firstCard?.getBoundingClientRect().height || 360
+            const scrollY = window.scrollY || window.pageYOffset
+            const gridTop = productGrid.getBoundingClientRect().top + scrollY
+            const productAreaBottom = productArea.getBoundingClientRect().bottom + scrollY
+            const appearsAfterCards = scrollY > gridTop + cardHeight * 2.2
+            const beforeFooter = scrollY + window.innerHeight < productAreaBottom - 160
+
+            setIsFloatingSearchVisible(appearsAfterCards && beforeFooter)
+        }
+
+        updateFloatingSearchVisibility()
+        window.addEventListener('scroll', updateFloatingSearchVisibility, { passive: true })
+        window.addEventListener('resize', updateFloatingSearchVisibility)
+
+        return () => {
+            window.removeEventListener('scroll', updateFloatingSearchVisibility)
+            window.removeEventListener('resize', updateFloatingSearchVisibility)
+        }
+    }, [isAllProductsSelected, isSearchSheetOpen, selectedSlug])
+
+    useEffect(() => {
+        if (!isSearchSheetOpen) return
+
+        const previousOverflow = document.body.style.overflow
+        document.body.style.overflow = 'hidden'
+        const focusTimer = window.setTimeout(() => mobileSearchInputRef.current?.focus(), 120)
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setIsSearchSheetOpen(false)
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            document.body.style.overflow = previousOverflow
+            window.clearTimeout(focusTimer)
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [isSearchSheetOpen])
+
+    useEffect(() => {
+        if (!highlightedProductKey) return undefined
+
+        const highlightTimer = window.setTimeout(() => setHighlightedProductKey(''), 1800)
+
+        return () => window.clearTimeout(highlightTimer)
+    }, [highlightedProductKey])
 
     const handleCategoryClick = (slug) => {
         const params = new URLSearchParams(searchParams.toString())
@@ -109,6 +241,28 @@ export default function SignageHubClient({ categories = [] }) {
     const getProductLink = (product) => {
         const productSlug = SIGNAGE_PRODUCT_SLUGS[product.slug]
         return productSlug ? `/signage/${productSlug}` : '/signage'
+    }
+
+    const handleFloatingSearchClick = () => {
+        setIsSearchFabExpanded(true)
+
+        window.setTimeout(() => {
+            setIsSearchSheetOpen(true)
+            setIsSearchFabExpanded(false)
+        }, 190)
+    }
+
+    const handleSearchResultClick = (product) => {
+        const productKey = getProductKey(product)
+        setSearchTerm('')
+        setIsSearchSheetOpen(false)
+        setMobileSearchTerm('')
+        setHighlightedProductKey(productKey)
+
+        window.setTimeout(() => {
+            const targetCard = productCardRefs.current.get(productKey)
+            targetCard?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 80)
     }
 
     return (
@@ -265,7 +419,7 @@ export default function SignageHubClient({ categories = [] }) {
                         </motion.div>
 
                         {/* SEARCH */}
-                        <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5">
+                        <div className="mb-6 hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:block md:p-5">
                             <label htmlFor="signage-product-search" className="mb-2 block font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1]">
                                 Find a product
                             </label>
@@ -310,62 +464,80 @@ export default function SignageHubClient({ categories = [] }) {
                         {/* PRODUCT GRID — cards animate in when category changes */}
                         {filteredProducts.length > 0 ? (
                             <motion.div
+                                ref={productGridRef}
                                 key={selectedCategory.slug + '-grid-' + normalizedSearchTerm}
                                 variants={stagger}
                                 initial="hidden"
                                 animate="visible"
                                 className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
                             >
-                                {filteredProducts.map((product) => (
-                                    <motion.article
-                                        key={`${product.categorySlug || selectedCategory.slug}-${product.slug || product.name}`}
-                                        variants={scaleIn}
-                                        className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
-                                    >
-                                        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
-                                            {product.image ? (
-                                                <Image
-                                                    src={product.image}
-                                                    alt={product.alt || `${product.name} — custom signage by Pixel & Panel`}
-                                                    fill
-                                                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                                                    className="object-cover transition duration-300 group-hover:scale-105"
-                                                    loading="lazy"
-                                                />
-                                            ) : (
-                                                <div className="flex h-full flex-col justify-between p-6">
-                                                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#E0F2FE] text-[#0369A1]">
-                                                        <Box size={24} />
+                                {filteredProducts.map((product) => {
+                                    const productKey = getProductKey(product)
+                                    const isHighlighted = highlightedProductKey === productKey
+
+                                    return (
+                                        <motion.article
+                                            key={productKey}
+                                            ref={(node) => {
+                                                if (node) {
+                                                    productCardRefs.current.set(productKey, node)
+                                                } else {
+                                                    productCardRefs.current.delete(productKey)
+                                                }
+                                            }}
+                                            data-product-card="true"
+                                            variants={scaleIn}
+                                            className={`group scroll-mt-24 overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                                                isHighlighted
+                                                    ? 'border-[#F59E0B] shadow-[0_0_0_4px_rgba(245,158,11,0.22),0_18px_44px_rgba(245,158,11,0.2)]'
+                                                    : 'border-slate-200'
+                                            }`}
+                                        >
+                                            <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                                                {product.image ? (
+                                                    <Image
+                                                        src={product.image}
+                                                        alt={product.alt || `${product.name} — custom signage by Pixel & Panel`}
+                                                        fill
+                                                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                                                        className="object-cover transition duration-300 group-hover:scale-105"
+                                                        loading="lazy"
+                                                    />
+                                                ) : (
+                                                    <div className="flex h-full flex-col justify-between p-6">
+                                                        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#E0F2FE] text-[#0369A1]">
+                                                            <Box size={24} />
+                                                        </div>
+                                                        <p className="font-mono text-xs leading-relaxed text-slate-500 line-clamp-2">
+                                                            {product.imagePlaceholder || `${product.name} — photo coming soon`}
+                                                        </p>
                                                     </div>
-                                                    <p className="font-mono text-xs leading-relaxed text-slate-500 line-clamp-2">
-                                                        {product.imagePlaceholder || `${product.name} — photo coming soon`}
-                                                    </p>
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="p-6">
-                                            <Link href={getProductLink(product)} className="block">
-                                                <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
-                                            </Link>
-                                            <p className="min-h-[96px] text-base leading-relaxed text-slate-600">{product.description}</p>
-                                            {product.bestFor && (
-                                                <div className="mt-5 border-t border-slate-100 pt-5">
-                                                    <p className="text-sm leading-relaxed text-slate-500">
-                                                        <span className="font-bold text-[#1C1917]">Best for:</span>{' '}{product.bestFor}
-                                                    </p>
-                                                </div>
-                                            )}
-                                            <div className="mt-6 flex flex-wrap gap-4">
-                                                <Link href={getProductLink(product)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]">
-                                                    Learn More <ArrowRight size={15} />
-                                                </Link>
-                                                <Link href={createQuoteLink(product.name, product.categoryName || selectedCategory.name)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition hover:text-[#0369A1]">
-                                                    Request Quote <ArrowRight size={15} />
-                                                </Link>
+                                                )}
                                             </div>
-                                        </div>
-                                    </motion.article>
-                                ))}
+                                            <div className="p-6">
+                                                <Link href={getProductLink(product)} className="block">
+                                                    <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
+                                                </Link>
+                                                <p className="min-h-[96px] text-base leading-relaxed text-slate-600">{product.description}</p>
+                                                {product.bestFor && (
+                                                    <div className="mt-5 border-t border-slate-100 pt-5">
+                                                        <p className="text-sm leading-relaxed text-slate-500">
+                                                            <span className="font-bold text-[#1C1917]">Best for:</span>{' '}{product.bestFor}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                <div className="mt-6 flex flex-wrap gap-4">
+                                                    <Link href={getProductLink(product)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]">
+                                                        Learn More <ArrowRight size={15} />
+                                                    </Link>
+                                                    <Link href={createQuoteLink(product.name, product.categoryName || selectedCategory.name)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition hover:text-[#0369A1]">
+                                                        Request Quote <ArrowRight size={15} />
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </motion.article>
+                                    )
+                                })}
                             </motion.div>
                         ) : (
                             <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center shadow-sm">
@@ -407,6 +579,129 @@ export default function SignageHubClient({ categories = [] }) {
                     </motion.div>
                 </motion.div>
             </section>
+
+            <motion.button
+                type="button"
+                aria-label="Search products"
+                aria-controls="mobile-product-search"
+                aria-expanded={isSearchSheetOpen}
+                initial={false}
+                animate={{
+                    opacity: isFloatingSearchVisible ? 1 : 0,
+                    y: isFloatingSearchVisible ? 0 : 12,
+                    width: isSearchFabExpanded ? 176 : 52,
+                }}
+                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                onClick={handleFloatingSearchClick}
+                tabIndex={isFloatingSearchVisible ? 0 : -1}
+                className={`fixed bottom-5 right-5 z-40 flex h-[52px] items-center justify-center overflow-hidden rounded-full border border-white/45 bg-[#F59E0B]/35 text-[#1C1917] shadow-[0_14px_36px_rgba(28,25,23,0.18),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-xl transition-colors hover:bg-[#F59E0B]/45 focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/25 md:hidden ${
+                    isFloatingSearchVisible ? 'pointer-events-auto' : 'pointer-events-none'
+                }`}
+            >
+                <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_20%,rgba(255,255,255,0.65),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.2),rgba(245,158,11,0.18))]" />
+                <span className="relative flex items-center justify-center gap-2 whitespace-nowrap px-4">
+                    <Search size={19} strokeWidth={2.4} />
+                    <span className={`font-heading text-xs font-bold uppercase tracking-wide transition ${isSearchFabExpanded ? 'max-w-32 opacity-100' : 'max-w-0 opacity-0'}`}>
+                        Search Products
+                    </span>
+                </span>
+            </motion.button>
+
+            {isSearchSheetOpen && (
+                <div className="fixed inset-0 z-50 md:hidden">
+                    <button
+                        type="button"
+                        aria-label="Close product search"
+                        className="absolute inset-0 bg-[#1C1917]/38 backdrop-blur-[2px]"
+                        onClick={() => setIsSearchSheetOpen(false)}
+                    />
+                    <motion.section
+                        id="mobile-product-search"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="mobile-product-search-title"
+                        initial={{ opacity: 0, y: 36 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-x-0 bottom-0 max-h-[82vh] overflow-hidden rounded-t-[1.75rem] border border-white/70 bg-[#FAF8F4]/95 shadow-[0_-20px_70px_rgba(28,25,23,0.26)] backdrop-blur-2xl"
+                    >
+                        <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-slate-300" />
+                        <div className="flex items-center justify-between px-5 pb-4 pt-5">
+                            <h2 id="mobile-product-search-title" className="text-xl text-[#1C1917]">
+                                Search Products
+                            </h2>
+                            <button
+                                type="button"
+                                onClick={() => setIsSearchSheetOpen(false)}
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-[#1C1917] shadow-sm transition hover:border-[#F59E0B] focus:outline-none focus:ring-4 focus:ring-[#0EA5E9]/20"
+                                aria-label="Close search products"
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
+
+                        <div className="px-5 pb-4">
+                            <div className="relative">
+                                <Search size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0369A1]" />
+                                <input
+                                    ref={mobileSearchInputRef}
+                                    type="search"
+                                    value={mobileSearchTerm}
+                                    onChange={(event) => setMobileSearchTerm(event.target.value)}
+                                    placeholder="Search banners, decals, menus, yard signs..."
+                                    className="w-full rounded-2xl border border-slate-200 bg-white/90 py-4 pl-12 pr-4 text-base text-[#1C1917] shadow-inner outline-none transition placeholder:text-slate-400 focus:border-[#0EA5E9] focus:ring-4 focus:ring-[#0EA5E9]/15"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="max-h-[54vh] overflow-y-auto px-5 pb-6">
+                            {mobileSearchResults.length > 0 ? (
+                                <div className="grid gap-3">
+                                    {mobileSearchResults.map((product) => (
+                                        <button
+                                            key={`mobile-search-${getProductKey(product)}`}
+                                            type="button"
+                                            onClick={() => handleSearchResultClick(product)}
+                                            className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white/86 p-3 text-left shadow-sm transition hover:border-[#F59E0B]/70 hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#0EA5E9]/15"
+                                        >
+                                            <span className="relative flex h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-[#E0F2FE] text-[#0369A1]">
+                                                {product.image ? (
+                                                    <Image
+                                                        src={product.image}
+                                                        alt=""
+                                                        fill
+                                                        sizes="56px"
+                                                        className="object-cover"
+                                                    />
+                                                ) : (
+                                                    <span className="flex h-full w-full items-center justify-center">
+                                                        <Box size={20} />
+                                                    </span>
+                                                )}
+                                            </span>
+                                            <span className="min-w-0">
+                                                <span className="block font-heading text-base font-bold leading-tight text-[#1C1917]">
+                                                    {product.name}
+                                                </span>
+                                                <span className="mt-1 block text-sm text-slate-500">
+                                                    {product.categoryName}
+                                                </span>
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="rounded-2xl border border-dashed border-slate-300 bg-white/80 p-5 text-center">
+                                    <p className="font-heading font-bold text-[#1C1917]">No matching products found.</p>
+                                    <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                                        Try banner, yard sign, vehicle, window, menu, or business card.
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </motion.section>
+                </div>
+            )}
 
         </main>
     )
