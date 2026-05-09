@@ -34,7 +34,7 @@ const processCards = [
 function createQuoteLink(project) {
   const params = new URLSearchParams();
   params.set("product", project.quoteProduct);
-  params.set("category", project.category);
+  params.set("category", "Portfolio");
   return `/quote-request?${params.toString()}`;
 }
 
@@ -60,17 +60,16 @@ export default function PortfolioClient() {
 
   return (
     <main className="bg-[#FAF8F4] text-[#1C1917]">
-      <section className="relative overflow-hidden bg-[#0369A1] pt-24 text-white md:pt-28">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_58%,#0EA5E9_100%)]" />
+      <section className="relative overflow-hidden bg-[#0C1E3C] pt-24 text-white md:pt-28">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#FAF8F4] to-transparent" />
 
         <div className="container-px relative pb-20 md:pb-24">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="mx-auto max-w-4xl text-center">
-            <motion.p variants={fadeUp} className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
+            <motion.p variants={fadeUp} className="section-label !text-[#F59E0B]">
               Portfolio
             </motion.p>
-            <motion.h1 variants={fadeUp} className="mt-4 font-heading text-[clamp(2.1rem,4.4vw,3.6rem)] font-black leading-[1.08] tracking-normal text-white">
+            <motion.h1 variants={fadeUp} className="mt-4 text-white">
               Portfolio{" "}
               <span className="text-[#F59E0B]">Coming Together</span>
             </motion.h1>
@@ -128,7 +127,7 @@ export default function PortfolioClient() {
                   {project.image ? (
                     <Image
                       src={project.image}
-                      alt={`${project.title} portfolio preview`}
+                      alt={project.imageAlt}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
                       className="object-cover"
@@ -175,7 +174,7 @@ export default function PortfolioClient() {
                     <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
                       Focus Area
                     </p>
-                    <p className="mt-2 text-sm text-slate-700">{project.location}</p>
+                    <p className="mt-2 text-sm text-slate-700">{project.focusArea}</p>
                   </div>
 
                   <div className="mt-6">
