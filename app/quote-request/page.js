@@ -6,6 +6,10 @@ export const metadata = {
     "Request a free quote from Pixel & Panel for signage, print, websites, local SEO, QR campaigns, and branding services.",
   alternates: {
     canonical: "/quote-request",
+    languages: {
+      "en-US": "/quote-request",
+      "es-US": "/es/solicitar-cotizacion",
+    },
   },
   openGraph: {
     title: "Request a Quote | Pixel & Panel",

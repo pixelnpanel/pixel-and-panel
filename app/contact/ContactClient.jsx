@@ -6,7 +6,37 @@ import { ArrowRight, CheckCircle, Mail, Clock, Phone } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { fadeUp, slideRight, stagger } from '@/lib/animations'
 
-export default function ContactPage() {
+const defaultCopy = {
+    language: 'English',
+    eyebrow: 'Contact Us',
+    h1: '',
+    headlineLines: ['Have a Question?', 'We Would Love', 'to Hear From You.'],
+    introStart: 'Whether you have a question about our services, need help deciding what you need, or just want to say hello — we read every message personally. If you want a softer first step, start with a',
+    visibilityHref: '/free-visibility-check',
+    visibilityLabel: 'Free Visibility Check',
+    emailLabel: 'Email Us',
+    phoneLabel: 'Call Us',
+    responseLabel: 'Response Time',
+    responseValue: 'Within 1 business day',
+    formTitle: 'Send Us a Message',
+    formNote: 'No sales pitch. Just a real conversation.',
+    name: 'Your Name',
+    email: 'Email Address',
+    phone: 'Phone Number',
+    subject: 'Subject',
+    message: 'Your Message',
+    subjectPlaceholder: 'Website, signs, print, or general question',
+    messagePlaceholder: 'Ask us anything — about our services, pricing, or if you need any signs for your business...',
+    submit: 'Send Message',
+    sending: 'Sending...',
+    footer: 'We respond within 1 business day. No spam, ever.',
+    successTitle: 'Message Sent!',
+    successText: 'We read every message personally and will get back to you as soon as we do — usually within 1 business day.',
+    errorFallback: 'Unable to send contact message right now.',
+}
+
+export default function ContactPage({ copy = defaultCopy }) {
+    const content = { ...defaultCopy, ...copy }
     const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
     const [submitted, setSubmitted] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -27,6 +57,7 @@ export default function ContactPage() {
             subject: String(formData.get('subject') || ''),
             message: String(formData.get('message') || ''),
             company: String(formData.get('company') || ''),
+            language: content.language,
             sourcePage: typeof window !== 'undefined' ? window.location.href : 'Contact Page',
         }
 
@@ -39,14 +70,14 @@ export default function ContactPage() {
 
             if (!response.ok) {
                 const data = await response.json().catch(() => ({}))
-                throw new Error(data.error || 'Unable to send contact message right now.')
+                throw new Error(content.language === 'Spanish' ? content.errorFallback : data.error || content.errorFallback)
             }
 
             setSubmitted(true)
             setForm({ name: '', email: '', phone: '', subject: '', message: '' })
             e.currentTarget.reset()
         } catch (submitError) {
-            setError(submitError.message || 'Unable to send contact message right now.')
+            setError(submitError.message || content.errorFallback)
         }
         finally { setLoading(false) }
     }
@@ -81,26 +112,32 @@ export default function ContactPage() {
                         style={{ flex: '1 1 360px', color: 'white' }}
                     >
                         <motion.span variants={fadeUp} className="section-label" style={{ marginBottom: '1rem' }}>
-                            Contact Us
+                            {content.eyebrow}
                         </motion.span>
 
                         <motion.h1 variants={fadeUp} style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
-                            Have a Question?
-                            <br /><span style={{ color: '#F59E0B' }}>We Would Love</span>
-                            <br /><span style={{ color: '#F59E0B' }}>to Hear From You.</span>
+                            {content.h1 ? (
+                                content.h1
+                            ) : (
+                                <>
+                                    {content.headlineLines[0]}
+                                    <br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[1]}</span>
+                                    <br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[2]}</span>
+                                </>
+                            )}
                         </motion.h1>
 
                         <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: '2.5rem', maxWidth: '420px' }}>
-                            Whether you have a question about our services, need help deciding what you need, or just want to say hello — we read every message personally. If you want a softer first step, start with a{' '}
-                            <Link href="/free-visibility-check" style={{ color: '#F59E0B', fontWeight: 700 }}>
-                                Free Visibility Check
+                            {content.introStart}{' '}
+                            <Link href={content.visibilityHref} style={{ color: '#F59E0B', fontWeight: 700 }}>
+                                {content.visibilityLabel}
                             </Link>.
                         </motion.p>
 
                         <motion.div variants={stagger} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                             {[
-                                { href: 'mailto:hello@pixelnpanel.com', icon: <Mail size={18} color="#0EA5E9" />, bg: 'rgba(14,165,233,0.15)', hoverBg: 'rgba(14,165,233,0.15)', hoverBorder: 'rgba(14,165,233,0.4)', label: 'Email Us', value: 'hello@pixelnpanel.com' },
-                                { href: 'tel:+14098006139', icon: <Phone size={18} color="#F59E0B" />, bg: 'rgba(245,158,11,0.15)', hoverBg: 'rgba(245,158,11,0.15)', hoverBorder: 'rgba(245,158,11,0.4)', label: 'Call Us', value: '(409) 800-6139' },
+                                { href: 'mailto:hello@pixelnpanel.com', icon: <Mail size={18} color="#0EA5E9" />, bg: 'rgba(14,165,233,0.15)', hoverBg: 'rgba(14,165,233,0.15)', hoverBorder: 'rgba(14,165,233,0.4)', label: content.emailLabel, value: 'hello@pixelnpanel.com' },
+                                { href: 'tel:+14098006139', icon: <Phone size={18} color="#F59E0B" />, bg: 'rgba(245,158,11,0.15)', hoverBg: 'rgba(245,158,11,0.15)', hoverBorder: 'rgba(245,158,11,0.4)', label: content.phoneLabel, value: '(409) 800-6139' },
                             ].map((item) => (
                                 <motion.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.875rem', padding: '1rem 1.25rem', cursor: 'pointer', transition: 'all 0.2s' }}
@@ -119,8 +156,8 @@ export default function ContactPage() {
                             <motion.div variants={fadeUp} style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.875rem', padding: '1rem 1.25rem' }}>
                                 <div style={{ width: '40px', height: '40px', background: 'rgba(74,222,128,0.15)', borderRadius: '0.625rem', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Clock size={18} color="#4ade80" /></div>
                                 <div>
-                                    <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>Response Time</p>
-                                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'white' }}>Within 1 business day</p>
+                                    <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>{content.responseLabel}</p>
+                                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'white' }}>{content.responseValue}</p>
                                 </div>
                             </motion.div>
                         </motion.div>
@@ -139,15 +176,15 @@ export default function ContactPage() {
                                     <div style={{ width: '72px', height: '72px', background: 'rgba(74,222,128,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
                                         <CheckCircle size={36} color="#4ade80" />
                                     </div>
-                                    <h2 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>Message Sent!</h2>
+                                    <h2 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>{content.successTitle}</h2>
                                     <p style={{ color: '#64748b', fontFamily: 'var(--font-body)', lineHeight: 1.7, maxWidth: '320px', margin: '0 auto' }}>
-                                        We read every message personally and will get back to you as soon as we do — usually within 1 business day.
+                                        {content.successText}
                                     </p>
                                 </motion.div>
                             ) : (
                                 <form onSubmit={handleSubmit}>
-                                    <h2 style={{ color: '#1C1917', marginBottom: '0.5rem' }}>Send Us a Message</h2>
-                                    <p style={{ color: '#94a3b8', fontFamily: 'var(--font-body)', fontSize: '0.875rem', marginBottom: '2rem' }}>No sales pitch. Just a real conversation.</p>
+                                    <h2 style={{ color: '#1C1917', marginBottom: '0.5rem' }}>{content.formTitle}</h2>
+                                    <p style={{ color: '#94a3b8', fontFamily: 'var(--font-body)', fontSize: '0.875rem', marginBottom: '2rem' }}>{content.formNote}</p>
 
                                     <input
                                         type="text"
@@ -159,24 +196,24 @@ export default function ContactPage() {
                                     />
 
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label style={labelStyle}>Your Name *</label>
+                                        <label style={labelStyle}>{content.name} *</label>
                                         <input type="text" name="name" required placeholder="John Martinez" value={form.name} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label style={labelStyle}>Email Address *</label>
+                                        <label style={labelStyle}>{content.email} *</label>
                                         <input type="email" name="email" required placeholder="john@email.com" value={form.email} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label style={labelStyle}>Phone Number</label>
+                                        <label style={labelStyle}>{content.phone}</label>
                                         <input type="tel" name="phone" placeholder="(409) 800-6139" value={form.phone} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label style={labelStyle}>Subject</label>
-                                        <input type="text" name="subject" placeholder="Website, signs, print, or general question" value={form.subject} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <label style={labelStyle}>{content.subject}</label>
+                                        <input type="text" name="subject" placeholder={content.subjectPlaceholder} value={form.subject} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '2rem' }}>
-                                        <label style={labelStyle}>Your Message *</label>
-                                        <textarea name="message" required rows={5} placeholder="Ask us anything — about our services, pricing, or if you need any signs for your business..." value={form.message} onChange={handleChange} style={{ ...inputStyle, resize: 'vertical' }} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <label style={labelStyle}>{content.message} *</label>
+                                        <textarea name="message" required rows={5} placeholder={content.messagePlaceholder} value={form.message} onChange={handleChange} style={{ ...inputStyle, resize: 'vertical' }} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
 
                                     {error && (
@@ -186,9 +223,9 @@ export default function ContactPage() {
                                     )}
 
                                     <button type="submit" disabled={loading} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: loading ? '#FCD34D' : '#F59E0B', color: '#1C1917', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '1rem', borderRadius: '0.875rem', border: 'none', cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
-                                        {loading ? 'Sending...' : <><span>Send Message</span><ArrowRight size={16} /></>}
+                                        {loading ? content.sending : <><span>{content.submit}</span><ArrowRight size={16} /></>}
                                     </button>
-                                    <p style={{ textAlign: 'center', color: '#94a3b8', fontFamily: 'var(--font-body)', fontSize: '0.8rem', marginTop: '1rem' }}>We respond within 1 business day. No spam, ever.</p>
+                                    <p style={{ textAlign: 'center', color: '#94a3b8', fontFamily: 'var(--font-body)', fontSize: '0.8rem', marginTop: '1rem' }}>{content.footer}</p>
                                 </form>
                             )}
                         </div>

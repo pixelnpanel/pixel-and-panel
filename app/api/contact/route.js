@@ -6,7 +6,7 @@ function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
 }
 
-function buildEmail({ name, email, phone, subject, sourcePage, message }) {
+function buildEmail({ name, email, phone, subject, sourcePage, message, language }) {
   const submittedAt = new Date().toLocaleString("en-US", {
     timeZone: "America/Chicago",
     dateStyle: "medium",
@@ -20,12 +20,16 @@ function buildEmail({ name, email, phone, subject, sourcePage, message }) {
     subject: escapeHtml(subject || "General Inquiry"),
     sourcePage: escapeHtml(sourcePage || "Not provided"),
     message: escapeHtml(message),
+    language: escapeHtml(language || "English"),
     submittedAt: escapeHtml(`${submittedAt} CT`),
   };
 
   const text = [
-    "New contact message from pixelnpanel.com",
+    language === "Spanish"
+      ? "Nuevo mensaje de contacto — Pixel & Panel"
+      : "New contact message from pixelnpanel.com",
     "",
+    `Language: ${language || "English"}`,
     `Name: ${name}`,
     `Email: ${email}`,
     `Phone: ${phone || "Not provided"}`,
@@ -42,6 +46,7 @@ function buildEmail({ name, email, phone, subject, sourcePage, message }) {
       <h1 style="font-size: 22px; color: #0369A1; margin: 0 0 16px;">New Contact Message</h1>
       <table style="border-collapse: collapse; width: 100%; margin: 0 0 20px;">
         <tbody>
+          <tr><td style="padding: 8px 0; font-weight: 700;">Language</td><td style="padding: 8px 0;">${safe.language}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Name</td><td style="padding: 8px 0;">${safe.name}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Email</td><td style="padding: 8px 0;">${safe.email}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Phone</td><td style="padding: 8px 0;">${safe.phone}</td></tr>
@@ -76,6 +81,7 @@ export async function POST(request) {
   const message = cleanText(payload.message);
   const company = cleanText(payload.company);
   const sourcePage = cleanText(payload.sourcePage);
+  const language = cleanText(payload.language) || "English";
 
   if (company) {
     return jsonResponse({ ok: true });
@@ -96,6 +102,7 @@ export async function POST(request) {
     subject,
     sourcePage,
     message,
+    language,
   });
 
   try {
@@ -103,7 +110,10 @@ export async function POST(request) {
       fromName: process.env.CONTACT_FROM_NAME || "Pixel & Panel Contact Form",
       to: process.env.CONTACT_TO_EMAIL || "hello@pixelnpanel.com",
       replyTo: email,
-      subject: `New Contact Message: ${cleanHeader(subject)}`,
+      subject:
+        language === "Spanish"
+          ? cleanHeader("Nuevo mensaje de contacto — Pixel & Panel")
+          : `New Contact Message: ${cleanHeader(subject)}`,
       text,
       html,
     });

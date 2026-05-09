@@ -11,6 +11,56 @@ import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
 
 const ALL_PRODUCTS_SLUG = 'all-products'
 
+const DEFAULT_COPY = {
+    eyebrow: 'Signage & Print',
+    h1Start: 'Custom Signage & Print That',
+    h1Highlight: 'Makes Your Brand Visible',
+    heroCopy: 'Browse our most requested sign products by category and quickly find the right option for your storefront, vehicle, event, promotion, or local business.',
+    quoteCta: 'Start a Signage Quote',
+    viewProducts: 'View Products',
+    intro: 'Choose a category and view the matching products. Product quote buttons will automatically pre-select that product in the quote form.',
+    categoriesHeading: 'Categories',
+    productsLabel: 'products',
+    allProducts: 'All Products',
+    selectedCategory: 'Selected Category',
+    allHeading: 'All Signage & Print Products',
+    productsAvailable: 'products available',
+    mobileCategoryHeading: 'Choose a category',
+    mobileCategoryHelp: 'Swipe sideways, then scroll down for products.',
+    findProduct: 'Find a product',
+    searchPlaceholder: 'Search signs, banners, decals, cards...',
+    searchAria: 'Search signage products',
+    searchResultsFor: 'Search results for',
+    matchingProduct: 'matching product',
+    matchingProducts: 'matching products',
+    clearSearch: 'Clear Search',
+    learnMore: 'Learn More',
+    requestQuote: 'Request Quote',
+    bestFor: 'Best for:',
+    noResultsTitle: 'No matching products found.',
+    noResultsCopy: 'Try searching for “banner,” “yard sign,” “vehicle,” “window,” “menu,” or “business card.”',
+    requestHelp: 'Request Help Choosing',
+    helpTitle: 'Need help choosing?',
+    helpCopy: "Tell us the size, quantity, logo, and deadline. We'll help you choose the right signage product for your project.",
+    helpQuote: 'Get a Free Quote',
+    helpVisibility: 'Check Visibility First',
+    bottomTitle: 'Ready to make your business more visible?',
+    bottomCopy: "Send us what you need, and we'll help you choose the right material, size, finish, and installation option.",
+    bottomQuote: 'Get a Free Quote',
+    bottomVisibility: 'Free Visibility Check',
+    mobileSearchLabel: 'Search Products',
+    mobileSearchPlaceholder: 'Search banners, decals, menus, yard signs...',
+    mobileNoResultsCopy: 'Try banner, yard sign, vehicle, window, menu, or business card.',
+    quoteCategoryFallback: 'Signage',
+    quoteCategoryOverride: '',
+    quoteHelpProduct: 'General Signage Help',
+    productAltSuffix: 'custom signage by Pixel & Panel',
+    basePath: '/signage',
+    quotePath: '/quote-request',
+    visibilityPath: '/free-visibility-check',
+    productSlugMap: SIGNAGE_PRODUCT_SLUGS,
+}
+
 const sortProductsByName = (products) => {
     return products
         .map((product, index) => ({ product, index }))
@@ -60,7 +110,8 @@ const getProductSearchScore = (product, query) => {
     return score
 }
 
-export default function SignageHubClient({ categories = [] }) {
+export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY }) {
+    const content = { ...DEFAULT_COPY, ...copy }
     const router = useRouter()
     const searchParams = useSearchParams()
     const productAreaRef = useRef(null)
@@ -87,12 +138,12 @@ export default function SignageHubClient({ categories = [] }) {
     const categoryOptions = useMemo(() => [
         {
             slug: ALL_PRODUCTS_SLUG,
-            name: 'All Products',
+            name: content.allProducts,
             products: allProducts,
             isAllProducts: true,
         },
         ...categories,
-    ], [allProducts, categories])
+    ], [allProducts, categories, content.allProducts])
 
     const defaultCategorySlug = ALL_PRODUCTS_SLUG
     const urlCategory = searchParams.get('category')
@@ -124,7 +175,7 @@ export default function SignageHubClient({ categories = [] }) {
     }, [normalizedSearchTerm, selectedProducts])
 
     const selectedHeading = selectedCategory?.isAllProducts
-        ? 'All Signage & Print Products'
+        ? content.allHeading
         : selectedCategory.name
     const isAllProductsSelected = Boolean(selectedCategory?.isAllProducts)
 
@@ -215,7 +266,7 @@ export default function SignageHubClient({ categories = [] }) {
     const handleCategoryClick = (slug) => {
         const params = new URLSearchParams(searchParams.toString())
         params.set('category', slug)
-        router.push(`/signage?${params.toString()}`, { scroll: false })
+        router.push(`${content.basePath}?${params.toString()}`, { scroll: false })
         setTimeout(() => {
             productAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }, 80)
@@ -224,13 +275,13 @@ export default function SignageHubClient({ categories = [] }) {
     const createQuoteLink = (productName, categoryName) => {
         const params = new URLSearchParams()
         params.set('product', productName)
-        params.set('category', categoryName)
-        return `/quote-request?${params.toString()}`
+        params.set('category', content.quoteCategoryOverride || categoryName)
+        return `${content.quotePath}?${params.toString()}`
     }
 
     const getProductLink = (product) => {
-        const productSlug = SIGNAGE_PRODUCT_SLUGS[product.slug]
-        return productSlug ? `/signage/${productSlug}` : '/signage'
+        const productSlug = content.productSlugMap[product.slug] || product.slug
+        return productSlug ? `${content.basePath}/${productSlug}` : content.basePath
     }
 
     const handleFloatingSearchClick = () => {
@@ -271,21 +322,21 @@ export default function SignageHubClient({ categories = [] }) {
                     className="relative mx-auto max-w-5xl text-center"
                 >
                     <motion.p variants={fadeUp} className="section-label mb-4" style={{ color: '#F59E0B' }}>
-                        Signage & Print
+                        {content.eyebrow}
                     </motion.p>
                     <motion.h1 variants={fadeUp} style={{ color: 'white', margin: '0 auto', maxWidth: '900px' }}>
-                        Custom Signage & Print That{' '}
-                        <span style={{ color: '#F59E0B' }}>Makes Your Brand Visible</span>
+                        {content.h1Start}{' '}
+                        <span style={{ color: '#F59E0B' }}>{content.h1Highlight}</span>
                     </motion.h1>
                     <motion.p variants={fadeUp} className="mx-auto mt-7 max-w-3xl text-lg leading-relaxed text-white/75 md:text-xl">
-                        Browse our most requested sign products by category and quickly find the right option for your storefront, vehicle, event, promotion, or local business.
+                        {content.heroCopy}
                     </motion.p>
                     <motion.div variants={fadeUp} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                        <Link href="/quote-request" className="btn-amber">
-                            Start a Signage Quote <ArrowRight size={18} />
+                        <Link href={content.quotePath} className="btn-amber">
+                            {content.quoteCta} <ArrowRight size={18} />
                         </Link>
                         <button onClick={() => productAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="btn-ghost">
-                            View Products <Search size={17} />
+                            {content.viewProducts} <Search size={17} />
                         </button>
                     </motion.div>
                 </motion.div>
@@ -295,7 +346,7 @@ export default function SignageHubClient({ categories = [] }) {
             <section className="border-b border-black/5 bg-white px-6 py-10">
                 <div className="mx-auto max-w-4xl text-center">
                     <p className="text-lg leading-relaxed text-slate-700 md:text-xl">
-                        Choose a category and view the matching products. Product quote buttons will automatically pre-select that product in the quote form.
+                        {content.intro}
                     </p>
                 </div>
             </section>
@@ -314,7 +365,7 @@ export default function SignageHubClient({ categories = [] }) {
                         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                             <div className="flex items-center gap-3 border-b border-slate-200 px-6 py-5">
                                 <Search size={21} className="text-[#0369A1]" />
-                                <h2 style={{ color: '#1C1917' }}>Categories</h2>
+                                <h2 style={{ color: '#1C1917' }}>{content.categoriesHeading}</h2>
                             </div>
                             <div className="max-h-[72vh] overflow-y-auto">
                                 {categoryOptions.map((category) => {
@@ -326,7 +377,7 @@ export default function SignageHubClient({ categories = [] }) {
                                             <span>
                                                 <span className="block font-heading font-bold leading-tight">{category.name}</span>
                                                 <span className={`mt-1 block text-sm ${isActive ? 'text-white/80' : 'text-slate-500'}`}>
-                                                    {category.products?.length || 0} products
+                                                    {category.products?.length || 0} {content.productsLabel}
                                                 </span>
                                             </span>
                                             <ArrowRight size={18} className={isActive ? 'text-[#F59E0B]' : 'text-slate-400'} />
@@ -339,15 +390,15 @@ export default function SignageHubClient({ categories = [] }) {
                         {/* HELP BOX */}
                         <div className="mt-5 rounded-2xl bg-[#1C1917] p-6 text-white shadow-sm">
                             <MessageSquareText size={26} className="mb-5 text-[#F59E0B]" />
-                            <h3 style={{ color: 'white', marginBottom: '0.75rem' }}>Need help choosing?</h3>
+                            <h3 style={{ color: 'white', marginBottom: '0.75rem' }}>{content.helpTitle}</h3>
                             <p className="text-sm leading-relaxed text-white/65">
-                                Tell us the size, quantity, logo, and deadline. We&apos;ll help you choose the right signage product for your project.
+                                {content.helpCopy}
                             </p>
-                            <Link href="/quote-request" className="mt-5 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B]">
-                                Get a Free Quote <ArrowRight size={15} />
+                            <Link href={content.quotePath} className="mt-5 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B]">
+                                {content.helpQuote} <ArrowRight size={15} />
                             </Link>
-                            <Link href="/free-visibility-check" className="mt-3 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-white/75 transition hover:text-[#F59E0B]">
-                                Check Visibility First <ArrowRight size={15} />
+                            <Link href={content.visibilityPath} className="mt-3 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-white/75 transition hover:text-[#F59E0B]">
+                                {content.helpVisibility} <ArrowRight size={15} />
                             </Link>
                         </div>
                     </motion.aside>
@@ -361,10 +412,10 @@ export default function SignageHubClient({ categories = [] }) {
                                     <Search size={20} className="shrink-0 text-[#0369A1]" />
                                     <div>
                                         <h2 id="mobile-category-heading" className="text-xl text-[#1C1917]">
-                                            Choose a category
+                                            {content.mobileCategoryHeading}
                                         </h2>
                                         <p className="mt-1 text-sm text-slate-500">
-                                            Swipe sideways, then scroll down for products.
+                                            {content.mobileCategoryHelp}
                                         </p>
                                     </div>
                                 </div>
@@ -403,15 +454,15 @@ export default function SignageHubClient({ categories = [] }) {
                         >
                             <div className="absolute right-8 top-6 h-24 w-24 rounded-3xl border border-white/10 opacity-40 rotate-12" />
                             <div className="absolute right-20 top-20 h-16 w-16 rounded-full border border-white/10 opacity-30" />
-                            <p className="section-label mb-3" style={{ color: 'rgba(255,255,255,0.6)' }}>Selected Category</p>
+                            <p className="section-label mb-3" style={{ color: 'rgba(255,255,255,0.6)' }}>{content.selectedCategory}</p>
                             <h2 style={{ color: 'white' }}>{selectedHeading}</h2>
-                            <p className="mt-4 text-white/75">{selectedProducts.length} products available</p>
+                            <p className="mt-4 text-white/75">{selectedProducts.length} {content.productsAvailable}</p>
                         </motion.div>
 
                         {/* SEARCH */}
                         <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5">
                             <label htmlFor="signage-product-search" className="mb-2 block font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1]">
-                                Find a product
+                                {content.findProduct}
                             </label>
                             <div className="relative">
                                 <Search size={20} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0369A1]" />
@@ -420,8 +471,8 @@ export default function SignageHubClient({ categories = [] }) {
                                     type="search"
                                     value={searchTerm}
                                     onChange={(event) => setSearchTerm(event.target.value)}
-                                    placeholder="Search signs, banners, decals, cards..."
-                                    aria-label="Search signage products"
+                                    placeholder={content.searchPlaceholder}
+                                    aria-label={content.searchAria}
                                     className="w-full rounded-xl border border-slate-200 bg-[#FAF8F4] py-3.5 pl-12 pr-12 text-base text-[#1C1917] shadow-inner outline-none transition placeholder:text-slate-400 focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
                                 />
                                 {isSearchActive && (
@@ -438,15 +489,15 @@ export default function SignageHubClient({ categories = [] }) {
                             {isSearchActive && (
                                 <div className="mt-4 flex flex-col gap-3 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
                                     <p>
-                                        Search results for <span className="font-bold text-[#1C1917]">&ldquo;{searchTerm.trim()}&rdquo;</span>
-                                        {' '}<span className="font-bold text-[#0369A1]">{filteredProducts.length}</span> matching {filteredProducts.length === 1 ? 'product' : 'products'}
+                                        {content.searchResultsFor} <span className="font-bold text-[#1C1917]">&ldquo;{searchTerm.trim()}&rdquo;</span>
+                                        {' '}<span className="font-bold text-[#0369A1]">{filteredProducts.length}</span> {filteredProducts.length === 1 ? content.matchingProduct : content.matchingProducts}
                                     </p>
                                     <button
                                         type="button"
                                         onClick={() => setSearchTerm('')}
                                         className="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 px-4 py-2 font-heading text-xs font-bold uppercase tracking-wide text-[#0369A1] transition hover:border-[#F59E0B] hover:text-[#1C1917] sm:self-auto"
                                     >
-                                        Clear Search <X size={14} />
+                                        {content.clearSearch} <X size={14} />
                                     </button>
                                 </div>
                             )}
@@ -488,7 +539,7 @@ export default function SignageHubClient({ categories = [] }) {
                                                 {product.image ? (
                                                     <Image
                                                         src={product.image}
-                                                        alt={product.alt || `${product.name} — custom signage by Pixel & Panel`}
+                                                        alt={product.alt || `${product.name} — ${content.productAltSuffix}`}
                                                         fill
                                                         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                                                         className="object-cover transition duration-300 group-hover:scale-105"
@@ -513,16 +564,16 @@ export default function SignageHubClient({ categories = [] }) {
                                                 {product.bestFor && (
                                                     <div className="mt-5 border-t border-slate-100 pt-5">
                                                         <p className="text-sm leading-relaxed text-slate-500">
-                                                            <span className="font-bold text-[#1C1917]">Best for:</span>{' '}{product.bestFor}
+                                                            <span className="font-bold text-[#1C1917]">{content.bestFor}</span>{' '}{product.bestFor}
                                                         </p>
                                                     </div>
                                                 )}
                                                 <div className="mt-6 flex flex-wrap gap-4">
                                                     <Link href={getProductLink(product)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]">
-                                                        Learn More <ArrowRight size={15} />
+                                                        {content.learnMore} <ArrowRight size={15} />
                                                     </Link>
                                                     <Link href={createQuoteLink(product.name, product.categoryName || selectedCategory.name)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition hover:text-[#0369A1]">
-                                                        Request Quote <ArrowRight size={15} />
+                                                        {content.requestQuote} <ArrowRight size={15} />
                                                     </Link>
                                                 </div>
                                             </div>
@@ -532,12 +583,12 @@ export default function SignageHubClient({ categories = [] }) {
                             </motion.div>
                         ) : (
                             <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center shadow-sm">
-                                <h3 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>No matching products found.</h3>
+                                <h3 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>{content.noResultsTitle}</h3>
                                 <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600">
-                                    Try searching for &ldquo;banner,&rdquo; &ldquo;yard sign,&rdquo; &ldquo;vehicle,&rdquo; &ldquo;window,&rdquo; &ldquo;menu,&rdquo; or &ldquo;business card.&rdquo;
+                                    {content.noResultsCopy}
                                 </p>
-                                <Link href="/quote-request?product=General%20Signage%20Help&category=Signage" className="btn-amber mt-6 inline-flex">
-                                    Request Help Choosing <ArrowRight size={18} />
+                                <Link href={createQuoteLink(content.quoteHelpProduct, content.quoteCategoryFallback)} className="btn-amber mt-6 inline-flex">
+                                    {content.requestHelp} <ArrowRight size={18} />
                                 </Link>
                             </div>
                         )}
@@ -555,17 +606,17 @@ export default function SignageHubClient({ categories = [] }) {
                     viewport={viewport}
                 >
                     <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1.25rem' }}>
-                        Ready to make your business more visible?
+                        {content.bottomTitle}
                     </motion.h2>
                     <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
-                        Send us what you need, and we&apos;ll help you choose the right material, size, finish, and installation option.
+                        {content.bottomCopy}
                     </motion.p>
                     <motion.div variants={fadeUp} className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                        <Link href="/quote-request" className="btn-amber">
-                            Get a Free Quote <ArrowRight size={18} />
+                        <Link href={content.quotePath} className="btn-amber">
+                            {content.bottomQuote} <ArrowRight size={18} />
                         </Link>
-                        <Link href="/free-visibility-check" className="btn-ghost">
-                            Free Visibility Check <ArrowRight size={18} />
+                        <Link href={content.visibilityPath} className="btn-ghost">
+                            {content.bottomVisibility} <ArrowRight size={18} />
                         </Link>
                     </motion.div>
                 </motion.div>
@@ -593,7 +644,7 @@ export default function SignageHubClient({ categories = [] }) {
                 <span className="relative flex items-center justify-center gap-2 whitespace-nowrap px-4">
                     <Search size={28} strokeWidth={2.35} />
                     <span className={`font-heading text-xs font-bold uppercase tracking-wide transition ${isSearchFabExpanded ? 'max-w-32 opacity-100' : 'max-w-0 opacity-0'}`}>
-                        Search Products
+                        {content.mobileSearchLabel}
                     </span>
                 </span>
             </motion.button>
@@ -619,7 +670,7 @@ export default function SignageHubClient({ categories = [] }) {
                         <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-slate-300" />
                         <div className="flex items-center justify-between px-5 pb-4 pt-5">
                             <h2 id="mobile-product-search-title" className="text-xl text-[#1C1917]">
-                                Search Products
+                                {content.mobileSearchLabel}
                             </h2>
                             <button
                                 type="button"
@@ -639,7 +690,7 @@ export default function SignageHubClient({ categories = [] }) {
                                     type="search"
                                     value={mobileSearchTerm}
                                     onChange={(event) => setMobileSearchTerm(event.target.value)}
-                                    placeholder="Search banners, decals, menus, yard signs..."
+                                    placeholder={content.mobileSearchPlaceholder}
                                     className="w-full rounded-2xl border border-slate-200 bg-white/90 py-4 pl-12 pr-4 text-base text-[#1C1917] shadow-inner outline-none transition placeholder:text-slate-400 focus:border-[#0EA5E9] focus:ring-4 focus:ring-[#0EA5E9]/15"
                                 />
                             </div>
@@ -683,9 +734,9 @@ export default function SignageHubClient({ categories = [] }) {
                                 </div>
                             ) : (
                                 <div className="rounded-2xl border border-dashed border-slate-300 bg-white/80 p-5 text-center">
-                                    <p className="font-heading font-bold text-[#1C1917]">No matching products found.</p>
+                                    <p className="font-heading font-bold text-[#1C1917]">{content.noResultsTitle}</p>
                                     <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                                        Try banner, yard sign, vehicle, window, menu, or business card.
+                                        {content.mobileNoResultsCopy}
                                     </p>
                                 </div>
                             )}

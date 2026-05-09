@@ -9,6 +9,10 @@ export const metadata = {
     "Simple starter pricing for Southeast Texas businesses. Pixel & Panel offers affordable website, visibility, QR campaign, and signage quote options for local businesses.",
   alternates: {
     canonical: "https://pixelnpanel.com/pricing",
+    languages: {
+      "en-US": "https://pixelnpanel.com/pricing",
+      "es-US": "https://pixelnpanel.com/es/precios",
+    },
   },
   openGraph: {
     title: "Pricing | Pixel & Panel — Starter Websites, Signs & Visibility Packages",

@@ -6,7 +6,7 @@ function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
 }
 
-function buildEmail({ name, email, phone, productService, sourcePage, message }) {
+function buildEmail({ name, businessName, email, phone, productService, sourcePage, message, language }) {
   const submittedAt = new Date().toLocaleString("en-US", {
     timeZone: "America/Chicago",
     dateStyle: "medium",
@@ -15,18 +15,24 @@ function buildEmail({ name, email, phone, productService, sourcePage, message })
 
   const safe = {
     name: escapeHtml(name),
+    businessName: escapeHtml(businessName || "Not provided"),
     email: escapeHtml(email),
     phone: escapeHtml(phone || "Not provided"),
     productService: escapeHtml(productService || "General Quote"),
     sourcePage: escapeHtml(sourcePage || "Not provided"),
     message: escapeHtml(message),
+    language: escapeHtml(language || "English"),
     submittedAt: escapeHtml(`${submittedAt} CT`),
   };
 
   const text = [
-    "New quote request from pixelnpanel.com",
+    language === "Spanish"
+      ? "Nueva solicitud de cotización — Pixel & Panel"
+      : "New quote request from pixelnpanel.com",
     "",
+    `Language: ${language || "English"}`,
     `Name: ${name}`,
+    `Business: ${businessName || "Not provided"}`,
     `Email: ${email}`,
     `Phone: ${phone || "Not provided"}`,
     `Product/Service: ${productService || "General Quote"}`,
@@ -42,7 +48,9 @@ function buildEmail({ name, email, phone, productService, sourcePage, message })
       <h1 style="font-size: 22px; color: #0369A1; margin: 0 0 16px;">New Quote Request</h1>
       <table style="border-collapse: collapse; width: 100%; margin: 0 0 20px;">
         <tbody>
+          <tr><td style="padding: 8px 0; font-weight: 700;">Language</td><td style="padding: 8px 0;">${safe.language}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Name</td><td style="padding: 8px 0;">${safe.name}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: 700;">Business</td><td style="padding: 8px 0;">${safe.businessName}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Email</td><td style="padding: 8px 0;">${safe.email}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Phone</td><td style="padding: 8px 0;">${safe.phone}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Product/Service</td><td style="padding: 8px 0;">${safe.productService}</td></tr>
@@ -70,12 +78,14 @@ export async function POST(request) {
   }
 
   const name = cleanText(payload.name);
+  const businessName = cleanText(payload.businessName);
   const email = cleanText(payload.email);
   const phone = cleanText(payload.phone);
   const productService = cleanText(payload.productService) || "General Quote";
   const message = cleanText(payload.message);
   const company = cleanText(payload.company);
   const sourcePage = cleanText(payload.sourcePage);
+  const language = cleanText(payload.language) || "English";
 
   if (company) {
     return jsonResponse({ ok: true });
@@ -91,11 +101,13 @@ export async function POST(request) {
 
   const { text, html } = buildEmail({
     name,
+    businessName,
     email,
     phone,
     productService,
     sourcePage,
     message,
+    language,
   });
 
   try {
@@ -103,7 +115,10 @@ export async function POST(request) {
       fromName: process.env.QUOTE_FROM_NAME || "Pixel & Panel Website",
       to: process.env.QUOTE_TO_EMAIL || "hello@pixelnpanel.com",
       replyTo: email,
-      subject: `New Quote Request: ${cleanHeader(productService)}`,
+      subject:
+        language === "Spanish"
+          ? cleanHeader("Nueva solicitud de cotización — Pixel & Panel")
+          : `New Quote Request: ${cleanHeader(productService)}`,
       text,
       html,
     });

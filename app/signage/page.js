@@ -8,6 +8,10 @@ export const metadata = {
         'Custom banners, yard signs, vehicle graphics, window graphics, storefront signs, rigid signs, event displays, and print marketing materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
     alternates: {
         canonical: '/signage',
+        languages: {
+            'en-US': '/signage',
+            'es-US': '/es/letreros',
+        },
     },
     openGraph: {
         title: 'Custom Signage & Print | Pixel & Panel — Beaumont TX',

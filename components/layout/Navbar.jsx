@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { ArrowRight, Menu, X } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
+import { getAlternatePath, isSpanishPath } from '@/lib/i18n'
 
 const MOBILE_NAV = [
   { label: 'Digital Services', href: '/digital' },
@@ -15,9 +17,54 @@ const MOBILE_NAV = [
   { label: 'Request a Quote', href: '/quote-request', primary: true },
 ]
 
+const SPANISH_NAV = [
+  { label: 'Inicio', href: '/es' },
+  { label: 'Servicios Digitales', href: '/es/servicios-digitales' },
+  { label: 'Letreros e Impresión', href: '/es/letreros' },
+  { label: 'Portafolio', href: '/es/portafolio' },
+  { label: 'Precios', href: '/es/precios' },
+  { label: 'Contacto', href: '/es/contacto' },
+]
+
+function rememberLanguage(language) {
+  if (typeof window === 'undefined') return
+
+  try {
+    window.localStorage.setItem('pnp-language', language)
+  } catch {}
+  document.cookie = `pnp-language=${language}; path=/; max-age=31536000; SameSite=Lax`
+}
+
+function hasSavedLanguageChoice() {
+  if (typeof window === 'undefined') return true
+
+  let storedLanguage = null
+  try {
+    storedLanguage = window.localStorage.getItem('pnp-language')
+  } catch {}
+
+  return (
+    storedLanguage ||
+    document.cookie.split(';').some((item) => item.trim().startsWith('pnp-language='))
+  )
+}
+
 export default function Navbar() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const spanish = isSpanishPath(pathname)
+  const navLinks = spanish ? SPANISH_NAV : NAV_LINKS
+  const mobileLinks = spanish
+    ? [...SPANISH_NAV, { label: 'Cotización Gratis', href: '/es/solicitar-cotizacion', primary: true }]
+    : MOBILE_NAV
+  const homeHref = spanish ? '/es' : '/'
+  const quoteHref = spanish ? '/es/solicitar-cotizacion' : '/quote-request'
+  const quoteLabel = spanish ? 'COTIZACIÓN GRATIS' : 'GET A FREE QUOTE'
+  const languageSwitch = {
+    en: getAlternatePath(pathname, 'en'),
+    es: getAlternatePath(pathname, 'es'),
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -33,6 +80,17 @@ export default function Navbar() {
     window.addEventListener('resize', closeOnDesktop)
     return () => window.removeEventListener('resize', closeOnDesktop)
   }, [])
+
+  useEffect(() => {
+    if (pathname !== '/' || hasSavedLanguageChoice()) return
+
+    const preferredLanguage = window.navigator.language || window.navigator.languages?.[0] || ''
+
+    if (preferredLanguage.toLowerCase().startsWith('es')) {
+      rememberLanguage('es')
+      window.location.assign('/es')
+    }
+  }, [pathname])
 
   const isLight = scrolled
   const bg = isLight || menuOpen ? 'rgba(255,255,255,0.97)' : 'transparent'
@@ -56,7 +114,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link
-            href="/"
+            href={homeHref}
             onClick={() => setMenuOpen(false)}
             style={{ textDecoration: 'none', flexShrink: 0 }}
           >
@@ -76,7 +134,7 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <nav aria-label="Desktop navigation" className="hidden lg:flex" style={{ alignItems: 'center', gap: '0.25rem' }}>
-            {NAV_LINKS.map((item) => (
+            {navLinks.map((item) => (
               <Link key={item.label} href={item.href} style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: 500, color: textColor, textDecoration: 'none', transition: 'all 0.2s', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}
                 onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.06)'}
                 onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
@@ -87,9 +145,49 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:block" style={{ flexShrink: 0 }}>
-            <Link href="/quote-request" className="btn-amber" style={{ fontSize: '0.8rem', padding: '0.75rem 1.25rem' }}>
-              GET A FREE QUOTE <ArrowRight size={15} />
+          <div className="hidden lg:flex" style={{ alignItems: 'center', flexShrink: 0, gap: '0.75rem' }}>
+            <div
+              aria-label="Language switcher"
+              style={{
+                alignItems: 'center',
+                border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
+                borderRadius: '999px',
+                display: 'inline-flex',
+                fontFamily: 'var(--font-heading)',
+                fontSize: '0.72rem',
+                fontWeight: 800,
+                overflow: 'hidden',
+              }}
+            >
+              <Link
+                href={languageSwitch.en}
+                hrefLang="en-US"
+                onClick={() => rememberLanguage('en')}
+                style={{
+                  background: spanish ? 'transparent' : '#F59E0B',
+                  color: spanish ? textColor : '#1C1917',
+                  padding: '0.42rem 0.55rem',
+                  textDecoration: 'none',
+                }}
+              >
+                EN
+              </Link>
+              <Link
+                href={languageSwitch.es}
+                hrefLang="es-US"
+                onClick={() => rememberLanguage('es')}
+                style={{
+                  background: spanish ? '#F59E0B' : 'transparent',
+                  color: spanish ? '#1C1917' : textColor,
+                  padding: '0.42rem 0.55rem',
+                  textDecoration: 'none',
+                }}
+              >
+                ES
+              </Link>
+            </div>
+            <Link href={quoteHref} className="btn-amber" style={{ fontSize: '0.8rem', padding: '0.75rem 1.25rem' }}>
+              {quoteLabel} <ArrowRight size={15} />
             </Link>
           </div>
 
@@ -149,7 +247,7 @@ export default function Navbar() {
               padding: '0.65rem',
             }}
           >
-            {MOBILE_NAV.map((item) => (
+            {mobileLinks.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
@@ -178,6 +276,56 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <div
+              aria-label="Language switcher"
+              style={{
+                display: 'grid',
+                gap: '0.5rem',
+                gridTemplateColumns: '1fr 1fr',
+                marginTop: '0.35rem',
+              }}
+            >
+              <Link
+                href={languageSwitch.en}
+                hrefLang="en-US"
+                onClick={() => {
+                  rememberLanguage('en')
+                  setMenuOpen(false)
+                }}
+                style={{
+                  background: spanish ? 'rgba(255,255,255,0.08)' : '#F59E0B',
+                  borderRadius: '0.75rem',
+                  color: spanish ? 'white' : '#1C1917',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '0.85rem',
+                  fontWeight: 800,
+                  padding: '0.8rem',
+                  textAlign: 'center',
+                }}
+              >
+                EN
+              </Link>
+              <Link
+                href={languageSwitch.es}
+                hrefLang="es-US"
+                onClick={() => {
+                  rememberLanguage('es')
+                  setMenuOpen(false)
+                }}
+                style={{
+                  background: spanish ? '#F59E0B' : 'rgba(255,255,255,0.08)',
+                  borderRadius: '0.75rem',
+                  color: spanish ? '#1C1917' : 'white',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '0.85rem',
+                  fontWeight: 800,
+                  padding: '0.8rem',
+                  textAlign: 'center',
+                }}
+              >
+                ES
+              </Link>
+            </div>
           </nav>
         </div>
       )}

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import SignageProductPage from "@/components/signage/SignageProductPage";
 import { getSignageProduct, signageProducts } from "@/lib/signage-products";
+import { signageSlugMap } from "@/lib/signage-products-es";
 
 export function generateStaticParams() {
     return signageProducts.map((product) => ({
@@ -23,6 +24,10 @@ export async function generateMetadata({ params }) {
         description: product.description,
         alternates: {
             canonical: `/signage/${product.slug}`,
+            languages: {
+                "en-US": `/signage/${product.slug}`,
+                "es-US": `/es/letreros/${signageSlugMap[product.slug] || ""}`,
+            },
         },
         openGraph: {
             title: `${product.title} | Pixel & Panel`,

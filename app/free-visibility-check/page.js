@@ -78,6 +78,10 @@ export const metadata = {
     "Get a free review of your website, Google profile, signage, and QR/lead capture setup from Pixel & Panel. Serving Southeast Texas businesses.",
   alternates: {
     canonical: "https://pixelnpanel.com/free-visibility-check",
+    languages: {
+      "en-US": "https://pixelnpanel.com/free-visibility-check",
+      "es-US": "https://pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
+    },
   },
   openGraph: {
     title: "Free Visibility Check | Pixel & Panel",

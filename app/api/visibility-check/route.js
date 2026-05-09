@@ -32,6 +32,7 @@ function buildEmail({
   helpOptions,
   message,
   sourcePage,
+  language,
 }) {
   const submittedAt = new Date().toLocaleString("en-US", {
     timeZone: "America/Chicago",
@@ -50,12 +51,16 @@ function buildEmail({
     helpOptions: escapeHtml(helpText),
     message: escapeHtml(message || "Not provided"),
     sourcePage: escapeHtml(sourcePage || "/free-visibility-check"),
+    language: escapeHtml(language || "English"),
     submittedAt: escapeHtml(`${submittedAt} CT`),
   };
 
   const text = [
-    "New Free Visibility Check Request from pixelnpanel.com",
+    language === "Spanish"
+      ? "Nueva solicitud de chequeo de visibilidad — Pixel & Panel"
+      : "New Free Visibility Check Request from pixelnpanel.com",
     "",
+    `Language: ${language || "English"}`,
     `Name: ${name}`,
     `Business name: ${businessName}`,
     `Email: ${email || "Not provided"}`,
@@ -75,6 +80,7 @@ function buildEmail({
       <h1 style="font-size: 22px; color: #0369A1; margin: 0 0 16px;">New Free Visibility Check Request</h1>
       <table style="border-collapse: collapse; width: 100%; margin: 0 0 20px;">
         <tbody>
+          <tr><td style="padding: 8px 0; font-weight: 700;">Language</td><td style="padding: 8px 0;">${safe.language}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Name</td><td style="padding: 8px 0;">${safe.name}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Business name</td><td style="padding: 8px 0;">${safe.businessName}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Email</td><td style="padding: 8px 0;">${safe.email}</td></tr>
@@ -114,6 +120,7 @@ export async function POST(request) {
   const message = cleanText(payload.message);
   const company = cleanText(payload.company);
   const sourcePage = cleanText(payload.sourcePage) || "/free-visibility-check";
+  const language = cleanText(payload.language) || "English";
   const helpOptions = cleanHelpOptions(payload.helpOptions);
 
   if (company) {
@@ -146,6 +153,7 @@ export async function POST(request) {
     helpOptions,
     message,
     sourcePage,
+    language,
   });
 
   try {
@@ -153,7 +161,10 @@ export async function POST(request) {
       fromName: process.env.VISIBILITY_CHECK_FROM_NAME || "Pixel & Panel Visibility Check",
       to: process.env.VISIBILITY_CHECK_TO_EMAIL || "hello@pixelnpanel.com",
       replyTo: email || undefined,
-      subject: cleanHeader("New Free Visibility Check Request — Pixel & Panel"),
+      subject:
+        language === "Spanish"
+          ? cleanHeader("Nueva solicitud de chequeo de visibilidad — Pixel & Panel")
+          : cleanHeader("New Free Visibility Check Request — Pixel & Panel"),
       text,
       html,
     });

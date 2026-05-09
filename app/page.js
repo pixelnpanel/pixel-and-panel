@@ -36,6 +36,10 @@ export const metadata = {
     "Pixel & Panel helps Southeast Texas businesses get found with websites, signs, QR campaigns, local SEO, and lead capture systems.",
   alternates: {
     canonical: new URL("https://pixelnpanel.com/"),
+    languages: {
+      "en-US": "https://pixelnpanel.com/",
+      "es-US": "https://pixelnpanel.com/es",
+    },
   },
   openGraph: {
     title: "Pixel & Panel | Websites, Signs & QR Campaigns in Southeast Texas",

@@ -38,6 +38,10 @@ export const metadata = {
     "Pixel & Panel serves Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
   alternates: {
     canonical: "/service-area/beaumont-tx",
+    languages: {
+      "en-US": "https://pixelnpanel.com/service-area/beaumont-tx",
+      "es-US": "https://pixelnpanel.com/es/area-de-servicio/beaumont-tx",
+    },
   },
 };
 

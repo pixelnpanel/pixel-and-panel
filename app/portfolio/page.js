@@ -6,6 +6,10 @@ export const metadata = {
     "Explore Pixel & Panel portfolio examples for websites, signs, print materials, QR campaigns, and branding concepts for Southeast Texas businesses.",
   alternates: {
     canonical: "https://pixelnpanel.com/portfolio",
+    languages: {
+      "en-US": "https://pixelnpanel.com/portfolio",
+      "es-US": "https://pixelnpanel.com/es/portafolio",
+    },
   },
 };
 

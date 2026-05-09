@@ -6,6 +6,10 @@ export const metadata = {
     "Websites, local SEO, Google Business Profile optimization, CRM automation, and QR code campaigns for businesses in Beaumont, Nederland, and Port Arthur, TX.",
   alternates: {
     canonical: "/digital",
+    languages: {
+      "en-US": "/digital",
+      "es-US": "/es/servicios-digitales",
+    },
   },
   openGraph: {
     title: "Digital Services | Pixel & Panel",

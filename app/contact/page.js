@@ -6,6 +6,10 @@ export const metadata = {
     "Contact Pixel & Panel for websites, local SEO, signs, print materials, and QR-powered marketing in Beaumont, Nederland, and Port Arthur, TX.",
   alternates: {
     canonical: "/contact",
+    languages: {
+      "en-US": "/contact",
+      "es-US": "/es/contacto",
+    },
   },
   openGraph: {
     title: "Contact | Pixel & Panel",

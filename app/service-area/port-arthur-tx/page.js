@@ -39,6 +39,10 @@ export const metadata = {
     "Pixel & Panel serves Port Arthur, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
   alternates: {
     canonical: "/service-area/port-arthur-tx",
+    languages: {
+      "en-US": "https://pixelnpanel.com/service-area/port-arthur-tx",
+      "es-US": "https://pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
+    },
   },
 };
 

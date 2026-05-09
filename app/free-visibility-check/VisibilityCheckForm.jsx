@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-const HELP_OPTIONS = [
-  "Website",
-  "Google Business Profile / Local SEO",
-  "Signs / Print Materials",
-  "QR Code Campaign",
-  "Not sure yet",
+const DEFAULT_HELP_OPTIONS = [
+  { value: "Website", label: "Website" },
+  { value: "Google Business Profile / Local SEO", label: "Google Business Profile / Local SEO" },
+  { value: "Signs / Print Materials", label: "Signs / Print Materials" },
+  { value: "QR Code Campaign", label: "QR Code Campaign" },
+  { value: "Not sure yet", label: "Not sure yet" },
 ];
 
 const initialForm = {
@@ -21,7 +21,37 @@ const initialForm = {
   message: "",
 };
 
-export default function VisibilityCheckForm() {
+const defaultCopy = {
+  language: "English",
+  sectionLabel: "Start Here",
+  title: "Request Your Free Visibility Check",
+  intro:
+    "Share the basics and Pixel & Panel will review where customers find you, what they see, and how easy it is to take the next step.",
+  name: "Name",
+  businessName: "Business name",
+  email: "Email",
+  phone: "Phone",
+  websiteUrl: "Website URL optional",
+  businessCity: "Business city",
+  helpLegend: "What do you need help with?",
+  messageLabel: "Tell us what you are trying to improve.",
+  messagePlaceholder:
+    "Example: More calls from Google, clearer storefront signs, a better website, QR codes on menus or banners...",
+  submit: "Start My Free Visibility Check",
+  sending: "Sending...",
+  footer: "No ranking guarantees, no pressure. Just practical next steps for your business.",
+  successTitle: "Thank you — your request was sent.",
+  successText: "Pixel & Panel will review it and contact you soon.",
+  validationName: "Please include your name and business name.",
+  validationContact: "Please include an email address or phone number.",
+  validationHelp: "Please choose at least one area or tell us what you are trying to improve.",
+  error: "Something went wrong. Please email us directly at hello@pixelnpanel.com.",
+  sourceFallback: "/free-visibility-check",
+  helpOptions: DEFAULT_HELP_OPTIONS,
+};
+
+export default function VisibilityCheckForm({ copy = defaultCopy }) {
+  const content = { ...defaultCopy, ...copy };
   const [form, setForm] = useState(initialForm);
   const [helpOptions, setHelpOptions] = useState([]);
   const [status, setStatus] = useState("idle");
@@ -45,15 +75,15 @@ export default function VisibilityCheckForm() {
 
   function validate() {
     if (!form.name.trim() || !form.businessName.trim()) {
-      return "Please include your name and business name.";
+      return content.validationName;
     }
 
     if (!form.email.trim() && !form.phone.trim()) {
-      return "Please include an email address or phone number.";
+      return content.validationContact;
     }
 
     if (!helpOptions.length && !form.message.trim()) {
-      return "Please choose at least one area or tell us what you are trying to improve.";
+      return content.validationHelp;
     }
 
     return "";
@@ -76,7 +106,8 @@ export default function VisibilityCheckForm() {
       ...form,
       helpOptions,
       company: String(formData.get("company") || ""),
-      sourcePage: typeof window !== "undefined" ? window.location.href : "/free-visibility-check",
+      language: content.language,
+      sourcePage: typeof window !== "undefined" ? window.location.href : content.sourceFallback,
     };
 
     try {
@@ -87,7 +118,7 @@ export default function VisibilityCheckForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Something went wrong. Please email us directly at hello@pixelnpanel.com.");
+        throw new Error(content.error);
       }
 
       setStatus("success");
@@ -96,7 +127,7 @@ export default function VisibilityCheckForm() {
       event.currentTarget.reset();
     } catch {
       setStatus("idle");
-      setError("Something went wrong. Please email us directly at hello@pixelnpanel.com.");
+      setError(content.error);
     }
   }
 
@@ -110,19 +141,18 @@ export default function VisibilityCheckForm() {
           <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-lg bg-[#F59E0B]/15 text-[#F59E0B]">
             <CheckCircle2 className="h-8 w-8" />
           </span>
-          <h2 className="text-[#1C1917]">Thank you — your request was sent.</h2>
+          <h2 className="text-[#1C1917]">{content.successTitle}</h2>
           <p className="mx-auto mt-4 max-w-md text-slate-600">
-            Pixel &amp; Panel will review it and contact you soon.
+            {content.successText}
           </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} noValidate>
           <div className="mb-7">
-            <p className="section-label mb-3 text-[#0369A1]">Start Here</p>
-            <h2 className="text-[#1C1917]">Request Your Free Visibility Check</h2>
+            <p className="section-label mb-3 text-[#0369A1]">{content.sectionLabel}</p>
+            <h2 className="text-[#1C1917]">{content.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-600">
-              Share the basics and Pixel &amp; Panel will review where customers find you,
-              what they see, and how easy it is to take the next step.
+              {content.intro}
             </p>
           </div>
 
@@ -137,7 +167,7 @@ export default function VisibilityCheckForm() {
 
           <div className="grid gap-5 md:grid-cols-2">
             <Field
-              label="Name"
+              label={content.name}
               name="name"
               value={form.name}
               onChange={updateField}
@@ -145,7 +175,7 @@ export default function VisibilityCheckForm() {
               autoComplete="name"
             />
             <Field
-              label="Business name"
+              label={content.businessName}
               name="businessName"
               value={form.businessName}
               onChange={updateField}
@@ -153,7 +183,7 @@ export default function VisibilityCheckForm() {
               autoComplete="organization"
             />
             <Field
-              label="Email"
+              label={content.email}
               name="email"
               type="email"
               value={form.email}
@@ -161,7 +191,7 @@ export default function VisibilityCheckForm() {
               autoComplete="email"
             />
             <Field
-              label="Phone"
+              label={content.phone}
               name="phone"
               type="tel"
               value={form.phone}
@@ -169,7 +199,7 @@ export default function VisibilityCheckForm() {
               autoComplete="tel"
             />
             <Field
-              label="Website URL optional"
+              label={content.websiteUrl}
               name="websiteUrl"
               type="url"
               value={form.websiteUrl}
@@ -178,7 +208,7 @@ export default function VisibilityCheckForm() {
               autoComplete="url"
             />
             <Field
-              label="Business city"
+              label={content.businessCity}
               name="businessCity"
               value={form.businessCity}
               onChange={updateField}
@@ -188,23 +218,23 @@ export default function VisibilityCheckForm() {
 
           <fieldset className="mt-6">
             <legend className="mb-3 font-heading text-sm font-bold uppercase tracking-[0.08em] text-[#1C1917]">
-              What do you need help with?
+              {content.helpLegend}
             </legend>
             <div className="grid gap-3 sm:grid-cols-2">
-              {HELP_OPTIONS.map((option) => (
+              {content.helpOptions.map((option) => (
                 <label
-                  key={option}
+                  key={option.value}
                   className="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-[#FAF8F4] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-[#F59E0B]"
                 >
                   <input
                     type="checkbox"
                     name="helpOptions"
-                    value={option}
-                    checked={helpOptions.includes(option)}
-                    onChange={() => toggleHelpOption(option)}
+                    value={option.value}
+                    checked={helpOptions.includes(option.value)}
+                    onChange={() => toggleHelpOption(option.value)}
                     className="h-4 w-4 accent-[#F59E0B]"
                   />
-                  <span>{option}</span>
+                  <span>{option.label}</span>
                 </label>
               ))}
             </div>
@@ -215,7 +245,7 @@ export default function VisibilityCheckForm() {
               htmlFor="message"
               className="mb-2 block font-heading text-sm font-bold uppercase tracking-[0.08em] text-[#1C1917]"
             >
-              Tell us what you are trying to improve.
+              {content.messageLabel}
             </label>
             <textarea
               id="message"
@@ -224,7 +254,7 @@ export default function VisibilityCheckForm() {
               value={form.message}
               onChange={updateField}
               className="w-full rounded-lg border-2 border-slate-200 px-4 py-3 text-[#1C1917] outline-none transition focus:border-[#0369A1]"
-              placeholder="Example: More calls from Google, clearer storefront signs, a better website, QR codes on menus or banners..."
+              placeholder={content.messagePlaceholder}
             />
           </div>
 
@@ -239,12 +269,12 @@ export default function VisibilityCheckForm() {
             disabled={isLoading}
             className="btn-amber mt-6 w-full justify-center disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {isLoading ? "Sending..." : "Start My Free Visibility Check"}
+            {isLoading ? content.sending : content.submit}
             {!isLoading && <ArrowRight className="h-4 w-4" />}
           </button>
 
           <p className="mt-4 text-center text-xs leading-6 text-slate-500">
-            No ranking guarantees, no pressure. Just practical next steps for your business.
+            {content.footer}
           </p>
         </form>
       )}
