@@ -116,6 +116,7 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem', padding: 0 }}>
               {[
                 { label: 'Portfolio',      href: '/portfolio' },
+                { label: 'Learning Center', href: '/learning-center' },
                 { label: 'Pricing',        href: '/pricing' },
                 { label: 'Free Visibility Check', href: '/free-visibility-check' },
                 { label: 'Contact Us',     href: '/contact' },

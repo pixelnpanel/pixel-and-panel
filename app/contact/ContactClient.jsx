@@ -172,7 +172,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                     >
                         <div style={{ background: 'rgba(255,255,255,0.97)', borderRadius: '1.5rem', padding: '2.5rem', boxShadow: '0 24px 60px rgba(0,0,0,0.25)' }}>
                             {submitted ? (
-                                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }} style={{ textAlign: 'center', padding: '2rem 0' }}>
+                                <motion.div role="status" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }} style={{ textAlign: 'center', padding: '2rem 0' }}>
                                     <div style={{ width: '72px', height: '72px', background: 'rgba(74,222,128,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
                                         <CheckCircle size={36} color="#4ade80" />
                                     </div>
@@ -196,28 +196,28 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     />
 
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label style={labelStyle}>{content.name} *</label>
-                                        <input type="text" name="name" required placeholder="John Martinez" value={form.name} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <label htmlFor="contact-name" style={labelStyle}>{content.name} *</label>
+                                        <input id="contact-name" type="text" name="name" required placeholder="John Martinez" value={form.name} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label style={labelStyle}>{content.email} *</label>
-                                        <input type="email" name="email" required placeholder="john@email.com" value={form.email} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <label htmlFor="contact-email" style={labelStyle}>{content.email} *</label>
+                                        <input id="contact-email" type="email" name="email" required placeholder="john@email.com" value={form.email} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label style={labelStyle}>{content.phone}</label>
-                                        <input type="tel" name="phone" placeholder="(409) 800-6139" value={form.phone} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <label htmlFor="contact-phone" style={labelStyle}>{content.phone}</label>
+                                        <input id="contact-phone" type="tel" name="phone" placeholder="(409) 800-6139" value={form.phone} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label style={labelStyle}>{content.subject}</label>
-                                        <input type="text" name="subject" placeholder={content.subjectPlaceholder} value={form.subject} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <label htmlFor="contact-subject" style={labelStyle}>{content.subject}</label>
+                                        <input id="contact-subject" type="text" name="subject" placeholder={content.subjectPlaceholder} value={form.subject} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '2rem' }}>
-                                        <label style={labelStyle}>{content.message} *</label>
-                                        <textarea name="message" required rows={5} placeholder={content.messagePlaceholder} value={form.message} onChange={handleChange} style={{ ...inputStyle, resize: 'vertical' }} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <label htmlFor="contact-message" style={labelStyle}>{content.message} *</label>
+                                        <textarea id="contact-message" name="message" required rows={5} placeholder={content.messagePlaceholder} value={form.message} onChange={handleChange} style={{ ...inputStyle, resize: 'vertical' }} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
 
                                     {error && (
-                                        <p style={{ color: '#b91c1c', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '0.75rem', padding: '0.875rem 1rem', fontFamily: 'var(--font-body)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
+                                        <p role="alert" style={{ color: '#b91c1c', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '0.75rem', padding: '0.875rem 1rem', fontFamily: 'var(--font-body)', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
                                             {error}
                                         </p>
                                     )}

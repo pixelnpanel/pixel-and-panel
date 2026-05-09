@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
     siteUrl: 'https://pixelnpanel.com',
-    generateRobotsTxt: true,
+    generateRobotsTxt: false,
     exclude: [
         '/icon.png',
         '/apple-icon.png',
@@ -26,6 +26,13 @@ module.exports = {
         return [
             await config.transform(config, '/quote-request'),
             await config.transform(config, '/free-visibility-check'),
+            await config.transform(config, '/learning-center'),
+            await config.transform(config, '/learning-center/how-much-do-yard-signs-cost'),
+            await config.transform(config, '/learning-center/what-size-banner-do-i-need'),
+            await config.transform(config, '/learning-center/website-checklist-for-new-local-businesses'),
+            await config.transform(config, '/learning-center/how-to-show-up-on-google-locally'),
+            await config.transform(config, '/learning-center/qr-codes-on-signs-and-print'),
+            await config.transform(config, '/learning-center/best-marketing-materials-for-new-local-business'),
             await config.transform(config, '/es'),
             await config.transform(config, '/es/precios'),
             await config.transform(config, '/es/contacto'),

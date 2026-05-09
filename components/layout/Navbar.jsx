@@ -12,6 +12,7 @@ const MOBILE_NAV = [
   { label: 'Digital Services', href: '/digital' },
   { label: 'Signage & Print', href: '/signage' },
   { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Learning Center', href: '/learning-center' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
   { label: 'Request a Quote', href: '/quote-request', primary: true },

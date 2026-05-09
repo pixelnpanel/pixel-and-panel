@@ -164,6 +164,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
 
                         {submitted ? (
                             <motion.div
+                                role="status"
                                 initial={{ opacity: 0, scale: 0.96 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.4 }}
@@ -190,36 +191,36 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                             />
 
                             <div>
-                                <label className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.name} *</label>
-                                <input type="text" name="name" required placeholder="John Martinez" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
+                                <label htmlFor="quote-name" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.name} *</label>
+                                <input id="quote-name" type="text" name="name" required placeholder="John Martinez" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
                             </div>
                             {content.showBusinessName && (
                                 <div>
-                                    <label className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.businessName}</label>
-                                    <input type="text" name="businessName" placeholder="Nombre de tu negocio" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
+                                    <label htmlFor="quote-business-name" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.businessName}</label>
+                                    <input id="quote-business-name" type="text" name="businessName" placeholder="Nombre de tu negocio" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
                                 </div>
                             )}
                             <div>
-                                <label className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.email} *</label>
-                                <input type="email" name="email" required placeholder="john@email.com" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
+                                <label htmlFor="quote-email" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.email} *</label>
+                                <input id="quote-email" type="email" name="email" required placeholder="john@email.com" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
                             </div>
                             <div>
-                                <label className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.phone}</label>
-                                <input type="tel" name="phone" placeholder="(555) 000-0000" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
+                                <label htmlFor="quote-phone" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.phone}</label>
+                                <input id="quote-phone" type="tel" name="phone" placeholder="(555) 000-0000" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
                             </div>
                             {content.showProductField && (
                                 <div>
-                                    <label className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.productService}</label>
-                                    <input type="text" name="productService" defaultValue={hiddenProductValue} className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
+                                    <label htmlFor="quote-product-service" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.productService}</label>
+                                    <input id="quote-product-service" type="text" name="productService" defaultValue={hiddenProductValue} className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
                                 </div>
                             )}
                             <div>
-                                <label className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.message} *</label>
-                                <textarea name="message" required defaultValue={defaultMessage} placeholder={content.messagePlaceholder} rows={5} className="w-full resize-none rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
+                                <label htmlFor="quote-message" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.message} *</label>
+                                <textarea id="quote-message" name="message" required defaultValue={defaultMessage} placeholder={content.messagePlaceholder} rows={5} className="w-full resize-none rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
                             </div>
 
                             {error && (
-                                <p className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                                <p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
                                     {error}
                                 </p>
                             )}

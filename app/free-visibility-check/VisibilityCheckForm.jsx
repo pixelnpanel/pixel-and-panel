@@ -137,7 +137,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
       className="scroll-mt-28 rounded-xl border border-slate-200 bg-white p-5 shadow-xl md:p-8"
     >
       {isSuccess ? (
-        <div className="py-10 text-center">
+        <div role="status" className="py-10 text-center">
           <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-lg bg-[#F59E0B]/15 text-[#F59E0B]">
             <CheckCircle2 className="h-8 w-8" />
           </span>
@@ -259,7 +259,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
           </div>
 
           {error && (
-            <p className="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
+            <p role="alert" className="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
               {error}
             </p>
           )}

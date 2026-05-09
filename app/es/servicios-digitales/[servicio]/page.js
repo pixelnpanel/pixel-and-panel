@@ -30,7 +30,9 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: service.title,
+    title: {
+      absolute: service.title,
+    },
     description: service.description,
     alternates: {
       canonical: `https://pixelnpanel.com/es/servicios-digitales/${service.slug}`,
@@ -40,7 +42,7 @@ export async function generateMetadata({ params }) {
       },
     },
     openGraph: {
-      title: `${service.title} | Pixel & Panel`,
+      title: service.title,
       description: service.description,
       url: `https://pixelnpanel.com/es/servicios-digitales/${service.slug}`,
       locale: "es_US",

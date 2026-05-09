@@ -41,7 +41,9 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: product.title,
+    title: {
+      absolute: product.title,
+    },
     description: product.description,
     alternates: {
       canonical: `https://pixelnpanel.com/es/letreros/${product.slug}`,
@@ -51,7 +53,7 @@ export async function generateMetadata({ params }) {
       },
     },
     openGraph: {
-      title: `${product.title} | Pixel & Panel`,
+      title: product.title,
       description: product.description,
       url: `https://pixelnpanel.com/es/letreros/${product.slug}`,
       locale: "es_US",
