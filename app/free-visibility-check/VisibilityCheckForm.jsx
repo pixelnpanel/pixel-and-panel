@@ -41,7 +41,7 @@ const defaultCopy = {
   sending: "Sending...",
   footer: "No ranking guarantees, no pressure. Just practical next steps for your business.",
   successTitle: "Thank you — your request was sent.",
-  successText: "Pixel & Panel will review it and contact you soon.",
+  successText: "Thanks! Your free visibility check request was sent. We'll review it and follow up soon.",
   validationName: "Please include your name and business name.",
   validationContact: "Please include an email address or phone number.",
   validationHelp: "Please choose at least one area or tell us what you are trying to improve.",
@@ -55,10 +55,11 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
   const [form, setForm] = useState(initialForm);
   const [helpOptions, setHelpOptions] = useState([]);
   const [status, setStatus] = useState("idle");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState(content.successText);
 
-  const isLoading = status === "loading";
+  const isLoading = isSubmitting;
   const isSuccess = status === "success";
 
   function updateField(event) {
@@ -92,7 +93,13 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
     setError("");
+    setStatus("idle");
     setSuccessMessage(content.successText);
 
     const validationError = validate();
@@ -101,7 +108,6 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
       return;
     }
 
-    setStatus("loading");
     const formData = new FormData(event.currentTarget);
 
     const payload = {
@@ -112,6 +118,8 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
       sourcePage: typeof window !== "undefined" ? window.location.href : content.sourceFallback,
     };
 
+    setIsSubmitting(true);
+
     try {
       const response = await fetch("/api/visibility-check", {
         method: "POST",
@@ -119,12 +127,21 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
         body: JSON.stringify(payload),
       });
 
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok || result.success === false) {
-        throw new Error(result.message || "Unable to send visibility check request right now.");
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        result = {};
       }
 
+      if (!response.ok || result.success === false) {
+        throw new Error(
+          result.message || result.error || "Unable to send visibility check request right now.",
+        );
+      }
+
+      setForm(initialForm);
+      setHelpOptions([]);
       setError("");
       setSuccessMessage(
         content.language === defaultCopy.language && result.message
@@ -132,12 +149,11 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
           : content.successText,
       );
       setStatus("success");
-      setForm(initialForm);
-      setHelpOptions([]);
-      event.currentTarget.reset();
     } catch (submitError) {
       setStatus("idle");
       setError(submitError.message || content.error);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
