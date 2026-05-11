@@ -11,6 +11,10 @@ const HELP_OPTIONS = new Set([
   "Not sure yet",
 ]);
 
+const SUCCESS_MESSAGE =
+  "Thank you. Your free visibility check request was sent successfully. Pixel & Panel will review it and follow up soon.";
+const ERROR_MESSAGE = "Unable to send visibility check request right now.";
+
 function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
 }
@@ -120,7 +124,7 @@ export async function POST(request) {
   try {
     payload = await request.json();
   } catch {
-    return jsonResponse({ error: "Invalid request body." }, 400);
+    return jsonResponse({ success: false, message: "Invalid request body." }, 400);
   }
 
   const name = cleanText(payload.name);
@@ -136,24 +140,30 @@ export async function POST(request) {
   const helpOptions = cleanHelpOptions(payload.helpOptions);
 
   if (company) {
-    return jsonResponse({ ok: true });
+    return Response.json(
+      { success: true, message: SUCCESS_MESSAGE },
+      { status: 200 },
+    );
   }
 
   if (!name || !businessName) {
-    return jsonResponse({ error: "Name and business name are required." }, 400);
+    return jsonResponse({ success: false, message: "Name and business name are required." }, 400);
   }
 
   if (!email && !phone) {
-    return jsonResponse({ error: "Email or phone is required." }, 400);
+    return jsonResponse({ success: false, message: "Email or phone is required." }, 400);
   }
 
   if (email && !emailPattern.test(email)) {
-    return jsonResponse({ error: "Please enter a valid email address." }, 400);
+    return jsonResponse({ success: false, message: "Please enter a valid email address." }, 400);
   }
 
   if (!websiteUrl && !helpOptions.length && !message) {
     return jsonResponse(
-      { error: "Please include a website, choose at least one help option, or include a message." },
+      {
+        success: false,
+        message: "Please include a website, choose at least one help option, or include a message.",
+      },
       400,
     );
   }
@@ -184,9 +194,15 @@ export async function POST(request) {
       html,
     });
 
-    return jsonResponse({ ok: true });
+    return Response.json(
+      { success: true, message: SUCCESS_MESSAGE },
+      { status: 200 },
+    );
   } catch (error) {
     console.error("Unable to send visibility check request email.", error);
-    return jsonResponse({ error: "Unable to send visibility check request right now." }, 500);
+    return Response.json(
+      { success: false, message: ERROR_MESSAGE },
+      { status: 500 },
+    );
   }
 }

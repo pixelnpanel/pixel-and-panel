@@ -56,6 +56,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
   const [helpOptions, setHelpOptions] = useState([]);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState(content.successText);
 
   const isLoading = status === "loading";
   const isSuccess = status === "success";
@@ -92,6 +93,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
   async function handleSubmit(event) {
     event.preventDefault();
     setError("");
+    setSuccessMessage(content.successText);
 
     const validationError = validate();
     if (validationError) {
@@ -117,17 +119,25 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error(content.error);
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || result.success === false) {
+        throw new Error(result.message || "Unable to send visibility check request right now.");
       }
 
+      setError("");
+      setSuccessMessage(
+        content.language === defaultCopy.language && result.message
+          ? result.message
+          : content.successText,
+      );
       setStatus("success");
       setForm(initialForm);
       setHelpOptions([]);
       event.currentTarget.reset();
-    } catch {
+    } catch (submitError) {
       setStatus("idle");
-      setError(content.error);
+      setError(submitError.message || content.error);
     }
   }
 
@@ -138,12 +148,12 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
     >
       {isSuccess ? (
         <div role="status" className="py-10 text-center">
-          <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-lg bg-[#F59E0B]/15 text-[#F59E0B]">
+          <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-lg bg-green-100 text-green-700">
             <CheckCircle2 className="h-8 w-8" />
           </span>
           <h2 className="text-[#1C1917]">{content.successTitle}</h2>
-          <p className="mx-auto mt-4 max-w-md text-slate-600">
-            {content.successText}
+          <p className="mx-auto mt-4 max-w-md text-green-700">
+            {successMessage}
           </p>
         </div>
       ) : (
