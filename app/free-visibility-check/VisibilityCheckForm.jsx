@@ -124,7 +124,6 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
       setStatus("success");
       setForm(initialForm);
       setHelpOptions([]);
-      event.currentTarget.reset();
     } catch {
       setStatus("idle");
       setError(content.error);
