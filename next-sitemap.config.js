@@ -9,11 +9,24 @@ module.exports = {
         '/twitter-image.png',
         '/opengraph-image',
         '/twitter-image',
+        '/robots.txt',
+        '/sitemap.xml',
+        '/sitemap-*.xml',
         '/service-area/*/*',
         '/digital/qr-campaigns',
+        '/api/*',
+        '/_next/*',
     ],
     transform: async (config, path) => {
-        if (path.match(/\.(png|jpg|jpeg|webp|gif|svg|ico)$/i)) {
+        if (
+            path.includes('?') ||
+            path.startsWith('/api/') ||
+            path.startsWith('/_next/') ||
+            path === '/robots.txt' ||
+            path === '/sitemap.xml' ||
+            path.match(/^\/sitemap-\d+\.xml$/) ||
+            path.match(/\.(png|jpg|jpeg|webp|gif|svg|ico|css|js|woff|woff2|ttf|otf)$/i)
+        ) {
             return null
         }
 
