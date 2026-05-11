@@ -1,12 +1,3 @@
-const canonicalDomainRedirects = [
-  {
-    source: "/:path*",
-    has: [{ type: "host", value: "www.pixelnpanel.com" }],
-    destination: "https://pixelnpanel.com/:path*",
-    statusCode: 301,
-  },
-];
-
 const oldServiceAreaRedirects = [
   { service: "car-magnets", destination: "/signage/car-magnets" },
   { service: "local-seo", destination: "/digital/local-seo" },
@@ -31,7 +22,6 @@ const nextConfig = {
 
   async redirects() {
     return [
-      ...canonicalDomainRedirects,
       ...oldServiceAreaRedirects,
       {
         source: "/digital/qr-campaigns",
