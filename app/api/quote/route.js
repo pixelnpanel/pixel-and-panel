@@ -1,4 +1,5 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
+import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -16,7 +17,7 @@ function buildEmail({ name, businessName, email, phone, productService, sourcePa
   const safe = {
     name: escapeHtml(name),
     businessName: escapeHtml(businessName || "Not provided"),
-    email: escapeHtml(email),
+    email: escapeHtml(email || "Not provided"),
     phone: escapeHtml(phone || "Not provided"),
     productService: escapeHtml(productService || "General Quote"),
     sourcePage: escapeHtml(sourcePage || "Not provided"),
@@ -33,7 +34,7 @@ function buildEmail({ name, businessName, email, phone, productService, sourcePa
     `Language: ${language || "English"}`,
     `Name: ${name}`,
     `Business: ${businessName || "Not provided"}`,
-    `Email: ${email}`,
+    `Email: ${email || "Not provided"}`,
     `Phone: ${phone || "Not provided"}`,
     `Product/Service: ${productService || "General Quote"}`,
     `Source Page: ${sourcePage || "Not provided"}`,
@@ -69,6 +70,17 @@ function buildEmail({ name, businessName, email, phone, productService, sourcePa
 }
 
 export async function POST(request) {
+  const ip = getClientIp(request);
+  const limiter = rateLimit({
+    key: `quote:${ip}`,
+    limit: 5,
+    windowMs: 10 * 60 * 1000,
+  });
+
+  if (!limiter.success) {
+    return rateLimitResponse(limiter.resetTime);
+  }
+
   let payload;
 
   try {
@@ -91,11 +103,15 @@ export async function POST(request) {
     return jsonResponse({ ok: true });
   }
 
-  if (!name || !email || !message) {
-    return jsonResponse({ error: "Name, email, and message are required." }, 400);
+  if (!name || !message) {
+    return jsonResponse({ error: "Name and project details are required." }, 400);
   }
 
-  if (!emailPattern.test(email)) {
+  if (!email && !phone) {
+    return jsonResponse({ error: "Email or phone is required." }, 400);
+  }
+
+  if (email && !emailPattern.test(email)) {
     return jsonResponse({ error: "Please enter a valid email address." }, 400);
   }
 
@@ -114,7 +130,7 @@ export async function POST(request) {
     await sendEmail({
       fromName: process.env.QUOTE_FROM_NAME || "Pixel & Panel Website",
       to: process.env.QUOTE_TO_EMAIL || "hello@pixelnpanel.com",
-      replyTo: email,
+      replyTo: email || undefined,
       subject:
         language === "Spanish"
           ? cleanHeader("Nueva solicitud de cotización — Pixel & Panel")

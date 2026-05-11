@@ -7,6 +7,8 @@ module.exports = {
         '/apple-icon.png',
         '/opengraph-image.png',
         '/twitter-image.png',
+        '/opengraph-image',
+        '/twitter-image',
         '/service-area/*/*',
         '/digital/qr-campaigns',
     ],

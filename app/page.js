@@ -1,4 +1,5 @@
 import HomeClient from "@/app/HomeClient";
+import SpanishSuggestionBanner from "@/components/language/SpanishSuggestionBanner";
 
 const homepageFaq = [
   {
@@ -60,31 +61,6 @@ function JsonLd({ data }) {
 }
 
 export default function HomePage() {
-  const businessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Pixel & Panel",
-    url: "https://pixelnpanel.com",
-    email: "hello@pixelnpanel.com",
-    telephone: "(409) 800-6139",
-    slogan: "Your Vision. Made Visible.",
-    areaServed: [
-      { "@type": "Place", name: "Southeast Texas" },
-      { "@type": "City", name: "Beaumont, TX" },
-      { "@type": "City", name: "Nederland, TX" },
-      { "@type": "City", name: "Port Arthur, TX" },
-    ],
-    knowsAbout: [
-      "Website development",
-      "Local SEO",
-      "Google Business Profile optimization",
-      "QR code campaigns",
-      "Lead capture forms",
-      "Custom signs",
-      "Print marketing materials",
-    ],
-  };
-
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -100,9 +76,9 @@ export default function HomePage() {
 
   return (
     <>
-      <JsonLd data={businessSchema} />
       <JsonLd data={faqSchema} />
       <HomeClient faqs={homepageFaq} />
+      <SpanishSuggestionBanner />
     </>
   );
 }

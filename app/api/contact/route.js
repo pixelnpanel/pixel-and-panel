@@ -1,4 +1,5 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
+import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -15,7 +16,7 @@ function buildEmail({ name, email, phone, subject, sourcePage, message, language
 
   const safe = {
     name: escapeHtml(name),
-    email: escapeHtml(email),
+    email: escapeHtml(email || "Not provided"),
     phone: escapeHtml(phone || "Not provided"),
     subject: escapeHtml(subject || "General Inquiry"),
     sourcePage: escapeHtml(sourcePage || "Not provided"),
@@ -31,7 +32,7 @@ function buildEmail({ name, email, phone, subject, sourcePage, message, language
     "",
     `Language: ${language || "English"}`,
     `Name: ${name}`,
-    `Email: ${email}`,
+    `Email: ${email || "Not provided"}`,
     `Phone: ${phone || "Not provided"}`,
     `Subject: ${subject || "General Inquiry"}`,
     `Source Page: ${sourcePage || "Not provided"}`,
@@ -66,6 +67,17 @@ function buildEmail({ name, email, phone, subject, sourcePage, message, language
 }
 
 export async function POST(request) {
+  const ip = getClientIp(request);
+  const limiter = rateLimit({
+    key: `contact:${ip}`,
+    limit: 5,
+    windowMs: 10 * 60 * 1000,
+  });
+
+  if (!limiter.success) {
+    return rateLimitResponse(limiter.resetTime);
+  }
+
   let payload;
 
   try {
@@ -87,11 +99,15 @@ export async function POST(request) {
     return jsonResponse({ ok: true });
   }
 
-  if (!name || !email || !message) {
-    return jsonResponse({ error: "Name, email, and message are required." }, 400);
+  if (!name || !message) {
+    return jsonResponse({ error: "Name and message are required." }, 400);
   }
 
-  if (!emailPattern.test(email)) {
+  if (!email && !phone) {
+    return jsonResponse({ error: "Email or phone is required." }, 400);
+  }
+
+  if (email && !emailPattern.test(email)) {
     return jsonResponse({ error: "Please enter a valid email address." }, 400);
   }
 
@@ -109,7 +125,7 @@ export async function POST(request) {
     await sendEmail({
       fromName: process.env.CONTACT_FROM_NAME || "Pixel & Panel Contact Form",
       to: process.env.CONTACT_TO_EMAIL || "hello@pixelnpanel.com",
-      replyTo: email,
+      replyTo: email || undefined,
       subject:
         language === "Spanish"
           ? cleanHeader("Nuevo mensaje de contacto — Pixel & Panel")

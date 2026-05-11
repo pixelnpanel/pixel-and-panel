@@ -2,6 +2,8 @@ import "./globals.css";
 import { Montserrat, Inter } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 
 // Loaded at framework level — no render-blocking, no FOUT
 const montserrat = Montserrat({
@@ -47,6 +49,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
       <body>
+        <GoogleAnalytics />
+        <LocalBusinessJsonLd />
         <Navbar />
         <main>{children}</main>
         <Footer />

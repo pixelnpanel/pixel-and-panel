@@ -9,12 +9,17 @@ import {
   Search,
   Store,
 } from "lucide-react";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 function splitFeaturedLinks(links) {
   return {
     signage: links.filter((link) => link.href.startsWith("/signage")),
     digital: links.filter((link) => link.href.startsWith("/digital")),
   };
+}
+
+function citySlug(name) {
+  return name.toLowerCase().replace(/\s+/g, "-") + "-tx";
 }
 
 export default function CityLanding({ city }) {
@@ -33,7 +38,14 @@ export default function CityLanding({ city }) {
   ];
 
   return (
-    <div className="bg-[#FAF8F4] text-[#1C1917]">
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "https://pixelnpanel.com" },
+          { name: `${city.name}, TX`, url: `https://pixelnpanel.com/service-area/${city.slug || citySlug(city.name)}` },
+        ]}
+      />
+      <div className="bg-[#FAF8F4] text-[#1C1917]">
       <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_64%,#0EA5E9_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
@@ -192,7 +204,8 @@ export default function CityLanding({ city }) {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
 

@@ -36,20 +36,6 @@ function rememberLanguage(language) {
   document.cookie = `pnp-language=${language}; path=/; max-age=31536000; SameSite=Lax`
 }
 
-function hasSavedLanguageChoice() {
-  if (typeof window === 'undefined') return true
-
-  let storedLanguage = null
-  try {
-    storedLanguage = window.localStorage.getItem('pnp-language')
-  } catch {}
-
-  return (
-    storedLanguage ||
-    document.cookie.split(';').some((item) => item.trim().startsWith('pnp-language='))
-  )
-}
-
 export default function Navbar() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
@@ -81,17 +67,6 @@ export default function Navbar() {
     window.addEventListener('resize', closeOnDesktop)
     return () => window.removeEventListener('resize', closeOnDesktop)
   }, [])
-
-  useEffect(() => {
-    if (pathname !== '/' || hasSavedLanguageChoice()) return
-
-    const preferredLanguage = window.navigator.language || window.navigator.languages?.[0] || ''
-
-    if (preferredLanguage.toLowerCase().startsWith('es')) {
-      rememberLanguage('es')
-      window.location.assign('/es')
-    }
-  }, [pathname])
 
   const isLight = scrolled
   const bg = isLight || menuOpen ? 'rgba(255,255,255,0.97)' : 'transparent'

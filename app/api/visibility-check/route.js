@@ -1,4 +1,5 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
+import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -103,6 +104,17 @@ function buildEmail({
 }
 
 export async function POST(request) {
+  const ip = getClientIp(request);
+  const limiter = rateLimit({
+    key: `visibility:${ip}`,
+    limit: 3,
+    windowMs: 10 * 60 * 1000,
+  });
+
+  if (!limiter.success) {
+    return rateLimitResponse(limiter.resetTime);
+  }
+
   let payload;
 
   try {
@@ -139,8 +151,11 @@ export async function POST(request) {
     return jsonResponse({ error: "Please enter a valid email address." }, 400);
   }
 
-  if (!helpOptions.length && !message) {
-    return jsonResponse({ error: "Please choose at least one help option or include a message." }, 400);
+  if (!websiteUrl && !helpOptions.length && !message) {
+    return jsonResponse(
+      { error: "Please include a website, choose at least one help option, or include a message." },
+      400,
+    );
   }
 
   const { text, html } = buildEmail({
