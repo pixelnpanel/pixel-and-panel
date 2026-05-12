@@ -18,7 +18,25 @@ export const metadata = {
         description:
             'Browse Pixel & Panel signage products by category and request a custom quote for your business.',
         url: '/signage',
+        siteName: 'Pixel & Panel',
+        locale: 'en_US',
+        type: 'website',
     },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Custom Signage & Print | Pixel & Panel — Beaumont TX',
+        description:
+            'Browse Pixel & Panel signage products by category and request a custom quote for your business.',
+    },
+}
+
+function JsonLd({ data }) {
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }}
+        />
+    )
 }
 
 const CATEGORY_ORDER = [
@@ -44,9 +62,40 @@ function getOrderedCategories() {
 }
 
 export default function SignagePage() {
+    const ordered = getOrderedCategories()
+
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pixelnpanel.com' },
+            { '@type': 'ListItem', position: 2, name: 'Signage & Print', item: 'https://pixelnpanel.com/signage' },
+        ],
+    }
+
+    const itemListSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Signage & Print Categories',
+        description: 'Custom signage and print products for businesses in Beaumont, Nederland, and Port Arthur, TX.',
+        url: 'https://pixelnpanel.com/signage',
+        numberOfItems: ordered.length,
+        itemListElement: ordered.map((cat, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: cat.name,
+            description: cat.description,
+            url: `https://pixelnpanel.com/signage/${cat.slug}`,
+        })),
+    }
+
     return (
-        <Suspense fallback={null}>
-            <SignageHubClient categories={getOrderedCategories()} />
-        </Suspense>
+        <>
+            <JsonLd data={breadcrumbSchema} />
+            <JsonLd data={itemListSchema} />
+            <Suspense fallback={null}>
+                <SignageHubClient categories={ordered} />
+            </Suspense>
+        </>
     )
 }

@@ -56,7 +56,14 @@ export async function generateMetadata({ params }) {
       title: product.title,
       description: product.description,
       url: `https://pixelnpanel.com/es/letreros/${product.slug}`,
+      siteName: "Pixel & Panel",
       locale: "es_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description: product.description,
     },
   };
 }

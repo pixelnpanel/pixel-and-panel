@@ -44,6 +44,21 @@ export const metadata = {
       "es-US": "https://pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
     },
   },
+  openGraph: {
+    title: "Custom Signs, Print & Websites in Port Arthur, TX | Pixel & Panel",
+    description:
+      "Pixel & Panel serves Port Arthur, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+    url: "https://pixelnpanel.com/service-area/port-arthur-tx",
+    siteName: "Pixel & Panel",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Custom Signs, Print & Websites in Port Arthur, TX | Pixel & Panel",
+    description:
+      "Pixel & Panel serves Port Arthur, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+  },
 };
 
 export default function PortArthurServiceAreaPage() {

@@ -45,6 +45,21 @@ export const metadata = {
       "es-US": "https://pixelnpanel.com/es/area-de-servicio/nederland-tx",
     },
   },
+  openGraph: {
+    title: "Custom Signs, Print & Websites in Nederland, TX | Pixel & Panel",
+    description:
+      "Pixel & Panel serves Nederland, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+    url: "https://pixelnpanel.com/service-area/nederland-tx",
+    siteName: "Pixel & Panel",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Custom Signs, Print & Websites in Nederland, TX | Pixel & Panel",
+    description:
+      "Pixel & Panel serves Nederland, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+  },
 };
 
 export default function NederlandServiceAreaPage() {

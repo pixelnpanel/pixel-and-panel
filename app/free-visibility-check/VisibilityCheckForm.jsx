@@ -83,7 +83,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
       return content.validationContact;
     }
 
-    if (!helpOptions.length && !form.message.trim()) {
+    if (!form.websiteUrl.trim() && !helpOptions.length && !form.message.trim()) {
       return content.validationHelp;
     }
 
@@ -122,7 +122,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || result.success === false) {
-        throw new Error(result.message || "Unable to send visibility check request right now.");
+        throw new Error(result.message || result.error || "Unable to send visibility check request right now.");
       }
 
       setError("");
@@ -134,7 +134,6 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
       setStatus("success");
       setForm(initialForm);
       setHelpOptions([]);
-      event.currentTarget.reset();
     } catch (submitError) {
       setStatus("idle");
       setError(submitError.message || content.error);
@@ -183,6 +182,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
               onChange={updateField}
               required
               autoComplete="name"
+              placeholder="John Martinez"
             />
             <Field
               label={content.businessName}
@@ -191,6 +191,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
               onChange={updateField}
               required
               autoComplete="organization"
+              placeholder="Martinez Trucking LLC"
             />
             <Field
               label={content.email}
@@ -199,6 +200,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
               value={form.email}
               onChange={updateField}
               autoComplete="email"
+              placeholder="john@email.com"
             />
             <Field
               label={content.phone}
@@ -207,6 +209,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
               value={form.phone}
               onChange={updateField}
               autoComplete="tel"
+              placeholder="(409) 555-0000"
             />
             <Field
               label={content.websiteUrl}
@@ -214,7 +217,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
               type="url"
               value={form.websiteUrl}
               onChange={updateField}
-              placeholder="https://example.com"
+              placeholder="www.website.com"
               autoComplete="url"
             />
             <Field
@@ -223,6 +226,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy }) {
               value={form.businessCity}
               onChange={updateField}
               autoComplete="address-level2"
+              placeholder="Beaumont"
             />
           </div>
 

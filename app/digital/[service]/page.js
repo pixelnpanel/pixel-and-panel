@@ -85,7 +85,15 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: `${service.title} | Pixel & Panel`,
       description: service.description,
-      url: `/digital/${service.slug}`,
+      url: `https://pixelnpanel.com/digital/${service.slug}`,
+      siteName: "Pixel & Panel",
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} | Pixel & Panel`,
+      description: service.description,
     },
   };
 }

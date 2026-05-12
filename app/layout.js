@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Montserrat, Inter } from "next/font/google";
+import { ViewTransition } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
@@ -49,10 +50,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
       <body>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-[#F59E0B] focus:px-4 focus:py-2 focus:font-bold focus:text-[#1C1917]">
+          Skip to main content
+        </a>
         <GoogleAnalytics />
         <LocalBusinessJsonLd />
-        <Navbar />
-        <main>{children}</main>
+        <div style={{ viewTransitionName: "site-navbar" }}>
+          <Navbar />
+        </div>
+        <main id="main-content">
+          <ViewTransition>{children}</ViewTransition>
+        </main>
         <Footer />
       </body>
     </html>

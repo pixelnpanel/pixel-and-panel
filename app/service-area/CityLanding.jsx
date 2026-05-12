@@ -11,6 +11,15 @@ import {
 } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
+function JsonLd({ data }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+    />
+  );
+}
+
 function splitFeaturedLinks(links) {
   return {
     signage: links.filter((link) => link.href.startsWith("/signage")),
@@ -37,14 +46,44 @@ export default function CityLanding({ city }) {
     ["Where should I start?", "If you are not ready for a quote, the Free Visibility Check is a good first step."],
   ];
 
+  const slug = city.slug || citySlug(city.name);
+  const pageUrl = `https://pixelnpanel.com/service-area/${slug}`;
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Pixel & Panel",
+    url: "https://pixelnpanel.com",
+    email: "hello@pixelnpanel.com",
+    telephone: "(409) 800-6139",
+    areaServed: ["Beaumont, TX", "Nederland, TX", "Port Arthur, TX", "Southeast Texas"],
+    knowsAbout: [
+      "Website design and development",
+      "Local SEO",
+      "Google Business Profile optimization",
+      "Custom signs and print materials",
+      "QR code campaigns",
+    ],
+  };
+
   return (
     <>
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: "https://pixelnpanel.com" },
-          { name: `${city.name}, TX`, url: `https://pixelnpanel.com/service-area/${city.slug || citySlug(city.name)}` },
+          { name: `${city.name}, TX`, url: pageUrl },
         ]}
       />
+      <JsonLd data={faqSchema} />
+      <JsonLd data={localBusinessSchema} />
       <div className="bg-[#FAF8F4] text-[#1C1917]">
       <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_64%,#0EA5E9_100%)]" />
