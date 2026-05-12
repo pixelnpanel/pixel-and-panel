@@ -5,7 +5,9 @@ import {
   BadgeCheck,
   CheckCircle2,
   ClipboardCheck,
+  Clock,
   Globe2,
+  Info,
   Layers,
   MousePointerClick,
   QrCode,
@@ -180,6 +182,15 @@ export default async function DigitalServicePage({ params }) {
                     </div>
                   ))}
                 </div>
+                {service.turnaround && (
+                  <div className="mt-4 flex items-start gap-3 rounded-lg bg-white/10 px-4 py-3">
+                    <Clock className="mt-0.5 h-4 w-4 shrink-0 text-[#F59E0B]" />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wide text-[#F59E0B]">Timeline</p>
+                      <p className="mt-0.5 text-sm text-white/80">{service.turnaround}</p>
+                    </div>
+                  </div>
+                )}
               </aside>
             </div>
           </div>
@@ -266,6 +277,20 @@ export default async function DigitalServicePage({ params }) {
             </div>
           </div>
         </section>
+
+        {service.notAFitWhen && (
+          <div className="container-px pb-4">
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+              <div className="flex gap-3">
+                <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+                <div>
+                  <p className="font-heading text-sm font-bold text-amber-900">Good to know before starting</p>
+                  <p className="mt-1 text-sm leading-7 text-amber-800">{service.notAFitWhen}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <section className="section-base">
           <div className="container-px">

@@ -3,11 +3,13 @@ import Link from "next/link";
 import {
   ArrowRight,
   CheckCircle2,
-  ClipboardCheck,
+  Clock,
   Home,
   Image as ImageIcon,
+  Info,
   Layers,
   MapPin,
+  Package,
   Ruler,
   Sparkles,
 } from "lucide-react";
@@ -28,19 +30,20 @@ const bestForBySlug = {
   flyers: ["Local offers", "Event promotion", "Service handouts"],
   posters: ["Events and announcements", "Retail displays", "Menus and venue information"],
   menus: ["Restaurants and cafes", "Food trucks and catering", "Events with food service"],
-};
-
-const optionCopyByCategory = {
-  Signage: [
-    ["Material", "Choose a sign material that fits the viewing distance, weather exposure, mounting surface, and expected lifespan."],
-    ["Size", "Match the size to how quickly someone needs to read it from a sidewalk, road, job site, or storefront."],
-    ["Design", "Use short copy, strong contrast, and a clear call-to-action so the sign is easy to understand."],
-  ],
-  Print: [
-    ["Format", "Choose a print size and finish based on whether the piece will be handed out, displayed, mailed, or reused."],
-    ["Content", "Keep the message focused with one main offer, clear contact details, and enough spacing to scan quickly."],
-    ["QR-ready layout", "Add a QR code when the printed piece should send customers to a menu, quote form, offer, or landing page."],
-  ],
+  "mesh-banners": ["Job sites and construction fences", "Outdoor events with high wind exposure", "Stadium and open-air venue signage"],
+  "backlit-banners": ["Retail and restaurant light box frames", "Trade show backlit display systems", "Illuminated menu boards and lobby displays"],
+  "fabric-banners": ["Trade show backdrops and display walls", "Indoor retail and event spaces", "Photography studios and stage backdrops"],
+  "retractable-banners": ["Trade show booths and conferences", "Lobby and reception area displays", "Pop-up retail and event promotions"],
+  "step-and-repeat-backdrops": ["Corporate events and award ceremonies", "Grand openings and ribbon cuttings", "Photo opportunities at galas and fundraisers"],
+  "table-covers": ["Trade show booths and expos", "Corporate meetings and sponsored events", "Outdoor markets and vendor tables"],
+  "event-tents": ["Outdoor festivals and community events", "Branded vendor and sponsor setups", "Food service and pop-up retail"],
+  "vehicle-lettering": ["Service vehicles and work trucks", "Fleet vehicles with consistent branding", "Small business vans and cars on a budget"],
+  "partial-vehicle-wraps": ["Contractors and tradespeople", "Delivery and service fleet branding", "Businesses upgrading from lettering to full graphics"],
+  "perforated-window-graphics": ["Storefronts with visibility privacy balance", "Auto dealerships and showroom windows", "Retail windows with promotional messaging"],
+  "frosted-privacy-film": ["Office glass partitions and conference rooms", "Spa, salon, and medical office windows", "Storefronts that need branding with privacy"],
+  "acrylic-signs": ["Lobbies and reception desks", "Office suites and professional suites", "Retail interior branding and wayfinding"],
+  brochures: ["Sales appointments and take-home packets", "Trade show handouts", "Service-area businesses explaining multi-step processes"],
+  postcards: ["Direct mail campaigns to targeted neighborhoods", "Event announcements and promotions", "Leave-behind marketing for door-to-door outreach"],
 };
 
 function JsonLd({ data }) {
@@ -57,7 +60,6 @@ export default function SignageProductPage({ product }) {
   const visibilityHref = "/free-visibility-check";
   const related = getRelatedSignageProducts(product);
   const bestFor = bestForBySlug[product.slug] || product.uses.slice(0, 3);
-  const options = optionCopyByCategory[product.category] || optionCopyByCategory.Signage;
 
   const breadcrumbs = {
     "@context": "https://schema.org",
@@ -75,10 +77,7 @@ export default function SignageProductPage({ product }) {
     mainEntity: product.faqs.map(([question, answer]) => ({
       "@type": "Question",
       name: question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: answer,
-      },
+      acceptedAnswer: { "@type": "Answer", text: answer },
     })),
   };
 
@@ -111,6 +110,7 @@ export default function SignageProductPage({ product }) {
       <JsonLd data={service} />
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
+        {/* ── HERO ─────────────────────────────────────────────── */}
         <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">
           <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_62%,#0EA5E9_100%)]" />
           <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
@@ -173,6 +173,7 @@ export default function SignageProductPage({ product }) {
           </div>
         </section>
 
+        {/* ── BEST FOR + COMMON USES ───────────────────────────── */}
         <section className="section-base">
           <div className="container-px">
             <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
@@ -203,30 +204,82 @@ export default function SignageProductPage({ product }) {
               </section>
             </div>
 
+            {/* ── SPECS & OPTIONS ───────────────────────────────── */}
             <section aria-labelledby="options-heading" className="mt-10 rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-              <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+              <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
                 <div>
-                  <p className="section-label text-[#0369A1]">Material / Size / Design Options</p>
-                  <h2 id="options-heading" className="text-[#1C1917]">Make the piece fit the real viewing conditions.</h2>
+                  <p className="section-label text-[#0369A1]">Specs &amp; Options</p>
+                  <h2 id="options-heading" className="text-[#1C1917]">What to know before you order.</h2>
                   <p className="mt-5 leading-8 text-slate-600">{product.guidance}</p>
+
+                  <div className={`mt-6 grid gap-3 ${product.minOrder ? "grid-cols-2" : "grid-cols-1"}`}>
+                    <div className="rounded-lg bg-[#FAF8F4] p-4">
+                      <div className="mb-2 flex items-center gap-2">
+                        <Clock className="h-4 w-4 text-[#0369A1]" />
+                        <span className="text-xs font-bold uppercase tracking-wide text-[#0369A1]">Turnaround</span>
+                      </div>
+                      <p className="text-sm font-semibold text-[#1C1917]">{product.turnaround}</p>
+                    </div>
+                    {product.minOrder && (
+                      <div className="rounded-lg bg-[#FAF8F4] p-4">
+                        <div className="mb-2 flex items-center gap-2">
+                          <Package className="h-4 w-4 text-[#0369A1]" />
+                          <span className="text-xs font-bold uppercase tracking-wide text-[#0369A1]">Min Order</span>
+                        </div>
+                        <p className="text-sm font-semibold text-[#1C1917]">{product.minOrder}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  {options.map(([title, copy], index) => {
-                    const Icon = [Layers, Ruler, ImageIcon][index] || ClipboardCheck;
-                    return (
-                      <article key={title} className="rounded-lg bg-[#FAF8F4] p-5">
-                        <Icon className="mb-4 h-6 w-6 text-[#F59E0B]" />
-                        <h3 className="text-lg text-[#1C1917]">{title}</h3>
-                        <p className="mt-3 text-sm leading-7 text-slate-600">{copy}</p>
-                      </article>
-                    );
-                  })}
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <article className="rounded-lg bg-[#FAF8F4] p-5">
+                    <Layers className="mb-3 h-5 w-5 text-[#F59E0B]" />
+                    <h3 className="text-base text-[#1C1917]">Materials</h3>
+                    <ul className="mt-3 space-y-2">
+                      {product.materials.map((m) => (
+                        <li key={m} className="flex items-start gap-2 text-sm text-slate-600">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0369A1]" />
+                          {m}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+
+                  <article className="rounded-lg bg-[#FAF8F4] p-5">
+                    <Ruler className="mb-3 h-5 w-5 text-[#F59E0B]" />
+                    <h3 className="text-base text-[#1C1917]">Common Sizes</h3>
+                    <ul className="mt-3 space-y-2">
+                      {product.sizes.map((s) => (
+                        <li key={s} className="flex items-start gap-2 text-sm text-slate-600">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0369A1]" />
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+
+                  {product.finishing && (
+                    <article className="rounded-lg bg-[#FAF8F4] p-5 sm:col-span-2">
+                      <ImageIcon className="mb-3 h-5 w-5 text-[#F59E0B]" />
+                      <h3 className="text-base text-[#1C1917]">Finishing Options</h3>
+                      <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                        {product.finishing.map((f) => (
+                          <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0369A1]" />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
+                  )}
                 </div>
               </div>
             </section>
           </div>
         </section>
 
+        {/* ── HOW IT WORKS ─────────────────────────────────────── */}
         <section className="bg-white px-6 py-16 md:py-24" aria-labelledby="process-heading">
           <div className="mx-auto max-w-7xl">
             <div className="mx-auto max-w-3xl text-center">
@@ -255,6 +308,22 @@ export default function SignageProductPage({ product }) {
           </div>
         </section>
 
+        {/* ── NOT A FIT CALLOUT ────────────────────────────────── */}
+        {product.notAFitWhen && (
+          <div className="container-px pb-10">
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+              <div className="flex gap-3">
+                <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+                <div>
+                  <p className="font-heading text-sm font-bold text-amber-900">Good to know before ordering</p>
+                  <p className="mt-1 text-sm leading-7 text-amber-800">{product.notAFitWhen}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── RELATED PRODUCTS ─────────────────────────────────── */}
         <section className="section-base">
           <div className="container-px">
             <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
@@ -281,6 +350,7 @@ export default function SignageProductPage({ product }) {
           </div>
         </section>
 
+        {/* ── FAQ ──────────────────────────────────────────────── */}
         <section className="bg-white px-6 py-16 md:py-24">
           <div className="mx-auto max-w-4xl">
             <div className="mb-10 text-center">
@@ -298,6 +368,7 @@ export default function SignageProductPage({ product }) {
           </div>
         </section>
 
+        {/* ── CTA ──────────────────────────────────────────────── */}
         <section className="px-6 py-14 md:py-20">
           <div className="mx-auto max-w-6xl overflow-hidden rounded-xl bg-[#0C1E3C] p-8 text-white shadow-2xl md:p-10">
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
