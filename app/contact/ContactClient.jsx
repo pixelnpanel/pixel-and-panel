@@ -2,9 +2,11 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, CheckCircle, Mail, Clock, Phone } from 'lucide-react'
+import { ArrowRight, CheckCircle, Mail, Clock, Phone, Star, MapPin, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { fadeUp, slideRight, stagger } from '@/lib/animations'
+import SocialLinks from '@/components/ui/SocialLinks'
+import { SOCIAL_LINKS, GBP_REVIEW_URL, GBP_MAPS_URL } from '@/lib/constants'
 
 const defaultCopy = {
     language: 'English',
@@ -232,6 +234,79 @@ export default function ContactPage({ copy = defaultCopy }) {
                     </motion.div>
 
                 </div>
+            </section>
+
+            {/* Social & Review section */}
+            <section style={{ background: '#f8fafc', padding: '4rem 1.5rem', textAlign: 'center' }}>
+                <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+                    <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#0EA5E9', marginBottom: '0.75rem' }}>
+                        Stay Connected
+                    </p>
+                    <h2 style={{ fontSize: '1.75rem', color: '#0C1E3C', marginBottom: '0.75rem' }}>
+                        Follow Pixel &amp; Panel
+                    </h2>
+                    <p style={{ color: '#64748b', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '2rem', fontSize: '0.95rem' }}>
+                        Stay up to date on sign projects, local business tips, and behind-the-scenes content.
+                    </p>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+                        <SocialLinks links={SOCIAL_LINKS} theme="light" />
+                    </div>
+                    <a
+                        href={GBP_REVIEW_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: '#0C1E3C', color: 'white', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.875rem 1.5rem', borderRadius: '0.75rem', textDecoration: 'none' }}
+                    >
+                        <Star size={15} style={{ fill: '#F59E0B', color: '#F59E0B' }} />
+                        Leave Us a Google Review
+                        <ExternalLink size={13} style={{ opacity: 0.6 }} />
+                    </a>
+                </div>
+            </section>
+
+            {/* Map section */}
+            <section style={{ background: '#0C1E3C', padding: '0' }}>
+                <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 1.5rem 0' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+                        <div>
+                            <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#0EA5E9', marginBottom: '0.4rem' }}>
+                                Service Area
+                            </p>
+                            <h2 style={{ color: 'white', fontSize: '1.5rem', margin: 0 }}>
+                                Serving Southeast Texas
+                            </h2>
+                        </div>
+                        <a
+                            href={GBP_MAPS_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#F59E0B', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.06em' }}
+                        >
+                            <MapPin size={14} />
+                            View on Google Maps
+                            <ExternalLink size={12} style={{ opacity: 0.7 }} />
+                        </a>
+                    </div>
+                </div>
+
+                {/* Clickable map iframe */}
+                <a
+                    href={GBP_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: 'block', position: 'relative', cursor: 'pointer' }}
+                    aria-label="View Pixel & Panel on Google Maps"
+                >
+                    <iframe
+                        src="https://maps.google.com/maps?q=Beaumont+TX&output=embed&z=10&hl=en"
+                        title="Southeast Texas service area map"
+                        style={{ width: '100%', height: '380px', border: 0, display: 'block', pointerEvents: 'none' }}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    />
+                    {/* Click capture overlay */}
+                    <div style={{ position: 'absolute', inset: 0 }} />
+                </a>
             </section>
         </>
     )

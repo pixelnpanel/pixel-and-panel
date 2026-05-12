@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail, MapPin, ArrowRight, Phone } from 'lucide-react'
-import { BRAND, DIGITAL_SERVICES } from '@/lib/constants'
+import { Mail, MapPin, ArrowRight, Phone, Star } from 'lucide-react'
+import { BRAND, DIGITAL_SERVICES, SOCIAL_LINKS, GBP_REVIEW_URL } from '@/lib/constants'
+import SocialLinks from '@/components/ui/SocialLinks'
 
 const FOOTER_SIGNAGE_PRODUCTS = [
   { name: 'Vinyl Banners',    href: '/signage/vinyl-banners' },
@@ -72,6 +73,25 @@ export default function Footer() {
                 <span>Serving Beaumont, Nederland &amp; Port Arthur, TX</span>
               </div>
             </div>
+
+            {/* Social icons */}
+            <div style={{ marginTop: '1.5rem' }}>
+              <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '0.75rem' }}>
+                Follow Us
+              </p>
+              <SocialLinks links={SOCIAL_LINKS} theme="dark" />
+            </div>
+
+            {/* Google review link */}
+            <a
+              href={GBP_REVIEW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '1rem', fontSize: '0.8rem', color: '#F59E0B', textDecoration: 'none', fontFamily: 'var(--font-body)', fontWeight: 600 }}
+            >
+              <Star size={14} style={{ fill: '#F59E0B', color: '#F59E0B' }} />
+              Review us on Google
+            </a>
           </div>
 
           {/* Digital Services */}
