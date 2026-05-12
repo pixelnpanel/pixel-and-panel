@@ -1,9 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, ArrowRight, Package, CheckCircle } from "lucide-react";
+import { CheckCircle2, ArrowRight, Package, CheckCircle, Paperclip, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeUp, slideRight, stagger } from "@/lib/animations";
+
+const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
+const ALLOWED_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+  "image/svg+xml",
+  "application/pdf",
+  "application/postscript",
+]);
+const MAX_FILE_BYTES = 4 * 1024 * 1024;
 
 const defaultCopy = {
     language: "English",
@@ -44,6 +56,8 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [attachment, setAttachment] = useState(null);
+    const [fileError, setFileError] = useState("");
     const hasSelectedProduct = Boolean(selectedProduct);
 
     const hiddenProductValue = hasSelectedProduct
@@ -54,29 +68,48 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
         ? content.defaultMessageTemplate.replace("{product}", selectedProduct)
         : "";
 
+    function handleFileChange(e) {
+        setFileError("");
+        const file = e.target.files?.[0];
+        if (!file) { setAttachment(null); return; }
+        if (file.size > MAX_FILE_BYTES) {
+            setFileError("File must be 4 MB or smaller.");
+            e.target.value = "";
+            setAttachment(null);
+            return;
+        }
+        if (!ALLOWED_TYPES.has(file.type)) {
+            setFileError("Only JPG, PNG, PDF, GIF, WebP, SVG, and AI/EPS files are allowed.");
+            e.target.value = "";
+            setAttachment(null);
+            return;
+        }
+        setAttachment(file);
+    }
+
+    function removeAttachment() {
+        setAttachment(null);
+        setFileError("");
+        const input = document.getElementById("quote-attachment");
+        if (input) input.value = "";
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
         setError("");
 
-        const formData = new FormData(event.currentTarget);
-        const payload = {
-            name: String(formData.get("name") || ""),
-            businessName: String(formData.get("businessName") || ""),
-            email: String(formData.get("email") || ""),
-            phone: String(formData.get("phone") || ""),
-            productService: String(formData.get("productService") || ""),
-            message: String(formData.get("message") || ""),
-            company: String(formData.get("company") || ""),
-            language: content.language,
-            sourcePage: typeof window !== "undefined" ? window.location.href : "Quote Request Page",
-        };
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+
+        if (attachment) {
+            formData.set("attachment", attachment);
+        }
 
         try {
             const response = await fetch("/api/quote", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
+                body: formData,
             });
 
             if (!response.ok) {
@@ -85,7 +118,6 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
             }
 
             setSubmitted(true);
-            event.currentTarget.reset();
         } catch (submitError) {
             setError(submitError.message || content.errorFallback);
         } finally {
@@ -217,6 +249,49 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                             <div>
                                 <label htmlFor="quote-message" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.message} *</label>
                                 <textarea id="quote-message" name="message" required defaultValue={defaultMessage} placeholder={content.messagePlaceholder} rows={5} className="w-full resize-none rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
+                            </div>
+
+                            {/* File attachment */}
+                            <div>
+                                <label className="mb-2 block text-xs font-bold uppercase tracking-wide">
+                                    Attach a File <span className="font-normal normal-case tracking-normal text-slate-400">(optional)</span>
+                                </label>
+                                {attachment ? (
+                                    <div className="flex items-center gap-3 rounded-xl border-2 border-[#0369A1]/30 bg-[#0369A1]/5 px-4 py-3">
+                                        <Paperclip className="h-4 w-4 shrink-0 text-[#0369A1]" />
+                                        <span className="min-w-0 flex-1 truncate text-sm text-slate-700">{attachment.name}</span>
+                                        <button
+                                            type="button"
+                                            onClick={removeAttachment}
+                                            className="shrink-0 rounded-full p-0.5 text-slate-400 transition hover:text-red-500"
+                                            aria-label="Remove attachment"
+                                        >
+                                            <X className="h-4 w-4" />
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <label
+                                        htmlFor="quote-attachment"
+                                        className="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed border-slate-200 px-4 py-3 transition hover:border-[#0369A1]/50 hover:bg-slate-50"
+                                    >
+                                        <Paperclip className="h-4 w-4 shrink-0 text-slate-400" />
+                                        <span className="text-sm text-slate-500">
+                                            Logo, mockup, or reference image
+                                        </span>
+                                        <span className="ml-auto shrink-0 text-xs text-slate-400">JPG, PNG, PDF, SVG · 4 MB max</span>
+                                    </label>
+                                )}
+                                <input
+                                    id="quote-attachment"
+                                    type="file"
+                                    name="attachment"
+                                    accept={ALLOWED_EXTENSIONS}
+                                    onChange={handleFileChange}
+                                    className="sr-only"
+                                />
+                                {fileError && (
+                                    <p className="mt-1 text-xs text-red-600">{fileError}</p>
+                                )}
                             </div>
 
                             {error && (

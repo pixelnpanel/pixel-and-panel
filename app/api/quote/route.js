@@ -3,11 +3,22 @@ import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
+const ALLOWED_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+  "image/svg+xml",
+  "application/pdf",
+  "application/postscript",
+]);
+const MAX_FILE_BYTES = 4 * 1024 * 1024; // 4 MB
+
 function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
 }
 
-function buildEmail({ name, businessName, email, phone, productService, sourcePage, message, language }) {
+function buildEmail({ name, businessName, email, phone, productService, sourcePage, message, language, hasAttachment }) {
   const submittedAt = new Date().toLocaleString("en-US", {
     timeZone: "America/Chicago",
     dateStyle: "medium",
@@ -39,10 +50,11 @@ function buildEmail({ name, businessName, email, phone, productService, sourcePa
     `Product/Service: ${productService || "General Quote"}`,
     `Source Page: ${sourcePage || "Not provided"}`,
     `Submitted: ${submittedAt} CT`,
+    hasAttachment ? "Attachment: yes (see attached file)" : "",
     "",
     "Message:",
     message,
-  ].join("\n");
+  ].filter((l) => l !== undefined).join("\n");
 
   const html = `
     <div style="font-family: Arial, sans-serif; color: #1C1917; line-height: 1.6; max-width: 680px;">
@@ -57,6 +69,7 @@ function buildEmail({ name, businessName, email, phone, productService, sourcePa
           <tr><td style="padding: 8px 0; font-weight: 700;">Product/Service</td><td style="padding: 8px 0;">${safe.productService}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Source Page</td><td style="padding: 8px 0;">${safe.sourcePage}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Submitted</td><td style="padding: 8px 0;">${safe.submittedAt}</td></tr>
+          ${hasAttachment ? '<tr><td style="padding: 8px 0; font-weight: 700;">Attachment</td><td style="padding: 8px 0;">✓ See attached file</td></tr>' : ""}
         </tbody>
       </table>
       <div style="background: #FAF8F4; border-left: 4px solid #F59E0B; padding: 16px;">
@@ -81,23 +94,22 @@ export async function POST(request) {
     return rateLimitResponse(limiter.resetTime);
   }
 
-  let payload;
-
+  let formData;
   try {
-    payload = await request.json();
+    formData = await request.formData();
   } catch {
     return jsonResponse({ error: "Invalid request body." }, 400);
   }
 
-  const name = cleanText(payload.name);
-  const businessName = cleanText(payload.businessName);
-  const email = cleanText(payload.email);
-  const phone = cleanText(payload.phone);
-  const productService = cleanText(payload.productService) || "General Quote";
-  const message = cleanText(payload.message);
-  const company = cleanText(payload.company);
-  const sourcePage = cleanText(payload.sourcePage);
-  const language = cleanText(payload.language) || "English";
+  const name = cleanText(formData.get("name"));
+  const businessName = cleanText(formData.get("businessName"));
+  const email = cleanText(formData.get("email"));
+  const phone = cleanText(formData.get("phone"));
+  const productService = cleanText(formData.get("productService")) || "General Quote";
+  const message = cleanText(formData.get("message"));
+  const company = cleanText(formData.get("company"));
+  const sourcePage = cleanText(formData.get("sourcePage"));
+  const language = cleanText(formData.get("language")) || "English";
 
   if (company) {
     return jsonResponse({ ok: true });
@@ -115,6 +127,20 @@ export async function POST(request) {
     return jsonResponse({ error: "Please enter a valid email address." }, 400);
   }
 
+  // Process optional file attachment
+  const attachments = [];
+  const file = formData.get("attachment");
+  if (file && file instanceof File && file.size > 0) {
+    if (file.size > MAX_FILE_BYTES) {
+      return jsonResponse({ error: "File must be 4 MB or smaller." }, 400);
+    }
+    if (!ALLOWED_TYPES.has(file.type)) {
+      return jsonResponse({ error: "Only JPG, PNG, PDF, GIF, WebP, SVG, and AI/EPS files are allowed." }, 400);
+    }
+    const buffer = Buffer.from(await file.arrayBuffer());
+    attachments.push({ filename: file.name, content: buffer, contentType: file.type });
+  }
+
   const { text, html } = buildEmail({
     name,
     businessName,
@@ -124,6 +150,7 @@ export async function POST(request) {
     sourcePage,
     message,
     language,
+    hasAttachment: attachments.length > 0,
   });
 
   try {
@@ -137,6 +164,7 @@ export async function POST(request) {
           : `New Quote Request: ${cleanHeader(productService)}`,
       text,
       html,
+      attachments,
     });
 
     return jsonResponse({ ok: true });
