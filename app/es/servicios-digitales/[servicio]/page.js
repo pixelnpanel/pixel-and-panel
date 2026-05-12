@@ -45,7 +45,14 @@ export async function generateMetadata({ params }) {
       title: service.title,
       description: service.description,
       url: `https://pixelnpanel.com/es/servicios-digitales/${service.slug}`,
+      siteName: "Pixel & Panel",
       locale: "es_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.title,
+      description: service.description,
     },
   };
 }

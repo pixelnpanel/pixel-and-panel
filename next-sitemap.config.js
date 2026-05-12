@@ -34,7 +34,7 @@ module.exports = {
             loc: path,
             changefreq: path.startsWith('/service-area/') || path.startsWith('/es/area-de-servicio/') ? 'monthly' : 'weekly',
             priority: path === '/' ? 1.0 : path.startsWith('/service-area/') || path.startsWith('/es/area-de-servicio/') ? 0.8 : 0.7,
-            lastmod: new Date().toISOString(),
+            lastmod: undefined,
         }
     },
     additionalPaths: async (config) => {
