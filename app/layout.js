@@ -55,9 +55,7 @@ export default function RootLayout({ children }) {
         </a>
         <GoogleAnalytics />
         <LocalBusinessJsonLd />
-        <div style={{ viewTransitionName: "site-navbar" }}>
-          <Navbar />
-        </div>
+        <Navbar />
         <main id="main-content">
           <ViewTransition>{children}</ViewTransition>
         </main>

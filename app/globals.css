@@ -356,14 +356,11 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Navbar: stays fixed — does not slide with page content */
+/* Navbar: frozen during page transitions — no flash */
 ::view-transition-group(site-navbar) {
-  animation: none;
   z-index: 100;
 }
-::view-transition-old(site-navbar) {
-  display: none;
-}
+::view-transition-old(site-navbar),
 ::view-transition-new(site-navbar) {
   animation: none;
 }
