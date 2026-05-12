@@ -96,7 +96,7 @@ export default function Navbar() {
           >
             <Image
               src="/logo/pixel-panel-wordmark.png"
-              alt="Pixel and Panel"
+              alt="Pixel & Panel"
               width={240}
               height={32}
               style={{

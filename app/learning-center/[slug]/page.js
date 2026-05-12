@@ -29,10 +29,16 @@ export async function generateMetadata({ params }) {
       title: `${post.title} | Pixel & Panel`,
       description: post.description,
       url: `https://pixelnpanel.com/learning-center/${post.slug}`,
+      siteName: "Pixel & Panel",
       locale: "en_US",
       type: "article",
       publishedTime: post.publishDate,
       modifiedTime: post.updatedDate,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | Pixel & Panel`,
+      description: post.description,
     },
   };
 }

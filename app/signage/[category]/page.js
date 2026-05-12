@@ -32,7 +32,15 @@ export async function generateMetadata({ params }) {
         openGraph: {
             title: `${product.title} | Pixel & Panel`,
             description: product.description,
-            url: `/signage/${product.slug}`,
+            url: `https://pixelnpanel.com/signage/${product.slug}`,
+            siteName: "Pixel & Panel",
+            locale: "en_US",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${product.title} | Pixel & Panel`,
+            description: product.description,
         },
     };
 }

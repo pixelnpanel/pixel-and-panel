@@ -82,10 +82,33 @@ export default function SignageProductPage({ product }) {
     })),
   };
 
+  const service = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: product.name,
+    description: product.description,
+    url: `https://pixelnpanel.com/signage/${product.slug}`,
+    image: `https://pixelnpanel.com${product.image}`,
+    serviceType: product.category,
+    areaServed: [
+      { "@type": "City", name: "Beaumont", containedInPlace: { "@type": "State", name: "Texas" } },
+      { "@type": "City", name: "Nederland", containedInPlace: { "@type": "State", name: "Texas" } },
+      { "@type": "City", name: "Port Arthur", containedInPlace: { "@type": "State", name: "Texas" } },
+    ],
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Pixel & Panel",
+      url: "https://pixelnpanel.com",
+      telephone: "(409) 800-6139",
+      email: "hello@pixelnpanel.com",
+    },
+  };
+
   return (
     <>
       <JsonLd data={breadcrumbs} />
       <JsonLd data={faq} />
+      <JsonLd data={service} />
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
         <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">

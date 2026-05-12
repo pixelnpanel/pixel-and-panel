@@ -21,7 +21,15 @@ export const metadata = {
     description:
       "Pixel & Panel ayuda a negocios en Nederland, TX con sitios web, tarjetas, volantes, banners, letreros, SEO local y códigos QR.",
     url: "https://pixelnpanel.com/es/area-de-servicio/nederland-tx",
+    siteName: "Pixel & Panel",
     locale: "es_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sitios Web, Letreros e Impresión en Nederland, TX | Pixel & Panel",
+    description:
+      "Pixel & Panel ayuda a negocios en Nederland, TX con sitios web, tarjetas, volantes, banners, letreros, SEO local y códigos QR.",
   },
 };
 
