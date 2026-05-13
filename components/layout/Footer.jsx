@@ -41,15 +41,16 @@ export default function Footer() {
           <div>
             <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none', marginBottom: '1.25rem' }}>
               <Image
-                src="/logo/pixel-panel-wordmark.png"
+                src="/logo/icon-wordmark.svg"
                 alt="Pixel & Panel"
                 width={220}
-                height={29}
+                height={33}
                 style={{
                   height: 'auto',
                   maxWidth: 'min(220px, 100%)',
                   objectFit: 'contain',
                 }}
+                unoptimized
               />
             </Link>
 

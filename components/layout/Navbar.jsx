@@ -83,13 +83,26 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
+            {/* Mobile: icon only */}
             <Image
-              src="/logo/pixel-panel-wordmark.png"
+              src="/logo/icon.svg"
+              alt="Pixel & Panel"
+              width={36}
+              height={36}
+              className="lg:hidden"
+              style={{ display: 'block' }}
+              unoptimized
+              priority
+            />
+            {/* Desktop: full wordmark */}
+            <Image
+              src="/logo/icon-wordmark.svg"
               alt="Pixel & Panel"
               width={240}
-              height={32}
-              className="h-auto w-[140px] lg:w-[240px]"
+              height={36}
+              className="hidden lg:block h-auto"
               style={{ objectFit: 'contain' }}
+              unoptimized
               priority
             />
           </Link>
@@ -139,7 +152,8 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Nav — 3 key links, no hamburger */}
-          <nav aria-label="Mobile navigation" className="lg:hidden" style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
+          <div className="lg:hidden">
+          <nav aria-label="Mobile navigation" style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
             {mobileLinks.map((item) => {
               const isActive = navIsActive(pathname, item.href)
               return (
@@ -152,6 +166,7 @@ export default function Navbar() {
               )
             })}
           </nav>
+          </div>
 
         </div>
       </div>
