@@ -71,7 +71,7 @@ function HomepageVisual() {
                 </div>
                 <div className="rounded-lg bg-[#F59E0B]/15 p-3">
                   <MousePointerClick className="mb-2 h-5 w-5 text-[#F59E0B]" />
-                  <p className="text-xs font-bold">Lead path</p>
+                  <p className="text-xs font-bold">Easy to contact</p>
                 </div>
               </div>
             </div>
@@ -104,7 +104,7 @@ function HomepageVisual() {
                       QR Code
                     </p>
                     <p className="mt-1 text-sm leading-6 text-white/65">
-                      Track scans from your signs.
+                      See who visits from your signs.
                     </p>
                   </div>
                 </div>
@@ -144,14 +144,14 @@ export default function HomeClient({ faqs }) {
             </motion.div>
 
             <motion.h1 id="homepage-hero-title" variants={fadeUp} className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-black leading-[1.08] tracking-normal text-white">
-              Websites, Signs &amp; QR Campaigns
+              Website Design, Signs &amp; Print
               <span className="mt-2 block text-[#F59E0B]">
                 for Southeast Texas Businesses
               </span>
             </motion.h1>
 
             <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
-              Pixel &amp; Panel helps local businesses get found online, get noticed in the real world, and turn attention into quote requests, calls, and customers.
+              Pixel &amp; Panel helps local businesses in Southeast Texas show up on Google, stand out with professional signs and print, and make it easy for customers to call or reach out.
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-nowrap">
@@ -167,7 +167,7 @@ export default function HomeClient({ faqs }) {
             </motion.div>
 
             <motion.div variants={fadeUp} className="mt-9 grid gap-3 text-sm text-white/68 sm:grid-cols-3">
-              {["Your Vision. Made Visible.", "Websites, signs, and QR codes working together", "Quote-first process"].map((item) => (
+              {["Your Vision. Made Visible.", "Websites, signs, and print — all working together", "Quote-first process"].map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F59E0B]" />
                   <span>{item}</span>

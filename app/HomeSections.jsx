@@ -38,9 +38,9 @@ const problemCards = [
     icon: Search,
   },
   {
-    title: "Signs with no lead tracking",
+    title: "Signs with no clear next step",
     description:
-      "Signs get attention. QR codes and lead forms help turn that attention into scans, calls, and quote requests.",
+      "A great sign gets you noticed. Adding a simple QR code or contact option gives customers an easy way to reach you.",
     icon: QrCode,
   },
 ];
@@ -59,9 +59,9 @@ const solutionSteps = [
     icon: Megaphone,
   },
   {
-    title: "Track",
+    title: "Connect",
     description:
-      "Add QR codes and lead capture forms so customers can scan, call, request a quote, or take the next step.",
+      "Add QR codes and simple contact options so customers can easily call, visit, or ask for a quote right from your sign or flyer.",
     icon: QrCode,
   },
 ];
@@ -79,7 +79,7 @@ const serviceSilos = [
     items: [
       "Pages that turn visitors into calls and quote requests",
       "Google-ready service content",
-      "QR paths that connect signs and print to the web",
+      "QR codes that send customers from your signs to your website",
     ],
   },
   {
@@ -94,7 +94,7 @@ const serviceSilos = [
     items: [
       "Business signs that are easy to read",
       "Print materials for handoffs, events, and walk-ins",
-      "QR-ready designs that give customers a next step",
+      "Designs that give customers a clear next step",
     ],
   },
 ];
@@ -137,8 +137,8 @@ const popularServices = [
     icon: MonitorSmartphone,
   },
   {
-    title: "Local SEO",
-    description: "Help nearby customers understand where you work and what services you offer.",
+    title: "Get Found on Google",
+    description: "Help nearby customers find you when they search for what you offer in your area.",
     href: "/digital/local-seo",
     icon: Search,
   },
@@ -161,21 +161,21 @@ const cityCards = [
     city: "Nederland",
     href: "/service-area/nederland-tx",
     description:
-      "Practical visibility tools for Nederland businesses, from business cards and banners to websites and QR campaigns.",
+      "Practical visibility tools for Nederland businesses, from business cards and banners to websites and print materials.",
   },
   {
     city: "Port Arthur",
     href: "/service-area/port-arthur-tx",
     description:
-      "Digital and physical marketing support for Port Arthur businesses that need clearer paths to calls and quotes.",
+      "Website, signage, and print support for Port Arthur businesses that want more calls and customers.",
   },
 ];
 
 const reasons = [
   {
-    title: "Websites, signs, and QR codes working together",
+    title: "Your website, signs, and print all working together",
     description:
-      "Your website, signs, print materials, and QR codes should point customers toward the same clear next step.",
+      "Your website, signs, and print materials should all point customers toward the same clear next step.",
     icon: Building2,
   },
   {
@@ -332,8 +332,8 @@ export default function HomeSections({ faqs }) {
           <SectionIntro
             id="services-heading"
             eyebrow="Services"
-            title="Websites, signs, and QR codes working together"
-            description="Choose the service lane you need now, or start with a quote request and Pixel & Panel will recommend the right next step."
+            title="Your website, signs, and print — working together"
+            description="Choose what you need now, or start with a quote request and Pixel & Panel will recommend the right next step."
           />
 
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-6 lg:grid-cols-2">

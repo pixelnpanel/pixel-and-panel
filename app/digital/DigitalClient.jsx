@@ -15,24 +15,24 @@ const SERVICES = [
   },
   {
     icon: MapPin, color: '#F59E0B', bg: 'rgba(245,158,11,0.08)',
-    name: 'Local SEO & Google Profile',
+    name: 'Show Up on Google',
     href: '/digital/local-seo',
-    description: 'Get found on Google Maps and in local search results before your competitors. We optimize your entire online presence for your service area.',
-    features: ['Google Business Profile setup & optimization', 'Local keyword targeting', 'Citation building across directories', 'Monthly ranking reports'],
+    description: 'Help local customers find your business on Google and Google Maps when they search for what you offer nearby.',
+    features: ['Google Business Profile setup & optimization', 'Targeting what customers actually search for', 'Listed correctly on Google, Yelp, and directories', 'Monthly progress updates'],
   },
   {
     icon: Zap, color: '#8B5CF6', bg: 'rgba(139,92,246,0.08)',
-    name: 'CRM & Automation',
+    name: 'Never Miss a Lead',
     href: '/digital/crm-automation',
-    description: 'Never lose a lead to slow follow-up again. Automated text and email responses so every new inquiry gets a reply in minutes — not days.',
-    features: ['Automated lead follow-up', 'Text & email sequences', 'Pipeline tracking dashboard', 'Appointment booking integration'],
+    description: 'When someone asks about your services, they should hear back fast. We set up simple tools to help you reply to every inquiry quickly — without letting anything slip through.',
+    features: ['Automatic reply when someone reaches out', 'Text & email follow-up sequences', 'See all your open inquiries in one place', 'Optional online booking setup'],
   },
   {
     icon: QrCode, color: '#10B981', bg: 'rgba(16,185,129,0.08)',
     name: 'QR Code Campaigns',
     href: '/digital/qr-code-campaigns',
-    description: 'Turn every sign you put up into a trackable marketing asset. Dynamic QR codes link your physical signage directly to your CRM.',
-    features: ['Dynamic QR codes on every sign', 'Real-time scan tracking', 'Connects directly to your CRM', 'Campaign performance reports'],
+    description: 'Put a QR code on your signs, flyers, or business cards so customers can scan and go straight to your website or quote form.',
+    features: ['QR codes for signs, flyers, and cards', 'See how many people scan each piece', 'Sends customers to your quote form or website', 'Track which materials are getting the most response'],
   },
 ]
 
@@ -59,8 +59,8 @@ export default function DigitalPage() {
             <span style={{ color: '#F59E0B' }}>Turn Visitors Into Customers.</span>
           </motion.h1>
           <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
-            Everything your business needs to dominate local search, convert
-            website visitors, and follow up with every lead automatically.
+            Everything a local business needs to show up on Google, look
+            professional online, and make it easy for customers to reach you.
           </motion.p>
         </motion.div>
       </section>

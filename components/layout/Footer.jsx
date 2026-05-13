@@ -57,7 +57,7 @@ export default function Footer() {
             <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: 1.7, marginBottom: '1.5rem', fontFamily: 'var(--font-body)' }}>
               Your Vision. <span style={{ color: '#F59E0B' }}>Made Visible.</span>
               <br /><br />
-              We bridge physical signage and digital marketing so every sign you put up drives real, trackable results.
+              Professional websites, signs, and print materials that help Southeast Texas businesses get noticed and get more customers.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>

@@ -28,7 +28,7 @@ const defaultCopy = {
     subject: 'Subject',
     message: 'Your Message',
     subjectPlaceholder: 'Website, signs, print, or general question',
-    messagePlaceholder: 'Ask us anything — about our services, pricing, or if you need any signs for your business...',
+    messagePlaceholder: 'Tell us what you need — a website, signs, print materials, or not sure yet. We read every message personally.',
     submit: 'Send Message',
     sending: 'Sending...',
     footer: 'We respond within 1 business day. No spam, ever.',

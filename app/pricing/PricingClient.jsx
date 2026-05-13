@@ -84,11 +84,11 @@ const WEBSITE_PACKAGES = [
     features: [
       'Up to 10 pages',
       'Website design and development',
-      'Local SEO page structure',
+      'Pages set up to show on Google',
       'Google Business Profile optimization',
       'Quote/contact lead capture forms',
       'QR code campaign setup',
-      'Basic analytics setup',
+      'Basic visitor tracking setup',
       '2 rounds of revisions',
     ],
     cta: 'Build My Visibility System',
