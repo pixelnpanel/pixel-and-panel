@@ -31,6 +31,15 @@ const processCardsEs = [
   },
 ];
 
+const SERVICE_LINKS_ES = {
+  "Sitios Web":              { label: "Ver Nuestros Servicios Web",    href: "/es/servicios-digitales" },
+  "Gráficos para Vehículos": { label: "Ver Nuestros Letreros",         href: "/es/letreros" },
+  "Letreros e Impresión":    { label: "Ver Nuestros Letreros",         href: "/es/letreros" },
+  "Campañas QR":             { label: "Ver Nuestros Servicios Web",    href: "/es/servicios-digitales" },
+  "Tarjetas y Volantes":     { label: "Ver Nuestros Letreros",         href: "/es/letreros" },
+  "Branding":                { label: "Ver Nuestros Servicios Web",    href: "/es/servicios-digitales" },
+}
+
 function createQuoteLinkEs(project) {
   const params = new URLSearchParams();
   params.set("product", project.quoteProduct);
@@ -177,8 +186,13 @@ export default function PortfolioClientEs() {
                     <p className="mt-2 text-sm text-slate-700">{project.focusArea}</p>
                   </div>
 
-                  <div className="mt-6">
-                    <Link href={createQuoteLinkEs(project)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
+                  <div className="mt-6 flex flex-col gap-3">
+                    {SERVICE_LINKS_ES[project.category] && (
+                      <Link href={SERVICE_LINKS_ES[project.category].href} className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#0369A1]/30 bg-[#0369A1]/5 px-4 py-2.5 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:border-[#0369A1] hover:bg-[#0369A1]/10">
+                        {SERVICE_LINKS_ES[project.category].label} <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    )}
+                    <Link href={createQuoteLinkEs(project)} className="inline-flex items-center justify-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#F59E0B] transition hover:text-[#F59E0B]/70">
                       Solicitar un proyecto similar <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>

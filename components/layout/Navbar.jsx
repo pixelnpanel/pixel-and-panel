@@ -4,18 +4,20 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { ArrowRight, Menu, X } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { getAlternatePath, isSpanishPath } from '@/lib/i18n'
 
-const MOBILE_NAV = [
-  { label: 'Digital Services', href: '/digital' },
-  { label: 'Signage & Print', href: '/signage' },
+const MOBILE_SIMPLE = [
   { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Learning Center', href: '/learning-center' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Request a Quote', href: '/quote-request', primary: true },
+  { label: 'Pricing',   href: '/pricing' },
+  { label: 'Contact',   href: '/contact' },
+]
+
+const MOBILE_SIMPLE_ES = [
+  { label: 'Portafolio', href: '/es/portafolio' },
+  { label: 'Precios',    href: '/es/precios' },
+  { label: 'Contacto',   href: '/es/contacto' },
 ]
 
 const SPANISH_NAV = [
@@ -28,22 +30,23 @@ const SPANISH_NAV = [
 
 function rememberLanguage(language) {
   if (typeof window === 'undefined') return
-
   try {
     window.localStorage.setItem('pnp-language', language)
   } catch {}
   document.cookie = `pnp-language=${language}; path=/; max-age=31536000; SameSite=Lax`
 }
 
+function navIsActive(pathname, href) {
+  const isRoot = href === '/' || href === '/es'
+  return isRoot ? pathname === href : pathname === href || pathname.startsWith(href + '/')
+}
+
 export default function Navbar() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
   const spanish = isSpanishPath(pathname)
   const navLinks = spanish ? SPANISH_NAV : NAV_LINKS
-  const mobileLinks = spanish
-    ? [...SPANISH_NAV, { label: 'Cotización Gratis', href: '/es/solicitar-cotizacion', primary: true }]
-    : MOBILE_NAV
+  const mobileLinks = spanish ? MOBILE_SIMPLE_ES : MOBILE_SIMPLE
   const homeHref = spanish ? '/es' : '/'
   const quoteHref = spanish ? '/es/solicitar-cotizacion' : '/quote-request'
   const quoteLabel = spanish ? 'COTIZACIÓN GRATIS' : 'GET A FREE QUOTE'
@@ -58,19 +61,9 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => {
-    const closeOnDesktop = () => {
-      if (window.innerWidth >= 1024) setMenuOpen(false)
-    }
-
-    window.addEventListener('resize', closeOnDesktop)
-    return () => window.removeEventListener('resize', closeOnDesktop)
-  }, [])
-
   const isLight = scrolled
-  const bg = isLight || menuOpen ? 'rgba(255,255,255,0.97)' : 'transparent'
+  const bg = isLight ? 'rgba(255,255,255,0.97)' : 'transparent'
   const textColor = isLight ? '#1C1917' : 'white'
-  const mobileControlColor = isLight || menuOpen ? '#1C1917' : 'white'
 
   return (
     <header
@@ -89,21 +82,14 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px', gap: '0.5rem' }}>
 
           {/* Logo */}
-          <Link
-            href={homeHref}
-            onClick={() => setMenuOpen(false)}
-            style={{ textDecoration: 'none', flexShrink: 0 }}
-          >
+          <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
             <Image
               src="/logo/pixel-panel-wordmark.png"
               alt="Pixel & Panel"
               width={240}
               height={32}
-              style={{
-                height: 'auto',
-                width: 'min(240px, calc(100vw - 6rem))',
-                objectFit: 'contain',
-              }}
+              className="h-auto w-[140px] lg:w-[240px]"
+              style={{ objectFit: 'contain' }}
               priority
             />
           </Link>
@@ -111,8 +97,7 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav aria-label="Desktop navigation" className="hidden lg:flex" style={{ alignItems: 'center', gap: '0.25rem' }}>
             {navLinks.map((item) => {
-              const isRoot = item.href === '/' || item.href === '/es'
-              const isActive = isRoot ? pathname === item.href : pathname === item.href || pathname.startsWith(item.href + '/')
+              const isActive = navIsActive(pathname, item.href)
               return (
                 <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', transition: 'all 0.2s', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
                   {item.label}
@@ -124,7 +109,7 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA + Language */}
           <div className="hidden lg:flex" style={{ alignItems: 'center', flexShrink: 0, gap: '0.75rem' }}>
             <div
               aria-label="Language switcher"
@@ -139,30 +124,12 @@ export default function Navbar() {
                 overflow: 'hidden',
               }}
             >
-              <Link
-                href={languageSwitch.en}
-                hrefLang="en-US"
-                onClick={() => rememberLanguage('en')}
-                style={{
-                  background: spanish ? 'transparent' : '#F59E0B',
-                  color: spanish ? textColor : '#1C1917',
-                  padding: '0.42rem 0.55rem',
-                  textDecoration: 'none',
-                }}
-              >
+              <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
+                style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.42rem 0.55rem', textDecoration: 'none' }}>
                 EN
               </Link>
-              <Link
-                href={languageSwitch.es}
-                hrefLang="es-US"
-                onClick={() => rememberLanguage('es')}
-                style={{
-                  background: spanish ? '#F59E0B' : 'transparent',
-                  color: spanish ? '#1C1917' : textColor,
-                  padding: '0.42rem 0.55rem',
-                  textDecoration: 'none',
-                }}
-              >
+              <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
+                style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.42rem 0.55rem', textDecoration: 'none' }}>
                 ES
               </Link>
             </div>
@@ -171,144 +138,23 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="lg:hidden" style={{ flexShrink: 0 }}>
-            <button
-              type="button"
-              aria-label={menuOpen ? 'Close mobile menu' : 'Open mobile menu'}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-navigation"
-              onClick={() => setMenuOpen((open) => !open)}
-              style={{
-                alignItems: 'center',
-                background: menuOpen ? 'rgba(3, 105, 161, 0.08)' : 'rgba(255,255,255,0.12)',
-                border: `1px solid ${menuOpen ? 'rgba(3,105,161,0.16)' : 'rgba(255,255,255,0.24)'}`,
-                borderRadius: '0.75rem',
-                color: mobileControlColor,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                height: '42px',
-                justifyContent: 'center',
-                padding: 0,
-                transition: 'all 0.2s ease',
-                width: '42px',
-              }}
-            >
-              {menuOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
-          </div>
+          {/* Mobile Nav — 3 key links, no hamburger */}
+          <nav aria-label="Mobile navigation" className="lg:hidden" style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
+            {mobileLinks.map((item) => {
+              const isActive = navIsActive(pathname, item.href)
+              return (
+                <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.35rem 0.5rem', borderRadius: '0.5rem', fontSize: '0.8rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
+                  {item.label}
+                  {isActive && (
+                    <span style={{ position: 'absolute', bottom: 2, left: '0.5rem', right: '0.5rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
+                  )}
+                </Link>
+              )
+            })}
+          </nav>
 
         </div>
       </div>
-
-      {menuOpen && (
-        <div
-          id="mobile-navigation"
-          className="lg:hidden"
-          style={{
-            left: 0,
-            padding: '0 1rem 1rem',
-            position: 'absolute',
-            right: 0,
-            top: '64px',
-          }}
-        >
-          <nav
-            aria-label="Mobile navigation"
-            style={{
-              background: '#0C1E3C',
-              border: '1px solid rgba(14, 165, 233, 0.22)',
-              borderRadius: '1rem',
-              boxShadow: '0 22px 48px rgba(12, 30, 60, 0.24)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.35rem',
-              margin: '0 auto',
-              maxWidth: '32rem',
-              padding: '0.65rem',
-            }}
-          >
-            {mobileLinks.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className={item.primary ? 'btn-amber' : undefined}
-                style={
-                  item.primary
-                    ? {
-                        justifyContent: 'center',
-                        marginTop: '0.35rem',
-                        minHeight: '48px',
-                        width: '100%',
-                      }
-                    : {
-                        borderRadius: '0.75rem',
-                        color: 'white',
-                        fontFamily: 'var(--font-body)',
-                        fontSize: '1rem',
-                        fontWeight: 600,
-                        minHeight: '48px',
-                        padding: '0.8rem 0.95rem',
-                        textDecoration: 'none',
-                      }
-                }
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div
-              aria-label="Language switcher"
-              style={{
-                display: 'grid',
-                gap: '0.5rem',
-                gridTemplateColumns: '1fr 1fr',
-                marginTop: '0.35rem',
-              }}
-            >
-              <Link
-                href={languageSwitch.en}
-                hrefLang="en-US"
-                onClick={() => {
-                  rememberLanguage('en')
-                  setMenuOpen(false)
-                }}
-                style={{
-                  background: spanish ? 'rgba(255,255,255,0.08)' : '#F59E0B',
-                  borderRadius: '0.75rem',
-                  color: spanish ? 'white' : '#1C1917',
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '0.85rem',
-                  fontWeight: 800,
-                  padding: '0.8rem',
-                  textAlign: 'center',
-                }}
-              >
-                EN
-              </Link>
-              <Link
-                href={languageSwitch.es}
-                hrefLang="es-US"
-                onClick={() => {
-                  rememberLanguage('es')
-                  setMenuOpen(false)
-                }}
-                style={{
-                  background: spanish ? '#F59E0B' : 'rgba(255,255,255,0.08)',
-                  borderRadius: '0.75rem',
-                  color: spanish ? '#1C1917' : 'white',
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '0.85rem',
-                  fontWeight: 800,
-                  padding: '0.8rem',
-                  textAlign: 'center',
-                }}
-              >
-                ES
-              </Link>
-            </div>
-          </nav>
-        </div>
-      )}
     </header>
   )
 }
