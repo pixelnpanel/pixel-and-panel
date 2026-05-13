@@ -19,7 +19,6 @@ const MOBILE_NAV = [
 ]
 
 const SPANISH_NAV = [
-  { label: 'Inicio', href: '/es' },
   { label: 'Servicios Digitales', href: '/es/servicios-digitales' },
   { label: 'Letreros e Impresión', href: '/es/letreros' },
   { label: 'Portafolio', href: '/es/portafolio' },
