@@ -83,13 +83,25 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
+            {/* Icon mark on mobile */}
+            <Image
+              src="/logo/icon.svg"
+              alt="Pixel & Panel"
+              width={36}
+              height={36}
+              className="lg:hidden"
+              style={{ width: 36, height: 36 }}
+              unoptimized
+              priority
+            />
+            {/* Full wordmark on desktop */}
             <Image
               src="/logo/icon-wordmark.svg"
               alt="Pixel & Panel"
               width={240}
               height={36}
-              className="w-[104px] lg:w-[240px]"
-              style={{ height: 'auto', objectFit: 'contain' }}
+              className="hidden lg:block"
+              style={{ width: 240, height: 'auto', objectFit: 'contain' }}
               unoptimized
               priority
             />
@@ -140,15 +152,15 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Nav — links centered, language switch right */}
-          <div className="lg:hidden" style={{ display: 'flex', alignItems: 'center', flex: 1, gap: '0.25rem' }}>
-            <nav aria-label="Mobile navigation" style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center', gap: '0.05rem', minWidth: 0 }}>
+          <div className="flex lg:hidden" style={{ alignItems: 'center', flex: 1, gap: '0.25rem' }}>
+            <nav aria-label="Mobile navigation" style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center', gap: '0.15rem', minWidth: 0 }}>
               {mobileLinks.map((item) => {
                 const isActive = navIsActive(pathname, item.href)
                 return (
-                  <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.3rem 0.35rem', borderRadius: '0.5rem', fontSize: '0.72rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
+                  <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.38rem 0.55rem', borderRadius: '0.5rem', fontSize: '0.82rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
                     {item.label}
                     {isActive && (
-                      <span style={{ position: 'absolute', bottom: 2, left: '0.35rem', right: '0.35rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
+                      <span style={{ position: 'absolute', bottom: 2, left: '0.55rem', right: '0.55rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
                     )}
                   </Link>
                 )
@@ -163,18 +175,18 @@ export default function Navbar() {
                 borderRadius: '999px',
                 display: 'inline-flex',
                 fontFamily: 'var(--font-heading)',
-                fontSize: '0.62rem',
+                fontSize: '0.7rem',
                 fontWeight: 800,
                 overflow: 'hidden',
                 flexShrink: 0,
               }}
             >
               <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
-                style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
+                style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.4rem 0.52rem', textDecoration: 'none' }}>
                 EN
               </Link>
               <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
-                style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
+                style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.4rem 0.52rem', textDecoration: 'none' }}>
                 ES
               </Link>
             </div>
