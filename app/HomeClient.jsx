@@ -1,128 +1,230 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
   CheckCircle2,
-  MonitorSmartphone,
-  MousePointerClick,
-  PanelTop,
+  MessageSquare,
   QrCode,
   Search,
+  Star,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { fadeUp, stagger, viewport } from "@/lib/animations";
 import dynamic from "next/dynamic";
 
 const HomeSections = dynamic(() => import("@/app/HomeSections"));
 
+const STEPS = [
+  { num: "01", label: "Found on Google",   accent: "#0369A1" },
+  { num: "02", label: "Noticed in Person", accent: "#F59E0B" },
+  { num: "03", label: "New Customer",      accent: "#10B981" },
+];
+
+function ProgressBar({ color }) {
+  return (
+    <div className="mt-4 flex items-center gap-2">
+      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/10">
+        <motion.div
+          className="h-full rounded-full"
+          style={{ backgroundColor: color }}
+          initial={{ width: "0%" }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 3.2, ease: "linear" }}
+        />
+      </div>
+      <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color }}>
+        {["Found", "Noticed", "Contacted"][STEPS.findIndex(s => s.accent === color)]}
+      </span>
+    </div>
+  );
+}
+
+function StepGoogle() {
+  return (
+    <motion.div
+      key="google"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -14 }}
+      transition={{ duration: 0.35 }}
+    >
+      <div className="rounded-xl bg-white p-4 shadow-sm">
+        <div className="mb-3 flex items-center gap-2 rounded-full bg-slate-100 px-3 py-2">
+          <Search className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+          <span className="text-xs text-slate-500">signs near Beaumont TX</span>
+        </div>
+
+        <div className="rounded-lg border border-slate-100 bg-slate-50 p-3">
+          <p className="mb-0.5 text-[11px] font-medium text-[#0369A1]">pixelnpanel.com</p>
+          <p className="mb-1 text-sm font-bold text-slate-800">Pixel &amp; Panel — Signs &amp; Websites</p>
+          <p className="mb-2 text-[11px] text-slate-500">Beaumont · Nederland · Port Arthur, TX</p>
+          <div className="flex items-center gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-3 w-3 fill-[#F59E0B] text-[#F59E0B]" />
+            ))}
+            <span className="ml-1.5 text-[11px] text-slate-500">(409) 800-6139</span>
+          </div>
+        </div>
+
+        <ProgressBar color="#0369A1" />
+      </div>
+    </motion.div>
+  );
+}
+
+function StepSign() {
+  return (
+    <motion.div
+      key="sign"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -14 }}
+      transition={{ duration: 0.35 }}
+    >
+      <div className="overflow-hidden rounded-xl bg-[#0C1E3C] p-5 text-center">
+        <p className="mb-1 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-[#F59E0B]">
+          Now Open
+        </p>
+        <p className="mb-0.5 font-heading text-xl font-black text-white">Your Business</p>
+        <p className="mb-4 text-xs text-white/55">Beaumont, TX · (409) 000-0000</p>
+
+        <div className="flex items-center justify-center gap-3 rounded-lg bg-white/10 p-3">
+          <div className="grid h-10 w-10 shrink-0 grid-cols-3 gap-0.5 rounded bg-white p-1.5">
+            {[1,1,1,1,0,1,1,1,1].map((v, i) => (
+              <span key={i} className={`rounded-sm ${v ? "bg-[#1C1917]" : "bg-white"}`} />
+            ))}
+          </div>
+          <div className="text-left">
+            <p className="text-xs font-bold text-white">Scan for a free quote</p>
+            <p className="text-[11px] text-white/50">pixelnpanel.com</p>
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-center gap-2">
+          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/15">
+            <motion.div
+              className="h-full rounded-full bg-[#F59E0B]"
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 3.2, ease: "linear" }}
+            />
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-wide text-[#F59E0B]">Noticed</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function StepLead() {
+  return (
+    <motion.div
+      key="lead"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -14 }}
+      transition={{ duration: 0.35 }}
+    >
+      <div className="rounded-xl bg-white p-4 shadow-sm">
+        <div className="mb-3 flex items-center gap-3 rounded-xl border border-emerald-100 bg-emerald-50 p-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500">
+            <MessageSquare className="h-4 w-4 text-white" />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-[#1C1917]">New Quote Request</p>
+            <p className="text-[11px] text-slate-500">Just now · from your website</p>
+          </div>
+        </div>
+
+        <div className="rounded-xl bg-slate-50 p-3">
+          <p className="mb-1 text-sm font-semibold text-[#1C1917]">Maria G.</p>
+          <p className="text-xs leading-relaxed text-slate-600">
+            "Hi! I need a vinyl banner for my grand opening next month. Can you help?"
+          </p>
+          <div className="mt-3 flex gap-2">
+            <button className="flex-1 rounded-lg bg-[#F59E0B] py-1.5 text-xs font-bold text-[#1C1917]">
+              Reply
+            </button>
+            <button className="flex-1 rounded-lg border border-slate-200 py-1.5 text-xs font-bold text-slate-600">
+              View
+            </button>
+          </div>
+        </div>
+
+        <ProgressBar color="#10B981" />
+      </div>
+    </motion.div>
+  );
+}
+
 function HomepageVisual() {
-  const qrCells = [
-    1, 1, 1, 0, 1, 0,
-    1, 0, 1, 0, 0, 1,
-    1, 1, 1, 1, 0, 0,
-    0, 0, 1, 0, 1, 1,
-    1, 0, 0, 1, 0, 1,
-    0, 1, 1, 0, 1, 0,
-  ];
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => setStep((s) => (s + 1) % 3), 3800);
+    return () => clearInterval(timer);
+  }, []);
+
+  const current = STEPS[step];
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto w-full max-w-[540px]"
-      aria-label="Abstract visual showing a website, signage panel, and QR campaign working together"
+      className="relative mx-auto w-full max-w-[480px]"
+      aria-label="Animated visual showing how Pixel & Panel helps local businesses get found and get customers"
     >
       <div className="absolute -inset-4 rounded-[1.5rem] bg-[#0EA5E9]/15 blur-2xl" />
       <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.08] p-4 shadow-2xl backdrop-blur-md sm:p-5">
-        <div className="rounded-xl border border-white/10 bg-[#1C1917]/35 p-4">
-          <div className="mb-4 flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-[#F59E0B]" />
-            <span className="h-3 w-3 rounded-full bg-[#0EA5E9]" />
-            <span className="h-3 w-3 rounded-full bg-white/35" />
-            <span className="ml-auto rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/65">
-              pixelnpanel.com
-            </span>
-          </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
-            <div className="rounded-xl bg-white p-4 text-[#1C1917] shadow-xl">
-              <div className="mb-4 flex items-center justify-between gap-4">
-                <div>
-                  <p className="font-heading text-xs font-bold uppercase tracking-[0.14em] text-[#0369A1]">
-                    Website
-                  </p>
-                  <p className="mt-1 font-heading text-xl font-black">
-                    Quote-ready page
-                  </p>
-                </div>
-                <MonitorSmartphone className="h-8 w-8 text-[#0EA5E9]" />
-              </div>
-              <div className="space-y-2">
-                <div className="h-3 w-11/12 rounded-full bg-slate-200" />
-                <div className="h-3 w-8/12 rounded-full bg-slate-200" />
-                <div className="h-3 w-10/12 rounded-full bg-slate-200" />
-              </div>
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <div className="rounded-lg bg-[#FAF8F4] p-3">
-                  <Search className="mb-2 h-5 w-5 text-[#0369A1]" />
-                  <p className="text-xs font-bold">Google-ready</p>
-                </div>
-                <div className="rounded-lg bg-[#F59E0B]/15 p-3">
-                  <MousePointerClick className="mb-2 h-5 w-5 text-[#F59E0B]" />
-                  <p className="text-xs font-bold">Easy to contact</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid gap-4">
-              <div className="rounded-xl border border-[#F59E0B]/35 bg-[#F59E0B]/15 p-4">
-                <div className="mb-3 flex items-center gap-3">
-                  <PanelTop className="h-6 w-6 text-[#F59E0B]" />
-                  <p className="font-heading text-sm font-black uppercase tracking-[0.12em] text-white">
-                    Sign
-                  </p>
-                </div>
-                <div className="rounded-lg bg-[#F59E0B] p-4 text-center font-heading text-lg font-black uppercase tracking-[0.08em] text-[#1C1917]">
-                  Call Today
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-white/10 p-4">
-                <div className="flex items-center gap-4">
-                  <div className="grid h-20 w-20 shrink-0 grid-cols-6 gap-1 rounded-lg bg-white p-2">
-                    {qrCells.map((cell, index) => (
-                      <span
-                        key={`${cell}-${index}`}
-                        className={cell ? "rounded-sm bg-[#1C1917]" : "rounded-sm bg-slate-200"}
-                      />
-                    ))}
-                  </div>
-                  <div>
-                    <p className="font-heading text-sm font-black uppercase tracking-[0.12em] text-white">
-                      QR Code
-                    </p>
-                    <p className="mt-1 text-sm leading-6 text-white/65">
-                      See who visits from your signs.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 grid grid-cols-3 gap-3">
-            {["Found", "Noticed", "Contacted"].map((item) => (
-              <div
-                key={item}
-                className="rounded-lg border border-white/10 bg-white/[0.07] px-3 py-2 text-center text-xs font-bold uppercase tracking-[0.12em] text-white/70"
-              >
-                {item}
-              </div>
+        {/* Header row */}
+        <div className="mb-3 flex items-center justify-between">
+          <p className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">
+            How it works
+          </p>
+          <div className="flex gap-1.5">
+            {STEPS.map((s, i) => (
+              <button
+                key={i}
+                onClick={() => setStep(i)}
+                className="h-1.5 rounded-full transition-all duration-500"
+                style={{
+                  width: i === step ? "1.5rem" : "0.375rem",
+                  backgroundColor: i === step ? s.accent : "rgba(255,255,255,0.25)",
+                }}
+              />
             ))}
           </div>
         </div>
+
+        {/* Step label */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={step}
+            initial={{ opacity: 0, x: 8 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -8 }}
+            transition={{ duration: 0.22 }}
+            className="mb-3 flex items-center gap-2"
+          >
+            <span className="font-heading text-xs font-black" style={{ color: current.accent }}>
+              {current.num}
+            </span>
+            <span className="font-heading text-xs font-bold uppercase tracking-[0.12em] text-white/65">
+              {current.label}
+            </span>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Step content */}
+        <AnimatePresence mode="wait">
+          {step === 0 && <StepGoogle key="g" />}
+          {step === 1 && <StepSign key="s" />}
+          {step === 2 && <StepLead key="l" />}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
