@@ -111,14 +111,18 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <nav aria-label="Desktop navigation" className="hidden lg:flex" style={{ alignItems: 'center', gap: '0.25rem' }}>
-            {navLinks.map((item) => (
-              <Link key={item.label} href={item.href} style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: 500, color: textColor, textDecoration: 'none', transition: 'all 0.2s', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.06)'}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navLinks.map((item) => {
+              const isRoot = item.href === '/' || item.href === '/es'
+              const isActive = isRoot ? pathname === item.href : pathname === item.href || pathname.startsWith(item.href + '/')
+              return (
+                <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', transition: 'all 0.2s', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
+                  {item.label}
+                  {isActive && (
+                    <span style={{ position: 'absolute', bottom: 2, left: '0.875rem', right: '0.875rem', height: 3, borderRadius: 2, backgroundColor: '#F5A623' }} />
+                  )}
+                </Link>
+              )
+            })}
           </nav>
 
           {/* Desktop CTA */}
