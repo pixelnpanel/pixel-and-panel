@@ -83,25 +83,13 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
-            {/* Mobile: icon only */}
-            <Image
-              src="/logo/icon.svg"
-              alt="Pixel & Panel"
-              width={36}
-              height={36}
-              className="lg:hidden"
-              style={{ display: 'block' }}
-              unoptimized
-              priority
-            />
-            {/* Desktop: full wordmark */}
             <Image
               src="/logo/icon-wordmark.svg"
               alt="Pixel & Panel"
               width={240}
               height={36}
-              className="hidden lg:block h-auto"
-              style={{ objectFit: 'contain' }}
+              className="w-[130px] lg:w-[240px]"
+              style={{ height: 'auto', objectFit: 'contain' }}
               unoptimized
               priority
             />

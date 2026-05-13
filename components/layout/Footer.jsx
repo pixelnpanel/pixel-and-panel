@@ -39,7 +39,7 @@ export default function Footer() {
 
           {/* Brand column */}
           <div>
-            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none', marginBottom: '1.25rem' }}>
+            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none', marginBottom: '0.4rem' }}>
               <Image
                 src="/logo/icon-wordmark.svg"
                 alt="Pixel & Panel"
