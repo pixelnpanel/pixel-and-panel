@@ -241,7 +241,10 @@ export default function HomeClient({ faqs }) {
         <div className="container-px relative grid items-center gap-10 pb-20 md:pb-24 lg:grid-cols-[1.02fr_0.98fr]">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
             <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-sky-100 backdrop-blur">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#F59E0B]" />
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F59E0B] opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#F59E0B]" />
+              </span>
               Serving Southeast Texas
             </motion.div>
 

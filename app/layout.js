@@ -28,7 +28,7 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL("https://pixelnpanel.com"),
   title: {
-    default: "Websites, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel",
+    default: "Website Design, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel",
     template: "%s | Pixel & Panel",
   },
   description:
@@ -37,7 +37,7 @@ export const metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Websites, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel",
+    title: "Website Design, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel",
     description:
       "Custom signs, print materials, websites, local SEO, and QR-powered marketing for businesses in Beaumont, Nederland, and Port Arthur, TX.",
     url: "/",

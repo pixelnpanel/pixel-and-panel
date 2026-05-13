@@ -31,10 +31,10 @@ const homepageFaq = [
 
 export const metadata = {
   title: {
-    absolute: "Pixel & Panel | Websites, Signs & QR Campaigns in Southeast Texas",
+    absolute: "Pixel & Panel | Website Design, Signs & Print for Southeast Texas",
   },
   description:
-    "Pixel & Panel helps Southeast Texas businesses get found with websites, signs, QR campaigns, local SEO, and lead capture systems.",
+    "Pixel & Panel helps Southeast Texas businesses get found on Google, stand out with professional signs and print, and make it easy for customers to call or reach out.",
   alternates: {
     canonical: new URL("https://pixelnpanel.com/"),
     languages: {
@@ -43,9 +43,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Pixel & Panel | Websites, Signs & QR Campaigns in Southeast Texas",
+    title: "Pixel & Panel | Website Design, Signs & Print for Southeast Texas",
     description:
-      "Pixel & Panel helps Southeast Texas businesses get found with websites, signs, QR campaigns, local SEO, and lead capture systems.",
+      "Pixel & Panel helps Southeast Texas businesses get found on Google, stand out with professional signs and print, and make it easy for customers to call or reach out.",
     url: "https://pixelnpanel.com/",
     type: "website",
   },
