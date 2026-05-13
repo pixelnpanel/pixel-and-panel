@@ -6,7 +6,7 @@ const spanishContactCopy = {
   h1: "Contacto",
   headlineLines: ["¿Tienes una pregunta?", "Estamos listos", "para ayudarte."],
   introStart:
-    "Escríbenos sobre sitios web, letreros, impresión, SEO local o códigos QR. Si todavía no sabes por dónde empezar, puedes pedir un",
+    "Cuéntanos qué necesita tu negocio — un sitio web, letreros, impresión, o todavía no sabes. Leemos cada mensaje personalmente. Si no sabes por dónde empezar, puedes pedir un",
   visibilityHref: "/es/chequeo-gratis-de-visibilidad",
   visibilityLabel: "chequeo gratis de visibilidad",
   emailLabel: "Correo",

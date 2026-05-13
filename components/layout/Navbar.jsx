@@ -88,7 +88,7 @@ export default function Navbar() {
               alt="Pixel & Panel"
               width={240}
               height={36}
-              className="w-[130px] lg:w-[240px]"
+              className="w-[104px] lg:w-[240px]"
               style={{ height: 'auto', objectFit: 'contain' }}
               unoptimized
               priority
@@ -139,21 +139,45 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Nav — 3 key links, no hamburger */}
-          <div className="lg:hidden">
-          <nav aria-label="Mobile navigation" style={{ display: 'flex', alignItems: 'center', gap: '0.1rem' }}>
-            {mobileLinks.map((item) => {
-              const isActive = navIsActive(pathname, item.href)
-              return (
-                <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.35rem 0.5rem', borderRadius: '0.5rem', fontSize: '0.8rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
-                  {item.label}
-                  {isActive && (
-                    <span style={{ position: 'absolute', bottom: 2, left: '0.5rem', right: '0.5rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
-                  )}
-                </Link>
-              )
-            })}
-          </nav>
+          {/* Mobile Nav — links centered, language switch right */}
+          <div className="lg:hidden" style={{ display: 'flex', alignItems: 'center', flex: 1, gap: '0.25rem' }}>
+            <nav aria-label="Mobile navigation" style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center', gap: '0.05rem', minWidth: 0 }}>
+              {mobileLinks.map((item) => {
+                const isActive = navIsActive(pathname, item.href)
+                return (
+                  <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.3rem 0.35rem', borderRadius: '0.5rem', fontSize: '0.72rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
+                    {item.label}
+                    {isActive && (
+                      <span style={{ position: 'absolute', bottom: 2, left: '0.35rem', right: '0.35rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
+                    )}
+                  </Link>
+                )
+              })}
+            </nav>
+
+            <div
+              aria-label="Language switcher"
+              style={{
+                alignItems: 'center',
+                border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
+                borderRadius: '999px',
+                display: 'inline-flex',
+                fontFamily: 'var(--font-heading)',
+                fontSize: '0.62rem',
+                fontWeight: 800,
+                overflow: 'hidden',
+                flexShrink: 0,
+              }}
+            >
+              <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
+                style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
+                EN
+              </Link>
+              <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
+                style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
+                ES
+              </Link>
+            </div>
           </div>
 
         </div>

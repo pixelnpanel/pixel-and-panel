@@ -4,11 +4,10 @@ import {
   BadgeCheck,
   Globe2,
   MapPinned,
-  Megaphone,
   QrCode,
-  Search,
   Store,
 } from "lucide-react";
+import SpanishHeroVisual from "./SpanishHeroVisual";
 
 const services = [
   {
@@ -18,7 +17,7 @@ const services = [
     icon: Globe2,
   },
   {
-    title: "SEO local y perfil de Google",
+    title: "Aparecer en Google",
     description:
       "Mejoramos la información que clientes ven cuando buscan tu negocio en Google y mapas.",
     icon: MapPinned,
@@ -30,9 +29,9 @@ const services = [
     icon: Store,
   },
   {
-    title: "Códigos QR y captura de leads",
+    title: "Códigos QR para letreros",
     description:
-      "Conecta tus letreros, impresos y sitio web con códigos QR que llevan a llamadas, formularios, menús u ofertas.",
+      "Agrega códigos QR a tus letreros, banners y tarjetas para conectar a los clientes con tu sitio web o formulario de contacto.",
     icon: QrCode,
   },
 ];
@@ -44,17 +43,17 @@ const problems = [
 ];
 
 const reasons = [
-  "Combinamos presencia digital, letreros, impresos y códigos QR en un sistema práctico.",
+  "Tu sitio web, letreros e impresión — trabajando juntos para traerte más clientes.",
   "Trabajamos con negocios locales de Beaumont, Nederland, Port Arthur y el sureste de Texas.",
   "Hablamos claro: sin promesas falsas de rankings y sin reportes difíciles de entender.",
 ];
 
 export const metadata = {
   title: {
-    absolute: "Pixel & Panel | Sitios Web, Letreros y Códigos QR para Negocios Locales",
+    absolute: "Pixel & Panel | Diseño Web, Letreros e Impresión para Negocios del Sureste de Texas",
   },
   description:
-    "Pixel & Panel ayuda a negocios del sureste de Texas con sitios web, letreros, materiales impresos, SEO local y campañas con códigos QR.",
+    "Pixel & Panel ayuda a negocios del sureste de Texas a ser encontrados en Google, destacarse con letreros profesionales e impresión, y hacer más fácil que los clientes llamen o escriban.",
   alternates: {
     canonical: "https://pixelnpanel.com/es",
     languages: {
@@ -63,9 +62,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Pixel & Panel | Sitios Web, Letreros y Códigos QR para Negocios Locales",
+    title: "Pixel & Panel | Diseño Web, Letreros e Impresión para Negocios del Sureste de Texas",
     description:
-      "Sitios web, letreros, materiales impresos, SEO local y campañas con códigos QR para negocios del sureste de Texas.",
+      "Pixel & Panel ayuda a negocios del sureste de Texas a ser encontrados en Google, destacarse con letreros profesionales e impresión, y hacer más fácil que los clientes llamen o escriban.",
     url: "https://pixelnpanel.com/es",
     locale: "es_US",
     type: "website",
@@ -75,50 +74,42 @@ export const metadata = {
 export default function SpanishHomePage() {
   return (
     <div className="bg-[#FAF8F4] text-[#1C1917]">
-      <section className="relative overflow-hidden bg-[#0C1E3C] px-4 pt-28 text-white md:pt-32">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_62%,#0EA5E9_100%)]" />
-        <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 pb-20 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-sky-100">
-              <Search className="h-4 w-4 text-[#F59E0B]" />
-              Tu visión. Más visible.
+      <section className="relative overflow-hidden bg-[#0369A1] pt-24 text-white md:pt-28" aria-labelledby="spanish-homepage-hero-title">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_58%,#0EA5E9_100%)]" />
+        <div className="absolute inset-0 opacity-18 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#FAF8F4] to-transparent" />
+        <div className="container-px relative grid items-center gap-10 pb-20 md:pb-24 lg:grid-cols-[1.02fr_0.98fr]">
+          <div className="max-w-3xl">
+            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-sky-100 backdrop-blur">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F59E0B] opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#F59E0B]" />
+              </span>
+              Sirviendo el sureste de Texas
             </div>
-            <h1 className="max-w-4xl text-white">
-              Sitios web, letreros y códigos QR para negocios del sureste de Texas
+            <h1 className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-black leading-[1.08] tracking-normal text-white">
+              Diseño web, letreros e impresión
+              <span className="mt-2 block text-[#F59E0B]">
+                para negocios del sureste de Texas
+              </span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
-              Pixel &amp; Panel ayuda a negocios locales a ser encontrados en línea,
-              verse mejor en el mundo real y convertir la atención en llamadas,
-              mensajes y solicitudes de cotización.
+              Pixel &amp; Panel ayuda a negocios locales a ser encontrados en Google, destacarse con letreros profesionales e impresión, y hacer más fácil que los clientes llamen o escriban.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/es/solicitar-cotizacion" className="btn-amber justify-center">
+            <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-nowrap">
+              <Link href="/es/solicitar-cotizacion" className="btn-amber w-full justify-center whitespace-nowrap px-5 sm:w-auto">
                 Solicitar una cotización <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/es/precios" className="btn-ghost justify-center">
+              <Link href="/es/precios" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
                 Ver precios
               </Link>
-              <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost justify-center">
+              <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
                 Chequeo gratis
               </Link>
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              ["Google", "Que más clientes te encuentren"],
-              ["Sitio web", "Que entiendan lo que haces"],
-              ["Letreros", "Que te noten en la calle"],
-              ["QR", "Que escaneen y tomen acción"],
-            ].map(([title, copy]) => (
-              <article key={title} className="rounded-xl border border-white/15 bg-white/10 p-5 shadow-2xl">
-                <Megaphone className="mb-5 h-7 w-7 text-[#F59E0B]" />
-                <h2 className="text-xl text-white">{title}</h2>
-                <p className="mt-3 text-sm leading-7 text-white/72">{copy}</p>
-              </article>
-            ))}
-          </div>
+          <SpanishHeroVisual />
         </div>
       </section>
 

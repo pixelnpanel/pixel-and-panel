@@ -70,11 +70,11 @@ const websitePackages = [
     features: [
       "Hasta 10 páginas",
       "Diseño y desarrollo del sitio web",
-      "Estructura de SEO local",
+      "Páginas configuradas para aparecer en Google",
       "Optimización de Perfil de Google",
       "Formularios de contacto o cotización",
       "Configuración de campaña con código QR",
-      "Configuración básica de analíticas",
+      "Configuración básica de seguimiento de visitas",
       "2 rondas de cambios",
     ],
     href: "/es/solicitar-cotizacion?product=Sitio%20web%20%2B%20configuraci%C3%B3n%20de%20visibilidad&category=Servicios%20Digitales",
@@ -148,7 +148,7 @@ export default function SpanishPricingPage() {
           <h1 className="text-white">Precios iniciales para negocios locales</h1>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/76 md:text-lg">
             Paquetes claros para negocios del sureste de Texas que necesitan sitio web,
-            mejor visibilidad local, códigos QR o una base digital más profesional.
+            mejor visibilidad en Google o una base digital más profesional.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link href="/es/solicitar-cotizacion" className="btn-amber justify-center">
