@@ -87,10 +87,10 @@ export default function Navbar() {
             <Image
               src="/logo/icon-mobile.svg"
               alt="Pixel & Panel"
-              width={69}
+              width={49}
               height={32}
               className="lg:hidden"
-              style={{ width: 69, height: 32 }}
+              style={{ width: 49, height: 32 }}
               unoptimized
               priority
             />
