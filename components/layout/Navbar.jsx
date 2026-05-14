@@ -85,12 +85,12 @@ export default function Navbar() {
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
             {/* Icon mark on mobile */}
             <Image
-              src="/logo/icon.svg"
+              src="/logo/icon-mobile.svg"
               alt="Pixel & Panel"
-              width={36}
-              height={36}
+              width={69}
+              height={32}
               className="lg:hidden"
-              style={{ width: 36, height: 36 }}
+              style={{ width: 69, height: 32 }}
               unoptimized
               priority
             />
