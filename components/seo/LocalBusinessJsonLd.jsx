@@ -4,10 +4,39 @@ export default function LocalBusinessJsonLd() {
     "@type": ["LocalBusiness", "ProfessionalService"],
     "@id": "https://pixelnpanel.com/#localbusiness",
     name: "Pixel & Panel",
+    legalName: "Pixel & Panel LLC",
     url: "https://pixelnpanel.com",
     email: "hello@pixelnpanel.com",
     telephone: "+1-409-800-6139",
     slogan: "Your Vision. Made Visible.",
+    priceRange: "$$",
+    image: "https://pixelnpanel.com/logo/icon-wordmark.svg",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Beaumont",
+      addressRegion: "TX",
+      postalCode: "77705",
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 30.0802,
+      longitude: -94.1266,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday"],
+        opens: "11:00",
+        closes: "15:00",
+      },
+    ],
     areaServed: [
       {
         "@type": "City",
@@ -43,7 +72,12 @@ export default function LocalBusinessJsonLd() {
     ],
     description:
       "Pixel & Panel helps Southeast Texas businesses get found online, get noticed in the real world, and turn attention into quote requests through websites, signs, print marketing, local SEO, Google Business Profile optimization, and QR code campaigns.",
-    sameAs: [],
+    sameAs: [
+      "https://maps.app.goo.gl/ssAtkxp8XqtEuJ7T9",
+      "https://www.facebook.com/pixelnpanel",
+      "https://www.instagram.com/pixelnpanel",
+      "https://www.pinterest.com/pixelnpanel",
+    ],
   };
 
   return (
