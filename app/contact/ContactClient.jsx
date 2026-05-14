@@ -264,17 +264,29 @@ export default function ContactPage({ copy = defaultCopy }) {
                 </div>
             </section>
 
-            {/* Map section */}
+            {/* Hours + Map section */}
             <section style={{ background: '#0C1E3C', padding: '0' }}>
-                <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 1.5rem 0' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.25rem' }}>
+                <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 1.5rem 1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2rem', marginBottom: '1.5rem' }}>
                         <div>
                             <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#0EA5E9', marginBottom: '0.4rem' }}>
                                 Service Area
                             </p>
-                            <h2 style={{ color: 'white', fontSize: '1.5rem', margin: 0 }}>
+                            <h2 style={{ color: 'white', fontSize: '1.5rem', margin: '0 0 1.25rem' }}>
                                 Serving Southeast Texas
                             </h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                {[
+                                    { day: 'Monday – Friday', hours: '9:00 AM – 6:00 PM' },
+                                    { day: 'Saturday', hours: '11:00 AM – 3:00 PM' },
+                                    { day: 'Sunday', hours: 'Closed' },
+                                ].map(({ day, hours }) => (
+                                    <div key={day} style={{ display: 'flex', gap: '1rem', fontSize: '0.9rem', fontFamily: 'var(--font-body)' }}>
+                                        <span style={{ color: '#94a3b8', minWidth: '160px' }}>{day}</span>
+                                        <span style={{ color: hours === 'Closed' ? '#64748b' : 'white', fontWeight: hours === 'Closed' ? 400 : 600 }}>{hours}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                         <a
                             href={GBP_MAPS_URL}
@@ -298,8 +310,8 @@ export default function ContactPage({ copy = defaultCopy }) {
                     aria-label="View Pixel & Panel on Google Maps"
                 >
                     <iframe
-                        src="https://maps.google.com/maps?q=Beaumont+TX&output=embed&z=10&hl=en"
-                        title="Southeast Texas service area map"
+                        src="https://maps.google.com/maps?q=Pixel+%26+Panel+Beaumont+TX&output=embed&z=13&hl=en"
+                        title="Pixel & Panel service area — Beaumont, Nederland & Port Arthur, TX"
                         style={{ width: '100%', height: '380px', border: 0, display: 'block', pointerEvents: 'none' }}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"

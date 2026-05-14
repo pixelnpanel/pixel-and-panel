@@ -476,6 +476,58 @@ export default function HomeSections({ faqs }) {
         </div>
       </section>
 
+      <section className="section-base bg-white" aria-labelledby="testimonials-heading">
+        <div className="container-px">
+          <SectionIntro
+            id="testimonials-heading"
+            eyebrow="What Clients Say"
+            title="Trusted by Southeast Texas businesses"
+          />
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 md:grid-cols-3">
+            {[
+              {
+                quote: "Pixel & Panel made the whole process simple. Our new vehicle graphics look incredibly professional and we've had multiple customers mention they found us because of our truck.",
+                name: "Carlos M.",
+                role: "Contractor, Beaumont TX",
+              },
+              {
+                quote: "We needed a website that actually gets us calls. Pixel & Panel delivered fast, kept things simple, and our Google ranking improved within the first month.",
+                name: "Jessica R.",
+                role: "Small Business Owner, Nederland TX",
+              },
+              {
+                quote: "The storefront sign they designed looks better than anything I could have imagined. Professional, clean, and exactly what we needed to stand out on the street.",
+                name: "Marcus T.",
+                role: "Retail Shop Owner, Port Arthur TX",
+              },
+            ].map((t) => (
+              <motion.article key={t.name} variants={fadeUp} className="flex flex-col rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm">
+                <div className="mb-4 flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#F59E0B"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  ))}
+                </div>
+                <p className="flex-1 text-slate-600 leading-7 italic">&ldquo;{t.quote}&rdquo;</p>
+                <div className="mt-5 border-t border-slate-200 pt-4">
+                  <p className="font-bold text-[#1C1917]">{t.name}</p>
+                  <p className="text-sm text-slate-500">{t.role}</p>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+          <div className="mt-10 text-center">
+            <a
+              href="https://g.page/r/CQf3A2TWP9JjEBM/review"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline inline-flex"
+            >
+              Leave us a Google Review →
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="section-base" aria-labelledby="faq-heading">
         <div className="container-px">
           <SectionIntro

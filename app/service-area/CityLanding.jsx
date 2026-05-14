@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import CityVisual from "./CityVisual";
+import { cityServiceServices } from "@/lib/city-service-pages";
 
 function JsonLd({ data }) {
   return (
@@ -177,6 +178,32 @@ export default function CityLanding({ city }) {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {featured.digital.map((link) => (
               <ServiceCard key={link.href} link={link} icon={Globe2} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-6 py-16 md:py-24" aria-labelledby="city-services-heading">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8">
+            <p className="section-label text-[#0369A1]">All Services in {city.name}</p>
+            <h2 id="city-services-heading" className="text-[#1C1917]">Explore services specific to {city.name}, TX</h2>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {Object.entries(cityServiceServices).map(([serviceSlug, service]) => (
+              <Link
+                key={serviceSlug}
+                href={`/service-area/${slug}/${serviceSlug}`}
+                className="group rounded-xl border border-slate-200 bg-[#FAF8F4] p-4 hover:border-[#F59E0B] hover:bg-white transition-colors"
+              >
+                <span className="text-xs font-bold uppercase tracking-widest text-[#0369A1]">
+                  {service.type === 'signage' ? 'Signage' : 'Digital'}
+                </span>
+                <p className="mt-1 font-bold text-[#1C1917] group-hover:text-[#0369A1] transition-colors">
+                  {service.name} in {city.name}
+                </p>
+                <p className="mt-1 text-sm text-slate-500">Learn more →</p>
+              </Link>
             ))}
           </div>
         </div>

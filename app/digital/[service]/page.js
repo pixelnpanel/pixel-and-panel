@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { digitalServices, getDigitalService, getRelatedDigitalServices } from "@/lib/digital-services";
 import { digitalSlugMap } from "@/lib/digital-services-es";
+import { cityServiceServices, cityServiceCities } from "@/lib/city-service-pages";
 
 const serviceDetails = {
   "web-development": {
@@ -277,6 +278,30 @@ export default async function DigitalServicePage({ params }) {
             </div>
           </div>
         </section>
+
+        {/* ── CITY+SERVICE LINKS ───────────────────────────────── */}
+        {cityServiceServices[service.slug] && (
+          <section className="bg-[#FAF8F4] px-6 py-14 md:py-16">
+            <div className="mx-auto max-w-7xl">
+              <p className="section-label text-[#0369A1]">Service Area</p>
+              <h2 className="mb-6 text-[#1C1917]">{service.name} by City</h2>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {Object.values(cityServiceCities).map((city) => (
+                  <Link
+                    key={city.slug}
+                    href={`/service-area/${city.slug}/${service.slug}`}
+                    className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-[#F59E0B] transition-colors"
+                  >
+                    <p className="font-bold text-[#1C1917] group-hover:text-[#0369A1] transition-colors">
+                      {service.name} in {city.name}, TX
+                    </p>
+                    <p className="mt-1 text-sm text-slate-500">City-specific guide →</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {service.notAFitWhen && (
           <div className="container-px pb-4">

@@ -75,6 +75,18 @@ export default function Footer() {
               </div>
             </div>
 
+            {/* Hours */}
+            <div style={{ marginTop: '1.25rem' }}>
+              <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '0.6rem' }}>
+                Hours
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                <p style={{ ...footerLinkStyle, fontSize: '0.8rem' }}>Mon – Fri: 9:00 AM – 6:00 PM</p>
+                <p style={{ ...footerLinkStyle, fontSize: '0.8rem' }}>Saturday: 11:00 AM – 3:00 PM</p>
+                <p style={{ ...footerLinkStyle, fontSize: '0.8rem', color: '#475569' }}>Sunday: Closed</p>
+              </div>
+            </div>
+
             {/* Social icons */}
             <div style={{ marginTop: '1.5rem' }}>
               <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '0.75rem' }}>

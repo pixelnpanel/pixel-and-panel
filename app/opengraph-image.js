@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Pixel & Panel — Websites, Signs, Print Marketing, Local SEO, and QR Campaigns for Southeast Texas businesses";
+  "Pixel & Panel — Websites, Signs & Print for Beaumont, Nederland & Port Arthur, TX";
 
 export const size = {
   width: 1200,
@@ -58,7 +58,7 @@ export default function Image() {
               letterSpacing: "0.12em",
             }}
           >
-            Your Vision. Made Visible.
+            Beaumont · Nederland · Port Arthur, TX
           </div>
           <div
             style={{
@@ -69,7 +69,10 @@ export default function Image() {
               maxWidth: "920px",
             }}
           >
-            Websites, Signs & QR Campaigns for Southeast Texas Businesses
+            Websites, Signs &amp; Print for Local Businesses
+          </div>
+          <div style={{ fontSize: "30px", color: "rgba(255,255,255,0.70)", marginTop: "8px" }}>
+            Your Vision. Made Visible.
           </div>
         </div>
 
@@ -85,7 +88,7 @@ export default function Image() {
           <span>•</span>
           <span>Signs</span>
           <span>•</span>
-          <span>Print</span>
+          <span>Vehicle Graphics</span>
           <span>•</span>
           <span>Local SEO</span>
         </div>

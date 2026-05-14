@@ -14,6 +14,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { getRelatedSignageProducts, serviceAreaPhrase } from "@/lib/signage-products";
+import { cityServiceServices, cityServiceCities } from "@/lib/city-service-pages";
 
 const bestForBySlug = {
   "vinyl-banners": ["Grand openings and seasonal offers", "Fence lines and job sites", "Events, schools, and churches"],
@@ -349,6 +350,30 @@ export default function SignageProductPage({ product }) {
             </div>
           </div>
         </section>
+
+        {/* ── CITY+SERVICE LINKS ───────────────────────────────── */}
+        {cityServiceServices[product.slug] && (
+          <section className="bg-[#FAF8F4] px-6 py-14 md:py-16">
+            <div className="mx-auto max-w-7xl">
+              <p className="section-label text-[#0369A1]">Service Area</p>
+              <h2 className="mb-6 text-[#1C1917]">{product.name} by City</h2>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {Object.values(cityServiceCities).map((city) => (
+                  <Link
+                    key={city.slug}
+                    href={`/service-area/${city.slug}/${product.slug}`}
+                    className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-[#F59E0B] transition-colors"
+                  >
+                    <p className="font-bold text-[#1C1917] group-hover:text-[#0369A1] transition-colors">
+                      {product.name} in {city.name}, TX
+                    </p>
+                    <p className="mt-1 text-sm text-slate-500">City-specific guide →</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── FAQ ──────────────────────────────────────────────── */}
         <section className="bg-white px-6 py-16 md:py-24">

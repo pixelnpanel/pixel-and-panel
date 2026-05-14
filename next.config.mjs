@@ -1,10 +1,7 @@
 const oldServiceAreaRedirects = [
   { service: "car-magnets", destination: "/signage/car-magnets" },
-  { service: "local-seo", destination: "/digital/local-seo" },
   { service: "vehicle-wraps", destination: "/signage/vehicle-graphics" },
-  { service: "vinyl-banners", destination: "/signage/vinyl-banners" },
   { service: "website-design", destination: "/digital/web-development" },
-  { service: "yard-signs", destination: "/signage/yard-signs" },
   { service: "metal-signs", destination: "/signage/metal-signs" },
 ].map(({ service, destination }) => ({
   source: `/service-area/:city(beaumont-tx|nederland-tx|port-arthur-tx)/${service}`,
