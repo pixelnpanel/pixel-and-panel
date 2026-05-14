@@ -10,6 +10,7 @@ import {
   Store,
 } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import CityVisual from "./CityVisual";
 
 function JsonLd({ data }) {
   return (
@@ -107,11 +108,9 @@ export default function CityLanding({ city }) {
             </div>
           </div>
 
-          <aside className="rounded-xl border border-white/15 bg-white/10 p-6 shadow-2xl">
-            <MapPin className="mb-5 h-8 w-8 text-[#F59E0B]" />
-            <h2 className="text-white">Local visibility in {city.name}</h2>
-            <p className="mt-4 text-sm leading-7 text-white/72">{city.body}</p>
-          </aside>
+          <div className="hidden lg:flex items-center justify-center">
+            <CityVisual city={city} />
+          </div>
         </div>
       </section>
 

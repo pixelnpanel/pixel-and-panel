@@ -12,6 +12,7 @@ import {
   Store,
 } from "lucide-react";
 import VisibilityCheckForm from "./VisibilityCheckForm";
+import VisibilityCheckVisual from "./VisibilityCheckVisual";
 
 const whoFor = [
   "New businesses",
@@ -145,24 +146,8 @@ export default function FreeVisibilityCheckPage() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-white/15 bg-white/10 p-5 shadow-2xl md:p-7">
-              <div className="grid gap-4">
-                {[
-                  ["Website", Globe2],
-                  ["Google profile", Search],
-                  ["Signs and print", Store],
-                  ["QR lead capture", QrCode],
-                ].map(([label, Icon]) => (
-                  <div key={label} className="flex items-center gap-4 rounded-lg bg-white/10 p-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#F59E0B] text-[#1C1917]">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <span className="font-heading text-sm font-bold uppercase tracking-[0.08em] text-white/80">
-                      {label}
-                    </span>
-                  </div>
-                ))}
-              </div>
+            <div className="flex items-center justify-center">
+              <VisibilityCheckVisual />
             </div>
           </div>
         </section>

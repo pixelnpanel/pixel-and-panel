@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle2, ArrowRight, Package, CheckCircle, Paperclip, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeUp, slideRight, stagger } from "@/lib/animations";
+import QuoteVisual from "./QuoteVisual";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
 const ALLOWED_TYPES = new Set([
@@ -160,6 +161,9 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                                     <span>{item}</span>
                                 </motion.div>
                             ))}
+                        </motion.div>
+                        <motion.div variants={fadeUp} className="mt-10">
+                            <QuoteVisual />
                         </motion.div>
                     </motion.div>
 
