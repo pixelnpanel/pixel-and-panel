@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
+import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
 
 // Loaded at framework level — no render-blocking, no FOUT
 const montserrat = Montserrat({
@@ -69,6 +70,7 @@ export default function RootLayout({ children }) {
           <ViewTransition>{children}</ViewTransition>
         </main>
         <Footer />
+        <WhatsAppWidget />
       </body>
     </html>
   );

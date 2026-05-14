@@ -134,10 +134,49 @@ export default async function DigitalServicePage({ params }) {
     })),
   };
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": ["Service", "Product"],
+    name: service.name,
+    description: service.description,
+    url: `https://pixelnpanel.com/digital/${service.slug}`,
+    serviceType: "Digital Marketing",
+    category: "Digital Services",
+    areaServed: [
+      { "@type": "City", name: "Beaumont", containedInPlace: { "@type": "State", name: "Texas" } },
+      { "@type": "City", name: "Nederland", containedInPlace: { "@type": "State", name: "Texas" } },
+      { "@type": "City", name: "Port Arthur", containedInPlace: { "@type": "State", name: "Texas" } },
+    ],
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Pixel & Panel",
+      url: "https://pixelnpanel.com",
+      telephone: "(409) 800-6139",
+      email: "hello@pixelnpanel.com",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: "0",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        description: "Custom quote based on project scope",
+      },
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "LocalBusiness",
+        name: "Pixel & Panel",
+        url: "https://pixelnpanel.com",
+      },
+      url: `https://pixelnpanel.com/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent("Digital Services")}`,
+    },
+  };
+
   return (
     <>
       <JsonLd data={breadcrumbs} />
       <JsonLd data={faq} />
+      <JsonLd data={serviceSchema} />
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
         <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">

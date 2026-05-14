@@ -119,6 +119,13 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
             }
 
             setSubmitted(true);
+            if (typeof window !== "undefined" && typeof window.gtag === "function") {
+              window.gtag("event", "quote_request_submitted", {
+                event_category: "Lead",
+                event_label: hiddenProductValue,
+                value: 1,
+              });
+            }
         } catch (submitError) {
             setError(submitError.message || content.errorFallback);
         } finally {

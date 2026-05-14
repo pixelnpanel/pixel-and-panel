@@ -43,12 +43,85 @@ const faqSchema = {
   })),
 };
 
+const offersSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Pixel & Panel Website Packages",
+  description: "Starter website and visibility packages for Southeast Texas businesses",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "Offer",
+        name: "Launch Page",
+        description: "A simple one-page website for personal brands, portfolios, or businesses that need a clean online starting point.",
+        price: "299",
+        priceCurrency: "USD",
+        priceValidUntil: "2026-12-31",
+        availability: "https://schema.org/InStock",
+        url: "https://pixelnpanel.com/pricing",
+        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://pixelnpanel.com" },
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "Offer",
+        name: "Starter Web Presence",
+        description: "A clean starter website for new small businesses that need a professional online presence.",
+        price: "499",
+        priceCurrency: "USD",
+        priceValidUntil: "2026-12-31",
+        availability: "https://schema.org/InStock",
+        url: "https://pixelnpanel.com/pricing",
+        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://pixelnpanel.com" },
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      item: {
+        "@type": "Offer",
+        name: "Local Business Website",
+        description: "A stronger website package for local businesses that need service pages, lead capture, and better Google visibility.",
+        price: "799",
+        priceCurrency: "USD",
+        priceValidUntil: "2026-12-31",
+        availability: "https://schema.org/InStock",
+        url: "https://pixelnpanel.com/pricing",
+        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://pixelnpanel.com" },
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      item: {
+        "@type": "Offer",
+        name: "Website + Visibility Setup",
+        description: "A website and visibility package that connects your site, Google presence, lead capture, and QR campaign setup.",
+        price: "999",
+        priceCurrency: "USD",
+        priceValidUntil: "2026-12-31",
+        availability: "https://schema.org/InStock",
+        url: "https://pixelnpanel.com/pricing",
+        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://pixelnpanel.com" },
+      },
+    },
+  ],
+};
+
 export default function PricingPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersSchema).replace(/</g, "\\u003c") }}
       />
       <PricingClient />
     </>

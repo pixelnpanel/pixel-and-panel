@@ -84,12 +84,13 @@ export default function SignageProductPage({ product }) {
 
   const service = {
     "@context": "https://schema.org",
-    "@type": "Service",
+    "@type": ["Service", "Product"],
     name: product.name,
     description: product.description,
     url: `https://pixelnpanel.com/signage/${product.slug}`,
     image: `https://pixelnpanel.com${product.image}`,
     serviceType: product.category,
+    category: product.category,
     areaServed: [
       { "@type": "City", name: "Beaumont", containedInPlace: { "@type": "State", name: "Texas" } },
       { "@type": "City", name: "Nederland", containedInPlace: { "@type": "State", name: "Texas" } },
@@ -101,6 +102,22 @@ export default function SignageProductPage({ product }) {
       url: "https://pixelnpanel.com",
       telephone: "(409) 800-6139",
       email: "hello@pixelnpanel.com",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: "0",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        description: "Custom quote based on size, material, and quantity",
+      },
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "LocalBusiness",
+        name: "Pixel & Panel",
+        url: "https://pixelnpanel.com",
+      },
+      url: `https://pixelnpanel.com/quote-request?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent(product.category)}`,
     },
   };
 
