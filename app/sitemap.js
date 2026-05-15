@@ -2,6 +2,7 @@ import { signageProducts } from "@/lib/signage-products";
 import { digitalServices } from "@/lib/digital-services";
 import { learningCenterPosts } from "@/lib/learning-center-posts";
 import { cityServiceStaticParams, cityServiceCities } from "@/lib/city-service-pages";
+import { cityServiceStaticParamsEs } from "@/lib/city-service-pages-es";
 
 const BASE = "https://pixelnpanel.com";
 
@@ -58,11 +59,18 @@ export default function sitemap() {
     changeFrequency: "monthly",
   }));
 
+  const cityServiceUrlsEs = cityServiceStaticParamsEs.map(({ ciudad, servicio }) => ({
+    url: `${BASE}/es/area-de-servicio/${ciudad}/${servicio}`,
+    priority: 0.75,
+    changeFrequency: "monthly",
+  }));
+
   return [
     ...staticPages.map(({ url, ...rest }) => ({ url: `${BASE}${url}`, ...rest })),
     ...signageUrls,
     ...digitalUrls,
     ...learningUrls,
     ...cityServiceUrls,
+    ...cityServiceUrlsEs,
   ];
 }
