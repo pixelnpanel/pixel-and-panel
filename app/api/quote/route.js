@@ -12,10 +12,20 @@ const ALLOWED_TYPES = new Set([
   "application/pdf",
   "application/postscript",
 ]);
+const ALLOWED_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".pdf", ".ai", ".eps"]);
 const MAX_FILE_BYTES = 4 * 1024 * 1024; // 4 MB
 
 function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
+}
+
+function getFileExtension(filename) {
+  const index = filename.lastIndexOf(".");
+  return index >= 0 ? filename.slice(index).toLowerCase() : "";
+}
+
+function isAllowedAttachment(file) {
+  return ALLOWED_TYPES.has(file.type) || ALLOWED_EXTENSIONS.has(getFileExtension(file.name));
 }
 
 function buildEmail({ name, businessName, email, phone, productService, sourcePage, message, language, hasAttachment }) {
@@ -134,7 +144,7 @@ export async function POST(request) {
     if (file.size > MAX_FILE_BYTES) {
       return jsonResponse({ error: "File must be 4 MB or smaller." }, 400);
     }
-    if (!ALLOWED_TYPES.has(file.type)) {
+    if (!isAllowedAttachment(file)) {
       return jsonResponse({ error: "Only JPG, PNG, PDF, GIF, WebP, SVG, and AI/EPS files are allowed." }, 400);
     }
     const buffer = Buffer.from(await file.arrayBuffer());

@@ -52,10 +52,19 @@ export default function ContactPage({ copy = defaultCopy }) {
         setError('')
 
         const formData = new FormData(e.currentTarget)
+        const email = String(formData.get('email') || '')
+        const phone = String(formData.get('phone') || '')
+
+        if (!email.trim() && !phone.trim()) {
+            setError(content.language === 'Spanish' ? 'Por favor incluye correo electrónico o teléfono.' : 'Please include an email address or phone number.')
+            setLoading(false)
+            return
+        }
+
         const payload = {
             name: String(formData.get('name') || ''),
-            email: String(formData.get('email') || ''),
-            phone: String(formData.get('phone') || ''),
+            email,
+            phone,
             subject: String(formData.get('subject') || ''),
             message: String(formData.get('message') || ''),
             company: String(formData.get('company') || ''),
@@ -202,8 +211,8 @@ export default function ContactPage({ copy = defaultCopy }) {
                                         <input id="contact-name" type="text" name="name" required placeholder="John Martinez" value={form.name} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
-                                        <label htmlFor="contact-email" style={labelStyle}>{content.email} *</label>
-                                        <input id="contact-email" type="email" name="email" required placeholder="john@email.com" value={form.email} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <label htmlFor="contact-email" style={labelStyle}>{content.email}</label>
+                                        <input id="contact-email" type="email" name="email" placeholder="john@email.com" value={form.email} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
                                         <label htmlFor="contact-phone" style={labelStyle}>{content.phone}</label>

@@ -7,6 +7,7 @@ import { fadeUp, slideRight, stagger } from "@/lib/animations";
 import QuoteVisual from "./QuoteVisual";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
+const ALLOWED_EXTENSION_SET = new Set(ALLOWED_EXTENSIONS.split(","));
 const ALLOWED_TYPES = new Set([
   "image/jpeg",
   "image/png",
@@ -17,6 +18,15 @@ const ALLOWED_TYPES = new Set([
   "application/postscript",
 ]);
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
+
+function getFileExtension(filename) {
+    const index = filename.lastIndexOf(".");
+    return index >= 0 ? filename.slice(index).toLowerCase() : "";
+}
+
+function isAllowedFile(file) {
+    return ALLOWED_TYPES.has(file.type) || ALLOWED_EXTENSION_SET.has(getFileExtension(file.name));
+}
 
 const defaultCopy = {
     language: "English",
@@ -79,7 +89,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
             setAttachment(null);
             return;
         }
-        if (!ALLOWED_TYPES.has(file.type)) {
+        if (!isAllowedFile(file)) {
             setFileError("Only JPG, PNG, PDF, GIF, WebP, SVG, and AI/EPS files are allowed.");
             e.target.value = "";
             setAttachment(null);
@@ -102,10 +112,20 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
 
         const form = event.currentTarget;
         const formData = new FormData(form);
+        const email = String(formData.get("email") || "");
+        const phone = String(formData.get("phone") || "");
+
+        if (!email.trim() && !phone.trim()) {
+            setError(content.language === "Spanish" ? "Por favor incluye correo electrónico o teléfono." : "Please include an email address or phone number.");
+            setLoading(false);
+            return;
+        }
 
         if (attachment) {
             formData.set("attachment", attachment);
         }
+        formData.set("language", content.language);
+        formData.set("sourcePage", typeof window !== "undefined" ? window.location.href : "Quote Request Page");
 
         try {
             const response = await fetch("/api/quote", {
@@ -244,8 +264,8 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                                 </div>
                             )}
                             <div>
-                                <label htmlFor="quote-email" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.email} *</label>
-                                <input id="quote-email" type="email" name="email" required placeholder="john@email.com" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
+                                <label htmlFor="quote-email" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.email}</label>
+                                <input id="quote-email" type="email" name="email" placeholder="john@email.com" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]" />
                             </div>
                             <div>
                                 <label htmlFor="quote-phone" className="mb-2 block text-xs font-bold uppercase tracking-wide">{content.phone}</label>
@@ -289,7 +309,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                                         <span className="text-sm text-slate-500">
                                             Logo, mockup, or reference image
                                         </span>
-                                        <span className="ml-auto shrink-0 text-xs text-slate-400">JPG, PNG, PDF, SVG · 4 MB max</span>
+                                        <span className="ml-auto shrink-0 text-xs text-slate-400">JPG, PNG, PDF, SVG, AI, EPS · 4 MB max</span>
                                     </label>
                                 )}
                                 <input
