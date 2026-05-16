@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   AlertCircle,
   CheckCircle2,
   Clock3,
   Eye,
+  LogOut,
   Loader2,
   Lock,
   Plus,
@@ -92,10 +93,6 @@ function StatusBadge({ label }) {
 }
 
 export default function AdminOrdersClient() {
-  const [token, setToken] = useState(() => {
-    if (typeof window === "undefined") return "";
-    return window.localStorage.getItem("pnp-order-admin-token") || "";
-  });
   const [orders, setOrders] = useState([]);
   const [configured, setConfigured] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState("");
@@ -123,26 +120,24 @@ export default function AdminOrdersClient() {
     [orders, selectedOrder],
   );
 
-  async function apiFetch(path, options = {}) {
+  const apiFetch = useCallback(async function apiFetch(path, options = {}) {
     const response = await fetch(path, {
       ...options,
       headers: {
         "Content-Type": "application/json",
-        "x-admin-token": token,
         ...(options.headers || {}),
       },
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(data.error || "Request failed.");
     return data;
-  }
+  }, []);
 
-  async function loadOrders() {
+  const loadOrders = useCallback(async function loadOrders() {
     setLoading(true);
     setError("");
     setMessage("");
     try {
-      window.localStorage.setItem("pnp-order-admin-token", token);
       const data = await apiFetch("/api/admin/orders");
       setOrders(data.orders || []);
       setConfigured(Boolean(data.configured));
@@ -155,6 +150,16 @@ export default function AdminOrdersClient() {
     } finally {
       setLoading(false);
     }
+  }, [apiFetch]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(loadOrders, 0);
+    return () => window.clearTimeout(timer);
+  }, [loadOrders]);
+
+  async function logout() {
+    await fetch("/api/admin/logout", { method: "POST" });
+    window.location.href = "/admin/login";
   }
 
   async function createOrder(event) {
@@ -264,41 +269,31 @@ export default function AdminOrdersClient() {
               timeline notes for the tracking page.
             </p>
           </div>
-          <a href="/track-order" className="btn-outline" target="_blank" rel="noreferrer">
-            <Eye size={15} /> View tracker
-          </a>
-        </div>
-
-        <section className="white-card" style={{ padding: "1rem", marginBottom: "1rem" }}>
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "minmax(min(100%, 320px), 1fr) auto",
+              display: "flex",
+              flexWrap: "wrap",
               gap: "0.75rem",
-              alignItems: "end",
+              justifyContent: "flex-end",
             }}
           >
-            <Field label="Admin token">
-              <input
-                type="password"
-                value={token}
-                onChange={(event) => setToken(event.target.value)}
-                placeholder="ORDER_ADMIN_TOKEN"
-                style={inputStyle}
-              />
-            </Field>
+            <a href="/track-order" className="btn-outline" target="_blank" rel="noreferrer">
+              <Eye size={15} /> View tracker
+            </a>
             <button
-              className="btn-amber"
+              className="btn-outline"
               type="button"
               onClick={loadOrders}
-              disabled={loading || !token}
-              style={{ justifyContent: "center" }}
+              disabled={loading}
             >
               {loading ? <Loader2 size={15} /> : <RefreshCw size={15} />}
-              Load orders
+              Refresh
+            </button>
+            <button className="btn-outline" type="button" onClick={logout}>
+              <LogOut size={15} /> Logout
             </button>
           </div>
-        </section>
+        </div>
 
         {error && (
           <div

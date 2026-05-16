@@ -45,7 +45,7 @@ Keep refresh token and client secret private.
 ## Website Admin Workflow
 
 1. Open `/admin/orders`.
-2. Enter `ORDER_ADMIN_TOKEN`.
+2. Log in with the admin username and password.
 3. Create or select an order.
 4. Add unit price. Zoho sync requires price.
 5. Click `Sync Zoho estimate` or `Sync Zoho sales order`.

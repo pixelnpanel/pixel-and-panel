@@ -1,23 +1,23 @@
-import AdminOrdersClient from "./AdminOrdersClient";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ADMIN_SESSION_COOKIE, verifyAdminSession } from "@/lib/admin-auth";
+import AdminLoginClient from "./AdminLoginClient";
 
 export const metadata = {
-  title: "Admin Orders",
+  title: "Admin Login",
   robots: {
     index: false,
     follow: false,
   },
 };
 
-export default async function AdminOrdersPage() {
+export default async function AdminLoginPage() {
   const cookieStore = await cookies();
   const session = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
 
-  if (!verifyAdminSession(session)) {
-    redirect("/admin/login");
+  if (verifyAdminSession(session)) {
+    redirect("/admin/orders");
   }
 
-  return <AdminOrdersClient />;
+  return <AdminLoginClient />;
 }

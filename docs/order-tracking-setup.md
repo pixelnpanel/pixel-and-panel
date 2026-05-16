@@ -18,7 +18,10 @@ Local demo lookup works without Supabase:
 ```bash
 SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-ORDER_ADMIN_TOKEN=choose-a-long-private-token
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD_SALT=generated-password-salt
+ADMIN_PASSWORD_HASH=generated-password-hash
+ADMIN_SESSION_SECRET=choose-a-long-random-secret
 ZOHO_CLIENT_ID=your-zoho-client-id
 ZOHO_CLIENT_SECRET=your-zoho-client-secret
 ZOHO_REFRESH_TOKEN=your-zoho-refresh-token
@@ -27,7 +30,7 @@ ZOHO_WEBHOOK_SECRET=choose-a-long-private-secret
 ```
 
 Do not expose `SUPABASE_SERVICE_ROLE_KEY` in browser code or prefix it with `NEXT_PUBLIC_`.
-Do not share `ORDER_ADMIN_TOKEN` with customers.
+Do not store the raw admin password in code or GitHub. Only store the generated salt/hash and session secret in environment variables.
 Do not expose Zoho client secret or refresh token in browser code.
 
 ## Data Flow
@@ -55,7 +58,7 @@ Private admin page:
 /admin/orders
 ```
 
-The page asks for `ORDER_ADMIN_TOKEN`, then calls:
+The page redirects to `/admin/login`. After login, the browser receives an HTTP-only admin session cookie and calls:
 
 ```txt
 GET /api/admin/orders

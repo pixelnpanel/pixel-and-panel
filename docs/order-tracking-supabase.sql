@@ -80,6 +80,10 @@ alter table public.order_files enable row level security;
 
 -- Browser users do not query Supabase directly. The Next.js API uses service role server-side.
 -- Keep RLS locked unless you later build direct Supabase client access.
+grant usage on schema public to service_role;
+grant all privileges on table public.orders to service_role;
+grant all privileges on table public.order_updates to service_role;
+grant all privileges on table public.order_files to service_role;
 
 insert into public.orders (
   order_number,
