@@ -12,9 +12,11 @@ module.exports = {
         '/robots.txt',
         '/sitemap.xml',
         '/sitemap-*.xml',
+        '/track-order',
         '/service-area/*/*',
         '/digital/qr-campaigns',
         '/api/*',
+        '/admin/*',
         '/_next/*',
     ],
     transform: async (config, path) => {

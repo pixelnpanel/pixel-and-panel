@@ -141,7 +141,7 @@ function StepLead() {
         <div className="rounded-xl bg-slate-50 p-3">
           <p className="mb-1 text-sm font-semibold text-[#1C1917]">Maria G.</p>
           <p className="text-xs leading-relaxed text-slate-600">
-            "Hi! I need a vinyl banner for my grand opening next month. Can you help?"
+            &quot;Hi! I need a vinyl banner for my grand opening next month. Can you help?&quot;
           </p>
           <div className="mt-3 flex gap-2">
             <button className="flex-1 rounded-lg bg-[#F59E0B] py-1.5 text-xs font-bold text-[#1C1917]">

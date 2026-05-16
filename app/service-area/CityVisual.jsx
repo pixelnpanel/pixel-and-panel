@@ -104,7 +104,7 @@ function StepResults() {
     <motion.div key="results" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
       <div className="rounded-xl bg-white p-4 shadow-sm">
-        <p className="mb-3 text-xs font-semibold text-slate-500">Local businesses we've helped</p>
+        <p className="mb-3 text-xs font-semibold text-slate-500">Local businesses we&apos;ve helped</p>
         <div className="space-y-2">
           {businesses.map(({ name, stars, tag }, i) => (
             <motion.div key={name} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}
