@@ -456,7 +456,6 @@ export default function TrackOrderClient() {
                     <DetailItem icon={FileText} label="Service" value={order.productService} />
                     <DetailItem icon={CalendarDays} label="Order date" value={formatDate(order.orderDate)} />
                     <DetailItem icon={CreditCard} label="Payment" value={order.paymentStatus} />
-                    <DetailItem icon={FileText} label="Accounting doc" value={order.zohoDocumentNumber || order.zohoStatus} />
                     <DetailItem icon={ClipboardCheck} label="Proof" value={order.proofStatus} />
                     <DetailItem icon={Truck} label="Delivery / install" value={order.deliveryMethod} />
                   </div>

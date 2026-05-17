@@ -12,6 +12,7 @@ import {
   Plus,
   RefreshCw,
   Save,
+  Trash2,
 } from "lucide-react";
 import { orderProductOptions } from "@/lib/order-products";
 
@@ -224,28 +225,25 @@ export default function AdminOrdersClient() {
     }
   }
 
-  async function syncZoho(mode) {
+  async function deleteOrder() {
     if (!selected?.orderNumber) return;
+    const confirmed = window.confirm(
+      `Delete order ${selected.orderNumber}? This removes its customer timeline and files from tracking.`,
+    );
+    if (!confirmed) return;
 
     setSaving(true);
     setError("");
     setMessage("");
     try {
-      const result = await apiFetch(
-        `/api/admin/orders/${encodeURIComponent(selected.orderNumber)}/sync-zoho`,
-        {
-          method: "POST",
-          body: JSON.stringify({ mode }),
-        },
-      );
-      setMessage(
-        `Zoho ${mode === "sales_order" ? "sales order" : "estimate"} synced${
-          result.documentNumber ? `: ${result.documentNumber}` : ""
-        }.`,
-      );
+      await apiFetch(`/api/admin/orders/${encodeURIComponent(selected.orderNumber)}`, {
+        method: "DELETE",
+      });
+      setSelectedOrder("");
+      setMessage(`Order ${selected.orderNumber} deleted.`);
       await loadOrders();
-    } catch (syncError) {
-      setError(syncError.message || "Unable to sync Zoho Books.");
+    } catch (deleteError) {
+      setError(deleteError.message || "Unable to delete order.");
     } finally {
       setSaving(false);
     }
@@ -394,16 +392,34 @@ export default function AdminOrdersClient() {
                   <p style={{ color: "#64748b", fontSize: "0.9rem" }}>
                     {order.customerName} · {order.productName || order.productService} · Qty {order.quantity}
                   </p>
-                  <p style={{ color: "#94a3b8", fontSize: "0.82rem", marginTop: "0.25rem" }}>
-                    Zoho: {order.zohoDocumentNumber || order.zohoStatus || "Not synced"}
-                  </p>
                 </button>
               ))}
             </div>
           </section>
 
           <section className="white-card" style={{ padding: "1rem" }}>
-            <h2 style={{ marginBottom: "1rem" }}>Update selected order</h2>
+            <div
+              style={{
+                alignItems: "center",
+                display: "flex",
+                gap: "0.75rem",
+                justifyContent: "space-between",
+                marginBottom: "1rem",
+              }}
+            >
+              <h2>Update selected order</h2>
+              {selected && (
+                <button
+                  className="btn-outline"
+                  disabled={saving || !configured}
+                  onClick={deleteOrder}
+                  style={{ color: "#991b1b" }}
+                  type="button"
+                >
+                  <Trash2 size={15} /> Delete
+                </button>
+              )}
+            </div>
             {selected ? (
               <form onSubmit={updateOrder} style={{ display: "grid", gap: "0.85rem" }}>
                 <div
@@ -456,7 +472,7 @@ export default function AdminOrdersClient() {
                     onChange={(event) =>
                       setUpdateForm({ ...updateForm, productName: event.target.value })
                     }
-                    placeholder={selected.productName || "Choose Zoho item or type custom"}
+                    placeholder={selected.productName || "Choose product or type custom"}
                     style={inputStyle}
                   />
                 </Field>
@@ -483,7 +499,7 @@ export default function AdminOrdersClient() {
                     onChange={(event) =>
                       setUpdateForm({ ...updateForm, unitRate: event.target.value })
                     }
-                    placeholder={selected.unitRate ? String(selected.unitRate) : "Required for Zoho"}
+                    placeholder={selected.unitRate ? String(selected.unitRate) : "Optional price"}
                     style={inputStyle}
                   />
                 </Field>
@@ -560,25 +576,6 @@ export default function AdminOrdersClient() {
                   {saving ? <Loader2 size={15} /> : <Save size={15} />}
                   Save update
                 </button>
-
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
-                  <button
-                    className="btn-outline"
-                    disabled={saving || !configured}
-                    type="button"
-                    onClick={() => syncZoho("estimate")}
-                  >
-                    Sync Zoho estimate
-                  </button>
-                  <button
-                    className="btn-outline"
-                    disabled={saving || !configured}
-                    type="button"
-                    onClick={() => syncZoho("sales_order")}
-                  >
-                    Sync Zoho sales order
-                  </button>
-                </div>
               </form>
             ) : (
               <p style={{ color: "#64748b" }}>Load orders to update one.</p>
@@ -653,7 +650,7 @@ export default function AdminOrdersClient() {
                 onChange={(event) =>
                   setNewOrder({ ...newOrder, productName: event.target.value })
                 }
-                placeholder="Choose Zoho item or type custom"
+                placeholder="Choose product or type custom"
                 style={inputStyle}
               />
               <datalist id="pnp-product-options">

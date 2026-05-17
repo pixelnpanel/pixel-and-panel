@@ -83,7 +83,7 @@ export default function AdminLoginClient() {
         <span className="section-label">Private Admin</span>
         <h1 style={{ color: "#1C1917", marginBottom: "0.55rem" }}>Admin login</h1>
         <p style={{ color: "#64748b", marginBottom: "1.25rem" }}>
-          Sign in to create orders, update status, and sync Zoho Books.
+          Sign in to create orders and update customer-visible status.
         </p>
 
         {error && (

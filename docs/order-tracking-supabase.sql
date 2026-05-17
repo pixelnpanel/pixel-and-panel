@@ -18,13 +18,6 @@ create table if not exists public.orders (
   payment_status text not null default 'Not invoiced',
   proof_status text not null default 'Not ready',
   delivery_method text,
-  zoho_contact_id text,
-  zoho_estimate_id text,
-  zoho_salesorder_id text,
-  zoho_invoice_id text,
-  zoho_document_number text,
-  zoho_status text,
-  zoho_last_sync_at timestamptz,
   status text not null default 'quote_received',
   next_action text,
   due_date date,
@@ -40,13 +33,6 @@ alter table public.orders add column if not exists order_date date not null defa
 alter table public.orders add column if not exists payment_status text not null default 'Not invoiced';
 alter table public.orders add column if not exists proof_status text not null default 'Not ready';
 alter table public.orders add column if not exists delivery_method text;
-alter table public.orders add column if not exists zoho_contact_id text;
-alter table public.orders add column if not exists zoho_estimate_id text;
-alter table public.orders add column if not exists zoho_salesorder_id text;
-alter table public.orders add column if not exists zoho_invoice_id text;
-alter table public.orders add column if not exists zoho_document_number text;
-alter table public.orders add column if not exists zoho_status text;
-alter table public.orders add column if not exists zoho_last_sync_at timestamptz;
 
 create table if not exists public.order_updates (
   id uuid primary key default gen_random_uuid(),
