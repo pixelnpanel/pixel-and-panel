@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   CheckCircle2, ArrowRight, ArrowLeft, Package, CheckCircle,
@@ -46,6 +47,7 @@ const defaultCopy = {
   messagePlaceholder: "Tell us size, quantity, deadline, material, location, or anything you already know.",
   submit: "Send My Request",
   sending: "Sending...",
+  trackOrder: "Track my order",
   footer: "We respond within 1 business day. No spam, ever.",
   successTitle: "Request Sent",
   successText: "We received your quote request and will reply within 1 business day.",
@@ -205,6 +207,14 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                 </motion.div>
               ))}
             </motion.div>
+            <motion.div variants={fadeUp} className="mt-8">
+              <Link
+                href="/track-order"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/35 px-5 py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:border-white hover:bg-white/10"
+              >
+                {content.trackOrder} <ArrowRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
             <motion.div variants={fadeUp} className="mt-10">
               <QuoteVisual />
             </motion.div>
@@ -266,6 +276,12 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                 <CheckCircle className="mx-auto h-12 w-12 text-emerald-500" />
                 <h3 className="mt-4" style={{ color: "#1C1917" }}>{content.successTitle}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{content.successText}</p>
+                <Link
+                  href="/track-order"
+                  className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0369A1] px-5 py-3 text-xs font-bold uppercase tracking-widest text-white transition hover:bg-[#0284C7]"
+                >
+                  {content.trackOrder} <ArrowRight className="h-4 w-4" />
+                </Link>
               </motion.div>
             ) : (
               <AnimatePresence mode="wait">

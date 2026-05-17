@@ -398,28 +398,7 @@ export default function AdminOrdersClient() {
           </section>
 
           <section className="white-card" style={{ padding: "1rem" }}>
-            <div
-              style={{
-                alignItems: "center",
-                display: "flex",
-                gap: "0.75rem",
-                justifyContent: "space-between",
-                marginBottom: "1rem",
-              }}
-            >
-              <h2>Update selected order</h2>
-              {selected && (
-                <button
-                  className="btn-outline"
-                  disabled={saving || !configured}
-                  onClick={deleteOrder}
-                  style={{ color: "#991b1b" }}
-                  type="button"
-                >
-                  <Trash2 size={15} /> Delete
-                </button>
-              )}
-            </div>
+            <h2 style={{ marginBottom: "1rem" }}>Update selected order</h2>
             {selected ? (
               <form onSubmit={updateOrder} style={{ display: "grid", gap: "0.85rem" }}>
                 <div
@@ -576,6 +555,39 @@ export default function AdminOrdersClient() {
                   {saving ? <Loader2 size={15} /> : <Save size={15} />}
                   Save update
                 </button>
+
+                <div
+                  style={{
+                    borderTop: "1px solid #e2e8f0",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginTop: "0.35rem",
+                    paddingTop: "0.85rem",
+                  }}
+                >
+                  <button
+                    disabled={saving || !configured}
+                    onClick={deleteOrder}
+                    style={{
+                      alignItems: "center",
+                      background: "#fff",
+                      border: "1px solid #fecaca",
+                      borderRadius: "0.5rem",
+                      color: "#991b1b",
+                      cursor: saving || !configured ? "not-allowed" : "pointer",
+                      display: "inline-flex",
+                      fontSize: "0.72rem",
+                      fontWeight: 800,
+                      gap: "0.35rem",
+                      letterSpacing: "0.04em",
+                      padding: "0.42rem 0.62rem",
+                      textTransform: "uppercase",
+                    }}
+                    type="button"
+                  >
+                    <Trash2 size={13} /> Delete order
+                  </button>
+                </div>
               </form>
             ) : (
               <p style={{ color: "#64748b" }}>Load orders to update one.</p>
