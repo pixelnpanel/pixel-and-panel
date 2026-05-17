@@ -68,6 +68,32 @@ Use Zoho Books automation/webhooks to send invoice, estimate, or sales order upd
 
 The webhook uses `reference_number` to find the website order. Set Zoho reference number equal to website order number such as `PNP-1007`.
 
+Recommended Zoho custom fields for customer tracking:
+
+```txt
+Website Tracking Status
+Proof Status
+Next Action
+Customer Note
+Target Date
+Delivery / Install
+```
+
+Use these exact values for `Website Tracking Status`:
+
+```txt
+Quote received
+Review in progress
+Proof ready
+Awaiting approval
+In production
+Install scheduled
+Completed
+```
+
+When Zoho sends these fields in a webhook, the website updates the customer tracking page.
+`Customer Note` becomes the public note and timeline message.
+
 ## Recommended Flow
 
 Start with:
