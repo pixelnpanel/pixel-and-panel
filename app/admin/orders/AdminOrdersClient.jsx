@@ -13,6 +13,7 @@ import {
   RefreshCw,
   Save,
 } from "lucide-react";
+import { orderProductOptions } from "@/lib/order-products";
 
 const statusOptions = [
   ["quote_received", "Quote received"],
@@ -99,6 +100,7 @@ export default function AdminOrdersClient() {
   const [newOrder, setNewOrder] = useState(emptyOrder);
   const [updateForm, setUpdateForm] = useState({
     status: "review_in_progress",
+    productName: "",
     quantity: "",
     unitRate: "",
     paymentStatus: "",
@@ -189,6 +191,7 @@ export default function AdminOrdersClient() {
     const payload = { status: updateForm.status };
     for (const key of [
       "quantity",
+      "productName",
       "unitRate",
       "paymentStatus",
       "proofStatus",
@@ -446,6 +449,18 @@ export default function AdminOrdersClient() {
                   />
                 </Field>
 
+                <Field label="Product name">
+                  <input
+                    list="pnp-product-options"
+                    value={updateForm.productName}
+                    onChange={(event) =>
+                      setUpdateForm({ ...updateForm, productName: event.target.value })
+                    }
+                    placeholder={selected.productName || "Choose Zoho item or type custom"}
+                    style={inputStyle}
+                  />
+                </Field>
+
                 <Field label="Quantity">
                   <input
                     type="number"
@@ -633,13 +648,23 @@ export default function AdminOrdersClient() {
             </Field>
             <Field label="Product name">
               <input
+                list="pnp-product-options"
                 value={newOrder.productName}
                 onChange={(event) =>
                   setNewOrder({ ...newOrder, productName: event.target.value })
                 }
-                placeholder="Storefront sign + window graphics"
+                placeholder="Choose Zoho item or type custom"
                 style={inputStyle}
               />
+              <datalist id="pnp-product-options">
+                {orderProductOptions.map((group) =>
+                  group.products.map((product) => (
+                    <option key={`${group.category}-${product}`} value={product}>
+                      {group.category}
+                    </option>
+                  )),
+                )}
+              </datalist>
             </Field>
             <Field label="Service">
               <input

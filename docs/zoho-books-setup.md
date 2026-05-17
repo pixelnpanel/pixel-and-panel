@@ -51,6 +51,11 @@ Keep refresh token and client secret private.
 5. Click `Sync Zoho estimate` or `Sync Zoho sales order`.
 6. Website saves Zoho IDs back to Supabase.
 
+For cleaner Zoho reporting, choose a product name from the admin product dropdown.
+If the product name matches an active Zoho Books item, the website sends Zoho `item_id`
+on the estimate or sales order line item. Custom product names still sync, but they do
+not attach to a Zoho catalog item.
+
 ## Webhook
 
 Webhook endpoint:
