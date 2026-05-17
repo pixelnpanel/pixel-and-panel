@@ -154,7 +154,6 @@ export default function Footer() {
                 { label: 'Free Visibility Check', href: '/free-visibility-check' },
                 { label: 'Contact Us',     href: '/contact' },
                 { label: 'Quote Request',  href: '/quote-request' },
-                { label: 'Track My Order', href: '/track-order' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} style={footerLinkStyle}>{link.label}</Link>
@@ -164,26 +163,6 @@ export default function Footer() {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.65rem' }}>
               <Link href="/quote-request" className="btn-amber" style={{ fontSize: '0.75rem', padding: '0.75rem 1.25rem' }}>
                 Get a Free Quote <ArrowRight size={13} />
-              </Link>
-              <Link
-                href="/track-order"
-                style={{
-                  alignItems: 'center',
-                  border: '1px solid rgba(148,163,184,0.35)',
-                  borderRadius: '0.65rem',
-                  color: '#e2e8f0',
-                  display: 'inline-flex',
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  gap: '0.35rem',
-                  letterSpacing: '0.06em',
-                  padding: '0.75rem 1.1rem',
-                  textDecoration: 'none',
-                  textTransform: 'uppercase',
-                }}
-              >
-                Track My Order <ArrowRight size={13} />
               </Link>
             </div>
           </div>

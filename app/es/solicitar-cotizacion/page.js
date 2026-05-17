@@ -26,7 +26,11 @@ const spanishQuoteCopy = {
     "Cuéntanos qué necesitas: sitio web, letreros, impresión, SEO local, códigos QR, tamaño, cantidad, fecha o detalles que ya tengas.",
   submit: "Enviar solicitud",
   sending: "Enviando...",
+  trackOrderPrompt: "¿Ya tienes un pedido o ya enviaste una solicitud?",
+  trackOrderHelp:
+    "Usa tu número de pedido con el mismo correo o teléfono para ver el estado, notas y próximos pasos.",
   trackOrder: "Rastrear mi pedido",
+  trackOrderHref: "/es/rastrear-pedido",
   footer: "Respondemos dentro de 1 día hábil. Sin spam.",
   successTitle: "Gracias — recibimos tu solicitud.",
   successText: "Pixel & Panel te contactará pronto.",

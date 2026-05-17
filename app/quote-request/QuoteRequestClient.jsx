@@ -47,7 +47,10 @@ const defaultCopy = {
   messagePlaceholder: "Tell us size, quantity, deadline, material, location, or anything you already know.",
   submit: "Send My Request",
   sending: "Sending...",
+  trackOrderPrompt: "Already have an order or already submitted a quote?",
+  trackOrderHelp: "Use your order number with the same email or phone to see status, proof notes, and next steps.",
   trackOrder: "Track my order",
+  trackOrderHref: "/track-order",
   footer: "We respond within 1 business day. No spam, ever.",
   successTitle: "Request Sent",
   successText: "We received your quote request and will reply within 1 business day.",
@@ -207,14 +210,6 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                 </motion.div>
               ))}
             </motion.div>
-            <motion.div variants={fadeUp} className="mt-8">
-              <Link
-                href="/track-order"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/35 px-5 py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:border-white hover:bg-white/10"
-              >
-                {content.trackOrder} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </motion.div>
             <motion.div variants={fadeUp} className="mt-10">
               <QuoteVisual />
             </motion.div>
@@ -277,7 +272,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                 <h3 className="mt-4" style={{ color: "#1C1917" }}>{content.successTitle}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{content.successText}</p>
                 <Link
-                  href="/track-order"
+                  href={content.trackOrderHref}
                   className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0369A1] px-5 py-3 text-xs font-bold uppercase tracking-widest text-white transition hover:bg-[#0284C7]"
                 >
                   {content.trackOrder} <ArrowRight className="h-4 w-4" />
@@ -318,6 +313,16 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                           </button>
                         );
                       })}
+                    </div>
+                    <div className="mt-5 rounded-2xl border border-[#0369A1]/15 bg-[#0369A1]/5 p-4">
+                      <p className="font-heading text-sm font-bold text-[#1C1917]">{content.trackOrderPrompt}</p>
+                      <p className="mt-1 text-sm leading-6 text-slate-500">{content.trackOrderHelp}</p>
+                      <Link
+                        href={content.trackOrderHref}
+                        className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl border border-[#0369A1]/25 px-5 py-3 text-xs font-bold uppercase tracking-widest text-[#0369A1] transition hover:border-[#0369A1] hover:bg-white"
+                      >
+                        {content.trackOrder} <ArrowRight className="h-4 w-4" />
+                      </Link>
                     </div>
                     <p className="mt-6 text-center text-xs text-slate-400">{content.footer}</p>
                   </motion.div>

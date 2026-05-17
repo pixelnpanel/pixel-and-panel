@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { fadeUp, stagger } from "@/lib/animations";
 import { BRAND } from "@/lib/constants";
+import TrackOrderVisual from "./TrackOrderVisual";
 
 const previewSteps = [
   {
@@ -74,6 +75,57 @@ const labelStyle = {
   letterSpacing: "0.05em",
 };
 
+const defaultCopy = {
+  eyebrow: "Order Tracking",
+  headline: "Check your project status.",
+  intro:
+    "Use your order number and contact email or phone to see where your sign, print, website, or marketing project stands.",
+  quoteCta: "Start a quote",
+  contactCta: "Contact us",
+  trackingTitle: "How order tracking works",
+  trackingText:
+    "Enter your order number, confirm your contact info, then see status, proof notes, and next steps.",
+  formTitle: "Track an order",
+  formIntro:
+    "Enter the order number from your quote, invoice, or project update. Use the same email or phone you gave Pixel & Panel.",
+  orderNumberLabel: "Order number",
+  orderNumberPlaceholder: "PNP-1007",
+  contactLabel: "Email or phone",
+  contactPlaceholder: "you@email.com",
+  submit: "Check status",
+  checking: "Checking...",
+  lookupError: "Unable to check order status.",
+  orderNumberDetail: "Order number",
+  statusPreviewTitle: "What customers will see",
+  statusPreviewText:
+    "Simple status timeline, next action, project contact, and proof or file links when available.",
+  usefulFeaturesTitle: "Useful first features",
+  nextBuildTitle: "Next build step",
+  nextBuildText:
+    "Supabase schema is ready in the project docs. Add keys to Vercel and this page will read real order data from your database.",
+  requestQuote: "Request quote",
+  detailsTitle: "Project details",
+  clientLabel: "Client",
+  productLabel: "Product",
+  quantityLabel: "Quantity",
+  serviceLabel: "Service",
+  orderDateLabel: "Order date",
+  paymentLabel: "Payment",
+  proofLabel: "Proof",
+  deliveryLabel: "Delivery / install",
+  targetDateLabel: "Target date",
+  nextActionLabel: "Next action",
+  filesLabel: "Files",
+  previewSteps,
+  usefulFeatures: [
+    "Private order lookup by order number and email",
+    "Visible notes for design proof, production, pickup, or install",
+    "File upload area for logos, artwork, photos, and approvals",
+    "Email updates when status changes",
+  ],
+  visual: {},
+};
+
 function formatDate(date) {
   if (!date) return "";
   const [year, month, day] = String(date).split("-").map(Number);
@@ -111,6 +163,10 @@ function DetailItem({ icon: Icon, label, value }) {
 }
 
 export default function TrackOrderClient() {
+  return <TrackOrderExperience copy={defaultCopy} />;
+}
+
+export function TrackOrderExperience({ copy }) {
   const resultRef = useRef(null);
   const [orderNumber, setOrderNumber] = useState("");
   const [contact, setContact] = useState("");
@@ -146,12 +202,12 @@ export default function TrackOrderClient() {
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(data.error || "Unable to check order status.");
+        throw new Error(data.error || copy.lookupError);
       }
 
       setOrder(data.order);
     } catch (lookupError) {
-      setError(lookupError.message || "Unable to check order status.");
+      setError(lookupError.message || copy.lookupError);
     } finally {
       setLoading(false);
     }
@@ -196,13 +252,13 @@ export default function TrackOrderClient() {
         >
           <motion.div variants={stagger} initial="hidden" animate="visible">
             <motion.span variants={fadeUp} className="section-label">
-              Order Tracking
+              {copy.eyebrow}
             </motion.span>
             <motion.h1
               variants={fadeUp}
               style={{ color: "white", marginBottom: "1.25rem" }}
             >
-              Check your project status.
+              {copy.headline}
             </motion.h1>
             <motion.p
               variants={fadeUp}
@@ -213,8 +269,7 @@ export default function TrackOrderClient() {
                 marginBottom: "2rem",
               }}
             >
-              Use your order number and contact email or phone to see where your
-              sign, print, website, or marketing project stands.
+              {copy.intro}
             </motion.p>
 
             <motion.div
@@ -222,11 +277,36 @@ export default function TrackOrderClient() {
               style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}
             >
               <Link href="/quote-request" className="btn-amber">
-                Start a quote <ArrowRight size={15} />
+                {copy.quoteCta} <ArrowRight size={15} />
               </Link>
               <Link href="/contact" className="btn-ghost">
-                Contact us
+                {copy.contactCta}
               </Link>
+            </motion.div>
+
+            <motion.div variants={fadeUp} style={{ marginTop: "2.25rem", maxWidth: 520 }}>
+              <p
+                style={{
+                  color: "white",
+                  fontFamily: "var(--font-heading)",
+                  fontSize: "1.05rem",
+                  fontWeight: 800,
+                  marginBottom: "0.55rem",
+                }}
+              >
+                {copy.trackingTitle}
+              </p>
+              <p
+                style={{
+                  color: "rgba(255,255,255,0.72)",
+                  fontSize: "0.95rem",
+                  lineHeight: 1.7,
+                  marginBottom: "1rem",
+                }}
+              >
+                {copy.trackingText}
+              </p>
+              <TrackOrderVisual copy={copy.visual} />
             </motion.div>
           </motion.div>
 
@@ -255,7 +335,7 @@ export default function TrackOrderClient() {
               </div>
 
               <h2 style={{ color: "#1C1917", marginBottom: "0.5rem" }}>
-                Track an order
+                {copy.formTitle}
               </h2>
               <p
                 style={{
@@ -264,21 +344,20 @@ export default function TrackOrderClient() {
                   marginBottom: "1.5rem",
                 }}
               >
-                Enter the order number from your quote, invoice, or project
-                update. Use the same email or phone you gave Pixel & Panel.
+                {copy.formIntro}
               </p>
 
               <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: "1rem" }}>
                   <label htmlFor="order-number" style={labelStyle}>
-                    Order number
+                    {copy.orderNumberLabel}
                   </label>
                   <input
                     id="order-number"
                     value={orderNumber}
                     onChange={(event) => setOrderNumber(event.target.value)}
                     name="orderNumber"
-                    placeholder="PNP-1007"
+                    placeholder={copy.orderNumberPlaceholder}
                     required
                     style={inputStyle}
                     onFocus={(event) => (event.target.style.borderColor = "#0369A1")}
@@ -288,14 +367,14 @@ export default function TrackOrderClient() {
 
                 <div style={{ marginBottom: "1.5rem" }}>
                   <label htmlFor="order-contact" style={labelStyle}>
-                    Email or phone
+                    {copy.contactLabel}
                   </label>
                   <input
                     id="order-contact"
                     value={contact}
                     onChange={(event) => setContact(event.target.value)}
                     name="contact"
-                    placeholder="you@email.com"
+                    placeholder={copy.contactPlaceholder}
                     required
                     style={inputStyle}
                     onFocus={(event) => (event.target.style.borderColor = "#0369A1")}
@@ -309,7 +388,7 @@ export default function TrackOrderClient() {
                   disabled={loading}
                   style={{ width: "100%", justifyContent: "center" }}
                 >
-                  {loading ? "Checking..." : "Check status"} <ArrowRight size={15} />
+                  {loading ? copy.checking : copy.submit} <ArrowRight size={15} />
                 </button>
               </form>
 
@@ -441,7 +520,7 @@ export default function TrackOrderClient() {
               </div>
 
               <div className="white-card" style={{ padding: "1.5rem" }}>
-                <h2 style={{ marginBottom: "0.85rem" }}>Project details</h2>
+                <h2 style={{ marginBottom: "0.85rem" }}>{copy.detailsTitle}</h2>
                 <div style={{ display: "grid", gap: "0.85rem" }}>
                   <div
                     style={{
@@ -450,20 +529,20 @@ export default function TrackOrderClient() {
                       gap: "0.75rem",
                     }}
                   >
-                    <DetailItem icon={User} label="Client" value={order.customerName} />
-                    <DetailItem icon={Package} label="Product" value={order.productName} />
-                    <DetailItem icon={Hash} label="Quantity" value={order.quantity} />
-                    <DetailItem icon={FileText} label="Service" value={order.productService} />
-                    <DetailItem icon={CalendarDays} label="Order date" value={formatDate(order.orderDate)} />
-                    <DetailItem icon={CreditCard} label="Payment" value={order.paymentStatus} />
-                    <DetailItem icon={ClipboardCheck} label="Proof" value={order.proofStatus} />
-                    <DetailItem icon={Truck} label="Delivery / install" value={order.deliveryMethod} />
+                    <DetailItem icon={User} label={copy.clientLabel} value={order.customerName} />
+                    <DetailItem icon={Package} label={copy.productLabel} value={order.productName} />
+                    <DetailItem icon={Hash} label={copy.quantityLabel} value={order.quantity} />
+                    <DetailItem icon={FileText} label={copy.serviceLabel} value={order.productService} />
+                    <DetailItem icon={CalendarDays} label={copy.orderDateLabel} value={formatDate(order.orderDate)} />
+                    <DetailItem icon={CreditCard} label={copy.paymentLabel} value={order.paymentStatus} />
+                    <DetailItem icon={ClipboardCheck} label={copy.proofLabel} value={order.proofStatus} />
+                    <DetailItem icon={Truck} label={copy.deliveryLabel} value={order.deliveryMethod} />
                   </div>
                   {order.dueDate && (
                     <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
                       <CalendarDays size={17} style={{ color: "#0369A1" }} />
                       <p style={{ color: "#1C1917", fontWeight: 700 }}>
-                        Target date: {formatDate(order.dueDate)}
+                        {copy.targetDateLabel}: {formatDate(order.dueDate)}
                       </p>
                     </div>
                   )}
@@ -484,7 +563,7 @@ export default function TrackOrderClient() {
                           marginBottom: "0.3rem",
                         }}
                       >
-                        Next action
+                        {copy.nextActionLabel}
                       </p>
                       <p style={{ color: "#78350f", fontSize: "0.95rem" }}>
                         {order.nextAction}
@@ -498,7 +577,7 @@ export default function TrackOrderClient() {
                   )}
                   {order.files?.length > 0 && (
                     <div style={{ display: "grid", gap: "0.6rem" }}>
-                      <p style={{ color: "#94a3b8", fontSize: "0.78rem" }}>Files</p>
+                      <p style={{ color: "#94a3b8", fontSize: "0.78rem" }}>{copy.filesLabel}</p>
                       {order.files.map((file) => (
                         <a
                           key={`${file.label}-${file.fileUrl}`}
@@ -541,16 +620,15 @@ export default function TrackOrderClient() {
             }}
           >
             <div className="white-card" style={{ padding: "1.5rem" }}>
-              <h2 style={{ marginBottom: "0.75rem" }}>What customers will see</h2>
+              <h2 style={{ marginBottom: "0.75rem" }}>{copy.statusPreviewTitle}</h2>
               <p style={{ color: "#64748b", marginBottom: "1.25rem" }}>
-                Simple status timeline, next action, project contact, and proof
-                or file links when available.
+                {copy.statusPreviewText}
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {previewSteps.map((step) => {
-                  const Icon = step.icon;
+                {copy.previewSteps.map((step) => {
                   const isDone = step.state === "done";
                   const isActive = step.state === "active";
+                  const Icon = step.icon || (isActive ? ShieldCheck : Clock3);
                   return (
                     <div
                       key={step.label}
@@ -602,14 +680,9 @@ export default function TrackOrderClient() {
               }}
             >
               <div>
-                <h2 style={{ marginBottom: "0.75rem" }}>Useful first features</h2>
+                <h2 style={{ marginBottom: "0.75rem" }}>{copy.usefulFeaturesTitle}</h2>
                 <div style={{ display: "grid", gap: "0.8rem" }}>
-                  {[
-                    "Private order lookup by order number and email",
-                    "Visible notes for design proof, production, pickup, or install",
-                    "File upload area for logos, artwork, photos, and approvals",
-                    "Email updates when status changes",
-                  ].map((item) => (
+                  {copy.usefulFeatures.map((item) => (
                     <div
                       key={item}
                       style={{ display: "flex", gap: "0.65rem", alignItems: "flex-start" }}
@@ -658,14 +731,13 @@ export default function TrackOrderClient() {
             >
               <Upload size={28} style={{ color: "#F59E0B", marginBottom: "1rem" }} />
               <h2 style={{ color: "white", marginBottom: "0.75rem" }}>
-                Next build step
+                {copy.nextBuildTitle}
               </h2>
               <p style={{ color: "rgba(255,255,255,0.72)", marginBottom: "1.5rem" }}>
-                Supabase schema is ready in the project docs. Add keys to Vercel
-                and this page will read real order data from your database.
+                {copy.nextBuildText}
               </p>
               <Link href="/quote-request" className="btn-amber">
-                Request quote <ArrowRight size={15} />
+                {copy.requestQuote} <ArrowRight size={15} />
               </Link>
             </div>
           </div>
