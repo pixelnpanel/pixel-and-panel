@@ -85,7 +85,7 @@ export default function Navbar() {
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
             {/* Icon mark on mobile */}
             <Image
-              src="/logo/icon.svg"
+              src="/logo/icon-mobile.svg"
               alt="Pixel & Panel"
               width={32}
               height={32}
