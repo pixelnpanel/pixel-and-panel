@@ -1,5 +1,5 @@
-import HomeClient from "@/app/HomeClient";
-import HomeSections from "@/app/HomeSections";
+import HomeClient from "./HomeClient";
+import HomeSections from "./HomeSections";
 import SpanishSuggestionBanner from "@/components/language/SpanishSuggestionBanner";
 
 const homepageFaq = [
@@ -31,6 +31,7 @@ const homepageFaq = [
 ];
 
 export const metadata = {
+  metadataBase: new URL("https://pixelnpanel.com"),
   title: {
     absolute: "Pixel & Panel | Website Design, Signs & Print for Southeast Texas",
   },

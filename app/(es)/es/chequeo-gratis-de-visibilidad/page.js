@@ -11,7 +11,7 @@ import {
   Search,
   Store,
 } from "lucide-react";
-import VisibilityCheckForm from "@/app/free-visibility-check/VisibilityCheckForm";
+import VisibilityCheckForm from "../../../(en)/free-visibility-check/VisibilityCheckForm";
 
 const whoFor = [
   "Negocios nuevos",

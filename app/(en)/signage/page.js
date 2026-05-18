@@ -3,6 +3,7 @@ import SignageHubClient from '@/components/signage/SignageHubClient'
 import { signageCategories } from '@/lib/signage-data'
 
 export const metadata = {
+    metadataBase: new URL('https://pixelnpanel.com'),
     title: 'Custom Signage & Print Beaumont TX',
     description:
         'Custom banners, yard signs, vehicle graphics, window graphics, storefront signs, rigid signs, event displays, and print marketing materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
@@ -61,7 +62,11 @@ function getOrderedCategories() {
     }).map(({ category }) => category)
 }
 
-export default function SignagePage() {
+export default async function SignagePage({ searchParams }) {
+    const resolvedSearchParams = await searchParams
+    const initialCategorySlug = typeof resolvedSearchParams?.category === 'string'
+        ? resolvedSearchParams.category
+        : undefined
     const ordered = getOrderedCategories()
 
     const breadcrumbSchema = {
@@ -94,7 +99,7 @@ export default function SignagePage() {
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={itemListSchema} />
             <Suspense fallback={null}>
-                <SignageHubClient categories={ordered} />
+                <SignageHubClient categories={ordered} initialCategorySlug={initialCategorySlug} />
             </Suspense>
         </>
     )

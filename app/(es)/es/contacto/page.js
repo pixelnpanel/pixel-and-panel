@@ -1,4 +1,4 @@
-import ContactClient from "@/app/contact/ContactClient";
+import ContactClient from "../../../(en)/contact/ContactClient";
 
 const spanishContactCopy = {
   language: "Spanish",

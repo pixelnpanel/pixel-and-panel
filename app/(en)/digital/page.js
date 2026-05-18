@@ -1,6 +1,7 @@
 import DigitalClient from "./DigitalClient";
 
 export const metadata = {
+  metadataBase: new URL("https://pixelnpanel.com"),
   title: "Digital Services",
   description:
     "Websites, local SEO, Google Business Profile optimization, CRM automation, and QR code campaigns for businesses in Beaumont, Nederland, and Port Arthur, TX.",

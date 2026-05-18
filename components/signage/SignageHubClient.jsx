@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { ArrowRight, Search, Box, MessageSquareText, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { fadeUp, scaleIn, stagger, viewport } from '@/lib/animations'
@@ -110,10 +110,9 @@ const getProductSearchScore = (product, query) => {
     return score
 }
 
-export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY }) {
-    const content = { ...DEFAULT_COPY, ...copy }
+export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY, initialCategorySlug = ALL_PRODUCTS_SLUG }) {
+    const content = useMemo(() => ({ ...DEFAULT_COPY, ...copy }), [copy])
     const router = useRouter()
-    const searchParams = useSearchParams()
     const productAreaRef = useRef(null)
     const productGridRef = useRef(null)
     const productCardRefs = useRef(new Map())
@@ -124,6 +123,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY 
     const [isSearchFabExpanded, setIsSearchFabExpanded] = useState(false)
     const [mobileSearchTerm, setMobileSearchTerm] = useState('')
     const [highlightedProductKey, setHighlightedProductKey] = useState('')
+    const [selectedSlug, setSelectedSlug] = useState(initialCategorySlug)
 
     const allProducts = useMemo(() => {
         return sortProductsByName(categories.flatMap((category) =>
@@ -146,12 +146,11 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY 
     ], [allProducts, categories, content.allProducts])
 
     const defaultCategorySlug = ALL_PRODUCTS_SLUG
-    const urlCategory = searchParams.get('category')
-    const selectedSlug = categoryOptions.some((cat) => cat.slug === urlCategory) ? urlCategory : defaultCategorySlug
+    const normalizedSelectedSlug = categoryOptions.some((cat) => cat.slug === selectedSlug) ? selectedSlug : defaultCategorySlug
 
     const selectedCategory = useMemo(() => {
-        return categoryOptions.find((cat) => cat.slug === selectedSlug) || categoryOptions[0]
-    }, [categoryOptions, selectedSlug])
+        return categoryOptions.find((cat) => cat.slug === normalizedSelectedSlug) || categoryOptions[0]
+    }, [categoryOptions, normalizedSelectedSlug])
 
     const selectedProducts = useMemo(() => {
         if (selectedCategory?.isAllProducts) return allProducts
@@ -264,8 +263,9 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY 
     }, [highlightedProductKey])
 
     const handleCategoryClick = (slug) => {
-        const params = new URLSearchParams(searchParams.toString())
+        const params = new URLSearchParams()
         params.set('category', slug)
+        setSelectedSlug(slug)
         router.push(`${content.basePath}?${params.toString()}`, { scroll: false })
         setTimeout(() => {
             productAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })

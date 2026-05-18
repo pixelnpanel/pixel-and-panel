@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../globals.css";
 import { Montserrat, Inter } from "next/font/google";
 import { ViewTransition } from "react";
 import Navbar from "@/components/layout/Navbar";
@@ -7,7 +7,6 @@ import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
 
-// Loaded at framework level — no render-blocking, no FOUT
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["700", "800", "900"],
@@ -45,14 +44,14 @@ export const metadata = {
     siteName: "Pixel & Panel",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    images: [{ url: "https://pixelnpanel.com/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
   },
 };
 
-export default function RootLayout({ children }) {
+export default function EnglishRootLayout({ children }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
       <head>

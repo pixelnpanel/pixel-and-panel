@@ -1,4 +1,4 @@
-import QuoteRequestClient from "@/app/quote-request/QuoteRequestClient";
+import QuoteRequestClient from "../../../(en)/quote-request/QuoteRequestClient";
 
 const spanishQuoteCopy = {
   language: "Spanish",

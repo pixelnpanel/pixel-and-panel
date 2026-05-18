@@ -1,5 +1,7 @@
 import { signageProducts } from "@/lib/signage-products";
+import { signageProductsEs } from "@/lib/signage-products-es";
 import { digitalServices } from "@/lib/digital-services";
+import { digitalServicesEs } from "@/lib/digital-services-es";
 import { learningCenterPosts } from "@/lib/learning-center-posts";
 import { cityServiceStaticParams, cityServiceCities } from "@/lib/city-service-pages";
 import { cityServiceStaticParamsEs } from "@/lib/city-service-pages-es";
@@ -47,6 +49,18 @@ export default function sitemap() {
     changeFrequency: "monthly",
   }));
 
+  const signageUrlsEs = signageProductsEs.map((p) => ({
+    url: `${BASE}/es/letreros/${p.slug}`,
+    priority: 0.7,
+    changeFrequency: "monthly",
+  }));
+
+  const digitalUrlsEs = digitalServicesEs.map((s) => ({
+    url: `${BASE}/es/servicios-digitales/${s.slug}`,
+    priority: 0.7,
+    changeFrequency: "monthly",
+  }));
+
   const learningUrls = learningCenterPosts.map((post) => ({
     url: `${BASE}/learning-center/${post.slug}`,
     priority: 0.6,
@@ -69,6 +83,8 @@ export default function sitemap() {
     ...staticPages.map(({ url, ...rest }) => ({ url: `${BASE}${url}`, ...rest })),
     ...signageUrls,
     ...digitalUrls,
+    ...signageUrlsEs,
+    ...digitalUrlsEs,
     ...learningUrls,
     ...cityServiceUrls,
     ...cityServiceUrlsEs,

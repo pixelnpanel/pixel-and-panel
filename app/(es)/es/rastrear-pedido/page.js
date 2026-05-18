@@ -1,4 +1,4 @@
-import { TrackOrderExperience } from "@/app/track-order/TrackOrderClient";
+import { TrackOrderExperience } from "../../../(en)/track-order/TrackOrderClient";
 
 const spanishPreviewSteps = [
   {

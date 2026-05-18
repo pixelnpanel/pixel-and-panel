@@ -1,6 +1,7 @@
 import QuoteRequestClient from "./QuoteRequestClient";
 
 export const metadata = {
+  metadataBase: new URL("https://pixelnpanel.com"),
   title: "Request a Quote",
   description:
     "Request a free quote from Pixel & Panel for signage, print, websites, local SEO, QR campaigns, and branding services.",

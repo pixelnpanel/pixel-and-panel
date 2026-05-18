@@ -49,6 +49,7 @@ const reasons = [
 ];
 
 export const metadata = {
+  metadataBase: new URL("https://pixelnpanel.com"),
   title: {
     absolute: "Pixel & Panel | Diseño Web, Letreros e Impresión para Negocios del Sureste de Texas",
   },

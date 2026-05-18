@@ -78,10 +78,19 @@ export const metadata = {
   },
 };
 
-export default function SpanishSignagePage() {
+export default async function SpanishSignagePage({ searchParams }) {
+  const resolvedSearchParams = await searchParams;
+  const initialCategorySlug = typeof resolvedSearchParams?.category === "string"
+    ? resolvedSearchParams.category
+    : undefined;
+
   return (
     <Suspense fallback={null}>
-      <SignageHubClient categories={signageCategoriesEs} copy={spanishCopy} />
+      <SignageHubClient
+        categories={signageCategoriesEs}
+        copy={spanishCopy}
+        initialCategorySlug={initialCategorySlug}
+      />
     </Suspense>
   );
 }
