@@ -79,7 +79,15 @@ export default function Navbar() {
       }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px', gap: '0.5rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            minHeight: '64px',
+            gap: '0.5rem',
+          }}
+        >
 
           {/* Logo */}
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
@@ -87,10 +95,10 @@ export default function Navbar() {
             <Image
               src="/logo/icon-mobile.svg"
               alt="Pixel & Panel"
-              width={32}
-              height={32}
+              width={48}
+              height={48}
               className="lg:hidden"
-              style={{ width: 32, height: 32 }}
+              style={{ width: 48, height: 48, objectFit: 'contain' }}
               unoptimized
               priority
             />
@@ -152,12 +160,25 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Nav — links centered, language switch right */}
-          <div className="flex lg:hidden" style={{ alignItems: 'center', flex: 1, gap: '0.25rem' }}>
-            <nav aria-label="Mobile navigation" style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center', gap: '0.15rem', minWidth: 0 }}>
+          <div className="flex lg:hidden" style={{ alignItems: 'center', flex: 1, gap: '0.25rem', minWidth: 0 }}>
+            <nav
+              aria-label="Mobile navigation"
+              className="mobile-nav-scroll"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flex: 1,
+                justifyContent: 'center',
+                gap: '0.15rem',
+                minWidth: 0,
+                overflowX: 'auto',
+                scrollbarWidth: 'none',
+              }}
+            >
               {mobileLinks.map((item) => {
                 const isActive = navIsActive(pathname, item.href)
                 return (
-                  <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.38rem 0.55rem', borderRadius: '0.5rem', fontSize: '0.82rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
+                  <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.38rem 0.55rem', borderRadius: '0.5rem', fontSize: '0.82rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
                     {item.label}
                     {isActive && (
                       <span style={{ position: 'absolute', bottom: 2, left: '0.55rem', right: '0.55rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
