@@ -84,7 +84,7 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            minHeight: '64px',
+            minHeight: '68px',
             gap: '0.5rem',
           }}
         >
@@ -95,10 +95,10 @@ export default function Navbar() {
             <Image
               src="/logo/icon-mobile.svg"
               alt="Pixel & Panel"
-              width={48}
-              height={48}
+              width={96}
+              height={42}
               className="lg:hidden"
-              style={{ width: 48, height: 48, objectFit: 'contain' }}
+              style={{ width: 96, height: 'auto', maxHeight: 44, objectFit: 'contain' }}
               unoptimized
               priority
             />
