@@ -183,14 +183,12 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
           <div className="h-full w-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.22)_1px,transparent_1px)] [background-size:28px_28px]" />
         </div>
 
-        <div className="relative mx-auto grid max-w-6xl items-start gap-16 lg:grid-cols-2">
-
-          {/* ── LEFT ──────────────────────────────────────────── */}
+        <div className="relative mx-auto max-w-4xl">
           <motion.div
             variants={stagger}
             initial="hidden"
             animate="visible"
-            className="lg:sticky lg:top-24"
+            className="mb-10"
           >
             <motion.p variants={fadeUp} className="mb-5 section-label">
               {content.eyebrow}
@@ -202,20 +200,8 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
             <motion.p variants={fadeUp} className="mt-8 max-w-lg text-lg leading-8 text-slate-200">
               {content.intro}
             </motion.p>
-            <motion.div variants={stagger} className="mt-10 grid gap-4 text-sm text-slate-200">
-              {content.bullets.map((item) => (
-                <motion.div key={item} variants={fadeUp} className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-                  <span>{item}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-            <motion.div variants={fadeUp} className="mt-10">
-              <QuoteVisual />
-            </motion.div>
           </motion.div>
 
-          {/* ── RIGHT (card) ──────────────────────────────────── */}
           <motion.div
             variants={slideRight}
             initial="hidden"
@@ -525,6 +511,24 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
             )}
           </motion.div>
 
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+            className="mt-10"
+          >
+            <motion.div variants={stagger} className="mb-8 grid gap-4 text-sm text-slate-200 sm:grid-cols-2">
+              {content.bullets.map((item) => (
+                <motion.div key={item} variants={fadeUp} className="flex items-center gap-3">
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-400" />
+                  <span>{item}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <QuoteVisual />
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </div>
