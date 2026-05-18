@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import {
   ArrowRight,
@@ -21,8 +19,6 @@ import {
   ShieldCheck,
   Store,
 } from "lucide-react";
-import { motion } from "framer-motion";
-import { fadeUp, stagger, staggerFast, viewport } from "@/lib/animations";
 
 const problemCards = [
   {
@@ -200,34 +196,28 @@ const reasons = [
 
 function SectionIntro({ eyebrow, title, description, centered = true, light = false, id }) {
   return (
-    <motion.div
-      variants={stagger}
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewport}
+    <div
       className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}
     >
       {eyebrow && (
-        <motion.p
-          variants={fadeUp}
+        <p
           className="font-heading text-xs font-bold uppercase tracking-[0.16em]"
           style={{ color: light ? "#F59E0B" : "#0369A1" }}
         >
           {eyebrow}
-        </motion.p>
+        </p>
       )}
-      <motion.h2 id={id} variants={fadeUp} className={eyebrow ? "mt-4" : ""}>
+      <h2 id={id} className={eyebrow ? "mt-4" : ""}>
         <span className={light ? "text-white" : "text-[#1C1917]"}>{title}</span>
-      </motion.h2>
+      </h2>
       {description && (
-        <motion.p
-          variants={fadeUp}
+        <p
           className={light ? "mt-5 text-base leading-8 text-white/72 md:text-lg" : "mt-5 text-base leading-8 text-slate-600 md:text-lg"}
         >
           {description}
-        </motion.p>
+        </p>
       )}
-    </motion.div>
+    </div>
   );
 }
 
@@ -236,7 +226,7 @@ function LinkCard({ item, variant = "light" }) {
   const isDark = variant === "dark";
 
   return (
-    <motion.div variants={fadeUp}>
+    <div>
       <Link
         href={item.href}
         className={
@@ -256,7 +246,7 @@ function LinkCard({ item, variant = "light" }) {
           {item.description}
         </p>
       </Link>
-    </motion.div>
+    </div>
   );
 }
 
@@ -272,29 +262,29 @@ export default function HomeSections({ faqs }) {
             description="Customers move fast between Google, your website, your signs, and your contact options. Every piece should make the next step obvious."
           />
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
             {problemCards.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.article key={item.title} variants={fadeUp} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                <article key={item.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                   <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]">
                     <Icon className="h-6 w-6" />
                   </span>
                   <h3>{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
-                </motion.article>
+                </article>
               );
             })}
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport} className="mt-10 text-center">
+          <div className="mt-10 text-center">
             <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600">
               Not sure where the gap is yet? Start with a free review before asking for a project quote.
             </p>
             <Link href="/free-visibility-check" className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
               Start a Free Visibility Check <ArrowRight className="h-4 w-4" />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -307,11 +297,11 @@ export default function HomeSections({ faqs }) {
             description="Pixel & Panel connects the pieces local businesses already need: a clear website, a stronger Google presence, professional signs, useful print materials, QR codes, and lead forms."
           />
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
             {solutionSteps.map((item, index) => {
               const Icon = item.icon;
               return (
-                <motion.article key={item.title} variants={fadeUp} className="rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm">
+                <article key={item.title} className="rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm">
                   <div className="mb-6 flex items-center justify-between">
                     <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#F59E0B] text-[#1C1917]">
                       <Icon className="h-6 w-6" />
@@ -320,10 +310,10 @@ export default function HomeSections({ faqs }) {
                   </div>
                   <h3>{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
-                </motion.article>
+                </article>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -336,11 +326,11 @@ export default function HomeSections({ faqs }) {
             description="Choose what you need now, or start with a quote request and Pixel & Panel will recommend the right next step."
           />
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-6 lg:grid-cols-2">
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {serviceSilos.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.article key={item.eyebrow} variants={fadeUp} className="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+                <article key={item.eyebrow} className="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
                   <div className="absolute right-0 top-0 h-28 w-28 rounded-bl-[3rem] opacity-15" style={{ backgroundColor: item.accent }} />
                   <div className="relative">
                     <div className="mb-6 flex items-center gap-4">
@@ -365,10 +355,10 @@ export default function HomeSections({ faqs }) {
                       {item.cta} <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
-                </motion.article>
+                </article>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -382,11 +372,11 @@ export default function HomeSections({ faqs }) {
             light
           />
 
-          <motion.div variants={staggerFast} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {popularServices.map((item) => (
               <LinkCard key={item.href} item={item} variant="dark" />
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -399,9 +389,9 @@ export default function HomeSections({ faqs }) {
             description="Pixel & Panel works with businesses across Southeast Texas, starting with Beaumont, Nederland, Port Arthur, and nearby communities."
           />
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
             {cityCards.map((city) => (
-              <motion.div key={city.href} variants={fadeUp}>
+              <div key={city.href}>
                 <Link href={city.href} className="group block h-full rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#F59E0B]/45 hover:shadow-xl">
                   <div className="mb-5 flex items-center justify-between">
                     <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#F59E0B]/15 text-[#F59E0B]">
@@ -412,9 +402,9 @@ export default function HomeSections({ faqs }) {
                   <h3>{city.city}, TX</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{city.description}</p>
                 </Link>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -427,20 +417,20 @@ export default function HomeSections({ faqs }) {
             description="The goal is simple: make your business easier to notice, easier to understand, and easier to contact."
           />
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {reasons.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.article key={item.title} variants={fadeUp} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                <article key={item.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                   <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]">
                     <Icon className="h-6 w-6" />
                   </span>
                   <h3 className="text-xl">{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
-                </motion.article>
+                </article>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -455,7 +445,7 @@ export default function HomeSections({ faqs }) {
               centered={false}
               light
             />
-            <motion.div initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp} className="rounded-xl border border-white/10 bg-white/[0.08] p-6 md:p-8">
+            <div className="rounded-xl border border-white/10 bg-white/[0.08] p-6 md:p-8">
               <div className="grid gap-4 sm:grid-cols-3">
                 {[
                   ["Website work", MonitorSmartphone],
@@ -471,7 +461,7 @@ export default function HomeSections({ faqs }) {
               <Link href="/portfolio" className="btn-amber mt-7 justify-center">
                 View Portfolio <ArrowRight className="h-4 w-4" />
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -485,9 +475,9 @@ export default function HomeSections({ faqs }) {
             description="Quick answers before you request a quote."
           />
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="mx-auto mt-12 grid max-w-4xl gap-4">
+          <div className="mx-auto mt-12 grid max-w-4xl gap-4">
             {faqs.map((faq) => (
-              <motion.article key={faq.question} variants={fadeUp} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <article key={faq.question} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="flex gap-4">
                   <HelpCircle className="mt-1 h-5 w-5 shrink-0 text-[#0369A1]" />
                   <div>
@@ -495,35 +485,31 @@ export default function HomeSections({ faqs }) {
                     <p className="mt-3 text-sm leading-7 text-slate-600">{faq.answer}</p>
                   </div>
                 </div>
-              </motion.article>
+              </article>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       <section className="px-4 pb-16 md:pb-24" aria-labelledby="final-cta-heading">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          variants={stagger}
+        <div
           className="mx-auto max-w-6xl overflow-hidden rounded-xl bg-[#1C1917] px-6 py-14 text-center text-white shadow-2xl md:px-12"
         >
-          <motion.p variants={fadeUp} className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
+          <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
             Start a Project
-          </motion.p>
-          <motion.h2 id="final-cta-heading" variants={fadeUp} className="mx-auto mt-4 max-w-3xl text-white">
+          </p>
+          <h2 id="final-cta-heading" className="mx-auto mt-4 max-w-3xl text-white">
             Ready to Make Your Business Easier to Find?
-          </motion.h2>
-          <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/75">
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/75">
             Start with a quote request. Tell us what you need, and Pixel &amp; Panel will recommend the right next step.
-          </motion.p>
-          <motion.div variants={fadeUp} className="mt-8 flex justify-center">
+          </p>
+          <div className="mt-8 flex justify-center">
             <Link href="/quote-request" className="btn-amber">
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
     </>
   );

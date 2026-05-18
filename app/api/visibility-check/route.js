@@ -109,7 +109,7 @@ function buildEmail({
 
 export async function POST(request) {
   const ip = getClientIp(request);
-  const limiter = rateLimit({
+  const limiter = await rateLimit({
     key: `visibility:${ip}`,
     limit: 3,
     windowMs: 10 * 60 * 1000,

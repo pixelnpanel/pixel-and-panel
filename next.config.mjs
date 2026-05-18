@@ -9,6 +9,28 @@ const oldServiceAreaRedirects = [
   statusCode: 301,
 }));
 
+const scriptSrc = [
+  "'self'",
+  "'unsafe-inline'",
+  process.env.NODE_ENV === "development" ? "'unsafe-eval'" : "",
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com",
+].filter(Boolean).join(" ");
+
+const contentSecurityPolicyReportOnly = [
+  "default-src 'self'",
+  `script-src ${scriptSrc}`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
+  "font-src 'self' data:",
+  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.supabase.co",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -42,6 +64,7 @@ const nextConfig = {
           { key: "X-XSS-Protection", value: "1; mode=block" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicyReportOnly },
         ],
       },
     ];

@@ -13,7 +13,8 @@ Local demo lookup works without Supabase:
 1. Create a Supabase project.
 2. Open SQL Editor.
 3. Run `docs/order-tracking-supabase.sql`.
-4. Add these server-only environment variables in Vercel and local `.env.local`:
+4. Run `docs/rate-limit-supabase.sql` to enable persistent API rate limiting.
+5. Add these server-only environment variables in Vercel and local `.env.local`:
 
 ```bash
 SUPABASE_URL=https://your-project.supabase.co
