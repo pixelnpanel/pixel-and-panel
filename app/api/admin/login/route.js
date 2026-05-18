@@ -11,7 +11,7 @@ export const runtime = "nodejs";
 
 export async function POST(request) {
   const ip = getClientIp(request);
-  const limit = rateLimit({
+  const limit = await rateLimit({
     key: `admin-login:${ip}`,
     limit: 5,
     windowMs: 10 * 60 * 1000,

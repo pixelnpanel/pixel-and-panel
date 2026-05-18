@@ -11,10 +11,7 @@ import {
   Star,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { fadeUp, stagger, viewport } from "@/lib/animations";
-import dynamic from "next/dynamic";
-
-const HomeSections = dynamic(() => import("@/app/HomeSections"));
+import { fadeUp, stagger } from "@/lib/animations";
 
 const STEPS = [
   { num: "01", label: "Found on Google",   accent: "#0369A1" },
@@ -230,7 +227,7 @@ function HomepageVisual() {
   );
 }
 
-export default function HomeClient({ faqs }) {
+export default function HomeClient() {
   return (
     <div className="bg-[#FAF8F4] text-[#1C1917]">
       <section className="relative overflow-hidden bg-[#0369A1] pt-24 text-white md:pt-28" aria-labelledby="homepage-hero-title">
@@ -249,7 +246,7 @@ export default function HomeClient({ faqs }) {
             </motion.div>
 
             <motion.h1 id="homepage-hero-title" variants={fadeUp} className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-black leading-[1.08] tracking-normal text-white">
-              Website Design, Signs &amp; Print
+              Website Design, Signs &amp; Print{" "}
               <span className="mt-2 block text-[#F59E0B]">
                 for Southeast Texas Businesses
               </span>
@@ -284,8 +281,6 @@ export default function HomeClient({ faqs }) {
           <HomepageVisual />
         </div>
       </section>
-
-      <HomeSections faqs={faqs} />
     </div>
   );
 }

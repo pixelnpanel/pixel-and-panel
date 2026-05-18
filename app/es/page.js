@@ -88,7 +88,7 @@ export default function SpanishHomePage() {
               Sirviendo el sureste de Texas
             </div>
             <h1 className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-black leading-[1.08] tracking-normal text-white">
-              Diseño web, letreros e impresión
+              Diseño web, letreros e impresión{" "}
               <span className="mt-2 block text-[#F59E0B]">
                 para negocios del sureste de Texas
               </span>

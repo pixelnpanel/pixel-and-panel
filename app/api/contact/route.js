@@ -68,7 +68,7 @@ function buildEmail({ name, email, phone, subject, sourcePage, message, language
 
 export async function POST(request) {
   const ip = getClientIp(request);
-  const limiter = rateLimit({
+  const limiter = await rateLimit({
     key: `contact:${ip}`,
     limit: 5,
     windowMs: 10 * 60 * 1000,

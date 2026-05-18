@@ -1,6 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
 export default function WhatsAppWidget() {
+  const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const updateVisibility = () => setVisible(window.scrollY > 240);
+
+    updateVisibility();
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    return () => window.removeEventListener("scroll", updateVisibility);
+  }, [pathname]);
+
+  if (!visible) return null;
+
   return (
     <a
       href="https://wa.me/14098006139"

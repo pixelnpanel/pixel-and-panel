@@ -9,7 +9,7 @@ function jsonResponse(body, status = 200) {
 
 export async function POST(request) {
   const ip = getClientIp(request);
-  const limiter = rateLimit({
+  const limiter = await rateLimit({
     key: `order-lookup:${ip}`,
     limit: 8,
     windowMs: 10 * 60 * 1000,

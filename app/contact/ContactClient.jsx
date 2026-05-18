@@ -132,8 +132,8 @@ export default function ContactPage({ copy = defaultCopy }) {
                             ) : (
                                 <>
                                     {content.headlineLines[0]}
-                                    <br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[1]}</span>
-                                    <br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[2]}</span>
+                                    {' '}<br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[1]}</span>
+                                    {' '}<br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[2]}</span>
                                 </>
                             )}
                         </motion.h1>

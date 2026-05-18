@@ -1,4 +1,5 @@
 import HomeClient from "@/app/HomeClient";
+import HomeSections from "@/app/HomeSections";
 import SpanishSuggestionBanner from "@/components/language/SpanishSuggestionBanner";
 
 const homepageFaq = [
@@ -77,7 +78,8 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={faqSchema} />
-      <HomeClient faqs={homepageFaq} />
+      <HomeClient />
+      <HomeSections faqs={homepageFaq} />
       <SpanishSuggestionBanner />
     </>
   );
