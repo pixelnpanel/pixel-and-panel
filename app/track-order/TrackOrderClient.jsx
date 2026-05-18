@@ -244,13 +244,14 @@ export function TrackOrderExperience({ copy }) {
             maxWidth: "1180px",
             margin: "0 auto",
             width: "100%",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))",
-            gap: "2rem",
-            alignItems: "center",
           }}
         >
-          <motion.div variants={stagger} initial="hidden" animate="visible">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+            style={{ maxWidth: "780px", marginBottom: "2rem" }}
+          >
             <motion.span variants={fadeUp} className="section-label">
               {copy.eyebrow}
             </motion.span>
@@ -271,20 +272,127 @@ export function TrackOrderExperience({ copy }) {
             >
               {copy.intro}
             </motion.p>
+          </motion.div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))",
+              gap: "2rem",
+              alignItems: "start",
+            }}
+          >
+            <motion.div variants={fadeUp} initial="hidden" animate="visible">
+              <div
+                className="white-card"
+                style={{
+                  padding: "2rem",
+                  boxShadow: "0 24px 70px rgba(0,0,0,0.22)",
+                }}
+              >
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "0.875rem",
+                    background: "rgba(245,158,11,0.12)",
+                    color: "#F59E0B",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <Search size={22} />
+                </div>
+
+                <h2 style={{ color: "#1C1917", marginBottom: "0.5rem" }}>
+                  {copy.formTitle}
+                </h2>
+                <p
+                  style={{
+                    color: "#64748b",
+                    fontSize: "0.95rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  {copy.formIntro}
+                </p>
+
+                <form onSubmit={handleSubmit}>
+                  <div style={{ marginBottom: "1rem" }}>
+                    <label htmlFor="order-number" style={labelStyle}>
+                      {copy.orderNumberLabel}
+                    </label>
+                    <input
+                      id="order-number"
+                      value={orderNumber}
+                      onChange={(event) => setOrderNumber(event.target.value)}
+                      name="orderNumber"
+                      placeholder={copy.orderNumberPlaceholder}
+                      required
+                      style={inputStyle}
+                      onFocus={(event) => (event.target.style.borderColor = "#0369A1")}
+                      onBlur={(event) => (event.target.style.borderColor = "#e2e8f0")}
+                    />
+                  </div>
+
+                  <div style={{ marginBottom: "1.5rem" }}>
+                    <label htmlFor="order-contact" style={labelStyle}>
+                      {copy.contactLabel}
+                    </label>
+                    <input
+                      id="order-contact"
+                      value={contact}
+                      onChange={(event) => setContact(event.target.value)}
+                      name="contact"
+                      placeholder={copy.contactPlaceholder}
+                      required
+                      style={inputStyle}
+                      onFocus={(event) => (event.target.style.borderColor = "#0369A1")}
+                      onBlur={(event) => (event.target.style.borderColor = "#e2e8f0")}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn-amber"
+                    disabled={loading}
+                    style={{ width: "100%", justifyContent: "center" }}
+                  >
+                    {loading ? copy.checking : copy.submit} <ArrowRight size={15} />
+                  </button>
+                </form>
+
+                {error && (
+                  <div
+                    role="alert"
+                    style={{
+                      display: "flex",
+                      gap: "0.65rem",
+                      marginTop: "1rem",
+                      padding: "0.875rem 1rem",
+                      borderRadius: "0.75rem",
+                      background: "#fef2f2",
+                      border: "1px solid #fecaca",
+                      color: "#991b1b",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    <AlertCircle size={18} style={{ flexShrink: 0, marginTop: 3 }} />
+                    <span>{error}</span>
+                  </div>
+                )}
+              </div>
+            </motion.div>
 
             <motion.div
               variants={fadeUp}
-              style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}
+              initial="hidden"
+              animate="visible"
+              style={{ maxWidth: 520 }}
             >
-              <Link href="/quote-request" className="btn-amber">
-                {copy.quoteCta} <ArrowRight size={15} />
-              </Link>
-              <Link href="/contact" className="btn-ghost">
-                {copy.contactCta}
-              </Link>
-            </motion.div>
-
-            <motion.div variants={fadeUp} style={{ marginTop: "2.25rem", maxWidth: 520 }}>
               <p
                 style={{
                   color: "white",
@@ -308,112 +416,7 @@ export function TrackOrderExperience({ copy }) {
               </p>
               <TrackOrderVisual copy={copy.visual} />
             </motion.div>
-          </motion.div>
-
-          <motion.div variants={fadeUp} initial="hidden" animate="visible">
-            <div
-              className="white-card"
-              style={{
-                padding: "2rem",
-                boxShadow: "0 24px 70px rgba(0,0,0,0.22)",
-              }}
-            >
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "48px",
-                  height: "48px",
-                  borderRadius: "0.875rem",
-                  background: "rgba(245,158,11,0.12)",
-                  color: "#F59E0B",
-                  marginBottom: "1rem",
-                }}
-              >
-                <Search size={22} />
-              </div>
-
-              <h2 style={{ color: "#1C1917", marginBottom: "0.5rem" }}>
-                {copy.formTitle}
-              </h2>
-              <p
-                style={{
-                  color: "#64748b",
-                  fontSize: "0.95rem",
-                  marginBottom: "1.5rem",
-                }}
-              >
-                {copy.formIntro}
-              </p>
-
-              <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: "1rem" }}>
-                  <label htmlFor="order-number" style={labelStyle}>
-                    {copy.orderNumberLabel}
-                  </label>
-                  <input
-                    id="order-number"
-                    value={orderNumber}
-                    onChange={(event) => setOrderNumber(event.target.value)}
-                    name="orderNumber"
-                    placeholder={copy.orderNumberPlaceholder}
-                    required
-                    style={inputStyle}
-                    onFocus={(event) => (event.target.style.borderColor = "#0369A1")}
-                    onBlur={(event) => (event.target.style.borderColor = "#e2e8f0")}
-                  />
-                </div>
-
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <label htmlFor="order-contact" style={labelStyle}>
-                    {copy.contactLabel}
-                  </label>
-                  <input
-                    id="order-contact"
-                    value={contact}
-                    onChange={(event) => setContact(event.target.value)}
-                    name="contact"
-                    placeholder={copy.contactPlaceholder}
-                    required
-                    style={inputStyle}
-                    onFocus={(event) => (event.target.style.borderColor = "#0369A1")}
-                    onBlur={(event) => (event.target.style.borderColor = "#e2e8f0")}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn-amber"
-                  disabled={loading}
-                  style={{ width: "100%", justifyContent: "center" }}
-                >
-                  {loading ? copy.checking : copy.submit} <ArrowRight size={15} />
-                </button>
-              </form>
-
-              {error && (
-                <div
-                  role="alert"
-                  style={{
-                    display: "flex",
-                    gap: "0.65rem",
-                    marginTop: "1rem",
-                    padding: "0.875rem 1rem",
-                    borderRadius: "0.75rem",
-                    background: "#fef2f2",
-                    border: "1px solid #fecaca",
-                    color: "#991b1b",
-                    fontSize: "0.9rem",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  <AlertCircle size={18} style={{ flexShrink: 0, marginTop: 3 }} />
-                  <span>{error}</span>
-                </div>
-              )}
-            </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
