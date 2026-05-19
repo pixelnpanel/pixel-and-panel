@@ -16,10 +16,10 @@ function ProgressBar({ color, labelIndex }) {
     <div className="mt-4 flex items-center gap-2">
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/10">
         <motion.div
-          className="h-full rounded-full"
+          className="h-full origin-left rounded-full"
           style={{ backgroundColor: color }}
-          initial={{ width: "0%" }}
-          animate={{ width: "100%" }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
           transition={{ duration: 3.2, ease: "linear" }}
         />
       </div>
@@ -76,7 +76,7 @@ function StepSign() {
         <p className="mb-1 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-[#F59E0B]">
           Gran Apertura
         </p>
-        <p className="mb-0.5 font-heading text-xl font-black text-white">Tu Negocio</p>
+        <p className="mb-0.5 font-heading text-xl font-extrabold text-white">Tu Negocio</p>
         <p className="mb-4 text-xs text-white/55">Beaumont, TX · (409) 000-0000</p>
         <div className="flex items-center justify-center gap-3 rounded-lg bg-white/10 p-3">
           <div className="grid h-10 w-10 shrink-0 grid-cols-3 gap-0.5 rounded bg-white p-1.5">
@@ -92,9 +92,9 @@ function StepSign() {
         <div className="mt-4 flex items-center gap-2">
           <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/15">
             <motion.div
-              className="h-full rounded-full bg-[#F59E0B]"
-              initial={{ width: "0%" }}
-              animate={{ width: "100%" }}
+              className="h-full origin-left rounded-full bg-[#F59E0B]"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
               transition={{ duration: 3.2, ease: "linear" }}
             />
           </div>
@@ -131,12 +131,12 @@ function StepLead() {
             &quot;¡Hola! Necesito un banner para la gran apertura de mi negocio el próximo mes. ¿Me pueden ayudar?&quot;
           </p>
           <div className="mt-3 flex gap-2">
-            <button className="flex-1 rounded-lg bg-[#F59E0B] py-1.5 text-xs font-bold text-[#1C1917]">
+            <span className="flex-1 rounded-lg bg-[#F59E0B] py-1.5 text-center text-xs font-bold text-[#1C1917]">
               Responder
-            </button>
-            <button className="flex-1 rounded-lg border border-slate-200 py-1.5 text-xs font-bold text-slate-600">
+            </span>
+            <span className="flex-1 rounded-lg border border-slate-200 py-1.5 text-center text-xs font-bold text-slate-600">
               Ver
-            </button>
+            </span>
           </div>
         </div>
         <ProgressBar color="#10B981" labelIndex={2} />
@@ -169,12 +169,19 @@ export default function SpanishHeroVisual() {
               <button
                 key={i}
                 onClick={() => setStep(i)}
-                className="h-1.5 rounded-full transition-all duration-500"
-                style={{
-                  width: i === step ? "1.5rem" : "0.375rem",
-                  backgroundColor: i === step ? s.accent : "rgba(255,255,255,0.25)",
-                }}
-              />
+                type="button"
+                aria-label={`Mostrar paso ${s.num}: ${s.label}`}
+                aria-pressed={i === step}
+                className="flex h-3 w-7 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70"
+              >
+                <span
+                  className="h-1.5 w-6 origin-center rounded-full transition-transform duration-300"
+                  style={{
+                    backgroundColor: i === step ? s.accent : "rgba(255,255,255,0.25)",
+                    transform: i === step ? "scaleX(1)" : "scaleX(0.35)",
+                  }}
+                />
+              </button>
             ))}
           </div>
         </div>
@@ -188,7 +195,7 @@ export default function SpanishHeroVisual() {
             transition={{ duration: 0.22 }}
             className="mb-3 flex items-center gap-2"
           >
-            <span className="font-heading text-xs font-black" style={{ color: current.accent }}>
+            <span className="font-heading text-xs font-extrabold" style={{ color: current.accent }}>
               {current.num}
             </span>
             <span className="font-heading text-xs font-bold uppercase tracking-[0.12em] text-white/65">

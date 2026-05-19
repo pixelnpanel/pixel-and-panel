@@ -122,6 +122,46 @@
     display: block;
     max-width: 100%;
   }
+
+  @keyframes pnp-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes pnp-fade-slide {
+    from {
+      opacity: 0;
+      transform: translateY(0.875rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pnp-fade-shift {
+    from {
+      opacity: 0;
+      transform: translateX(0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
 }
 
 /* ── REUSABLE COMPONENT CLASSES ─────────────────────────────── */
@@ -216,7 +256,7 @@
   /* DISPLAY TEXT — hero headline only, one per page hero */
   .text-display {
     font-family: var(--font-heading);
-    font-weight: 900;
+    font-weight: 800;
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     line-height: 1.05;
     letter-spacing: -0.03em;

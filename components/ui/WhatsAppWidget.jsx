@@ -8,11 +8,23 @@ export default function WhatsAppWidget() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const updateVisibility = () => setVisible(window.scrollY > 240);
+    let ticking = false;
+
+    const updateVisibility = () => {
+      const nextVisible = window.scrollY > 240;
+      setVisible((current) => (current === nextVisible ? current : nextVisible));
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateVisibility);
+    };
 
     updateVisibility();
-    window.addEventListener("scroll", updateVisibility, { passive: true });
-    return () => window.removeEventListener("scroll", updateVisibility);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
   if (!visible) return null;

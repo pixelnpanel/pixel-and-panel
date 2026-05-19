@@ -13,8 +13,8 @@ function Bar({ color }) {
   return (
     <div className="mt-4 flex items-center gap-2">
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/10">
-        <motion.div className="h-full rounded-full" style={{ backgroundColor: color }}
-          initial={{ width: "0%" }} animate={{ width: "100%" }}
+        <motion.div className="h-full origin-left rounded-full" style={{ backgroundColor: color }}
+          initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
           transition={{ duration: 3.2, ease: "linear" }} />
       </div>
     </div>
@@ -129,8 +129,22 @@ export default function VisibilityCheckVisual() {
           <p className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">Visibility audit</p>
           <div className="flex gap-1.5">
             {STEPS.map((s, i) => (
-              <button key={i} onClick={() => setStep(i)} className="h-1.5 rounded-full transition-all duration-500"
-                style={{ width: i === step ? "1.5rem" : "0.375rem", backgroundColor: i === step ? s.accent : "rgba(255,255,255,0.25)" }} />
+              <button
+                key={s.num}
+                type="button"
+                onClick={() => setStep(i)}
+                aria-label={`Show visibility audit step ${s.num}: ${s.label}`}
+                aria-pressed={i === step}
+                className="flex h-3 w-7 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70"
+              >
+                <span
+                  className="h-1.5 w-6 origin-center rounded-full transition-transform duration-300"
+                  style={{
+                    backgroundColor: i === step ? s.accent : "rgba(255,255,255,0.25)",
+                    transform: i === step ? "scaleX(1)" : "scaleX(0.35)",
+                  }}
+                />
+              </button>
             ))}
           </div>
         </div>

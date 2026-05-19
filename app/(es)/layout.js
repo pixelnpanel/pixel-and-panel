@@ -1,24 +1,10 @@
 import "../globals.css";
-import { Montserrat, Inter } from "next/font/google";
+import { inter, montserrat } from "../fonts";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["700", "800", "900"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const viewport = {
   themeColor: "#0C1E3C",

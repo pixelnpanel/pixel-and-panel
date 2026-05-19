@@ -631,19 +631,18 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 animate={{
                     opacity: isFloatingSearchVisible ? 1 : 0,
                     y: isFloatingSearchVisible ? 0 : 12,
-                    width: isSearchFabExpanded ? 176 : 52,
                 }}
                 transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                 onClick={handleFloatingSearchClick}
                 tabIndex={isFloatingSearchVisible ? 0 : -1}
-                className={`fixed bottom-24 right-4 z-40 flex h-[52px] items-center justify-center overflow-hidden rounded-full border border-white/45 bg-[#F59E0B]/35 text-[#FAF8F4] shadow-[0_14px_36px_rgba(28,25,23,0.18),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-xl transition-colors hover:bg-[#F59E0B]/45 focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/25 md:hidden ${
+                className={`fixed bottom-24 right-4 z-40 flex h-[52px] w-44 items-center justify-center overflow-hidden rounded-full border border-white/45 bg-[#F59E0B]/35 text-[#FAF8F4] shadow-[0_14px_36px_rgba(28,25,23,0.18),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-xl transition-colors hover:bg-[#F59E0B]/45 focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/25 md:hidden ${
                     isFloatingSearchVisible ? 'pointer-events-auto' : 'pointer-events-none'
                 }`}
             >
                 <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_20%,rgba(255,255,255,0.65),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.2),rgba(245,158,11,0.18))]" />
                 <span className="relative flex items-center justify-center gap-2 whitespace-nowrap px-4">
                     <Search size={28} strokeWidth={2.35} />
-                    <span className={`font-heading text-xs font-bold uppercase tracking-wide transition ${isSearchFabExpanded ? 'max-w-32 opacity-100' : 'max-w-0 opacity-0'}`}>
+                    <span className={`font-heading text-xs font-bold uppercase tracking-wide transition-opacity duration-200 ${isSearchFabExpanded ? 'opacity-100' : 'opacity-0'}`}>
                         {content.mobileSearchLabel}
                     </span>
                 </span>

@@ -60,7 +60,21 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    let ticking = false
+
+    const updateScrolled = () => {
+      const nextScrolled = window.scrollY > 20
+      setScrolled((current) => (current === nextScrolled ? current : nextScrolled))
+      ticking = false
+    }
+
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      window.requestAnimationFrame(updateScrolled)
+    }
+
+    updateScrolled()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -74,7 +88,7 @@ export default function Navbar() {
       aria-label="Site navigation"
       style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        transition: 'all 0.3s ease',
+        transition: 'background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
         backgroundColor: bg,
         backdropFilter: isLight ? 'blur(12px)' : 'none',
         borderBottom: isLight ? '1px solid #e2e8f0' : 'none',
@@ -104,7 +118,6 @@ export default function Navbar() {
               className="lg:hidden"
               style={{ width: 176, maxWidth: 'min(176px, 62vw)', height: 'auto', objectFit: 'contain' }}
               unoptimized
-              priority
             />
             {/* Full wordmark on desktop */}
             <Image
@@ -115,7 +128,6 @@ export default function Navbar() {
               className="hidden lg:block"
               style={{ width: 240, maxWidth: 'min(240px, 42vw)', height: 'auto', objectFit: 'contain' }}
               unoptimized
-              priority
             />
           </Link>
 
@@ -150,7 +162,7 @@ export default function Navbar() {
             {navLinks.map((item) => {
               const isActive = navIsActive(pathname, item.href)
               return (
-                <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', transition: 'all 0.2s', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
+                <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', transition: 'background-color 0.2s ease, color 0.2s ease', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
                   {item.label}
                   {isActive && (
                     <span style={{ position: 'absolute', bottom: 2, left: '0.875rem', right: '0.875rem', height: 3, borderRadius: 2, backgroundColor: '#F5A623' }} />
