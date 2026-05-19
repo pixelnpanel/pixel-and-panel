@@ -29,7 +29,7 @@ function StepCoverage() {
   ];
   return (
     <motion.div key="coverage" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <p className="mb-3 text-xs font-semibold text-slate-500">Southeast Texas service area</p>
         <div className="relative overflow-hidden rounded-lg bg-[#EFF6FF] border border-[#BFDBFE]" style={{ height: 140 }}>
@@ -72,7 +72,7 @@ function StepServices() {
   ];
   return (
     <motion.div key="services" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <p className="mb-3 text-xs font-semibold text-slate-500">Everything a local business needs</p>
         <div className="grid grid-cols-2 gap-2">
@@ -102,7 +102,7 @@ function StepResults() {
   ];
   return (
     <motion.div key="results" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <p className="mb-3 text-xs font-semibold text-slate-500">Local businesses we&apos;ve helped</p>
         <div className="space-y-2">
@@ -160,11 +160,13 @@ export default function CityVisual({ city }) {
             <span className="font-heading text-xs font-bold uppercase tracking-[0.12em] text-white/65">{current.label}</span>
           </motion.div>
         </AnimatePresence>
-        <AnimatePresence mode="wait">
-          {step === 0 && <StepCoverage key="c" />}
-          {step === 1 && <StepServices key="s" />}
-          {step === 2 && <StepResults key="r" />}
-        </AnimatePresence>
+        <div className="relative h-[310px] sm:h-[292px]">
+          <AnimatePresence mode="wait">
+            {step === 0 && <StepCoverage key="c" />}
+            {step === 1 && <StepServices key="s" />}
+            {step === 2 && <StepResults key="r" />}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

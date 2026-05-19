@@ -25,7 +25,7 @@ function StepScanning() {
   const checks = ["Google Business Profile", "Website", "Local SEO signals", "Signs & print setup"];
   return (
     <motion.div key="scan" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <p className="mb-3 text-xs font-semibold text-slate-500">Running visibility check for your business…</p>
         <div className="space-y-2">
@@ -56,7 +56,7 @@ function StepFindings() {
   ];
   return (
     <motion.div key="find" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <p className="mb-3 text-xs font-semibold text-slate-500">What we found</p>
         <div className="space-y-2">
@@ -82,7 +82,7 @@ function StepFindings() {
 function StepScore() {
   return (
     <motion.div key="score" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <div className="mb-3 flex items-center gap-4 rounded-xl border border-emerald-100 bg-emerald-50 p-3">
           <div className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-xl bg-white shadow-sm">
@@ -141,11 +141,13 @@ export default function VisibilityCheckVisual() {
             <span className="font-heading text-xs font-bold uppercase tracking-[0.12em] text-white/65">{current.label}</span>
           </motion.div>
         </AnimatePresence>
-        <AnimatePresence mode="wait">
-          {step === 0 && <StepScanning key="sc" />}
-          {step === 1 && <StepFindings key="fi" />}
-          {step === 2 && <StepScore key="so" />}
-        </AnimatePresence>
+        <div className="relative h-[344px] sm:h-[318px]">
+          <AnimatePresence mode="wait">
+            {step === 0 && <StepScanning key="sc" />}
+            {step === 1 && <StepFindings key="fi" />}
+            {step === 2 && <StepScore key="so" />}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

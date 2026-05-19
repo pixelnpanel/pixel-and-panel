@@ -3,22 +3,22 @@ import { TrackOrderExperience } from "../../../(en)/track-order/TrackOrderClient
 const spanishPreviewSteps = [
   {
     label: "Cotización recibida",
-    detail: "La solicitud del proyecto está en revisión.",
+    detail: "Recibimos tu solicitud y estamos revisando los detalles.",
     state: "done",
   },
   {
     label: "Prueba lista",
-    detail: "La prueba de diseño o detalles del proyecto están listos para revisar.",
+    detail: "Tu prueba de diseño o los detalles del proyecto están listos para revisar.",
     state: "active",
   },
   {
     label: "En producción",
-    detail: "Después de aprobación, el trabajo pasa a impresión, fabricación o sitio web.",
+    detail: "Tu proyecto aprobado se está imprimiendo, fabricando o preparando.",
     state: "next",
   },
   {
     label: "Recogida o instalación",
-    detail: "Programamos la recogida, entrega o instalación final.",
+    detail: "Te compartiremos los detalles de recogida, entrega o instalación cuando estén listos.",
     state: "next",
   },
 ];
@@ -29,10 +29,10 @@ const spanishCopy = {
   intro:
     "Usa tu número de pedido y el correo o teléfono de contacto para ver el estado de tu letrero, impresión, sitio web o proyecto de marketing.",
   quoteCta: "Solicitar cotización",
-  contactCta: "Contáctanos",
-  trackingTitle: "Cómo funciona el rastreo de pedidos",
-  trackingText:
-    "Ingresa tu número de pedido, confirma tu información de contacto y revisa el estado, notas de prueba y próximos pasos.",
+  quoteHref: "/es/solicitar-cotizacion",
+  noOrderTitle: "¿Aún no tienes un pedido?",
+  noOrderText:
+    "Empieza con una solicitud de cotización y te ayudamos a elegir el siguiente paso para tu letrero, impresión, sitio web o proyecto de marketing.",
   formTitle: "Rastrear un pedido",
   formIntro:
     "Ingresa el número de pedido de tu cotización, factura o actualización del proyecto. Usa el mismo correo o teléfono que diste a Pixel & Panel.",
@@ -43,13 +43,10 @@ const spanishCopy = {
   submit: "Revisar estado",
   checking: "Revisando...",
   lookupError: "No se pudo revisar el estado del pedido.",
-  statusPreviewTitle: "Qué verá el cliente",
+  statusPreviewTitle: "Rastrea tu pedido de principio a fin",
   statusPreviewText:
-    "Una línea de tiempo simple, próximos pasos, contacto del proyecto y archivos o pruebas cuando estén disponibles.",
-  usefulFeaturesTitle: "Funciones útiles",
-  nextBuildTitle: "Próximo paso",
-  nextBuildText:
-    "El esquema de Supabase ya está listo en los documentos del proyecto. Agrega las llaves en Vercel y esta página leerá pedidos reales desde la base de datos.",
+    "Ve en qué paso está tu proyecto, qué sigue y si necesitamos algo de ti.",
+  usefulFeaturesTitle: "Qué puedes revisar aquí",
   requestQuote: "Solicitar cotización",
   detailsTitle: "Detalles del proyecto",
   clientLabel: "Cliente",
@@ -65,34 +62,11 @@ const spanishCopy = {
   filesLabel: "Archivos",
   previewSteps: spanishPreviewSteps,
   usefulFeatures: [
-    "Búsqueda privada por número de pedido y correo",
-    "Notas visibles para prueba, producción, recogida o instalación",
-    "Área de archivos para logos, arte, fotos y aprobaciones",
-    "Actualizaciones por correo cuando cambia el estado",
+    "Busca tu proyecto con tu número de pedido y correo",
+    "Revisa avances de prueba, producción, recogida o instalación",
+    "Lee notas y próximos pasos de nuestro equipo",
+    "Recibe actualizaciones cuando cambie el estado de tu pedido",
   ],
-  visual: {
-    badge: "Cómo funciona",
-    steps: [
-      { num: "01", label: "Ingresa tu número de pedido", accent: "#0EA5E9" },
-      { num: "02", label: "Confirma correo o teléfono", accent: "#F59E0B" },
-      { num: "03", label: "Revisa el estado", accent: "#10B981" },
-    ],
-    lookupTitle: "Buscar pedido",
-    orderNumber: "Número de pedido",
-    orderNumberValue: "PNP-1007",
-    contactLabel: "Correo o teléfono",
-    contactValue: "tu@email.com",
-    verifyTitle: "Confirma tu contacto",
-    verifyText: "Usa el mismo correo o teléfono de tu cotización",
-    verifyItems: [
-      "Protege los detalles del cliente",
-      "Encuentra el pedido correcto",
-      "Muestra solo notas visibles al cliente",
-    ],
-    statusTitle: "Prueba lista",
-    statusText: "Próxima acción: aprobar prueba de diseño",
-    statusItems: ["Cotización recibida", "Prueba lista", "Producción después de aprobación"],
-  },
 };
 
 export const metadata = {

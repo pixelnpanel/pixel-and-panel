@@ -24,7 +24,7 @@ function Bar({ color }) {
 function StepForm() {
   return (
     <motion.div key="form" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <p className="mb-3 text-xs font-bold text-slate-500">Your project details</p>
         <div className="space-y-2.5">
@@ -51,7 +51,7 @@ function StepForm() {
 function StepReview() {
   return (
     <motion.div key="review" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <div className="flex flex-col items-center py-4 text-center">
           <div className="relative mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#F59E0B]/10">
@@ -84,7 +84,7 @@ function StepReview() {
 function StepQuote() {
   return (
     <motion.div key="quote" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }}>
+      exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.35 }} className="absolute inset-x-0 top-0">
       <div className="rounded-xl bg-white p-4 shadow-sm">
         <div className="mb-3 flex items-center gap-3 rounded-xl border border-emerald-100 bg-emerald-50 p-3">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500">
@@ -148,11 +148,13 @@ export default function QuoteVisual() {
             <span className="font-heading text-xs font-bold uppercase tracking-[0.12em] text-white/65">{current.label}</span>
           </motion.div>
         </AnimatePresence>
-        <AnimatePresence mode="wait">
-          {step === 0 && <StepForm key="f" />}
-          {step === 1 && <StepReview key="r" />}
-          {step === 2 && <StepQuote key="q" />}
-        </AnimatePresence>
+        <div className="relative h-[318px] sm:h-[300px]">
+          <AnimatePresence mode="wait">
+            {step === 0 && <StepForm key="f" />}
+            {step === 1 && <StepReview key="r" />}
+            {step === 2 && <StepQuote key="q" />}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

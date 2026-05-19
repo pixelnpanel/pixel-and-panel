@@ -20,35 +20,33 @@ import {
   Search,
   ShieldCheck,
   Truck,
-  Upload,
   User,
 } from "lucide-react";
 import { fadeUp, stagger } from "@/lib/animations";
 import { BRAND } from "@/lib/constants";
-import TrackOrderVisual from "./TrackOrderVisual";
 
 const previewSteps = [
   {
     label: "Quote received",
-    detail: "Project request is in review.",
+    detail: "We received your project request and are reviewing the details.",
     icon: FileText,
     state: "done",
   },
   {
     label: "Proof ready",
-    detail: "Design proof or project details ready for review.",
+    detail: "Your design proof or project details are ready to review.",
     icon: ShieldCheck,
     state: "active",
   },
   {
     label: "In production",
-    detail: "Approved job moves into print, build, or website work.",
+    detail: "Your approved project is being printed, built, or prepared.",
     icon: Clock3,
     state: "next",
   },
   {
     label: "Pickup or install",
-    detail: "Final scheduling for pickup, delivery, or installation.",
+    detail: "We’ll share pickup, delivery, or installation details when ready.",
     icon: Truck,
     state: "next",
   },
@@ -81,10 +79,10 @@ const defaultCopy = {
   intro:
     "Use your order number and contact email or phone to see where your sign, print, website, or marketing project stands.",
   quoteCta: "Start a quote",
-  contactCta: "Contact us",
-  trackingTitle: "How order tracking works",
-  trackingText:
-    "Enter your order number, confirm your contact info, then see status, proof notes, and next steps.",
+  quoteHref: "/quote-request",
+  noOrderTitle: "Don’t have an order yet?",
+  noOrderText:
+    "Start with a quote request and we’ll help you choose the right next step for your sign, print, website, or marketing project.",
   formTitle: "Track an order",
   formIntro:
     "Enter the order number from your quote, invoice, or project update. Use the same email or phone you gave Pixel & Panel.",
@@ -96,13 +94,10 @@ const defaultCopy = {
   checking: "Checking...",
   lookupError: "Unable to check order status.",
   orderNumberDetail: "Order number",
-  statusPreviewTitle: "What customers will see",
+  statusPreviewTitle: "Track your order from start to finish",
   statusPreviewText:
-    "Simple status timeline, next action, project contact, and proof or file links when available.",
-  usefulFeaturesTitle: "Useful first features",
-  nextBuildTitle: "Next build step",
-  nextBuildText:
-    "Supabase schema is ready in the project docs. Add keys to Vercel and this page will read real order data from your database.",
+    "See where your project stands, what step comes next, and whether we need anything from you.",
+  usefulFeaturesTitle: "What you can check here",
   requestQuote: "Request quote",
   detailsTitle: "Project details",
   clientLabel: "Client",
@@ -118,12 +113,11 @@ const defaultCopy = {
   filesLabel: "Files",
   previewSteps,
   usefulFeatures: [
-    "Private order lookup by order number and email",
-    "Visible notes for design proof, production, pickup, or install",
-    "File upload area for logos, artwork, photos, and approvals",
-    "Email updates when status changes",
+    "Look up your project with your order number and email",
+    "See proof, production, pickup, or install updates",
+    "Review notes and next steps from our team",
+    "Get updates when your order status changes",
   ],
-  visual: {},
 };
 
 function formatDate(date) {
@@ -266,48 +260,11 @@ export function TrackOrderExperience({ copy }) {
                 color: "rgba(255,255,255,0.72)",
                 fontSize: "1.05rem",
                 maxWidth: "520px",
-                marginBottom: "2rem",
+                marginBottom: "1.75rem",
               }}
             >
               {copy.intro}
             </motion.p>
-
-            <motion.div
-              variants={fadeUp}
-              style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}
-            >
-              <Link href="/quote-request" className="btn-amber">
-                {copy.quoteCta} <ArrowRight size={15} />
-              </Link>
-              <Link href="/contact" className="btn-ghost">
-                {copy.contactCta}
-              </Link>
-            </motion.div>
-
-            <motion.div variants={fadeUp} style={{ marginTop: "2.25rem", maxWidth: 520 }}>
-              <p
-                style={{
-                  color: "white",
-                  fontFamily: "var(--font-heading)",
-                  fontSize: "1.05rem",
-                  fontWeight: 800,
-                  marginBottom: "0.55rem",
-                }}
-              >
-                {copy.trackingTitle}
-              </p>
-              <p
-                style={{
-                  color: "rgba(255,255,255,0.72)",
-                  fontSize: "0.95rem",
-                  lineHeight: 1.7,
-                  marginBottom: "1rem",
-                }}
-              >
-                {copy.trackingText}
-              </p>
-              <TrackOrderVisual copy={copy.visual} />
-            </motion.div>
           </motion.div>
 
           <motion.div variants={fadeUp} initial="hidden" animate="visible">
@@ -412,6 +369,45 @@ export function TrackOrderExperience({ copy }) {
                   <span>{error}</span>
                 </div>
               )}
+
+              <div
+                style={{
+                  background: "#f8fafc",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "1rem",
+                  marginTop: "1.25rem",
+                  padding: "1rem",
+                }}
+              >
+                <p
+                  style={{
+                    color: "#1C1917",
+                    fontFamily: "var(--font-heading)",
+                    fontSize: "0.95rem",
+                    fontWeight: 800,
+                    marginBottom: "0.35rem",
+                  }}
+                >
+                  {copy.noOrderTitle}
+                </p>
+                <p
+                  style={{
+                    color: "#64748b",
+                    fontSize: "0.88rem",
+                    lineHeight: 1.6,
+                    marginBottom: "0.85rem",
+                  }}
+                >
+                  {copy.noOrderText}
+                </p>
+                <Link
+                  href={copy.quoteHref || "/quote-request"}
+                  className="btn-outline"
+                  style={{ width: "100%", justifyContent: "center" }}
+                >
+                  {copy.quoteCta || copy.requestQuote} <ArrowRight size={15} />
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -720,26 +716,6 @@ export function TrackOrderExperience({ copy }) {
               </div>
             </div>
 
-            <div
-              className="white-card"
-              style={{
-                padding: "1.5rem",
-                background: "#0C1E3C",
-                borderColor: "rgba(14,165,233,0.18)",
-                color: "white",
-              }}
-            >
-              <Upload size={28} style={{ color: "#F59E0B", marginBottom: "1rem" }} />
-              <h2 style={{ color: "white", marginBottom: "0.75rem" }}>
-                {copy.nextBuildTitle}
-              </h2>
-              <p style={{ color: "rgba(255,255,255,0.72)", marginBottom: "1.5rem" }}>
-                {copy.nextBuildText}
-              </p>
-              <Link href="/quote-request" className="btn-amber">
-                {copy.requestQuote} <ArrowRight size={15} />
-              </Link>
-            </div>
           </div>
         </div>
       </section>
