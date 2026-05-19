@@ -78,7 +78,7 @@ export default function Navbar() {
         viewTransitionName: 'site-navbar',
       }}
     >
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 0.75rem', overflow: 'hidden' }}>
         <div
           style={{
             display: 'flex',
@@ -86,6 +86,7 @@ export default function Navbar() {
             justifyContent: 'space-between',
             minHeight: '68px',
             gap: '0.5rem',
+            position: 'relative',
           }}
         >
 
@@ -93,12 +94,12 @@ export default function Navbar() {
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
             {/* Icon mark on mobile */}
             <Image
-              src="/logo/icon-mobile.svg"
+              src="/logo/icon.svg"
               alt="Pixel & Panel"
-              width={96}
-              height={42}
+              width={526}
+              height={532}
               className="lg:hidden"
-              style={{ width: 96, height: 'auto', maxHeight: 44, objectFit: 'contain' }}
+              style={{ width: 44, height: 'auto', maxHeight: 44, objectFit: 'contain' }}
               unoptimized
               priority
             />
@@ -106,10 +107,10 @@ export default function Navbar() {
             <Image
               src="/logo/icon-wordmark.svg"
               alt="Pixel & Panel"
-              width={240}
-              height={36}
+              width={3447}
+              height={532}
               className="hidden lg:block"
-              style={{ width: 240, height: 'auto', objectFit: 'contain' }}
+              style={{ width: 240, maxWidth: 'min(240px, 42vw)', height: 'auto', objectFit: 'contain' }}
               unoptimized
               priority
             />
@@ -160,7 +161,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Nav — links centered, language switch right */}
-          <div className="flex lg:hidden" style={{ alignItems: 'center', flex: 1, gap: '0.25rem', minWidth: 0 }}>
+          <div className="flex lg:hidden" style={{ alignItems: 'center', gap: '0.2rem', minWidth: 0, position: 'absolute', left: '58px', width: 'min(300px, calc(100vw - 84px))' }}>
             <nav
               aria-label="Mobile navigation"
               className="mobile-nav-scroll"
@@ -168,8 +169,8 @@ export default function Navbar() {
                 display: 'flex',
                 alignItems: 'center',
                 flex: 1,
-                justifyContent: 'center',
-                gap: '0.15rem',
+                justifyContent: 'flex-start',
+                gap: '0.05rem',
                 minWidth: 0,
                 overflowX: 'auto',
                 scrollbarWidth: 'none',
@@ -178,10 +179,10 @@ export default function Navbar() {
               {mobileLinks.map((item) => {
                 const isActive = navIsActive(pathname, item.href)
                 return (
-                  <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.38rem 0.55rem', borderRadius: '0.5rem', fontSize: '0.82rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
+                  <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.34rem 0.42rem', borderRadius: '0.5rem', fontSize: '0.76rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
                     {item.label}
                     {isActive && (
-                      <span style={{ position: 'absolute', bottom: 2, left: '0.55rem', right: '0.55rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
+                      <span style={{ position: 'absolute', bottom: 2, left: '0.42rem', right: '0.42rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
                     )}
                   </Link>
                 )
@@ -196,18 +197,18 @@ export default function Navbar() {
                 borderRadius: '999px',
                 display: 'inline-flex',
                 fontFamily: 'var(--font-heading)',
-                fontSize: '0.7rem',
+                fontSize: '0.66rem',
                 fontWeight: 800,
                 overflow: 'hidden',
                 flexShrink: 0,
               }}
             >
               <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
-                style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.4rem 0.52rem', textDecoration: 'none' }}>
+                style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.35rem 0.44rem', textDecoration: 'none' }}>
                 EN
               </Link>
               <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
-                style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.4rem 0.52rem', textDecoration: 'none' }}>
+                style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.35rem 0.44rem', textDecoration: 'none' }}>
                 ES
               </Link>
             </div>
