@@ -105,11 +105,50 @@ export default async function SpanishSignageProductPage({ params }) {
       acceptedAnswer: { "@type": "Answer", text: answer },
     })),
   };
+  const service = {
+    "@context": "https://schema.org",
+    "@type": ["Service", "Product"],
+    name: product.name,
+    description: product.description,
+    url: `https://pixelnpanel.com/es/letreros/${product.slug}`,
+    image: `https://pixelnpanel.com${product.image}`,
+    serviceType: product.category,
+    category: product.category,
+    areaServed: [
+      { "@type": "City", name: "Beaumont", containedInPlace: { "@type": "State", name: "Texas" } },
+      { "@type": "City", name: "Nederland", containedInPlace: { "@type": "State", name: "Texas" } },
+      { "@type": "City", name: "Port Arthur", containedInPlace: { "@type": "State", name: "Texas" } },
+    ],
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Pixel & Panel",
+      url: "https://pixelnpanel.com",
+      telephone: "(409) 800-6139",
+      email: "hello@pixelnpanel.com",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: "0",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        description: "Cotización personalizada según tamaño, material y cantidad",
+      },
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "LocalBusiness",
+        name: "Pixel & Panel",
+        url: "https://pixelnpanel.com",
+      },
+      url: `https://pixelnpanel.com/es/solicitar-cotizacion?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent("Letreros")}`,
+    },
+  };
 
   return (
     <>
       <JsonLd data={breadcrumbs} />
       <JsonLd data={faq} />
+      <JsonLd data={service} />
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
         <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">

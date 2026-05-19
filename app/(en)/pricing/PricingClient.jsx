@@ -184,6 +184,60 @@ const FAQS = [
   },
 ]
 
+const DEFAULT_COPY = {
+  heroLabel: 'Founding Client Pricing',
+  heroTitlePrefix: 'Simple Starter Pricing for',
+  heroTitleHighlight: 'Local Businesses',
+  heroCopy:
+    'Pixel & Panel is currently offering founding client pricing for Southeast Texas businesses that need a clean website, better Google visibility, and a stronger way to turn attention into leads.',
+  heroNote: 'Pricing may increase as availability becomes limited.',
+  packageLabel: 'Starter Website Packages',
+  packageTitle: 'Website Packages',
+  packageCopy:
+    'Clear starting prices for businesses that need a professional online presence without a bloated marketing contract.',
+  packageNoteStart: 'Looking for the services behind these packages? Review the',
+  packageNoteDigital: 'digital services',
+  packageNoteMiddle: 'page, start with a',
+  packageNoteVisibility: 'free visibility check',
+  packageNoteEnd: 'if you are still unsure, or request a quote when you are ready.',
+  digitalHref: '/digital',
+  visibilityHref: '/free-visibility-check',
+  bestForLabel: 'Best for',
+  careLabel: 'Optional Monthly Support',
+  careTitle: 'Website Care Plans',
+  careCopy:
+    'Optional monthly support for small updates, form checks, basic SEO review, and keeping your website running smoothly.',
+  addOnsLabel: 'Common Add-ons',
+  addOnsTitle: 'Add-ons',
+  addOnsCopy: 'Simple add-ons are available when a starter package needs a few more pieces.',
+  signageLabel: 'Quote-Based Signage',
+  signageTitle: 'Signage & Print Projects Are Quoted Individually',
+  signageCopy:
+    'Every signage and print project depends on size, material, quantity, design needs, and installation requirements. Request a quote and Pixel & Panel will recommend the right option.',
+  signageCta: 'Get a Signage Quote',
+  signageHref: '/quote-request?product=Signage%20Project&category=Signage',
+  foundingLabel: 'Limited Availability',
+  foundingTitle: 'Founding Client Program',
+  foundingCopy:
+    'Pixel & Panel is accepting a limited number of Southeast Texas businesses at starter pricing while we build our local portfolio. Selected projects may qualify for discounted pricing in exchange for honest feedback, portfolio permission, and a testimonial if satisfied.',
+  foundingCta: 'Ask About Founding Client Pricing',
+  foundingHref: '/quote-request?product=Founding%20Client%20Program&category=Digital%20Services',
+  faqTitle: 'Pricing Questions',
+  finalTitle: 'Need Website, Visibility, or Signage Help?',
+  finalCopyStart:
+    'Tell Pixel & Panel what you need, and we will recommend a practical starter option for your budget and timeline. You can also compare the current',
+  finalCopySignage: 'signage',
+  finalCopyMiddle: 'and',
+  finalCopyDigital: 'digital',
+  finalCopyEnd: 'service options.',
+  finalSignageHref: '/signage',
+  finalDigitalHref: '/digital',
+  finalQuoteHref: '/quote-request',
+  finalQuoteCta: 'Request a Quote',
+  finalVisibilityHref: '/free-visibility-check',
+  finalVisibilityCta: 'Free Visibility Check',
+}
+
 const colors = {
   deep: 'var(--color-brand-deep)',
   sky: 'var(--color-brand-sky)',
@@ -230,7 +284,7 @@ function SectionIntro({ label, title, copy, align = 'center' }) {
   )
 }
 
-function PackageCard({ pkg }) {
+function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
   const isDark = pkg.tone === 'dark'
   const isValue = pkg.tone === 'value'
 
@@ -318,7 +372,7 @@ function PackageCard({ pkg }) {
             textTransform: 'uppercase',
           }}
         >
-          Best for
+          {bestForLabel}
         </strong>
         {pkg.bestFor}
       </div>
@@ -426,7 +480,14 @@ function CareCard({ plan }) {
   )
 }
 
-export default function PricingPage() {
+export default function PricingPage({
+  websitePackages = WEBSITE_PACKAGES,
+  carePlans = CARE_PLANS,
+  addOns = ADD_ONS,
+  signageExamples = SIGNAGE_EXAMPLES,
+  faqs = FAQS,
+  copy = DEFAULT_COPY,
+} = {}) {
   return (
     <>
       <section
@@ -455,11 +516,11 @@ export default function PricingPage() {
           style={{ margin: '0 auto', maxWidth: '820px', position: 'relative' }}
         >
           <motion.span variants={fadeUp} className="section-label">
-            Founding Client Pricing
+            {copy.heroLabel}
           </motion.span>
           <motion.h1 variants={fadeUp} style={{ color: 'white', marginBottom: '1.25rem' }}>
-            Simple Starter Pricing for{' '}
-            <span style={{ color: colors.amber }}>Local Businesses</span>
+            {copy.heroTitlePrefix}{' '}
+            <span style={{ color: colors.amber }}>{copy.heroTitleHighlight}</span>
           </motion.h1>
           <motion.p
             variants={fadeUp}
@@ -471,9 +532,7 @@ export default function PricingPage() {
               maxWidth: '720px',
             }}
           >
-            Pixel & Panel is currently offering founding client pricing for
-            Southeast Texas businesses that need a clean website, better Google
-            visibility, and a stronger way to turn attention into leads.
+            {copy.heroCopy}
           </motion.p>
           <motion.p
             variants={fadeUp}
@@ -484,7 +543,7 @@ export default function PricingPage() {
               fontWeight: 700,
             }}
           >
-            Pricing may increase as availability becomes limited.
+            {copy.heroNote}
           </motion.p>
         </motion.div>
       </section>
@@ -492,9 +551,9 @@ export default function PricingPage() {
       <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
           <SectionIntro
-            label="Starter Website Packages"
-            title="Website Packages"
-            copy="Clear starting prices for businesses that need a professional online presence without a bloated marketing contract."
+            label={copy.packageLabel}
+            title={copy.packageTitle}
+            copy={copy.packageCopy}
           />
           <motion.div
             variants={stagger}
@@ -508,8 +567,8 @@ export default function PricingPage() {
               gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
             }}
           >
-            {WEBSITE_PACKAGES.map((pkg) => (
-              <PackageCard key={pkg.name} pkg={pkg} />
+            {websitePackages.map((pkg) => (
+              <PackageCard key={pkg.name} pkg={pkg} bestForLabel={copy.bestForLabel} />
             ))}
           </motion.div>
           <motion.div
@@ -525,15 +584,15 @@ export default function PricingPage() {
               textAlign: 'center',
             }}
           >
-            Looking for the services behind these packages? Review the{' '}
-            <Link href="/digital" style={{ color: colors.deep, fontWeight: 700 }}>
-              digital services
+            {copy.packageNoteStart}{' '}
+            <Link href={copy.digitalHref} style={{ color: colors.deep, fontWeight: 700 }}>
+              {copy.packageNoteDigital}
             </Link>{' '}
-            page, start with a{' '}
-            <Link href="/free-visibility-check" style={{ color: colors.deep, fontWeight: 700 }}>
-              free visibility check
+            {copy.packageNoteMiddle}{' '}
+            <Link href={copy.visibilityHref} style={{ color: colors.deep, fontWeight: 700 }}>
+              {copy.packageNoteVisibility}
             </Link>{' '}
-            if you are still unsure, or request a quote when you are ready.
+            {copy.packageNoteEnd}
           </motion.div>
         </div>
       </section>
@@ -541,9 +600,9 @@ export default function PricingPage() {
       <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
           <SectionIntro
-            label="Optional Monthly Support"
-            title="Website Care Plans"
-            copy="Optional monthly support for small updates, form checks, basic SEO review, and keeping your website running smoothly."
+            label={copy.careLabel}
+            title={copy.careTitle}
+            copy={copy.careCopy}
           />
           <motion.div
             variants={stagger}
@@ -556,7 +615,7 @@ export default function PricingPage() {
               gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             }}
           >
-            {CARE_PLANS.map((plan) => (
+            {carePlans.map((plan) => (
               <CareCard key={plan.name} plan={plan} />
             ))}
           </motion.div>
@@ -566,9 +625,9 @@ export default function PricingPage() {
       <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
           <SectionIntro
-            label="Common Add-ons"
-            title="Add-ons"
-            copy="Simple add-ons are available when a starter package needs a few more pieces."
+            label={copy.addOnsLabel}
+            title={copy.addOnsTitle}
+            copy={copy.addOnsCopy}
           />
           <motion.div
             variants={stagger}
@@ -581,7 +640,7 @@ export default function PricingPage() {
               gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
             }}
           >
-            {ADD_ONS.map(([name, price]) => (
+            {addOns.map(([name, price]) => (
               <motion.div
                 key={name}
                 variants={fadeUp}
@@ -631,22 +690,20 @@ export default function PricingPage() {
           >
             <motion.div variants={fadeUp}>
               <span className="section-label" style={{ color: colors.amber }}>
-                Quote-Based Signage
+                {copy.signageLabel}
               </span>
               <h2 style={{ color: colors.dark, marginBottom: '1rem' }}>
-                Signage & Print Projects Are Quoted Individually
+                {copy.signageTitle}
               </h2>
               <p style={{ color: '#5f6f7d', lineHeight: 1.75, marginBottom: '1.5rem' }}>
-                Every signage and print project depends on size, material,
-                quantity, design needs, and installation requirements. Request a
-                quote and Pixel & Panel will recommend the right option.
+                {copy.signageCopy}
               </p>
               <Link
-                href="/quote-request?product=Signage%20Project&category=Signage"
+                href={copy.signageHref}
                 className="btn-amber"
                 style={{ maxWidth: '100%', whiteSpace: 'normal' }}
               >
-                Get a Signage Quote <ArrowRight size={15} />
+                {copy.signageCta} <ArrowRight size={15} />
               </Link>
             </motion.div>
             <motion.div
@@ -657,7 +714,7 @@ export default function PricingPage() {
                 gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
               }}
             >
-              {SIGNAGE_EXAMPLES.map((item) => (
+              {signageExamples.map((item) => (
                 <motion.div
                   key={item}
                   variants={fadeUp}
@@ -708,11 +765,11 @@ export default function PricingPage() {
             >
               <Sparkles size={18} color={colors.amber} />
               <span className="section-label" style={{ color: colors.amber, marginBottom: 0 }}>
-                Limited Availability
+                {copy.foundingLabel}
               </span>
             </motion.div>
             <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
-              Founding Client Program
+              {copy.foundingTitle}
             </motion.h2>
             <motion.p
               variants={fadeUp}
@@ -723,19 +780,15 @@ export default function PricingPage() {
                 maxWidth: '820px',
               }}
             >
-              Pixel & Panel is accepting a limited number of Southeast Texas
-              businesses at starter pricing while we build our local portfolio.
-              Selected projects may qualify for discounted pricing in exchange
-              for honest feedback, portfolio permission, and a testimonial if
-              satisfied.
+              {copy.foundingCopy}
             </motion.p>
             <motion.div variants={fadeUp}>
               <Link
-                href="/quote-request?product=Founding%20Client%20Program&category=Digital%20Services"
+                href={copy.foundingHref}
                 className="btn-amber"
                 style={{ maxWidth: '100%', whiteSpace: 'normal' }}
               >
-                Ask About Founding Client Pricing <ArrowRight size={15} />
+                {copy.foundingCta} <ArrowRight size={15} />
               </Link>
             </motion.div>
           </motion.div>
@@ -755,9 +808,9 @@ export default function PricingPage() {
               variants={fadeUp}
               style={{ color: colors.dark, marginBottom: '2rem', textAlign: 'center' }}
             >
-              Pricing Questions
+              {copy.faqTitle}
             </motion.h2>
-            {FAQS.map((item) => (
+            {faqs.map((item) => (
               <motion.article
                 key={item.q}
                 variants={fadeUp}
@@ -791,7 +844,7 @@ export default function PricingPage() {
             style={{ margin: '0 auto', maxWidth: '700px' }}
           >
             <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
-              Need Website, Visibility, or Signage Help?
+              {copy.finalTitle}
             </motion.h2>
             <motion.p
               variants={fadeUp}
@@ -801,25 +854,23 @@ export default function PricingPage() {
                 marginBottom: '2rem',
               }}
             >
-              Tell Pixel & Panel what you need, and we will recommend a practical
-              starter option for your budget and timeline. You can also compare
-              the current{' '}
-              <Link href="/signage" style={{ color: colors.amber, fontWeight: 700 }}>
-                signage
+              {copy.finalCopyStart}{' '}
+              <Link href={copy.finalSignageHref} style={{ color: colors.amber, fontWeight: 700 }}>
+                {copy.finalCopySignage}
               </Link>{' '}
-              and{' '}
-              <Link href="/digital" style={{ color: colors.amber, fontWeight: 700 }}>
-                digital
+              {copy.finalCopyMiddle}{' '}
+              <Link href={copy.finalDigitalHref} style={{ color: colors.amber, fontWeight: 700 }}>
+                {copy.finalCopyDigital}
               </Link>{' '}
-              service options.
+              {copy.finalCopyEnd}
             </motion.p>
             <motion.div variants={fadeUp}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.9rem', justifyContent: 'center' }}>
-                <Link href="/quote-request" className="btn-amber">
-                  Request a Quote <ArrowRight size={15} />
+                <Link href={copy.finalQuoteHref} className="btn-amber">
+                  {copy.finalQuoteCta} <ArrowRight size={15} />
                 </Link>
-                <Link href="/free-visibility-check" className="btn-ghost">
-                  Free Visibility Check <ArrowRight size={15} />
+                <Link href={copy.finalVisibilityHref} className="btn-ghost">
+                  {copy.finalVisibilityCta} <ArrowRight size={15} />
                 </Link>
               </div>
             </motion.div>

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import SignageHubClient from "@/components/signage/SignageHubClient";
-import { signageCategoriesEs, signageSlugMap } from "@/lib/signage-products-es";
+import { signageCategoriesEs, signageHubSlugMapEs } from "@/lib/signage-products-es";
 
 const spanishCopy = {
   eyebrow: "Letreros e Impresión",
@@ -53,10 +53,11 @@ const spanishCopy = {
   basePath: "/es/letreros",
   quotePath: "/es/solicitar-cotizacion",
   visibilityPath: "/es/chequeo-gratis-de-visibilidad",
-  productSlugMap: signageSlugMap,
+  productSlugMap: signageHubSlugMapEs,
 };
 
 export const metadata = {
+  metadataBase: new URL("https://pixelnpanel.com"),
   title: {
     absolute: "Letreros e Impresión | Pixel & Panel — Letreros Personalizados",
   },
@@ -78,19 +79,56 @@ export const metadata = {
   },
 };
 
+function JsonLd({ data }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+    />
+  );
+}
+
 export default async function SpanishSignagePage({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const initialCategorySlug = typeof resolvedSearchParams?.category === "string"
     ? resolvedSearchParams.category
     : undefined;
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://pixelnpanel.com/es" },
+      { "@type": "ListItem", position: 2, name: "Letreros e Impresión", item: "https://pixelnpanel.com/es/letreros" },
+    ],
+  };
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Categorías de letreros e impresión",
+    description:
+      "Productos de letreros e impresión para negocios en Beaumont, Nederland y Port Arthur, TX.",
+    url: "https://pixelnpanel.com/es/letreros",
+    numberOfItems: signageCategoriesEs.length,
+    itemListElement: signageCategoriesEs.map((category, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: category.name,
+      description: category.description,
+      url: `https://pixelnpanel.com/es/letreros?category=${category.slug}`,
+    })),
+  };
 
   return (
-    <Suspense fallback={null}>
-      <SignageHubClient
-        categories={signageCategoriesEs}
-        copy={spanishCopy}
-        initialCategorySlug={initialCategorySlug}
-      />
-    </Suspense>
+    <>
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={itemListSchema} />
+      <Suspense fallback={null}>
+        <SignageHubClient
+          categories={signageCategoriesEs}
+          copy={spanishCopy}
+          initialCategorySlug={initialCategorySlug}
+        />
+      </Suspense>
+    </>
   );
 }

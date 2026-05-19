@@ -5,13 +5,10 @@ import {
   Building2,
   CheckCircle2,
   ClipboardCheck,
-  Globe2,
   MapPin,
-  QrCode,
-  Search,
-  Store,
 } from "lucide-react";
 import VisibilityCheckForm from "../../../(en)/free-visibility-check/VisibilityCheckForm";
+import VisibilityCheckVisual from "../../../(en)/free-visibility-check/VisibilityCheckVisual";
 
 const whoFor = [
   "Negocios nuevos",
@@ -35,6 +32,39 @@ const receive = [
   "Ideas rápidas de mejora",
   "Siguientes pasos recomendados",
   "Opción de cotización sin presión si quieres ayuda",
+];
+
+const faqs = [
+  {
+    question: "¿Qué es un Chequeo Gratis de Visibilidad?",
+    answer:
+      "Es una revisión práctica de cómo los clientes encuentran, entienden y contactan tu negocio en línea y en el mundo real.",
+  },
+  {
+    question: "¿De verdad es gratis?",
+    answer:
+      "Sí. Pixel & Panel revisará la información que envíes y compartirá observaciones prácticas sin requerir un proyecto pagado.",
+  },
+  {
+    question: "¿Necesito tener sitio web?",
+    answer:
+      "No. Si todavía no tienes sitio web, Pixel & Panel puede revisar tu Perfil de Google, letreros, materiales impresos y oportunidades de captura de leads.",
+  },
+  {
+    question: "¿Pueden revisar mi Perfil de Google?",
+    answer:
+      "Sí. Comparte el nombre del negocio, ciudad y cualquier detalle del perfil que tengas, y Pixel & Panel puede revisar lo básico de cómo aparece.",
+  },
+  {
+    question: "¿También ayudan con letreros e impresión?",
+    answer:
+      "Sí. Pixel & Panel puede revisar letreros, materiales impresos, oportunidades con códigos QR y cómo esas piezas conectan con tu sitio o flujo de contacto.",
+  },
+  {
+    question: "¿Qué pasa después de enviar el formulario?",
+    answer:
+      "Pixel & Panel revisa tu solicitud, busca oportunidades prácticas de mejora y te contacta con un resumen simple y posibles siguientes pasos.",
+  },
 ];
 
 const formCopy = {
@@ -94,9 +124,33 @@ export const metadata = {
   },
 };
 
-export default function SpanishVisibilityCheckPage() {
+function JsonLd({ data }) {
   return (
-    <div className="bg-[#FAF8F4] text-[#1C1917]">
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+    />
+  );
+}
+
+export default function SpanishVisibilityCheckPage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
+  return (
+    <>
+      <JsonLd data={faqSchema} />
+      <div className="bg-[#FAF8F4] text-[#1C1917]">
       <section className="relative overflow-hidden bg-[#0C1E3C] px-4 pt-28 text-white md:pt-32">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_70%,#0EA5E9_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
@@ -124,24 +178,8 @@ export default function SpanishVisibilityCheckPage() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-white/15 bg-white/10 p-5 shadow-2xl md:p-7">
-            <div className="grid gap-4">
-              {[
-                ["Sitio web", Globe2],
-                ["Perfil de Google", Search],
-                ["Letreros e impresión", Store],
-                ["Captura con QR", QrCode],
-              ].map(([label, Icon]) => (
-                <div key={label} className="flex items-center gap-4 rounded-lg bg-white/10 p-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#F59E0B] text-[#1C1917]">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span className="font-heading text-sm font-bold uppercase tracking-[0.08em] text-white/80">
-                    {label}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <div className="flex items-center justify-center">
+            <VisibilityCheckVisual />
           </div>
         </div>
       </section>
@@ -232,6 +270,25 @@ export default function SpanishVisibilityCheckPage() {
         </div>
       </section>
 
+      <section className="section-base" aria-labelledby="faq-heading-es">
+        <div className="container-px">
+          <SectionIntro
+            id="faq-heading-es"
+            eyebrow="FAQ"
+            title="Preguntas sobre el chequeo gratis de visibilidad"
+            description="Respuestas rápidas antes de enviar el formulario."
+          />
+          <div className="mx-auto mt-12 grid max-w-4xl gap-4">
+            {faqs.map((faq) => (
+              <article key={faq.question} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                <h3 className="text-xl text-[#1C1917]">{faq.question}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{faq.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="px-4 pb-16 md:pb-24" aria-labelledby="final-visibility-cta-es">
         <div className="mx-auto max-w-6xl rounded-xl bg-[#1C1917] px-6 py-14 text-center text-white shadow-2xl md:px-12">
           <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
@@ -251,7 +308,8 @@ export default function SpanishVisibilityCheckPage() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
 

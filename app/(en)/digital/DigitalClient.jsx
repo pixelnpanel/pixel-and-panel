@@ -36,7 +36,26 @@ const SERVICES = [
   },
 ]
 
-export default function DigitalPage() {
+const DEFAULT_COPY = {
+  label: 'Digital Services',
+  titleStart: 'Get Found Online.',
+  titleHighlight: 'Turn Visitors Into Customers.',
+  intro:
+    'Everything a local business needs to show up on Google, look professional online, and make it easy for customers to reach you.',
+  learnMore: 'Learn More',
+  quoteCta: 'Get a Quote',
+  quotePath: '/quote-request',
+  quoteCategory: 'Digital Services',
+  bottomTitle: 'Not Sure Where to Start?',
+  bottomCopy:
+    'Tell us about your business and we will recommend exactly what you need — no pressure, no jargon.',
+  bottomQuoteHref: '/quote-request',
+  bottomQuoteCta: 'Get a Free Consultation',
+  bottomVisibilityHref: '/free-visibility-check',
+  bottomVisibilityCta: 'Free Visibility Check',
+}
+
+export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY } = {}) {
   return (
     <>
       {/* Hero */}
@@ -52,15 +71,14 @@ export default function DigitalPage() {
           animate="visible"
           style={{ position: 'relative', maxWidth: '1280px', margin: '0 auto', textAlign: 'center' }}
         >
-          <motion.span variants={fadeUp} className="section-label">Digital Services</motion.span>
+          <motion.span variants={fadeUp} className="section-label">{copy.label}</motion.span>
           <motion.h1 variants={fadeUp} style={{ color: 'white', marginBottom: '1.25rem' }}>
-            Get Found Online.
+            {copy.titleStart}
             <br />
-            <span style={{ color: '#F59E0B' }}>Turn Visitors Into Customers.</span>
+            <span style={{ color: '#F59E0B' }}>{copy.titleHighlight}</span>
           </motion.h1>
           <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
-            Everything a local business needs to show up on Google, look
-            professional online, and make it easy for customers to reach you.
+            {copy.intro}
           </motion.p>
         </motion.div>
       </section>
@@ -75,7 +93,7 @@ export default function DigitalPage() {
             viewport={viewport}
             style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '4rem' }}
           >
-            {SERVICES.map((service) => {
+            {services.map((service) => {
               const Icon = service.icon
               return (
                 <motion.div
@@ -112,10 +130,10 @@ export default function DigitalPage() {
                   </ul>
                   <div style={{ display: 'grid', gap: '0.75rem' }}>
                     <Link href={service.href} className="btn-outline" style={{ justifyContent: 'center' }}>
-                      Learn More <ArrowRight size={14} />
+                      {copy.learnMore} <ArrowRight size={14} />
                     </Link>
-                    <Link href={`/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent('Digital Services')}`} className="btn-amber" style={{ justifyContent: 'center' }}>
-                      Get a Quote <ArrowRight size={14} />
+                    <Link href={`${copy.quotePath}?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent(copy.quoteCategory)}`} className="btn-amber" style={{ justifyContent: 'center' }}>
+                      {copy.quoteCta} <ArrowRight size={14} />
                     </Link>
                   </div>
                 </motion.div>
@@ -132,18 +150,17 @@ export default function DigitalPage() {
             style={{ background: '#0C1E3C', borderRadius: '1.5rem', padding: '3rem 2rem', textAlign: 'center' }}
           >
             <h2 style={{ color: 'white', marginBottom: '1rem' }}>
-              Not Sure Where to Start?
+              {copy.bottomTitle}
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, maxWidth: '480px', margin: '0 auto 2rem' }}>
-              Tell us about your business and we will recommend exactly
-              what you need — no pressure, no jargon.
+              {copy.bottomCopy}
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.9rem', justifyContent: 'center' }}>
-              <Link href="/quote-request" className="btn-amber">
-                Get a Free Consultation <ArrowRight size={15} />
+              <Link href={copy.bottomQuoteHref} className="btn-amber">
+                {copy.bottomQuoteCta} <ArrowRight size={15} />
               </Link>
-              <Link href="/free-visibility-check" className="btn-ghost">
-                Free Visibility Check <ArrowRight size={15} />
+              <Link href={copy.bottomVisibilityHref} className="btn-ghost">
+                {copy.bottomVisibilityCta} <ArrowRight size={15} />
               </Link>
             </div>
           </motion.div>

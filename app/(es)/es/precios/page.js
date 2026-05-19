@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { ArrowRight, CheckCircle, ClipboardCheck, QrCode } from "lucide-react";
+import PricingClient from "../../../(en)/pricing/PricingClient";
 
 const websitePackages = [
   {
     name: "Página de lanzamiento",
     price: "Desde $299",
     description:
-      "Un sitio de una página para negocios, marcas personales o portafolios que necesitan una presencia limpia para empezar.",
-    bestFor: "Negocios nuevos, portafolios, páginas sencillas y ofertas específicas.",
+      "Un sitio de una página para marcas personales, portafolios o negocios que necesitan un punto de inicio limpio en línea.",
+    bestFor:
+      "Marcas personales, portafolios, páginas sencillas, ofertas específicas y negocios que están empezando.",
     features: [
       "Sitio web de una página",
       "Diseño móvil",
@@ -16,15 +16,16 @@ const websitePackages = [
       "Guía para correo profesional",
       "1 ronda de cambios",
     ],
+    cta: "Empezar con página de lanzamiento",
     href: "/es/solicitar-cotizacion?product=P%C3%A1gina%20de%20lanzamiento&category=Servicios%20Digitales",
-    cta: "Cotizar página",
   },
   {
     name: "Presencia web inicial",
     price: "Desde $499",
     description:
-      "Un sitio inicial para pequeños negocios que necesitan verse profesionales en línea.",
-    bestFor: "Contratistas, proveedores de servicios y negocios que están empezando.",
+      "Un sitio inicial limpio para pequeños negocios nuevos que necesitan una presencia profesional en línea.",
+    bestFor:
+      "Negocios nuevos, contratistas, proveedores de servicios independientes y negocios de servicios sencillos.",
     features: [
       "Hasta 5 páginas",
       "Diseño móvil",
@@ -34,8 +35,8 @@ const websitePackages = [
       "Guía para correo profesional",
       "1 ronda de cambios",
     ],
-    href: "/es/solicitar-cotizacion?product=Presencia%20web%20inicial&category=Servicios%20Digitales",
     cta: "Cotizar sitio inicial",
+    href: "/es/solicitar-cotizacion?product=Presencia%20web%20inicial&category=Servicios%20Digitales",
   },
   {
     name: "Sitio web para negocio local",
@@ -43,8 +44,9 @@ const websitePackages = [
     badge: "Más popular",
     tone: "dark",
     description:
-      "Un sitio más completo para negocios locales que necesitan páginas de servicios, captura de leads y mejor visibilidad en Google.",
-    bestFor: "Restaurantes, contratistas, talleres, tiendas y negocios de servicios.",
+      "Un paquete más fuerte para negocios locales que necesitan páginas de servicios, captura de leads y mejor visibilidad en Google.",
+    bestFor:
+      "Restaurantes, contratistas, talleres, tiendas, negocios de servicios locales y equipos pequeños.",
     features: [
       "Hasta 7 páginas",
       "Página principal personalizada",
@@ -56,8 +58,8 @@ const websitePackages = [
       "Configuración de Google Analytics",
       "2 rondas de cambios",
     ],
-    href: "/es/solicitar-cotizacion?product=Sitio%20web%20para%20negocio%20local&category=Servicios%20Digitales",
     cta: "Cotizar sitio local",
+    href: "/es/solicitar-cotizacion?product=Sitio%20web%20para%20negocio%20local&category=Servicios%20Digitales",
   },
   {
     name: "Sitio web + configuración de visibilidad",
@@ -66,7 +68,7 @@ const websitePackages = [
     tone: "value",
     description:
       "Un paquete que conecta tu sitio web, presencia en Google, captura de leads y configuración inicial de campaña QR.",
-    bestFor: "Negocios que quieren un sistema inicial de visibilidad.",
+    bestFor: "Negocios que quieren un sistema inicial completo de visibilidad.",
     features: [
       "Hasta 10 páginas",
       "Diseño y desarrollo del sitio web",
@@ -77,8 +79,8 @@ const websitePackages = [
       "Configuración básica de seguimiento de visitas",
       "2 rondas de cambios",
     ],
+    cta: "Crear mi sistema de visibilidad",
     href: "/es/solicitar-cotizacion?product=Sitio%20web%20%2B%20configuraci%C3%B3n%20de%20visibilidad&category=Servicios%20Digitales",
-    cta: "Cotizar visibilidad",
   },
 ];
 
@@ -115,6 +117,117 @@ const carePlans = [
   },
 ];
 
+const addOns = [
+  ["Página web adicional", "desde $75/página"],
+  ["Solo página de aterrizaje", "desde $299"],
+  ["Configuración de campaña QR", "desde $149"],
+  ["Limpieza de Perfil de Google", "desde $199"],
+  ["Actualización básica de logo", "desde $149"],
+  ["Cuidado del sitio web", "desde $19/mes"],
+];
+
+const signageExamples = [
+  "Banners de vinilo",
+  "Letreros de jardín",
+  "Gráficos para vehículos",
+  "Letreros de escaparate",
+  "Letreros de metal",
+  "Tarjetas de presentación",
+  "Volantes",
+  "Menús",
+];
+
+const pricingFaqs = [
+  {
+    q: "¿Estos precios son de una sola vez?",
+    a: "Los paquetes de sitio web son precios iniciales para proyectos de una sola vez. Proyectos más grandes, páginas adicionales, integraciones especiales o tiempos urgentes pueden aumentar la cotización.",
+  },
+  {
+    q: "¿Soy dueño de mi sitio web?",
+    a: "Sí. Eres dueño del contenido y diseño del sitio una vez que el proyecto esté pagado por completo. Hosting, dominio, correo y herramientas externas pueden ser cobrados por esos proveedores.",
+  },
+  {
+    q: "¿El hosting está incluido?",
+    a: "El hosting no está incluido en el precio único del sitio web a menos que se cotice específicamente. Pixel & Panel puede recomendar opciones sencillas de hosting y ayudar a conectar tu dominio.",
+  },
+  {
+    q: "¿El correo profesional está incluido?",
+    a: "La guía para configurar correo profesional está incluida. Si se necesita una plataforma de correo pagada, el cliente paga directamente a ese proveedor.",
+  },
+  {
+    q: "¿Puedo empezar pequeño y mejorar después?",
+    a: "Sí. Muchos negocios empiezan con una Página de lanzamiento o Presencia web inicial y después agregan más páginas, campañas QR, SEO o letreros.",
+  },
+  {
+    q: "¿También ofrecen letreros e impresión?",
+    a: "Sí. Pixel & Panel ofrece opciones de cotización para banners, letreros de jardín, gráficos para vehículos, letreros de escaparate, tarjetas, volantes, menús y más.",
+  },
+  {
+    q: "¿Garantizan posiciones en Google?",
+    a: "No. Pixel & Panel configura la base de SEO y ayuda a que tu negocio sea más fácil de encontrar, pero ningún proveedor ético puede garantizar posiciones exactas en Google.",
+  },
+  {
+    q: "¿Puedo recibir precio con descuento para portafolio?",
+    a: "Posiblemente. Pixel & Panel está aceptando proyectos seleccionados de clientes iniciales con descuento a cambio de comentarios honestos y permiso para portafolio.",
+  },
+];
+
+const spanishCopy = {
+  heroLabel: "Precios para clientes iniciales",
+  heroTitlePrefix: "Precios iniciales simples para",
+  heroTitleHighlight: "negocios locales",
+  heroCopy:
+    "Pixel & Panel está ofreciendo precios para clientes iniciales a negocios del sureste de Texas que necesitan un sitio limpio, mejor visibilidad en Google y una forma más fuerte de convertir atención en leads.",
+  heroNote: "Los precios pueden subir cuando la disponibilidad sea limitada.",
+  packageLabel: "Paquetes iniciales de sitio web",
+  packageTitle: "Paquetes de sitio web",
+  packageCopy:
+    "Precios iniciales claros para negocios que necesitan una presencia profesional en línea sin un contrato de marketing pesado.",
+  packageNoteStart: "¿Quieres ver los servicios detrás de estos paquetes? Revisa la página de",
+  packageNoteDigital: "servicios digitales",
+  packageNoteMiddle: "empieza con un",
+  packageNoteVisibility: "chequeo gratis de visibilidad",
+  packageNoteEnd: "si todavía no estás seguro, o solicita una cotización cuando estés listo.",
+  digitalHref: "/es/servicios-digitales",
+  visibilityHref: "/es/chequeo-gratis-de-visibilidad",
+  bestForLabel: "Ideal para",
+  careLabel: "Soporte mensual opcional",
+  careTitle: "Planes de cuidado del sitio web",
+  careCopy:
+    "Soporte mensual opcional para cambios pequeños, pruebas de formularios, revisión básica de SEO y para mantener tu sitio funcionando bien.",
+  addOnsLabel: "Extras comunes",
+  addOnsTitle: "Extras",
+  addOnsCopy: "Hay extras sencillos disponibles cuando un paquete inicial necesita algunas piezas más.",
+  signageLabel: "Letreros con cotización",
+  signageTitle: "Los proyectos de letreros e impresión se cotizan individualmente",
+  signageCopy:
+    "Cada proyecto de letreros e impresión depende del tamaño, material, cantidad, diseño e instalación. Solicita una cotización y Pixel & Panel recomendará una opción práctica.",
+  signageCta: "Cotizar letreros",
+  signageHref:
+    "/es/solicitar-cotizacion?product=Proyecto%20de%20letreros&category=Letreros%20e%20Impresi%C3%B3n",
+  foundingLabel: "Disponibilidad limitada",
+  foundingTitle: "Programa de clientes iniciales",
+  foundingCopy:
+    "Pixel & Panel está aceptando un número limitado de negocios del sureste de Texas con precios iniciales mientras construimos nuestro portafolio local. Proyectos seleccionados pueden calificar para descuento a cambio de comentarios honestos, permiso para portafolio y testimonio si quedan satisfechos.",
+  foundingCta: "Preguntar por precio de cliente inicial",
+  foundingHref:
+    "/es/solicitar-cotizacion?product=Programa%20de%20clientes%20iniciales&category=Servicios%20Digitales",
+  faqTitle: "Preguntas sobre precios",
+  finalTitle: "¿Necesitas ayuda con sitio web, visibilidad o letreros?",
+  finalCopyStart:
+    "Cuéntanos qué necesitas y recomendaremos una opción inicial práctica para tu presupuesto y tiempo. También puedes comparar las opciones actuales de",
+  finalCopySignage: "letreros",
+  finalCopyMiddle: "y",
+  finalCopyDigital: "servicios digitales",
+  finalCopyEnd: ".",
+  finalSignageHref: "/es/letreros",
+  finalDigitalHref: "/es/servicios-digitales",
+  finalQuoteHref: "/es/solicitar-cotizacion",
+  finalQuoteCta: "Solicitar cotización",
+  finalVisibilityHref: "/es/chequeo-gratis-de-visibilidad",
+  finalVisibilityCta: "Chequeo gratis",
+};
+
 export const metadata = {
   title: {
     absolute: "Precios | Pixel & Panel — Sitios Web, Letreros y Visibilidad",
@@ -137,171 +250,64 @@ export const metadata = {
   },
 };
 
-export default function SpanishPricingPage() {
+function JsonLd({ data }) {
   return (
-    <div className="bg-[#FAF8F4] text-[#1C1917]">
-      <section className="relative overflow-hidden bg-[#0C1E3C] px-4 pt-28 text-center text-white md:pt-32">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_100%)]" />
-        <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,.1)_1px,transparent_0)] [background-size:36px_36px]" />
-        <div className="relative mx-auto max-w-4xl pb-20">
-          <p className="section-label">Precios iniciales</p>
-          <h1 className="text-white">Precios iniciales para negocios locales</h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/76 md:text-lg">
-            Paquetes claros para negocios del sureste de Texas que necesitan sitio web,
-            mejor visibilidad en Google o una base digital más profesional.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/es/solicitar-cotizacion" className="btn-amber justify-center">
-              Solicitar cotización <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost justify-center">
-              Chequeo gratis
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-base" aria-labelledby="website-packages-heading">
-        <div className="container-px">
-          <div className="mx-auto mb-12 max-w-3xl text-center">
-            <p className="section-label text-[#0369A1]">Sitios web</p>
-            <h2 id="website-packages-heading" className="text-[#1C1917]">
-              Paquetes de sitios web
-            </h2>
-            <p className="mt-5 leading-8 text-slate-600">
-              Los precios son iniciales. Proyectos con más páginas, integraciones o tiempos urgentes pueden requerir una cotización distinta.
-            </p>
-          </div>
-          <div className="grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {websitePackages.map((pkg) => (
-              <PackageCard key={pkg.name} pkg={pkg} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-base bg-white" aria-labelledby="care-heading">
-        <div className="container-px">
-          <div className="mx-auto mb-12 max-w-3xl text-center">
-            <p className="section-label text-[#0369A1]">Soporte mensual opcional</p>
-            <h2 id="care-heading" className="text-[#1C1917]">
-              Planes de cuidado del sitio web
-            </h2>
-            <p className="mt-5 leading-8 text-slate-600">
-              Soporte mensual opcional para cambios pequeños, pruebas de formularios, revisión básica de SEO y mantenimiento práctico.
-            </p>
-          </div>
-          <div className="grid gap-5 md:grid-cols-3">
-            {carePlans.map((plan) => (
-              <article key={plan.name} className="rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm">
-                <h3 className="text-[#1C1917]">{plan.name}</h3>
-                <p className="mt-3 font-heading text-xl font-extrabold text-[#0369A1]">{plan.price}</p>
-                <ul className="mt-5 grid gap-3">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex gap-3 text-sm leading-6 text-slate-700">
-                      <ClipboardCheck className="mt-1 h-4 w-4 shrink-0 text-[#F59E0B]" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-base" aria-labelledby="signage-pricing-heading">
-        <div className="container-px">
-          <div className="grid gap-8 rounded-xl border border-[#0369A1]/20 bg-white p-6 shadow-xl md:p-10 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p className="section-label text-[#F59E0B]">Letreros e impresión</p>
-              <h2 id="signage-pricing-heading" className="text-[#1C1917]">
-                Los proyectos de letreros e impresión se cotizan individualmente.
-              </h2>
-              <p className="mt-5 leading-8 text-slate-600">
-                El precio depende del tamaño, material, cantidad, diseño e instalación. Comparte los detalles y Pixel &amp; Panel te recomendará una opción práctica.
-              </p>
-              <Link
-                href="/es/solicitar-cotizacion?product=Proyecto%20de%20letreros%20o%20impresi%C3%B3n&category=Letreros%20e%20Impresi%C3%B3n"
-                className="btn-amber mt-6"
-              >
-                Cotizar letreros <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {["Banners", "Letreros de jardín", "Gráficos para vehículos", "Letreros de negocio", "Tarjetas", "Flyers", "Menús", "Posters"].map((item) => (
-                <div key={item} className="flex items-center gap-3 rounded-lg bg-[#FAF8F4] p-4 text-sm font-semibold text-slate-700">
-                  <QrCode className="h-4 w-4 shrink-0 text-[#F59E0B]" />
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 pb-16 md:pb-24" aria-labelledby="pricing-cta">
-        <div className="mx-auto max-w-5xl rounded-xl bg-[#0C1E3C] px-6 py-14 text-center text-white shadow-2xl md:px-12">
-          <h2 id="pricing-cta" className="text-white">
-            ¿No sabes qué paquete escoger?
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl leading-8 text-white/75">
-            Empieza con una cotización o con el chequeo gratis de visibilidad. Pixel &amp; Panel te ayudará a elegir el siguiente paso.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/es/solicitar-cotizacion" className="btn-amber justify-center">
-              Solicitar cotización <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost justify-center">
-              Chequeo gratis
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+    />
   );
 }
 
-function PackageCard({ pkg }) {
-  const dark = pkg.tone === "dark";
+export default function SpanishPricingPage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: pricingFaqs.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
+  };
+
+  const offersSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Paquetes de sitio web de Pixel & Panel",
+    description: "Paquetes iniciales de sitio web y visibilidad para negocios del sureste de Texas",
+    itemListElement: websitePackages.map((pkg, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Offer",
+        name: pkg.name,
+        description: pkg.description,
+        price: ["299", "499", "799", "999"][index],
+        priceCurrency: "USD",
+        priceValidUntil: "2026-12-31",
+        availability: "https://schema.org/InStock",
+        url: "https://pixelnpanel.com/es/precios",
+        seller: {
+          "@type": "LocalBusiness",
+          name: "Pixel & Panel",
+          url: "https://pixelnpanel.com",
+        },
+      },
+    })),
+  };
 
   return (
-    <article
-      className="flex h-full flex-col rounded-xl border p-6 shadow-lg"
-      style={{
-        background: dark ? "#0C1E3C" : "white",
-        borderColor: pkg.tone ? "#F59E0B" : "#e2e8f0",
-      }}
-    >
-      {pkg.badge && (
-        <span className="mb-4 w-fit rounded-full bg-[#F59E0B] px-3 py-1 font-heading text-xs font-extrabold uppercase tracking-[0.08em] text-[#1C1917]">
-          {pkg.badge}
-        </span>
-      )}
-      <h3 className={dark ? "text-white" : "text-[#1C1917]"}>{pkg.name}</h3>
-      <p className={dark ? "mt-4 text-sm leading-7 text-white/72" : "mt-4 text-sm leading-7 text-slate-600"}>
-        {pkg.description}
-      </p>
-      <p className={dark ? "mt-5 font-heading text-2xl font-black text-white" : "mt-5 font-heading text-2xl font-black text-[#1C1917]"}>
-        {pkg.price}
-      </p>
-      <div className={dark ? "mt-5 rounded-lg bg-white/10 p-4 text-sm leading-6 text-white/76" : "mt-5 rounded-lg bg-slate-50 p-4 text-sm leading-6 text-slate-700"}>
-        <strong className="mb-1 block font-heading text-xs uppercase tracking-[0.08em] text-[#F59E0B]">
-          Ideal para
-        </strong>
-        {pkg.bestFor}
-      </div>
-      <ul className="mt-5 grid flex-1 gap-3">
-        {pkg.features.map((feature) => (
-          <li key={feature} className={dark ? "flex gap-3 text-sm leading-6 text-white/84" : "flex gap-3 text-sm leading-6 text-slate-700"}>
-            <CheckCircle className="mt-1 h-4 w-4 shrink-0 text-[#F59E0B]" />
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ul>
-      <Link href={pkg.href} className="btn-amber mt-6 justify-center whitespace-normal text-center">
-        {pkg.cta} <ArrowRight className="h-4 w-4" />
-      </Link>
-    </article>
+    <>
+      <JsonLd data={faqSchema} />
+      <JsonLd data={offersSchema} />
+      <PricingClient
+        websitePackages={websitePackages}
+        carePlans={carePlans}
+        addOns={addOns}
+        signageExamples={signageExamples}
+        faqs={pricingFaqs}
+        copy={spanishCopy}
+      />
+    </>
   );
 }
