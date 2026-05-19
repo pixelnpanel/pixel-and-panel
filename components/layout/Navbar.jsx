@@ -16,6 +16,22 @@ const SPANISH_NAV = [
   { label: 'Contacto', href: '/es/contacto' },
 ]
 
+const MOBILE_NAV_SHORT = [
+  { label: 'Digital', href: '/digital' },
+  { label: 'Signage', href: '/signage' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Price', href: '/pricing' },
+  { label: 'Contact', href: '/contact' },
+]
+
+const MOBILE_NAV_SHORT_ES = [
+  { label: 'Digital', href: '/es/servicios-digitales' },
+  { label: 'Letreros', href: '/es/letreros' },
+  { label: 'Portafolio', href: '/es/portafolio' },
+  { label: 'Precios', href: '/es/precios' },
+  { label: 'Contacto', href: '/es/contacto' },
+]
+
 function rememberLanguage(language) {
   if (typeof window === 'undefined') return
   try {
@@ -34,6 +50,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const spanish = isSpanishPath(pathname)
   const navLinks = spanish ? SPANISH_NAV : NAV_LINKS
+  const mobileNavLinks = spanish ? MOBILE_NAV_SHORT_ES : MOBILE_NAV_SHORT
   const homeHref = spanish ? '/es' : '/'
   const quoteHref = spanish ? '/es/solicitar-cotizacion' : '/quote-request'
   const quoteLabel = spanish ? 'COTIZACIÓN GRATIS' : 'GET A FREE QUOTE'
@@ -71,7 +88,7 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            minHeight: '68px',
+            minHeight: '60px',
             gap: '0.5rem',
             position: 'relative',
           }}
@@ -86,7 +103,7 @@ export default function Navbar() {
               width={3447}
               height={532}
               className="lg:hidden"
-              style={{ width: 190, maxWidth: 'min(190px, 66vw)', height: 'auto', objectFit: 'contain' }}
+              style={{ width: 176, maxWidth: 'min(176px, 62vw)', height: 'auto', objectFit: 'contain' }}
               unoptimized
               priority
             />
@@ -121,11 +138,11 @@ export default function Navbar() {
             }}
           >
             <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
-              style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.35rem 0.44rem', textDecoration: 'none' }}>
+              style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
               EN
             </Link>
             <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
-              style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.35rem 0.44rem', textDecoration: 'none' }}>
+              style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
               ES
             </Link>
           </div>
@@ -185,15 +202,15 @@ export default function Navbar() {
             gap: '0.08rem',
             justifyContent: 'flex-start',
             overflowX: 'auto',
-            paddingBottom: '0.5rem',
+            paddingBottom: '0.28rem',
             scrollbarWidth: 'none',
             width: '100%',
           }}
         >
-          {navLinks.map((item) => {
+          {mobileNavLinks.map((item) => {
             const isActive = navIsActive(pathname, item.href)
             return (
-              <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.34rem 0.5rem', borderRadius: '0.5rem', fontSize: '0.78rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
+              <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.3rem 0.48rem', borderRadius: '0.5rem', fontSize: '0.76rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
                 {item.label}
                 {isActive && (
                   <span style={{ position: 'absolute', bottom: 2, left: '0.5rem', right: '0.5rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
