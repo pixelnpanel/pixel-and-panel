@@ -358,9 +358,12 @@
 
 /* Navbar: frozen during page transitions — no flash */
 ::view-transition-group(site-navbar) {
+  animation: none;
   z-index: 100;
 }
-::view-transition-old(site-navbar),
+::view-transition-old(site-navbar) {
+  display: none;
+}
 ::view-transition-new(site-navbar) {
   animation: none;
 }
