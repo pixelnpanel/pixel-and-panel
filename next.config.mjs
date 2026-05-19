@@ -35,10 +35,6 @@ const contentSecurityPolicyReportOnly = [
 const nextConfig = {
   reactStrictMode: true,
 
-  experimental: {
-    viewTransition: true,
-  },
-
   images: {
     formats: ["image/avif", "image/webp"],
   },

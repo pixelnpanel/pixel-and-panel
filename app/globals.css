@@ -338,46 +338,6 @@
   50%       { opacity: 0;   transform: scale(1.15); }
 }
 
-/* ── PAGE TRANSITIONS (View Transitions API) ────────────────── */
-
-/* Page content: old fades out quickly, new fades + lifts in */
-::view-transition-old(root) {
-  animation: 140ms ease-in both pnp-fade-out;
-}
-::view-transition-new(root) {
-  animation: 220ms ease-out 140ms both pnp-fade-in-up;
-}
-
-@keyframes pnp-fade-out {
-  to { opacity: 0; }
-}
-@keyframes pnp-fade-in-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Navbar: frozen during page transitions — no flash */
-::view-transition-group(site-navbar) {
-  animation: none;
-  z-index: 100;
-}
-::view-transition-old(site-navbar) {
-  display: none;
-}
-::view-transition-new(site-navbar) {
-  animation: none;
-}
-
 .mobile-nav-scroll::-webkit-scrollbar {
   display: none;
-}
-
-/* Respect reduced-motion preference */
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(*),
-  ::view-transition-new(*),
-  ::view-transition-group(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-  }
 }

@@ -79,7 +79,6 @@ export default function Navbar() {
         backdropFilter: isLight ? 'blur(12px)' : 'none',
         borderBottom: isLight ? '1px solid #e2e8f0' : 'none',
         boxShadow: scrolled ? '0 1px 20px rgba(0,0,0,0.08)' : 'none',
-        viewTransitionName: 'site-navbar',
       }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 0.75rem', overflow: 'hidden' }}>

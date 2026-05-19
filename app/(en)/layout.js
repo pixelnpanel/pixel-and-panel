@@ -1,6 +1,5 @@
 import "../globals.css";
 import { Montserrat, Inter } from "next/font/google";
-import { ViewTransition } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
@@ -53,7 +52,7 @@ export const metadata = {
 
 export default function EnglishRootLayout({ children }) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${montserrat.variable} ${inter.variable}`}>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
@@ -66,7 +65,7 @@ export default function EnglishRootLayout({ children }) {
         <LocalBusinessJsonLd />
         <Navbar />
         <main id="main-content">
-          <ViewTransition>{children}</ViewTransition>
+          {children}
         </main>
         <Footer />
         <WhatsAppWidget />
