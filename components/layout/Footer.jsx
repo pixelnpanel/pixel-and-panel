@@ -45,6 +45,7 @@ const COMPANY_LINKS_EN = [
 
 const COMPANY_LINKS_ES = [
   { label: 'Portafolio', href: '/es/portafolio' },
+  { label: 'Centro de Aprendizaje', href: '/es/centro-de-aprendizaje' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Chequeo Gratis de Visibilidad', href: '/es/chequeo-gratis-de-visibilidad' },
   { label: 'Contacto', href: '/es/contacto' },

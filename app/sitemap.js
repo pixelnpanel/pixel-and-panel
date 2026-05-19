@@ -3,6 +3,7 @@ import { signageProductsEs } from "@/lib/signage-products-es";
 import { digitalServices } from "@/lib/digital-services";
 import { digitalServicesEs } from "@/lib/digital-services-es";
 import { learningCenterPosts } from "@/lib/learning-center-posts";
+import { learningCenterPostsEs } from "@/lib/learning-center-posts-es";
 import { cityServiceStaticParams, cityServiceCities } from "@/lib/city-service-pages";
 import { cityServiceStaticParamsEs } from "@/lib/city-service-pages-es";
 
@@ -31,6 +32,7 @@ const staticPages = [
   { url: "/es/contacto", priority: 0.6, changeFrequency: "monthly" },
   { url: "/es/solicitar-cotizacion", priority: 0.6, changeFrequency: "monthly" },
   { url: "/es/chequeo-gratis-de-visibilidad", priority: 0.6, changeFrequency: "monthly" },
+  { url: "/es/centro-de-aprendizaje", priority: 0.6, changeFrequency: "weekly" },
   { url: "/es/area-de-servicio/beaumont-tx", priority: 0.7, changeFrequency: "monthly" },
   { url: "/es/area-de-servicio/nederland-tx", priority: 0.7, changeFrequency: "monthly" },
   { url: "/es/area-de-servicio/port-arthur-tx", priority: 0.7, changeFrequency: "monthly" },
@@ -67,6 +69,12 @@ export default function sitemap() {
     changeFrequency: "monthly",
   }));
 
+  const learningUrlsEs = learningCenterPostsEs.map((post) => ({
+    url: `${BASE}/es/centro-de-aprendizaje/${post.slug}`,
+    priority: 0.55,
+    changeFrequency: "monthly",
+  }));
+
   const cityServiceUrls = cityServiceStaticParams.map(({ city, service }) => ({
     url: `${BASE}/service-area/${city}/${service}`,
     priority: 0.85,
@@ -86,6 +94,7 @@ export default function sitemap() {
     ...signageUrlsEs,
     ...digitalUrlsEs,
     ...learningUrls,
+    ...learningUrlsEs,
     ...cityServiceUrls,
     ...cityServiceUrlsEs,
   ];

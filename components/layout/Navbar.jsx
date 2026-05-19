@@ -8,18 +8,6 @@ import { ArrowRight } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { getAlternatePath, isSpanishPath } from '@/lib/i18n'
 
-const MOBILE_SIMPLE = [
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Pricing',   href: '/pricing' },
-  { label: 'Contact',   href: '/contact' },
-]
-
-const MOBILE_SIMPLE_ES = [
-  { label: 'Portafolio', href: '/es/portafolio' },
-  { label: 'Precios',    href: '/es/precios' },
-  { label: 'Contacto',   href: '/es/contacto' },
-]
-
 const SPANISH_NAV = [
   { label: 'Servicios Digitales', href: '/es/servicios-digitales' },
   { label: 'Letreros e Impresión', href: '/es/letreros' },
@@ -46,7 +34,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const spanish = isSpanishPath(pathname)
   const navLinks = spanish ? SPANISH_NAV : NAV_LINKS
-  const mobileLinks = spanish ? MOBILE_SIMPLE_ES : MOBILE_SIMPLE
   const homeHref = spanish ? '/es' : '/'
   const quoteHref = spanish ? '/es/solicitar-cotizacion' : '/quote-request'
   const quoteLabel = spanish ? 'COTIZACIÓN GRATIS' : 'GET A FREE QUOTE'
@@ -92,14 +79,14 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
-            {/* Icon mark on mobile */}
+            {/* Full wordmark on mobile */}
             <Image
-              src="/logo/icon.svg"
+              src="/logo/icon-wordmark.svg"
               alt="Pixel & Panel"
-              width={526}
+              width={3447}
               height={532}
               className="lg:hidden"
-              style={{ width: 44, height: 'auto', maxHeight: 44, objectFit: 'contain' }}
+              style={{ width: 190, maxWidth: 'min(190px, 66vw)', height: 'auto', objectFit: 'contain' }}
               unoptimized
               priority
             />
@@ -115,6 +102,33 @@ export default function Navbar() {
               priority
             />
           </Link>
+
+          {/* Mobile Language — right aligned */}
+          <div
+            className="lg:hidden"
+            aria-label="Language switcher"
+            style={{
+              alignItems: 'center',
+              border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
+              borderRadius: '999px',
+              display: 'flex',
+              fontFamily: 'var(--font-heading)',
+              fontSize: '0.66rem',
+              fontWeight: 800,
+              overflow: 'hidden',
+              position: 'absolute',
+              right: 0,
+            }}
+          >
+            <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
+              style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.35rem 0.44rem', textDecoration: 'none' }}>
+              EN
+            </Link>
+            <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
+              style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.35rem 0.44rem', textDecoration: 'none' }}>
+              ES
+            </Link>
+          </div>
 
           {/* Desktop Nav */}
           <nav aria-label="Desktop navigation" className="hidden lg:flex" style={{ alignItems: 'center', gap: '0.25rem' }}>
@@ -160,61 +174,34 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Nav — links centered, language switch right */}
-          <div className="flex lg:hidden" style={{ alignItems: 'center', gap: '0.2rem', minWidth: 0, position: 'absolute', left: '58px', width: 'min(300px, calc(100vw - 84px))' }}>
-            <nav
-              aria-label="Mobile navigation"
-              className="mobile-nav-scroll"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                flex: 1,
-                justifyContent: 'flex-start',
-                gap: '0.05rem',
-                minWidth: 0,
-                overflowX: 'auto',
-                scrollbarWidth: 'none',
-              }}
-            >
-              {mobileLinks.map((item) => {
-                const isActive = navIsActive(pathname, item.href)
-                return (
-                  <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.34rem 0.42rem', borderRadius: '0.5rem', fontSize: '0.76rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
-                    {item.label}
-                    {isActive && (
-                      <span style={{ position: 'absolute', bottom: 2, left: '0.42rem', right: '0.42rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
-                    )}
-                  </Link>
-                )
-              })}
-            </nav>
-
-            <div
-              aria-label="Language switcher"
-              style={{
-                alignItems: 'center',
-                border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
-                borderRadius: '999px',
-                display: 'inline-flex',
-                fontFamily: 'var(--font-heading)',
-                fontSize: '0.66rem',
-                fontWeight: 800,
-                overflow: 'hidden',
-                flexShrink: 0,
-              }}
-            >
-              <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
-                style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.35rem 0.44rem', textDecoration: 'none' }}>
-                EN
-              </Link>
-              <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
-                style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.35rem 0.44rem', textDecoration: 'none' }}>
-                ES
-              </Link>
-            </div>
-          </div>
-
         </div>
+
+        {/* Mobile Nav — same links as desktop */}
+        <nav
+          aria-label="Mobile navigation"
+          className="mobile-nav-scroll flex lg:hidden"
+          style={{
+            alignItems: 'center',
+            gap: '0.08rem',
+            justifyContent: 'flex-start',
+            overflowX: 'auto',
+            paddingBottom: '0.5rem',
+            scrollbarWidth: 'none',
+            width: '100%',
+          }}
+        >
+          {navLinks.map((item) => {
+            const isActive = navIsActive(pathname, item.href)
+            return (
+              <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.34rem 0.5rem', borderRadius: '0.5rem', fontSize: '0.78rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
+                {item.label}
+                {isActive && (
+                  <span style={{ position: 'absolute', bottom: 2, left: '0.5rem', right: '0.5rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
+                )}
+              </Link>
+            )
+          })}
+        </nav>
       </div>
     </header>
   )
