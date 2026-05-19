@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertCircle,
   CheckCircle2,
@@ -228,6 +228,7 @@ export default function AdminOrdersClient() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const noticeAnchorRef = useRef(null);
 
   const selected = useMemo(
     () => orders.find((order) => order.orderNumber === selectedOrder) || orders[0],
@@ -248,10 +249,13 @@ export default function AdminOrdersClient() {
   }, []);
 
   const loadOrders = useCallback(
-    async function loadOrders(preferredOrderNumber = "") {
+    async function loadOrders(preferredOrderNumber = "", options = {}) {
+      const { clearNotices = true } = options;
       setLoading(true);
-      setError("");
-      setMessage("");
+      if (clearNotices) {
+        setError("");
+        setMessage("");
+      }
       try {
         const data = await apiFetch("/api/admin/orders");
         const nextOrders = data.orders || [];
@@ -264,7 +268,7 @@ export default function AdminOrdersClient() {
         setConfigured(Boolean(data.configured));
         setSelectedOrder(preferredOrder?.orderNumber || "");
         setEditOrder(orderToForm(preferredOrder));
-        if (!data.configured) {
+        if (!data.configured && clearNotices) {
           setMessage("Supabase not configured yet. Showing demo order only.");
         }
       } catch (loadError) {
@@ -280,6 +284,14 @@ export default function AdminOrdersClient() {
     const timer = window.setTimeout(() => loadOrders(), 0);
     return () => window.clearTimeout(timer);
   }, [loadOrders]);
+
+  useEffect(() => {
+    if (!message && !error) return;
+    const timer = window.setTimeout(() => {
+      noticeAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+    return () => window.clearTimeout(timer);
+  }, [message, error]);
 
   function updateNewOrder(field, value) {
     setNewOrder((current) => ({ ...current, [field]: value }));
@@ -306,7 +318,7 @@ export default function AdminOrdersClient() {
       });
       setNewOrder(emptyOrder);
       setMessage("Order created.");
-      await loadOrders(result.orderNumber);
+      await loadOrders(result.orderNumber, { clearNotices: false });
     } catch (createError) {
       setError(createError.message || "Unable to create order.");
     } finally {
@@ -327,7 +339,7 @@ export default function AdminOrdersClient() {
         body: JSON.stringify(editOrder),
       });
       setMessage("Order updated.");
-      await loadOrders(result.orderNumber || editOrder.orderNumber);
+      await loadOrders(result.orderNumber || editOrder.orderNumber, { clearNotices: false });
     } catch (updateError) {
       setError(updateError.message || "Unable to update order.");
     } finally {
@@ -352,7 +364,7 @@ export default function AdminOrdersClient() {
       setSelectedOrder("");
       setEditOrder(emptyOrder);
       setMessage(`Order ${selected.orderNumber} deleted.`);
-      await loadOrders("");
+      await loadOrders("", { clearNotices: false });
     } catch (deleteError) {
       setError(deleteError.message || "Unable to delete order.");
     } finally {
@@ -400,6 +412,8 @@ export default function AdminOrdersClient() {
             </button>
           </div>
         </div>
+
+        <div ref={noticeAnchorRef} />
 
         {error && (
           <div
