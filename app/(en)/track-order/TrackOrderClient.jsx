@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   AlertCircle,
+  Building2,
   CalendarDays,
   CheckCircle2,
   ClipboardCheck,
@@ -100,6 +101,7 @@ const defaultCopy = {
   usefulFeaturesTitle: "What you can check here",
   requestQuote: "Request quote",
   detailsTitle: "Project details",
+  companyLabel: "Company",
   clientLabel: "Client",
   productLabel: "Product",
   quantityLabel: "Quantity",
@@ -107,7 +109,7 @@ const defaultCopy = {
   orderDateLabel: "Order date",
   paymentLabel: "Payment",
   proofLabel: "Proof",
-  deliveryLabel: "Delivery / install",
+  deliveryLabel: "Product status",
   targetDateLabel: "Target date",
   nextActionLabel: "Next action",
   filesLabel: "Files",
@@ -525,6 +527,7 @@ export function TrackOrderExperience({ copy }) {
                       gap: "0.75rem",
                     }}
                   >
+                    <DetailItem icon={Building2} label={copy.companyLabel} value={order.companyName} />
                     <DetailItem icon={User} label={copy.clientLabel} value={order.customerName} />
                     <DetailItem icon={Package} label={copy.productLabel} value={order.productName} />
                     <DetailItem icon={Hash} label={copy.quantityLabel} value={order.quantity} />

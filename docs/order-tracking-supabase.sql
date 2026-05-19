@@ -6,6 +6,7 @@ create extension if not exists pgcrypto;
 create table if not exists public.orders (
   id uuid primary key default gen_random_uuid(),
   order_number text not null unique,
+  company_name text,
   customer_name text not null,
   customer_email text,
   customer_phone text,
@@ -27,6 +28,7 @@ create table if not exists public.orders (
 );
 
 alter table public.orders add column if not exists product_name text;
+alter table public.orders add column if not exists company_name text;
 alter table public.orders add column if not exists quantity integer not null default 1;
 alter table public.orders add column if not exists unit_rate numeric(12,2);
 alter table public.orders add column if not exists order_date date not null default current_date;
@@ -73,6 +75,7 @@ grant all privileges on table public.order_files to service_role;
 
 insert into public.orders (
   order_number,
+  company_name,
   customer_name,
   customer_email,
   customer_phone,
@@ -91,6 +94,7 @@ insert into public.orders (
   public_note
 ) values (
   'PNP-1007',
+  'Maria''s Boutique',
   'Maria G.',
   'customer@example.com',
   '(409) 800-6139',

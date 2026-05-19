@@ -61,7 +61,7 @@ export default function AdminLoginClient() {
         background: "#f8fafc",
         display: "flex",
         minHeight: "100vh",
-        padding: "6rem 1rem 3rem",
+        padding: "2rem 1rem",
       }}
     >
       <div className="white-card" style={{ margin: "0 auto", maxWidth: "460px", padding: "1.25rem" }}>

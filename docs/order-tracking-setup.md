@@ -39,6 +39,7 @@ POST /api/orders/lookup
 The API checks:
 
 - `orders.order_number`
+- optional `orders.company_name`
 - matching `customer_email` or `customer_phone`
 - customer-visible rows in `order_updates`
 - customer-visible rows in `order_files`
