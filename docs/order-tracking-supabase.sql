@@ -35,6 +35,7 @@ alter table public.orders add column if not exists order_date date not null defa
 alter table public.orders add column if not exists payment_status text not null default 'Not invoiced';
 alter table public.orders add column if not exists proof_status text not null default 'Not ready';
 alter table public.orders add column if not exists delivery_method text;
+alter table public.orders alter column customer_name drop not null;
 
 create table if not exists public.order_updates (
   id uuid primary key default gen_random_uuid(),

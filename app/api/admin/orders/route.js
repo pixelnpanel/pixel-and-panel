@@ -37,6 +37,6 @@ export async function POST(request) {
     return jsonResponse(result, 201);
   } catch (error) {
     console.error("Unable to create admin order.", error);
-    return jsonResponse({ ok: false, error: "Unable to create order." }, 500);
+    return jsonResponse({ ok: false, error: error.message || "Unable to create order." }, 500);
   }
 }

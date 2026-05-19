@@ -26,7 +26,7 @@ export async function PATCH(request, { params }) {
     return jsonResponse(result);
   } catch (error) {
     console.error("Unable to update admin order.", error);
-    return jsonResponse({ ok: false, error: "Unable to update order." }, 500);
+    return jsonResponse({ ok: false, error: error.message || "Unable to update order." }, 500);
   }
 }
 
