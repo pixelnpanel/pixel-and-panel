@@ -84,11 +84,11 @@ export default function Navbar() {
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 0.75rem', overflow: 'hidden' }}>
         <div
+          className="min-h-[52px] lg:min-h-[68px]"
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            minHeight: '60px',
             gap: '0.5rem',
             position: 'relative',
           }}
@@ -122,13 +122,12 @@ export default function Navbar() {
 
           {/* Mobile Language — right aligned */}
           <div
-            className="lg:hidden"
+            className="flex lg:hidden"
             aria-label="Language switcher"
             style={{
               alignItems: 'center',
               border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
               borderRadius: '999px',
-              display: 'flex',
               fontFamily: 'var(--font-heading)',
               fontSize: '0.66rem',
               fontWeight: 800,
@@ -200,9 +199,9 @@ export default function Navbar() {
           style={{
             alignItems: 'center',
             gap: '0.08rem',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             overflowX: 'auto',
-            paddingBottom: '0.28rem',
+            paddingBottom: '0.12rem',
             scrollbarWidth: 'none',
             width: '100%',
           }}
