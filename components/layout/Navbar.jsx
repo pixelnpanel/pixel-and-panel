@@ -206,21 +206,47 @@ export default function Navbar() {
         {/* Mobile Nav — same links as desktop */}
         <nav
           aria-label="Mobile navigation"
-          className="mobile-nav-scroll flex lg:hidden"
+          className="flex lg:hidden"
           style={{
-            alignItems: 'center',
+            alignItems: 'stretch',
             gap: '0.08rem',
             justifyContent: 'center',
-            overflowX: 'auto',
-            paddingBottom: '0.12rem',
-            scrollbarWidth: 'none',
+            overflow: 'visible',
+            padding: '0.08rem 0 0.22rem',
+            pointerEvents: 'auto',
+            touchAction: 'manipulation',
             width: '100%',
           }}
         >
           {mobileNavLinks.map((item) => {
             const isActive = navIsActive(pathname, item.href)
             return (
-              <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.45rem 0.65rem', borderRadius: '0.5rem', fontSize: '0.85rem', fontWeight: isActive ? 750 : 450, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
+              <Link
+                key={item.label}
+                href={item.href}
+                aria-current={isActive ? 'page' : undefined}
+                style={{
+                  alignItems: 'center',
+                  borderRadius: '0.5rem',
+                  color: textColor,
+                  display: 'inline-flex',
+                  flex: '1 1 0',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.78rem',
+                  fontWeight: isActive ? 750 : 450,
+                  justifyContent: 'center',
+                  lineHeight: 1,
+                  minWidth: 0,
+                  minHeight: '44px',
+                  padding: '0.5rem 0.2rem',
+                  pointerEvents: 'auto',
+                  position: 'relative',
+                  textDecoration: 'none',
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'rgba(245, 158, 11, 0.24)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {item.label}
                 {isActive && (
                   <span style={{ position: 'absolute', bottom: 2, left: '0.5rem', right: '0.5rem', height: 3, borderRadius: 3, backgroundColor: '#F5A623' }} />
