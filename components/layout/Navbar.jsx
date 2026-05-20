@@ -36,7 +36,7 @@ function rememberLanguage(language) {
   if (typeof window === 'undefined') return
   try {
     window.localStorage.setItem('pnp-language', language)
-  } catch {}
+  } catch { }
   document.cookie = `pnp-language=${language}; path=/; max-age=31536000; SameSite=Lax`
 }
 
@@ -220,7 +220,7 @@ export default function Navbar() {
           {mobileNavLinks.map((item) => {
             const isActive = navIsActive(pathname, item.href)
             return (
-              <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.3rem 0.48rem', borderRadius: '0.5rem', fontSize: '0.76rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
+              <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.0rem 0.55rem', borderRadius: '0.5rem', fontSize: '0.90rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative', flexShrink: 0 }}>
                 {item.label}
                 {isActive && (
                   <span style={{ position: 'absolute', bottom: 2, left: '0.5rem', right: '0.5rem', height: 2, borderRadius: 2, backgroundColor: '#F5A623' }} />
