@@ -13,7 +13,7 @@ const defaultCopy = {
     eyebrow: 'Contact Us',
     h1: '',
     headlineLines: ['Have a Question?', 'We Would Love', 'to Hear From You.'],
-    mobileHeadlineLines: ['Need Help?', 'We Can Help.'],
+    mobileHeadlineLines: ['Have Questions?', 'We’re Happy To Help.'],
     introStart: 'Whether you have a question about our services, need help deciding what you need, or just want to say hello — we read every message personally. If you want a softer first step, start with a',
     mobileIntroStart: 'Ask about services, choosing what you need, or start with a',
     visibilityHref: '/free-visibility-check',

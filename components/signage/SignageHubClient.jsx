@@ -13,8 +13,8 @@ const DEFAULT_COPY = {
     eyebrow: 'Signage & Print',
     h1Start: 'Custom Signage & Print That',
     h1Highlight: 'Makes Your Brand Visible',
-    mobileH1Start: 'Signs That',
-    mobileH1Highlight: 'Get Seen.',
+    mobileH1Start: 'Custom Signs Designed',
+    mobileH1Highlight: 'To Get You Noticed.',
     mobileHeroCopy: 'Browse signs, banners, vehicle graphics, cards, and print products by category.',
     heroCopy: 'Browse our most requested sign products by category and quickly find the right option for your storefront, vehicle, event, promotion, or local business.',
     quoteCta: 'Start a Signage Quote',
@@ -423,11 +423,10 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                     key={category.slug}
                                                     type="button"
                                                     onClick={() => handleCategoryClick(category.slug)}
-                                                    className={`shrink-0 rounded-full border px-4 py-2.5 text-sm font-bold transition ${
-                                                        isActive
-                                                            ? 'border-[#0369A1] bg-[#0369A1] text-white shadow-sm'
-                                                            : 'border-slate-200 bg-[#FAF8F4] text-[#1C1917] hover:border-[#F59E0B]'
-                                                    }`}
+                                                    className={`shrink-0 rounded-full border px-4 py-2.5 text-sm font-bold transition ${isActive
+                                                        ? 'border-[#0369A1] bg-[#0369A1] text-white shadow-sm'
+                                                        : 'border-slate-200 bg-[#FAF8F4] text-[#1C1917] hover:border-[#F59E0B]'
+                                                        }`}
                                                     aria-pressed={isActive}
                                                 >
                                                     {category.name}
@@ -518,11 +517,10 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                 }
                                             }}
                                             data-product-card="true"
-                                            className={`group scroll-mt-24 overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${
-                                                isHighlighted
-                                                    ? 'border-[#F59E0B] shadow-[0_0_0_4px_rgba(245,158,11,0.22),0_18px_44px_rgba(245,158,11,0.2)]'
-                                                    : 'border-slate-200'
-                                            }`}
+                                            className={`group scroll-mt-24 overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${isHighlighted
+                                                ? 'border-[#F59E0B] shadow-[0_0_0_4px_rgba(245,158,11,0.22),0_18px_44px_rgba(245,158,11,0.2)]'
+                                                : 'border-slate-200'
+                                                }`}
                                         >
                                             <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
                                                 {product.image ? (
@@ -613,9 +611,8 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 aria-expanded={isSearchSheetOpen}
                 onClick={handleFloatingSearchClick}
                 tabIndex={isFloatingSearchVisible ? 0 : -1}
-                className={`fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#FBBF24] bg-[#F59E0B] text-[#1C1917] shadow-[0_16px_38px_rgba(28,25,23,0.28)] transition-[opacity,transform,background-color] duration-200 hover:bg-[#FBBF24] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/35 md:hidden ${
-                    isFloatingSearchVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
-                }`}
+                className={`fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#FBBF24] bg-[#F59E0B] text-[#1C1917] shadow-[0_16px_38px_rgba(28,25,23,0.28)] transition-[opacity,transform,background-color] duration-200 hover:bg-[#FBBF24] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/35 md:hidden ${isFloatingSearchVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+                    }`}
             >
                 <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.28),rgba(255,255,255,0))]" />
                 <span className="relative flex items-center justify-center">
