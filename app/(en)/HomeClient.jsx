@@ -5,7 +5,7 @@ import HomeHeroVisual from "./HomeHeroVisual";
 const mobileStartOptions = [
   {
     title: "Website / Google Help",
-    description: "Help customers find you and contact you online.",
+    description: "Website, SEO, and Google profile help.",
     href: "/digital",
     label: "Digital",
     icon: MonitorSmartphone,
@@ -13,7 +13,7 @@ const mobileStartOptions = [
   },
   {
     title: "Signs / Print",
-    description: "Banners, vehicle graphics, signs, cards, and flyers.",
+    description: "Banners, signs, cards, and flyers.",
     href: "/signage",
     label: "Signage",
     icon: PanelTop,
@@ -21,7 +21,7 @@ const mobileStartOptions = [
   },
   {
     title: "Not Sure Yet?",
-    description: "Get a free check and a practical next step.",
+    description: "Free check. Clear next step.",
     href: "/free-visibility-check",
     label: "Free Check",
     icon: HelpCircle,
@@ -70,28 +70,7 @@ export default function HomeClient() {
               Pixel &amp; Panel helps local businesses in Southeast Texas show up on Google, stand out with professional signs and print, and make it easy for customers to call or reach out.
             </p>
 
-            <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-nowrap">
-              <Link href="/quote-request" className="btn-amber w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-              <Link href="/digital" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Digital Services
-              </Link>
-              <Link href="/signage" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Signage &amp; Print
-              </Link>
-            </div>
-
-            <div className="mt-9 grid gap-3 text-sm text-white sm:grid-cols-3">
-              {["Your Vision. Made Visible.", "Websites, signs, and print — all working together", "Quote-first process"].map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F59E0B]" aria-hidden="true" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 max-w-[calc(100vw-2rem)] md:hidden" aria-labelledby="mobile-home-start-heading">
+            <div className="mt-7 max-w-[calc(100vw-2rem)] md:hidden" aria-labelledby="mobile-home-start-heading">
               <p id="mobile-home-start-heading" className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
                 What do you need?
               </p>
@@ -122,6 +101,30 @@ export default function HomeClient() {
                   );
                 })}
               </div>
+              <Link href="/quote-request" className="btn-amber mt-4 w-full justify-center whitespace-nowrap px-5">
+                Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
+
+            <div className="mt-8 hidden w-full flex-col gap-3 md:flex md:flex-row md:flex-wrap lg:flex-nowrap">
+              <Link href="/quote-request" className="btn-amber w-full justify-center whitespace-nowrap px-5 md:w-auto">
+                Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link href="/digital" className="btn-ghost w-full justify-center whitespace-nowrap px-5 md:w-auto">
+                Digital Services
+              </Link>
+              <Link href="/signage" className="btn-ghost w-full justify-center whitespace-nowrap px-5 md:w-auto">
+                Signage &amp; Print
+              </Link>
+            </div>
+
+            <div className="mt-8 grid gap-3 text-sm text-white sm:grid-cols-3 md:mt-9">
+              {["Your Vision. Made Visible.", "Websites, signs, and print — all working together", "Quote-first process"].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F59E0B]" aria-hidden="true" />
+                  <span>{item}</span>
+                </div>
+              ))}
             </div>
           </div>
 
