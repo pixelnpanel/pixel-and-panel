@@ -210,7 +210,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                 </motion.div>
               ))}
             </motion.div>
-            <motion.div variants={fadeUp} className="mt-10">
+            <motion.div variants={fadeUp} className="mt-10 hidden lg:block">
               <QuoteVisual />
             </motion.div>
           </motion.div>
@@ -523,6 +523,15 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
 
               </AnimatePresence>
             )}
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="lg:hidden"
+          >
+            <QuoteVisual />
           </motion.div>
 
         </div>
