@@ -127,7 +127,7 @@ export default function ContactPage({ copy = defaultCopy }) {
 
     return (
         <>
-            <section style={{
+            <section className="pnp-mobile-contact-hero" style={{
                 minHeight: 'calc(100vh - 72px)',
                 background: 'linear-gradient(135deg, #0C1E3C 0%, #0369A1 60%, #0EA5E9 100%)',
                 display: 'flex', alignItems: 'center', padding: '6rem 1.5rem',
@@ -148,7 +148,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                             {content.eyebrow}
                         </motion.span>
 
-                        <motion.h1 variants={fadeUp} style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+                        <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
                             {content.h1 ? (
                                 content.h1
                             ) : (
@@ -160,7 +160,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                             )}
                         </motion.h1>
 
-                        <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: 0, maxWidth: '420px' }}>
+                        <motion.p variants={fadeUp} className="pnp-mobile-hero-copy" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: 0, maxWidth: '420px' }}>
                             {content.introStart}{' '}
                             <Link href={content.visibilityHref} style={{ color: '#F59E0B', fontWeight: 700 }}>
                                 {content.visibilityLabel}

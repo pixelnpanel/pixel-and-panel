@@ -491,6 +491,7 @@ export default function PricingPage({
   return (
     <>
       <section
+        className="pnp-mobile-hero"
         style={{
           background: `linear-gradient(135deg, ${colors.navy} 0%, ${colors.deep} 100%)`,
           overflow: 'hidden',
@@ -518,12 +519,13 @@ export default function PricingPage({
           <motion.span variants={fadeUp} className="section-label">
             {copy.heroLabel}
           </motion.span>
-          <motion.h1 variants={fadeUp} style={{ color: 'white', marginBottom: '1.25rem' }}>
+          <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
             {copy.heroTitlePrefix}{' '}
             <span style={{ color: colors.amber }}>{copy.heroTitleHighlight}</span>
           </motion.h1>
           <motion.p
             variants={fadeUp}
+            className="pnp-mobile-hero-copy"
             style={{
               color: 'rgba(255,255,255,0.76)',
               fontSize: '1.05rem',

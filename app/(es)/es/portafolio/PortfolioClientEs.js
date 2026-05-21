@@ -69,7 +69,7 @@ export default function PortfolioClientEs() {
 
   return (
     <main className="bg-[#FAF8F4] text-[#1C1917]">
-      <section className="relative overflow-hidden bg-[#0C1E3C] pt-24 text-white md:pt-28">
+      <section className="pnp-mobile-hero relative overflow-hidden bg-[#0C1E3C] pt-24 text-white md:pt-28">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
 
@@ -78,17 +78,17 @@ export default function PortfolioClientEs() {
             <motion.p variants={fadeUp} className="section-label !text-[#F59E0B]">
               Portafolio
             </motion.p>
-            <motion.h1 variants={fadeUp} className="mt-4 text-white">
+            <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title mt-4 text-white">
               Portafolio{" "}
               <span className="text-[#F59E0B]">en crecimiento</span>
             </motion.h1>
-            <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/78 md:text-lg">
+            <motion.p variants={fadeUp} className="pnp-mobile-hero-copy mx-auto mt-6 max-w-3xl text-base leading-8 text-white/78 md:text-lg">
               Pixel &amp; Panel está construyendo un portafolio de sitios web, letreros, materiales impresos, campañas con códigos QR y proyectos de visibilidad para negocios del sureste de Texas.
             </motion.p>
-            <motion.p variants={fadeUp} className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-white/70 md:text-base">
+            <motion.p variants={fadeUp} className="pnp-mobile-hero-copy mx-auto mt-4 max-w-3xl text-sm leading-7 text-white/70 md:text-base">
               Algunos ejemplos pueden ser conceptos de muestra o demos internas creadas para mostrar estilo, diseño y posibilidades de servicio. Los proyectos reales de clientes se agregarán conforme se completen.
             </motion.p>
-            <motion.div variants={fadeUp} className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <motion.div variants={fadeUp} className="pnp-mobile-hero-actions mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/es/solicitar-cotizacion" className="btn-amber w-full justify-center sm:w-auto">
                 Solicitar cotización <ArrowRight className="h-4 w-4" />
               </Link>

@@ -304,7 +304,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
         <main className="min-h-screen overflow-x-hidden bg-[#FAF8F4] text-[#1C1917]">
 
             {/* HERO */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 pb-8 pt-24 text-white md:py-28">
+            <section className="pnp-mobile-hero-compact relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 pb-8 pt-24 text-white md:py-28">
                 <div className="absolute inset-0 opacity-40">
                     <div className="h-full w-full" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)', backgroundSize: '34px 34px' }} />
                 </div>

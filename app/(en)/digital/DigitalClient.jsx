@@ -59,7 +59,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
   return (
     <>
       {/* Hero */}
-      <section style={{
+      <section className="pnp-mobile-hero" style={{
         background: 'linear-gradient(135deg, #0C1E3C 0%, #0369A1 100%)',
         padding: '8rem 1.5rem 5rem',
         position: 'relative', overflow: 'hidden',
@@ -72,12 +72,12 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
           style={{ position: 'relative', maxWidth: '1280px', margin: '0 auto', textAlign: 'center' }}
         >
           <motion.span variants={fadeUp} className="section-label">{copy.label}</motion.span>
-          <motion.h1 variants={fadeUp} style={{ color: 'white', marginBottom: '1.25rem' }}>
+          <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
             {copy.titleStart}
             <br />
             <span style={{ color: '#F59E0B' }}>{copy.titleHighlight}</span>
           </motion.h1>
-          <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
+          <motion.p variants={fadeUp} className="pnp-mobile-hero-copy" style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
             {copy.intro}
           </motion.p>
         </motion.div>
