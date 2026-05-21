@@ -120,7 +120,6 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const [searchTerm, setSearchTerm] = useState('')
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
     const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false)
-    const [isSearchFabExpanded, setIsSearchFabExpanded] = useState(false)
     const [mobileSearchTerm, setMobileSearchTerm] = useState('')
     const [highlightedProductKey, setHighlightedProductKey] = useState('')
     const [selectedSlug, setSelectedSlug] = useState(categoryFromUrl)
@@ -285,12 +284,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     }
 
     const handleFloatingSearchClick = () => {
-        setIsSearchFabExpanded(true)
-
-        window.setTimeout(() => {
-            setIsSearchSheetOpen(true)
-            setIsSearchFabExpanded(false)
-        }, 190)
+        setIsSearchSheetOpen(true)
     }
 
     const handleSearchResultClick = (product) => {
@@ -310,7 +304,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
         <main className="min-h-screen overflow-x-hidden bg-[#FAF8F4] text-[#1C1917]">
 
             {/* HERO */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 py-24 text-white md:py-28">
+            <section className="relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 pb-8 pt-24 text-white md:py-28">
                 <div className="absolute inset-0 opacity-40">
                     <div className="h-full w-full" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)', backgroundSize: '34px 34px' }} />
                 </div>
@@ -319,14 +313,17 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
                         {content.eyebrow}
                     </p>
-                    <h1 className="mobile-fit-heading mx-auto max-w-[342px] break-words text-[1.85rem] leading-tight md:max-w-[900px] md:text-[clamp(2rem,4vw,3rem)]" style={{ color: 'white' }}>
+                    <h1 className="mobile-fit-heading mx-auto md:hidden" style={{ color: 'white' }}>
+                        Signage &amp; Print
+                    </h1>
+                    <h1 className="hidden break-words md:mx-auto md:block md:max-w-[900px] md:text-[clamp(2rem,4vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
                         {content.h1Start}{' '}
                         <span style={{ color: '#F59E0B' }}>{content.h1Highlight}</span>
                     </h1>
-                    <p className="mobile-fit-copy mx-auto mt-7 max-w-[342px] break-words text-base leading-relaxed text-white/75 md:max-w-3xl md:text-xl">
+                    <p className="mx-auto mt-7 hidden max-w-3xl break-words leading-relaxed text-white/75 md:block md:text-xl">
                         {content.heroCopy}
                     </p>
-                    <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    <div className="mt-10 hidden flex-col items-center justify-center gap-4 md:flex md:flex-row">
                         <Link href={content.quotePath} className="btn-amber">
                             {content.quoteCta} <ArrowRight size={18} />
                         </Link>
@@ -338,7 +335,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             </section>
 
             {/* SHORT INTRO */}
-            <section className="mobile-reveal border-b border-black/5 bg-white px-6 py-10" style={{ "--reveal-delay": "90ms" }}>
+            <section className="mobile-reveal hidden border-b border-black/5 bg-white px-6 py-10 md:block" style={{ "--reveal-delay": "90ms" }}>
                 <div className="mx-auto max-w-4xl text-center">
                     <p className="mobile-fit-copy mx-auto text-base leading-relaxed text-slate-700 md:max-w-4xl md:text-xl">
                         {content.intro}
@@ -347,7 +344,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             </section>
 
             {/* PRODUCT BROWSER */}
-            <section ref={productAreaRef} className="px-6 py-16 md:py-20">
+            <section ref={productAreaRef} className="px-6 pb-16 pt-6 md:py-20">
                 <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[320px_1fr]">
 
                     {/* LEFT: CATEGORY SIDEBAR */}
@@ -437,7 +434,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         {/* SELECTED CATEGORY HEADER */}
                         <div
                             key={selectedCategory.slug}
-                            className="mobile-reveal relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0369A1] via-[#075985] to-[#0C1E3C] p-7 text-white shadow-sm md:p-9"
+                            className="mobile-reveal relative mb-8 hidden overflow-hidden rounded-2xl bg-gradient-to-br from-[#0369A1] via-[#075985] to-[#0C1E3C] p-7 text-white shadow-sm md:block md:p-9"
                             style={{ "--reveal-delay": "160ms" }}
                         >
                             <div className="absolute right-8 top-6 h-24 w-24 rounded-3xl border border-white/10 opacity-40 rotate-12" />
@@ -603,19 +600,19 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
             <button
                 type="button"
-                aria-label="Search products"
+                aria-label={content.mobileSearchLabel}
                 aria-controls="mobile-product-search"
                 aria-expanded={isSearchSheetOpen}
                 onClick={handleFloatingSearchClick}
                 tabIndex={isFloatingSearchVisible ? 0 : -1}
-                className={`fixed bottom-24 right-4 z-40 flex h-[52px] w-44 items-center justify-center overflow-hidden rounded-full border border-white/45 bg-[#F59E0B]/35 text-[#FAF8F4] shadow-[0_14px_36px_rgba(28,25,23,0.18),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-xl transition-[opacity,transform,background-color] duration-200 hover:bg-[#F59E0B]/45 focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/25 md:hidden ${
+                className={`fixed bottom-24 right-4 z-40 flex h-[52px] min-w-[172px] items-center justify-center overflow-hidden rounded-full border border-[#FBBF24] bg-[#F59E0B] text-[#1C1917] shadow-[0_16px_38px_rgba(28,25,23,0.28)] transition-[opacity,transform,background-color] duration-200 hover:bg-[#FBBF24] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/35 md:hidden ${
                     isFloatingSearchVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
                 }`}
             >
-                <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_20%,rgba(255,255,255,0.65),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.2),rgba(245,158,11,0.18))]" />
-                <span className="relative flex items-center justify-center gap-2 whitespace-nowrap px-4">
-                    <Search size={28} strokeWidth={2.35} />
-                    <span className={`font-heading text-xs font-bold uppercase tracking-wide transition-opacity duration-200 ${isSearchFabExpanded ? 'opacity-100' : 'opacity-0'}`}>
+                <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.28),rgba(255,255,255,0))]" />
+                <span className="relative flex items-center justify-center gap-2 whitespace-nowrap px-5">
+                    <Search size={21} strokeWidth={2.6} />
+                    <span className="font-heading text-xs font-black uppercase tracking-wide">
                         {content.mobileSearchLabel}
                     </span>
                 </span>

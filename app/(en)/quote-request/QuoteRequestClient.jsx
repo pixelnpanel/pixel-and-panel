@@ -518,10 +518,6 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
             )}
           </div>
 
-          <div className="mobile-reveal lg:hidden" style={{ "--reveal-delay": "140ms" }}>
-            {!isLargeScreen && <QuoteVisual />}
-          </div>
-
         </div>
       </section>
     </div>
