@@ -36,7 +36,8 @@ const defaultCopy = {
     successText: 'We read every message personally and will get back to you as soon as we do — usually within 1 business day.',
     errorFallback: 'Unable to send contact message right now.',
     trackOrderHref: '/track-order',
-    trackOrderLabel: 'Track an order',
+    trackOrderLabel: 'Track My Order',
+    trackOrderValue: 'Check your order status',
 }
 
 export default function ContactPage({ copy = defaultCopy }) {
@@ -104,6 +105,25 @@ export default function ContactPage({ copy = defaultCopy }) {
         display: 'block', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem',
         color: '#1C1917', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em',
     }
+    const contactCards = [
+        { href: 'mailto:hello@pixelnpanel.com', icon: <Mail size={18} color="#0EA5E9" />, bg: 'rgba(14,165,233,0.15)', hoverBg: 'rgba(14,165,233,0.15)', hoverBorder: 'rgba(14,165,233,0.4)', label: content.emailLabel, value: 'hello@pixelnpanel.com' },
+        { href: 'tel:+14098006139', icon: <Phone size={18} color="#F59E0B" />, bg: 'rgba(245,158,11,0.15)', hoverBg: 'rgba(245,158,11,0.15)', hoverBorder: 'rgba(245,158,11,0.4)', label: content.phoneLabel, value: '(409) 800-6139' },
+    ]
+    const infoCardStyle = {
+        display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.07)',
+        border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.875rem', padding: '1rem 1.25rem',
+    }
+    const infoIconStyle = {
+        width: '40px', height: '40px', borderRadius: '0.625rem', display: 'flex',
+        alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+    }
+    const infoLabelStyle = {
+        fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)',
+        textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem',
+    }
+    const infoValueStyle = {
+        fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'white',
+    }
 
     return (
         <>
@@ -115,11 +135,42 @@ export default function ContactPage({ copy = defaultCopy }) {
             }}>
                 <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.07) 1px, transparent 0)', backgroundSize: '36px 36px', pointerEvents: 'none' }} />
 
-                <div style={{ position: 'relative', maxWidth: '1280px', margin: '0 auto', width: '100%', display: 'flex', gap: '4rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                <div className="gap-8 md:gap-16" style={{ position: 'relative', maxWidth: '1280px', margin: '0 auto', width: '100%', display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
 
-                    {/* Left column — staggered fade up */}
                     <motion.div
-                        className="order-2 md:order-1"
+                        className="order-1 md:hidden"
+                        variants={stagger}
+                        initial="hidden"
+                        animate="visible"
+                        style={{ flex: '1 1 100%', color: 'white' }}
+                    >
+                        <motion.span variants={fadeUp} className="section-label" style={{ marginBottom: '1rem' }}>
+                            {content.eyebrow}
+                        </motion.span>
+
+                        <motion.h1 variants={fadeUp} style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+                            {content.h1 ? (
+                                content.h1
+                            ) : (
+                                <>
+                                    {content.headlineLines[0]}
+                                    {' '}<br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[1]}</span>
+                                    {' '}<br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[2]}</span>
+                                </>
+                            )}
+                        </motion.h1>
+
+                        <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: 0, maxWidth: '420px' }}>
+                            {content.introStart}{' '}
+                            <Link href={content.visibilityHref} style={{ color: '#F59E0B', fontWeight: 700 }}>
+                                {content.visibilityLabel}
+                            </Link>.
+                        </motion.p>
+                    </motion.div>
+
+                    {/* Desktop left column — staggered fade up */}
+                    <motion.div
+                        className="hidden md:order-1 md:block"
                         variants={stagger}
                         initial="hidden"
                         animate="visible"
@@ -149,61 +200,34 @@ export default function ContactPage({ copy = defaultCopy }) {
                         </motion.p>
 
                         <motion.div variants={stagger} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                            {[
-                                { href: 'mailto:hello@pixelnpanel.com', icon: <Mail size={18} color="#0EA5E9" />, bg: 'rgba(14,165,233,0.15)', hoverBg: 'rgba(14,165,233,0.15)', hoverBorder: 'rgba(14,165,233,0.4)', label: content.emailLabel, value: 'hello@pixelnpanel.com' },
-                                { href: 'tel:+14098006139', icon: <Phone size={18} color="#F59E0B" />, bg: 'rgba(245,158,11,0.15)', hoverBg: 'rgba(245,158,11,0.15)', hoverBorder: 'rgba(245,158,11,0.4)', label: content.phoneLabel, value: '(409) 800-6139' },
-                            ].map((item) => (
+                            {contactCards.map((item) => (
                                 <motion.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.875rem', padding: '1rem 1.25rem', cursor: 'pointer', transition: 'all 0.2s' }}
+                                    <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
                                         onMouseEnter={e => { e.currentTarget.style.background = item.hoverBg; e.currentTarget.style.borderColor = item.hoverBorder }}
                                         onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)' }}
                                     >
-                                        <div style={{ width: '40px', height: '40px', background: item.bg, borderRadius: '0.625rem', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{item.icon}</div>
+                                        <div style={{ ...infoIconStyle, background: item.bg }}>{item.icon}</div>
                                         <div>
-                                            <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>{item.label}</p>
-                                            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'white' }}>{item.value}</p>
+                                            <p style={infoLabelStyle}>{item.label}</p>
+                                            <p style={infoValueStyle}>{item.value}</p>
                                         </div>
                                     </div>
                                 </motion.a>
                             ))}
 
-                            <motion.div variants={fadeUp} style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.875rem', padding: '1rem 1.25rem' }}>
-                                <div style={{ width: '40px', height: '40px', background: 'rgba(74,222,128,0.15)', borderRadius: '0.625rem', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Clock size={18} color="#4ade80" /></div>
+                            <motion.div variants={fadeUp} style={infoCardStyle}>
+                                <div style={{ ...infoIconStyle, background: 'rgba(74,222,128,0.15)' }}><Clock size={18} color="#4ade80" /></div>
                                 <div>
-                                    <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>{content.responseLabel}</p>
-                                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'white' }}>{content.responseValue}</p>
+                                    <p style={infoLabelStyle}>{content.responseLabel}</p>
+                                    <p style={infoValueStyle}>{content.responseValue}</p>
                                 </div>
-                            </motion.div>
-
-                            <motion.div variants={fadeUp} className="md:hidden">
-                                <Link
-                                    href={content.trackOrderHref}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '0.5rem',
-                                        background: '#F59E0B',
-                                        color: '#1C1917',
-                                        fontFamily: 'var(--font-heading)',
-                                        fontWeight: 800,
-                                        fontSize: '0.85rem',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.08em',
-                                        padding: '1rem',
-                                        borderRadius: '0.875rem',
-                                        textDecoration: 'none',
-                                    }}
-                                >
-                                    {content.trackOrderLabel} <ArrowRight size={16} />
-                                </Link>
                             </motion.div>
                         </motion.div>
                     </motion.div>
 
                     {/* Right column — slides in from right */}
                     <motion.div
-                        className="order-1 md:order-2"
+                        className="order-2 md:order-2"
                         variants={slideRight}
                         initial="hidden"
                         animate="visible"
@@ -268,6 +292,46 @@ export default function ContactPage({ copy = defaultCopy }) {
                                 </form>
                             )}
                         </div>
+                    </motion.div>
+
+                    <motion.div
+                        className="order-3 md:hidden"
+                        variants={stagger}
+                        initial="hidden"
+                        animate="visible"
+                        style={{ flex: '1 1 100%', color: 'white', display: 'flex', flexDirection: 'column', gap: '1rem' }}
+                    >
+                        {contactCards.map((item) => (
+                            <motion.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
+                                <div style={infoCardStyle}>
+                                    <div style={{ ...infoIconStyle, background: item.bg }}>{item.icon}</div>
+                                    <div>
+                                        <p style={infoLabelStyle}>{item.label}</p>
+                                        <p style={infoValueStyle}>{item.value}</p>
+                                    </div>
+                                </div>
+                            </motion.a>
+                        ))}
+
+                        <motion.div variants={fadeUp} style={infoCardStyle}>
+                            <div style={{ ...infoIconStyle, background: 'rgba(74,222,128,0.15)' }}><Clock size={18} color="#4ade80" /></div>
+                            <div>
+                                <p style={infoLabelStyle}>{content.responseLabel}</p>
+                                <p style={infoValueStyle}>{content.responseValue}</p>
+                            </div>
+                        </motion.div>
+
+                        <motion.div variants={fadeUp}>
+                            <Link href={content.trackOrderHref} style={{ textDecoration: 'none' }}>
+                                <div style={infoCardStyle}>
+                                    <div style={{ ...infoIconStyle, background: 'rgba(245,158,11,0.15)' }}><ArrowRight size={18} color="#F59E0B" /></div>
+                                    <div>
+                                        <p style={infoLabelStyle}>{content.trackOrderLabel}</p>
+                                        <p style={infoValueStyle}>{content.trackOrderValue}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
                     </motion.div>
 
                 </div>
