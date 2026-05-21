@@ -120,6 +120,10 @@ export default function HomeHeroVisual() {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
+    if (!window.matchMedia("(min-width: 768px)").matches) {
+      return undefined;
+    }
+
     const timer = window.setInterval(() => setStep((s) => (s + 1) % STEPS.length), 3800);
     return () => window.clearInterval(timer);
   }, []);
