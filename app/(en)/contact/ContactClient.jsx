@@ -13,7 +13,7 @@ const defaultCopy = {
     eyebrow: 'Contact Us',
     h1: '',
     headlineLines: ['Have a Question?', 'We Would Love', 'to Hear From You.'],
-    mobileHeadlineLines: ['Have a Question?', 'We Can Help.'],
+    mobileHeadlineLines: ['Need Help?', 'We Can Help.'],
     introStart: 'Whether you have a question about our services, need help deciding what you need, or just want to say hello — we read every message personally. If you want a softer first step, start with a',
     mobileIntroStart: 'Ask about services, choosing what you need, or start with a',
     visibilityHref: '/free-visibility-check',
@@ -140,7 +140,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                 <div className="gap-8 md:gap-16" style={{ position: 'relative', maxWidth: '1280px', margin: '0 auto', width: '100%', display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
 
                     <motion.div
-                        className="order-1 md:hidden"
+                        className="pnp-mobile-form-intro order-1 md:hidden"
                         variants={stagger}
                         initial="hidden"
                         animate="visible"
@@ -234,7 +234,7 @@ export default function ContactPage({ copy = defaultCopy }) {
 
                     {/* Right column — slides in from right */}
                     <motion.div
-                        className="order-2 md:order-2"
+                        className="pnp-mobile-contact-form-card order-2 md:order-2"
                         variants={slideRight}
                         initial="hidden"
                         animate="visible"

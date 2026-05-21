@@ -204,12 +204,13 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
         <div className="pnp-mobile-form-grid relative mx-auto grid max-w-6xl items-start gap-16 lg:grid-cols-2">
 
           {/* ── LEFT ──────────────────────────────────────────── */}
-          <div className="mobile-reveal lg:sticky lg:top-24">
+          <div className="pnp-mobile-form-intro mobile-reveal lg:sticky lg:top-24">
             <p className="mb-5 section-label">
               {content.eyebrow}
             </p>
             <h1 className="pnp-mobile-form-title max-w-[342px] break-words md:hidden" style={{ color: "white" }}>
-              {content.mobileH1Start || content.h1Start}{" "}
+              {content.mobileH1Start || content.h1Start}
+              <br />
               <span style={{ color: "#F59E0B" }}>{content.mobileH1Highlight || content.h1Highlight}</span>
             </h1>
             <h1 className="hidden max-w-[342px] break-words text-[1.85rem] leading-tight md:block md:max-w-xl md:text-[clamp(2rem,4vw,3rem)]" style={{ color: "white" }}>
