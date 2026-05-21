@@ -201,7 +201,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
         <div className="relative mx-auto grid max-w-6xl items-start gap-16 lg:grid-cols-2">
 
           {/* ── LEFT ──────────────────────────────────────────── */}
-          <div className="lg:sticky lg:top-24">
+          <div className="mobile-reveal lg:sticky lg:top-24">
             <p className="mb-5 section-label">
               {content.eyebrow}
             </p>
@@ -226,7 +226,10 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
           </div>
 
           {/* ── RIGHT (card) ──────────────────────────────────── */}
-          <div className="min-w-0 w-[calc(100vw-3rem)] max-w-[calc(100vw-3rem)] overflow-hidden rounded-[2rem] bg-white p-8 text-[#1C1917] shadow-2xl sm:p-10 lg:w-auto lg:max-w-none">
+          <div
+            className="mobile-reveal min-w-0 w-[calc(100vw-3rem)] max-w-[calc(100vw-3rem)] overflow-hidden rounded-[2rem] bg-white p-8 text-[#1C1917] shadow-2xl sm:p-10 lg:w-auto lg:max-w-none"
+            style={{ "--reveal-delay": "90ms" }}
+          >
             {/* Pre-selected product banner */}
             {hasPreselected && (
               <div className="mb-6 flex items-center gap-4 rounded-2xl border border-[#F59E0B]/30 bg-[#F59E0B]/10 p-4">
@@ -515,7 +518,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
             )}
           </div>
 
-          <div className="lg:hidden">
+          <div className="mobile-reveal lg:hidden" style={{ "--reveal-delay": "140ms" }}>
             {!isLargeScreen && <QuoteVisual />}
           </div>
 

@@ -315,7 +315,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     <div className="h-full w-full" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)', backgroundSize: '34px 34px' }} />
                 </div>
 
-                <div className="relative mx-auto max-w-5xl text-center">
+                <div className="mobile-reveal relative mx-auto max-w-5xl text-center">
                     <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
                         {content.eyebrow}
                     </p>
@@ -338,7 +338,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             </section>
 
             {/* SHORT INTRO */}
-            <section className="border-b border-black/5 bg-white px-6 py-10">
+            <section className="mobile-reveal border-b border-black/5 bg-white px-6 py-10" style={{ "--reveal-delay": "90ms" }}>
                 <div className="mx-auto max-w-4xl text-center">
                     <p className="mobile-fit-copy mx-auto text-base leading-relaxed text-slate-700 md:max-w-4xl md:text-xl">
                         {content.intro}
@@ -396,7 +396,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     {/* RIGHT: PRODUCT AREA */}
                     <div className="min-w-0">
                         {/* MOBILE CATEGORY CHIPS */}
-                        <section className="mb-6 lg:hidden" aria-labelledby="mobile-category-heading">
+                        <section className="mobile-reveal mb-6 lg:hidden" style={{ "--reveal-delay": "120ms" }} aria-labelledby="mobile-category-heading">
                             <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
                                 <div className="mb-4 flex items-center gap-3">
                                     <Search size={20} className="shrink-0 text-[#0369A1]" />
@@ -437,7 +437,8 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         {/* SELECTED CATEGORY HEADER */}
                         <div
                             key={selectedCategory.slug}
-                            className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0369A1] via-[#075985] to-[#0C1E3C] p-7 text-white shadow-sm md:p-9"
+                            className="mobile-reveal relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0369A1] via-[#075985] to-[#0C1E3C] p-7 text-white shadow-sm md:p-9"
+                            style={{ "--reveal-delay": "160ms" }}
                         >
                             <div className="absolute right-8 top-6 h-24 w-24 rounded-3xl border border-white/10 opacity-40 rotate-12" />
                             <div className="absolute right-20 top-20 h-16 w-16 rounded-full border border-white/10 opacity-30" />
@@ -447,7 +448,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         </div>
 
                         {/* SEARCH */}
-                        <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5">
+                        <div className="mobile-reveal mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5" style={{ "--reveal-delay": "190ms" }}>
                             <label htmlFor="signage-product-search" className="mb-2 block font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1]">
                                 {content.findProduct}
                             </label>
