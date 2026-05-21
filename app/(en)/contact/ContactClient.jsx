@@ -35,6 +35,8 @@ const defaultCopy = {
     successTitle: 'Message Sent!',
     successText: 'We read every message personally and will get back to you as soon as we do — usually within 1 business day.',
     errorFallback: 'Unable to send contact message right now.',
+    trackOrderHref: '/track-order',
+    trackOrderLabel: 'Track an order',
 }
 
 export default function ContactPage({ copy = defaultCopy }) {
@@ -117,6 +119,7 @@ export default function ContactPage({ copy = defaultCopy }) {
 
                     {/* Left column — staggered fade up */}
                     <motion.div
+                        className="order-2 md:order-1"
                         variants={stagger}
                         initial="hidden"
                         animate="visible"
@@ -171,11 +174,36 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'white' }}>{content.responseValue}</p>
                                 </div>
                             </motion.div>
+
+                            <motion.div variants={fadeUp} className="md:hidden">
+                                <Link
+                                    href={content.trackOrderHref}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '0.5rem',
+                                        background: '#F59E0B',
+                                        color: '#1C1917',
+                                        fontFamily: 'var(--font-heading)',
+                                        fontWeight: 800,
+                                        fontSize: '0.85rem',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.08em',
+                                        padding: '1rem',
+                                        borderRadius: '0.875rem',
+                                        textDecoration: 'none',
+                                    }}
+                                >
+                                    {content.trackOrderLabel} <ArrowRight size={16} />
+                                </Link>
+                            </motion.div>
                         </motion.div>
                     </motion.div>
 
                     {/* Right column — slides in from right */}
                     <motion.div
+                        className="order-1 md:order-2"
                         variants={slideRight}
                         initial="hidden"
                         animate="visible"

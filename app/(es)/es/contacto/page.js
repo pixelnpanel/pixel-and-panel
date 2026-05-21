@@ -29,6 +29,8 @@ const spanishContactCopy = {
   successTitle: "Gracias — recibimos tu mensaje.",
   successText: "Pixel & Panel te contactará pronto.",
   errorFallback: "Algo salió mal. Por favor escríbenos directamente a hello@pixelnpanel.com.",
+  trackOrderHref: "/es/rastrear-pedido",
+  trackOrderLabel: "Rastrear pedido",
 };
 
 export const metadata = {

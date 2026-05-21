@@ -313,9 +313,6 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
                         {content.eyebrow}
                     </p>
-                    <h1 className="mobile-fit-heading mx-auto md:hidden" style={{ color: 'white' }}>
-                        Signage &amp; Print
-                    </h1>
                     <h1 className="hidden break-words md:mx-auto md:block md:max-w-[900px] md:text-[clamp(2rem,4vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
                         {content.h1Start}{' '}
                         <span style={{ color: '#F59E0B' }}>{content.h1Highlight}</span>
@@ -605,16 +602,13 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 aria-expanded={isSearchSheetOpen}
                 onClick={handleFloatingSearchClick}
                 tabIndex={isFloatingSearchVisible ? 0 : -1}
-                className={`fixed bottom-24 right-4 z-40 flex h-[52px] min-w-[172px] items-center justify-center overflow-hidden rounded-full border border-[#FBBF24] bg-[#F59E0B] text-[#1C1917] shadow-[0_16px_38px_rgba(28,25,23,0.28)] transition-[opacity,transform,background-color] duration-200 hover:bg-[#FBBF24] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/35 md:hidden ${
+                className={`fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#FBBF24] bg-[#F59E0B] text-[#1C1917] shadow-[0_16px_38px_rgba(28,25,23,0.28)] transition-[opacity,transform,background-color] duration-200 hover:bg-[#FBBF24] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/35 md:hidden ${
                     isFloatingSearchVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
                 }`}
             >
                 <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.28),rgba(255,255,255,0))]" />
-                <span className="relative flex items-center justify-center gap-2 whitespace-nowrap px-5">
-                    <Search size={21} strokeWidth={2.6} />
-                    <span className="font-heading text-xs font-black uppercase tracking-wide">
-                        {content.mobileSearchLabel}
-                    </span>
+                <span className="relative flex items-center justify-center">
+                    <Search size={24} strokeWidth={2.7} />
                 </span>
             </button>
 
