@@ -1,4 +1,5 @@
 import QuoteRequestClient from "./QuoteRequestClient";
+import { Suspense } from "react";
 
 export const metadata = {
   metadataBase: new URL("https://pixelnpanel.com"),
@@ -20,15 +21,10 @@ export const metadata = {
   },
 };
 
-export default async function QuoteRequestPage({ searchParams }) {
-  const params = await searchParams;
-  const selectedProduct = params?.product || "";
-  const selectedCategory = params?.category || "";
-
+export default function QuoteRequestPage() {
   return (
-    <QuoteRequestClient
-      selectedProduct={selectedProduct}
-      selectedCategory={selectedCategory}
-    />
+    <Suspense fallback={null}>
+      <QuoteRequestClient />
+    </Suspense>
   );
 }

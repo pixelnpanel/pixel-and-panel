@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   CheckCircle2, ArrowRight, ArrowLeft, Package, CheckCircle,
   Paperclip, X, Store, Globe, Search, Star, HelpCircle,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { fadeUp, slideRight, stagger } from "@/lib/animations";
 import QuoteVisual from "./QuoteVisual";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
@@ -65,16 +64,21 @@ const defaultCopy = {
 //   showPicker (English, no preselected product): 3 steps — 0=service picker, 1=contact, 2=details
 //   otherwise (Spanish OR preselected product):   2 steps — 1=contact, 2=details
 export default function QuoteRequestClient({ selectedProduct = "", selectedCategory = "", copy = {} }) {
+  const searchParams = useSearchParams();
+  const queryProduct = searchParams.get("product") || "";
+  const queryCategory = searchParams.get("category") || "";
+  const requestedProduct = selectedProduct || queryProduct;
+  const requestedCategory = selectedCategory || queryCategory;
   const content = { ...defaultCopy, ...copy };
 
-  const hasPreselected = Boolean(selectedProduct);
+  const hasPreselected = Boolean(requestedProduct);
   const showPicker = !hasPreselected && !content.showProductField;
   const initialStep = showPicker ? 0 : 1;
   const totalSteps = showPicker ? 3 : 2;
 
   const [step, setStep] = useState(initialStep);
   const [pickedService, setPickedService] = useState(
-    hasPreselected ? { label: selectedProduct, category: selectedCategory } : null
+    hasPreselected ? { label: requestedProduct, category: requestedCategory } : null
   );
 
   const [name, setName] = useState("");
@@ -83,20 +87,31 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
   const [phone, setPhone] = useState("");
   const [productField, setProductField] = useState(
     hasPreselected
-      ? (selectedCategory ? `${selectedCategory} — ${selectedProduct}` : selectedProduct)
+      ? (requestedCategory ? `${requestedCategory} — ${requestedProduct}` : requestedProduct)
       : ""
   );
   const [message, setMessage] = useState(
-    hasPreselected ? content.defaultMessageTemplate.replace("{product}", selectedProduct) : ""
+    hasPreselected ? content.defaultMessageTemplate.replace("{product}", requestedProduct) : ""
   );
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [attachment, setAttachment] = useState(null);
   const [fileError, setFileError] = useState("");
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
-  const effectiveProduct = hasPreselected ? selectedProduct : (pickedService?.label || productField || "");
-  const effectiveCategory = hasPreselected ? selectedCategory : (pickedService?.category || "");
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const updateScreenState = () => setIsLargeScreen(mediaQuery.matches);
+
+    updateScreenState();
+    mediaQuery.addEventListener("change", updateScreenState);
+
+    return () => mediaQuery.removeEventListener("change", updateScreenState);
+  }, []);
+
+  const effectiveProduct = hasPreselected ? requestedProduct : (pickedService?.label || productField || "");
+  const effectiveCategory = hasPreselected ? requestedCategory : (pickedService?.category || "");
   const hiddenProductValue = effectiveProduct
     ? (effectiveCategory ? `${effectiveCategory} — ${effectiveProduct}` : effectiveProduct)
     : "General Quote";
@@ -177,7 +192,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
   };
 
   return (
-    <div className="min-h-screen bg-[#0369A1] bg-[radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.65),transparent_32%),linear-gradient(135deg,#06213f_0%,#0369A1_48%,#0EA5E9_100%)] text-white">
+    <div className="min-h-screen overflow-x-hidden bg-[#0369A1] bg-[radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.65),transparent_32%),linear-gradient(135deg,#06213f_0%,#0369A1_48%,#0EA5E9_100%)] text-white">
       <section className="relative overflow-hidden px-6 py-24 sm:py-28 lg:px-8">
         <div className="absolute inset-0 opacity-20">
           <div className="h-full w-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.22)_1px,transparent_1px)] [background-size:28px_28px]" />
@@ -186,42 +201,32 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
         <div className="relative mx-auto grid max-w-6xl items-start gap-16 lg:grid-cols-2">
 
           {/* ── LEFT ──────────────────────────────────────────── */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="visible"
-            className="lg:sticky lg:top-24"
-          >
-            <motion.p variants={fadeUp} className="mb-5 section-label">
+          <div className="lg:sticky lg:top-24">
+            <p className="mb-5 section-label">
               {content.eyebrow}
-            </motion.p>
-            <motion.h1 variants={fadeUp} className="max-w-xl" style={{ color: "white" }}>
+            </p>
+            <h1 className="mobile-fit-heading max-w-[342px] break-words text-[1.85rem] leading-tight md:max-w-xl md:text-[clamp(2rem,4vw,3rem)]" style={{ color: "white" }}>
               {content.h1Start}{" "}
               <span style={{ color: "#F59E0B" }}>{content.h1Highlight}</span>
-            </motion.h1>
-            <motion.p variants={fadeUp} className="mt-8 max-w-lg text-lg leading-8 text-slate-200">
+            </h1>
+            <p className="mobile-fit-copy mt-8 max-w-[342px] break-words text-base leading-8 text-slate-200 md:max-w-lg md:text-lg">
               {content.intro}
-            </motion.p>
-            <motion.div variants={stagger} className="mt-10 grid gap-4 text-sm text-slate-200">
+            </p>
+            <div className="mt-10 grid gap-4 text-sm text-slate-200">
               {content.bullets.map((item) => (
-                <motion.div key={item} variants={fadeUp} className="flex items-center gap-3">
+                <div key={item} className="flex items-center gap-3">
                   <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                   <span>{item}</span>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
-            <motion.div variants={fadeUp} className="mt-10 hidden lg:block">
-              <QuoteVisual />
-            </motion.div>
-          </motion.div>
+            </div>
+            <div className="mt-10 hidden lg:block">
+              {isLargeScreen && <QuoteVisual />}
+            </div>
+          </div>
 
           {/* ── RIGHT (card) ──────────────────────────────────── */}
-          <motion.div
-            variants={slideRight}
-            initial="hidden"
-            animate="visible"
-            className="rounded-[2rem] bg-white p-8 text-[#1C1917] shadow-2xl sm:p-10"
-          >
+          <div className="min-w-0 w-[calc(100vw-3rem)] max-w-[calc(100vw-3rem)] overflow-hidden rounded-[2rem] bg-white p-8 text-[#1C1917] shadow-2xl sm:p-10 lg:w-auto lg:max-w-none">
             {/* Pre-selected product banner */}
             {hasPreselected && (
               <div className="mb-6 flex items-center gap-4 rounded-2xl border border-[#F59E0B]/30 bg-[#F59E0B]/10 p-4">
@@ -231,7 +236,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-[#1C1917]">{content.productSelected}</p>
                   <p className="mt-1 text-sm font-medium text-slate-700">
-                    {selectedCategory ? `${selectedCategory} — ${selectedProduct}` : selectedProduct}
+                    {requestedCategory ? `${requestedCategory} — ${requestedProduct}` : requestedProduct}
                   </p>
                 </div>
               </div>
@@ -261,11 +266,8 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
 
             {/* ── SUCCESS ─────────────────────────────────────── */}
             {submitted ? (
-              <motion.div
+              <div
                 role="status"
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
                 className="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center"
               >
                 <CheckCircle className="mx-auto h-12 w-12 text-emerald-500" />
@@ -277,18 +279,14 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                 >
                   {content.trackOrder} <ArrowRight className="h-4 w-4" />
                 </Link>
-              </motion.div>
+              </div>
             ) : (
-              <AnimatePresence mode="wait">
+              <>
 
                 {/* ── STEP 0 — Service picker ──────────────────── */}
                 {step === 0 && (
-                  <motion.div
+                  <div
                     key="step-0"
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -24 }}
-                    transition={{ duration: 0.22, ease: "easeInOut" }}
                   >
                     <h2 style={{ color: "#1C1917" }} className="mb-1">Get a Free Quote</h2>
                     <p className="mb-7 text-sm text-slate-400">What can we help you with?</p>
@@ -325,17 +323,13 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                       </Link>
                     </div>
                     <p className="mt-6 text-center text-xs text-slate-400">{content.footer}</p>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* ── STEP 1 — Contact info ────────────────────── */}
                 {step === 1 && (
-                  <motion.div
+                  <div
                     key="step-1"
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -24 }}
-                    transition={{ duration: 0.22, ease: "easeInOut" }}
                   >
                     <h2 style={{ color: "#1C1917" }} className="mb-1">Get a Free Quote</h2>
                     <p className="mb-6 text-sm text-slate-400">Takes less than 2 minutes.</p>
@@ -413,17 +407,13 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                       Continue <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                     </button>
                     <p className="mt-4 text-center text-xs text-slate-400">{content.footer}</p>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* ── STEP 2 — Project details ─────────────────── */}
                 {step === 2 && (
-                  <motion.form
+                  <form
                     key="step-2"
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -24 }}
-                    transition={{ duration: 0.22, ease: "easeInOut" }}
                     onSubmit={handleSubmit}
                   >
                     <h2 style={{ color: "#1C1917" }} className="mb-1">Get a Free Quote</h2>
@@ -518,21 +508,16 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                       </button>
                     </div>
                     <p className="mt-4 text-center text-xs text-slate-400">{content.footer}</p>
-                  </motion.form>
+                  </form>
                 )}
 
-              </AnimatePresence>
+              </>
             )}
-          </motion.div>
+          </div>
 
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="lg:hidden"
-          >
-            <QuoteVisual />
-          </motion.div>
+          <div className="lg:hidden">
+            {!isLargeScreen && <QuoteVisual />}
+          </div>
 
         </div>
       </section>

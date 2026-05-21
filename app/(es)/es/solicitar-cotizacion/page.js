@@ -1,4 +1,5 @@
 import QuoteRequestClient from "../../../(en)/quote-request/QuoteRequestClient";
+import { Suspense } from "react";
 
 const spanishQuoteCopy = {
   language: "Spanish",
@@ -63,16 +64,10 @@ export const metadata = {
   },
 };
 
-export default async function SpanishQuoteRequestPage({ searchParams }) {
-  const params = await searchParams;
-  const selectedProduct = params?.product || "";
-  const selectedCategory = params?.category || "";
-
+export default function SpanishQuoteRequestPage() {
   return (
-    <QuoteRequestClient
-      selectedProduct={selectedProduct}
-      selectedCategory={selectedCategory}
-      copy={spanishQuoteCopy}
-    />
+    <Suspense fallback={null}>
+      <QuoteRequestClient copy={spanishQuoteCopy} />
+    </Suspense>
   );
 }

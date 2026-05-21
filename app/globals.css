@@ -253,6 +253,22 @@
     margin-bottom: 1rem;
   }
 
+  @media (max-width: 767px) {
+    .mobile-fit-heading {
+      max-width: min(100%, 17rem) !important;
+      font-size: 1.45rem !important;
+      line-height: 1.12 !important;
+      letter-spacing: 0 !important;
+      overflow-wrap: anywhere;
+    }
+
+    .mobile-fit-copy {
+      max-width: min(100%, 17rem) !important;
+      font-size: 1rem !important;
+      overflow-wrap: anywhere;
+    }
+  }
+
   /* DISPLAY TEXT — hero headline only, one per page hero */
   .text-display {
     font-family: var(--font-heading);

@@ -62,11 +62,7 @@ function getOrderedCategories() {
     }).map(({ category }) => category)
 }
 
-export default async function SignagePage({ searchParams }) {
-    const resolvedSearchParams = await searchParams
-    const initialCategorySlug = typeof resolvedSearchParams?.category === 'string'
-        ? resolvedSearchParams.category
-        : undefined
+export default function SignagePage() {
     const ordered = getOrderedCategories()
 
     const breadcrumbSchema = {
@@ -99,7 +95,7 @@ export default async function SignagePage({ searchParams }) {
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={itemListSchema} />
             <Suspense fallback={null}>
-                <SignageHubClient categories={ordered} initialCategorySlug={initialCategorySlug} />
+                <SignageHubClient categories={ordered} />
             </Suspense>
         </>
     )

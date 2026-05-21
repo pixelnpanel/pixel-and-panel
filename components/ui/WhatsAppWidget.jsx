@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 
 export default function WhatsAppWidget() {
   const [visible, setVisible] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
     let ticking = false;
@@ -25,7 +23,7 @@ export default function WhatsAppWidget() {
     updateVisibility();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname]);
+  }, []);
 
   if (!visible) return null;
 

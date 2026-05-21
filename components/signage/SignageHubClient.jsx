@@ -3,10 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowRight, Search, Box, MessageSquareText, X } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { fadeUp, scaleIn, stagger, viewport } from '@/lib/animations'
 import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
 
 const ALL_PRODUCTS_SLUG = 'all-products'
@@ -113,6 +111,8 @@ const getProductSearchScore = (product, query) => {
 export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY, initialCategorySlug = ALL_PRODUCTS_SLUG }) {
     const content = useMemo(() => ({ ...DEFAULT_COPY, ...copy }), [copy])
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const categoryFromUrl = searchParams.get('category') || initialCategorySlug
     const productAreaRef = useRef(null)
     const productGridRef = useRef(null)
     const productCardRefs = useRef(new Map())
@@ -123,7 +123,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const [isSearchFabExpanded, setIsSearchFabExpanded] = useState(false)
     const [mobileSearchTerm, setMobileSearchTerm] = useState('')
     const [highlightedProductKey, setHighlightedProductKey] = useState('')
-    const [selectedSlug, setSelectedSlug] = useState(initialCategorySlug)
+    const [selectedSlug, setSelectedSlug] = useState(categoryFromUrl)
 
     const allProducts = useMemo(() => {
         return sortProductsByName(categories.flatMap((category) =>
@@ -307,7 +307,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     }
 
     return (
-        <main className="min-h-screen bg-[#FAF8F4] text-[#1C1917]">
+        <main className="min-h-screen overflow-x-hidden bg-[#FAF8F4] text-[#1C1917]">
 
             {/* HERO */}
             <section className="relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 py-24 text-white md:py-28">
@@ -315,37 +315,32 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     <div className="h-full w-full" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)', backgroundSize: '34px 34px' }} />
                 </div>
 
-                <motion.div
-                    variants={stagger}
-                    initial="hidden"
-                    animate="visible"
-                    className="relative mx-auto max-w-5xl text-center"
-                >
-                    <motion.p variants={fadeUp} className="section-label mb-4" style={{ color: '#F59E0B' }}>
+                <div className="relative mx-auto max-w-5xl text-center">
+                    <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
                         {content.eyebrow}
-                    </motion.p>
-                    <motion.h1 variants={fadeUp} style={{ color: 'white', margin: '0 auto', maxWidth: '900px' }}>
+                    </p>
+                    <h1 className="mobile-fit-heading mx-auto max-w-[342px] break-words text-[1.85rem] leading-tight md:max-w-[900px] md:text-[clamp(2rem,4vw,3rem)]" style={{ color: 'white' }}>
                         {content.h1Start}{' '}
                         <span style={{ color: '#F59E0B' }}>{content.h1Highlight}</span>
-                    </motion.h1>
-                    <motion.p variants={fadeUp} className="mx-auto mt-7 max-w-3xl text-lg leading-relaxed text-white/75 md:text-xl">
+                    </h1>
+                    <p className="mobile-fit-copy mx-auto mt-7 max-w-[342px] break-words text-base leading-relaxed text-white/75 md:max-w-3xl md:text-xl">
                         {content.heroCopy}
-                    </motion.p>
-                    <motion.div variants={fadeUp} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    </p>
+                    <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <Link href={content.quotePath} className="btn-amber">
                             {content.quoteCta} <ArrowRight size={18} />
                         </Link>
                         <button onClick={() => productAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="btn-ghost">
                             {content.viewProducts} <Search size={17} />
                         </button>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
             </section>
 
             {/* SHORT INTRO */}
             <section className="border-b border-black/5 bg-white px-6 py-10">
                 <div className="mx-auto max-w-4xl text-center">
-                    <p className="text-lg leading-relaxed text-slate-700 md:text-xl">
+                    <p className="mobile-fit-copy mx-auto text-base leading-relaxed text-slate-700 md:max-w-4xl md:text-xl">
                         {content.intro}
                     </p>
                 </div>
@@ -356,12 +351,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[320px_1fr]">
 
                     {/* LEFT: CATEGORY SIDEBAR */}
-                    <motion.aside
-                        initial={{ opacity: 0, x: -24 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                        className="hidden lg:sticky lg:top-28 lg:block lg:self-start"
-                    >
+                    <aside className="hidden lg:sticky lg:top-28 lg:block lg:self-start">
                         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                             <div className="flex items-center gap-3 border-b border-slate-200 px-6 py-5">
                                 <Search size={21} className="text-[#0369A1]" />
@@ -401,7 +391,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                 {content.helpVisibility} <ArrowRight size={15} />
                             </Link>
                         </div>
-                    </motion.aside>
+                    </aside>
 
                     {/* RIGHT: PRODUCT AREA */}
                     <div className="min-w-0">
@@ -445,19 +435,16 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         </section>
 
                         {/* SELECTED CATEGORY HEADER */}
-                        <motion.div
+                        <div
                             key={selectedCategory.slug}
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                             className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0369A1] via-[#075985] to-[#0C1E3C] p-7 text-white shadow-sm md:p-9"
                         >
                             <div className="absolute right-8 top-6 h-24 w-24 rounded-3xl border border-white/10 opacity-40 rotate-12" />
                             <div className="absolute right-20 top-20 h-16 w-16 rounded-full border border-white/10 opacity-30" />
                             <p className="section-label mb-3" style={{ color: 'rgba(255,255,255,0.6)' }}>{content.selectedCategory}</p>
-                            <h2 style={{ color: 'white' }}>{selectedHeading}</h2>
+                            <h2 className="mobile-fit-heading md:max-w-none" style={{ color: 'white' }}>{selectedHeading}</h2>
                             <p className="mt-4 text-white/75">{selectedProducts.length} {content.productsAvailable}</p>
-                        </motion.div>
+                        </div>
 
                         {/* SEARCH */}
                         <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5">
@@ -505,12 +492,9 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
                         {/* PRODUCT GRID — cards animate in when category changes */}
                         {filteredProducts.length > 0 ? (
-                            <motion.div
+                            <div
                                 ref={productGridRef}
                                 key={selectedCategory.slug + '-grid-' + normalizedSearchTerm}
-                                variants={stagger}
-                                initial="hidden"
-                                animate="visible"
                                 className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
                             >
                                 {filteredProducts.map((product) => {
@@ -518,7 +502,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                     const isHighlighted = highlightedProductKey === productKey
 
                                     return (
-                                        <motion.article
+                                        <article
                                             key={productKey}
                                             ref={(node) => {
                                                 if (node) {
@@ -528,7 +512,6 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                 }
                                             }}
                                             data-product-card="true"
-                                            variants={scaleIn}
                                             className={`group scroll-mt-24 overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${
                                                 isHighlighted
                                                     ? 'border-[#F59E0B] shadow-[0_0_0_4px_rgba(245,158,11,0.22),0_18px_44px_rgba(245,158,11,0.2)]'
@@ -577,10 +560,10 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                     </Link>
                                                 </div>
                                             </div>
-                                        </motion.article>
+                                        </article>
                                     )
                                 })}
-                            </motion.div>
+                            </div>
                         ) : (
                             <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center shadow-sm">
                                 <h3 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>{content.noResultsTitle}</h3>
@@ -599,44 +582,33 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
             {/* BOTTOM CTA */}
             <section className="bg-[#0C1E3C] px-6 py-16 text-center text-white">
-                <motion.div
-                    variants={stagger}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={viewport}
-                >
-                    <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1.25rem' }}>
+                <div>
+                    <h2 style={{ color: 'white', marginBottom: '1.25rem' }}>
                         {content.bottomTitle}
-                    </motion.h2>
-                    <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
+                    </h2>
+                    <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
                         {content.bottomCopy}
-                    </motion.p>
-                    <motion.div variants={fadeUp} className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    </p>
+                    <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <Link href={content.quotePath} className="btn-amber">
                             {content.bottomQuote} <ArrowRight size={18} />
                         </Link>
                         <Link href={content.visibilityPath} className="btn-ghost">
                             {content.bottomVisibility} <ArrowRight size={18} />
                         </Link>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
             </section>
 
-            <motion.button
+            <button
                 type="button"
                 aria-label="Search products"
                 aria-controls="mobile-product-search"
                 aria-expanded={isSearchSheetOpen}
-                initial={false}
-                animate={{
-                    opacity: isFloatingSearchVisible ? 1 : 0,
-                    y: isFloatingSearchVisible ? 0 : 12,
-                }}
-                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                 onClick={handleFloatingSearchClick}
                 tabIndex={isFloatingSearchVisible ? 0 : -1}
-                className={`fixed bottom-24 right-4 z-40 flex h-[52px] w-44 items-center justify-center overflow-hidden rounded-full border border-white/45 bg-[#F59E0B]/35 text-[#FAF8F4] shadow-[0_14px_36px_rgba(28,25,23,0.18),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-xl transition-colors hover:bg-[#F59E0B]/45 focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/25 md:hidden ${
-                    isFloatingSearchVisible ? 'pointer-events-auto' : 'pointer-events-none'
+                className={`fixed bottom-24 right-4 z-40 flex h-[52px] w-44 items-center justify-center overflow-hidden rounded-full border border-white/45 bg-[#F59E0B]/35 text-[#FAF8F4] shadow-[0_14px_36px_rgba(28,25,23,0.18),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-xl transition-[opacity,transform,background-color] duration-200 hover:bg-[#F59E0B]/45 focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/25 md:hidden ${
+                    isFloatingSearchVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
                 }`}
             >
                 <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_20%,rgba(255,255,255,0.65),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.2),rgba(245,158,11,0.18))]" />
@@ -646,7 +618,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         {content.mobileSearchLabel}
                     </span>
                 </span>
-            </motion.button>
+            </button>
 
             {isSearchSheetOpen && (
                 <div className="fixed inset-0 z-50 md:hidden">
@@ -656,14 +628,11 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         className="absolute inset-0 bg-[#1C1917]/38 backdrop-blur-[2px]"
                         onClick={() => setIsSearchSheetOpen(false)}
                     />
-                    <motion.section
+                    <section
                         id="mobile-product-search"
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="mobile-product-search-title"
-                        initial={{ opacity: 0, y: 36 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute inset-x-0 bottom-0 max-h-[82vh] overflow-hidden rounded-t-[1.75rem] border border-white/70 bg-[#FAF8F4]/95 shadow-[0_-20px_70px_rgba(28,25,23,0.26)] backdrop-blur-2xl"
                     >
                         <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-slate-300" />
@@ -740,7 +709,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                 </div>
                             )}
                         </div>
-                    </motion.section>
+                    </section>
                 </div>
             )}
 

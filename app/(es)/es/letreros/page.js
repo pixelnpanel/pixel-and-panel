@@ -88,11 +88,7 @@ function JsonLd({ data }) {
   );
 }
 
-export default async function SpanishSignagePage({ searchParams }) {
-  const resolvedSearchParams = await searchParams;
-  const initialCategorySlug = typeof resolvedSearchParams?.category === "string"
-    ? resolvedSearchParams.category
-    : undefined;
+export default function SpanishSignagePage() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -126,7 +122,6 @@ export default async function SpanishSignagePage({ searchParams }) {
         <SignageHubClient
           categories={signageCategoriesEs}
           copy={spanishCopy}
-          initialCategorySlug={initialCategorySlug}
         />
       </Suspense>
     </>
