@@ -15,6 +15,10 @@ export const metadata = {
     "Helpful guides from Pixel & Panel about websites, signs, QR campaigns, local SEO, and visibility for Southeast Texas businesses.",
   alternates: {
     canonical: "https://pixelnpanel.com/learning-center",
+    languages: {
+      "en-US": "https://pixelnpanel.com/learning-center",
+      "es-US": "https://pixelnpanel.com/es/centro-de-aprendizaje",
+    },
   },
 };
 

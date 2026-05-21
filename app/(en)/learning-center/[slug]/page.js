@@ -4,6 +4,7 @@ import {
   getPostBySlug,
   learningCenterPosts,
 } from "@/lib/learning-center-posts";
+import { learningCenterSlugMap } from "@/lib/learning-center-posts-es";
 
 export function generateStaticParams() {
   return learningCenterPosts.map((post) => ({ slug: post.slug }));
@@ -19,16 +20,30 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  const pageUrl = `https://pixelnpanel.com/learning-center/${post.slug}`;
+  const esSlug = learningCenterSlugMap[post.slug];
+  const esUrl = esSlug
+    ? `https://pixelnpanel.com/es/centro-de-aprendizaje/${esSlug}`
+    : null;
+
   return {
     title: { absolute: `${post.title} | Pixel & Panel Learning Center` },
     description: post.description,
     alternates: {
-      canonical: `https://pixelnpanel.com/learning-center/${post.slug}`,
+      canonical: pageUrl,
+      ...(esUrl
+        ? {
+            languages: {
+              "en-US": pageUrl,
+              "es-US": esUrl,
+            },
+          }
+        : {}),
     },
     openGraph: {
       title: `${post.title} | Pixel & Panel`,
       description: post.description,
-      url: `https://pixelnpanel.com/learning-center/${post.slug}`,
+      url: pageUrl,
       siteName: "Pixel & Panel",
       locale: "en_US",
       type: "article",

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CheckCircle2, MapPin, DollarSign, Building2 } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { createServiceJsonLd, citySchema } from "@/lib/seo";
 
 function JsonLd({ data }) {
   return (
@@ -38,6 +39,16 @@ export default function CityServiceLandingEs({ city, service }) {
       acceptedAnswer: { "@type": "Answer", text: answer },
     })),
   };
+  const serviceSchema = createServiceJsonLd({
+    name: `${service.name} en ${city.name}, TX`,
+    description: intro,
+    url: pageUrl,
+    serviceType: hubLabel,
+    category: service.quoteCategory,
+    areaServed: [citySchema(city)],
+    inLanguage: "es-US",
+    offerUrl: quoteHref,
+  });
 
   return (
     <>
@@ -50,6 +61,7 @@ export default function CityServiceLandingEs({ city, service }) {
         ]}
       />
       <JsonLd data={faqSchema} />
+      <JsonLd data={serviceSchema} />
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
 

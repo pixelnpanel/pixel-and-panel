@@ -14,6 +14,7 @@ import {
   getDigitalServiceEs,
   getRelatedDigitalServicesEs,
 } from "@/lib/digital-services-es";
+import { createServiceJsonLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return digitalServicesEs.map((service) => ({
@@ -93,11 +94,22 @@ export default async function SpanishDigitalServicePage({ params }) {
       acceptedAnswer: { "@type": "Answer", text: answer },
     })),
   };
+  const serviceSchema = createServiceJsonLd({
+    name: service.name,
+    description: service.description,
+    url: `/es/servicios-digitales/${service.slug}`,
+    serviceType: "Servicios Digitales",
+    category: "Servicios Digitales",
+    inLanguage: "es-US",
+    schemaType: ["Service", "Product"],
+    offerUrl: quoteHref,
+  });
 
   return (
     <>
       <JsonLd data={breadcrumbs} />
       <JsonLd data={faq} />
+      <JsonLd data={serviceSchema} />
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
         <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">
