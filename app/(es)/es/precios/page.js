@@ -176,6 +176,10 @@ const spanishCopy = {
   heroLabel: "Precios para clientes iniciales",
   heroTitlePrefix: "Precios iniciales simples para",
   heroTitleHighlight: "negocios locales",
+  mobileHeroTitlePrefix: "Precios claros",
+  mobileHeroTitleHighlight: "para empezar.",
+  mobileHeroCopy:
+    "Opciones claras para sitios web, visibilidad y letreros con cotización.",
   heroCopy:
     "Pixel & Panel está ofreciendo precios para clientes iniciales a negocios del sureste de Texas que necesitan un sitio limpio, mejor visibilidad en Google y una forma más fuerte de convertir atención en leads.",
   heroNote: "Los precios pueden subir cuando la disponibilidad sea limitada.",

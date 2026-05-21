@@ -284,14 +284,23 @@
 
     .pnp-mobile-hero-compact {
       padding-top: 6.5rem !important;
-      padding-bottom: 2rem !important;
+      padding-bottom: 3.25rem !important;
       text-align: center;
     }
 
     .pnp-mobile-contact-hero {
       align-items: flex-start !important;
       min-height: auto !important;
-      padding: 6.5rem 1.5rem 4rem !important;
+      padding: 6.25rem 1.5rem 3rem !important;
+    }
+
+    .pnp-mobile-quote-hero {
+      padding-top: 6.25rem !important;
+      padding-bottom: 3rem !important;
+    }
+
+    .pnp-mobile-form-grid {
+      gap: 1.75rem !important;
     }
 
     .pnp-mobile-hero-title {
@@ -312,6 +321,28 @@
 
     .pnp-mobile-hero-actions {
       margin-top: 1.75rem !important;
+    }
+
+    .pnp-mobile-hero-note {
+      display: none !important;
+    }
+
+    .pnp-mobile-hero-shell {
+      padding-bottom: 0 !important;
+    }
+
+    .pnp-mobile-form-title {
+      font-size: 1.95rem !important;
+      line-height: 1.12 !important;
+      letter-spacing: 0 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .pnp-mobile-form-copy {
+      color: rgba(255, 255, 255, 0.72) !important;
+      font-size: 0.96rem !important;
+      line-height: 1.58 !important;
+      max-width: 22rem !important;
     }
   }
 

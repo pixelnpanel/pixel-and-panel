@@ -13,7 +13,9 @@ const defaultCopy = {
     eyebrow: 'Contact Us',
     h1: '',
     headlineLines: ['Have a Question?', 'We Would Love', 'to Hear From You.'],
+    mobileHeadlineLines: ['Have a Question?', 'We Can Help.'],
     introStart: 'Whether you have a question about our services, need help deciding what you need, or just want to say hello — we read every message personally. If you want a softer first step, start with a',
+    mobileIntroStart: 'Ask about services, choosing what you need, or start with a',
     visibilityHref: '/free-visibility-check',
     visibilityLabel: 'Free Visibility Check',
     emailLabel: 'Email Us',
@@ -148,8 +150,13 @@ export default function ContactPage({ copy = defaultCopy }) {
                             {content.eyebrow}
                         </motion.span>
 
-                        <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
-                            {content.h1 ? (
+                        <motion.h1 variants={fadeUp} className="pnp-mobile-form-title" style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+                            {content.mobileHeadlineLines ? (
+                                <>
+                                    {content.mobileHeadlineLines[0]}
+                                    {' '}<br /><span style={{ color: '#F59E0B' }}>{content.mobileHeadlineLines[1]}</span>
+                                </>
+                            ) : content.h1 ? (
                                 content.h1
                             ) : (
                                 <>
@@ -160,8 +167,8 @@ export default function ContactPage({ copy = defaultCopy }) {
                             )}
                         </motion.h1>
 
-                        <motion.p variants={fadeUp} className="pnp-mobile-hero-copy" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: 0, maxWidth: '420px' }}>
-                            {content.introStart}{' '}
+                        <motion.p variants={fadeUp} className="pnp-mobile-form-copy" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: 0, maxWidth: '420px' }}>
+                            {content.mobileIntroStart || content.introStart}{' '}
                             <Link href={content.visibilityHref} style={{ color: '#F59E0B', fontWeight: 700 }}>
                                 {content.visibilityLabel}
                             </Link>.

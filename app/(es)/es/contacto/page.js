@@ -5,8 +5,11 @@ const spanishContactCopy = {
   eyebrow: "Contacto",
   h1: "Contacto",
   headlineLines: ["¿Tienes una pregunta?", "Estamos listos", "para ayudarte."],
+  mobileHeadlineLines: ["¿Tienes una pregunta?", "Te ayudamos."],
   introStart:
     "Cuéntanos qué necesita tu negocio — un sitio web, letreros, impresión, o todavía no sabes. Leemos cada mensaje personalmente. Si no sabes por dónde empezar, puedes pedir un",
+  mobileIntroStart:
+    "Pregunta por servicios, opciones o empieza con un",
   visibilityHref: "/es/chequeo-gratis-de-visibilidad",
   visibilityLabel: "chequeo gratis de visibilidad",
   emailLabel: "Correo",

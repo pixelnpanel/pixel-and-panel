@@ -6,6 +6,10 @@ const spanishQuoteCopy = {
   eyebrow: "Cotización gratis",
   h1Start: "Solicitar una",
   h1Highlight: "cotización",
+  mobileH1Start: "Cuéntanos qué",
+  mobileH1Highlight: "necesitas.",
+  mobileIntro:
+    "Comparte algunos detalles y te respondemos dentro de 1 día hábil.",
   intro:
     "Completa el formulario y Pixel & Panel te contactará pronto con el siguiente paso. Sin presión y sin compromiso.",
   bullets: [

@@ -6,6 +6,10 @@ const spanishCopy = {
   eyebrow: "Letreros e Impresión",
   h1Start: "Letreros e impresión para hacer tu negocio",
   h1Highlight: "más visible",
+  mobileH1Start: "Letreros que",
+  mobileH1Highlight: "se ven.",
+  mobileHeroCopy:
+    "Explora letreros, banners, gráficos para vehículos, tarjetas y productos impresos por categoría.",
   heroCopy:
     "Explora productos de letreros e impresión para escaparates, vehículos, eventos, promociones y negocios locales.",
   quoteCta: "Solicitar cotización",

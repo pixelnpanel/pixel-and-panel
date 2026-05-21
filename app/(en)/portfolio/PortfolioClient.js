@@ -73,22 +73,30 @@ export default function PortfolioClient() {
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
 
-        <div className="container-px relative pb-20 md:pb-24">
+        <div className="pnp-mobile-hero-shell container-px relative pb-20 md:pb-24">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="mx-auto max-w-4xl text-center">
             <motion.p variants={fadeUp} className="section-label !text-[#F59E0B]">
               Portfolio
             </motion.p>
-            <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title mt-4 text-white">
+            <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title mt-4 text-white md:hidden">
+              Work Samples
+              <br />
+              <span className="text-[#F59E0B]">&amp; Concepts</span>
+            </motion.h1>
+            <motion.h1 variants={fadeUp} className="mt-4 hidden text-white md:block">
               Portfolio{" "}
               <span className="text-[#F59E0B]">Coming Together</span>
             </motion.h1>
-            <motion.p variants={fadeUp} className="pnp-mobile-hero-copy mx-auto mt-6 max-w-3xl text-base leading-8 text-white/78 md:text-lg">
+            <motion.p variants={fadeUp} className="pnp-mobile-hero-copy mx-auto mt-6 max-w-3xl text-base leading-8 text-white/78 md:hidden">
+              Browse website, signage, print, QR, and brand visibility examples for local businesses.
+            </motion.p>
+            <motion.p variants={fadeUp} className="hidden mx-auto mt-6 max-w-3xl text-base leading-8 text-white/78 md:block md:text-lg">
               Pixel &amp; Panel is building a portfolio of websites, signage, print materials, QR campaigns, and brand visibility projects for Southeast Texas businesses.
             </motion.p>
-            <motion.p variants={fadeUp} className="pnp-mobile-hero-copy mx-auto mt-4 max-w-3xl text-sm leading-7 text-white/70 md:text-base">
+            <motion.p variants={fadeUp} className="hidden mx-auto mt-4 max-w-3xl text-sm leading-7 text-white/70 md:block md:text-base">
               Some examples may be sample concepts or internal demos created to show style, layout, and service possibilities. Real client projects will be added as work is completed.
             </motion.p>
-            <motion.div variants={fadeUp} className="pnp-mobile-hero-actions mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <motion.div variants={fadeUp} className="pnp-mobile-hero-actions mt-8 hidden flex-col justify-center gap-3 md:flex sm:flex-row">
               <Link href="/quote-request" className="btn-amber w-full justify-center sm:w-auto">
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>

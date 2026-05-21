@@ -188,6 +188,10 @@ const DEFAULT_COPY = {
   heroLabel: 'Founding Client Pricing',
   heroTitlePrefix: 'Simple Starter Pricing for',
   heroTitleHighlight: 'Local Businesses',
+  mobileHeroTitlePrefix: 'Starter Pricing',
+  mobileHeroTitleHighlight: 'Made Simple.',
+  mobileHeroCopy:
+    'Clear starter options for websites, visibility, and quote-based signage.',
   heroCopy:
     'Pixel & Panel is currently offering founding client pricing for Southeast Texas businesses that need a clean website, better Google visibility, and a stronger way to turn attention into leads.',
   heroNote: 'Pricing may increase as availability becomes limited.',
@@ -519,13 +523,31 @@ export default function PricingPage({
           <motion.span variants={fadeUp} className="section-label">
             {copy.heroLabel}
           </motion.span>
-          <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
+          <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title md:hidden" style={{ color: 'white', marginBottom: '1.25rem' }}>
+            {copy.mobileHeroTitlePrefix || copy.heroTitlePrefix}
+            <br />
+            <span style={{ color: colors.amber }}>{copy.mobileHeroTitleHighlight || copy.heroTitleHighlight}</span>
+          </motion.h1>
+          <motion.h1 variants={fadeUp} className="hidden md:block" style={{ color: 'white', marginBottom: '1.25rem' }}>
             {copy.heroTitlePrefix}{' '}
             <span style={{ color: colors.amber }}>{copy.heroTitleHighlight}</span>
           </motion.h1>
           <motion.p
             variants={fadeUp}
-            className="pnp-mobile-hero-copy"
+            className="pnp-mobile-hero-copy md:hidden"
+            style={{
+              color: 'rgba(255,255,255,0.76)',
+              fontSize: '1.05rem',
+              lineHeight: 1.75,
+              margin: '0 auto 1rem',
+              maxWidth: '720px',
+            }}
+          >
+            {copy.mobileHeroCopy || copy.heroCopy}
+          </motion.p>
+          <motion.p
+            variants={fadeUp}
+            className="hidden md:block"
             style={{
               color: 'rgba(255,255,255,0.76)',
               fontSize: '1.05rem',
@@ -538,6 +560,7 @@ export default function PricingPage({
           </motion.p>
           <motion.p
             variants={fadeUp}
+            className="pnp-mobile-hero-note"
             style={{
               color: colors.amber,
               fontFamily: 'var(--font-heading)',

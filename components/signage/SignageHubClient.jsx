@@ -13,6 +13,9 @@ const DEFAULT_COPY = {
     eyebrow: 'Signage & Print',
     h1Start: 'Custom Signage & Print That',
     h1Highlight: 'Makes Your Brand Visible',
+    mobileH1Start: 'Signs That',
+    mobileH1Highlight: 'Get Seen.',
+    mobileHeroCopy: 'Browse signs, banners, vehicle graphics, cards, and print products by category.',
     heroCopy: 'Browse our most requested sign products by category and quickly find the right option for your storefront, vehicle, event, promotion, or local business.',
     quoteCta: 'Start a Signage Quote',
     viewProducts: 'View Products',
@@ -312,6 +315,14 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 <div className="mobile-reveal relative mx-auto max-w-5xl text-center">
                     <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
                         {content.eyebrow}
+                    </p>
+                    <h1 className="pnp-mobile-hero-title mx-auto break-words md:hidden" style={{ color: 'white' }}>
+                        {content.mobileH1Start}
+                        <br />
+                        <span style={{ color: '#F59E0B' }}>{content.mobileH1Highlight}</span>
+                    </h1>
+                    <p className="pnp-mobile-hero-copy mx-auto mt-6 break-words md:hidden">
+                        {content.mobileHeroCopy}
                     </p>
                     <h1 className="hidden break-words md:mx-auto md:block md:max-w-[900px] md:text-[clamp(2rem,4vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
                         {content.h1Start}{' '}

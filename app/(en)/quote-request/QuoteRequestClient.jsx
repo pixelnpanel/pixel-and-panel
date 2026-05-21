@@ -29,6 +29,9 @@ const defaultCopy = {
   eyebrow: "Free Quote",
   h1Start: "Tell Us About",
   h1Highlight: "Your Business.",
+  mobileH1Start: "Tell Us What",
+  mobileH1Highlight: "You Need.",
+  mobileIntro: "Share a few details and we'll reply within 1 business day.",
   intro: "Fill in the form and we will get back to you within 1 business day with a custom quote — no pressure, no obligation.",
   bullets: [
     "Response within 1 business day",
@@ -193,26 +196,33 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#0369A1] bg-[radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.65),transparent_32%),linear-gradient(135deg,#06213f_0%,#0369A1_48%,#0EA5E9_100%)] text-white">
-      <section className="relative overflow-hidden px-6 py-24 sm:py-28 lg:px-8">
+      <section className="pnp-mobile-quote-hero relative overflow-hidden px-6 py-24 sm:py-28 lg:px-8">
         <div className="absolute inset-0 opacity-20">
           <div className="h-full w-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.22)_1px,transparent_1px)] [background-size:28px_28px]" />
         </div>
 
-        <div className="relative mx-auto grid max-w-6xl items-start gap-16 lg:grid-cols-2">
+        <div className="pnp-mobile-form-grid relative mx-auto grid max-w-6xl items-start gap-16 lg:grid-cols-2">
 
           {/* ── LEFT ──────────────────────────────────────────── */}
           <div className="mobile-reveal lg:sticky lg:top-24">
             <p className="mb-5 section-label">
               {content.eyebrow}
             </p>
-            <h1 className="mobile-fit-heading max-w-[342px] break-words text-[1.85rem] leading-tight md:max-w-xl md:text-[clamp(2rem,4vw,3rem)]" style={{ color: "white" }}>
+            <h1 className="pnp-mobile-form-title max-w-[342px] break-words md:hidden" style={{ color: "white" }}>
+              {content.mobileH1Start || content.h1Start}{" "}
+              <span style={{ color: "#F59E0B" }}>{content.mobileH1Highlight || content.h1Highlight}</span>
+            </h1>
+            <h1 className="hidden max-w-[342px] break-words text-[1.85rem] leading-tight md:block md:max-w-xl md:text-[clamp(2rem,4vw,3rem)]" style={{ color: "white" }}>
               {content.h1Start}{" "}
               <span style={{ color: "#F59E0B" }}>{content.h1Highlight}</span>
             </h1>
-            <p className="mobile-fit-copy mt-8 max-w-[342px] break-words text-base leading-8 text-slate-200 md:max-w-lg md:text-lg">
+            <p className="pnp-mobile-form-copy mt-5 max-w-[342px] break-words text-base leading-8 text-slate-200 md:hidden">
+              {content.mobileIntro || content.intro}
+            </p>
+            <p className="mt-8 hidden max-w-[342px] break-words text-base leading-8 text-slate-200 md:block md:max-w-lg md:text-lg">
               {content.intro}
             </p>
-            <div className="mt-10 grid gap-4 text-sm text-slate-200">
+            <div className="mt-10 hidden gap-4 text-sm text-slate-200 md:grid">
               {content.bullets.map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <CheckCircle2 className="h-5 w-5 text-emerald-400" />
