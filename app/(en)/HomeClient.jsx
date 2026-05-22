@@ -105,16 +105,37 @@ export default function HomeClient() {
               </Link>
             </div>
 
-            <div className="mt-8 hidden w-full flex-col gap-3 md:flex md:flex-row md:flex-wrap lg:flex-nowrap">
-              <Link href="/quote-request" className="btn-amber w-full justify-center whitespace-nowrap px-5 md:w-auto">
+            <div className="mt-8 hidden max-w-2xl md:block">
+              <Link href="/quote-request" className="btn-amber inline-flex justify-center whitespace-nowrap px-5">
                 Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <Link href="/digital" className="btn-ghost w-full justify-center whitespace-nowrap px-5 md:w-auto">
-                View Digital Services
-              </Link>
-              <Link href="/signage" className="btn-ghost w-full justify-center whitespace-nowrap px-5 md:w-auto">
-                View Signage &amp; Print
-              </Link>
+              <div className="mt-4 grid gap-3 md:grid-cols-3" aria-label="Choose what your business needs">
+                {mobileStartOptions.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="group flex min-h-[94px] items-center gap-3 rounded-xl border border-white/15 bg-white/[0.09] p-4 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.13] focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70"
+                    >
+                      <span
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[#1C1917] shadow-lg shadow-black/10"
+                        style={{ backgroundColor: item.accent }}
+                        aria-hidden="true"
+                      >
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block font-heading text-sm font-bold leading-tight text-white">{item.title}</span>
+                        <span className="mt-1 block text-xs leading-5 text-white/72">{item.description}</span>
+                      </span>
+                      <span className="sr-only">{item.label}</span>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-white/45 transition group-hover:translate-x-0.5 group-hover:text-white/80" aria-hidden="true" />
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="mt-8 grid gap-3 text-sm text-white sm:grid-cols-3 md:mt-9">
