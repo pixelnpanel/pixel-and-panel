@@ -74,7 +74,7 @@ const faqs = [
 export const metadata = {
   metadataBase: new URL("https://pixelnpanel.com"),
   title: {
-    absolute: "Free Visibility Check | Pixel & Panel — Southeast Texas Branding Agency",
+    absolute: "Free Visibility Check | Pixel & Panel",
   },
   description:
     "Get a free review of your website, Google profile, signage, and QR/lead capture setup from Pixel & Panel. Serving Southeast Texas businesses.",

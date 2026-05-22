@@ -6,7 +6,7 @@ export const metadata = {
     metadataBase: new URL('https://pixelnpanel.com'),
     title: 'Custom Signage & Print Beaumont TX',
     description:
-        'Custom banners, yard signs, vehicle graphics, window graphics, storefront signs, rigid signs, event displays, and print marketing materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
+        'Custom signs, banners, vehicle graphics, storefront signs, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
     alternates: {
         canonical: '/signage',
         languages: {
