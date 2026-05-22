@@ -11,15 +11,15 @@ const ALL_PRODUCTS_SLUG = 'all-products'
 
 const DEFAULT_COPY = {
     eyebrow: 'Signage & Print',
-    h1Start: 'Custom Signage & Print That',
-    h1Highlight: 'Makes Your Brand Visible',
-    mobileH1Start: 'Custom Signs & Print',
-    mobileH1Highlight: 'Get You Noticed.',
-    mobileHeroCopy: 'Browse signs, banners, vehicle graphics, cards, and print products by category.',
-    heroCopy: 'Browse our most requested sign products by category and quickly find the right option for your storefront, vehicle, event, promotion, or local business.',
-    quoteCta: 'Start a Signage Quote',
+    h1Start: 'Custom Commercial Signs, Banners',
+    h1Highlight: 'and Printing Solutions',
+    mobileH1Start: 'Custom Commercial Signs',
+    mobileH1Highlight: '& Printing Shop.',
+    mobileHeroCopy: 'Storefront signs, vinyl banners, work truck graphics, and print materials for Southeast Texas businesses.',
+    heroCopy: 'Boost your real-world street visibility with outdoor storefront signs, monument signs, yard signs, vinyl banners, vehicle graphics, and commercial print materials.',
+    quoteCta: 'Request a Quote',
     viewProducts: 'View Products',
-    intro: 'Choose a category and view the matching products. Product quote buttons will automatically pre-select that product in the quote form.',
+    intro: 'Choose a category and view the matching products. Product quote buttons automatically pre-select that product in the quote form.',
     categoriesHeading: 'Categories',
     productsLabel: 'products',
     allProducts: 'All Products',
@@ -317,7 +317,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         {content.eyebrow}
                     </p>
                     <h1 className="pnp-mobile-hero-title mx-auto break-words md:hidden" style={{ color: 'white' }}>
-                        {content.mobileH1Start}
+                        {content.mobileH1Start}{' '}
                         <br />
                         <span style={{ color: '#F59E0B' }}>{content.mobileH1Highlight}</span>
                     </h1>

@@ -5,7 +5,7 @@ import HomeHeroVisual from "./HomeHeroVisual";
 const mobileStartOptions = [
   {
     title: "Website / Google",
-    description: "Website, SEO, and Google Maps help.",
+    description: "Fast websites and Google Maps help.",
     href: "/digital",
     label: "Digital",
     icon: MonitorSmartphone,
@@ -13,7 +13,7 @@ const mobileStartOptions = [
   },
   {
     title: "Signs / Print",
-    description: "Banners, signs, cards, and flyers.",
+    description: "Banners, signs, cards, and truck lettering.",
     href: "/signage",
     label: "Signage",
     icon: PanelTop,
@@ -49,25 +49,24 @@ export default function HomeClient() {
 
             <h1 id="homepage-hero-title" className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-extrabold leading-[1.08] tracking-normal text-white">
               <span className="md:hidden">
-                Get Found Online
+                Get Your Business Found
                 <span className="mt-2 block text-[#F59E0B]">
-                  and In Town
-                  <span className="block">Locally.</span>
+                  Online &amp; In Town
                 </span>
               </span>
               <span className="hidden md:inline">
-                Websites, Custom Signs &amp; Local SEO{" "}
+                We Build Websites, Custom Signs &amp; Local SEO{" "}
                 <span className="mt-2 block text-[#F59E0B]">
-                  Built to Get Your Business Found
+                  to Get Your Business Found
                 </span>
               </span>
             </h1>
 
             <p className="mt-6 max-w-[21rem] break-words text-base leading-8 text-white md:hidden">
-              Websites, signs, and Google visibility for local contractors, stores, and service teams that need more calls.
+              Fast websites, custom signs, and local SEO for contractors, stores, and service teams across Southeast Texas.
             </p>
             <p className="mt-6 hidden max-w-2xl text-base leading-8 text-white md:block md:text-lg">
-              We help contractors, retail shops, and service businesses in Beaumont, Nederland, and Port Arthur look professional and get more calls. From fast, mobile-friendly websites to durable street banners and vehicle graphics, Pixel &amp; Panel connects everything together.
+              We help contractors, retail shops, and service businesses in Beaumont, Nederland, and Port Arthur look professional and get more calls. From fast, mobile-friendly website design to durable street banners and work truck lettering, Pixel &amp; Panel connects everything together.
             </p>
 
             <div className="mt-7 max-w-[calc(100vw-2rem)] md:hidden" aria-labelledby="mobile-home-start-heading">
@@ -102,7 +101,7 @@ export default function HomeClient() {
                 })}
               </div>
               <Link href="/quote-request" className="btn-amber mt-4 w-full justify-center whitespace-nowrap px-5">
-                Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                Get a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
 
@@ -111,10 +110,10 @@ export default function HomeClient() {
                 Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link href="/digital" className="btn-ghost w-full justify-center whitespace-nowrap px-5 md:w-auto">
-                Digital Services
+                View Digital Services
               </Link>
               <Link href="/signage" className="btn-ghost w-full justify-center whitespace-nowrap px-5 md:w-auto">
-                Signage &amp; Print
+                View Signage &amp; Print
               </Link>
             </div>
 

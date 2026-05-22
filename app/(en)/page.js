@@ -36,7 +36,7 @@ export const metadata = {
     absolute: "Website Design, Custom Signs & Local SEO | Pixel & Panel",
   },
   description:
-    "Need more customers? Pixel & Panel builds websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and Southeast Texas.",
+    "Need more customers? Pixel & Panel builds modern websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and SETX.",
   alternates: {
     canonical: new URL("https://pixelnpanel.com/"),
     languages: {
@@ -47,7 +47,7 @@ export const metadata = {
   openGraph: {
     title: "Website Design, Custom Signs & Local SEO | Pixel & Panel",
     description:
-      "Need more customers? Pixel & Panel builds websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and Southeast Texas.",
+      "Need more customers? Pixel & Panel builds modern websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and SETX.",
     url: "https://pixelnpanel.com/",
     type: "website",
   },

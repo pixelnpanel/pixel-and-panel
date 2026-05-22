@@ -11,7 +11,7 @@ const services = [
     name: 'Desarrollo Web',
     href: '/es/servicios-digitales/desarrollo-web',
     description:
-      'Un sitio web rápido y profesional creado para búsqueda local, confianza y solicitudes de cotización. Móvil primero y fácil de usar.',
+      'Un sitio web rápido, seguro y profesional creado para búsqueda local, confianza y solicitudes de cotización.',
     features: [
       'Diseño personalizado para tu marca',
       'Estructura de SEO local incluida',
@@ -26,7 +26,7 @@ const services = [
     name: 'Aparece en Google',
     href: '/es/servicios-digitales/seo-local',
     description:
-      'Ayuda a clientes cercanos a entender tus servicios, zonas de trabajo y opciones de contacto cuando buscan en Google y Google Maps.',
+      'Ayuda a clientes cercanos a encontrar tus servicios, zonas de trabajo y opciones de contacto cuando buscan en Google Maps.',
     features: [
       'Configuración y optimización de Perfil de Google',
       'Planeación de palabras clave y servicios locales',
@@ -41,7 +41,7 @@ const services = [
     name: 'Nunca Pierdas un Lead',
     href: '/es/servicios-digitales/automatizacion-crm',
     description:
-      'Cuando alguien pregunta por tus servicios, el siguiente paso debe ser claro. Configuramos rutas simples para responder mejor a cada solicitud.',
+      'No dejes solicitudes en el olvido. Configuramos rutas simples para responder mejor a cada cliente potencial.',
     features: [
       'Respuesta automática cuando alguien escribe',
       'Mejor organización de formularios y cotizaciones',
@@ -73,14 +73,14 @@ const copy = {
   titleStartMobile: 'Aparece en Google',
   titleHighlightMobile: 'y recibe más solicitudes.',
   intro:
-    'Creamos sitios web rápidos, bases de SEO local, mejoras de Perfil de Google y herramientas simples de leads para negocios en Beaumont y el sureste de Texas.',
+    'Desarrollamos páginas web veloces, optimizaciones para Google Maps, SEO local y sistemas simples de respuesta para negocios en Beaumont y el sureste de Texas.',
   learnMore: 'Ver más',
   quoteCta: 'Cotizar',
   quotePath: '/es/solicitar-cotizacion',
   quoteCategory: 'Servicios Digitales',
   bottomTitle: '¿Necesitas sitio web o visibilidad en Google?',
   bottomCopy:
-    'Cuéntanos qué vendes, dónde trabajas y qué tipo de clientes necesitas. Recomendaremos un siguiente paso práctico sin palabras complicadas.',
+    'Cuéntanos qué vendes, dónde trabajas y qué tipo de clientes necesitas. Recomendaremos un plan práctico para mejorar tu presencia web y posicionamiento local.',
   bottomQuoteHref: '/es/solicitar-cotizacion',
   bottomQuoteCta: 'Solicitar cotización',
   bottomVisibilityHref: '/es/chequeo-gratis-de-visibilidad',

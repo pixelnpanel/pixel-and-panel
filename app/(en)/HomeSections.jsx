@@ -22,21 +22,21 @@ import {
 
 const problemCards = [
   {
-    title: "No website or outdated website",
+    title: "Outdated website",
     description:
-      "Customers check you online before they call. A confusing or outdated site can make a good local business look hard to trust.",
+      "Customers check you online before they call. A slow or confusing website can make a good local business look hard to trust.",
     icon: MonitorSmartphone,
   },
   {
     title: "Weak Google presence",
     description:
-      "If nearby customers cannot find your services, hours, location, and contact options on Google, they move on fast.",
+      "If nearby customers cannot find your services, hours, location, and contact options on Google Maps, they move on fast.",
     icon: Search,
   },
   {
     title: "Signs with no clear next step",
     description:
-      "A great sign gets you noticed. A short URL, QR code, or clear call path gives customers an easy next step.",
+      "A great sign gets noticed. A short URL, QR code, or clear call path gives customers an easy next step.",
     icon: QrCode,
   },
 ];
@@ -45,19 +45,19 @@ const solutionSteps = [
   {
     title: "Build",
     description:
-      "Create a professional website and Google presence that explains what you do, where you work, and how to contact you.",
+      "Build a secure website and optimized Google Profile that clearly explain your services, hours, and service area.",
     icon: Globe2,
   },
   {
     title: "Promote",
     description:
-      "Use custom signs, banners, vehicle graphics, and print materials to get noticed around town, at your storefront, and on job sites.",
+      "Promote your brand with storefront signs, roadside yard signs, vehicle lettering, banners, and print materials.",
     icon: Megaphone,
   },
   {
     title: "Connect",
     description:
-      "Add QR codes, short links, and simple forms so customers can call, visit, or ask for a quote from your sign, flyer, or website.",
+      "Connect print and signs with QR code campaigns, short links, and clear forms so customers can request a quote fast.",
     icon: QrCode,
   },
 ];
@@ -67,7 +67,7 @@ const serviceSilos = [
     eyebrow: "Digital Services",
     title: "Show up when nearby customers search on Google.",
     description:
-      "Website design, local SEO, Google Business Profile optimization, lead capture, and QR campaigns.",
+      "Website design, local SEO, Google Business Profile optimization, lead capture, and QR campaigns for local business owners.",
     href: "/digital",
     cta: "View Digital Services",
     accent: "#0EA5E9",
@@ -82,7 +82,7 @@ const serviceSilos = [
     eyebrow: "Signage & Print",
     title: "Get noticed in the real world.",
     description:
-      "Custom signs, banners, yard signs, vehicle graphics, storefront signs, business cards, flyers, menus, and more.",
+      "Custom signs, banners, yard signs, truck lettering, storefront signs, business cards, flyers, menus, and more.",
     href: "/signage",
     cta: "View Signage & Print",
     accent: "#F59E0B",
@@ -259,7 +259,7 @@ export default function HomeSections({ faqs }) {
             id="problem-heading"
             eyebrow="The Problem"
             title="Your competitors are showing up. Are you?"
-            description="Customers move fast between Google, your website, your signs, and your contact options. Every piece should make your business easier to find, understand, and contact."
+            description="Customers move fast between Google, your website, your street signs, and your contact options. If those pieces do not work together, hot local leads go to a competitor."
           />
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -322,7 +322,7 @@ export default function HomeSections({ faqs }) {
           <SectionIntro
             id="services-heading"
             eyebrow="Services"
-            title="Websites, custom signs, and local marketing in one place"
+            title="Choose what you need now or request a complete project quote"
             description="Choose what you need now, or start with a quote request and Pixel & Panel will recommend the right next step."
           />
 

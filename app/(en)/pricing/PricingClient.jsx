@@ -186,19 +186,19 @@ const FAQS = [
 
 const DEFAULT_COPY = {
   heroLabel: 'Founding Client Pricing',
-  heroTitlePrefix: 'Simple Starter Pricing for',
-  heroTitleHighlight: 'Local Businesses',
-  mobileHeroTitlePrefix: 'Starter Pricing',
-  mobileHeroTitleHighlight: 'Made Simple.',
+  heroTitlePrefix: 'Upfront Fixed Pricing and',
+  heroTitleHighlight: 'Fast Custom Estimates',
+  mobileHeroTitlePrefix: 'Transparent Packages',
+  mobileHeroTitleHighlight: '& Quotes.',
   mobileHeroCopy:
-    'Clear starter options for websites, visibility, and quote-based signage.',
+    'Upfront starting prices for websites and rapid custom estimates for signs, banners, and print.',
   heroCopy:
-    'Pixel & Panel is currently offering founding client pricing for Southeast Texas businesses that need a clean website, better Google visibility, and a stronger way to turn attention into leads.',
+    'Every marketing dollar your local company spends should have a clear purpose. We provide starting prices for fixed-scope website development and individual estimates for signage and print projects.',
   heroNote: 'Pricing may increase as availability becomes limited.',
   packageLabel: 'Starter Website Packages',
-  packageTitle: 'Website Packages',
+  packageTitle: 'Foundational Digital Visibility Packages',
   packageCopy:
-    'Clear starting prices for businesses that need a professional online presence without a bloated marketing contract.',
+    'Fixed starter rates for small business websites, local SEO foundations, Google Profile support, and lead capture tools.',
   packageNoteStart: 'Looking for the services behind these packages? Review the',
   packageNoteDigital: 'digital services',
   packageNoteMiddle: 'page, start with a',
@@ -215,9 +215,9 @@ const DEFAULT_COPY = {
   addOnsTitle: 'Add-ons',
   addOnsCopy: 'Simple add-ons are available when a starter package needs a few more pieces.',
   signageLabel: 'Quote-Based Signage',
-  signageTitle: 'Signage & Print Projects Are Quoted Individually',
+  signageTitle: 'Custom Signage, Banners, and Printing Project Estimates',
   signageCopy:
-    'Every signage and print project depends on size, material, quantity, design needs, and installation requirements. Request a quote and Pixel & Panel will recommend the right option.',
+    'Custom signs, channel letters, fleet wraps, banners, and printed materials vary by size, material, quantity, mounting needs, and permit requirements. Request a quote and Pixel & Panel will recommend the right option.',
   signageCta: 'Get a Signage Quote',
   signageHref: '/quote-request?product=Signage%20Project&category=Signage',
   foundingLabel: 'Limited Availability',
@@ -524,7 +524,7 @@ export default function PricingPage({
             {copy.heroLabel}
           </motion.span>
           <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title md:hidden" style={{ color: 'white', marginBottom: '1.25rem' }}>
-            {copy.mobileHeroTitlePrefix || copy.heroTitlePrefix}
+            {copy.mobileHeroTitlePrefix || copy.heroTitlePrefix}{' '}
             <br />
             <span style={{ color: colors.amber }}>{copy.mobileHeroTitleHighlight || copy.heroTitleHighlight}</span>
           </motion.h1>

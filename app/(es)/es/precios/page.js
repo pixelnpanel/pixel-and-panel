@@ -174,19 +174,19 @@ const pricingFaqs = [
 
 const spanishCopy = {
   heroLabel: "Precios para clientes iniciales",
-  heroTitlePrefix: "Precios iniciales simples para",
-  heroTitleHighlight: "negocios locales",
+  heroTitlePrefix: "Tarifas fijas de diseño web y",
+  heroTitleHighlight: "cotizaciones rápidas",
   mobileHeroTitlePrefix: "Precios claros",
-  mobileHeroTitleHighlight: "para empezar.",
+  mobileHeroTitleHighlight: "y cotizaciones.",
   mobileHeroCopy:
-    "Opciones claras para sitios web, visibilidad y letreros con cotización.",
+    "Tarifas fijas para páginas web y cotizaciones rápidas para letreros, lonas e imprenta.",
   heroCopy:
-    "Pixel & Panel está ofreciendo precios para clientes iniciales a negocios del sureste de Texas que necesitan un sitio limpio, mejor visibilidad en Google y una forma más fuerte de convertir atención en leads.",
+    "Cada dólar invertido en tu empresa debe tener un propósito claro. Ofrecemos precios iniciales transparentes para páginas web y cotizaciones personalizadas para letreros comerciales e impresos.",
   heroNote: "Los precios pueden subir cuando la disponibilidad sea limitada.",
   packageLabel: "Paquetes iniciales de sitio web",
-  packageTitle: "Paquetes de sitio web",
+  packageTitle: "Paquetes de páginas web e internet",
   packageCopy:
-    "Precios iniciales claros para negocios que necesitan una presencia profesional en línea sin un contrato de marketing pesado.",
+    "Precios iniciales claros para negocios que necesitan presencia profesional en línea, SEO local y formularios de cotización.",
   packageNoteStart: "¿Quieres ver los servicios detrás de estos paquetes? Revisa la página de",
   packageNoteDigital: "servicios digitales",
   packageNoteMiddle: "empieza con un",
@@ -203,9 +203,9 @@ const spanishCopy = {
   addOnsTitle: "Extras",
   addOnsCopy: "Hay extras sencillos disponibles cuando un paquete inicial necesita algunas piezas más.",
   signageLabel: "Letreros con cotización",
-  signageTitle: "Los proyectos de letreros e impresión se cotizan individualmente",
+  signageTitle: "Cotizaciones para letreros, banners e impresión",
   signageCopy:
-    "Cada proyecto de letreros e impresión depende del tamaño, material, cantidad, diseño e instalación. Solicita una cotización y Pixel & Panel recomendará una opción práctica.",
+    "Cada proyecto de letreros, lonas, tarjetas, volantes o rotulación vehicular depende de medidas, materiales, cantidad e instalación. Te damos una cotización clara antes de producir.",
   signageCta: "Cotizar letreros",
   signageHref:
     "/es/solicitar-cotizacion?product=Proyecto%20de%20letreros&category=Letreros%20e%20Impresi%C3%B3n",
@@ -234,10 +234,10 @@ const spanishCopy = {
 
 export const metadata = {
   title: {
-    absolute: "Precios para Sitios, Letreros y SEO | Pixel & Panel",
+    absolute: "Precios Web y Cotizaciones de Letreros | Pixel & Panel",
   },
   description:
-    "Precios iniciales para negocios del sureste de Texas. Pixel & Panel ofrece sitios web, visibilidad local, códigos QR y opciones de letreros e impresión.",
+    "Tarifas claras para diseño web y cotizaciones rápidas de letreros, lonas e impresos en el sureste de Texas.",
   alternates: {
     canonical: "https://pixelnpanel.com/es/precios",
     languages: {
@@ -246,9 +246,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Precios para Sitios, Letreros y SEO | Pixel & Panel",
+    title: "Precios Web y Cotizaciones de Letreros | Pixel & Panel",
     description:
-      "Precios iniciales para sitios web, visibilidad local, códigos QR y opciones de letreros e impresión.",
+      "Tarifas claras para diseño web y cotizaciones rápidas de letreros, lonas e impresos en el sureste de Texas.",
     url: "https://pixelnpanel.com/es/precios",
     locale: "es_US",
   },

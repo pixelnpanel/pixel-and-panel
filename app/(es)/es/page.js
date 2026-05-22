@@ -13,19 +13,19 @@ const services = [
   {
     title: "Sitios web",
     description:
-      "Páginas rápidas y claras que explican tus servicios y hacen fácil llamar, escribir o pedir una cotización.",
+      "Páginas rápidas y claras que explican tus servicios y facilitan llamar, escribir o pedir una cotización.",
     icon: Globe2,
   },
   {
     title: "Aparecer en Google",
     description:
-      "Mejoramos la información que clientes ven cuando buscan tu negocio en Google y mapas.",
+      "Mejoramos la información que clientes ven cuando buscan tu negocio en Google Maps.",
     icon: MapPinned,
   },
   {
     title: "Letreros e impresión",
     description:
-      "Letreros, banners, tarjetas, flyers y materiales impresos pensados para verse bien y guiar al siguiente paso.",
+      "Letreros, banners, tarjetas, flyers y materiales impresos pensados para guiar al siguiente paso.",
     icon: Store,
   },
   {
@@ -37,9 +37,9 @@ const services = [
 ];
 
 const problems = [
-  "Clientes no encuentran información clara en Google.",
-  "El sitio web no convierte visitantes en llamadas o mensajes.",
-  "Los letreros e impresos llaman la atención, pero no tienen un siguiente paso fácil.",
+  "Tu Perfil de Google está vacío o incompleto.",
+  "Tu sitio web es lento o no convierte visitas en llamadas.",
+  "Tus lonas, tarjetas o letreros no tienen un llamado a la acción claro.",
 ];
 
 const reasons = [
@@ -90,9 +90,9 @@ export default function SpanishHomePage() {
             </div>
             <h1 className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-black leading-[1.08] tracking-normal text-white">
               <span className="md:hidden">
-                Aparece en Google
+                Haz que tu negocio aparezca
                 <span className="mt-2 block text-[#F59E0B]">
-                  y en la calle
+                  en Google y la calle
                 </span>
               </span>
               <span className="hidden md:inline">
@@ -103,17 +103,17 @@ export default function SpanishHomePage() {
               </span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
-              Ayudamos a contratistas, tiendas, restaurantes y talleres del sureste de Texas a verse profesionales y conseguir más llamadas. Conectamos páginas de internet, lonas comerciales, volantes, rotulación vehicular y Perfil de Google.
+              Ayudamos a contratistas, tiendas, restaurantes y talleres del sureste de Texas a verse profesionales y conseguir más llamadas. Conectamos tus páginas de internet con tus lonas comerciales, volantes, rotulación de camionetas y Perfil de Google.
             </p>
             <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-nowrap">
               <Link href="/es/solicitar-cotizacion" className="btn-amber w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Solicitar cotización <ArrowRight className="h-4 w-4" />
+                Cotizar gratis <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/es/precios" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
                 Ver precios
               </Link>
               <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Chequeo en Google
+                Chequeo gratis en Google
               </Link>
             </div>
           </div>
@@ -127,11 +127,10 @@ export default function SpanishHomePage() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="section-label text-[#0369A1]">El problema</p>
             <h2 id="problem-heading" className="text-[#1C1917]">
-              Muchos negocios sí hacen buen trabajo, pero el camino para encontrarlos no está claro.
+              Muchos negocios hacen un gran trabajo, pero sus clientes no los encuentran en internet.
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-600 md:text-lg">
-              Tus clientes se mueven entre Google, tu sitio web, tus letreros y tus datos de contacto.
-              Cada parte debe ayudarles a encontrar tu negocio y dar el siguiente paso.
+              Tus clientes se mueven entre Google Maps, tu sitio web, tus letreros en la calle y tus tarjetas. Si una parte no guía al siguiente paso, esos clientes terminan llamando a tu competencia.
             </p>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -150,7 +149,7 @@ export default function SpanishHomePage() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="section-label text-[#0369A1]">Servicios</p>
             <h2 id="services-heading" className="text-[#1C1917]">
-              Sitios web, letreros personalizados y marketing local para que tu negocio aparezca en Google y crezca.
+              Un solo sistema para tu visibilidad física y digital.
             </h2>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -172,7 +171,7 @@ export default function SpanishHomePage() {
           <div>
             <p className="section-label text-[#0369A1]">Por qué Pixel & Panel</p>
             <h2 id="why-heading" className="text-[#1C1917]">
-              Visibilidad práctica para negocios locales.
+              Un proceso simple, precios claros y sin presiones corporativas.
             </h2>
             <p className="mt-5 leading-8 text-slate-600">
               Pixel &amp; Panel conecta lo digital y lo físico para que tu negocio sea

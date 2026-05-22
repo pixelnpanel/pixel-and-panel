@@ -2,11 +2,11 @@ import CityLanding from "../CityLanding";
 
 const city = {
   name: "Beaumont",
-  h1: "Custom Signs, Print & Websites in Beaumont, TX",
+  h1: "Helping Beaumont Businesses Get Found Online and Stand Out on the Street",
   intro:
-    "Pixel & Panel helps Beaumont businesses get seen with professional signs, print materials, websites, local SEO, and QR-powered marketing.",
+    "Pixel & Panel delivers mobile websites, local SEO frameworks, commercial signs, and print materials built to capture more customer calls for companies across Beaumont, TX.",
   body:
-    "Beaumont businesses compete across busy local searches, service calls, storefront traffic, and word-of-mouth referrals. A clear online presence and strong physical branding make it easier for customers to find you, trust you, and contact you.",
+    "Beaumont contractors, stores, restaurants, and service companies compete across Google searches, storefront traffic, and word-of-mouth referrals. Your offline branding and digital footprint should reinforce each other so customers can find you, trust you, and contact you.",
   services: [
     "Custom signage and print materials for storefronts, job sites, events, and promotions.",
     "Fast, mobile-friendly websites built for local search and quote requests.",
@@ -21,9 +21,9 @@ const city = {
     { label: "Google Business Profile", href: "/digital/google-business-profile", description: "Clean up the profile many Beaumont customers see before calling." },
   ],
   reasons: [
-    "Beaumont businesses often need both strong search visibility and clear storefront or vehicle branding.",
+    "Beaumont businesses need both strong search visibility and clear storefront or vehicle branding.",
     "Website development and local SEO help customers understand services before they call or request a quote.",
-    "Storefront signs, banners, and vehicle graphics make the same brand easier to recognize around town.",
+    "Storefront signs, banners, yard signs, and vehicle graphics make the same brand easier to recognize around town.",
   ],
   faqs: [
     ["What Beaumont services are most common?", "Website development, local SEO, storefront signs, banners, and vehicle graphics are strong starting points for many Beaumont businesses."],
@@ -33,9 +33,11 @@ const city = {
 };
 
 export const metadata = {
-  title: "Signs, Print & Websites in Beaumont, TX",
+  title: {
+    absolute: "Web Design, Custom Signs & Local SEO in Beaumont, TX",
+  },
   description:
-    "Pixel & Panel helps Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
+    "Pixel & Panel helps Beaumont, TX businesses look professional and rank high on Google with custom websites, storefront signs, local SEO, and print.",
   alternates: {
     canonical: "/service-area/beaumont-tx",
     languages: {
@@ -44,9 +46,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Signs, Print & Websites in Beaumont, TX | Pixel & Panel",
+    title: "Web Design, Custom Signs & Local SEO in Beaumont, TX",
     description:
-      "Pixel & Panel helps Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
+      "Pixel & Panel helps Beaumont, TX businesses look professional and rank high on Google with custom websites, storefront signs, local SEO, and print.",
     url: "https://pixelnpanel.com/service-area/beaumont-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
@@ -54,9 +56,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Signs, Print & Websites in Beaumont, TX | Pixel & Panel",
+    title: "Web Design, Custom Signs & Local SEO in Beaumont, TX",
     description:
-      "Pixel & Panel helps Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
+      "Pixel & Panel helps Beaumont, TX businesses look professional and rank high on Google with custom websites, storefront signs, local SEO, and print.",
   },
 };
 

@@ -4,14 +4,14 @@ import { signageCategoriesEs, signageHubSlugMapEs } from "@/lib/signage-products
 
 const spanishCopy = {
   eyebrow: "Letreros e Impresión",
-  h1Start: "Letreros e impresión para hacer tu negocio",
-  h1Highlight: "más visible",
-  mobileH1Start: "Letreros que",
-  mobileH1Highlight: "se ven.",
+  h1Start: "Letreros comerciales, banners de vinilo",
+  h1Highlight: "e impresión profesional",
+  mobileH1Start: "Letreros comerciales",
+  mobileH1Highlight: "e imprenta local.",
   mobileHeroCopy:
-    "Explora letreros, banners, gráficos para vehículos, tarjetas y productos impresos por categoría.",
+    "Letreros exteriores, banners, rotulación para camionetas y papelería comercial premium.",
   heroCopy:
-    "Explora productos de letreros e impresión para escaparates, vehículos, eventos, promociones y negocios locales.",
+    "Maximiza el impacto visual de tu local y tus camionetas de trabajo con letreros para fachadas, lonas publicitarias, gráficos para vidrios e impresos comerciales.",
   quoteCta: "Solicitar cotización",
   viewProducts: "Ver productos",
   intro:
@@ -63,10 +63,10 @@ const spanishCopy = {
 export const metadata = {
   metadataBase: new URL("https://pixelnpanel.com"),
   title: {
-    absolute: "Letreros e Impresión | Pixel & Panel",
+    absolute: "Letreros Comerciales, Banners e Imprenta | Pixel & Panel",
   },
   description:
-    "Letreros personalizados, banners, tarjetas, volantes, gráficos para vehículos y materiales impresos para negocios del sureste de Texas.",
+    "Ordena letreros comerciales, lonas de vinilo resistentes, imanes vehiculares y volantes impresos en Beaumont, TX.",
   alternates: {
     canonical: "https://pixelnpanel.com/es/letreros",
     languages: {
@@ -75,9 +75,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Letreros e Impresión | Pixel & Panel",
+    title: "Letreros Comerciales, Banners e Imprenta | Pixel & Panel",
     description:
-      "Letreros personalizados, banners, tarjetas, volantes, gráficos para vehículos y materiales impresos para negocios locales.",
+      "Ordena letreros comerciales, lonas de vinilo resistentes, imanes vehiculares y volantes impresos en Beaumont, TX.",
     url: "https://pixelnpanel.com/es/letreros",
     locale: "es_US",
   },
