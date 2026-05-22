@@ -2,10 +2,10 @@ import PortfolioClientEs from "./PortfolioClientEs";
 
 export const metadata = {
   title: {
-    absolute: "Portafolio | Pixel & Panel — Sitios Web, Letreros y Branding",
+    absolute: "Portafolio de Sitios y Letreros | Pixel & Panel",
   },
   description:
-    "Explora ejemplos de Pixel & Panel para sitios web, letreros, materiales impresos, campañas con códigos QR y conceptos de branding para negocios del sureste de Texas.",
+    "Explora ejemplos de sitios web, letreros, impresos, campañas QR y branding para negocios del sureste de Texas.",
   alternates: {
     canonical: "https://pixelnpanel.com/es/portafolio",
     languages: {

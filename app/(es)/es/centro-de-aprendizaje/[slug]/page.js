@@ -4,6 +4,7 @@ import {
   getPostBySlugEs,
   learningCenterPostsEs,
 } from "@/lib/learning-center-posts-es";
+import { learningCenterSeoOverridesEs } from "@/lib/seo-copy-overrides";
 
 export function generateStaticParams() {
   return learningCenterPostsEs.map((post) => ({ slug: post.slug }));
@@ -21,10 +22,13 @@ export async function generateMetadata({ params }) {
 
   const pageUrl = `https://pixelnpanel.com/es/centro-de-aprendizaje/${post.slug}`;
   const enUrl = `https://pixelnpanel.com/learning-center/${post.enSlug}`;
+  const seo = learningCenterSeoOverridesEs[post.slug] || {};
+  const title = seo.title || post.title;
+  const description = seo.description || post.description;
 
   return {
-    title: { absolute: `${post.title} | Centro de Aprendizaje Pixel & Panel` },
-    description: post.description,
+    title: { absolute: `${title} | Pixel & Panel` },
+    description,
     alternates: {
       canonical: pageUrl,
       languages: {
@@ -33,8 +37,8 @@ export async function generateMetadata({ params }) {
       },
     },
     openGraph: {
-      title: `${post.title} | Pixel & Panel`,
-      description: post.description,
+      title: `${title} | Pixel & Panel`,
+      description,
       url: pageUrl,
       siteName: "Pixel & Panel",
       locale: "es_US",
@@ -44,8 +48,8 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | Pixel & Panel`,
-      description: post.description,
+      title: `${title} | Pixel & Panel`,
+      description,
     },
   };
 }

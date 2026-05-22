@@ -8,8 +8,7 @@ import {
 
 export const metadata = {
   title: {
-    absolute:
-      "Learning Center | Pixel & Panel — Signs, Websites & Local Visibility Tips",
+    absolute: "Local Business Marketing Tips | Pixel & Panel",
   },
   description:
     "Helpful guides from Pixel & Panel about websites, signs, QR campaigns, local SEO, and visibility for Southeast Texas businesses.",

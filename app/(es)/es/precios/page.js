@@ -234,7 +234,7 @@ const spanishCopy = {
 
 export const metadata = {
   title: {
-    absolute: "Precios | Pixel & Panel — Sitios Web, Letreros y Visibilidad",
+    absolute: "Precios para Sitios, Letreros y SEO | Pixel & Panel",
   },
   description:
     "Precios iniciales para negocios del sureste de Texas. Pixel & Panel ofrece sitios web, visibilidad local, códigos QR y opciones de letreros e impresión.",
@@ -246,7 +246,7 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Precios | Pixel & Panel — Sitios Web, Letreros y Visibilidad",
+    title: "Precios para Sitios, Letreros y SEO | Pixel & Panel",
     description:
       "Precios iniciales para sitios web, visibilidad local, códigos QR y opciones de letreros e impresión.",
     url: "https://pixelnpanel.com/es/precios",

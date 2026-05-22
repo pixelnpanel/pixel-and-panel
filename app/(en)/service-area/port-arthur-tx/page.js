@@ -34,9 +34,9 @@ const city = {
 };
 
 export const metadata = {
-  title: "Custom Signs, Print & Websites in Port Arthur, TX",
+  title: "Signs, Print & Websites in Port Arthur, TX",
   description:
-    "Pixel & Panel serves Port Arthur, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+    "Pixel & Panel helps Port Arthur, TX businesses with signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
   alternates: {
     canonical: "/service-area/port-arthur-tx",
     languages: {
@@ -45,9 +45,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Custom Signs, Print & Websites in Port Arthur, TX | Pixel & Panel",
+    title: "Signs, Print & Websites in Port Arthur, TX | Pixel & Panel",
     description:
-      "Pixel & Panel serves Port Arthur, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+      "Pixel & Panel helps Port Arthur, TX businesses with signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
     url: "https://pixelnpanel.com/service-area/port-arthur-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
@@ -55,9 +55,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Signs, Print & Websites in Port Arthur, TX | Pixel & Panel",
+    title: "Signs, Print & Websites in Port Arthur, TX | Pixel & Panel",
     description:
-      "Pixel & Panel serves Port Arthur, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+      "Pixel & Panel helps Port Arthur, TX businesses with signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
   },
 };
 

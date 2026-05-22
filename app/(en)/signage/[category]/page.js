@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import SignageProductPage from "@/components/signage/SignageProductPage";
 import { getSignageProduct, signageProducts } from "@/lib/signage-products";
+import { signageSeoOverrides } from "@/lib/seo-copy-overrides";
 import { signageSlugMap } from "@/lib/signage-products-es";
 
 export function generateStaticParams() {
@@ -19,9 +20,13 @@ export async function generateMetadata({ params }) {
         };
     }
 
+    const seo = signageSeoOverrides[product.slug] || {};
+    const title = seo.title || product.title;
+    const description = seo.description || product.description;
+
     return {
-        title: product.title,
-        description: product.description,
+        title,
+        description,
         alternates: {
             canonical: `/signage/${product.slug}`,
             languages: {
@@ -30,8 +35,8 @@ export async function generateMetadata({ params }) {
             },
         },
         openGraph: {
-            title: `${product.title} | Pixel & Panel`,
-            description: product.description,
+            title: `${title} | Pixel & Panel`,
+            description,
             url: `https://pixelnpanel.com/signage/${product.slug}`,
             siteName: "Pixel & Panel",
             locale: "en_US",
@@ -39,8 +44,8 @@ export async function generateMetadata({ params }) {
         },
         twitter: {
             card: "summary_large_image",
-            title: `${product.title} | Pixel & Panel`,
-            description: product.description,
+            title: `${title} | Pixel & Panel`,
+            description,
         },
     };
 }

@@ -63,7 +63,7 @@ const spanishCopy = {
 export const metadata = {
   metadataBase: new URL("https://pixelnpanel.com"),
   title: {
-    absolute: "Letreros e Impresión | Pixel & Panel — Letreros Personalizados",
+    absolute: "Letreros e Impresión | Pixel & Panel",
   },
   description:
     "Letreros personalizados, banners, tarjetas, volantes, gráficos para vehículos y materiales impresos para negocios del sureste de Texas.",

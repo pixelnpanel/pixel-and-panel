@@ -33,9 +33,9 @@ const city = {
 };
 
 export const metadata = {
-  title: "Custom Signs, Print & Websites in Beaumont, TX",
+  title: "Signs, Print & Websites in Beaumont, TX",
   description:
-    "Pixel & Panel serves Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+    "Pixel & Panel helps Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
   alternates: {
     canonical: "/service-area/beaumont-tx",
     languages: {
@@ -44,9 +44,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Custom Signs, Print & Websites in Beaumont, TX | Pixel & Panel",
+    title: "Signs, Print & Websites in Beaumont, TX | Pixel & Panel",
     description:
-      "Pixel & Panel serves Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+      "Pixel & Panel helps Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
     url: "https://pixelnpanel.com/service-area/beaumont-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
@@ -54,9 +54,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Signs, Print & Websites in Beaumont, TX | Pixel & Panel",
+    title: "Signs, Print & Websites in Beaumont, TX | Pixel & Panel",
     description:
-      "Pixel & Panel serves Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Business Profile optimization, and QR-powered marketing.",
+      "Pixel & Panel helps Beaumont, TX businesses with custom signs, print materials, websites, local SEO, Google Profile support, and QR marketing.",
   },
 };
 
