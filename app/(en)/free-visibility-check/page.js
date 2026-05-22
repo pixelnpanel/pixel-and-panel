@@ -8,6 +8,7 @@ import {
   MapPin,
 } from "lucide-react";
 import VisibilityCheckForm from "./VisibilityCheckForm";
+import VisibilityGuideCard from "./VisibilityGuideCard";
 
 const whoFor = [
   "New businesses",
@@ -132,7 +133,7 @@ export default function FreeVisibilityCheckPage() {
                 Not sure why customers are not finding you? Pixel &amp; Panel will review
                 your online and real-world visibility and show you practical ways to improve.
               </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-7 hidden flex-col gap-3 md:flex md:flex-row">
                 <Link href="/pricing" className="btn-ghost justify-center">
                   View Pricing
                 </Link>
@@ -145,6 +146,7 @@ export default function FreeVisibilityCheckPage() {
                   </div>
                 ))}
               </div>
+              <VisibilityGuideCard />
             </div>
 
             <div className="lg:py-6">

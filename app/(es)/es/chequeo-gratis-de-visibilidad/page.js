@@ -8,6 +8,7 @@ import {
   MapPin,
 } from "lucide-react";
 import VisibilityCheckForm from "../../../(en)/free-visibility-check/VisibilityCheckForm";
+import VisibilityGuideCard from "../../../(en)/free-visibility-check/VisibilityGuideCard";
 
 const whoFor = [
   "Negocios nuevos",
@@ -167,7 +168,7 @@ export default function SpanishVisibilityCheckPage() {
               Pixel &amp; Panel revisa tu presencia en línea y en el mundo real
               para darte ideas prácticas de mejora.
             </p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 hidden flex-col gap-3 md:flex md:flex-row">
               <Link href="/es/precios" className="btn-ghost justify-center">
                 Ver precios
               </Link>
@@ -180,6 +181,39 @@ export default function SpanishVisibilityCheckPage() {
                 </div>
               ))}
             </div>
+            <VisibilityGuideCard
+              eyebrow="Cómo funciona el chequeo gratis"
+              title="Una revisión guiada antes de gastar dinero."
+              steps={[
+                {
+                  num: "01",
+                  icon: "clipboard",
+                  label: "Comparte lo básico",
+                  title: "Cuéntanos qué necesita atención.",
+                  body: "Envía el nombre del negocio, ciudad, sitio web y las áreas donde la visibilidad se siente débil.",
+                  checklist: ["Sitio o Perfil de Google", "Letreros, impresión o QR"],
+                  accent: "#F59E0B",
+                },
+                {
+                  num: "02",
+                  icon: "search",
+                  label: "Revisamos visibilidad",
+                  title: "Miramos lo que ven tus clientes.",
+                  body: "Pixel & Panel revisa los puntos prácticos donde los clientes locales deciden llamar, visitar, escanear o seguir buscando.",
+                  checklist: ["Claridad en búsqueda", "Ruta móvil de contacto"],
+                  accent: "#38BDF8",
+                },
+                {
+                  num: "03",
+                  icon: "lightbulb",
+                  label: "Recibe próximos pasos",
+                  title: "Te damos recomendaciones simples.",
+                  body: "Recibes un resumen claro con ideas de mejora y una opción sin presión si quieres ayuda.",
+                  checklist: ["Mejoras rápidas", "Siguiente paso claro"],
+                  accent: "#10B981",
+                },
+              ]}
+            />
           </div>
 
           <div className="lg:py-6">
