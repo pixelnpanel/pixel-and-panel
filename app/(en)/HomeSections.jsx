@@ -24,19 +24,19 @@ const problemCards = [
   {
     title: "No website or outdated website",
     description:
-      "Customers check you online before they call. A confusing site can make a good business look hard to trust.",
+      "Customers check you online before they call. A confusing or outdated site can make a good local business look hard to trust.",
     icon: MonitorSmartphone,
   },
   {
     title: "Weak Google presence",
     description:
-      "If nearby customers cannot find clear service, contact, and Google profile information, they move on fast.",
+      "If nearby customers cannot find your services, hours, location, and contact options on Google, they move on fast.",
     icon: Search,
   },
   {
     title: "Signs with no clear next step",
     description:
-      "A great sign gets you noticed. Adding a simple QR code or contact option gives customers an easy way to reach you.",
+      "A great sign gets you noticed. A short URL, QR code, or clear call path gives customers an easy next step.",
     icon: QrCode,
   },
 ];
@@ -45,19 +45,19 @@ const solutionSteps = [
   {
     title: "Build",
     description:
-      "Create a professional website and Google presence that explains what you do and makes contact easy.",
+      "Create a professional website and Google presence that explains what you do, where you work, and how to contact you.",
     icon: Globe2,
   },
   {
     title: "Promote",
     description:
-      "Use signs, banners, vehicle graphics, and print materials to get noticed around town and on job sites.",
+      "Use custom signs, banners, vehicle graphics, and print materials to get noticed around town, at your storefront, and on job sites.",
     icon: Megaphone,
   },
   {
     title: "Connect",
     description:
-      "Add QR codes and simple contact options so customers can easily call, visit, or ask for a quote right from your sign or flyer.",
+      "Add QR codes, short links, and simple forms so customers can call, visit, or ask for a quote from your sign, flyer, or website.",
     icon: QrCode,
   },
 ];
@@ -67,14 +67,14 @@ const serviceSilos = [
     eyebrow: "Digital Services",
     title: "Show up when nearby customers search on Google.",
     description:
-      "Websites, local SEO, Google Business Profile, lead capture, and QR campaigns.",
+      "Website design, local SEO, Google Business Profile optimization, lead capture, and QR campaigns.",
     href: "/digital",
     cta: "View Digital Services",
     accent: "#0EA5E9",
     icon: MonitorSmartphone,
     items: [
       "Pages that turn visitors into calls and quote requests",
-      "Google-ready service content",
+      "Google-ready service and location content",
       "QR codes that send customers from your signs to your website",
     ],
   },
@@ -82,7 +82,7 @@ const serviceSilos = [
     eyebrow: "Signage & Print",
     title: "Get noticed in the real world.",
     description:
-      "Banners, yard signs, vehicle graphics, storefront signs, business cards, flyers, menus, and more.",
+      "Custom signs, banners, yard signs, vehicle graphics, storefront signs, business cards, flyers, menus, and more.",
     href: "/signage",
     cta: "View Signage & Print",
     accent: "#F59E0B",
@@ -90,7 +90,7 @@ const serviceSilos = [
     items: [
       "Business signs that are easy to read",
       "Print materials for handoffs, events, and walk-ins",
-      "Designs that give customers a clear next step",
+      "Designs that give customers a clear next step online or by phone",
     ],
   },
 ];
@@ -258,8 +258,8 @@ export default function HomeSections({ faqs }) {
           <SectionIntro
             id="problem-heading"
             eyebrow="The Problem"
-            title="Your competitors are getting found. Are you?"
-            description="Customers move fast between Google, your website, your signs, and your contact options. Every piece should make the next step obvious."
+            title="Your competitors are showing up. Are you?"
+            description="Customers move fast between Google, your website, your signs, and your contact options. Every piece should make your business easier to find, understand, and contact."
           />
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -279,10 +279,10 @@ export default function HomeSections({ faqs }) {
 
           <div className="mt-10 text-center">
             <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600">
-              Not sure where the gap is yet? Start with a free review before asking for a project quote.
+              Not sure where the gap is yet? Start with a free Google visibility review before asking for a project quote.
             </p>
             <Link href="/free-visibility-check" className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
-              Start a Free Visibility Check <ArrowRight className="h-4 w-4" />
+              Check My Google Visibility <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
@@ -322,7 +322,7 @@ export default function HomeSections({ faqs }) {
           <SectionIntro
             id="services-heading"
             eyebrow="Services"
-            title="Your website, signs, and print — working together"
+            title="Websites, custom signs, and local marketing in one place"
             description="Choose what you need now, or start with a quote request and Pixel & Panel will recommend the right next step."
           />
 
@@ -413,7 +413,7 @@ export default function HomeSections({ faqs }) {
           <SectionIntro
             id="why-heading"
             eyebrow="Why Pixel & Panel"
-            title="Premium enough to trust, practical enough to use"
+            title="Clear enough for customers. Practical enough for local business."
             description="The goal is simple: make your business easier to notice, easier to understand, and easier to contact."
           />
 
@@ -502,7 +502,7 @@ export default function HomeSections({ faqs }) {
             Ready to Make Your Business Easier to Find?
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/75">
-            Start with a quote request. Tell us what you need, and Pixel &amp; Panel will recommend the right next step.
+            Start with a quote request. Tell us what you need, and Pixel &amp; Panel will recommend the right next step for your website, sign, print, or Google visibility project.
           </p>
           <div className="mt-8 flex justify-center">
             <Link href="/quote-request" className="btn-amber">

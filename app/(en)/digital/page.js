@@ -2,9 +2,11 @@ import DigitalClient from "./DigitalClient";
 
 export const metadata = {
   metadataBase: new URL("https://pixelnpanel.com"),
-  title: "Digital Services",
+  title: {
+    absolute: "Local Web Design, SEO & Google Profile | Pixel & Panel",
+  },
   description:
-    "Websites, local SEO, Google Business Profile optimization, CRM automation, and QR code campaigns for businesses in Beaumont, Nederland, and Port Arthur, TX.",
+    "Fast websites, local SEO, Google Profile setup, QR campaigns, and lead tools for small businesses in Beaumont and Southeast Texas.",
   alternates: {
     canonical: "/digital",
     languages: {
@@ -13,9 +15,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Digital Services | Pixel & Panel",
+    title: "Local Web Design, SEO & Google Profile | Pixel & Panel",
     description:
-      "Digital services that help local businesses get found online, turn visitors into leads, and connect print campaigns to measurable results.",
+      "Fast websites, local SEO, Google Profile setup, QR campaigns, and lead tools for small businesses in Beaumont and Southeast Texas.",
     url: "/digital",
   },
 };

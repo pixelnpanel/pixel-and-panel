@@ -19,9 +19,9 @@ import { cityServiceServices, cityServiceCities } from "@/lib/city-service-pages
 
 const serviceDetails = {
   "web-development": {
-    helps: ["Turn visitors into quote requests", "Explain services clearly on mobile", "Make your signs and website work together"],
-    bestFor: ["New businesses that need a professional home base", "Local service companies that need quote requests", "Shops and restaurants that need clear pages customers can trust"],
-    how: "Pixel & Panel keeps website builds focused on clear service pages, fast mobile layouts, and contact paths that make sense for local customers.",
+    helps: ["Bring local searchers to clear service pages", "Turn mobile visitors into calls and quote requests", "Connect signs, QR codes, and Google profile traffic to the right next step"],
+    bestFor: ["New businesses that need a professional online presence", "Local service companies that depend on quote requests", "Shops, restaurants, and contractors that need clear pages customers can trust"],
+    how: "Pixel & Panel keeps website builds focused on local search structure, fast mobile layouts, plain-English service copy, and contact paths that make sense for local customers.",
     icon: Globe2,
   },
   "local-seo": {

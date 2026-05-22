@@ -20,7 +20,7 @@ const bestForBySlug = {
   "vinyl-banners": ["Grand openings and seasonal offers", "Fence lines and job sites", "Events, schools, and churches"],
   "yard-signs": ["Contractor job sites", "Neighborhood promotions", "Directional and event signage"],
   "real-estate-signs": ["Residential listings", "Commercial properties", "Open house directions"],
-  "vehicle-graphics": ["Contractors and trades", "Service vans and trucks", "Fleet branding"],
+  "vehicle-graphics": ["Service businesses with trucks and vans", "Commercial lettering and partial wraps", "Fleet graphics with consistent local branding"],
   "car-magnets": ["Part-time business vehicles", "Temporary vehicle branding", "Delivery and service teams"],
   "window-graphics": ["Storefronts and offices", "Hours and service information", "Seasonal window promotions"],
   "storefront-signs": ["Retail shops and restaurants", "Offices and commercial spaces", "Businesses that need stronger street visibility"],
@@ -43,8 +43,8 @@ const bestForBySlug = {
   "perforated-window-graphics": ["Storefronts with visibility privacy balance", "Auto dealerships and showroom windows", "Retail windows with promotional messaging"],
   "frosted-privacy-film": ["Office glass partitions and conference rooms", "Spa, salon, and medical office windows", "Storefronts that need branding with privacy"],
   "acrylic-signs": ["Lobbies and reception desks", "Office suites and professional suites", "Retail interior branding and wayfinding"],
-  brochures: ["Sales appointments and take-home packets", "Trade show handouts", "Service-area businesses explaining multi-step processes"],
-  postcards: ["Direct mail campaigns to targeted neighborhoods", "Event announcements and promotions", "Leave-behind marketing for door-to-door outreach"],
+  brochures: ["Sales appointments and take-home packets", "Service menus and multi-offering explainers", "Local businesses that need polished print materials"],
+  postcards: ["Direct mail campaigns to targeted neighborhoods", "Grand openings, seasonal offers, and reminders", "Campaigns that pair print with QR tracking"],
 };
 
 function JsonLd({ data }) {

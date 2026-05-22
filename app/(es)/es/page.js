@@ -51,10 +51,10 @@ const reasons = [
 export const metadata = {
   metadataBase: new URL("https://pixelnpanel.com"),
   title: {
-    absolute: "Pixel & Panel | Diseño Web, Letreros e Impresión para Negocios del Sureste de Texas",
+    absolute: "Diseño Web, Letreros y SEO Local | Pixel & Panel",
   },
   description:
-    "Pixel & Panel ayuda a negocios del sureste de Texas a ser encontrados en Google, destacarse con letreros profesionales e impresión, y hacer más fácil que los clientes llamen o escriban.",
+    "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
   alternates: {
     canonical: "https://pixelnpanel.com/es",
     languages: {
@@ -63,9 +63,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Pixel & Panel | Diseño Web, Letreros e Impresión para Negocios del Sureste de Texas",
+    title: "Diseño Web, Letreros y SEO Local | Pixel & Panel",
     description:
-      "Pixel & Panel ayuda a negocios del sureste de Texas a ser encontrados en Google, destacarse con letreros profesionales e impresión, y hacer más fácil que los clientes llamen o escriban.",
+      "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
     url: "https://pixelnpanel.com/es",
     locale: "es_US",
     type: "website",
@@ -89,23 +89,31 @@ export default function SpanishHomePage() {
               Sirviendo el sureste de Texas
             </div>
             <h1 className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-black leading-[1.08] tracking-normal text-white">
-              Diseño web, letreros e impresión{" "}
-              <span className="mt-2 block text-[#F59E0B]">
-                para negocios del sureste de Texas
+              <span className="md:hidden">
+                Aparece en Google
+                <span className="mt-2 block text-[#F59E0B]">
+                  y en la calle
+                </span>
+              </span>
+              <span className="hidden md:inline">
+                Páginas web, letreros comerciales y Google Maps{" "}
+                <span className="mt-2 block text-[#F59E0B]">
+                  para negocios locales
+                </span>
               </span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
-              Pixel &amp; Panel ayuda a negocios locales a ser encontrados en Google, destacarse con letreros profesionales e impresión, y hacer más fácil que los clientes llamen o escriban.
+              Ayudamos a contratistas, tiendas, restaurantes y talleres del sureste de Texas a verse profesionales y conseguir más llamadas. Conectamos páginas de internet, lonas comerciales, volantes, rotulación vehicular y Perfil de Google.
             </p>
             <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-nowrap">
               <Link href="/es/solicitar-cotizacion" className="btn-amber w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Solicitar una cotización <ArrowRight className="h-4 w-4" />
+                Solicitar cotización <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/es/precios" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
                 Ver precios
               </Link>
               <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Chequeo gratis
+                Chequeo en Google
               </Link>
             </div>
           </div>
@@ -119,11 +127,11 @@ export default function SpanishHomePage() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="section-label text-[#0369A1]">El problema</p>
             <h2 id="problem-heading" className="text-[#1C1917]">
-              Muchos negocios sí tienen buenas ofertas, pero el camino para encontrarlos no está claro.
+              Muchos negocios sí hacen buen trabajo, pero el camino para encontrarlos no está claro.
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-600 md:text-lg">
               Tus clientes se mueven entre Google, tu sitio web, tus letreros y tus datos de contacto.
-              Cada parte debe ayudarles a dar el siguiente paso.
+              Cada parte debe ayudarles a encontrar tu negocio y dar el siguiente paso.
             </p>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -142,7 +150,7 @@ export default function SpanishHomePage() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="section-label text-[#0369A1]">Servicios</p>
             <h2 id="services-heading" className="text-[#1C1917]">
-              Ayudamos a que más clientes encuentren tu negocio en Google, en tu sitio web y en tus letreros.
+              Sitios web, letreros personalizados y marketing local para que tu negocio aparezca en Google y crezca.
             </h2>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -168,7 +176,7 @@ export default function SpanishHomePage() {
             </h2>
             <p className="mt-5 leading-8 text-slate-600">
               Pixel &amp; Panel conecta lo digital y lo físico para que tu negocio sea
-              más fácil de encontrar, entender y contactar.
+              más fácil de encontrar, entender y contactar en Beaumont, Nederland, Port Arthur y el sureste de Texas.
             </p>
           </div>
           <div className="grid gap-4">
@@ -195,10 +203,10 @@ export default function SpanishHomePage() {
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link href="/es/solicitar-cotizacion" className="btn-amber justify-center">
-              Solicitar una cotización <ArrowRight className="h-4 w-4" />
+              Solicitar cotización <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost justify-center">
-              Chequeo gratis
+              Chequeo gratis en Google
             </Link>
           </div>
         </div>

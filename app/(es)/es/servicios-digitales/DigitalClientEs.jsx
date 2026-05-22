@@ -11,12 +11,12 @@ const services = [
     name: 'Desarrollo Web',
     href: '/es/servicios-digitales/desarrollo-web',
     description:
-      'Un sitio web rápido y profesional creado para aparecer en Google y convertir visitantes en clientes. Móvil primero, claro y fácil de mantener.',
+      'Un sitio web rápido y profesional creado para búsqueda local, confianza y solicitudes de cotización. Móvil primero y fácil de usar.',
     features: [
       'Diseño personalizado para tu marca',
-      'Preparado para búsqueda local en Google',
-      'Funciona bien en cualquier dispositivo',
-      'Estructura fácil de actualizar',
+      'Estructura de SEO local incluida',
+      'Funciona claramente en celulares',
+      'Pensado para llamadas y cotizaciones',
     ],
   },
   {
@@ -26,12 +26,12 @@ const services = [
     name: 'Aparece en Google',
     href: '/es/servicios-digitales/seo-local',
     description:
-      'Ayuda a clientes cercanos a encontrar tu negocio en Google y Google Maps cuando buscan lo que ofreces.',
+      'Ayuda a clientes cercanos a entender tus servicios, zonas de trabajo y opciones de contacto cuando buscan en Google y Google Maps.',
     features: [
       'Configuración y optimización de Perfil de Google',
-      'Enfoque en lo que tus clientes realmente buscan',
-      'Información correcta en Google y directorios',
-      'Actualizaciones claras de progreso',
+      'Planeación de palabras clave y servicios locales',
+      'Guía para directorios y datos consistentes',
+      'Actualizaciones claras y fáciles de entender',
     ],
   },
   {
@@ -41,12 +41,12 @@ const services = [
     name: 'Nunca Pierdas un Lead',
     href: '/es/servicios-digitales/automatizacion-crm',
     description:
-      'Cuando alguien pregunta por tus servicios, debe recibir respuesta rápido. Configuramos herramientas simples para ayudarte a responder sin perder solicitudes.',
+      'Cuando alguien pregunta por tus servicios, el siguiente paso debe ser claro. Configuramos rutas simples para responder mejor a cada solicitud.',
     features: [
       'Respuesta automática cuando alguien escribe',
-      'Seguimiento por texto y correo',
+      'Mejor organización de formularios y cotizaciones',
       'Solicitudes abiertas en un solo lugar',
-      'Opción de configuración de citas',
+      'Opción de citas o seguimiento',
     ],
   },
   {
@@ -56,33 +56,35 @@ const services = [
     name: 'Campañas con Códigos QR',
     href: '/es/servicios-digitales/campanas-con-qr',
     description:
-      'Agrega códigos QR a letreros, volantes o tarjetas para llevar clientes directo a tu sitio, menú o formulario de cotización.',
+      'Agrega códigos QR a letreros, volantes, menús, vehículos o tarjetas para llevar clientes directo a una acción útil.',
     features: [
-      'QR para letreros, volantes y tarjetas',
-      'Revisión de cuántas personas escanean',
-      'Envía clientes al formulario o sitio correcto',
-      'Identifica qué materiales generan respuesta',
+      'QR para letreros, volantes, menús y tarjetas',
+      'Opciones para medir escaneos por campaña',
+      'Formularios, menús, ofertas o páginas destino',
+      'Conecta impresos con acciones medibles',
     ],
   },
 ]
 
 const copy = {
   label: 'Servicios Digitales',
-  titleStart: 'Haz que te encuentren en línea.',
-  titleHighlight: 'Convierte visitantes en clientes.',
+  titleStart: 'Sitios web y optimización en Google',
+  titleHighlight: 'para convertir búsquedas en clientes.',
+  titleStartMobile: 'Aparece en Google',
+  titleHighlightMobile: 'y recibe más solicitudes.',
   intro:
-    'Todo lo que un negocio local necesita para aparecer en Google, verse profesional en línea y facilitar que los clientes te contacten.',
+    'Creamos sitios web rápidos, bases de SEO local, mejoras de Perfil de Google y herramientas simples de leads para negocios en Beaumont y el sureste de Texas.',
   learnMore: 'Ver más',
   quoteCta: 'Cotizar',
   quotePath: '/es/solicitar-cotizacion',
   quoteCategory: 'Servicios Digitales',
-  bottomTitle: '¿No sabes por dónde empezar?',
+  bottomTitle: '¿Necesitas sitio web o visibilidad en Google?',
   bottomCopy:
-    'Cuéntanos sobre tu negocio y recomendaremos exactamente lo que necesitas, sin presión y sin palabras complicadas.',
+    'Cuéntanos qué vendes, dónde trabajas y qué tipo de clientes necesitas. Recomendaremos un siguiente paso práctico sin palabras complicadas.',
   bottomQuoteHref: '/es/solicitar-cotizacion',
-  bottomQuoteCta: 'Consulta gratis',
+  bottomQuoteCta: 'Solicitar cotización',
   bottomVisibilityHref: '/es/chequeo-gratis-de-visibilidad',
-  bottomVisibilityCta: 'Chequeo gratis de visibilidad',
+  bottomVisibilityCta: 'Chequeo gratis en Google',
 }
 
 export default function DigitalClientEs() {

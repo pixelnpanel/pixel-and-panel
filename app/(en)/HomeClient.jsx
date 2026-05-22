@@ -4,8 +4,8 @@ import HomeHeroVisual from "./HomeHeroVisual";
 
 const mobileStartOptions = [
   {
-    title: "Website / Google Help",
-    description: "Website, SEO, and Google profile help.",
+    title: "Website / Google",
+    description: "Website, SEO, and Google Maps help.",
     href: "/digital",
     label: "Digital",
     icon: MonitorSmartphone,
@@ -21,7 +21,7 @@ const mobileStartOptions = [
   },
   {
     title: "Not Sure Yet?",
-    description: "Free check. Clear next step.",
+    description: "Free Google visibility check.",
     href: "/free-visibility-check",
     label: "Free Check",
     icon: HelpCircle,
@@ -49,25 +49,25 @@ export default function HomeClient() {
 
             <h1 id="homepage-hero-title" className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-extrabold leading-[1.08] tracking-normal text-white">
               <span className="md:hidden">
-                Get Found Online.
+                Get Found Online
                 <span className="mt-2 block text-[#F59E0B]">
-                  Get Noticed
+                  and In Town
                   <span className="block">Locally.</span>
                 </span>
               </span>
               <span className="hidden md:inline">
-                Website Design, Signs &amp; Print{" "}
+                Websites, Custom Signs &amp; Local SEO{" "}
                 <span className="mt-2 block text-[#F59E0B]">
-                  for Southeast Texas Businesses
+                  Built to Get Your Business Found
                 </span>
               </span>
             </h1>
 
             <p className="mt-6 max-w-[21rem] break-words text-base leading-8 text-white md:hidden">
-              Websites, Google visibility, signs, and print for Southeast Texas businesses that want more calls, quote requests, and customers.
+              Websites, signs, and Google visibility for local contractors, stores, and service teams that need more calls.
             </p>
             <p className="mt-6 hidden max-w-2xl text-base leading-8 text-white md:block md:text-lg">
-              Pixel &amp; Panel helps local businesses in Southeast Texas show up on Google, stand out with professional signs and print, and make it easy for customers to call or reach out.
+              We help contractors, retail shops, and service businesses in Beaumont, Nederland, and Port Arthur look professional and get more calls. From fast, mobile-friendly websites to durable street banners and vehicle graphics, Pixel &amp; Panel connects everything together.
             </p>
 
             <div className="mt-7 max-w-[calc(100vw-2rem)] md:hidden" aria-labelledby="mobile-home-start-heading">
@@ -119,7 +119,7 @@ export default function HomeClient() {
             </div>
 
             <div className="mt-8 grid gap-3 text-sm text-white sm:grid-cols-3 md:mt-9">
-              {["Your Vision. Made Visible.", "Websites, signs, and print — all working together", "Quote-first process"].map((item) => (
+              {["Your Vision. Made Visible.", "Websites, signs, Google, and print working together", "Quote-first process"].map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F59E0B]" aria-hidden="true" />
                   <span>{item}</span>

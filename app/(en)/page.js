@@ -33,10 +33,10 @@ const homepageFaq = [
 export const metadata = {
   metadataBase: new URL("https://pixelnpanel.com"),
   title: {
-    absolute: "Pixel & Panel | Website Design, Signs & Print for Southeast Texas",
+    absolute: "Website Design, Custom Signs & Local SEO | Pixel & Panel",
   },
   description:
-    "Pixel & Panel helps Southeast Texas businesses get found on Google, stand out with professional signs and print, and make it easy for customers to call or reach out.",
+    "Need more customers? Pixel & Panel builds websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and Southeast Texas.",
   alternates: {
     canonical: new URL("https://pixelnpanel.com/"),
     languages: {
@@ -45,9 +45,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Pixel & Panel | Website Design, Signs & Print for Southeast Texas",
+    title: "Website Design, Custom Signs & Local SEO | Pixel & Panel",
     description:
-      "Pixel & Panel helps Southeast Texas businesses get found on Google, stand out with professional signs and print, and make it easy for customers to call or reach out.",
+      "Need more customers? Pixel & Panel builds websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and Southeast Texas.",
     url: "https://pixelnpanel.com/",
     type: "website",
   },

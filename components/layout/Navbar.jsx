@@ -55,7 +55,7 @@ export default function Navbar() {
   const mobileNavLinks = spanish ? MOBILE_NAV_SHORT_ES : MOBILE_NAV_SHORT
   const homeHref = spanish ? '/es' : '/'
   const quoteHref = spanish ? '/es/solicitar-cotizacion' : '/quote-request'
-  const quoteLabel = spanish ? 'COTIZACIÓN GRATIS' : 'GET A FREE QUOTE'
+  const quoteLabel = spanish ? 'Solicitar Cotización' : 'Request a Quote'
   const languageSwitch = {
     en: getAlternatePath(pathname, 'en'),
     es: getAlternatePath(pathname, 'es'),

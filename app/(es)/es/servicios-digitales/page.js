@@ -2,10 +2,10 @@ import DigitalClientEs from "./DigitalClientEs";
 
 export const metadata = {
   title: {
-    absolute: "Servicios Digitales | Pixel & Panel — Sitios Web, SEO Local y Códigos QR",
+    absolute: "Diseño Web, SEO Local y Perfil de Google | Pixel & Panel",
   },
   description:
-    "Servicios digitales para negocios del sureste de Texas: sitios web, SEO local, perfil de Google, automatización CRM y campañas con códigos QR.",
+    "Sitios web rápidos, SEO local, Perfil de Google, códigos QR y herramientas de leads para negocios en Beaumont y el sureste de Texas.",
   alternates: {
     canonical: "https://pixelnpanel.com/es/servicios-digitales",
     languages: {
@@ -14,9 +14,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Servicios Digitales | Pixel & Panel",
+    title: "Diseño Web, SEO Local y Perfil de Google | Pixel & Panel",
     description:
-      "Sitios web, SEO local, Perfil de Google, automatización CRM y campañas con códigos QR para negocios locales.",
+      "Sitios web rápidos, SEO local, Perfil de Google, códigos QR y herramientas de leads para negocios en Beaumont y el sureste de Texas.",
     url: "https://pixelnpanel.com/es/servicios-digitales",
     locale: "es_US",
   },

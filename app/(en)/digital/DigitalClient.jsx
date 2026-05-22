@@ -10,49 +10,51 @@ const SERVICES = [
     icon: Monitor, color: '#0EA5E9', bg: 'rgba(14,165,233,0.08)',
     name: 'Website Development',
     href: '/digital/web-development',
-    description: 'A fast, professional website built to rank on Google and convert visitors into customers. Mobile-first, easy to update, and built to last.',
-    features: ['Custom design built for your brand', 'Ranks in local Google search', 'Works perfectly on any device', 'You can update it yourself'],
+    description: 'A fast, professional website built for local search, trust, and quote requests. Mobile-first, clear, and easy for customers to use.',
+    features: ['Custom design built for your brand', 'Local SEO structure included', 'Works clearly on smartphones', 'Built around calls and quote requests'],
   },
   {
     icon: MapPin, color: '#F59E0B', bg: 'rgba(245,158,11,0.08)',
     name: 'Show Up on Google',
     href: '/digital/local-seo',
-    description: 'Help local customers find your business on Google and Google Maps when they search for what you offer nearby.',
-    features: ['Google Business Profile setup & optimization', 'Targeting what customers actually search for', 'Listed correctly on Google, Yelp, and directories', 'Monthly progress updates'],
+    description: 'Help nearby customers understand your services, service areas, and contact options when they search on Google and Google Maps.',
+    features: ['Google Business Profile setup and optimization', 'Local keyword and service-page planning', 'Directory and citation cleanup guidance', 'Plain-English progress updates'],
   },
   {
     icon: Zap, color: '#8B5CF6', bg: 'rgba(139,92,246,0.08)',
     name: 'Never Miss a Lead',
     href: '/digital/crm-automation',
-    description: 'When someone asks about your services, they should hear back fast. We set up simple tools to help you reply to every inquiry quickly — without letting anything slip through.',
-    features: ['Automatic reply when someone reaches out', 'Text & email follow-up sequences', 'See all your open inquiries in one place', 'Optional online booking setup'],
+    description: 'When someone asks about your services, the next step should be clear. We set up simple lead paths so inquiries are easier to answer.',
+    features: ['Automatic reply when someone reaches out', 'Cleaner quote and contact form routing', 'Open inquiries organized in one place', 'Optional booking or follow-up setup'],
   },
   {
     icon: QrCode, color: '#10B981', bg: 'rgba(16,185,129,0.08)',
     name: 'QR Code Campaigns',
     href: '/digital/qr-code-campaigns',
-    description: 'Put a QR code on your signs, flyers, or business cards so customers can scan and go straight to your website or quote form.',
-    features: ['QR codes for signs, flyers, and cards', 'See how many people scan each piece', 'Sends customers to your quote form or website', 'Track which materials are getting the most response'],
+    description: 'Put QR codes on signs, flyers, menus, vehicles, or business cards so customers can scan and go straight to a useful next step.',
+    features: ['QR codes for signs, flyers, menus, and cards', 'Scan tracking options by campaign', 'Quote forms, menus, offers, or landing pages', 'Connect print materials to measurable actions'],
   },
 ]
 
 const DEFAULT_COPY = {
   label: 'Digital Services',
-  titleStart: 'Get Found Online.',
-  titleHighlight: 'Turn Visitors Into Customers.',
+  titleStart: 'Websites and Google Optimization',
+  titleHighlight: 'Built to Turn Searchers Into Customers.',
+  titleStartMobile: 'Get Found Online',
+  titleHighlightMobile: 'Drive More Leads.',
   intro:
-    'Everything a local business needs to show up on Google, look professional online, and make it easy for customers to reach you.',
+    'We build fast, secure websites, local SEO foundations, Google Profile improvements, and simple lead tools for small businesses in Beaumont and Southeast Texas.',
   learnMore: 'Learn More',
   quoteCta: 'Get a Quote',
   quotePath: '/quote-request',
   quoteCategory: 'Digital Services',
-  bottomTitle: 'Not Sure Where to Start?',
+  bottomTitle: 'Need a Website or Google Visibility Plan?',
   bottomCopy:
-    'Tell us about your business and we will recommend exactly what you need — no pressure, no jargon.',
+    'Tell us what you sell, where you work, and what kind of leads you want. We will recommend a practical next step without confusing technical language.',
   bottomQuoteHref: '/quote-request',
-  bottomQuoteCta: 'Get a Free Consultation',
+  bottomQuoteCta: 'Request a Quote',
   bottomVisibilityHref: '/free-visibility-check',
-  bottomVisibilityCta: 'Free Visibility Check',
+  bottomVisibilityCta: 'Check My Google Visibility',
 }
 
 export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY } = {}) {
@@ -73,9 +75,26 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
         >
           <motion.span variants={fadeUp} className="section-label">{copy.label}</motion.span>
           <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
-            {copy.titleStart}
-            <br />
-            <span style={{ color: '#F59E0B' }}>{copy.titleHighlight}</span>
+            {copy.titleStartMobile ? (
+              <>
+                <span className="md:hidden">
+                  {copy.titleStartMobile}
+                  <br />
+                  <span style={{ color: '#F59E0B' }}>{copy.titleHighlightMobile}</span>
+                </span>
+                <span className="hidden md:inline">
+                  {copy.titleStart}
+                  <br />
+                  <span style={{ color: '#F59E0B' }}>{copy.titleHighlight}</span>
+                </span>
+              </>
+            ) : (
+              <>
+                {copy.titleStart}
+                <br />
+                <span style={{ color: '#F59E0B' }}>{copy.titleHighlight}</span>
+              </>
+            )}
           </motion.h1>
           <motion.p variants={fadeUp} className="pnp-mobile-hero-copy" style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
             {copy.intro}
