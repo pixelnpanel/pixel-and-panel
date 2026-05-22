@@ -1,7 +1,28 @@
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, CheckCircle2, MapPin, DollarSign, Building2 } from "lucide-react";
+import { ArrowRight, BadgeCheck, CheckCircle2, MapPin, DollarSign, Building2, Globe2, QrCode, Search } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { createServiceJsonLd, citySchema } from "@/lib/seo";
+
+const signageDigitalLinks = [
+  {
+    label: "Website Design",
+    href: "/digital/web-development",
+    description: "Give customers a clear mobile page to visit after they notice your sign, banner, or vehicle.",
+    icon: Globe2,
+  },
+  {
+    label: "Local SEO",
+    href: "/digital/local-seo",
+    description: "Help people who remember your brand find the right service page when they search in your city.",
+    icon: Search,
+  },
+  {
+    label: "QR Code Campaigns",
+    href: "/digital/qr-code-campaigns",
+    description: "Turn physical attention into trackable scans, quote requests, menus, offers, or landing pages.",
+    icon: QrCode,
+  },
+];
 
 function JsonLd({ data }) {
   return (
@@ -152,6 +173,37 @@ export default function CityServiceLanding({ city, service }) {
             </div>
           </div>
         </section>
+
+        {service.type === 'signage' && (
+          <section className="section-base bg-white" aria-labelledby="phygital-city-heading">
+            <div className="container-px">
+              <div className="mb-8 max-w-3xl">
+                <p className="section-label text-[#0369A1]">Physical Visibility + Digital Follow-Up</p>
+                <h2 id="phygital-city-heading" className="text-[#1C1917]">Help {city.name} customers find you after they notice your sign.</h2>
+                <p className="mt-5 leading-8 text-slate-600">
+                  Strong signage creates the first impression. A clear website, local SEO foundation, and QR campaign give customers a simple next step when they search, scan, or compare options later.
+                </p>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {signageDigitalLinks.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.href} href={item.href} className="group rounded-xl border border-slate-200 bg-[#FAF8F4] p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#F59E0B]/50 hover:shadow-lg">
+                      <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-white text-[#0369A1] transition group-hover:bg-[#F59E0B] group-hover:text-[#1C1917]">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <h3 className="text-base text-[#1C1917]">{item.label}</h3>
+                      <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0369A1] transition group-hover:text-[#F59E0B]">
+                        Learn more <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── INDUSTRIES ─────────────────────────────────────────── */}
         {industries.length > 0 && (

@@ -4,13 +4,16 @@ import {
   ArrowRight,
   CheckCircle2,
   Clock,
+  Globe2,
   Home,
   Image as ImageIcon,
   Info,
   Layers,
   MapPin,
   Package,
+  QrCode,
   Ruler,
+  Search,
   Sparkles,
 } from "lucide-react";
 import { getRelatedSignageProducts, serviceAreaPhrase } from "@/lib/signage-products";
@@ -46,6 +49,27 @@ const bestForBySlug = {
   brochures: ["Sales appointments and take-home packets", "Service menus and multi-offering explainers", "Local businesses that need polished print materials"],
   postcards: ["Direct mail campaigns to targeted neighborhoods", "Grand openings, seasonal offers, and reminders", "Campaigns that pair print with QR tracking"],
 };
+
+const digitalSupportLinks = [
+  {
+    label: "Website Design",
+    href: "/digital/web-development",
+    description: "Send sign, print, and vehicle traffic to a fast page that explains your services and captures quote requests.",
+    icon: Globe2,
+  },
+  {
+    label: "Local SEO",
+    href: "/digital/local-seo",
+    description: "Make sure customers who notice your brand offline can also find your business when they search nearby.",
+    icon: Search,
+  },
+  {
+    label: "QR Code Campaigns",
+    href: "/digital/qr-code-campaigns",
+    description: "Connect flyers, banners, windows, and vehicle graphics to trackable menus, offers, forms, or landing pages.",
+    icon: QrCode,
+  },
+];
 
 function JsonLd({ data }) {
   return (
@@ -322,6 +346,38 @@ export default function SignageProductPage({ product }) {
                   <p className="mt-3 text-sm leading-7 text-slate-600">{copy}</p>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── PHYGITAL INTERNAL LINKS ──────────────────────────── */}
+        <section className="section-base" aria-labelledby="phygital-heading">
+          <div className="container-px">
+            <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+              <div>
+                <p className="section-label text-[#0369A1]">Connect Physical to Digital</p>
+                <h2 id="phygital-heading" className="text-[#1C1917]">Make {product.name.toLowerCase()} easier to act on.</h2>
+                <p className="mt-5 leading-8 text-slate-600">
+                  A sign, printed piece, or vehicle graphic gets attention in the real world. The next step is making sure customers can find you online, understand the offer, and contact you without friction.
+                </p>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {digitalSupportLinks.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.href} href={item.href} className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#F59E0B]/50 hover:shadow-lg">
+                      <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-[#FAF8F4] text-[#0369A1] transition group-hover:bg-[#F59E0B] group-hover:text-[#1C1917]">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <h3 className="text-base text-[#1C1917]">{item.label}</h3>
+                      <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0369A1] transition group-hover:text-[#F59E0B]">
+                        Learn more <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>

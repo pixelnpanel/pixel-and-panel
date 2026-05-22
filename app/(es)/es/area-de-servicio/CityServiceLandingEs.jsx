@@ -1,7 +1,28 @@
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, CheckCircle2, MapPin, DollarSign, Building2 } from "lucide-react";
+import { ArrowRight, BadgeCheck, CheckCircle2, MapPin, DollarSign, Building2, Globe2, QrCode, Search } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { createServiceJsonLd, citySchema } from "@/lib/seo";
+
+const enlacesDigitalesParaLetreros = [
+  {
+    label: "Diseño web",
+    href: "/es/servicios-digitales/desarrollo-web",
+    description: "Da a tus clientes una página móvil clara para visitar después de ver tu letrero, banner o vehículo.",
+    icon: Globe2,
+  },
+  {
+    label: "SEO local",
+    href: "/es/servicios-digitales/seo-local",
+    description: "Ayuda a que quienes recuerdan tu marca encuentren la página correcta cuando buscan en tu ciudad.",
+    icon: Search,
+  },
+  {
+    label: "Campañas con QR",
+    href: "/es/servicios-digitales/campanas-con-qr",
+    description: "Convierte atención física en escaneos, cotizaciones, menús, ofertas o páginas medibles.",
+    icon: QrCode,
+  },
+];
 
 function JsonLd({ data }) {
   return (
@@ -151,6 +172,37 @@ export default function CityServiceLandingEs({ city, service }) {
             </div>
           </div>
         </section>
+
+        {service.type === "signage" && (
+          <section className="section-base bg-white" aria-labelledby="phygital-city-heading-es">
+            <div className="container-px">
+              <div className="mb-8 max-w-3xl">
+                <p className="section-label text-[#0369A1]">Visibilidad física + seguimiento digital</p>
+                <h2 id="phygital-city-heading-es" className="text-[#1C1917]">Ayuda a clientes en {city.name} a encontrarte después de ver tu letrero.</h2>
+                <p className="mt-5 leading-8 text-slate-600">
+                  Un buen letrero crea la primera impresión. Un sitio claro, SEO local y campañas con QR dan al cliente un siguiente paso cuando busca, escanea o compara opciones después.
+                </p>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {enlacesDigitalesParaLetreros.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.href} href={item.href} className="group rounded-xl border border-slate-200 bg-[#FAF8F4] p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#F59E0B]/50 hover:shadow-lg">
+                      <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-white text-[#0369A1] transition group-hover:bg-[#F59E0B] group-hover:text-[#1C1917]">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <h3 className="text-base text-[#1C1917]">{item.label}</h3>
+                      <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0369A1] transition group-hover:text-[#F59E0B]">
+                        Ver más <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── INDUSTRIAS ─────────────────────────────────────────── */}
         {industries.length > 0 && (

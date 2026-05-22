@@ -5,11 +5,14 @@ import {
   ArrowRight,
   CheckCircle2,
   ClipboardCheck,
+  Globe2,
   Home,
   Image as ImageIcon,
   Layers,
   MapPin,
+  QrCode,
   Ruler,
+  Search,
   Sparkles,
 } from "lucide-react";
 import {
@@ -25,6 +28,27 @@ const optionCopyByCategory = {
     ["Diseño", "Usa texto corto, contraste fuerte y una llamada a la acción clara."],
   ],
 };
+
+const enlacesDigitales = [
+  {
+    label: "Diseño web",
+    href: "/es/servicios-digitales/desarrollo-web",
+    description: "Envía el tráfico de letreros, impresos y vehículos a una página rápida que explica tus servicios y captura cotizaciones.",
+    icon: Globe2,
+  },
+  {
+    label: "SEO local",
+    href: "/es/servicios-digitales/seo-local",
+    description: "Ayuda a que clientes que ven tu marca en persona también puedan encontrarte cuando buscan cerca de ellos.",
+    icon: Search,
+  },
+  {
+    label: "Campañas con QR",
+    href: "/es/servicios-digitales/campanas-con-qr",
+    description: "Conecta flyers, banners, ventanas y vehículos con menús, ofertas, formularios o páginas medibles.",
+    icon: QrCode,
+  },
+];
 
 export function generateStaticParams() {
   return signageProductsEs.map((product) => ({
@@ -291,6 +315,37 @@ export default async function SpanishSignageProductPage({ params }) {
                   <p className="mt-3 text-sm leading-7 text-slate-600">{copy}</p>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-base" aria-labelledby="phygital-heading-es">
+          <div className="container-px">
+            <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+              <div>
+                <p className="section-label text-[#0369A1]">Conecta lo físico con lo digital</p>
+                <h2 id="phygital-heading-es" className="text-[#1C1917]">Haz que {product.name.toLowerCase()} lleve a una acción clara.</h2>
+                <p className="mt-5 leading-8 text-slate-600">
+                  Un letrero, impreso o gráfico vehicular llama la atención en persona. El siguiente paso es que el cliente pueda encontrarte en Google, entender la oferta y contactarte sin complicación.
+                </p>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {enlacesDigitales.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.href} href={item.href} className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#F59E0B]/50 hover:shadow-lg">
+                      <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-[#FAF8F4] text-[#0369A1] transition group-hover:bg-[#F59E0B] group-hover:text-[#1C1917]">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <h3 className="text-base text-[#1C1917]">{item.label}</h3>
+                      <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0369A1] transition group-hover:text-[#F59E0B]">
+                        Ver más <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
