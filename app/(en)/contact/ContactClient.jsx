@@ -111,6 +111,15 @@ export default function ContactPage({ copy = defaultCopy }) {
         { href: 'mailto:hello@pixelnpanel.com', icon: <Mail size={18} color="#0EA5E9" />, bg: 'rgba(14,165,233,0.15)', hoverBg: 'rgba(14,165,233,0.15)', hoverBorder: 'rgba(14,165,233,0.4)', label: content.emailLabel, value: 'hello@pixelnpanel.com' },
         { href: 'tel:+14098006139', icon: <Phone size={18} color="#F59E0B" />, bg: 'rgba(245,158,11,0.15)', hoverBg: 'rgba(245,158,11,0.15)', hoverBorder: 'rgba(245,158,11,0.4)', label: content.phoneLabel, value: '(409) 800-6139' },
     ]
+    const trackOrderCard = {
+        href: content.trackOrderHref,
+        icon: <ArrowRight size={18} color="#F59E0B" />,
+        bg: 'rgba(245,158,11,0.15)',
+        hoverBg: 'rgba(245,158,11,0.15)',
+        hoverBorder: 'rgba(245,158,11,0.4)',
+        label: content.trackOrderLabel,
+        value: content.trackOrderValue,
+    }
     const infoCardStyle = {
         display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.07)',
         border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.875rem', padding: '1rem 1.25rem',
@@ -125,6 +134,14 @@ export default function ContactPage({ copy = defaultCopy }) {
     }
     const infoValueStyle = {
         fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'white',
+    }
+    const applyInfoHover = (event, item) => {
+        event.currentTarget.style.background = item.hoverBg
+        event.currentTarget.style.borderColor = item.hoverBorder
+    }
+    const clearInfoHover = (event) => {
+        event.currentTarget.style.background = 'rgba(255,255,255,0.07)'
+        event.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'
     }
 
     return (
@@ -210,8 +227,8 @@ export default function ContactPage({ copy = defaultCopy }) {
                             {contactCards.map((item) => (
                                 <motion.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
                                     <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
-                                        onMouseEnter={e => { e.currentTarget.style.background = item.hoverBg; e.currentTarget.style.borderColor = item.hoverBorder }}
-                                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)' }}
+                                        onMouseEnter={e => applyInfoHover(e, item)}
+                                        onMouseLeave={clearInfoHover}
                                     >
                                         <div style={{ ...infoIconStyle, background: item.bg }}>{item.icon}</div>
                                         <div>
@@ -222,6 +239,21 @@ export default function ContactPage({ copy = defaultCopy }) {
                                 </motion.a>
                             ))}
 
+                            <motion.div variants={fadeUp}>
+                                <Link href={trackOrderCard.href} style={{ textDecoration: 'none' }}>
+                                    <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
+                                        onMouseEnter={e => applyInfoHover(e, trackOrderCard)}
+                                        onMouseLeave={clearInfoHover}
+                                    >
+                                        <div style={{ ...infoIconStyle, background: trackOrderCard.bg }}>{trackOrderCard.icon}</div>
+                                        <div>
+                                            <p style={infoLabelStyle}>{trackOrderCard.label}</p>
+                                            <p style={infoValueStyle}>{trackOrderCard.value}</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
+
                             <motion.div variants={fadeUp} style={infoCardStyle}>
                                 <div style={{ ...infoIconStyle, background: 'rgba(74,222,128,0.15)' }}><Clock size={18} color="#4ade80" /></div>
                                 <div>
@@ -230,17 +262,6 @@ export default function ContactPage({ copy = defaultCopy }) {
                                 </div>
                             </motion.div>
 
-                            <motion.div variants={fadeUp}>
-                                <Link href={content.trackOrderHref} style={{ textDecoration: 'none' }}>
-                                    <div style={infoCardStyle}>
-                                        <div style={{ ...infoIconStyle, background: 'rgba(245,158,11,0.15)' }}><ArrowRight size={18} color="#F59E0B" /></div>
-                                        <div>
-                                            <p style={infoLabelStyle}>{content.trackOrderLabel}</p>
-                                            <p style={infoValueStyle}>{content.trackOrderValue}</p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </motion.div>
                         </motion.div>
                     </motion.div>
 
@@ -322,7 +343,10 @@ export default function ContactPage({ copy = defaultCopy }) {
                     >
                         {contactCards.map((item) => (
                             <motion.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
-                                <div style={infoCardStyle}>
+                                <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
+                                    onMouseEnter={e => applyInfoHover(e, item)}
+                                    onMouseLeave={clearInfoHover}
+                                >
                                     <div style={{ ...infoIconStyle, background: item.bg }}>{item.icon}</div>
                                     <div>
                                         <p style={infoLabelStyle}>{item.label}</p>
@@ -332,24 +356,27 @@ export default function ContactPage({ copy = defaultCopy }) {
                             </motion.a>
                         ))}
 
+                        <motion.div variants={fadeUp}>
+                            <Link href={trackOrderCard.href} style={{ textDecoration: 'none' }}>
+                                <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
+                                    onMouseEnter={e => applyInfoHover(e, trackOrderCard)}
+                                    onMouseLeave={clearInfoHover}
+                                >
+                                    <div style={{ ...infoIconStyle, background: trackOrderCard.bg }}>{trackOrderCard.icon}</div>
+                                    <div>
+                                        <p style={infoLabelStyle}>{trackOrderCard.label}</p>
+                                        <p style={infoValueStyle}>{trackOrderCard.value}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
+
                         <motion.div variants={fadeUp} style={infoCardStyle}>
                             <div style={{ ...infoIconStyle, background: 'rgba(74,222,128,0.15)' }}><Clock size={18} color="#4ade80" /></div>
                             <div>
                                 <p style={infoLabelStyle}>{content.responseLabel}</p>
                                 <p style={infoValueStyle}>{content.responseValue}</p>
                             </div>
-                        </motion.div>
-
-                        <motion.div variants={fadeUp}>
-                            <Link href={content.trackOrderHref} style={{ textDecoration: 'none' }}>
-                                <div style={infoCardStyle}>
-                                    <div style={{ ...infoIconStyle, background: 'rgba(245,158,11,0.15)' }}><ArrowRight size={18} color="#F59E0B" /></div>
-                                    <div>
-                                        <p style={infoLabelStyle}>{content.trackOrderLabel}</p>
-                                        <p style={infoValueStyle}>{content.trackOrderValue}</p>
-                                    </div>
-                                </div>
-                            </Link>
                         </motion.div>
                     </motion.div>
 

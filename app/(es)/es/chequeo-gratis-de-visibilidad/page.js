@@ -8,7 +8,6 @@ import {
   MapPin,
 } from "lucide-react";
 import VisibilityCheckForm from "../../../(en)/free-visibility-check/VisibilityCheckForm";
-import VisibilityCheckVisual from "../../../(en)/free-visibility-check/VisibilityCheckVisual";
 
 const whoFor = [
   "Negocios nuevos",
@@ -151,35 +150,40 @@ export default function SpanishVisibilityCheckPage() {
     <>
       <JsonLd data={faqSchema} />
       <div className="bg-[#FAF8F4] text-[#1C1917]">
-      <section className="relative overflow-hidden bg-[#0C1E3C] px-4 pt-28 text-white md:pt-32">
+      <section className="relative overflow-hidden bg-[#0C1E3C] px-4 pb-12 pt-24 text-white md:pt-28 lg:min-h-[calc(100vh-72px)]">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_70%,#0EA5E9_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 pb-20 lg:grid-cols-[1.03fr_0.97fr]">
-          <div>
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-sky-100">
+        <div className="relative mx-auto grid max-w-7xl items-start gap-8 lg:grid-cols-[0.82fr_1.18fr] xl:gap-12">
+          <div className="pt-2 lg:pt-12">
+            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-sky-100">
               <MapPin className="h-4 w-4 text-[#F59E0B]" />
               Para negocios del sureste de Texas
             </div>
-            <h1 className="max-w-4xl text-white">
-              Chequeo gratis de visibilidad para negocios del sureste de Texas
+            <h1 className="max-w-3xl text-white">
+              Chequeo gratis de visibilidad para negocios locales
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
               ¿No estás seguro por qué más clientes no encuentran tu negocio?
               Pixel &amp; Panel revisa tu presencia en línea y en el mundo real
               para darte ideas prácticas de mejora.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="#visibility-check-form" className="btn-amber justify-center">
-                Empezar chequeo gratis <ArrowRight className="h-4 w-4" />
-              </a>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/es/precios" className="btn-ghost justify-center">
                 Ver precios
               </Link>
             </div>
+            <div className="mt-8 hidden gap-3 text-sm text-white/76 md:grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              {receive.slice(0, 4).map((item) => (
+                <div key={item} className="flex items-start gap-3 rounded-xl border border-white/12 bg-white/8 p-4">
+                  <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#F59E0B]" />
+                  <span className="leading-6">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="flex items-center justify-center">
-            <VisibilityCheckVisual />
+          <div className="lg:py-6">
+            <VisibilityCheckForm copy={formCopy} />
           </div>
         </div>
       </section>
@@ -244,29 +248,6 @@ export default function SpanishVisibilityCheckPage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="section-base bg-white" aria-labelledby="form-heading-es">
-        <div className="container-px grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
-          <div>
-            <p className="section-label text-[#0369A1]">Formulario</p>
-            <h2 id="form-heading-es" className="text-[#1C1917]">
-              Empieza con lo que sabes.
-            </h2>
-            <p className="mt-5 leading-8 text-slate-600">
-              Puedes enviar el formulario con correo o teléfono. Si no sabes
-              qué necesitas todavía, escribe el problema con tus propias palabras.
-            </p>
-            <div className="mt-6 rounded-xl border border-[#0369A1]/15 bg-[#FAF8F4] p-5">
-              <BadgeCheck className="mb-4 h-6 w-6 text-[#F59E0B]" />
-              <p className="text-sm leading-7 text-slate-700">
-                Este chequeo no tiene presión. Si quieres ayuda después del resumen,
-                Pixel &amp; Panel puede recomendar una opción de cotización.
-              </p>
-            </div>
-          </div>
-          <VisibilityCheckForm copy={formCopy} />
         </div>
       </section>
 

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail, MapPin, ArrowRight, Phone, Star } from 'lucide-react'
+import { Globe2, Mail, MapPin, ArrowRight, Phone, Star } from 'lucide-react'
 import { BRAND, DIGITAL_SERVICES, SOCIAL_LINKS, GBP_REVIEW_URL } from '@/lib/constants'
 import SocialLinks from '@/components/ui/SocialLinks'
 
@@ -154,6 +154,10 @@ export default function Footer({ language = 'en' }) {
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <a href={BRAND.siteUrl} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', ...footerLinkStyle }}>
+                <Globe2 size={14} style={{ color: '#F59E0B', flexShrink: 0 }} />
+                {BRAND.domain}
+              </a>
               <a href={`mailto:${BRAND.email}`} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', ...footerLinkStyle }}>
                 <Mail size={14} style={{ color: '#F59E0B', flexShrink: 0 }} />
                 {BRAND.email}
