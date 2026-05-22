@@ -7,7 +7,7 @@ export default function robots() {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://pixelnpanel.com/sitemap.xml",
-    host: "https://pixelnpanel.com",
+    sitemap: "https://www.pixelnpanel.com/sitemap.xml",
+    host: "https://www.pixelnpanel.com",
   };
 }

@@ -88,7 +88,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: `${service.title} | Pixel & Panel`,
       description: service.description,
-      url: `https://pixelnpanel.com/digital/${service.slug}`,
+      url: `https://www.pixelnpanel.com/digital/${service.slug}`,
       siteName: "Pixel & Panel",
       locale: "en_US",
       type: "website",
@@ -116,9 +116,9 @@ export default async function DigitalServicePage({ params }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://pixelnpanel.com" },
-      { "@type": "ListItem", position: 2, name: "Digital Services", item: "https://pixelnpanel.com/digital" },
-      { "@type": "ListItem", position: 3, name: service.name, item: `https://pixelnpanel.com/digital/${service.slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.pixelnpanel.com" },
+      { "@type": "ListItem", position: 2, name: "Digital Services", item: "https://www.pixelnpanel.com/digital" },
+      { "@type": "ListItem", position: 3, name: service.name, item: `https://www.pixelnpanel.com/digital/${service.slug}` },
     ],
   };
   const faq = {
@@ -139,7 +139,7 @@ export default async function DigitalServicePage({ params }) {
     "@type": ["Service", "Product"],
     name: service.name,
     description: service.description,
-    url: `https://pixelnpanel.com/digital/${service.slug}`,
+    url: `https://www.pixelnpanel.com/digital/${service.slug}`,
     serviceType: "Digital Marketing",
     category: "Digital Services",
     areaServed: [
@@ -150,7 +150,7 @@ export default async function DigitalServicePage({ params }) {
     provider: {
       "@type": "LocalBusiness",
       name: "Pixel & Panel",
-      url: "https://pixelnpanel.com",
+      url: "https://www.pixelnpanel.com",
       telephone: "(409) 800-6139",
       email: "hello@pixelnpanel.com",
     },
@@ -166,9 +166,9 @@ export default async function DigitalServicePage({ params }) {
       seller: {
         "@type": "LocalBusiness",
         name: "Pixel & Panel",
-        url: "https://pixelnpanel.com",
+        url: "https://www.pixelnpanel.com",
       },
-      url: `https://pixelnpanel.com/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent("Digital Services")}`,
+      url: `https://www.pixelnpanel.com/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent("Digital Services")}`,
     },
   };
 

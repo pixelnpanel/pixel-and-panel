@@ -72,24 +72,24 @@ const faqs = [
 ];
 
 export const metadata = {
-  metadataBase: new URL("https://pixelnpanel.com"),
+  metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     absolute: "Free Visibility Check | Pixel & Panel",
   },
   description:
     "Get a free review of your website, Google profile, signage, and QR/lead capture setup from Pixel & Panel. Serving Southeast Texas businesses.",
   alternates: {
-    canonical: "https://pixelnpanel.com/free-visibility-check",
+    canonical: "https://www.pixelnpanel.com/free-visibility-check",
     languages: {
-      "en-US": "https://pixelnpanel.com/free-visibility-check",
-      "es-US": "https://pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
+      "en-US": "https://www.pixelnpanel.com/free-visibility-check",
+      "es-US": "https://www.pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
     },
   },
   openGraph: {
     title: "Free Visibility Check | Pixel & Panel",
     description:
       "Get a free review of your website, Google profile, signage, and QR/lead capture setup from Pixel & Panel.",
-    url: "https://pixelnpanel.com/free-visibility-check",
+    url: "https://www.pixelnpanel.com/free-visibility-check",
     type: "website",
   },
 };

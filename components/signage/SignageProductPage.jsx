@@ -90,9 +90,9 @@ export default function SignageProductPage({ product }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://pixelnpanel.com" },
-      { "@type": "ListItem", position: 2, name: "Signage & Print", item: "https://pixelnpanel.com/signage" },
-      { "@type": "ListItem", position: 3, name: product.name, item: `https://pixelnpanel.com/signage/${product.slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.pixelnpanel.com" },
+      { "@type": "ListItem", position: 2, name: "Signage & Print", item: "https://www.pixelnpanel.com/signage" },
+      { "@type": "ListItem", position: 3, name: product.name, item: `https://www.pixelnpanel.com/signage/${product.slug}` },
     ],
   };
 
@@ -111,8 +111,8 @@ export default function SignageProductPage({ product }) {
     "@type": ["Service", "Product"],
     name: product.name,
     description: product.description,
-    url: `https://pixelnpanel.com/signage/${product.slug}`,
-    image: `https://pixelnpanel.com${product.image}`,
+    url: `https://www.pixelnpanel.com/signage/${product.slug}`,
+    image: `https://www.pixelnpanel.com${product.image}`,
     serviceType: product.category,
     category: product.category,
     areaServed: [
@@ -123,7 +123,7 @@ export default function SignageProductPage({ product }) {
     provider: {
       "@type": "LocalBusiness",
       name: "Pixel & Panel",
-      url: "https://pixelnpanel.com",
+      url: "https://www.pixelnpanel.com",
       telephone: "(409) 800-6139",
       email: "hello@pixelnpanel.com",
     },
@@ -139,9 +139,9 @@ export default function SignageProductPage({ product }) {
       seller: {
         "@type": "LocalBusiness",
         name: "Pixel & Panel",
-        url: "https://pixelnpanel.com",
+        url: "https://www.pixelnpanel.com",
       },
-      url: `https://pixelnpanel.com/quote-request?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent(product.category)}`,
+      url: `https://www.pixelnpanel.com/quote-request?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent(product.category)}`,
     },
   };
 

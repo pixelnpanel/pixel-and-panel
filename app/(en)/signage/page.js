@@ -3,7 +3,7 @@ import SignageHubClient from '@/components/signage/SignageHubClient'
 import { signageCategories } from '@/lib/signage-data'
 
 export const metadata = {
-    metadataBase: new URL('https://pixelnpanel.com'),
+    metadataBase: new URL('https://www.pixelnpanel.com'),
     title: 'Custom Signs, Banners & Print Shop',
     description:
         'Increase your storefront presence with store signs, exterior banners, yard signs, and custom fleet graphics in Beaumont, TX.',
@@ -69,8 +69,8 @@ export default function SignagePage() {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pixelnpanel.com' },
-            { '@type': 'ListItem', position: 2, name: 'Signage & Print', item: 'https://pixelnpanel.com/signage' },
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pixelnpanel.com' },
+            { '@type': 'ListItem', position: 2, name: 'Signage & Print', item: 'https://www.pixelnpanel.com/signage' },
         ],
     }
 
@@ -79,14 +79,14 @@ export default function SignagePage() {
         '@type': 'ItemList',
         name: 'Signage & Print Categories',
         description: 'Custom signage and print products for businesses in Beaumont, Nederland, and Port Arthur, TX.',
-        url: 'https://pixelnpanel.com/signage',
+        url: 'https://www.pixelnpanel.com/signage',
         numberOfItems: ordered.length,
         itemListElement: ordered.map((cat, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             name: cat.name,
             description: cat.description,
-            url: `https://pixelnpanel.com/signage/${cat.slug}`,
+            url: `https://www.pixelnpanel.com/signage/${cat.slug}`,
         })),
     }
 

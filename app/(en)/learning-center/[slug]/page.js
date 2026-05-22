@@ -21,10 +21,10 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const pageUrl = `https://pixelnpanel.com/learning-center/${post.slug}`;
+  const pageUrl = `https://www.pixelnpanel.com/learning-center/${post.slug}`;
   const esSlug = learningCenterSlugMap[post.slug];
   const esUrl = esSlug
-    ? `https://pixelnpanel.com/es/centro-de-aprendizaje/${esSlug}`
+    ? `https://www.pixelnpanel.com/es/centro-de-aprendizaje/${esSlug}`
     : null;
   const seo = learningCenterSeoOverrides[post.slug] || {};
   const title = seo.title || post.title;

@@ -70,16 +70,16 @@ export async function generateMetadata({ params }) {
     },
     description: product.description,
     alternates: {
-      canonical: `https://pixelnpanel.com/es/letreros/${product.slug}`,
+      canonical: `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
       languages: {
-        "en-US": `https://pixelnpanel.com/signage/${product.enSlug}`,
-        "es-US": `https://pixelnpanel.com/es/letreros/${product.slug}`,
+        "en-US": `https://www.pixelnpanel.com/signage/${product.enSlug}`,
+        "es-US": `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
       },
     },
     openGraph: {
       title: product.title,
       description: product.description,
-      url: `https://pixelnpanel.com/es/letreros/${product.slug}`,
+      url: `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
       siteName: "Pixel & Panel",
       locale: "es_US",
       type: "website",
@@ -115,9 +115,9 @@ export default async function SpanishSignageProductPage({ params }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://pixelnpanel.com/es" },
-      { "@type": "ListItem", position: 2, name: "Letreros e Impresión", item: "https://pixelnpanel.com/es/letreros" },
-      { "@type": "ListItem", position: 3, name: product.name, item: `https://pixelnpanel.com/es/letreros/${product.slug}` },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.pixelnpanel.com/es" },
+      { "@type": "ListItem", position: 2, name: "Letreros e Impresión", item: "https://www.pixelnpanel.com/es/letreros" },
+      { "@type": "ListItem", position: 3, name: product.name, item: `https://www.pixelnpanel.com/es/letreros/${product.slug}` },
     ],
   };
   const faq = {
@@ -134,8 +134,8 @@ export default async function SpanishSignageProductPage({ params }) {
     "@type": ["Service", "Product"],
     name: product.name,
     description: product.description,
-    url: `https://pixelnpanel.com/es/letreros/${product.slug}`,
-    image: `https://pixelnpanel.com${product.image}`,
+    url: `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
+    image: `https://www.pixelnpanel.com${product.image}`,
     serviceType: product.category,
     category: product.category,
     areaServed: [
@@ -146,7 +146,7 @@ export default async function SpanishSignageProductPage({ params }) {
     provider: {
       "@type": "LocalBusiness",
       name: "Pixel & Panel",
-      url: "https://pixelnpanel.com",
+      url: "https://www.pixelnpanel.com",
       telephone: "(409) 800-6139",
       email: "hello@pixelnpanel.com",
     },
@@ -162,9 +162,9 @@ export default async function SpanishSignageProductPage({ params }) {
       seller: {
         "@type": "LocalBusiness",
         name: "Pixel & Panel",
-        url: "https://pixelnpanel.com",
+        url: "https://www.pixelnpanel.com",
       },
-      url: `https://pixelnpanel.com/es/solicitar-cotizacion?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent("Letreros")}`,
+      url: `https://www.pixelnpanel.com/es/solicitar-cotizacion?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent("Letreros")}`,
     },
   };
 

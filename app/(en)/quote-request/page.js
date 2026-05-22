@@ -2,7 +2,7 @@ import QuoteRequestClient from "./QuoteRequestClient";
 import { Suspense } from "react";
 
 export const metadata = {
-  metadataBase: new URL("https://pixelnpanel.com"),
+  metadataBase: new URL("https://www.pixelnpanel.com"),
   title: "Request a Quote",
   description:
     "Request a free quote from Pixel & Panel for signage, print, websites, local SEO, QR campaigns, and branding services.",

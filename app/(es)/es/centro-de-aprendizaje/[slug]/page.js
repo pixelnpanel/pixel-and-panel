@@ -20,8 +20,8 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const pageUrl = `https://pixelnpanel.com/es/centro-de-aprendizaje/${post.slug}`;
-  const enUrl = `https://pixelnpanel.com/learning-center/${post.enSlug}`;
+  const pageUrl = `https://www.pixelnpanel.com/es/centro-de-aprendizaje/${post.slug}`;
+  const enUrl = `https://www.pixelnpanel.com/learning-center/${post.enSlug}`;
   const seo = learningCenterSeoOverridesEs[post.slug] || {};
   const title = seo.title || post.title;
   const description = seo.description || post.description;

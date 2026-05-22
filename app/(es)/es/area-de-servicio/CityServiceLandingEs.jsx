@@ -46,7 +46,7 @@ export default function CityServiceLandingEs({ city, service }) {
 
   const quoteHref = `/es/solicitar-cotizacion?product=${encodeURIComponent(service.quoteProduct)}&category=${encodeURIComponent(service.quoteCategory)}`;
   const cityHref = `/es/area-de-servicio/${city.slug}`;
-  const pageUrl = `https://pixelnpanel.com/es/area-de-servicio/${city.slug}/${service.slug}`;
+  const pageUrl = `https://www.pixelnpanel.com/es/area-de-servicio/${city.slug}/${service.slug}`;
 
   const hubHref = service.type === "signage" ? "/es/letreros" : "/es/servicios-digitales";
   const hubLabel = service.type === "signage" ? "Letreros e Impresión" : "Servicios Digitales";
@@ -75,9 +75,9 @@ export default function CityServiceLandingEs({ city, service }) {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Inicio", url: "https://pixelnpanel.com/es" },
-          { name: "Área de Servicio", url: "https://pixelnpanel.com/es/area-de-servicio" },
-          { name: `${city.name}, TX`, url: `https://pixelnpanel.com/es/area-de-servicio/${city.slug}` },
+          { name: "Inicio", url: "https://www.pixelnpanel.com/es" },
+          { name: "Área de Servicio", url: "https://www.pixelnpanel.com/es/area-de-servicio" },
+          { name: `${city.name}, TX`, url: `https://www.pixelnpanel.com/es/area-de-servicio/${city.slug}` },
           { name: service.name, url: pageUrl },
         ]}
       />

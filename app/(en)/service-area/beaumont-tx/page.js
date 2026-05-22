@@ -41,15 +41,15 @@ export const metadata = {
   alternates: {
     canonical: "/service-area/beaumont-tx",
     languages: {
-      "en-US": "https://pixelnpanel.com/service-area/beaumont-tx",
-      "es-US": "https://pixelnpanel.com/es/area-de-servicio/beaumont-tx",
+      "en-US": "https://www.pixelnpanel.com/service-area/beaumont-tx",
+      "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/beaumont-tx",
     },
   },
   openGraph: {
     title: "Web Design, Custom Signs & Local SEO in Beaumont, TX",
     description:
       "Pixel & Panel helps Beaumont, TX businesses look professional and rank high on Google with custom websites, storefront signs, local SEO, and print.",
-    url: "https://pixelnpanel.com/service-area/beaumont-tx",
+    url: "https://www.pixelnpanel.com/service-area/beaumont-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
     type: "website",

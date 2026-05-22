@@ -10,17 +10,17 @@ export const metadata = {
   description:
     "Pixel & Panel ayuda a negocios en Beaumont, TX con sitios web, letreros, impresión, SEO local, Perfil de Google y campañas con códigos QR.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/area-de-servicio/beaumont-tx",
+    canonical: "https://www.pixelnpanel.com/es/area-de-servicio/beaumont-tx",
     languages: {
-      "en-US": "https://pixelnpanel.com/service-area/beaumont-tx",
-      "es-US": "https://pixelnpanel.com/es/area-de-servicio/beaumont-tx",
+      "en-US": "https://www.pixelnpanel.com/service-area/beaumont-tx",
+      "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/beaumont-tx",
     },
   },
   openGraph: {
     title: "Web, Letreros y SEO en Beaumont, TX | Pixel & Panel",
     description:
       "Pixel & Panel ayuda a negocios en Beaumont, TX con sitios web, letreros, impresión, SEO local, Perfil de Google y campañas con códigos QR.",
-    url: "https://pixelnpanel.com/es/area-de-servicio/beaumont-tx",
+    url: "https://www.pixelnpanel.com/es/area-de-servicio/beaumont-tx",
     siteName: "Pixel & Panel",
     locale: "es_US",
     type: "website",

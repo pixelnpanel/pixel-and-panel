@@ -2,15 +2,15 @@ export default function LocalBusinessJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "ProfessionalService"],
-    "@id": "https://pixelnpanel.com/#localbusiness",
+    "@id": "https://www.pixelnpanel.com/#localbusiness",
     name: "Pixel & Panel",
     legalName: "Pixel & Panel LLC",
-    url: "https://pixelnpanel.com",
+    url: "https://www.pixelnpanel.com",
     email: "hello@pixelnpanel.com",
     telephone: "+1-409-800-6139",
     slogan: "Your Vision. Made Visible.",
     priceRange: "$$",
-    image: "https://pixelnpanel.com/logo/icon-wordmark.svg",
+    image: "https://www.pixelnpanel.com/logo/icon-wordmark.svg",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Beaumont",

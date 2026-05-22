@@ -37,7 +37,7 @@ function ServiceCard({ link, icon: Icon }) {
 }
 
 export default function CityLandingEs({ city }) {
-  const pageUrl = `https://pixelnpanel.com/es/area-de-servicio/${city.slug}`;
+  const pageUrl = `https://www.pixelnpanel.com/es/area-de-servicio/${city.slug}`;
   const quoteHref = `/es/solicitar-cotizacion?product=${encodeURIComponent(`${city.name} Proyecto de Visibilidad`)}&category=${encodeURIComponent("Área de Servicio")}`;
   const visibilityHref = "/es/chequeo-gratis-de-visibilidad";
   const faqSchema = {
@@ -53,7 +53,7 @@ export default function CityLandingEs({ city }) {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Pixel & Panel",
-    url: "https://pixelnpanel.com",
+    url: "https://www.pixelnpanel.com",
     email: "hello@pixelnpanel.com",
     telephone: "(409) 800-6139",
     areaServed: ["Beaumont, TX", "Nederland, TX", "Port Arthur, TX", "el sureste de Texas"],
@@ -69,7 +69,7 @@ export default function CityLandingEs({ city }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://pixelnpanel.com/es" },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.pixelnpanel.com/es" },
       { "@type": "ListItem", position: 2, name: "Área de Servicio", item: pageUrl },
       { "@type": "ListItem", position: 3, name: `${city.name}, TX`, item: pageUrl },
     ],

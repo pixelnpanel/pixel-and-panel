@@ -43,15 +43,15 @@ export const metadata = {
   alternates: {
     canonical: "/service-area/nederland-tx",
     languages: {
-      "en-US": "https://pixelnpanel.com/service-area/nederland-tx",
-      "es-US": "https://pixelnpanel.com/es/area-de-servicio/nederland-tx",
+      "en-US": "https://www.pixelnpanel.com/service-area/nederland-tx",
+      "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/nederland-tx",
     },
   },
   openGraph: {
     title: "Custom Signs, Web Design & Local SEO in Nederland, TX",
     description:
       "Boost your local presence with professional websites, outdoor signs, banners, and Google Profiles for businesses in Nederland, TX.",
-    url: "https://pixelnpanel.com/service-area/nederland-tx",
+    url: "https://www.pixelnpanel.com/service-area/nederland-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
     type: "website",

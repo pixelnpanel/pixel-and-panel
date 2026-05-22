@@ -7,7 +7,7 @@ import { learningCenterPostsEs } from "@/lib/learning-center-posts-es";
 import { cityServiceStaticParams, cityServiceCities } from "@/lib/city-service-pages";
 import { cityServiceStaticParamsEs } from "@/lib/city-service-pages-es";
 
-const BASE = "https://pixelnpanel.com";
+const BASE = "https://www.pixelnpanel.com";
 
 const staticPages = [
   { url: "/", priority: 1.0, changeFrequency: "weekly" },

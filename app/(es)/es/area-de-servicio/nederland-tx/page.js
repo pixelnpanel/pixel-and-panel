@@ -10,17 +10,17 @@ export const metadata = {
   description:
     "Pixel & Panel ayuda a negocios en Nederland, TX con sitios web, tarjetas, volantes, banners, letreros, SEO local y códigos QR.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/area-de-servicio/nederland-tx",
+    canonical: "https://www.pixelnpanel.com/es/area-de-servicio/nederland-tx",
     languages: {
-      "en-US": "https://pixelnpanel.com/service-area/nederland-tx",
-      "es-US": "https://pixelnpanel.com/es/area-de-servicio/nederland-tx",
+      "en-US": "https://www.pixelnpanel.com/service-area/nederland-tx",
+      "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/nederland-tx",
     },
   },
   openGraph: {
     title: "Web, Letreros e Impresión en Nederland, TX | Pixel & Panel",
     description:
       "Pixel & Panel ayuda a negocios en Nederland, TX con sitios web, tarjetas, volantes, banners, letreros, SEO local y códigos QR.",
-    url: "https://pixelnpanel.com/es/area-de-servicio/nederland-tx",
+    url: "https://www.pixelnpanel.com/es/area-de-servicio/nederland-tx",
     siteName: "Pixel & Panel",
     locale: "es_US",
     type: "website",

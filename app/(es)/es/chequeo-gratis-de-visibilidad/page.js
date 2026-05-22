@@ -109,17 +109,17 @@ export const metadata = {
   description:
     "Recibe una revisión gratis de tu sitio web, perfil de Google, letreros y configuración de códigos QR con Pixel & Panel.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
+    canonical: "https://www.pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
     languages: {
-      "en-US": "https://pixelnpanel.com/free-visibility-check",
-      "es-US": "https://pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
+      "en-US": "https://www.pixelnpanel.com/free-visibility-check",
+      "es-US": "https://www.pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
     },
   },
   openGraph: {
     title: "Chequeo Gratis de Visibilidad | Pixel & Panel",
     description:
       "Revisión gratis de sitio web, Perfil de Google, letreros y códigos QR.",
-    url: "https://pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
+    url: "https://www.pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
     locale: "es_US",
   },
 };

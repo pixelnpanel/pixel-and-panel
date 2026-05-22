@@ -53,17 +53,17 @@ export const metadata = {
   description:
     "Solicita una cotización para sitio web, letreros, impresión, SEO local o campaña con código QR con Pixel & Panel.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/solicitar-cotizacion",
+    canonical: "https://www.pixelnpanel.com/es/solicitar-cotizacion",
     languages: {
-      "en-US": "https://pixelnpanel.com/quote-request",
-      "es-US": "https://pixelnpanel.com/es/solicitar-cotizacion",
+      "en-US": "https://www.pixelnpanel.com/quote-request",
+      "es-US": "https://www.pixelnpanel.com/es/solicitar-cotizacion",
     },
   },
   openGraph: {
     title: "Solicitar Cotización | Pixel & Panel",
     description:
       "Cotiza sitio web, letreros, impresión, SEO local o campaña con código QR.",
-    url: "https://pixelnpanel.com/es/solicitar-cotizacion",
+    url: "https://www.pixelnpanel.com/es/solicitar-cotizacion",
     locale: "es_US",
   },
 };

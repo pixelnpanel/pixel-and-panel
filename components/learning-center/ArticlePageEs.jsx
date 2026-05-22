@@ -56,7 +56,7 @@ const ctaConfig = {
 export default function ArticlePageEs({ post }) {
   const relatedPosts = getRelatedPostsEs(post, 3);
   const cta = ctaConfig[post.ctaType] || ctaConfig.visibility;
-  const pageUrl = `https://pixelnpanel.com/es/centro-de-aprendizaje/${post.slug}`;
+  const pageUrl = `https://www.pixelnpanel.com/es/centro-de-aprendizaje/${post.slug}`;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -66,13 +66,13 @@ export default function ArticlePageEs({ post }) {
         "@type": "ListItem",
         position: 1,
         name: "Inicio",
-        item: "https://pixelnpanel.com/es",
+        item: "https://www.pixelnpanel.com/es",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Centro de Aprendizaje",
-        item: "https://pixelnpanel.com/es/centro-de-aprendizaje",
+        item: "https://www.pixelnpanel.com/es/centro-de-aprendizaje",
       },
       {
         "@type": "ListItem",
@@ -97,7 +97,7 @@ export default function ArticlePageEs({ post }) {
     publisher: {
       "@type": "Organization",
       name: "Pixel & Panel",
-      url: "https://pixelnpanel.com",
+      url: "https://www.pixelnpanel.com",
     },
     mainEntityOfPage: pageUrl,
     keywords: [post.primaryKeyword, ...post.secondaryKeywords].join(", "),

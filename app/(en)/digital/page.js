@@ -1,7 +1,7 @@
 import DigitalClient from "./DigitalClient";
 
 export const metadata = {
-  metadataBase: new URL("https://pixelnpanel.com"),
+  metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     absolute: "Local Web Design, SEO & Google Profile | Pixel & Panel",
   },

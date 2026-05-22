@@ -49,24 +49,24 @@ const reasons = [
 ];
 
 export const metadata = {
-  metadataBase: new URL("https://pixelnpanel.com"),
+  metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     absolute: "Diseño Web, Letreros y SEO Local | Pixel & Panel",
   },
   description:
     "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es",
+    canonical: "https://www.pixelnpanel.com/es",
     languages: {
-      "en-US": "https://pixelnpanel.com/",
-      "es-US": "https://pixelnpanel.com/es",
+      "en-US": "https://www.pixelnpanel.com/",
+      "es-US": "https://www.pixelnpanel.com/es",
     },
   },
   openGraph: {
     title: "Diseño Web, Letreros y SEO Local | Pixel & Panel",
     description:
       "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
-    url: "https://pixelnpanel.com/es",
+    url: "https://www.pixelnpanel.com/es",
     locale: "es_US",
     type: "website",
   },

@@ -13,17 +13,17 @@ export const metadata = {
   description:
     "Guías útiles de Pixel & Panel sobre sitios web, letreros, campañas QR, SEO local y visibilidad para negocios del sureste de Texas.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/centro-de-aprendizaje",
+    canonical: "https://www.pixelnpanel.com/es/centro-de-aprendizaje",
     languages: {
-      "en-US": "https://pixelnpanel.com/learning-center",
-      "es-US": "https://pixelnpanel.com/es/centro-de-aprendizaje",
+      "en-US": "https://www.pixelnpanel.com/learning-center",
+      "es-US": "https://www.pixelnpanel.com/es/centro-de-aprendizaje",
     },
   },
   openGraph: {
     title: "Centro de Aprendizaje | Pixel & Panel",
     description:
       "Consejos prácticos sobre sitios web, letreros, SEO local, Perfil de Google, QR y visibilidad para negocios locales.",
-    url: "https://pixelnpanel.com/es/centro-de-aprendizaje",
+    url: "https://www.pixelnpanel.com/es/centro-de-aprendizaje",
     locale: "es_US",
     type: "website",
   },

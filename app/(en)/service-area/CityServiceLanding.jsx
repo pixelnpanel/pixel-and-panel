@@ -46,7 +46,7 @@ export default function CityServiceLanding({ city, service }) {
 
   const quoteHref = `/quote-request?product=${encodeURIComponent(service.quoteProduct)}&category=${encodeURIComponent(service.quoteCategory)}`
   const cityHref = `/service-area/${city.slug}`
-  const pageUrl = `https://pixelnpanel.com/service-area/${city.slug}/${service.slug}`
+  const pageUrl = `https://www.pixelnpanel.com/service-area/${city.slug}/${service.slug}`
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -74,9 +74,9 @@ export default function CityServiceLanding({ city, service }) {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://pixelnpanel.com" },
-          { name: "Service Area", url: "https://pixelnpanel.com/service-area" },
-          { name: `${city.name}, TX`, url: `https://pixelnpanel.com/service-area/${city.slug}` },
+          { name: "Home", url: "https://www.pixelnpanel.com" },
+          { name: "Service Area", url: "https://www.pixelnpanel.com/service-area" },
+          { name: `${city.name}, TX`, url: `https://www.pixelnpanel.com/service-area/${city.slug}` },
           { name: service.name, url: pageUrl },
         ]}
       />

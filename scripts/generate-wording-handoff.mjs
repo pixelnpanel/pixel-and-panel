@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
 
 const BASE_URL = "http://localhost:3000";
-const PUBLIC_URL = "https://pixelnpanel.com";
+const PUBLIC_URL = "https://www.pixelnpanel.com";
 const OUTPUT_DIR = "docs/wording-handoff";
 const OUTPUT_JSON = path.join(OUTPUT_DIR, "website-wording-inventory-2026-05-21.json");
 const OUTPUT_MD = path.join(OUTPUT_DIR, "website-wording-inventory-2026-05-21.md");

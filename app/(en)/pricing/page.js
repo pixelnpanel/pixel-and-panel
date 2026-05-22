@@ -7,17 +7,17 @@ export const metadata = {
   description:
     "Upfront starter prices for small business websites, care packages, and customizable signage project quotes across Southeast Texas.",
   alternates: {
-    canonical: "https://pixelnpanel.com/pricing",
+    canonical: "https://www.pixelnpanel.com/pricing",
     languages: {
-      "en-US": "https://pixelnpanel.com/pricing",
-      "es-US": "https://pixelnpanel.com/es/precios",
+      "en-US": "https://www.pixelnpanel.com/pricing",
+      "es-US": "https://www.pixelnpanel.com/es/precios",
     },
   },
   openGraph: {
     title: "Affordable Web Design Pricing & Sign Quotes | Pixel & Panel",
     description:
       "Upfront starter prices for small business websites, care packages, and customizable signage project quotes across Southeast Texas.",
-    url: "https://pixelnpanel.com/pricing",
+    url: "https://www.pixelnpanel.com/pricing",
   },
 };
 
@@ -59,8 +59,8 @@ const offersSchema = {
         priceCurrency: "USD",
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
-        url: "https://pixelnpanel.com/pricing",
-        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://pixelnpanel.com" },
+        url: "https://www.pixelnpanel.com/pricing",
+        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://www.pixelnpanel.com" },
       },
     },
     {
@@ -74,8 +74,8 @@ const offersSchema = {
         priceCurrency: "USD",
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
-        url: "https://pixelnpanel.com/pricing",
-        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://pixelnpanel.com" },
+        url: "https://www.pixelnpanel.com/pricing",
+        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://www.pixelnpanel.com" },
       },
     },
     {
@@ -89,8 +89,8 @@ const offersSchema = {
         priceCurrency: "USD",
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
-        url: "https://pixelnpanel.com/pricing",
-        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://pixelnpanel.com" },
+        url: "https://www.pixelnpanel.com/pricing",
+        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://www.pixelnpanel.com" },
       },
     },
     {
@@ -104,8 +104,8 @@ const offersSchema = {
         priceCurrency: "USD",
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
-        url: "https://pixelnpanel.com/pricing",
-        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://pixelnpanel.com" },
+        url: "https://www.pixelnpanel.com/pricing",
+        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://www.pixelnpanel.com" },
       },
     },
   ],

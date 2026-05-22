@@ -10,17 +10,17 @@ export const metadata = {
   description:
     "Pixel & Panel ayuda a negocios en Port Arthur, TX con gráficos para vehículos, letreros, sitios web, SEO local, impresión y campañas con códigos QR.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
+    canonical: "https://www.pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
     languages: {
-      "en-US": "https://pixelnpanel.com/service-area/port-arthur-tx",
-      "es-US": "https://pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
+      "en-US": "https://www.pixelnpanel.com/service-area/port-arthur-tx",
+      "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
     },
   },
   openGraph: {
     title: "Letreros, Web y SEO en Port Arthur, TX | Pixel & Panel",
     description:
       "Pixel & Panel ayuda a negocios en Port Arthur, TX con gráficos para vehículos, letreros, sitios web, SEO local, impresión y campañas con códigos QR.",
-    url: "https://pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
+    url: "https://www.pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
     siteName: "Pixel & Panel",
     locale: "es_US",
     type: "website",

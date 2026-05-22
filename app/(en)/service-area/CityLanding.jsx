@@ -49,7 +49,7 @@ export default function CityLanding({ city }) {
   ];
 
   const slug = city.slug || citySlug(city.name);
-  const pageUrl = `https://pixelnpanel.com/service-area/${slug}`;
+  const pageUrl = `https://www.pixelnpanel.com/service-area/${slug}`;
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -63,7 +63,7 @@ export default function CityLanding({ city }) {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Pixel & Panel",
-    url: "https://pixelnpanel.com",
+    url: "https://www.pixelnpanel.com",
     email: "hello@pixelnpanel.com",
     telephone: "(409) 800-6139",
     areaServed: ["Beaumont, TX", "Nederland, TX", "Port Arthur, TX", "Southeast Texas"],
@@ -80,7 +80,7 @@ export default function CityLanding({ city }) {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: "https://pixelnpanel.com" },
+          { name: "Home", url: "https://www.pixelnpanel.com" },
           { name: `${city.name}, TX`, url: pageUrl },
         ]}
       />

@@ -77,17 +77,17 @@ export const metadata = {
   description:
     "Rastrea el estado de tu proyecto de Pixel & Panel con tu número de pedido y correo o teléfono.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/rastrear-pedido",
+    canonical: "https://www.pixelnpanel.com/es/rastrear-pedido",
     languages: {
-      "en-US": "https://pixelnpanel.com/track-order",
-      "es-US": "https://pixelnpanel.com/es/rastrear-pedido",
+      "en-US": "https://www.pixelnpanel.com/track-order",
+      "es-US": "https://www.pixelnpanel.com/es/rastrear-pedido",
     },
   },
   openGraph: {
     title: "Rastrear Pedido | Pixel & Panel",
     description:
       "Revisa el estado de tu proyecto, prueba, producción, instalación o entrega.",
-    url: "https://pixelnpanel.com/es/rastrear-pedido",
+    url: "https://www.pixelnpanel.com/es/rastrear-pedido",
     locale: "es_US",
   },
   robots: {

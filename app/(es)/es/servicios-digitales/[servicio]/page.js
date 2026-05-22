@@ -36,16 +36,16 @@ export async function generateMetadata({ params }) {
     },
     description: service.description,
     alternates: {
-      canonical: `https://pixelnpanel.com/es/servicios-digitales/${service.slug}`,
+      canonical: `https://www.pixelnpanel.com/es/servicios-digitales/${service.slug}`,
       languages: {
-        "en-US": `https://pixelnpanel.com/digital/${service.enSlug}`,
-        "es-US": `https://pixelnpanel.com/es/servicios-digitales/${service.slug}`,
+        "en-US": `https://www.pixelnpanel.com/digital/${service.enSlug}`,
+        "es-US": `https://www.pixelnpanel.com/es/servicios-digitales/${service.slug}`,
       },
     },
     openGraph: {
       title: service.title,
       description: service.description,
-      url: `https://pixelnpanel.com/es/servicios-digitales/${service.slug}`,
+      url: `https://www.pixelnpanel.com/es/servicios-digitales/${service.slug}`,
       siteName: "Pixel & Panel",
       locale: "es_US",
       type: "website",
@@ -80,9 +80,9 @@ export default async function SpanishDigitalServicePage({ params }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://pixelnpanel.com/es" },
-      { "@type": "ListItem", position: 2, name: "Servicios Digitales", item: "https://pixelnpanel.com/es/servicios-digitales" },
-      { "@type": "ListItem", position: 3, name: service.name, item: `https://pixelnpanel.com/es/servicios-digitales/${service.slug}` },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.pixelnpanel.com/es" },
+      { "@type": "ListItem", position: 2, name: "Servicios Digitales", item: "https://www.pixelnpanel.com/es/servicios-digitales" },
+      { "@type": "ListItem", position: 3, name: service.name, item: `https://www.pixelnpanel.com/es/servicios-digitales/${service.slug}` },
     ],
   };
   const faq = {

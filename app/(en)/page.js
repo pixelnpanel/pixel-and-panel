@@ -31,24 +31,24 @@ const homepageFaq = [
 ];
 
 export const metadata = {
-  metadataBase: new URL("https://pixelnpanel.com"),
+  metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     absolute: "Website Design, Custom Signs & Local SEO | Pixel & Panel",
   },
   description:
     "Need more customers? Pixel & Panel builds modern websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and SETX.",
   alternates: {
-    canonical: new URL("https://pixelnpanel.com/"),
+    canonical: new URL("https://www.pixelnpanel.com/"),
     languages: {
-      "en-US": "https://pixelnpanel.com/",
-      "es-US": "https://pixelnpanel.com/es",
+      "en-US": "https://www.pixelnpanel.com/",
+      "es-US": "https://www.pixelnpanel.com/es",
     },
   },
   openGraph: {
     title: "Website Design, Custom Signs & Local SEO | Pixel & Panel",
     description:
       "Need more customers? Pixel & Panel builds modern websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and SETX.",
-    url: "https://pixelnpanel.com/",
+    url: "https://www.pixelnpanel.com/",
     type: "website",
   },
 };

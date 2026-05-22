@@ -44,17 +44,17 @@ export const metadata = {
   description:
     "Contacta a Pixel & Panel para sitios web, letreros, impresión, SEO local y campañas con códigos QR en el sureste de Texas.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/contacto",
+    canonical: "https://www.pixelnpanel.com/es/contacto",
     languages: {
-      "en-US": "https://pixelnpanel.com/contact",
-      "es-US": "https://pixelnpanel.com/es/contacto",
+      "en-US": "https://www.pixelnpanel.com/contact",
+      "es-US": "https://www.pixelnpanel.com/es/contacto",
     },
   },
   openGraph: {
     title: "Contacto | Pixel & Panel",
     description:
       "Contacta a Pixel & Panel para sitios web, letreros, impresión, SEO local y códigos QR.",
-    url: "https://pixelnpanel.com/es/contacto",
+    url: "https://www.pixelnpanel.com/es/contacto",
     locale: "es_US",
   },
 };

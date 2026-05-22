@@ -7,10 +7,10 @@ export const metadata = {
   description:
     "Explora ejemplos de sitios web, letreros, impresos, campañas QR y branding para negocios del sureste de Texas.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/portafolio",
+    canonical: "https://www.pixelnpanel.com/es/portafolio",
     languages: {
-      "en-US": "https://pixelnpanel.com/portfolio",
-      "es-US": "https://pixelnpanel.com/es/portafolio",
+      "en-US": "https://www.pixelnpanel.com/portfolio",
+      "es-US": "https://www.pixelnpanel.com/es/portafolio",
     },
   },
 };

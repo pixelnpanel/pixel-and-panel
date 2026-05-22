@@ -239,17 +239,17 @@ export const metadata = {
   description:
     "Tarifas claras para diseño web y cotizaciones rápidas de letreros, lonas e impresos en el sureste de Texas.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/precios",
+    canonical: "https://www.pixelnpanel.com/es/precios",
     languages: {
-      "en-US": "https://pixelnpanel.com/pricing",
-      "es-US": "https://pixelnpanel.com/es/precios",
+      "en-US": "https://www.pixelnpanel.com/pricing",
+      "es-US": "https://www.pixelnpanel.com/es/precios",
     },
   },
   openGraph: {
     title: "Precios Web y Cotizaciones de Letreros | Pixel & Panel",
     description:
       "Tarifas claras para diseño web y cotizaciones rápidas de letreros, lonas e impresos en el sureste de Texas.",
-    url: "https://pixelnpanel.com/es/precios",
+    url: "https://www.pixelnpanel.com/es/precios",
     locale: "es_US",
   },
 };
@@ -290,11 +290,11 @@ export default function SpanishPricingPage() {
         priceCurrency: "USD",
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
-        url: "https://pixelnpanel.com/es/precios",
+        url: "https://www.pixelnpanel.com/es/precios",
         seller: {
           "@type": "LocalBusiness",
           name: "Pixel & Panel",
-          url: "https://pixelnpanel.com",
+          url: "https://www.pixelnpanel.com",
         },
       },
     })),

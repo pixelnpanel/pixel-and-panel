@@ -61,24 +61,24 @@ const spanishCopy = {
 };
 
 export const metadata = {
-  metadataBase: new URL("https://pixelnpanel.com"),
+  metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     absolute: "Letreros Comerciales, Banners e Imprenta | Pixel & Panel",
   },
   description:
     "Ordena letreros comerciales, lonas de vinilo resistentes, imanes vehiculares y volantes impresos en Beaumont, TX.",
   alternates: {
-    canonical: "https://pixelnpanel.com/es/letreros",
+    canonical: "https://www.pixelnpanel.com/es/letreros",
     languages: {
-      "en-US": "https://pixelnpanel.com/signage",
-      "es-US": "https://pixelnpanel.com/es/letreros",
+      "en-US": "https://www.pixelnpanel.com/signage",
+      "es-US": "https://www.pixelnpanel.com/es/letreros",
     },
   },
   openGraph: {
     title: "Letreros Comerciales, Banners e Imprenta | Pixel & Panel",
     description:
       "Ordena letreros comerciales, lonas de vinilo resistentes, imanes vehiculares y volantes impresos en Beaumont, TX.",
-    url: "https://pixelnpanel.com/es/letreros",
+    url: "https://www.pixelnpanel.com/es/letreros",
     locale: "es_US",
   },
 };
@@ -97,8 +97,8 @@ export default function SpanishSignagePage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://pixelnpanel.com/es" },
-      { "@type": "ListItem", position: 2, name: "Letreros e Impresión", item: "https://pixelnpanel.com/es/letreros" },
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.pixelnpanel.com/es" },
+      { "@type": "ListItem", position: 2, name: "Letreros e Impresión", item: "https://www.pixelnpanel.com/es/letreros" },
     ],
   };
   const itemListSchema = {
@@ -107,14 +107,14 @@ export default function SpanishSignagePage() {
     name: "Categorías de letreros e impresión",
     description:
       "Productos de letreros e impresión para negocios en Beaumont, Nederland y Port Arthur, TX.",
-    url: "https://pixelnpanel.com/es/letreros",
+    url: "https://www.pixelnpanel.com/es/letreros",
     numberOfItems: signageCategoriesEs.length,
     itemListElement: signageCategoriesEs.map((category, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: category.name,
       description: category.description,
-      url: `https://pixelnpanel.com/es/letreros?category=${category.slug}`,
+      url: `https://www.pixelnpanel.com/es/letreros?category=${category.slug}`,
     })),
   };
 

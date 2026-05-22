@@ -11,7 +11,7 @@ export const viewport = {
 };
 
 export const metadata = {
-  metadataBase: new URL("https://pixelnpanel.com"),
+  metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     default: "Diseño Web, Letreros e Impresión en Beaumont, Nederland y Port Arthur | Pixel & Panel",
     template: "%s | Pixel & Panel",
@@ -29,7 +29,7 @@ export const metadata = {
     siteName: "Pixel & Panel",
     locale: "es_US",
     type: "website",
-    images: [{ url: "https://pixelnpanel.com/opengraph-image", width: 1200, height: 630 }],
+    images: [{ url: "https://www.pixelnpanel.com/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

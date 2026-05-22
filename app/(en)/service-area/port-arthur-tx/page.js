@@ -42,15 +42,15 @@ export const metadata = {
   alternates: {
     canonical: "/service-area/port-arthur-tx",
     languages: {
-      "en-US": "https://pixelnpanel.com/service-area/port-arthur-tx",
-      "es-US": "https://pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
+      "en-US": "https://www.pixelnpanel.com/service-area/port-arthur-tx",
+      "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
     },
   },
   openGraph: {
     title: "Web Design, Custom Signs & Local SEO in Port Arthur, TX",
     description:
       "Pixel & Panel serves Port Arthur, TX businesses with high-converting websites, storefront signs, fleet wraps, and local SEO support.",
-    url: "https://pixelnpanel.com/service-area/port-arthur-tx",
+    url: "https://www.pixelnpanel.com/service-area/port-arthur-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
     type: "website",
