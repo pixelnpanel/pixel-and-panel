@@ -106,10 +106,7 @@ export default function HomeClient() {
             </div>
 
             <div className="mt-8 hidden max-w-2xl md:block">
-              <Link href="/quote-request" className="btn-amber inline-flex justify-center whitespace-nowrap px-5">
-                Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-              <div className="mt-4 grid gap-3 md:grid-cols-3" aria-label="Choose what your business needs">
+              <div className="grid gap-3 md:grid-cols-3" aria-label="Choose what your business needs">
                 {mobileStartOptions.map((item) => {
                   const Icon = item.icon;
 
@@ -136,6 +133,9 @@ export default function HomeClient() {
                   );
                 })}
               </div>
+              <Link href="/quote-request" className="btn-amber mt-5 inline-flex justify-center whitespace-nowrap px-5">
+                Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
             </div>
 
             <div className="mt-8 grid gap-3 text-sm text-white sm:grid-cols-3 md:mt-9">
