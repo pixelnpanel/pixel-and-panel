@@ -28,7 +28,7 @@ function buildEmail({ name, email, phone, subject, sourcePage, message, language
   const text = [
     language === "Spanish"
       ? "Nuevo mensaje de contacto — Pixel & Panel"
-      : "New contact message from pixelnpanel.com",
+      : "New contact message from www.pixelnpanel.com",
     "",
     `Language: ${language || "English"}`,
     `Name: ${name}`,

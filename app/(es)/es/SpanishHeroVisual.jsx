@@ -46,7 +46,7 @@ function StepGoogle() {
           <span className="text-xs text-slate-500">letreros cerca de Beaumont TX</span>
         </div>
         <div className="rounded-lg border border-slate-100 bg-slate-50 p-3">
-          <p className="mb-0.5 text-[11px] font-medium text-[#0369A1]">pixelnpanel.com</p>
+          <p className="mb-0.5 text-[11px] font-medium text-[#0369A1]">www.pixelnpanel.com</p>
           <p className="mb-1 text-sm font-bold text-slate-800">Pixel &amp; Panel — Letreros y Sitios Web</p>
           <p className="mb-2 text-[11px] text-slate-500">Beaumont · Nederland · Port Arthur, TX</p>
           <div className="flex items-center gap-0.5">
@@ -86,7 +86,7 @@ function StepSign() {
           </div>
           <div className="text-left">
             <p className="text-xs font-bold text-white">Escanea para cotizar gratis</p>
-            <p className="text-[11px] text-white/50">pixelnpanel.com</p>
+            <p className="text-[11px] text-white/50">www.pixelnpanel.com</p>
           </div>
         </div>
         <div className="mt-4 flex items-center gap-2">

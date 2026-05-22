@@ -87,7 +87,7 @@ export default function Image() {
           <span>·</span>
           <span>Port Arthur</span>
           <span>·</span>
-          <span>pixelnpanel.com</span>
+          <span>www.pixelnpanel.com</span>
         </div>
       </div>
     ),

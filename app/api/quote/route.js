@@ -50,7 +50,7 @@ function buildEmail({ name, businessName, email, phone, productService, sourcePa
   const text = [
     language === "Spanish"
       ? "Nueva solicitud de cotización — Pixel & Panel"
-      : "New quote request from pixelnpanel.com",
+      : "New quote request from www.pixelnpanel.com",
     "",
     `Language: ${language || "English"}`,
     `Name: ${name}`,

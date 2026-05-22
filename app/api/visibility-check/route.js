@@ -63,7 +63,7 @@ function buildEmail({
   const text = [
     language === "Spanish"
       ? "Nueva solicitud de chequeo de visibilidad — Pixel & Panel"
-      : "New Free Visibility Check Request from pixelnpanel.com",
+      : "New Free Visibility Check Request from www.pixelnpanel.com",
     "",
     `Language: ${language || "English"}`,
     `Name: ${name}`,

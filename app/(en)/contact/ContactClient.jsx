@@ -229,6 +229,18 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     <p style={infoValueStyle}>{content.responseValue}</p>
                                 </div>
                             </motion.div>
+
+                            <motion.div variants={fadeUp}>
+                                <Link href={content.trackOrderHref} style={{ textDecoration: 'none' }}>
+                                    <div style={infoCardStyle}>
+                                        <div style={{ ...infoIconStyle, background: 'rgba(245,158,11,0.15)' }}><ArrowRight size={18} color="#F59E0B" /></div>
+                                        <div>
+                                            <p style={infoLabelStyle}>{content.trackOrderLabel}</p>
+                                            <p style={infoValueStyle}>{content.trackOrderValue}</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
                         </motion.div>
                     </motion.div>
 
@@ -302,11 +314,11 @@ export default function ContactPage({ copy = defaultCopy }) {
                     </motion.div>
 
                     <motion.div
-                        className="order-3 md:hidden"
+                        className="order-3 flex flex-col gap-4 md:hidden"
                         variants={stagger}
                         initial="hidden"
                         animate="visible"
-                        style={{ flex: '1 1 100%', color: 'white', display: 'flex', flexDirection: 'column', gap: '1rem' }}
+                        style={{ flex: '1 1 100%', color: 'white' }}
                     >
                         {contactCards.map((item) => (
                             <motion.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
