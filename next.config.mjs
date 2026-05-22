@@ -9,6 +9,12 @@ const oldServiceAreaRedirects = [
   statusCode: 301,
 }));
 
+if (process.env.VERCEL === "1" && process.env.VERCEL_PREVIEW_COMMENTS_ENABLED === "1") {
+  // Vercel CLI 54's Next adapter can crash before build when toolbar injection
+  // receives an undefined projectDir. The toolbar is not needed for production.
+  process.env.VERCEL_PREVIEW_COMMENTS_ENABLED = "0";
+}
+
 const scriptSrc = [
   "'self'",
   "'unsafe-inline'",
