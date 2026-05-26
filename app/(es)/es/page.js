@@ -1,52 +1,342 @@
-import Link from "next/link";
 import {
-  ArrowRight,
   BadgeCheck,
+  Building2,
+  Car,
+  ClipboardList,
+  CreditCard,
+  FileText,
   Globe2,
-  MapPinned,
+  HelpCircle,
+  MapPin,
+  Megaphone,
+  MonitorSmartphone,
+  PanelTop,
   QrCode,
+  Search,
+  ShieldCheck,
   Store,
 } from "lucide-react";
-import SpanishHeroVisual from "./SpanishHeroVisual";
+import HomeClient from "../../(en)/HomeClient";
+import HomeSections from "../../(en)/HomeSections";
 
-const services = [
+const spanishHomepageFaq = [
   {
-    title: "Sitios web",
-    description:
-      "Páginas rápidas y claras que explican tus servicios y facilitan llamar, escribir o pedir una cotización.",
-    icon: Globe2,
+    question: "¿Qué hace Pixel & Panel?",
+    answer:
+      "Pixel & Panel ayuda a negocios locales a ser encontrados en internet, verse profesionales en la calle y convertir la atención en llamadas, solicitudes de cotización y clientes con sitios web, SEO local, Perfil de Google, letreros, impresión, QR y formularios.",
   },
   {
-    title: "Aparecer en Google",
-    description:
-      "Mejoramos la información que clientes ven cuando buscan tu negocio en Google Maps.",
-    icon: MapPinned,
+    question: "¿Trabajan fuera de Beaumont, Nederland y Port Arthur?",
+    answer:
+      "Sí. Pixel & Panel trabaja con negocios en el sureste de Texas. Beaumont, Nederland y Port Arthur son las áreas principales de SEO local, pero negocios cercanos también pueden solicitar cotización.",
   },
   {
-    title: "Letreros e impresión",
-    description:
-      "Letreros, banners, tarjetas, flyers y materiales impresos pensados para guiar al siguiente paso.",
-    icon: Store,
+    question: "¿Pueden ayudar con sitios web y letreros al mismo tiempo?",
+    answer:
+      "Sí. Podemos conectar tu sitio web, búsqueda local, letreros, materiales impresos y códigos QR para que tu visibilidad digital y física trabajen juntas.",
   },
   {
-    title: "Códigos QR para letreros",
-    description:
-      "Agrega códigos QR a tus letreros, banners y tarjetas para conectar a los clientes con tu sitio web o formulario de contacto.",
-    icon: QrCode,
+    question: "¿Se pueden agregar códigos QR a letreros e impresos?",
+    answer:
+      "Sí. Los códigos QR pueden ir en banners, letreros de jardín, menús, volantes, tarjetas, gráficos de ventanas, rotulación vehicular y otros materiales cuando la distancia y ubicación lo permiten.",
+  },
+  {
+    question: "¿Cómo solicito una cotización?",
+    answer:
+      "Usa el formulario de cotización y comparte qué necesitas, tu fecha ideal y los detalles que ya tengas. Pixel & Panel revisará la solicitud y recomendará el siguiente paso.",
   },
 ];
 
-const problems = [
-  "Tu Perfil de Google está vacío o incompleto.",
-  "Tu sitio web es lento o no convierte visitas en llamadas.",
-  "Tus lonas, tarjetas o letreros no tienen un llamado a la acción claro.",
+const spanishHomeHeroCopy = {
+  eyebrow: "Sirviendo el sureste de Texas",
+  mobileTitleStart: "Haz que tu negocio aparezca",
+  mobileTitleHighlight: "en Google y la calle",
+  desktopTitleStart: "Creamos sitios web, letreros y SEO local",
+  desktopTitleHighlight: "para que encuentren tu negocio",
+  mobileIntro:
+    "Sitios web rápidos, letreros comerciales y SEO local para contratistas, tiendas y equipos de servicio en el sureste de Texas.",
+  desktopIntro:
+    "Ayudamos a contratistas, tiendas y negocios de servicio en Beaumont, Nederland y Port Arthur a verse profesionales y recibir más llamadas. Desde sitios web rápidos para celular hasta banners duraderos y rotulación de camionetas, Pixel & Panel conecta todo.",
+  startHeading: "¿Qué necesitas?",
+  startOptionsLabel: "Elige lo que necesita tu negocio",
+  quoteHref: "/es/solicitar-cotizacion",
+  mobileQuoteLabel: "Cotizar",
+  desktopQuoteLabel: "Solicitar cotización",
+  checklist: [
+    "Tu visión. Hecha visible.",
+    "Sitios web, letreros, Google e impresión trabajando juntos",
+    "Proceso con cotización primero",
+  ],
+};
+
+const spanishHomeStartOptions = [
+  {
+    title: "Sitio web / Google",
+    description: "Sitios rápidos y ayuda con Google Maps.",
+    href: "/es/servicios-digitales",
+    label: "Digital",
+    icon: MonitorSmartphone,
+    accent: "#0EA5E9",
+  },
+  {
+    title: "Letreros / Impresión",
+    description: "Banners, letreros, tarjetas y rotulación.",
+    href: "/es/letreros",
+    label: "Letreros",
+    icon: PanelTop,
+    accent: "#F59E0B",
+  },
+  {
+    title: "No estoy seguro",
+    description: "Chequeo gratis de visibilidad en Google.",
+    href: "/es/chequeo-gratis-de-visibilidad",
+    label: "Chequeo gratis",
+    icon: HelpCircle,
+    accent: "#10B981",
+  },
 ];
 
-const reasons = [
-  "Tu sitio web, letreros e impresión — trabajando juntos para traerte más clientes.",
-  "Trabajamos con negocios locales de Beaumont, Nederland, Port Arthur y el sureste de Texas.",
-  "Hablamos claro: sin promesas falsas de rankings y sin reportes difíciles de entender.",
-];
+const spanishHomeSections = {
+  problem: {
+    eyebrow: "El problema",
+    title: "Tus competidores aparecen. ¿Tu negocio también?",
+    description:
+      "Los clientes se mueven rápido entre Google, tu sitio web, tus letreros y tus opciones de contacto. Si esas piezas no trabajan juntas, esos clientes terminan llamando a la competencia.",
+  },
+  problemCards: [
+    {
+      title: "Sitio web desactualizado",
+      description:
+        "Los clientes revisan tu negocio en internet antes de llamar. Un sitio lento o confuso puede hacer que un buen negocio local parezca menos confiable.",
+      icon: MonitorSmartphone,
+    },
+    {
+      title: "Poca presencia en Google",
+      description:
+        "Si clientes cercanos no encuentran tus servicios, horarios, ubicación y formas de contacto en Google Maps, pasan al siguiente negocio.",
+      icon: Search,
+    },
+    {
+      title: "Letreros sin siguiente paso claro",
+      description:
+        "Un buen letrero llama la atención. Una URL corta, código QR o ruta clara para llamar le da al cliente un siguiente paso fácil.",
+      icon: QrCode,
+    },
+  ],
+  problemCta: {
+    description:
+      "¿No sabes dónde está el problema? Empieza con un chequeo gratis de visibilidad en Google antes de pedir una cotización completa.",
+    href: "/es/chequeo-gratis-de-visibilidad",
+    label: "Revisar mi visibilidad en Google",
+  },
+  solution: {
+    eyebrow: "La solución",
+    title: "Un solo sistema para visibilidad digital y física.",
+    description:
+      "Pixel & Panel conecta lo que los negocios locales ya necesitan: un sitio web claro, mejor presencia en Google, letreros profesionales, materiales impresos útiles, códigos QR y formularios para leads.",
+  },
+  solutionSteps: [
+    {
+      title: "Construir",
+      description:
+        "Crear un sitio web seguro y un Perfil de Google optimizado que expliquen tus servicios, horarios y área de servicio.",
+      icon: Globe2,
+    },
+    {
+      title: "Promover",
+      description:
+        "Promover tu marca con letreros de fachada, letreros de jardín, rotulación vehicular, banners y materiales impresos.",
+      icon: Megaphone,
+    },
+    {
+      title: "Conectar",
+      description:
+        "Conectar impresos y letreros con códigos QR, enlaces cortos y formularios claros para que el cliente pida cotización rápido.",
+      icon: QrCode,
+    },
+  ],
+  services: {
+    eyebrow: "Servicios",
+    title: "Elige lo que necesitas ahora o pide una cotización completa",
+    description:
+      "Elige lo que necesitas ahora, o empieza con una solicitud de cotización y Pixel & Panel recomendará el siguiente paso correcto.",
+  },
+  serviceSilos: [
+    {
+      eyebrow: "Servicios digitales",
+      title: "Aparece cuando clientes cercanos buscan en Google.",
+      description:
+        "Diseño web, SEO local, optimización de Perfil de Google, captura de leads y campañas con QR para dueños de negocios locales.",
+      href: "/es/servicios-digitales",
+      cta: "Ver servicios digitales",
+      accent: "#0EA5E9",
+      icon: MonitorSmartphone,
+      items: [
+        "Páginas que convierten visitas en llamadas y solicitudes",
+        "Contenido de servicios y ubicaciones listo para Google",
+        "QR que llevan clientes desde tus letreros hasta tu sitio web",
+      ],
+    },
+    {
+      eyebrow: "Letreros e impresión",
+      title: "Haz que te noten en el mundo real.",
+      description:
+        "Letreros, banners, letreros de jardín, rotulación de camionetas, letreros de fachada, tarjetas, volantes, menús y más.",
+      href: "/es/letreros",
+      cta: "Ver letreros e impresión",
+      accent: "#F59E0B",
+      icon: PanelTop,
+      items: [
+        "Letreros para negocios fáciles de leer",
+        "Impresos para entregas, eventos y visitas en persona",
+        "Diseños que guían al cliente a llamar, escanear o visitar tu sitio",
+      ],
+    },
+  ],
+  popularServices: {
+    eyebrow: "Servicios populares",
+    title: "Empieza con los servicios que más piden los negocios locales",
+    description:
+      "Cada tarjeta lleva a una página real de servicio con detalles para clientes y señales claras para buscadores.",
+  },
+  popularServicesCards: [
+    {
+      title: "Banners de Vinilo",
+      description: "Banners duraderos para fachadas, eventos, sitios de trabajo y promociones.",
+      href: "/es/letreros/banners-de-vinilo",
+      icon: Megaphone,
+    },
+    {
+      title: "Letreros para Jardín",
+      description: "Letreros para contratistas, eventos, bienes raíces y ofertas locales.",
+      href: "/es/letreros/letreros-para-jardin",
+      icon: MapPin,
+    },
+    {
+      title: "Gráficos para Vehículos",
+      description: "Decals, letras, imanes y gráficos de flotilla para vehículos de trabajo.",
+      href: "/es/letreros/graficos-para-vehiculos",
+      icon: Car,
+    },
+    {
+      title: "Letreros para Negocios",
+      description: "Letreros exteriores e interiores para que los clientes reconozcan tu local.",
+      href: "/es/letreros/letreros-para-negocios",
+      icon: Store,
+    },
+    {
+      title: "Tarjetas de Presentación",
+      description: "Tarjetas limpias para referidos, citas, networking y seguimiento.",
+      href: "/es/letreros/tarjetas-de-presentacion",
+      icon: CreditCard,
+    },
+    {
+      title: "Diseño Web",
+      description: "Sitios rápidos para celular, hechos alrededor de llamadas, cotizaciones y confianza.",
+      href: "/es/servicios-digitales/desarrollo-web",
+      icon: MonitorSmartphone,
+    },
+    {
+      title: "Aparecer en Google",
+      description: "Ayuda para que clientes cercanos encuentren lo que ofreces en tu área.",
+      href: "/es/servicios-digitales/seo-local",
+      icon: Search,
+    },
+    {
+      title: "Perfil de Google",
+      description: "Mejora la ficha que muchos clientes ven antes de llamar, visitar o cotizar.",
+      href: "/es/servicios-digitales/perfil-de-google",
+      icon: BadgeCheck,
+    },
+  ],
+  serviceArea: {
+    eyebrow: "Área de servicio",
+    title: "Sirviendo negocios del sureste de Texas",
+    description:
+      "Pixel & Panel trabaja con negocios en el sureste de Texas, empezando por Beaumont, Nederland, Port Arthur y comunidades cercanas.",
+  },
+  cityCards: [
+    {
+      city: "Beaumont",
+      label: "Beaumont, TX",
+      href: "/es/area-de-servicio/beaumont-tx",
+      description:
+        "Sitios web, SEO local, letreros e impresión para tiendas, contratistas, equipos de servicio y organizaciones de Beaumont.",
+    },
+    {
+      city: "Nederland",
+      label: "Nederland, TX",
+      href: "/es/area-de-servicio/nederland-tx",
+      description:
+        "Herramientas prácticas de visibilidad para negocios de Nederland, desde tarjetas y banners hasta sitios web e impresos.",
+    },
+    {
+      city: "Port Arthur",
+      label: "Port Arthur, TX",
+      href: "/es/area-de-servicio/port-arthur-tx",
+      description:
+        "Sitios web, letreros e impresión para negocios de Port Arthur que quieren más llamadas y clientes.",
+    },
+  ],
+  why: {
+    eyebrow: "Por qué Pixel & Panel",
+    title: "Claro para tus clientes. Práctico para tu negocio local.",
+    description:
+      "El objetivo es simple: hacer que tu negocio sea más fácil de notar, entender y contactar.",
+  },
+  reasons: [
+    {
+      title: "Tu sitio web, letreros e impresión trabajando juntos",
+      description:
+        "Tu sitio web, letreros y materiales impresos deben guiar al cliente hacia el mismo siguiente paso claro.",
+      icon: Building2,
+    },
+    {
+      title: "Hecho para dueños de negocios locales",
+      description:
+        "El trabajo se adapta a contratistas, tiendas, restaurantes, iglesias, escuelas, clínicas y equipos de servicio.",
+      icon: Store,
+    },
+    {
+      title: "Proceso en lenguaje claro",
+      description:
+        "Recibes recomendaciones directas, opciones útiles y explicaciones simples sin lenguaje técnico innecesario.",
+      icon: ClipboardList,
+    },
+    {
+      title: "Cotización primero, sin presión",
+      description:
+        "Empieza con lo que necesitas. Pixel & Panel recomendará el siguiente paso antes de avanzar con cualquier proyecto.",
+      icon: ShieldCheck,
+    },
+  ],
+  portfolio: {
+    eyebrow: "Portafolio",
+    title: "El portafolio está tomando forma",
+    description:
+      "Fotos reales de proyectos, ejemplos de letreros y trabajos web se agregarán conforme se completen proyectos. Por ahora, cuéntanos qué necesitas y te guiaremos con opciones.",
+    href: "/es/portafolio",
+    label: "Ver portafolio",
+  },
+  portfolioItems: [
+    ["Trabajos web", MonitorSmartphone],
+    ["Ejemplos de letreros", PanelTop],
+    ["Materiales impresos", FileText],
+  ],
+  faq: {
+    eyebrow: "FAQ",
+    title: "Preguntas comunes de inicio",
+    description: "Respuestas rápidas antes de pedir una cotización.",
+  },
+  finalCta: {
+    eyebrow: "Empezar proyecto",
+    title: "¿Listo para que tu negocio sea más fácil de encontrar?",
+    description:
+      "Empieza con una solicitud de cotización. Cuéntanos qué necesitas y Pixel & Panel recomendará el siguiente paso correcto para tu sitio web, letrero, impresión o visibilidad en Google.",
+    href: "/es/solicitar-cotizacion",
+    label: "Solicitar cotización",
+  },
+};
 
 export const metadata = {
   metadataBase: new URL("https://www.pixelnpanel.com"),
@@ -72,144 +362,34 @@ export const metadata = {
   },
 };
 
-export default function SpanishHomePage() {
+function JsonLd({ data }) {
   return (
-    <div className="bg-[#FAF8F4] text-[#1C1917]">
-      <section className="relative overflow-hidden bg-[#0369A1] pt-24 text-white md:pt-28" aria-labelledby="spanish-homepage-hero-title">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_58%,#0EA5E9_100%)]" />
-        <div className="absolute inset-0 opacity-18 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#FAF8F4] to-transparent" />
-        <div className="container-px relative grid items-center gap-10 pb-20 md:pb-24 lg:grid-cols-[1.02fr_0.98fr]">
-          <div className="max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-sky-100 backdrop-blur">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F59E0B] opacity-75" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#F59E0B]" />
-              </span>
-              Sirviendo el sureste de Texas
-            </div>
-            <h1 className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-black leading-[1.08] tracking-normal text-white">
-              <span className="md:hidden">
-                Haz que tu negocio aparezca
-                <span className="mt-2 block text-[#F59E0B]">
-                  en Google y la calle
-                </span>
-              </span>
-              <span className="hidden md:inline">
-                Páginas web, letreros comerciales y Google Maps{" "}
-                <span className="mt-2 block text-[#F59E0B]">
-                  para negocios locales
-                </span>
-              </span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/78 md:text-lg">
-              Ayudamos a contratistas, tiendas, restaurantes y talleres del sureste de Texas a verse profesionales y conseguir más llamadas. Conectamos tus páginas de internet con tus lonas comerciales, volantes, rotulación de camionetas y Perfil de Google.
-            </p>
-            <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-nowrap">
-              <Link href="/es/solicitar-cotizacion" className="btn-amber w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Cotizar gratis <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/es/precios" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Ver precios
-              </Link>
-              <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost w-full justify-center whitespace-nowrap px-5 sm:w-auto">
-                Chequeo gratis en Google
-              </Link>
-            </div>
-          </div>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+    />
+  );
+}
 
-          <SpanishHeroVisual />
-        </div>
-      </section>
+export default function SpanishHomePage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: spanishHomepageFaq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
 
-      <section className="section-base" aria-labelledby="problem-heading">
-        <div className="container-px">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="section-label text-[#0369A1]">El problema</p>
-            <h2 id="problem-heading" className="text-[#1C1917]">
-              Muchos negocios hacen un gran trabajo, pero sus clientes no los encuentran en internet.
-            </h2>
-            <p className="mt-5 text-base leading-8 text-slate-600 md:text-lg">
-              Tus clientes se mueven entre Google Maps, tu sitio web, tus letreros en la calle y tus tarjetas. Si una parte no guía al siguiente paso, esos clientes terminan llamando a tu competencia.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {problems.map((item) => (
-              <article key={item} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <BadgeCheck className="mb-5 h-6 w-6 text-[#F59E0B]" />
-                <h3 className="text-lg text-[#1C1917]">{item}</h3>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-base bg-white" aria-labelledby="services-heading">
-        <div className="container-px">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="section-label text-[#0369A1]">Servicios</p>
-            <h2 id="services-heading" className="text-[#1C1917]">
-              Un solo sistema para tu visibilidad física y digital.
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {services.map(({ title, description, icon: Icon }) => (
-              <article key={title} className="rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm">
-                <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]">
-                  <Icon className="h-6 w-6" />
-                </span>
-                <h3 className="text-xl text-[#1C1917]">{title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-base" aria-labelledby="why-heading">
-        <div className="container-px grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <p className="section-label text-[#0369A1]">Por qué Pixel & Panel</p>
-            <h2 id="why-heading" className="text-[#1C1917]">
-              Un proceso simple, precios claros y sin presiones corporativas.
-            </h2>
-            <p className="mt-5 leading-8 text-slate-600">
-              Pixel &amp; Panel conecta lo digital y lo físico para que tu negocio sea
-              más fácil de encontrar, entender y contactar en Beaumont, Nederland, Port Arthur y el sureste de Texas.
-            </p>
-          </div>
-          <div className="grid gap-4">
-            {reasons.map((item) => (
-              <article key={item} className="flex gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <BadgeCheck className="mt-1 h-5 w-5 shrink-0 text-[#F59E0B]" />
-                <p className="leading-7 text-slate-700">{item}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 pb-16 md:pb-24" aria-labelledby="spanish-home-cta">
-        <div className="mx-auto max-w-6xl rounded-xl bg-[#1C1917] px-6 py-14 text-center text-white shadow-2xl md:px-12">
-          <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
-            Empezar
-          </p>
-          <h2 id="spanish-home-cta" className="mx-auto mt-4 max-w-3xl text-white">
-            Convierte visitantes en llamadas, mensajes y solicitudes de cotización.
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/75">
-            Cuéntanos qué necesita tu negocio y Pixel &amp; Panel te recomendará un siguiente paso práctico.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/es/solicitar-cotizacion" className="btn-amber justify-center">
-              Solicitar cotización <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/es/chequeo-gratis-de-visibilidad" className="btn-ghost justify-center">
-              Chequeo gratis en Google
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
+  return (
+    <>
+      <JsonLd data={faqSchema} />
+      <HomeClient copy={spanishHomeHeroCopy} startOptions={spanishHomeStartOptions} />
+      <HomeSections faqs={spanishHomepageFaq} content={spanishHomeSections} />
+    </>
   );
 }

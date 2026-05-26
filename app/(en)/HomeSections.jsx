@@ -194,6 +194,78 @@ const reasons = [
   },
 ];
 
+const portfolioItems = [
+  ["Website work", MonitorSmartphone],
+  ["Signage examples", PanelTop],
+  ["Print materials", FileText],
+];
+
+export const defaultHomeSectionsContent = {
+  problem: {
+    eyebrow: "The Problem",
+    title: "Your competitors are showing up. Are you?",
+    description:
+      "Customers move fast between Google, your website, your street signs, and your contact options. If those pieces do not work together, hot local leads go to a competitor.",
+  },
+  problemCta: {
+    description:
+      "Not sure where the gap is yet? Start with a free Google visibility review before asking for a project quote.",
+    href: "/free-visibility-check",
+    label: "Check My Google Visibility",
+  },
+  solution: {
+    eyebrow: "The Solution",
+    title: "One system for online and real-world visibility.",
+    description:
+      "Pixel & Panel connects the pieces local businesses already need: a clear website, a stronger Google presence, professional signs, useful print materials, QR codes, and lead forms.",
+  },
+  services: {
+    eyebrow: "Services",
+    title: "Choose what you need now or request a complete project quote",
+    description:
+      "Choose what you need now, or start with a quote request and Pixel & Panel will recommend the right next step.",
+  },
+  popularServices: {
+    eyebrow: "Popular Services",
+    title: "Start with the services local businesses ask for most",
+    description:
+      "Each card links to a real service page with details that help customers and search engines understand what Pixel & Panel offers.",
+  },
+  serviceArea: {
+    eyebrow: "Service Area",
+    title: "Serving Southeast Texas Businesses",
+    description:
+      "Pixel & Panel works with businesses across Southeast Texas, starting with Beaumont, Nederland, Port Arthur, and nearby communities.",
+  },
+  why: {
+    eyebrow: "Why Pixel & Panel",
+    title: "Clear enough for customers. Practical enough for local business.",
+    description:
+      "The goal is simple: make your business easier to notice, easier to understand, and easier to contact.",
+  },
+  portfolio: {
+    eyebrow: "Portfolio",
+    title: "Portfolio Coming Together",
+    description:
+      "Real project photos, signage examples, and website work will be added as projects are completed. For now, tell us what you need and we will guide you with options.",
+    href: "/portfolio",
+    label: "View Portfolio",
+  },
+  faq: {
+    eyebrow: "FAQ",
+    title: "Common homepage questions",
+    description: "Quick answers before you request a quote.",
+  },
+  finalCta: {
+    eyebrow: "Start a Project",
+    title: "Ready to Make Your Business Easier to Find?",
+    description:
+      "Start with a quote request. Tell us what you need, and Pixel & Panel will recommend the right next step for your website, sign, print, or Google visibility project.",
+    href: "/quote-request",
+    label: "Request a Quote",
+  },
+};
+
 function SectionIntro({ eyebrow, title, description, centered = true, light = false, id }) {
   return (
     <div
@@ -250,20 +322,40 @@ function LinkCard({ item, variant = "light" }) {
   );
 }
 
-export default function HomeSections({ faqs }) {
+export default function HomeSections({ faqs, content = {} }) {
+  const sections = {
+    problem: { ...defaultHomeSectionsContent.problem, ...content.problem },
+    problemCta: { ...defaultHomeSectionsContent.problemCta, ...content.problemCta },
+    solution: { ...defaultHomeSectionsContent.solution, ...content.solution },
+    services: { ...defaultHomeSectionsContent.services, ...content.services },
+    popularServices: { ...defaultHomeSectionsContent.popularServices, ...content.popularServices },
+    serviceArea: { ...defaultHomeSectionsContent.serviceArea, ...content.serviceArea },
+    why: { ...defaultHomeSectionsContent.why, ...content.why },
+    portfolio: { ...defaultHomeSectionsContent.portfolio, ...content.portfolio },
+    faq: { ...defaultHomeSectionsContent.faq, ...content.faq },
+    finalCta: { ...defaultHomeSectionsContent.finalCta, ...content.finalCta },
+  };
+  const problemItems = content.problemCards || problemCards;
+  const solutionItems = content.solutionSteps || solutionSteps;
+  const serviceItems = content.serviceSilos || serviceSilos;
+  const popularItems = content.popularServicesCards || popularServices;
+  const cityItems = content.cityCards || cityCards;
+  const reasonItems = content.reasons || reasons;
+  const portfolioItemsToRender = content.portfolioItems || portfolioItems;
+
   return (
     <>
       <section className="section-base" aria-labelledby="problem-heading">
         <div className="container-px">
           <SectionIntro
             id="problem-heading"
-            eyebrow="The Problem"
-            title="Your competitors are showing up. Are you?"
-            description="Customers move fast between Google, your website, your street signs, and your contact options. If those pieces do not work together, hot local leads go to a competitor."
+            eyebrow={sections.problem.eyebrow}
+            title={sections.problem.title}
+            description={sections.problem.description}
           />
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {problemCards.map((item) => {
+            {problemItems.map((item) => {
               const Icon = item.icon;
               return (
                 <article key={item.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -279,10 +371,10 @@ export default function HomeSections({ faqs }) {
 
           <div className="mt-10 text-center">
             <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600">
-              Not sure where the gap is yet? Start with a free Google visibility review before asking for a project quote.
+              {sections.problemCta.description}
             </p>
-            <Link href="/free-visibility-check" className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
-              Check My Google Visibility <ArrowRight className="h-4 w-4" />
+            <Link href={sections.problemCta.href} className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
+              {sections.problemCta.label} <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
@@ -292,13 +384,13 @@ export default function HomeSections({ faqs }) {
         <div className="container-px">
           <SectionIntro
             id="solution-heading"
-            eyebrow="The Solution"
-            title="One system for online and real-world visibility."
-            description="Pixel & Panel connects the pieces local businesses already need: a clear website, a stronger Google presence, professional signs, useful print materials, QR codes, and lead forms."
+            eyebrow={sections.solution.eyebrow}
+            title={sections.solution.title}
+            description={sections.solution.description}
           />
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {solutionSteps.map((item, index) => {
+            {solutionItems.map((item, index) => {
               const Icon = item.icon;
               return (
                 <article key={item.title} className="rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm">
@@ -321,13 +413,13 @@ export default function HomeSections({ faqs }) {
         <div className="container-px">
           <SectionIntro
             id="services-heading"
-            eyebrow="Services"
-            title="Choose what you need now or request a complete project quote"
-            description="Choose what you need now, or start with a quote request and Pixel & Panel will recommend the right next step."
+            eyebrow={sections.services.eyebrow}
+            title={sections.services.title}
+            description={sections.services.description}
           />
 
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            {serviceSilos.map((item) => {
+            {serviceItems.map((item) => {
               const Icon = item.icon;
               return (
                 <article key={item.eyebrow} className="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
@@ -366,14 +458,14 @@ export default function HomeSections({ faqs }) {
         <div className="container-px">
           <SectionIntro
             id="popular-services-heading"
-            eyebrow="Popular Services"
-            title="Start with the services local businesses ask for most"
-            description="Each card links to a real service page with details that help customers and search engines understand what Pixel & Panel offers."
+            eyebrow={sections.popularServices.eyebrow}
+            title={sections.popularServices.title}
+            description={sections.popularServices.description}
             light
           />
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {popularServices.map((item) => (
+            {popularItems.map((item) => (
               <LinkCard key={item.href} item={item} variant="dark" />
             ))}
           </div>
@@ -384,13 +476,13 @@ export default function HomeSections({ faqs }) {
         <div className="container-px">
           <SectionIntro
             id="service-area-heading"
-            eyebrow="Service Area"
-            title="Serving Southeast Texas Businesses"
-            description="Pixel & Panel works with businesses across Southeast Texas, starting with Beaumont, Nederland, Port Arthur, and nearby communities."
+            eyebrow={sections.serviceArea.eyebrow}
+            title={sections.serviceArea.title}
+            description={sections.serviceArea.description}
           />
 
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {cityCards.map((city) => (
+            {cityItems.map((city) => (
               <div key={city.href}>
                 <Link href={city.href} className="group block h-full rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#F59E0B]/45 hover:shadow-xl">
                   <div className="mb-5 flex items-center justify-between">
@@ -399,7 +491,7 @@ export default function HomeSections({ faqs }) {
                     </span>
                     <ArrowRight className="h-5 w-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#F59E0B]" />
                   </div>
-                  <h3>{city.city}, TX</h3>
+                  <h3>{city.label || `${city.city}, TX`}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{city.description}</p>
                 </Link>
               </div>
@@ -412,13 +504,13 @@ export default function HomeSections({ faqs }) {
         <div className="container-px">
           <SectionIntro
             id="why-heading"
-            eyebrow="Why Pixel & Panel"
-            title="Clear enough for customers. Practical enough for local business."
-            description="The goal is simple: make your business easier to notice, easier to understand, and easier to contact."
+            eyebrow={sections.why.eyebrow}
+            title={sections.why.title}
+            description={sections.why.description}
           />
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {reasons.map((item) => {
+            {reasonItems.map((item) => {
               const Icon = item.icon;
               return (
                 <article key={item.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -439,27 +531,23 @@ export default function HomeSections({ faqs }) {
           <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             <SectionIntro
               id="portfolio-heading"
-              eyebrow="Portfolio"
-              title="Portfolio Coming Together"
-              description="Real project photos, signage examples, and website work will be added as projects are completed. For now, tell us what you need and we will guide you with options."
+              eyebrow={sections.portfolio.eyebrow}
+              title={sections.portfolio.title}
+              description={sections.portfolio.description}
               centered={false}
               light
             />
             <div className="rounded-xl border border-white/10 bg-white/[0.08] p-6 md:p-8">
               <div className="grid gap-4 sm:grid-cols-3">
-                {[
-                  ["Website work", MonitorSmartphone],
-                  ["Signage examples", PanelTop],
-                  ["Print materials", FileText],
-                ].map(([label, Icon]) => (
+                {portfolioItemsToRender.map(([label, Icon]) => (
                   <div key={label} className="rounded-lg bg-white/10 p-5 text-center">
                     <Icon className="mx-auto mb-3 h-7 w-7 text-[#F59E0B]" />
                     <p className="font-heading text-sm font-bold uppercase tracking-[0.12em] text-white/75">{label}</p>
                   </div>
                 ))}
               </div>
-              <Link href="/portfolio" className="btn-amber mt-7 justify-center">
-                View Portfolio <ArrowRight className="h-4 w-4" />
+              <Link href={sections.portfolio.href} className="btn-amber mt-7 justify-center">
+                {sections.portfolio.label} <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -470,9 +558,9 @@ export default function HomeSections({ faqs }) {
         <div className="container-px">
           <SectionIntro
             id="faq-heading"
-            eyebrow="FAQ"
-            title="Common homepage questions"
-            description="Quick answers before you request a quote."
+            eyebrow={sections.faq.eyebrow}
+            title={sections.faq.title}
+            description={sections.faq.description}
           />
 
           <div className="mx-auto mt-12 grid max-w-4xl gap-4">
@@ -496,17 +584,17 @@ export default function HomeSections({ faqs }) {
           className="mx-auto max-w-6xl overflow-hidden rounded-xl bg-[#1C1917] px-6 py-14 text-center text-white shadow-2xl md:px-12"
         >
           <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
-            Start a Project
+            {sections.finalCta.eyebrow}
           </p>
           <h2 id="final-cta-heading" className="mx-auto mt-4 max-w-3xl text-white">
-            Ready to Make Your Business Easier to Find?
+            {sections.finalCta.title}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/75">
-            Start with a quote request. Tell us what you need, and Pixel &amp; Panel will recommend the right next step for your website, sign, print, or Google visibility project.
+            {sections.finalCta.description}
           </p>
           <div className="mt-8 flex justify-center">
-            <Link href="/quote-request" className="btn-amber">
-              Request a Quote <ArrowRight className="h-4 w-4" />
+            <Link href={sections.finalCta.href} className="btn-amber">
+              {sections.finalCta.label} <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

@@ -6,10 +6,39 @@ import {
   Globe2,
   MapPin,
   PanelTop,
-  QrCode,
   Search,
   Store,
 } from "lucide-react";
+import { cityServiceServices } from "@/lib/city-service-pages";
+import { getCityServiceDataEs, getSpanishCityServicePath } from "@/lib/city-service-pages-es";
+import CityVisual from "../../../(en)/service-area/CityVisual";
+
+const spanishCityVisualCopy = {
+  steps: [
+    { num: "01", label: "Tu ciudad, nuestra cobertura", accent: "#0EA5E9" },
+    { num: "02", label: "Servicios que llevamos a tu negocio", accent: "#F59E0B" },
+    { num: "03", label: "Negocios locales que ayudamos", accent: "#10B981" },
+  ],
+  panelLabel: "Área de servicio",
+  coverageLabel: "Área de servicio en el sureste de Texas",
+  servingLabel: "Sirviendo SETX",
+  quoteLine: "Cotizaciones gratis para negocios del sureste de Texas",
+  servicesLabel: "Todo lo que necesita un negocio local",
+  serviceItems: [
+    { label: "Sitio web a medida", color: "#0EA5E9", bg: "#EFF6FF" },
+    { label: "Letreros y banners", color: "#F59E0B", bg: "#FFFBEB" },
+    { label: "Aparecer en Google", color: "#8B5CF6", bg: "#F5F3FF" },
+    { label: "Campañas con QR", color: "#10B981", bg: "#ECFDF5" },
+  ],
+  contactLine: "(409) 800-6139 · hello@pixelnpanel.com",
+  resultsLabel: "Negocios locales que podemos apoyar",
+  businesses: [
+    { name: "Contratista en Beaumont", stars: 5, tag: "Web + Letreros" },
+    { name: "Negocio familiar en Nederland", stars: 5, tag: "Perfil de Google" },
+  ],
+  regionLine: "Sirviendo Beaumont, Nederland, Port Arthur y áreas cercanas",
+  stepAriaPrefix: "Mostrar paso de área de servicio",
+};
 
 function JsonLd({ data }) {
   return (
@@ -40,10 +69,30 @@ export default function CityLandingEs({ city }) {
   const pageUrl = `https://www.pixelnpanel.com/es/area-de-servicio/${city.slug}`;
   const quoteHref = `/es/solicitar-cotizacion?product=${encodeURIComponent(`${city.name} Proyecto de Visibilidad`)}&category=${encodeURIComponent("Área de Servicio")}`;
   const visibilityHref = "/es/chequeo-gratis-de-visibilidad";
+  const faqs = city.faqs.slice(0, 3);
+  const allCityServices = Object.entries(cityServiceServices)
+    .map(([serviceSlug, service]) => {
+      const href = getSpanishCityServicePath(city.slug, serviceSlug);
+      const spanishServiceSlug = href?.split("/").pop();
+      const spanishService = spanishServiceSlug
+        ? getCityServiceDataEs(city.slug, spanishServiceSlug)?.service
+        : null;
+
+      return {
+        serviceSlug,
+        service: {
+          ...service,
+          name: spanishService?.name || service.name,
+          type: spanishService?.type || service.type,
+        },
+        href,
+      };
+    })
+    .filter((item) => item.href);
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: city.faqs.map(([question, answer]) => ({
+    mainEntity: faqs.map(([question, answer]) => ({
       "@type": "Question",
       name: question,
       acceptedAnswer: { "@type": "Answer", text: answer },
@@ -111,45 +160,36 @@ export default function CityLandingEs({ city }) {
                 </div>
               </div>
 
-              <aside className="rounded-xl border border-white/15 bg-white/10 p-6 shadow-2xl">
-                <MapPin className="mb-5 h-8 w-8 text-[#F59E0B]" />
-                <h2 className="text-white">Visibilidad local en {city.name}</h2>
-                <p className="mt-4 text-sm leading-7 text-white/72">{city.body}</p>
-                <div className="mt-6 grid gap-3">
-                  {city.focus.map((item) => (
-                    <div key={item} className="flex gap-3 rounded-lg bg-white/10 px-4 py-3 text-sm text-white/78">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#F59E0B]" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </aside>
+              <div className="hidden items-center justify-center lg:flex">
+                <CityVisual city={city} copy={spanishCityVisualCopy} />
+              </div>
             </div>
           </div>
         </section>
 
         <section className="section-base">
-          <div className="container-px">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="section-label text-[#0369A1]">Servicios</p>
-              <h2 className="text-[#1C1917]">Servicios para negocios en {city.name}</h2>
-              <p className="mt-5 text-base leading-8 text-slate-600 md:text-lg">
-                Ayudamos a que más clientes encuentren tu negocio en Google, en tu sitio web y en tus letreros.
+          <div className="container-px grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <div className="mb-6 flex items-center gap-3 text-[#0369A1]">
+                <MapPin size={22} />
+                <span className="font-bold">Sirviendo {city.name} y el sureste de Texas</span>
+              </div>
+              <h2 className="mb-4 text-[#1C1917]">Servicios para negocios en {city.name}</h2>
+              <p className="leading-8 text-slate-600">
+                Pixel &amp; Panel ayuda a negocios locales a conectar lo que los clientes ven en persona con los lugares donde buscan en internet. Eso incluye letreros, impresión, sitios web, SEO local, Perfil de Google, campañas con QR y rutas de captura de leads.
               </p>
             </div>
-            <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
-              {city.services.map((service, index) => {
-                const Icon = [Globe2, Search, MapPin, Store, QrCode][index] || BadgeCheck;
-                return (
-                  <article key={service.title} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <h3 className="text-lg text-[#1C1917]">{service.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{service.description}</p>
-                  </article>
-                );
-              })}
+
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-7">
+              <h2 className="mb-5 text-[#1C1917]">Cómo podemos ayudar</h2>
+              <ul className="grid gap-4 text-slate-600">
+                {city.focus.slice(0, 5).map((service) => (
+                  <li key={service} className="flex gap-3">
+                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-[#F59E0B]" />
+                    <span>{service}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
@@ -168,7 +208,7 @@ export default function CityLandingEs({ city }) {
               </Link>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {city.popularSignage.map((link) => (
+              {city.popularSignage.slice(0, 3).map((link) => (
                 <ServiceCard key={link.href} link={link} icon={PanelTop} />
               ))}
             </div>
@@ -188,9 +228,35 @@ export default function CityLandingEs({ city }) {
                 Ver servicios digitales
               </Link>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {city.popularDigital.map((link) => (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {city.popularDigital.slice(0, 3).map((link) => (
                 <ServiceCard key={link.href} link={link} icon={Globe2} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white px-6 py-16 md:py-24" aria-labelledby="city-services-heading">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-8">
+              <p className="section-label text-[#0369A1]">Todos los servicios en {city.name}</p>
+              <h2 id="city-services-heading" className="text-[#1C1917]">Explora servicios específicos para {city.name}, TX</h2>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {allCityServices.map(({ serviceSlug, service, href }) => (
+                <Link
+                  key={serviceSlug}
+                  href={href}
+                  className="group rounded-xl border border-slate-200 bg-[#FAF8F4] p-4 transition-colors hover:border-[#F59E0B] hover:bg-white"
+                >
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#0369A1]">
+                    {service.type === "signage" ? "Letreros" : "Digital"}
+                  </span>
+                  <p className="mt-1 font-bold text-[#1C1917] transition-colors group-hover:text-[#0369A1]">
+                    {service.name} en {city.name}
+                  </p>
+                  <p className="mt-1 text-sm text-slate-500">Ver más →</p>
+                </Link>
               ))}
             </div>
           </div>
@@ -204,8 +270,8 @@ export default function CityLandingEs({ city }) {
                 Visibilidad práctica para negocios locales.
               </h2>
             </div>
-            <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {city.whyCards.map((reason, index) => {
+            <div className="mt-12 grid gap-4 md:grid-cols-3">
+              {city.whyCards.slice(0, 3).map((reason, index) => {
                 const Icon = [Globe2, Search, Store, BadgeCheck][index] || BadgeCheck;
                 return (
                   <article key={reason} className="rounded-xl border border-slate-200 bg-[#FAF8F4] p-6">
@@ -228,7 +294,7 @@ export default function CityLandingEs({ city }) {
                 </h2>
               </div>
               <div className="grid gap-4">
-                {city.faqs.map(([question, answer]) => (
+                {faqs.map(([question, answer]) => (
                   <article key={question} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                     <h3 className="mb-2 text-xl text-[#1C1917]">{question}</h3>
                     <p className="text-slate-600">{answer}</p>

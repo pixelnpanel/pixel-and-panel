@@ -2,19 +2,57 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
-  BadgeCheck,
   CheckCircle2,
   ClipboardCheck,
+  Clock,
   Globe2,
+  Info,
   Layers,
   MousePointerClick,
+  QrCode,
+  Search,
 } from "lucide-react";
 import {
   digitalServicesEs,
   getDigitalServiceEs,
   getRelatedDigitalServicesEs,
 } from "@/lib/digital-services-es";
+import { cityServiceCities, cityServiceServices } from "@/lib/city-service-pages";
+import { getSpanishCityServicePath } from "@/lib/city-service-pages-es";
 import { createServiceJsonLd } from "@/lib/seo";
+
+const serviceDetails = {
+  "web-development": {
+    icon: Globe2,
+    turnaround: "Normalmente 2-4 semanas desde el inicio hasta el lanzamiento.",
+    notAFitWhen:
+      "No es la mejor opción si necesitas e-commerce, portales de membresía o una aplicación web compleja; eso requiere otra conversación de alcance. Tampoco es ideal si buscas una plantilla rápida sin estrategia. Nos enfocamos en sitios para negocios locales con búsqueda local, páginas claras de servicio y rutas de contacto.",
+  },
+  "local-seo": {
+    icon: Search,
+    turnaround: "Auditoría inicial y recomendaciones: 1-2 semanas. Las mejoras continuas suelen ser mensuales.",
+    notAFitWhen:
+      "No es una solución instantánea. Si necesitas leads esta semana, los anuncios pagados avanzan más rápido. El SEO local construye valor durante 3-6 meses o más de trabajo constante. Tampoco es el mejor punto de inicio si tu sitio tiene problemas graves de estructura o casi no tiene contenido.",
+  },
+  "google-business-profile": {
+    icon: ClipboardCheck,
+    turnaround: "Revisión del perfil: 1 semana. Implementación de cambios: 1-2 semanas adicionales.",
+    notAFitWhen:
+      "No ayuda mucho si tu negocio atiende solo de forma remota sin ubicación física ni área de servicio definida. Google puede limitar perfiles sin dirección verificable o radio de servicio. Tampoco reemplaza un sitio web con páginas de servicio claras.",
+  },
+  "crm-automation": {
+    icon: ClipboardCheck,
+    turnaround: "Configuración: 1-3 semanas, según la complejidad y herramientas actuales.",
+    notAFitWhen:
+      "No es ideal si recibes menos de 5 leads al mes. A ese volumen, primero conviene generar más solicitudes y después ordenar el seguimiento. Tampoco es para plataformas de venta totalmente personalizadas; trabajamos con herramientas ligeras para equipos locales.",
+  },
+  "qr-code-campaigns": {
+    icon: QrCode,
+    turnaround: "Configuración de enlaces QR: 1-3 días. Página de destino: 1-2 semanas si se necesita.",
+    notAFitWhen:
+      "Los QR no funcionan bien en letreros vistos a alta velocidad o desde mucha distancia. Funcionan mejor en ventanas, menús, volantes, tarjetas, banners cercanos y lugares donde la persona ya está cerca y tiene motivo para actuar.",
+  },
+};
 
 export function generateStaticParams() {
   return digitalServicesEs.map((service) => ({
@@ -76,6 +114,16 @@ export default async function SpanishDigitalServicePage({ params }) {
   const quoteHref = `/es/solicitar-cotizacion?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent("Servicios Digitales")}`;
   const visibilityHref = "/es/chequeo-gratis-de-visibilidad";
   const related = getRelatedDigitalServicesEs(service);
+  const details = serviceDetails[service.enSlug] || serviceDetails["web-development"];
+  const HeroIcon = details.icon;
+  const cityServiceLinks = cityServiceServices[service.enSlug]
+    ? Object.values(cityServiceCities)
+        .map((city) => ({
+          city,
+          href: getSpanishCityServicePath(city.slug, service.enSlug),
+        }))
+        .filter((item) => item.href)
+    : [];
   const breadcrumbs = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -141,7 +189,7 @@ export default async function SpanishDigitalServicePage({ params }) {
 
               <aside className="rounded-xl border border-white/15 bg-white/10 p-6 shadow-2xl">
                 <span className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-[#F59E0B] text-[#1C1917]">
-                  <Globe2 className="h-7 w-7" />
+                  <HeroIcon className="h-7 w-7" />
                 </span>
                 <h2 className="text-white">Visibilidad clara, sin complicar el proceso</h2>
                 <p className="mt-4 text-sm leading-7 text-white/72">
@@ -155,6 +203,15 @@ export default async function SpanishDigitalServicePage({ params }) {
                     </div>
                   ))}
                 </div>
+                {details.turnaround && (
+                  <div className="mt-4 flex items-start gap-3 rounded-lg bg-white/10 px-4 py-3">
+                    <Clock className="mt-0.5 h-4 w-4 shrink-0 text-[#F59E0B]" />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wide text-[#F59E0B]">Tiempo estimado</p>
+                      <p className="mt-0.5 text-sm text-white/80">{details.turnaround}</p>
+                    </div>
+                  </div>
+                )}
               </aside>
             </div>
           </div>
@@ -208,6 +265,9 @@ export default async function SpanishDigitalServicePage({ params }) {
                 <p className="section-label" style={{ color: "#F59E0B" }}>Cómo ayuda Pixel &amp; Panel</p>
                 <h2 id="how-heading" className="text-white">Trabajo digital que apoya acciones reales de clientes.</h2>
                 <p className="mt-5 leading-8 text-white/72">{service.how}</p>
+                <p className="mt-5 leading-8 text-white/72">
+                  La meta es que los clientes entiendan qué haces, confíen en la página que visitaron y puedan tomar el siguiente paso.
+                </p>
               </section>
             </div>
           </div>
@@ -228,7 +288,7 @@ export default async function SpanishDigitalServicePage({ params }) {
               {related.map((item) => (
                 <Link key={item.slug} href={`/es/servicios-digitales/${item.slug}`} className="group rounded-xl border border-slate-200 bg-[#FAF8F4] p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#F59E0B]/50 hover:shadow-lg">
                   <div className="mb-5 flex items-center justify-between gap-3">
-                    <BadgeCheck className="h-5 w-5 text-[#F59E0B]" />
+                    <Globe2 className="h-5 w-5 text-[#F59E0B]" />
                     <ArrowRight className="h-4 w-4 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#F59E0B]" />
                   </div>
                   <h3 className="mb-2 text-[#1C1917]">{item.name}</h3>
@@ -238,6 +298,43 @@ export default async function SpanishDigitalServicePage({ params }) {
             </div>
           </div>
         </section>
+
+        {cityServiceLinks.length > 0 && (
+          <section className="bg-[#FAF8F4] px-6 py-14 md:py-16">
+            <div className="mx-auto max-w-7xl">
+              <p className="section-label text-[#0369A1]">Área de servicio</p>
+              <h2 className="mb-6 text-[#1C1917]">{service.name} por ciudad</h2>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {cityServiceLinks.map(({ city, href }) => (
+                  <Link
+                    key={city.slug}
+                    href={href}
+                    className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-[#F59E0B]"
+                  >
+                    <p className="font-bold text-[#1C1917] transition-colors group-hover:text-[#0369A1]">
+                      {service.name} en {city.name}, TX
+                    </p>
+                    <p className="mt-1 text-sm text-slate-500">Guía específica por ciudad →</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {details.notAFitWhen && (
+          <div className="container-px pb-4">
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+              <div className="flex gap-3">
+                <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+                <div>
+                  <p className="font-heading text-sm font-bold text-amber-900">Bueno saber antes de empezar</p>
+                  <p className="mt-1 text-sm leading-7 text-amber-800">{details.notAFitWhen}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <section className="section-base">
           <div className="container-px">

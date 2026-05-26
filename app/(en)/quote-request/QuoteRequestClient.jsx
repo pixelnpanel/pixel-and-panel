@@ -24,6 +24,14 @@ const SERVICE_TILES = [
   { label: "Not sure yet", category: "General", icon: HelpCircle, desc: "Tell us what you're trying to solve" },
 ];
 
+const TILE_ICONS = {
+  store: Store,
+  globe: Globe,
+  search: Search,
+  star: Star,
+  help: HelpCircle,
+};
+
 const defaultCopy = {
   language: "English",
   eyebrow: "Free Quote",
@@ -40,13 +48,37 @@ const defaultCopy = {
     "Free consultation included",
   ],
   productSelected: "Product Selected",
+  formTitle: "Get a Free Quote",
+  pickerHelp: "What can we help you with?",
+  contactNote: "Takes less than 2 minutes.",
+  detailsNote: "Almost there — tell us about your project.",
+  stepCounterPrefix: "Step",
+  stepCounterMiddle: "of",
+  stepLabels: ["What do you need?", "Contact Info", "Project Details"],
+  shortStepLabels: ["Contact Info", "Project Details"],
+  serviceLabel: "Service:",
+  change: "Change",
+  continue: "Continue",
+  back: "Back",
+  backToContactAria: "Back to contact info",
   name: "Your Name",
   businessName: "Business Name",
   email: "Email Address",
   phone: "Phone Number",
+  namePlaceholder: "John Martinez",
+  businessNamePlaceholder: "Your business",
+  emailPlaceholder: "john@email.com",
+  phonePlaceholder: "(555) 000-0000",
   productService: "Product / Service",
   message: "What Do You Need?",
   messagePlaceholder: "Tell us size, quantity, deadline, material, location, or anything you already know.",
+  attachLabel: "Attach a File",
+  attachOptional: "(optional)",
+  attachPrompt: "Logo, mockup, or reference image",
+  attachTypes: "JPG, PNG, PDF · 4 MB",
+  removeAttachmentAria: "Remove attachment",
+  fileSizeError: "File must be 4 MB or smaller.",
+  fileTypeError: "Only JPG, PNG, PDF, GIF, WebP, SVG, and AI/EPS files are allowed.",
   submit: "Send My Request",
   sending: "Sending...",
   trackOrderPrompt: "Already have an order or already submitted a quote?",
@@ -59,13 +91,14 @@ const defaultCopy = {
   errorFallback: "Unable to send quote request right now.",
   failed: "Quote request failed",
   defaultMessageTemplate: "I would like a quote for {product}.",
+  serviceTiles: SERVICE_TILES,
   showBusinessName: false,
   showProductField: false,
 };
 
 // Step logic:
 //   showPicker (English, no preselected product): 3 steps — 0=service picker, 1=contact, 2=details
-//   otherwise (Spanish OR preselected product):   2 steps — 1=contact, 2=details
+//   otherwise (preselected product or product field mode): 2 steps — 1=contact, 2=details
 export default function QuoteRequestClient({ selectedProduct = "", selectedCategory = "", copy = {} }) {
   const searchParams = useSearchParams();
   const queryProduct = searchParams.get("product") || "";
@@ -121,8 +154,8 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
 
   const displayStep = step - initialStep + 1;
   const stepLabel = showPicker
-    ? ["What do you need?", "Contact Info", "Project Details"][step]
-    : ["Contact Info", "Project Details"][step - 1];
+    ? content.stepLabels[step]
+    : content.shortStepLabels[step - 1];
 
   function handleServicePick(tile) {
     setPickedService(tile);
@@ -137,13 +170,13 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
     const file = e.target.files?.[0];
     if (!file) { setAttachment(null); return; }
     if (file.size > MAX_FILE_BYTES) {
-      setFileError("File must be 4 MB or smaller.");
+      setFileError(content.fileSizeError);
       e.target.value = "";
       setAttachment(null);
       return;
     }
     if (!ALLOWED_TYPES.has(file.type)) {
-      setFileError("Only JPG, PNG, PDF, GIF, WebP, SVG, and AI/EPS files are allowed.");
+      setFileError(content.fileTypeError);
       e.target.value = "";
       setAttachment(null);
       return;
@@ -261,7 +294,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
               <div className="mb-7">
                 <div className="mb-2 flex items-center justify-between">
                   <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
-                    Step {displayStep} of {totalSteps}
+                    {content.stepCounterPrefix} {displayStep} {content.stepCounterMiddle} {totalSteps}
                   </p>
                   <p className="text-xs font-semibold text-[#0369A1]">{stepLabel}</p>
                 </div>
@@ -302,11 +335,11 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                   <div
                     key="step-0"
                   >
-                    <h2 style={{ color: "#1C1917" }} className="mb-1">Get a Free Quote</h2>
-                    <p className="mb-7 text-sm text-slate-400">What can we help you with?</p>
+                    <h2 style={{ color: "#1C1917" }} className="mb-1">{content.formTitle}</h2>
+                    <p className="mb-7 text-sm text-slate-400">{content.pickerHelp}</p>
                     <div className="grid gap-3">
-                      {SERVICE_TILES.map((tile) => {
-                        const Icon = tile.icon;
+                      {content.serviceTiles.map((tile) => {
+                        const Icon = (typeof tile.icon === "string" ? TILE_ICONS[tile.icon] : tile.icon) || HelpCircle;
                         return (
                           <button
                             key={tile.label}
@@ -345,20 +378,20 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                   <div
                     key="step-1"
                   >
-                    <h2 style={{ color: "#1C1917" }} className="mb-1">Get a Free Quote</h2>
-                    <p className="mb-6 text-sm text-slate-400">Takes less than 2 minutes.</p>
+                    <h2 style={{ color: "#1C1917" }} className="mb-1">{content.formTitle}</h2>
+                    <p className="mb-6 text-sm text-slate-400">{content.contactNote}</p>
 
-                    {/* Picked service chip — shown only in English picker flow */}
+                    {/* Picked service chip — shown only in picker flow */}
                     {showPicker && pickedService && (
                       <div className="mb-5 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Service:</span>
+                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">{content.serviceLabel}</span>
                         <span className="text-sm font-semibold text-[#1C1917]">{pickedService.label}</span>
                         <button
                           type="button"
                           onClick={() => setStep(0)}
                           className="ml-auto text-xs font-medium text-[#0369A1] hover:underline"
                         >
-                          Change
+                          {content.change}
                         </button>
                       </div>
                     )}
@@ -371,7 +404,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                         <input
                           id="q-name" type="text" autoComplete="name"
                           value={name} onChange={(e) => setName(e.target.value)}
-                          placeholder="John Martinez"
+                          placeholder={content.namePlaceholder}
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
                         />
                       </div>
@@ -383,7 +416,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                           <input
                             id="q-business" type="text" autoComplete="organization"
                             value={businessName} onChange={(e) => setBusinessName(e.target.value)}
-                            placeholder="Tu negocio"
+                            placeholder={content.businessNamePlaceholder}
                             className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
                           />
                         </div>
@@ -395,7 +428,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                         <input
                           id="q-email" type="email" autoComplete="email"
                           value={email} onChange={(e) => setEmail(e.target.value)}
-                          placeholder="john@email.com"
+                          placeholder={content.emailPlaceholder}
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
                         />
                       </div>
@@ -406,7 +439,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                         <input
                           id="q-phone" type="tel" autoComplete="tel"
                           value={phone} onChange={(e) => setPhone(e.target.value)}
-                          placeholder="(555) 000-0000"
+                          placeholder={content.phonePlaceholder}
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
                         />
                       </div>
@@ -418,7 +451,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                       onClick={() => setStep(2)}
                       className="group mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-[#0369A1] px-6 py-4 text-sm font-bold uppercase tracking-widest text-white transition hover:-translate-y-0.5 hover:bg-[#0284C7] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      Continue <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
+                      {content.continue} <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                     </button>
                     <p className="mt-4 text-center text-xs text-slate-400">{content.footer}</p>
                   </div>
@@ -430,11 +463,11 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                     key="step-2"
                     onSubmit={handleSubmit}
                   >
-                    <h2 style={{ color: "#1C1917" }} className="mb-1">Get a Free Quote</h2>
-                    <p className="mb-6 text-sm text-slate-400">Almost there — tell us about your project.</p>
+                    <h2 style={{ color: "#1C1917" }} className="mb-1">{content.formTitle}</h2>
+                    <p className="mb-6 text-sm text-slate-400">{content.detailsNote}</p>
 
                     <div className="space-y-5">
-                      {/* Product field — visible only when showProductField=true (Spanish) */}
+                      {/* Product field — visible only when showProductField=true */}
                       {content.showProductField && (
                         <div>
                           <label htmlFor="q-product" className="mb-2 block text-xs font-bold uppercase tracking-wide">
@@ -463,8 +496,8 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                       {/* File attachment */}
                       <div>
                         <label className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          Attach a File{" "}
-                          <span className="font-normal normal-case tracking-normal text-slate-400">(optional)</span>
+                          {content.attachLabel}{" "}
+                          <span className="font-normal normal-case tracking-normal text-slate-400">{content.attachOptional}</span>
                         </label>
                         {attachment ? (
                           <div className="flex items-center gap-3 rounded-xl border-2 border-[#0369A1]/30 bg-[#0369A1]/5 px-4 py-3">
@@ -473,7 +506,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                             <button
                               type="button" onClick={removeAttachment}
                               className="shrink-0 rounded-full p-0.5 text-slate-400 transition hover:text-red-500"
-                              aria-label="Remove attachment"
+                              aria-label={content.removeAttachmentAria}
                             >
                               <X className="h-4 w-4" />
                             </button>
@@ -484,8 +517,8 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                             className="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed border-slate-200 px-4 py-3 transition hover:border-[#0369A1]/50 hover:bg-slate-50"
                           >
                             <Paperclip className="h-4 w-4 shrink-0 text-slate-400" />
-                            <span className="text-sm text-slate-500">Logo, mockup, or reference image</span>
-                            <span className="ml-auto shrink-0 text-xs text-slate-400">JPG, PNG, PDF · 4 MB</span>
+                            <span className="text-sm text-slate-500">{content.attachPrompt}</span>
+                            <span className="ml-auto shrink-0 text-xs text-slate-400">{content.attachTypes}</span>
                           </label>
                         )}
                         <input
@@ -508,9 +541,9 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                         type="button"
                         onClick={() => setStep(1)}
                         className="flex shrink-0 items-center gap-2 rounded-xl border-2 border-slate-200 px-5 py-4 text-sm font-bold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
-                        aria-label="Back to contact info"
+                        aria-label={content.backToContactAria}
                       >
-                        <ArrowLeft className="h-4 w-4" /> Back
+                        <ArrowLeft className="h-4 w-4" /> {content.back}
                       </button>
                       <button
                         type="submit"

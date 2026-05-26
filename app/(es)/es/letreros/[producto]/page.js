@@ -4,12 +4,14 @@ import { notFound } from "next/navigation";
 import {
   ArrowRight,
   CheckCircle2,
-  ClipboardCheck,
+  Clock,
   Globe2,
   Home,
   Image as ImageIcon,
+  Info,
   Layers,
   MapPin,
+  Package,
   QrCode,
   Ruler,
   Search,
@@ -20,14 +22,8 @@ import {
   getSignageProductEs,
   signageProductsEs,
 } from "@/lib/signage-products-es";
-
-const optionCopyByCategory = {
-  Letreros: [
-    ["Material", "Elige material según distancia de vista, clima, superficie y tiempo de uso."],
-    ["Tamaño", "El tamaño debe ayudar a leer el mensaje desde calle, banqueta, vehículo o mostrador."],
-    ["Diseño", "Usa texto corto, contraste fuerte y una llamada a la acción clara."],
-  ],
-};
+import { cityServiceCities, cityServiceServices } from "@/lib/city-service-pages";
+import { getSpanishCityServicePath } from "@/lib/city-service-pages-es";
 
 const enlacesDigitales = [
   {
@@ -49,6 +45,98 @@ const enlacesDigitales = [
     icon: QrCode,
   },
 ];
+
+const defaultSpecs = {
+  turnaround:
+    "Normalmente 3-5 días hábiles después de aprobar el diseño. Proyectos con instalación, medidas especiales o materiales de pedido pueden tardar más.",
+  minOrder: "Depende del producto; muchas piezas se pueden cotizar desde 1 unidad.",
+  materials: [
+    "Material recomendado según uso interior o exterior",
+    "Opciones resistentes para calor, humedad y uso local",
+    "Material rígido, vinilo o papel según el tipo de pieza",
+  ],
+  sizes: [
+    "Tamaños estándar disponibles",
+    "Medidas personalizadas según ubicación",
+    "Formato ajustado a distancia de lectura y cantidad",
+  ],
+  finishing: [
+    "Corte a medida",
+    "Acabado mate o brillante cuando aplica",
+    "Ojales, laminado o montaje según el producto",
+    "Preparación para QR, URL corta o llamada a la acción",
+  ],
+  notAFitWhen:
+    "No conviene cargar la pieza con demasiada información. Si el cliente debe leer muchos detalles, es mejor usar el letrero o impreso para llamar la atención y enviar a una página, menú, formulario o cotización con más contexto.",
+};
+
+const specsByCategorySlug = {
+  "print-marketing-materials": {
+    materials: [
+      "Cartulina o papel recomendado según uso",
+      "Opciones mate, brillante o laminadas",
+      "Peso y acabado según evento, entrega o promoción",
+    ],
+    sizes: [
+      "Tamaños estándar para tarjetas, volantes, menús o postales",
+      "Medidas personalizadas disponibles",
+      "Formato ajustado al método de entrega",
+    ],
+    finishing: [
+      "Corte final limpio",
+      "Acabado mate o brillante",
+      "Doble cara cuando aplica",
+      "QR, URL corta o datos de contacto claros",
+    ],
+  },
+  "vehicle-graphics": {
+    turnaround:
+      "Normalmente 5-7 días hábiles después de medidas y aprobación del diseño.",
+    materials: [
+      "Vinilo para vehículo de calidad profesional",
+      "Opciones para letras, imanes, decals o wraps parciales",
+      "Material resistente a sol y uso diario",
+    ],
+    sizes: [
+      "Puertas, ventanas, laterales o paneles parciales",
+      "Medidas tomadas según vehículo",
+      "Diseño ajustado a curvas, manijas y líneas del auto",
+    ],
+    finishing: [
+      "Laminado protector cuando aplica",
+      "Corte de vinilo o impresión a color",
+      "Instalación profesional recomendada",
+      "Diseño legible a velocidad de calle",
+    ],
+  },
+  "business-storefront-signs": {
+    turnaround:
+      "Normalmente 7-14 días hábiles según material, tamaño, instalación y permisos.",
+    materials: [
+      "Acrílico, aluminio compuesto, vinilo o materiales rígidos",
+      "Opciones para exterior o interior",
+      "Material elegido según fachada, clima y montaje",
+    ],
+    sizes: [
+      "Medidas personalizadas para fachada, lobby o ventana",
+      "Tamaños definidos por distancia de lectura",
+      "Opciones según restricciones del local o arrendamiento",
+    ],
+    finishing: [
+      "Montaje, separadores o panel rígido cuando aplica",
+      "Acabados resistentes para exterior",
+      "Preparación para instalación",
+      "Revisión de legibilidad antes de producir",
+    ],
+  },
+};
+
+function getSpecs(product) {
+  return {
+    ...defaultSpecs,
+    ...(specsByCategorySlug[product.categorySlug] || {}),
+  };
+}
 
 export function generateStaticParams() {
   return signageProductsEs.map((product) => ({
@@ -110,7 +198,15 @@ export default async function SpanishSignageProductPage({ params }) {
   const quoteHref = `/es/solicitar-cotizacion?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent("Letreros")}`;
   const visibilityHref = "/es/chequeo-gratis-de-visibilidad";
   const related = getRelatedSignageProductsEs(product);
-  const options = optionCopyByCategory[product.category] || optionCopyByCategory.Letreros;
+  const specs = getSpecs(product);
+  const cityServiceLinks = cityServiceServices[product.enSlug]
+    ? Object.values(cityServiceCities)
+        .map((city) => ({
+          city,
+          href: getSpanishCityServicePath(city.slug, product.enSlug),
+        }))
+        .filter((item) => item.href)
+    : [];
   const breadcrumbs = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -268,23 +364,69 @@ export default async function SpanishSignageProductPage({ params }) {
             </div>
 
             <section aria-labelledby="options-heading" className="mt-10 rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-              <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+              <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
                 <div>
-                  <p className="section-label text-[#0369A1]">Material / Tamaño / Diseño</p>
-                  <h2 id="options-heading" className="text-[#1C1917]">Haz que la pieza funcione en condiciones reales.</h2>
+                  <p className="section-label text-[#0369A1]">Especificaciones y opciones</p>
+                  <h2 id="options-heading" className="text-[#1C1917]">Qué saber antes de ordenar.</h2>
                   <p className="mt-5 leading-8 text-slate-600">{product.guidance}</p>
+
+                  <div className="mt-6 grid gap-3 grid-cols-2">
+                    <div className="rounded-lg bg-[#FAF8F4] p-4">
+                      <div className="mb-2 flex items-center gap-2">
+                        <Clock className="h-4 w-4 text-[#0369A1]" />
+                        <span className="text-xs font-bold uppercase tracking-wide text-[#0369A1]">Tiempo</span>
+                      </div>
+                      <p className="text-sm font-semibold text-[#1C1917]">{specs.turnaround}</p>
+                    </div>
+                    <div className="rounded-lg bg-[#FAF8F4] p-4">
+                      <div className="mb-2 flex items-center gap-2">
+                        <Package className="h-4 w-4 text-[#0369A1]" />
+                        <span className="text-xs font-bold uppercase tracking-wide text-[#0369A1]">Pedido mínimo</span>
+                      </div>
+                      <p className="text-sm font-semibold text-[#1C1917]">{specs.minOrder}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  {options.map(([title, copy], index) => {
-                    const Icon = [Layers, Ruler, ImageIcon][index] || ClipboardCheck;
-                    return (
-                      <article key={title} className="rounded-lg bg-[#FAF8F4] p-5">
-                        <Icon className="mb-4 h-6 w-6 text-[#F59E0B]" />
-                        <h3 className="text-lg text-[#1C1917]">{title}</h3>
-                        <p className="mt-3 text-sm leading-7 text-slate-600">{copy}</p>
-                      </article>
-                    );
-                  })}
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <article className="rounded-lg bg-[#FAF8F4] p-5">
+                    <Layers className="mb-3 h-5 w-5 text-[#F59E0B]" />
+                    <h3 className="text-base text-[#1C1917]">Materiales</h3>
+                    <ul className="mt-3 space-y-2">
+                      {specs.materials.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0369A1]" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+
+                  <article className="rounded-lg bg-[#FAF8F4] p-5">
+                    <Ruler className="mb-3 h-5 w-5 text-[#F59E0B]" />
+                    <h3 className="text-base text-[#1C1917]">Tamaños comunes</h3>
+                    <ul className="mt-3 space-y-2">
+                      {specs.sizes.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0369A1]" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+
+                  <article className="rounded-lg bg-[#FAF8F4] p-5 sm:col-span-2">
+                    <ImageIcon className="mb-3 h-5 w-5 text-[#F59E0B]" />
+                    <h3 className="text-base text-[#1C1917]">Opciones de acabado</h3>
+                    <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                      {specs.finishing.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0369A1]" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
                 </div>
               </div>
             </section>
@@ -324,7 +466,7 @@ export default async function SpanishSignageProductPage({ params }) {
             <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
               <div>
                 <p className="section-label text-[#0369A1]">Conecta lo físico con lo digital</p>
-                <h2 id="phygital-heading-es" className="text-[#1C1917]">Haz que {product.name.toLowerCase()} lleve a una acción clara.</h2>
+                <h2 id="phygital-heading-es" className="text-[#1C1917]">Convierte la atención en una acción clara.</h2>
                 <p className="mt-5 leading-8 text-slate-600">
                   Un letrero, impreso o gráfico vehicular llama la atención en persona. El siguiente paso es que el cliente pueda encontrarte en Google, entender la oferta y contactarte sin complicación.
                 </p>
@@ -349,6 +491,18 @@ export default async function SpanishSignageProductPage({ params }) {
             </div>
           </div>
         </section>
+
+        <div className="container-px pb-10">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+            <div className="flex gap-3">
+              <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+              <div>
+                <p className="font-heading text-sm font-bold text-amber-900">Bueno saber antes de ordenar</p>
+                <p className="mt-1 text-sm leading-7 text-amber-800">{specs.notAFitWhen}</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <section className="section-base">
           <div className="container-px">
@@ -375,6 +529,29 @@ export default async function SpanishSignageProductPage({ params }) {
             </div>
           </div>
         </section>
+
+        {cityServiceLinks.length > 0 && (
+          <section className="bg-[#FAF8F4] px-6 py-14 md:py-16">
+            <div className="mx-auto max-w-7xl">
+              <p className="section-label text-[#0369A1]">Área de servicio</p>
+              <h2 className="mb-6 text-[#1C1917]">{product.name} por ciudad</h2>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {cityServiceLinks.map(({ city, href }) => (
+                  <Link
+                    key={city.slug}
+                    href={href}
+                    className="group rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-[#F59E0B]"
+                  >
+                    <p className="font-bold text-[#1C1917] transition-colors group-hover:text-[#0369A1]">
+                      {product.name} en {city.name}, TX
+                    </p>
+                    <p className="mt-1 text-sm text-slate-500">Guía específica por ciudad →</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         <section className="bg-white px-6 py-16 md:py-24">
           <div className="mx-auto max-w-4xl">

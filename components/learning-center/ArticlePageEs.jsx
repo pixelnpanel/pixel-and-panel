@@ -204,7 +204,7 @@ export default function ArticlePageEs({ post }) {
 
         <section className="bg-white px-6 py-16 md:py-24">
           <div className="mx-auto max-w-7xl">
-            <div className="mb-8 flex items-end justify-between gap-4">
+            <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
               <div>
                 <p className="section-label text-[#0369A1]">Guías relacionadas</p>
                 <h2 className="text-[#1C1917]">Seguir aprendiendo</h2>

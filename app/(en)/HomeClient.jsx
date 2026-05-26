@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, HelpCircle, MonitorSmartphone, PanelTop } from "lucide-react";
 import HomeHeroVisual from "./HomeHeroVisual";
 
-const mobileStartOptions = [
+export const defaultHomeStartOptions = [
   {
     title: "Website / Google",
     description: "Fast websites and Google Maps help.",
@@ -29,7 +29,31 @@ const mobileStartOptions = [
   },
 ];
 
-export default function HomeClient() {
+export const defaultHomeHeroCopy = {
+  eyebrow: "Serving Southeast Texas",
+  mobileTitleStart: "Get Your Business Found",
+  mobileTitleHighlight: "Online & In Town",
+  desktopTitleStart: "We Build Websites, Custom Signs & Local SEO",
+  desktopTitleHighlight: "to Get Your Business Found",
+  mobileIntro:
+    "Fast websites, custom signs, and local SEO for contractors, stores, and service teams across Southeast Texas.",
+  desktopIntro:
+    "We help contractors, retail shops, and service businesses in Beaumont, Nederland, and Port Arthur look professional and get more calls. From fast, mobile-friendly website design to durable street banners and work truck lettering, Pixel & Panel connects everything together.",
+  startHeading: "What do you need?",
+  startOptionsLabel: "Choose what your business needs",
+  quoteHref: "/quote-request",
+  mobileQuoteLabel: "Get a Quote",
+  desktopQuoteLabel: "Request a Quote",
+  checklist: [
+    "Your Vision. Made Visible.",
+    "Websites, signs, Google, and print working together",
+    "Quote-first process",
+  ],
+};
+
+export default function HomeClient({ copy = {}, startOptions = defaultHomeStartOptions }) {
+  const content = { ...defaultHomeHeroCopy, ...copy };
+
   return (
     <div className="bg-[#FAF8F4] text-[#1C1917]">
       <section className="relative overflow-hidden bg-[#0369A1] pt-24 text-white md:pt-28" aria-labelledby="homepage-hero-title">
@@ -44,37 +68,37 @@ export default function HomeClient() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F59E0B] opacity-75" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#F59E0B]" />
               </span>
-              Serving Southeast Texas
+              {content.eyebrow}
             </div>
 
             <h1 id="homepage-hero-title" className="font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-extrabold leading-[1.08] tracking-normal text-white">
               <span className="md:hidden">
-                Get Your Business Found
+                {content.mobileTitleStart}
                 <span className="mt-2 block text-[#F59E0B]">
-                  Online &amp; In Town
+                  {content.mobileTitleHighlight}
                 </span>
               </span>
               <span className="hidden md:inline">
-                We Build Websites, Custom Signs &amp; Local SEO{" "}
+                {content.desktopTitleStart}{" "}
                 <span className="mt-2 block text-[#F59E0B]">
-                  to Get Your Business Found
+                  {content.desktopTitleHighlight}
                 </span>
               </span>
             </h1>
 
             <p className="mt-6 max-w-[21rem] break-words text-base leading-8 text-white md:hidden">
-              Fast websites, custom signs, and local SEO for contractors, stores, and service teams across Southeast Texas.
+              {content.mobileIntro}
             </p>
             <p className="mt-6 hidden max-w-2xl text-base leading-8 text-white md:block md:text-lg">
-              We help contractors, retail shops, and service businesses in Beaumont, Nederland, and Port Arthur look professional and get more calls. From fast, mobile-friendly website design to durable street banners and work truck lettering, Pixel &amp; Panel connects everything together.
+              {content.desktopIntro}
             </p>
 
             <div className="mt-7 max-w-[calc(100vw-2rem)] md:hidden" aria-labelledby="mobile-home-start-heading">
               <p id="mobile-home-start-heading" className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
-                What do you need?
+                {content.startHeading}
               </p>
               <div className="mt-3 grid gap-3">
-                {mobileStartOptions.map((item) => {
+                {startOptions.map((item) => {
                   const Icon = item.icon;
 
                   return (
@@ -100,14 +124,14 @@ export default function HomeClient() {
                   );
                 })}
               </div>
-              <Link href="/quote-request" className="btn-amber mt-4 w-full justify-center whitespace-nowrap px-5">
-                Get a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              <Link href={content.quoteHref} className="btn-amber mt-4 w-full justify-center whitespace-nowrap px-5">
+                {content.mobileQuoteLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
 
             <div className="mt-8 hidden max-w-2xl md:block">
-              <div className="grid gap-3 md:grid-cols-3" aria-label="Choose what your business needs">
-                {mobileStartOptions.map((item) => {
+              <div className="grid gap-3 md:grid-cols-3" aria-label={content.startOptionsLabel}>
+                {startOptions.map((item) => {
                   const Icon = item.icon;
 
                   return (
@@ -133,13 +157,13 @@ export default function HomeClient() {
                   );
                 })}
               </div>
-              <Link href="/quote-request" className="btn-amber mt-5 inline-flex justify-center whitespace-nowrap px-5">
-                Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              <Link href={content.quoteHref} className="btn-amber mt-5 inline-flex justify-center whitespace-nowrap px-5">
+                {content.desktopQuoteLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
 
             <div className="mt-8 grid gap-3 text-sm text-white sm:grid-cols-3 md:mt-9">
-              {["Your Vision. Made Visible.", "Websites, signs, Google, and print working together", "Quote-first process"].map((item) => (
+              {content.checklist.map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F59E0B]" aria-hidden="true" />
                   <span>{item}</span>
