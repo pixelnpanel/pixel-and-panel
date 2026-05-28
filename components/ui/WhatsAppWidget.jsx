@@ -29,7 +29,7 @@ export default function WhatsAppWidget() {
 
   return (
     <a
-      href="https://wa.me/14098006139"
+      href="https://wa.me/14092252012"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Pixel & Panel on WhatsApp"

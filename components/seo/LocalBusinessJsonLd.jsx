@@ -7,7 +7,7 @@ export default function LocalBusinessJsonLd() {
     legalName: "Pixel & Panel LLC",
     url: "https://www.pixelnpanel.com",
     email: "hello@pixelnpanel.com",
-    telephone: "+1-409-800-6139",
+    telephone: "+1-409-225-2012",
     slogan: "Your Vision. Made Visible.",
     priceRange: "$$",
     image: "https://www.pixelnpanel.com/logo/icon-wordmark.svg",

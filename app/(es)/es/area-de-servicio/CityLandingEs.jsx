@@ -30,7 +30,7 @@ const spanishCityVisualCopy = {
     { label: "Aparecer en Google", color: "#8B5CF6", bg: "#F5F3FF" },
     { label: "Campañas con QR", color: "#10B981", bg: "#ECFDF5" },
   ],
-  contactLine: "(409) 800-6139 · hello@pixelnpanel.com",
+  contactLine: "(409) 225-2012 · hello@pixelnpanel.com",
   resultsLabel: "Negocios locales que podemos apoyar",
   businesses: [
     { name: "Contratista en Beaumont", stars: 5, tag: "Web + Letreros" },
@@ -104,7 +104,7 @@ export default function CityLandingEs({ city }) {
     name: "Pixel & Panel",
     url: "https://www.pixelnpanel.com",
     email: "hello@pixelnpanel.com",
-    telephone: "(409) 800-6139",
+    telephone: "(409) 225-2012",
     areaServed: ["Beaumont, TX", "Nederland, TX", "Port Arthur, TX", "el sureste de Texas"],
     knowsAbout: [
       "Sitios web",

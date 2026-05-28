@@ -541,7 +541,7 @@ export default function AdminOrdersClient() {
                       <TextInput value={editOrder.customerEmail} onChange={(value) => updateEditOrder("customerEmail", value)} placeholder="customer@email.com" />
                     </Field>
                     <Field label="Customer phone">
-                      <TextInput value={editOrder.customerPhone} onChange={(value) => updateEditOrder("customerPhone", value)} placeholder="4098006139" />
+                      <TextInput value={editOrder.customerPhone} onChange={(value) => updateEditOrder("customerPhone", value)} placeholder="4092252012" />
                     </Field>
                   </div>
                 </div>
@@ -675,7 +675,7 @@ export default function AdminOrdersClient() {
                   <TextInput value={newOrder.customerEmail} onChange={(value) => updateNewOrder("customerEmail", value)} placeholder="customer@email.com" />
                 </Field>
                 <Field label="Customer phone">
-                  <TextInput value={newOrder.customerPhone} onChange={(value) => updateNewOrder("customerPhone", value)} placeholder="4098006139" />
+                  <TextInput value={newOrder.customerPhone} onChange={(value) => updateNewOrder("customerPhone", value)} placeholder="4092252012" />
                 </Field>
               </div>
             </div>

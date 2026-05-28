@@ -53,7 +53,7 @@ function StepRequest() {
         </div>
 
         <div className="space-y-2 rounded-xl bg-slate-50 p-3">
-          {["Vinyl banner for grand opening", "Need design help and install advice", "Best phone: (409) 800-6139"].map((item) => (
+          {["Vinyl banner for grand opening", "Need design help and install advice", "Best phone: (409) 225-2012"].map((item) => (
             <div key={item} className="flex items-center gap-2">
               <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-[#F59E0B]" aria-hidden="true" />
               <span className="text-xs text-slate-600">{item}</span>

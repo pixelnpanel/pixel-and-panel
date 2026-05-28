@@ -109,7 +109,7 @@ export default function ContactPage({ copy = defaultCopy }) {
     }
     const contactCards = [
         { href: 'mailto:hello@pixelnpanel.com', icon: <Mail size={18} color="#0EA5E9" />, bg: 'rgba(14,165,233,0.15)', hoverBg: 'rgba(14,165,233,0.15)', hoverBorder: 'rgba(14,165,233,0.4)', label: content.emailLabel, value: 'hello@pixelnpanel.com' },
-        { href: 'tel:+14098006139', icon: <Phone size={18} color="#F59E0B" />, bg: 'rgba(245,158,11,0.15)', hoverBg: 'rgba(245,158,11,0.15)', hoverBorder: 'rgba(245,158,11,0.4)', label: content.phoneLabel, value: '(409) 800-6139' },
+        { href: 'tel:+14092252012', icon: <Phone size={18} color="#F59E0B" />, bg: 'rgba(245,158,11,0.15)', hoverBg: 'rgba(245,158,11,0.15)', hoverBorder: 'rgba(245,158,11,0.4)', label: content.phoneLabel, value: '(409) 225-2012' },
     ]
     const trackOrderCard = {
         href: content.trackOrderHref,
@@ -308,7 +308,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
                                         <label htmlFor="contact-phone" style={labelStyle}>{content.phone}</label>
-                                        <input id="contact-phone" type="tel" name="phone" placeholder="(409) 800-6139" value={form.phone} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
+                                        <input id="contact-phone" type="tel" name="phone" placeholder="(409) 225-2012" value={form.phone} onChange={handleChange} style={inputStyle} onFocus={e => e.target.style.borderColor = '#0369A1'} onBlur={e => e.target.style.borderColor = '#e2e8f0'} />
                                     </div>
                                     <div style={{ marginBottom: '1.25rem' }}>
                                         <label htmlFor="contact-subject" style={labelStyle}>{content.subject}</label>

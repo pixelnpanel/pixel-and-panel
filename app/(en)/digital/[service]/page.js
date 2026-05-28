@@ -151,7 +151,7 @@ export default async function DigitalServicePage({ params }) {
       "@type": "LocalBusiness",
       name: "Pixel & Panel",
       url: "https://www.pixelnpanel.com",
-      telephone: "(409) 800-6139",
+      telephone: "(409) 225-2012",
       email: "hello@pixelnpanel.com",
     },
     offers: {

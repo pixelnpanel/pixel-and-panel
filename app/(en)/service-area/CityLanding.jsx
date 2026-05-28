@@ -65,7 +65,7 @@ export default function CityLanding({ city }) {
     name: "Pixel & Panel",
     url: "https://www.pixelnpanel.com",
     email: "hello@pixelnpanel.com",
-    telephone: "(409) 800-6139",
+    telephone: "(409) 225-2012",
     areaServed: ["Beaumont, TX", "Nederland, TX", "Port Arthur, TX", "Southeast Texas"],
     knowsAbout: [
       "Website design and development",

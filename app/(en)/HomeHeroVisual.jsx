@@ -43,7 +43,7 @@ function StepGoogle() {
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="h-3 w-3 fill-[#F59E0B] text-[#F59E0B]" aria-hidden="true" />
             ))}
-            <span className="ml-1.5 text-[11px] text-slate-600">(409) 800-6139</span>
+            <span className="ml-1.5 text-[11px] text-slate-600">(409) 225-2012</span>
           </div>
         </div>
 

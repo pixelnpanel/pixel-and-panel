@@ -53,7 +53,7 @@ function StepGoogle() {
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="h-3 w-3 fill-[#F59E0B] text-[#F59E0B]" />
             ))}
-            <span className="ml-1.5 text-[11px] text-slate-500">(409) 800-6139</span>
+            <span className="ml-1.5 text-[11px] text-slate-500">(409) 225-2012</span>
           </div>
         </div>
         <ProgressBar color="#0369A1" labelIndex={0} />

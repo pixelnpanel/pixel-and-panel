@@ -98,7 +98,7 @@ insert into public.orders (
   'Maria''s Boutique',
   'Maria G.',
   'customer@example.com',
-  '(409) 800-6139',
+  '(409) 225-2012',
   'Storefront sign and window graphics',
   'Storefront sign + window graphics package',
   'Storefront Signs',

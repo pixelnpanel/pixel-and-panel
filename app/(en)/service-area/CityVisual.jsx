@@ -22,7 +22,7 @@ const defaultCopy = {
     { label: "Show Up on Google", color: "#8B5CF6", bg: "#F5F3FF" },
     { label: "QR Campaigns", color: "#10B981", bg: "#ECFDF5" },
   ],
-  contactLine: "(409) 800-6139 · hello@pixelnpanel.com",
+  contactLine: "(409) 225-2012 · hello@pixelnpanel.com",
   resultsLabel: "Local businesses we've helped",
   businesses: [
     { name: "Beaumont Auto Detailing", stars: 5, tag: "Website + Signs" },

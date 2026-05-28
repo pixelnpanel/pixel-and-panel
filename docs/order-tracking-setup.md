@@ -6,7 +6,7 @@ Local demo lookup works without Supabase:
 
 - Order number: `PNP-1007`
 - Email: `customer@example.com`
-- Phone: `(409) 800-6139`
+- Phone: `(409) 225-2012`
 
 ## Supabase Setup
 
