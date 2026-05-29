@@ -75,7 +75,8 @@ export default function LocalBusinessJsonLd() {
     sameAs: [
       "https://maps.app.goo.gl/ssAtkxp8XqtEuJ7T9",
       "https://www.facebook.com/pixelnpanel",
-      "https://www.instagram.com/pixelnpanel",
+      "https://www.instagram.com/pixelnpanel/",
+      "https://www.youtube.com/@pixelnpanel",
       "https://www.pinterest.com/pixelnpanel",
     ],
   };
