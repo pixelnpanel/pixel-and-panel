@@ -1,21 +1,45 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MessageSquare, Search, Star } from "lucide-react";
+import {
+  MapPin,
+  MessageSquare,
+  MonitorSmartphone,
+  PanelTop,
+  Search,
+} from "lucide-react";
 
 const STEPS = [
-  { num: "01", label: "Found on Google", accent: "#0369A1" },
-  { num: "02", label: "Noticed in Person", accent: "#F59E0B" },
-  { num: "03", label: "New Customer", accent: "#10B981" },
+  {
+    num: "01",
+    short: "Online",
+    label: "Website + Google",
+    accent: "#0EA5E9",
+    icon: MonitorSmartphone,
+  },
+  {
+    num: "02",
+    short: "In Town",
+    label: "Signs + Print",
+    accent: "#F59E0B",
+    icon: PanelTop,
+  },
+  {
+    num: "03",
+    short: "Leads",
+    label: "Quote Path",
+    accent: "#10B981",
+    icon: MessageSquare,
+  },
 ];
 
 function ProgressBar({ color, label }) {
   return (
-    <div className="mt-4 flex items-center gap-2">
+    <div className="mt-5 flex items-center gap-2">
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/10">
         <div
-          key={color}
-          className="h-full origin-left animate-[pnp-progress_3.2s_linear_forwards] rounded-full"
+          key={`${color}-${label}`}
+          className="h-full origin-left animate-[pnp-progress_3.8s_linear_forwards] rounded-full"
           style={{ backgroundColor: color }}
         />
       </div>
@@ -26,94 +50,99 @@ function ProgressBar({ color, label }) {
   );
 }
 
-function StepGoogle() {
+function OnlinePreview() {
   return (
-    <div className="absolute inset-x-0 top-0 animate-[pnp-fade-slide_0.35s_ease-out]">
+    <div className="animate-[pnp-fade-slide_0.35s_ease-out]">
       <div className="rounded-xl bg-white p-4 shadow-sm">
-        <div className="mb-3 flex items-center gap-2 rounded-full bg-slate-100 px-3 py-2">
-          <Search className="h-3.5 w-3.5 shrink-0 text-slate-500" aria-hidden="true" />
-          <span className="text-xs text-slate-600">signs near Beaumont TX</span>
+        <div className="flex items-center gap-2 rounded-full bg-slate-100 px-3 py-2">
+          <Search className="h-4 w-4 shrink-0 text-[#0369A1]" aria-hidden="true" />
+          <span className="text-sm text-slate-600">website and signs near Beaumont TX</span>
         </div>
 
-        <div className="rounded-lg border border-slate-100 bg-slate-50 p-3">
-          <p className="mb-0.5 text-[11px] font-medium text-[#0369A1]">www.pixelnpanel.com</p>
-          <p className="mb-1 text-sm font-bold text-slate-800">Pixel &amp; Panel — Signs &amp; Websites</p>
-          <p className="mb-2 text-[11px] text-slate-600">Beaumont · Nederland · Port Arthur, TX</p>
-          <div className="flex items-center gap-0.5">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="h-3 w-3 fill-[#F59E0B] text-[#F59E0B]" aria-hidden="true" />
-            ))}
-            <span className="ml-1.5 text-[11px] text-slate-600">(409) 225-2012</span>
+        <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-4">
+          <p className="text-xs font-bold text-[#0369A1]">pixelnpanel.com</p>
+          <p className="mt-1 font-heading text-lg font-extrabold text-[#1C1917]">Pixel &amp; Panel</p>
+          <p className="mt-1 text-sm leading-6 text-slate-600">
+            Websites, Google visibility, custom signs, banners, and print for Southeast Texas.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold">
+            <span className="rounded-full bg-[#E0F2FE] px-3 py-1.5 text-[#0369A1]">Website</span>
+            <span className="rounded-full bg-[#FEF3C7] px-3 py-1.5 text-[#92400E]">Signs</span>
+            <span className="rounded-full bg-emerald-100 px-3 py-1.5 text-emerald-700">Quote</span>
           </div>
         </div>
 
-        <ProgressBar color="#0369A1" label="Found" />
+        <ProgressBar color="#0EA5E9" label="Found online" />
       </div>
     </div>
   );
 }
 
-function StepSign() {
+function SignPreview() {
   return (
-    <div className="absolute inset-x-0 top-0 animate-[pnp-fade-slide_0.35s_ease-out]">
-      <div className="overflow-hidden rounded-xl bg-[#0C1E3C] p-5 text-center">
-        <p className="mb-1 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-[#F59E0B]">
-          Now Open
-        </p>
-        <p className="mb-0.5 font-heading text-xl font-extrabold text-white">Your Business</p>
-        <p className="mb-4 text-xs text-white/70">Beaumont, TX · (409) 000-0000</p>
+    <div className="animate-[pnp-fade-slide_0.35s_ease-out]">
+      <div className="overflow-hidden rounded-xl bg-[#0C1E3C] p-5 text-white shadow-sm">
+        <div className="rounded-xl border border-white/10 bg-white/10 p-4">
+          <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-[#F59E0B]">Storefront</p>
+          <p className="mt-2 font-heading text-2xl font-extrabold">Your Business</p>
+          <p className="mt-1 text-sm text-white/70">Signage, banners, decals, and print</p>
+        </div>
 
-        <div className="flex items-center justify-center gap-3 rounded-lg bg-white/10 p-3">
-          <div className="grid h-10 w-10 shrink-0 grid-cols-3 gap-0.5 rounded bg-white p-1.5" aria-hidden="true">
-            {[1, 1, 1, 1, 0, 1, 1, 1, 1].map((v, i) => (
-              <span key={i} className={`rounded-sm ${v ? "bg-[#1C1917]" : "bg-white"}`} />
-            ))}
+        <div className="mt-4 grid grid-cols-[1.15fr_0.85fr] gap-3">
+          <div className="rounded-xl bg-white p-3 text-[#1C1917]">
+            <p className="font-heading text-sm font-bold">Vinyl Banner</p>
+            <p className="mt-1 text-xs leading-5 text-slate-600">Grand opening, events, sales, and storefront visibility.</p>
           </div>
-          <div className="text-left">
-            <p className="text-xs font-bold text-white">Scan for a free quote</p>
-            <p className="text-[11px] text-white/70">www.pixelnpanel.com</p>
+          <div className="rounded-xl bg-[#F59E0B] p-3 text-[#1C1917]">
+            <p className="font-heading text-sm font-bold">Truck Graphics</p>
+            <p className="mt-1 text-xs leading-5">Brand seen on every job.</p>
           </div>
         </div>
 
-        <ProgressBar color="#F59E0B" label="Noticed" />
+        <ProgressBar color="#F59E0B" label="Seen in town" />
       </div>
     </div>
   );
 }
 
-function StepLead() {
+function LeadPreview() {
   return (
-    <div className="absolute inset-x-0 top-0 animate-[pnp-fade-slide_0.35s_ease-out]">
+    <div className="animate-[pnp-fade-slide_0.35s_ease-out]">
       <div className="rounded-xl bg-white p-4 shadow-sm">
-        <div className="mb-3 flex items-center gap-3 rounded-xl border border-emerald-100 bg-emerald-50 p-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500">
-            <MessageSquare className="h-4 w-4 text-white" aria-hidden="true" />
+        <div className="flex items-center gap-3 rounded-xl border border-emerald-100 bg-emerald-50 p-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500">
+            <MessageSquare className="h-5 w-5 text-white" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-sm font-bold text-[#1C1917]">New Quote Request</p>
-            <p className="text-[11px] text-slate-600">Just now · from your website</p>
+            <p className="font-heading text-base font-bold text-[#1C1917]">New Quote Request</p>
+            <p className="text-xs text-slate-600">Website, banner, and storefront sign package</p>
           </div>
         </div>
 
-        <div className="rounded-xl bg-slate-50 p-3">
-          <p className="mb-1 text-sm font-semibold text-[#1C1917]">Maria G.</p>
-          <p className="text-xs leading-relaxed text-slate-700">
-            &quot;Hi! I need a vinyl banner for my grand opening next month. Can you help?&quot;
-          </p>
-          <div className="mt-3 flex gap-2">
-            <span className="flex-1 rounded-lg bg-[#F59E0B] py-1.5 text-center text-xs font-bold text-[#1C1917]">
-              Reply
-            </span>
-            <span className="flex-1 rounded-lg border border-slate-200 py-1.5 text-center text-xs font-bold text-slate-700">
-              View
-            </span>
+        <div className="mt-4 grid grid-cols-[auto_1fr] gap-3 rounded-xl bg-slate-50 p-3">
+          <div className="grid h-16 w-16 shrink-0 grid-cols-3 gap-1 rounded-lg bg-white p-2" aria-hidden="true">
+            {[1, 0, 1, 1, 1, 0, 0, 1, 1].map((value, index) => (
+              <span key={index} className={`rounded-sm ${value ? "bg-[#1C1917]" : "bg-slate-200"}`} />
+            ))}
+          </div>
+          <div>
+            <p className="font-heading text-sm font-bold text-[#1C1917]">QR and quote flow</p>
+            <p className="mt-1 text-xs leading-5 text-slate-600">
+              Print, signs, and website pages point customers to the next step.
+            </p>
           </div>
         </div>
 
-        <ProgressBar color="#10B981" label="Contacted" />
+        <ProgressBar color="#10B981" label="Ready to contact" />
       </div>
     </div>
   );
+}
+
+function ActivePreview({ step }) {
+  if (step === 1) return <SignPreview />;
+  if (step === 2) return <LeadPreview />;
+  return <OnlinePreview />;
 }
 
 export default function HomeHeroVisual() {
@@ -124,62 +153,108 @@ export default function HomeHeroVisual() {
       return undefined;
     }
 
-    const timer = window.setInterval(() => setStep((s) => (s + 1) % STEPS.length), 3800);
+    const timer = window.setInterval(() => setStep((current) => (current + 1) % STEPS.length), 4200);
     return () => window.clearInterval(timer);
   }, []);
 
   const current = STEPS[step];
+  const CurrentIcon = current.icon;
 
   return (
     <div
-      className="relative mx-auto w-full max-w-[480px]"
-      aria-label="Animated visual showing how Pixel & Panel helps local businesses get found and get customers"
+      className="relative mx-auto flex w-full max-w-[540px] items-stretch lg:h-[680px] lg:min-h-0 xl:h-[760px]"
+      aria-label="Animated guide showing Pixel & Panel website, signage, print, and quote process"
     >
-      <div className="absolute -inset-4 rounded-[1.5rem] bg-[#0EA5E9]/15 blur-2xl" />
-      <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.08] p-4 shadow-2xl backdrop-blur-md sm:p-5">
-        <div className="mb-3 flex items-center justify-between">
-          <p className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-white/65">
-            How it works
+      <div className="absolute -inset-5 rounded-[2rem] bg-[#0EA5E9]/18 blur-3xl" />
+      <div className="relative flex w-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/[0.1] p-5 shadow-2xl shadow-black/20 backdrop-blur-md">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_15%,rgba(245,158,11,0.22),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))]" />
+        <div className="relative flex flex-1 flex-col">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="font-heading text-[10px] font-bold uppercase tracking-[0.18em] text-[#F59E0B]">
+                Visibility System
+              </p>
+              <h2 className="mt-2 max-w-[24rem] font-heading text-2xl font-extrabold leading-tight text-white">
+                Websites, signs, print, and Google working as one.
+              </h2>
+            </div>
+            <div className="hidden shrink-0 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-xs font-bold text-white/80 xl:flex">
+              <MapPin className="h-3.5 w-3.5 text-[#F59E0B]" aria-hidden="true" />
+              Southeast TX
+            </div>
+          </div>
+
+          <p className="mt-3 max-w-[27rem] text-sm leading-6 text-white/70">
+            We make the path clear: customers find you online, notice you in town, then request a quote.
           </p>
-          <div className="flex gap-1.5">
-            {STEPS.map((s, i) => {
-              const selected = i === step;
+
+          <div className="mt-5 grid grid-cols-3 gap-2">
+            {STEPS.map((item, index) => {
+              const Icon = item.icon;
+              const selected = index === step;
 
               return (
                 <button
-                  key={s.num}
+                  key={item.num}
                   type="button"
-                  onClick={() => setStep(i)}
-                  aria-label={`Show step ${s.num}: ${s.label}`}
+                  onClick={() => setStep(index)}
+                  aria-label={`Show ${item.label}`}
                   aria-pressed={selected}
-                  className="flex h-3 w-7 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70"
+                  className={`rounded-xl border p-3 text-left transition duration-300 focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70 ${selected
+                    ? "border-white/35 bg-white/18 text-white"
+                    : "border-white/10 bg-white/[0.07] text-white/68 hover:bg-white/[0.12]"
+                    }`}
                 >
-                  <span
-                    className="h-1.5 w-6 origin-center rounded-full transition-transform duration-300"
-                    style={{
-                      backgroundColor: selected ? s.accent : "rgba(255,255,255,0.32)",
-                      transform: selected ? "scaleX(1)" : "scaleX(0.35)",
-                    }}
-                  />
+                  <Icon className="h-4 w-4" style={{ color: item.accent }} aria-hidden="true" />
+                  <span className="mt-2 block font-heading text-xs font-bold">{item.short}</span>
                 </button>
               );
             })}
           </div>
-        </div>
 
-        <div key={step} className="mb-3 flex animate-[pnp-fade-shift_0.22s_ease-out] items-center gap-2">
-          <span className="font-heading text-xs font-extrabold" style={{ color: current.accent }}>
-            {current.num}
-          </span>
-          <span className="font-heading text-xs font-bold uppercase tracking-[0.12em] text-white/75">
-            {current.label}
-          </span>
-        </div>
+          <div className="mt-5 min-h-0 flex-1 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.08] p-4">
+            <div className="mb-3 flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#1C1917]">
+                <CurrentIcon className="h-5 w-5" style={{ color: current.accent }} aria-hidden="true" />
+              </div>
+              <div>
+                <p className="font-heading text-xs font-extrabold" style={{ color: current.accent }}>
+                  {current.num}
+                </p>
+                <p className="font-heading text-sm font-bold uppercase tracking-[0.1em] text-white/80">
+                  {current.label}
+                </p>
+              </div>
+            </div>
 
-        <div className="relative h-[278px] sm:h-[264px]">
-          {step === 0 && <StepGoogle />}
-          {step === 1 && <StepSign />}
-          {step === 2 && <StepLead />}
+            <div key={step}>
+              <ActivePreview step={step} />
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {STEPS.map((item, index) => {
+              const Icon = item.icon;
+              const selected = index === step;
+
+              return (
+                <div
+                  key={item.num}
+                  className={`rounded-xl border p-3 transition duration-300 ${selected
+                    ? "border-white/25 bg-white/14"
+                    : "border-white/10 bg-white/[0.06]"
+                    }`}
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.12]">
+                    <Icon className="h-4 w-4" style={{ color: item.accent }} aria-hidden="true" />
+                  </span>
+                  <span className="mt-2 block min-w-0">
+                    <span className="block truncate font-heading text-xs font-bold leading-tight text-white">{item.label}</span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

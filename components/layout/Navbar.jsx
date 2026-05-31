@@ -20,7 +20,7 @@ const MOBILE_NAV_SHORT = [
   { label: 'Digital', href: '/digital' },
   { label: 'Signage', href: '/signage' },
   { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Price', href: '/pricing' },
+  { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -142,25 +142,29 @@ export default function Navbar() {
           {/* Logo */}
           <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
             {/* Full wordmark on mobile */}
-            <Image
-              src="/logo/icon-wordmark.svg"
-              alt="Pixel & Panel"
-              width={3447}
-              height={532}
-              className="lg:hidden"
-              style={{ width: 176, maxWidth: 'min(176px, 62vw)', height: 'auto', objectFit: 'contain' }}
-              unoptimized
-            />
+            <span className="relative block lg:hidden" style={{ width: 'min(176px, 62vw)', aspectRatio: '3447 / 532' }}>
+              <Image
+                src="/logo/icon-wordmark.svg"
+                alt="Pixel & Panel"
+                fill
+                loading="eager"
+                sizes="(max-width: 1023px) 176px"
+                style={{ objectFit: 'contain' }}
+                unoptimized
+              />
+            </span>
             {/* Full wordmark on desktop */}
-            <Image
-              src="/logo/icon-wordmark.svg"
-              alt="Pixel & Panel"
-              width={3447}
-              height={532}
-              className="hidden lg:block"
-              style={{ width: 240, maxWidth: 'min(240px, 42vw)', height: 'auto', objectFit: 'contain' }}
-              unoptimized
-            />
+            <span className="relative hidden lg:block" style={{ width: 'min(240px, 42vw)', aspectRatio: '3447 / 532' }}>
+              <Image
+                src="/logo/icon-wordmark.svg"
+                alt="Pixel & Panel"
+                fill
+                loading="eager"
+                sizes="(min-width: 1024px) 240px"
+                style={{ objectFit: 'contain' }}
+                unoptimized
+              />
+            </span>
           </Link>
 
           {/* Mobile Language — right aligned */}

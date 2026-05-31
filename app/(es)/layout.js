@@ -2,6 +2,7 @@ import "../globals.css";
 import { inter, montserrat } from "../fonts";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import DesktopReveal from "@/components/layout/DesktopReveal";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
@@ -46,9 +47,10 @@ export default function SpanishRootLayout({ children }) {
         <GoogleAnalytics />
         <LocalBusinessJsonLd />
         <Navbar />
-        <main id="main-content">
+        <main id="main-content" className="pnp-site-shell">
           {children}
         </main>
+        <DesktopReveal />
         <Footer language="es" />
         <WhatsAppWidget />
       </body>

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ArrowRight, Search, Box, MessageSquareText, X } from 'lucide-react'
+import { ArrowRight, Search, Box, X } from 'lucide-react'
 import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
 
 const ALL_PRODUCTS_SLUG = 'all-products'
@@ -19,7 +19,6 @@ const DEFAULT_COPY = {
     heroCopy: 'Boost your real-world street visibility with outdoor storefront signs, monument signs, yard signs, vinyl banners, vehicle graphics, and commercial print materials.',
     quoteCta: 'Request a Quote',
     viewProducts: 'View Products',
-    intro: 'Choose a category and view the matching products. Product quote buttons automatically pre-select that product in the quote form.',
     categoriesHeading: 'Categories',
     productsLabel: 'products',
     allProducts: 'All Products',
@@ -304,7 +303,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     }
 
     return (
-        <main className="min-h-screen overflow-x-hidden bg-[#FAF8F4] text-[#1C1917]">
+        <main className="min-h-screen overflow-x-clip bg-[#FAF8F4] text-[#1C1917]">
 
             {/* HERO */}
             <section className="pnp-mobile-hero-compact relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 pb-8 pt-24 text-white md:py-28">
@@ -312,7 +311,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     <div className="h-full w-full" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)', backgroundSize: '34px 34px' }} />
                 </div>
 
-                <div className="mobile-reveal relative mx-auto max-w-5xl text-center">
+                <div data-pnp-reveal-target className="mobile-reveal pnp-desktop-hero-reveal relative mx-auto max-w-5xl text-center">
                     <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
                         {content.eyebrow}
                     </p>
@@ -324,7 +323,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     <p className="pnp-mobile-hero-copy mx-auto mt-6 break-words md:hidden">
                         {content.mobileHeroCopy}
                     </p>
-                    <h1 className="hidden break-words md:mx-auto md:block md:max-w-[900px] md:text-[clamp(2rem,4vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
+                    <h1 className="hidden md:mx-auto md:block md:max-w-[980px] md:text-[clamp(2rem,3.5vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
                         {content.h1Start}{' '}
                         <span style={{ color: '#F59E0B' }}>{content.h1Highlight}</span>
                     </h1>
@@ -342,60 +341,39 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 </div>
             </section>
 
-            {/* SHORT INTRO */}
-            <section className="mobile-reveal hidden border-b border-black/5 bg-white px-6 py-10 md:block" style={{ "--reveal-delay": "90ms" }}>
-                <div className="mx-auto max-w-4xl text-center">
-                    <p className="mobile-fit-copy mx-auto text-base leading-relaxed text-slate-700 md:max-w-4xl md:text-xl">
-                        {content.intro}
-                    </p>
-                </div>
-            </section>
-
             {/* PRODUCT BROWSER */}
-            <section ref={productAreaRef} className="px-6 pb-16 pt-6 md:py-20">
+            <section ref={productAreaRef} data-pnp-reveal-skip className="px-6 pb-16 pt-6 md:py-20">
                 <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[320px_1fr]">
 
                     {/* LEFT: CATEGORY SIDEBAR */}
-                    <aside className="hidden lg:sticky lg:top-28 lg:block lg:self-start">
-                        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                            <div className="flex items-center gap-3 border-b border-slate-200 px-6 py-5">
-                                <Search size={21} className="text-[#0369A1]" />
-                                <h2 style={{ color: '#1C1917' }}>{content.categoriesHeading}</h2>
-                            </div>
-                            <div className="max-h-[72vh] overflow-y-auto">
-                                {categoryOptions.map((category) => {
-                                    const isActive = category.slug === selectedCategory.slug
-                                    return (
-                                        <button key={category.slug} type="button" onClick={() => handleCategoryClick(category.slug)}
-                                            className={`group flex w-full items-center justify-between border-b border-slate-100 px-6 py-5 text-left transition ${isActive ? 'bg-[#0369A1] text-white' : 'bg-white text-[#1C1917] hover:bg-slate-50'}`}
-                                        >
-                                            <span>
-                                                <span className="block font-heading font-bold leading-tight">{category.name}</span>
-                                                <span className={`mt-1 block text-sm ${isActive ? 'text-white/80' : 'text-slate-500'}`}>
-                                                    {category.products?.length || 0} {content.productsLabel}
+                    <aside className="hidden lg:block">
+                        <div className="sticky top-24">
+                            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                                <div className="flex items-center gap-3 border-b border-slate-200 px-5 py-4">
+                                    <Search size={20} className="text-[#0369A1]" />
+                                    <h2 className="text-xl" style={{ color: '#1C1917' }}>{content.categoriesHeading}</h2>
+                                </div>
+                                <div>
+                                    {categoryOptions.map((category) => {
+                                        const isActive = category.slug === selectedCategory.slug
+                                        return (
+                                            <button key={category.slug} type="button" onClick={() => handleCategoryClick(category.slug)}
+                                                className={`group flex w-full items-center justify-between border-b border-slate-100 px-5 py-3.5 text-left transition ${isActive ? 'bg-[#0369A1] text-white' : 'bg-white text-[#1C1917] hover:bg-slate-50'}`}
+                                            >
+                                                <span>
+                                                    <span className="block font-heading text-sm font-bold leading-tight">{category.name}</span>
+                                                    <span className={`mt-1 block text-xs ${isActive ? 'text-white/80' : 'text-slate-500'}`}>
+                                                        {category.products?.length || 0} {content.productsLabel}
+                                                    </span>
                                                 </span>
-                                            </span>
-                                            <ArrowRight size={18} className={isActive ? 'text-[#F59E0B]' : 'text-slate-400'} />
-                                        </button>
-                                    )
-                                })}
+                                                <ArrowRight size={16} className={isActive ? 'text-[#F59E0B]' : 'text-slate-400'} />
+                                            </button>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         </div>
 
-                        {/* HELP BOX */}
-                        <div className="mt-5 rounded-2xl bg-[#1C1917] p-6 text-white shadow-sm">
-                            <MessageSquareText size={26} className="mb-5 text-[#F59E0B]" />
-                            <h3 style={{ color: 'white', marginBottom: '0.75rem' }}>{content.helpTitle}</h3>
-                            <p className="text-sm leading-relaxed text-white/65">
-                                {content.helpCopy}
-                            </p>
-                            <Link href={content.quotePath} className="mt-5 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B]">
-                                {content.helpQuote} <ArrowRight size={15} />
-                            </Link>
-                            <Link href={content.visibilityPath} className="mt-3 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-white/75 transition hover:text-[#F59E0B]">
-                                {content.helpVisibility} <ArrowRight size={15} />
-                            </Link>
-                        </div>
                     </aside>
 
                     {/* RIGHT: PRODUCT AREA */}
