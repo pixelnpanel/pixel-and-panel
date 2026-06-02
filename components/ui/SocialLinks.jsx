@@ -24,7 +24,7 @@ const HOVER_COLORS = {
   linkedin:  '#0A66C2',
 }
 
-function SocialIcon({ link, theme }) {
+function SocialIcon({ link, theme, size, iconSize }) {
   const [hovered, setHovered] = useState(false)
   const isDark = theme === 'dark'
   const base = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.06)'
@@ -40,7 +40,7 @@ function SocialIcon({ link, theme }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        width: 36, height: 36, borderRadius: '50%',
+        width: size, height: size, borderRadius: '50%',
         background: hovered ? (isDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.1)') : base,
         color: hovered ? HOVER_COLORS[link.icon] : baseIcon,
         transition: 'all 0.2s',
@@ -48,18 +48,18 @@ function SocialIcon({ link, theme }) {
         flexShrink: 0,
       }}
     >
-      <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 16, height: 16 }}>
+      <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: iconSize, height: iconSize }}>
         <path d={PATHS[link.icon]} />
       </svg>
     </a>
   )
 }
 
-export default function SocialLinks({ links, theme = 'dark' }) {
+export default function SocialLinks({ links, theme = 'dark', size = 36, iconSize = 16 }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
       {links.map((link) => (
-        <SocialIcon key={link.name} link={link} theme={theme} />
+        <SocialIcon key={link.name} link={link} theme={theme} size={size} iconSize={iconSize} />
       ))}
     </div>
   )

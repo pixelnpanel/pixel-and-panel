@@ -66,14 +66,15 @@ const FOOTER_COPY = {
     description: 'Websites, custom signs, and local marketing materials built to help Southeast Texas businesses stand out, get found on Google, and win more customers.',
     serving: 'Serving Beaumont, Nederland & Port Arthur, TX',
     hours: 'Hours',
-    weekdayHours: 'Mon – Fri: 9:00 AM – 6:00 PM',
-    saturdayHours: 'Saturday: 11:00 AM – 3:00 PM',
-    sundayHours: 'Sunday: Closed',
+    weekdayHours: 'Mon–Fri: 9 AM – 6 PM',
+    saturdayHours: 'Sat: 11 AM – 3 PM',
+    sundayHours: 'Sun: Closed',
     follow: 'Follow Us',
     review: 'Review us on Google',
     digitalHeading: 'Digital Services',
     signageHeading: 'Signage Products',
     companyHeading: 'Company',
+    connectHeading: 'Connect',
     legalHeading: 'Legal',
     allDigital: 'All digital services',
     allSignage: 'All signage products',
@@ -102,6 +103,7 @@ const FOOTER_COPY = {
     digitalHeading: 'Servicios Digitales',
     signageHeading: 'Letreros e Impresión',
     companyHeading: 'Compañía',
+    connectHeading: 'Conecta',
     allDigital: 'Todos los servicios digitales',
     allSignage: 'Todos los productos',
     quote: 'Solicitar Cotización',
@@ -131,13 +133,9 @@ export default function Footer({ language = 'en' }) {
   return (
     <footer style={{ backgroundColor: '#0C1E3C', color: 'white' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '3rem',
-          padding: '4rem 0',
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
-        }}>
+        <div
+          className="grid gap-10 border-b border-white/[0.08] py-16 sm:grid-cols-2 lg:grid-cols-[minmax(260px,1.3fr)_repeat(2,minmax(180px,1fr))] xl:grid-cols-[minmax(270px,1.35fr)_minmax(155px,1fr)_minmax(145px,1fr)_minmax(145px,1fr)_minmax(160px,1fr)_minmax(130px,0.85fr)] xl:gap-8"
+        >
 
           {/* Brand column */}
           <div>
@@ -180,9 +178,14 @@ export default function Footer({ language = 'en' }) {
                 <span>{copy.serving}</span>
               </div>
             </div>
+          </div>
 
-            {/* Hours */}
-            <div style={{ marginTop: '1.25rem' }}>
+          {/* Connect */}
+          <div>
+            <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#F59E0B', marginBottom: '1.25rem' }}>
+              {copy.connectHeading}
+            </h4>
+            <div>
               <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '0.6rem' }}>
                 {copy.hours}
               </p>
@@ -193,15 +196,13 @@ export default function Footer({ language = 'en' }) {
               </div>
             </div>
 
-            {/* Social icons */}
             <div style={{ marginTop: '1.5rem' }}>
               <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '0.75rem' }}>
                 {copy.follow}
               </p>
-              <SocialLinks links={SOCIAL_LINKS} theme="dark" />
+              <SocialLinks links={SOCIAL_LINKS} theme="dark" size={44} iconSize={18} />
             </div>
 
-            {/* Google review link */}
             <a
               href={GBP_REVIEW_URL}
               target="_blank"
@@ -249,7 +250,7 @@ export default function Footer({ language = 'en' }) {
 
           {/* Company */}
           <div>
-            <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '1.25rem' }}>
+            <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#0EA5E9', marginBottom: '1.25rem' }}>
               {copy.companyHeading}
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem', padding: 0 }}>
@@ -269,7 +270,7 @@ export default function Footer({ language = 'en' }) {
           {/* Legal */}
           {copy.legalLinks.length > 0 && (
             <div>
-              <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '1.25rem' }}>
+              <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#F59E0B', marginBottom: '1.25rem' }}>
                 {copy.legalHeading}
               </h4>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', margin: 0, padding: 0 }}>
