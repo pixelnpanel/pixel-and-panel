@@ -5,6 +5,7 @@ import HomeHeroVisual from "./HomeHeroVisual";
 export const defaultHomeStartOptions = [
   {
     title: "Website / Google",
+    actionLabel: "Website + Google Visibility →",
     description: "Fast websites and Google Maps help.",
     href: "/digital",
     label: "Digital",
@@ -13,6 +14,7 @@ export const defaultHomeStartOptions = [
   },
   {
     title: "Signs / Print",
+    actionLabel: "Custom Signs + Print →",
     description: "Banners, signs, cards, and truck lettering.",
     href: "/signage",
     label: "Signage",
@@ -21,6 +23,7 @@ export const defaultHomeStartOptions = [
   },
   {
     title: "Not Sure Yet?",
+    actionLabel: "Not Sure? Start With a Free Check →",
     description: "Free Google visibility check.",
     href: "/free-visibility-check",
     label: "Free Check",
@@ -93,7 +96,7 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
               {content.desktopIntro}
             </p>
 
-            <div className="mt-7 max-w-[calc(100vw-2rem)] md:hidden" aria-labelledby="mobile-home-start-heading">
+            <div className="mt-7 max-w-[calc(100vw-2rem)] lg:hidden" aria-labelledby="mobile-home-start-heading">
               <p id="mobile-home-start-heading" className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
                 {content.startHeading}
               </p>
@@ -129,37 +132,29 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
               </Link>
             </div>
 
-            <div className="mt-8 hidden max-w-2xl md:block">
-              <div className="grid gap-3 md:grid-cols-3" aria-label={content.startOptionsLabel}>
+            <div className="mt-8 hidden max-w-2xl lg:block">
+              <div className="flex flex-col items-start gap-3">
+                <Link href={content.quoteHref} className="btn-amber inline-flex justify-center whitespace-nowrap px-5">
+                  {content.desktopQuoteLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+              <div className="mt-4 grid gap-2.5" aria-label={content.startOptionsLabel}>
                 {startOptions.map((item) => {
-                  const Icon = item.icon;
+                  const actionLabel = item.actionLabel ?? item.title;
 
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="group flex min-h-[94px] items-center gap-3 rounded-xl border border-white/15 bg-white/[0.09] p-4 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.13] focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70"
+                      className="group flex min-h-[46px] items-center justify-between gap-4 rounded-xl border border-white/14 bg-white/[0.07] px-4 py-3 text-left shadow-sm transition duration-300 hover:border-white/25 hover:bg-white/[0.12] focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70"
                     >
-                      <span
-                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[#1C1917] shadow-lg shadow-black/10"
-                        style={{ backgroundColor: item.accent }}
-                        aria-hidden="true"
-                      >
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block font-heading text-sm font-bold leading-tight text-white">{item.title}</span>
-                        <span className="mt-1 block text-xs leading-5 text-white/72">{item.description}</span>
-                      </span>
+                      <span className="min-w-0 font-heading text-sm font-bold leading-5 text-white">{actionLabel}</span>
                       <span className="sr-only">{item.label}</span>
-                      <ArrowRight className="h-4 w-4 shrink-0 text-white/45 transition group-hover:translate-x-0.5 group-hover:text-white/80" aria-hidden="true" />
+                      <span className="h-2 w-2 shrink-0 rounded-full transition group-hover:scale-125" style={{ backgroundColor: item.accent }} aria-hidden="true" />
                     </Link>
                   );
                 })}
               </div>
-              <Link href={content.quoteHref} className="btn-amber mt-5 inline-flex justify-center whitespace-nowrap px-5">
-                {content.desktopQuoteLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
             </div>
 
             <div className="mt-8 grid gap-3 text-sm text-white sm:grid-cols-3 md:mt-9">

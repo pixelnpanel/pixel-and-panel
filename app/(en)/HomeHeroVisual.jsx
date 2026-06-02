@@ -12,21 +12,21 @@ import {
 const STEPS = [
   {
     num: "01",
-    short: "Online",
+    short: "Website + Google",
     label: "Website + Google",
     accent: "#0EA5E9",
     icon: MonitorSmartphone,
   },
   {
     num: "02",
-    short: "In Town",
+    short: "Signs + Print",
     label: "Signs + Print",
     accent: "#F59E0B",
     icon: PanelTop,
   },
   {
     num: "03",
-    short: "Leads",
+    short: "Quote Path",
     label: "Quote Path",
     accent: "#10B981",
     icon: MessageSquare,
@@ -162,19 +162,19 @@ export default function HomeHeroVisual() {
 
   return (
     <div
-      className="relative mx-auto flex w-full max-w-[540px] items-stretch lg:h-[680px] lg:min-h-0 xl:h-[760px]"
+      className="relative mx-auto flex w-full max-w-[500px] min-w-0 items-stretch lg:min-h-[650px] xl:min-h-[670px]"
       aria-label="Animated guide showing Pixel & Panel website, signage, print, and quote process"
     >
-      <div className="absolute -inset-5 rounded-[2rem] bg-[#0EA5E9]/18 blur-3xl" />
-      <div className="relative flex w-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/[0.1] p-5 shadow-2xl shadow-black/20 backdrop-blur-md">
+      <div className="absolute -inset-4 rounded-[2rem] bg-[#0EA5E9]/18 blur-3xl" />
+      <div className="relative flex w-full max-w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/[0.1] p-4 pb-5 shadow-2xl shadow-black/20 backdrop-blur-md">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_15%,rgba(245,158,11,0.22),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))]" />
-        <div className="relative flex flex-1 flex-col">
+        <div className="relative flex min-w-0 flex-1 flex-col">
           <div className="flex items-start justify-between gap-4">
-            <div>
+            <div className="min-w-0">
               <p className="font-heading text-[10px] font-bold uppercase tracking-[0.18em] text-[#F59E0B]">
                 Visibility System
               </p>
-              <h2 className="mt-2 max-w-[24rem] font-heading text-2xl font-extrabold leading-tight text-white">
+              <h2 className="mt-2 max-w-[23rem] font-heading text-[1.35rem] font-extrabold leading-tight text-white xl:text-2xl">
                 Websites, signs, print, and Google working as one.
               </h2>
             </div>
@@ -184,11 +184,11 @@ export default function HomeHeroVisual() {
             </div>
           </div>
 
-          <p className="mt-3 max-w-[27rem] text-sm leading-6 text-white/70">
+          <p className="mt-3 max-w-[26rem] text-sm leading-6 text-white/70">
             We make the path clear: customers find you online, notice you in town, then request a quote.
           </p>
 
-          <div className="mt-5 grid grid-cols-3 gap-2">
+          <div className="mt-4 grid w-full max-w-full min-w-0 grid-cols-[repeat(3,minmax(0,1fr))] gap-2 overflow-hidden">
             {STEPS.map((item, index) => {
               const Icon = item.icon;
               const selected = index === step;
@@ -200,19 +200,19 @@ export default function HomeHeroVisual() {
                   onClick={() => setStep(index)}
                   aria-label={`Show ${item.label}`}
                   aria-pressed={selected}
-                  className={`rounded-xl border p-3 text-left transition duration-300 focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70 ${selected
+                  className={`min-w-0 overflow-hidden rounded-xl border p-2.5 text-left transition duration-300 focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70 ${selected
                     ? "border-white/35 bg-white/18 text-white"
                     : "border-white/10 bg-white/[0.07] text-white/68 hover:bg-white/[0.12]"
                     }`}
                 >
                   <Icon className="h-4 w-4" style={{ color: item.accent }} aria-hidden="true" />
-                  <span className="mt-2 block font-heading text-xs font-bold">{item.short}</span>
+                  <span className="mt-2 block min-w-0 break-words font-heading text-[11px] font-bold leading-tight">{item.short}</span>
                 </button>
               );
             })}
           </div>
 
-          <div className="mt-5 min-h-0 flex-1 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.08] p-4">
+          <div className="mt-4 min-h-[390px] min-w-0 overflow-visible rounded-2xl border border-white/12 bg-white/[0.08] p-3.5 xl:min-h-[400px]">
             <div className="mb-3 flex items-center gap-3">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#1C1917]">
                 <CurrentIcon className="h-5 w-5" style={{ color: current.accent }} aria-hidden="true" />
@@ -227,33 +227,9 @@ export default function HomeHeroVisual() {
               </div>
             </div>
 
-            <div key={step}>
+            <div key={step} className="min-w-0 max-w-full">
               <ActivePreview step={step} />
             </div>
-          </div>
-
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            {STEPS.map((item, index) => {
-              const Icon = item.icon;
-              const selected = index === step;
-
-              return (
-                <div
-                  key={item.num}
-                  className={`rounded-xl border p-3 transition duration-300 ${selected
-                    ? "border-white/25 bg-white/14"
-                    : "border-white/10 bg-white/[0.06]"
-                    }`}
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.12]">
-                    <Icon className="h-4 w-4" style={{ color: item.accent }} aria-hidden="true" />
-                  </span>
-                  <span className="mt-2 block min-w-0">
-                    <span className="block truncate font-heading text-xs font-bold leading-tight text-white">{item.label}</span>
-                  </span>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>
