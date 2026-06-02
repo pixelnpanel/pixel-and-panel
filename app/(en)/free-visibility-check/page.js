@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   ArrowRight,
   BadgeCheck,
@@ -133,11 +132,6 @@ export default function FreeVisibilityCheckPage() {
                 Not sure why customers are not finding you? Pixel &amp; Panel will review
                 your online and real-world visibility and show you practical ways to improve.
               </p>
-              <div className="mt-7 hidden flex-col gap-3 md:flex md:flex-row">
-                <Link href="/pricing" className="btn-ghost justify-center">
-                  View Pricing
-                </Link>
-              </div>
               <div className="mt-8 hidden gap-3 text-sm text-white/76 md:grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 {receive.slice(0, 4).map((item) => (
                   <div key={item} className="flex items-start gap-3 rounded-xl border border-white/12 bg-white/8 p-4">
@@ -150,7 +144,7 @@ export default function FreeVisibilityCheckPage() {
             </div>
 
             <div className="lg:py-6">
-              <VisibilityCheckForm />
+              <VisibilityCheckForm campaignMode />
             </div>
           </div>
         </section>
