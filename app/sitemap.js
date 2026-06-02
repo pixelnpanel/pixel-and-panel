@@ -19,6 +19,9 @@ const staticPages = [
   { url: "/quote-request", priority: 0.8, changeFrequency: "monthly" },
   { url: "/free-visibility-check", priority: 0.8, changeFrequency: "monthly" },
   { url: "/learning-center", priority: 0.7, changeFrequency: "weekly" },
+  { url: "/terms", priority: 0.3, changeFrequency: "yearly" },
+  { url: "/refund-policy", priority: 0.3, changeFrequency: "yearly" },
+  { url: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
   // Service area hubs
   { url: "/service-area/beaumont-tx", priority: 0.9, changeFrequency: "monthly" },
   { url: "/service-area/nederland-tx", priority: 0.9, changeFrequency: "monthly" },

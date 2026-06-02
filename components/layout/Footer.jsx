@@ -43,6 +43,12 @@ const COMPANY_LINKS_EN = [
   { label: 'Quote Request', href: '/quote-request' },
 ]
 
+const LEGAL_LINKS_EN = [
+  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Refund Policy', href: '/refund-policy' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+]
+
 const COMPANY_LINKS_ES = [
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Centro de Aprendizaje', href: '/es/centro-de-aprendizaje' },
@@ -68,6 +74,7 @@ const FOOTER_COPY = {
     digitalHeading: 'Digital Services',
     signageHeading: 'Signage Products',
     companyHeading: 'Company',
+    legalHeading: 'Legal',
     allDigital: 'All digital services',
     allSignage: 'All signage products',
     quote: 'Request a Quote',
@@ -78,6 +85,7 @@ const FOOTER_COPY = {
     digitalServices: DIGITAL_SERVICES,
     signageProducts: FOOTER_SIGNAGE_PRODUCTS,
     companyLinks: COMPANY_LINKS_EN,
+    legalLinks: LEGAL_LINKS_EN,
   },
   es: {
     homeHref: '/es',
@@ -104,6 +112,7 @@ const FOOTER_COPY = {
     digitalServices: FOOTER_DIGITAL_SERVICES_ES,
     signageProducts: FOOTER_SIGNAGE_PRODUCTS_ES,
     companyLinks: COMPANY_LINKS_ES,
+    legalLinks: [],
   },
 }
 
@@ -256,6 +265,22 @@ export default function Footer({ language = 'en' }) {
               </Link>
             </div>
           </div>
+
+          {/* Legal */}
+          {copy.legalLinks.length > 0 && (
+            <div>
+              <h4 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '1.25rem' }}>
+                {copy.legalHeading}
+              </h4>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', margin: 0, padding: 0 }}>
+                {copy.legalLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} style={footerLinkStyle}>{link.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
         </div>
 

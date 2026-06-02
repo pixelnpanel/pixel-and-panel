@@ -86,6 +86,13 @@ const defaultCopy = {
   trackOrder: "Track my order",
   trackOrderHref: "/track-order",
   footer: "We respond within 1 business day. No spam, ever.",
+  agreementPrefix: "By submitting this form, you agree to our",
+  termsLabel: "Terms of Service",
+  termsHref: "/terms",
+  agreementConnector: "and",
+  privacyLabel: "Privacy Policy",
+  privacyHref: "/privacy-policy",
+  agreementSuffix: ".",
   successTitle: "Request Sent",
   successText: "We received your quote request and will reply within 1 business day.",
   errorFallback: "Unable to send quote request right now.",
@@ -554,6 +561,17 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                         <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                       </button>
                     </div>
+                    <p className="mt-4 text-center text-xs leading-5 text-slate-500">
+                      {content.agreementPrefix}{" "}
+                      <Link href={content.termsHref} className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">
+                        {content.termsLabel}
+                      </Link>{" "}
+                      {content.agreementConnector}{" "}
+                      <Link href={content.privacyHref} className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">
+                        {content.privacyLabel}
+                      </Link>
+                      {content.agreementSuffix}
+                    </p>
                     <p className="mt-4 text-center text-xs text-slate-400">{content.footer}</p>
                   </form>
                 )}
