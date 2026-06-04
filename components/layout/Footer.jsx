@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Globe2, Mail, MapPin, ArrowRight, Phone, Star } from 'lucide-react'
 import { BRAND, DIGITAL_SERVICES, SOCIAL_LINKS, GBP_REVIEW_URL } from '@/lib/constants'
+import { LEGAL_POLICY_LINKS } from '@/lib/legal-policies'
 import SocialLinks from '@/components/ui/SocialLinks'
 
 const FOOTER_SIGNAGE_PRODUCTS = [
@@ -43,12 +44,6 @@ const COMPANY_LINKS_EN = [
   { label: 'Quote Request', href: '/quote-request' },
 ]
 
-const LEGAL_LINKS_EN = [
-  { label: 'Terms of Service', href: '/terms' },
-  { label: 'Refund Policy', href: '/refund-policy' },
-  { label: 'Privacy Policy', href: '/privacy-policy' },
-]
-
 const COMPANY_LINKS_ES = [
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Centro de Aprendizaje', href: '/es/centro-de-aprendizaje' },
@@ -75,7 +70,7 @@ const FOOTER_COPY = {
     signageHeading: 'Signage Products',
     companyHeading: 'Company',
     connectHeading: 'Connect',
-    legalHeading: 'Legal',
+    legalHeading: 'LEGAL',
     allDigital: 'All digital services',
     allSignage: 'All signage products',
     quote: 'Request a Quote',
@@ -86,7 +81,7 @@ const FOOTER_COPY = {
     digitalServices: DIGITAL_SERVICES,
     signageProducts: FOOTER_SIGNAGE_PRODUCTS,
     companyLinks: COMPANY_LINKS_EN,
-    legalLinks: LEGAL_LINKS_EN,
+    legalLinks: LEGAL_POLICY_LINKS,
   },
   es: {
     homeHref: '/es',

@@ -53,6 +53,21 @@ const nextConfig = {
         destination: "/digital/qr-code-campaigns",
         statusCode: 301,
       },
+      {
+        source: "/terms",
+        destination: "/terms-and-conditions",
+        statusCode: 301,
+      },
+      {
+        source: "/terms-of-service",
+        destination: "/terms-and-conditions",
+        statusCode: 301,
+      },
+      {
+        source: "/refund-policy",
+        destination: "/refund-reprint-policy",
+        statusCode: 301,
+      },
     ];
   },
 

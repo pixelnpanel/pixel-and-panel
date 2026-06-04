@@ -1,20 +1,16 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-
-const POLICY_LINKS = [
-  { label: "Terms of Service", href: "/terms" },
-  { label: "Refund Policy", href: "/refund-policy" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-];
+import { LEGAL_POLICY_LINKS, POLICY_DISCLAIMER } from "@/lib/legal-policies";
 
 export default function PolicyPage({
-  title,
-  description,
+  policy,
+  title = policy?.title,
+  description = policy?.description,
   lastUpdated = "June 2026",
-  currentHref,
-  sections,
+  currentHref = policy?.href,
+  sections = policy?.sections || [],
 }) {
-  const relatedPolicies = POLICY_LINKS.filter((policy) => policy.href !== currentHref);
+  const relatedPolicies = LEGAL_POLICY_LINKS.filter((link) => link.href !== currentHref);
 
   return (
     <div className="bg-[#FAF8F4] text-[#1C1917]">
@@ -39,19 +35,34 @@ export default function PolicyPage({
           {sections.map((section) => (
             <section key={section.heading} className="border-b border-slate-200 pb-10 last:border-b-0">
               <h2 className="text-[#1C1917]">{section.heading}</h2>
-              {section.body?.map((paragraph) => (
-                <p key={paragraph} className="mt-4 leading-8 text-slate-700">
+              {section.body?.map((paragraph, index) => (
+                <p key={`${section.heading}-body-${index}`} className="mt-4 leading-8 text-slate-700">
                   {paragraph}
                 </p>
               ))}
+              {section.rows && (
+                <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+                  {section.rows.map((row) => (
+                    <div key={row.label} className="rounded-lg border border-slate-200 bg-white px-5 py-4 shadow-sm">
+                      <dt className="text-xs font-bold uppercase tracking-[0.16em] text-[#0369A1]">{row.label}</dt>
+                      <dd className="mt-2 leading-7 text-slate-700">{row.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
               {section.items && (
                 <ul className="mt-4 list-disc space-y-3 pl-5 text-slate-700">
-                  {section.items.map((item) => (
-                    <li key={item} className="leading-7">
+                  {section.items.map((item, index) => (
+                    <li key={`${section.heading}-item-${index}`} className="leading-7">
                       {item}
                     </li>
                   ))}
                 </ul>
+              )}
+              {section.note && (
+                <p className="mt-4 leading-8 text-slate-700">
+                  {section.note}
+                </p>
               )}
             </section>
           ))}
@@ -74,21 +85,39 @@ export default function PolicyPage({
             ))}
           </div>
         </section>
-      </article>
 
-      <section className="bg-[#0C1E3C] px-4 py-12 text-white" aria-labelledby="policy-contact-heading">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="section-label text-[#F59E0B]">Need Help?</p>
-            <h2 id="policy-contact-heading" className="text-white">
-              Questions about a project or policy?
-            </h2>
+        <section className="mt-12 border-t border-slate-200 pt-10" aria-labelledby="policy-contact-heading">
+          <h2 id="policy-contact-heading" className="text-[#1C1917]">
+            Policy Contact
+          </h2>
+          <div className="mt-5 rounded-lg border border-slate-200 bg-white p-6 leading-8 text-slate-700 shadow-sm">
+            <p className="font-bold text-[#1C1917]">Pixel &amp; Panel LLC</p>
+            <p>
+              Website:{" "}
+              <a href="https://www.pixelnpanel.com" className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">
+                www.pixelnpanel.com
+              </a>
+            </p>
+            <p>
+              Email:{" "}
+              <a href="mailto:hello@pixelnpanel.com" className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">
+                hello@pixelnpanel.com
+              </a>
+            </p>
+            <p>
+              Phone:{" "}
+              <a href="tel:+14092252012" className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">
+                (409) 225-2012
+              </a>
+            </p>
+            <p>Service-area/remote business &mdash; no public storefront</p>
           </div>
-          <Link href="/contact" className="btn-amber justify-center">
-            Contact Pixel &amp; Panel <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
+          <div className="mt-5 rounded-lg border border-[#F59E0B]/30 bg-[#F59E0B]/10 p-5 text-sm leading-7 text-slate-700">
+            <p className="font-bold text-[#1C1917]">Disclaimer</p>
+            <p className="mt-2">{POLICY_DISCLAIMER}</p>
+          </div>
+        </section>
+      </article>
     </div>
   );
 }
