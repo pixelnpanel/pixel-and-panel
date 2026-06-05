@@ -60,7 +60,7 @@ function OnlinePreview() {
         </div>
 
         <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-4">
-          <p className="text-xs font-bold text-[#0369A1]">pixelnpanel.com</p>
+          <p className="text-xs font-bold text-[#0369A1]">www.pixelnpanel.com</p>
           <p className="mt-1 font-heading text-lg font-extrabold text-[#1C1917]">Pixel &amp; Panel</p>
           <p className="mt-1 text-sm leading-6 text-slate-600">
             Websites, Google visibility, custom signs, banners, and print for Southeast Texas.

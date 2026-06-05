@@ -278,6 +278,10 @@
   }
 
   @media (max-width: 767px) {
+    body {
+      padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
+    }
+
     .pnp-site-shell h1:not(.pnp-mobile-hero-title):not(.pnp-mobile-form-title) {
       font-size: clamp(1.95rem, 8.4vw, 2.35rem) !important;
       line-height: 1.08 !important;
