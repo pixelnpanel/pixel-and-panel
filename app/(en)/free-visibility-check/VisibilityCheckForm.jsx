@@ -51,6 +51,7 @@ const defaultCopy = {
   businessName: "Business name",
   email: "Email",
   phone: "Phone",
+  contactRequirement: "Email or phone required.",
   websiteUrl: "Website URL optional",
   businessCity: "Business city",
   helpLegend: "What do you need help with?",
@@ -150,8 +151,8 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
     }
 
     if (campaignMode) {
-      if (!form.phone.trim()) {
-        return "Please include your phone number.";
+      if (!form.email.trim() && !form.phone.trim()) {
+        return content.validationContact;
       }
 
       if (form.email.trim() && !emailPattern.test(form.email.trim())) {
@@ -318,7 +319,6 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
               type="tel"
               value={form.phone}
               onChange={updateField}
-              required={campaignMode}
               autoComplete="tel"
               placeholder="(409) 555-0000"
             />
@@ -331,6 +331,11 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
               autoComplete="email"
               placeholder="john@email.com"
             />
+            {campaignMode && (
+              <p className="md:col-span-2 text-xs font-medium text-slate-500">
+                {content.contactRequirement}
+              </p>
+            )}
             {!campaignMode && (
               <>
                 <Field

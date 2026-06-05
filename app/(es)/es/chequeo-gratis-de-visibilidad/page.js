@@ -77,6 +77,7 @@ const formCopy = {
   businessName: "Nombre del negocio",
   email: "Correo electrónico",
   phone: "Teléfono",
+  contactRequirement: "Incluye correo electrónico o teléfono.",
   websiteUrl: "Sitio web opcional",
   businessCity: "Ciudad del negocio",
   helpLegend: "¿En qué necesitas ayuda?",

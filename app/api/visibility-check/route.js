@@ -299,8 +299,8 @@ export async function POST(request) {
     return jsonResponse({ success: false, message: "Name and business name are required." }, 400);
   }
 
-  if (isCampaignSubmission && !phone) {
-    return jsonResponse({ success: false, message: "Phone is required." }, 400);
+  if (isCampaignSubmission && !email && !phone) {
+    return jsonResponse({ success: false, message: "Email or phone is required." }, 400);
   }
 
   if (!isCampaignSubmission && !email && !phone) {
