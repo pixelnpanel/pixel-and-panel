@@ -77,6 +77,10 @@ function cleanValue(value) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function getFormValue(formData, name, fallback = "") {
+  return cleanValue(formData.get(name)) || cleanValue(fallback);
+}
+
 function getTrackingFromUrl() {
   if (typeof window === "undefined") return trackingDefaults;
 
@@ -156,32 +160,42 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
     );
   }
 
-  function validate() {
-    if (!form.name.trim() || !form.businessName.trim()) {
+  function getSubmittedForm(formData) {
+    return {
+      ...form,
+      name: getFormValue(formData, "name", form.name),
+      businessName: getFormValue(formData, "businessName", form.businessName),
+      email: getFormValue(formData, "email", form.email),
+      phone: getFormValue(formData, "phone", form.phone),
+      websiteUrl: getFormValue(formData, "websiteUrl", form.websiteUrl),
+      businessCity: getFormValue(formData, "businessCity", form.businessCity),
+      needHelpWith: getFormValue(formData, "needHelpWith", form.needHelpWith),
+      message: getFormValue(formData, "message", form.message),
+    };
+  }
+
+  function validate(values) {
+    if (!values.name || !values.businessName) {
       return content.validationName;
     }
 
     if (campaignMode) {
-      if (!form.email.trim() && !form.phone.trim()) {
+      if (!values.email && !values.phone) {
         return content.validationContact;
       }
 
-      if (form.email.trim() && !emailPattern.test(form.email.trim())) {
+      if (values.email && !emailPattern.test(values.email)) {
         return "Please enter a valid email address.";
-      }
-
-      if (!form.needHelpWith) {
-        return "Please choose what you need help with.";
       }
 
       return "";
     }
 
-    if (!form.email.trim() && !form.phone.trim()) {
+    if (!values.email && !values.phone) {
       return content.validationContact;
     }
 
-    if (!form.websiteUrl.trim() && !helpOptions.length && !form.message.trim()) {
+    if (!values.websiteUrl && !helpOptions.length && !values.message) {
       return content.validationHelp;
     }
 
@@ -199,22 +213,23 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
     setStatus("idle");
     setSuccessMessage(content.successText);
 
-    const validationError = validate();
+    const formData = new FormData(event.currentTarget);
+    const submittedForm = getSubmittedForm(formData);
+
+    const validationError = validate(submittedForm);
     if (validationError) {
       setError(validationError);
       return;
     }
 
-    const formData = new FormData(event.currentTarget);
-
     const payload = campaignMode
       ? {
-          name: form.name,
-          businessName: form.businessName,
-          phone: form.phone,
-          email: form.email,
-          needHelpWith: form.needHelpWith,
-          message: form.message,
+          name: submittedForm.name,
+          businessName: submittedForm.businessName,
+          phone: submittedForm.phone,
+          email: submittedForm.email,
+          needHelpWith: submittedForm.needHelpWith,
+          message: submittedForm.message,
           ...getTrackingFromForm(formData),
           company: String(formData.get("company") || ""),
           language: content.language,
@@ -378,14 +393,12 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
                 className="mb-2 block font-heading text-sm font-bold uppercase tracking-[0.08em] text-[#1C1917]"
               >
                 {content.helpLegend}
-                <span className="text-[#F59E0B]"> *</span>
               </label>
               <select
                 id="needHelpWith"
                 name="needHelpWith"
                 value={form.needHelpWith}
                 onChange={updateField}
-                required
                 className="w-full rounded-lg border-2 border-slate-200 bg-white px-4 py-3 text-[#1C1917] outline-none transition focus:border-[#0369A1]"
               >
                 <option value="">Choose one</option>

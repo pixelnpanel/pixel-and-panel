@@ -230,10 +230,8 @@ function buildAutoReply({ name }) {
     "",
     "If you need to add anything, you can reply to this email or contact us at hello@pixelnpanel.com.",
     "",
-    "Pixel & Panel",
-    "Your Vision. Made Visible.",
-    "https://www.pixelnpanel.com",
-    "(409) 225-2012",
+    "Pixel & Panel | Your Vision. Made Visible.",
+    "www.pixelnpanel.com | (409) 225-2012",
   ].join("\n");
 
   const html = `
@@ -242,11 +240,9 @@ function buildAutoReply({ name }) {
       <p>Thanks for requesting a Free Visibility Check from Pixel &amp; Panel.</p>
       <p>We’ll review your business visibility and follow up within 1 business day. We may look at your website, Google presence, signs, print materials, and QR opportunities based on the information you submitted.</p>
       <p>If you need to add anything, you can reply to this email or contact us at <a href="mailto:hello@pixelnpanel.com" style="color: #0369A1;">hello@pixelnpanel.com</a>.</p>
-      <p>
-        Pixel &amp; Panel<br />
-        Your Vision. Made Visible.<br />
-        <a href="https://www.pixelnpanel.com" style="color: #0369A1;">https://www.pixelnpanel.com</a><br />
-        (409) 225-2012
+      <p style="margin-top: 18px;">
+        <strong>Pixel &amp; Panel</strong> | Your Vision. Made Visible.<br />
+        <a href="https://www.pixelnpanel.com" style="color: #0369A1;">www.pixelnpanel.com</a> | (409) 225-2012
       </p>
     </div>
   `;
@@ -319,10 +315,6 @@ export async function POST(request) {
 
   if (email && !emailPattern.test(email)) {
     return jsonResponse({ success: false, message: "Please enter a valid email address." }, 400);
-  }
-
-  if (isCampaignSubmission && !helpText) {
-    return jsonResponse({ success: false, message: "Please choose what you need help with." }, 400);
   }
 
   if (!isCampaignSubmission && !websiteUrl && !legacyHelpOptions.length && !message) {
