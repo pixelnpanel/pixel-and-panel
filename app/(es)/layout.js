@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
+import FloatingQuoteButton from "@/components/ui/FloatingQuoteButton";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
 
 export const viewport = {
@@ -50,6 +51,7 @@ export default function SpanishRootLayout({ children }) {
           {children}
         </main>
         <Footer language="es" />
+        <FloatingQuoteButton />
         <WhatsAppWidget />
       </body>
     </html>
