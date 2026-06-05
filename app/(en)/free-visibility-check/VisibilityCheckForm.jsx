@@ -105,6 +105,7 @@ function getTrackingFromForm(formData) {
 
 export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode = false }) {
   const content = { ...defaultCopy, ...copy };
+  const containerRef = useRef(null);
   const formRef = useRef(null);
   const [form, setForm] = useState(initialForm);
   const [helpOptions, setHelpOptions] = useState([]);
@@ -131,6 +132,16 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
       if (field) field.value = value;
     });
   }, [campaignMode]);
+
+  useEffect(() => {
+    if (status !== "success" || !containerRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    containerRef.current.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  }, [status]);
 
   function updateField(event) {
     const { name, value } = event.target;
@@ -259,6 +270,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
   return (
     <div
       id="visibility-check-form"
+      ref={containerRef}
       className="scroll-mt-28 rounded-xl border border-slate-200 bg-white p-5 shadow-xl md:p-8"
     >
       {isSuccess ? (

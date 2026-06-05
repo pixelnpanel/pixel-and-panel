@@ -157,15 +157,27 @@ function buildInternalEmail({
     `Message: ${message || "Not provided"}`,
     `Source: ${source || "direct"}`,
     `Campaign: ${campaign || "local-launch"}`,
-    `UTM Source: ${utmSource || ""}`,
-    `UTM Medium: ${utmMedium || ""}`,
-    `UTM Campaign: ${utmCampaign || ""}`,
+    utmSource ? `UTM Source: ${utmSource}` : "",
+    utmMedium ? `UTM Medium: ${utmMedium}` : "",
+    utmCampaign ? `UTM Campaign: ${utmCampaign}` : "",
     `Page submitted from: ${sourcePage || "/free-visibility-check"}`,
     `Date/time: ${submittedAt}`,
     websiteUrl ? `Website URL: ${websiteUrl}` : "",
     businessCity ? `Business city: ${businessCity}` : "",
     `Language: ${language || "English"}`,
   ].filter(Boolean).join("\n");
+
+  const trackingRows = [
+    utmSource
+      ? `<tr><td style="padding: 8px 0; font-weight: 700;">UTM Source</td><td style="padding: 8px 0;">${safe.utmSource}</td></tr>`
+      : "",
+    utmMedium
+      ? `<tr><td style="padding: 8px 0; font-weight: 700;">UTM Medium</td><td style="padding: 8px 0;">${safe.utmMedium}</td></tr>`
+      : "",
+    utmCampaign
+      ? `<tr><td style="padding: 8px 0; font-weight: 700;">UTM Campaign</td><td style="padding: 8px 0;">${safe.utmCampaign}</td></tr>`
+      : "",
+  ].join("");
 
   const optionalRows = [
     websiteUrl
@@ -188,9 +200,7 @@ function buildInternalEmail({
           <tr><td style="padding: 8px 0; font-weight: 700;">What do you need help with?</td><td style="padding: 8px 0;">${safe.needHelpWith}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Source</td><td style="padding: 8px 0;">${safe.source}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Campaign</td><td style="padding: 8px 0;">${safe.campaign}</td></tr>
-          <tr><td style="padding: 8px 0; font-weight: 700;">UTM Source</td><td style="padding: 8px 0;">${safe.utmSource}</td></tr>
-          <tr><td style="padding: 8px 0; font-weight: 700;">UTM Medium</td><td style="padding: 8px 0;">${safe.utmMedium}</td></tr>
-          <tr><td style="padding: 8px 0; font-weight: 700;">UTM Campaign</td><td style="padding: 8px 0;">${safe.utmCampaign}</td></tr>
+          ${trackingRows}
           <tr><td style="padding: 8px 0; font-weight: 700;">Page submitted from</td><td style="padding: 8px 0;">${safe.sourcePage}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Date/time</td><td style="padding: 8px 0;">${safe.submittedAt}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Language</td><td style="padding: 8px 0;">${safe.language}</td></tr>
