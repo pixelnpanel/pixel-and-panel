@@ -68,7 +68,7 @@ export default function PortfolioClientEs() {
   }, [activeFilter]);
 
   return (
-    <main className="bg-[#FAF8F4] text-[#1C1917]">
+    <div className="bg-[#FAF8F4] text-[#1C1917]">
       <section className="pnp-mobile-hero relative overflow-hidden bg-[#0C1E3C] pt-24 text-white md:pt-28">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_100%)]" />
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
@@ -261,6 +261,6 @@ export default function PortfolioClientEs() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

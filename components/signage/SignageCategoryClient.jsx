@@ -32,7 +32,7 @@ export default function SignageCategoryClient({ category, allCategories }) {
     const sortedProducts = sortProductsByName(category.products || [])
 
     return (
-        <main className="min-h-screen bg-brand-cream">
+        <div className="min-h-screen bg-brand-cream">
 
             {/* ── BREADCRUMB ────────────────────────────────────────── */}
             <div className="bg-white border-b border-gray-100 px-6 py-3">
@@ -251,6 +251,6 @@ export default function SignageCategoryClient({ category, allCategories }) {
                 </div>
             </section>
 
-        </main>
+        </div>
     )
 }

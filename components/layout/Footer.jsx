@@ -144,6 +144,7 @@ export default function Footer({ language = 'en' }) {
                   height: 'auto',
                   maxWidth: 'min(220px, 100%)',
                   objectFit: 'contain',
+                  width: 'auto',
                 }}
                 unoptimized
               />

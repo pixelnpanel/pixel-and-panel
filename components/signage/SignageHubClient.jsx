@@ -303,7 +303,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     }
 
     return (
-        <main className="min-h-screen overflow-x-clip bg-[#FAF8F4] text-[#1C1917]">
+        <div className="min-h-screen overflow-x-clip bg-[#FAF8F4] text-[#1C1917]">
 
             {/* HERO */}
             <section className="pnp-mobile-hero-compact relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 pb-8 pt-24 text-white md:py-28">
@@ -691,6 +691,6 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 </div>
             )}
 
-        </main>
+        </div>
     )
 }

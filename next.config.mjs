@@ -40,6 +40,9 @@ const contentSecurityPolicyReportOnly = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    globalNotFound: true,
+  },
 
   images: {
     formats: ["image/avif", "image/webp"],

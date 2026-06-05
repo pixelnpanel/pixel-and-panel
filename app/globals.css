@@ -460,23 +460,6 @@
       animation: pnp-fade-slide 680ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
     }
 
-    .pnp-site-shell [data-pnp-reveal="true"] {
-      opacity: 0;
-      transform: translate3d(0, 1.35rem, 0) scale(0.985);
-      transition:
-        opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 640ms cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 220ms ease,
-        border-color 220ms ease;
-      transition-delay: var(--pnp-reveal-delay, 0ms);
-      will-change: opacity, transform;
-    }
-
-    .pnp-site-shell [data-pnp-reveal="true"][data-pnp-visible="true"] {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-
     .pnp-site-shell :is(.white-card, .glass-card, .dark-card, article, form) {
       backface-visibility: hidden;
     }

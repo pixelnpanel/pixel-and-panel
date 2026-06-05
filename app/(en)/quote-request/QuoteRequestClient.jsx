@@ -10,11 +10,17 @@ import {
 import QuoteVisual from "./QuoteVisual";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
+const ALLOWED_EXTENSION_SET = new Set(ALLOWED_EXTENSIONS.split(","));
 const ALLOWED_TYPES = new Set([
   "image/jpeg", "image/png", "image/gif", "image/webp",
   "image/svg+xml", "application/pdf", "application/postscript",
 ]);
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
+
+function getFileExtension(fileName = "") {
+  const extensionStart = fileName.lastIndexOf(".");
+  return extensionStart >= 0 ? fileName.slice(extensionStart).toLowerCase() : "";
+}
 
 const SERVICE_TILES = [
   { label: "Signs & Print", category: "Signage & Print", icon: Store, desc: "Banners, vehicle wraps, yard signs, storefront" },
@@ -69,6 +75,7 @@ const defaultCopy = {
   businessNamePlaceholder: "Your business",
   emailPlaceholder: "john@email.com",
   phonePlaceholder: "(555) 000-0000",
+  contactRequirement: "Email or phone required.",
   productService: "Product / Service",
   message: "What Do You Need?",
   messagePlaceholder: "Tell us size, quantity, deadline, material, location, or anything you already know.",
@@ -158,6 +165,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
   const hiddenProductValue = effectiveProduct
     ? (effectiveCategory ? `${effectiveCategory} — ${effectiveProduct}` : effectiveProduct)
     : "General Quote";
+  const hasContact = Boolean(email.trim() || phone.trim());
 
   const displayStep = step - initialStep + 1;
   const stepLabel = showPicker
@@ -182,7 +190,10 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
       setAttachment(null);
       return;
     }
-    if (!ALLOWED_TYPES.has(file.type)) {
+    const hasAllowedMime = file.type ? ALLOWED_TYPES.has(file.type) : false;
+    const hasAllowedExtension = ALLOWED_EXTENSION_SET.has(getFileExtension(file.name));
+
+    if (!hasAllowedMime && !hasAllowedExtension) {
       setFileError(content.fileTypeError);
       e.target.value = "";
       setAttachment(null);
@@ -210,6 +221,8 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
     if (phone) formData.set("phone", phone);
     formData.set("message", message);
     formData.set("productService", hiddenProductValue);
+    formData.set("language", content.language);
+    formData.set("sourcePage", typeof window !== "undefined" ? window.location.href : "Quote Request Page");
     formData.set("company", ""); // honeypot — empty for real users
     if (attachment) formData.set("attachment", attachment);
 
@@ -430,10 +443,11 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                       )}
                       <div>
                         <label htmlFor="q-email" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          {content.email} *
+                          {content.email}
                         </label>
                         <input
                           id="q-email" type="email" autoComplete="email"
+                          aria-describedby="quote-contact-requirement"
                           value={email} onChange={(e) => setEmail(e.target.value)}
                           placeholder={content.emailPlaceholder}
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
@@ -445,16 +459,20 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                         </label>
                         <input
                           id="q-phone" type="tel" autoComplete="tel"
+                          aria-describedby="quote-contact-requirement"
                           value={phone} onChange={(e) => setPhone(e.target.value)}
                           placeholder={content.phonePlaceholder}
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
                         />
                       </div>
+                      <p id="quote-contact-requirement" className="text-xs font-medium text-slate-500">
+                        {content.contactRequirement}
+                      </p>
                     </div>
 
                     <button
                       type="button"
-                      disabled={!name.trim() || !email.trim()}
+                      disabled={!name.trim() || !hasContact}
                       onClick={() => setStep(2)}
                       className="group mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-[#0369A1] px-6 py-4 text-sm font-bold uppercase tracking-widest text-white transition hover:-translate-y-0.5 hover:bg-[#0284C7] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
                     >

@@ -52,6 +52,7 @@ const spanishQuoteCopy = {
   businessNamePlaceholder: "Tu negocio",
   emailPlaceholder: "juan@email.com",
   phonePlaceholder: "(555) 000-0000",
+  contactRequirement: "Incluye correo electrónico o teléfono.",
   attachLabel: "Adjuntar archivo",
   attachOptional: "(opcional)",
   attachPrompt: "Logo, boceto o imagen de referencia",
