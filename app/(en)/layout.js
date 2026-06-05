@@ -5,7 +5,6 @@ import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
-import MobileStickyCTA from "@/components/ui/MobileStickyCTA";
 
 export const viewport = {
   themeColor: "#0C1E3C",
@@ -52,7 +51,6 @@ export default function EnglishRootLayout({ children }) {
         </main>
         <Footer />
         <WhatsAppWidget />
-        <MobileStickyCTA />
       </body>
     </html>
   );
