@@ -5,7 +5,17 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FileText } from "lucide-react";
 
-const HIDDEN_PATHS = new Set(["/signage", "/es/letreros"]);
+const HIDDEN_PATHS = new Set([
+  "/signage",
+  "/es/letreros",
+  "/quote-request",
+  "/es/solicitar-cotizacion",
+  "/contact",
+  "/es/contacto",
+  "/free-visibility-check",
+  "/es/chequeo-gratis-de-visibilidad",
+]);
+const QUOTE_BUTTON_SCROLL_THRESHOLD = 720;
 
 export default function FloatingQuoteButton() {
   const pathname = usePathname();
@@ -15,7 +25,7 @@ export default function FloatingQuoteButton() {
     let ticking = false;
 
     const updateVisibility = () => {
-      const nextVisible = window.scrollY > 240;
+      const nextVisible = window.scrollY > QUOTE_BUTTON_SCROLL_THRESHOLD;
       setVisible((current) => (current === nextVisible ? current : nextVisible));
       ticking = false;
     };
