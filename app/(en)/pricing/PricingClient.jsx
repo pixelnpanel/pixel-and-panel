@@ -15,7 +15,10 @@ import { fadeUp, stagger, scaleIn, viewport } from '@/lib/animations'
 const WEBSITE_PACKAGES = [
   {
     name: 'Launch Page',
-    price: 'Starting at $299',
+    badge: 'QUICK START',
+    tone: 'entry',
+    pricePrefix: 'Starting at',
+    price: '$299',
     description:
       'A simple one-page website for personal brands, portfolios, or businesses that need a clean online starting point.',
     bestFor:
@@ -28,12 +31,17 @@ const WEBSITE_PACKAGES = [
       'Professional email setup guidance',
       '1 round of revisions',
     ],
-    cta: 'Start with a Launch Page',
-    href: '/quote-request?product=Launch%20Page&category=Digital%20Services',
+    cta: 'Get This Quote',
+    href: '/quote-request?package=Launch%20Page&category=Digital%20Package',
   },
   {
     name: 'Starter Web Presence',
-    price: 'Starting at $499',
+    badge: 'LAUNCH OFFER',
+    tone: 'starter',
+    regularPrice: '$599',
+    pricePrefix: 'Starting at',
+    price: '$499',
+    savings: 'Save $100',
     description:
       'A clean starter website for new small businesses that need a professional online presence.',
     bestFor:
@@ -47,14 +55,17 @@ const WEBSITE_PACKAGES = [
       'Professional email setup guidance',
       '1 round of revisions',
     ],
-    cta: 'Get a Starter Website',
-    href: '/quote-request?product=Starter%20Web%20Presence&category=Digital%20Services',
+    cta: 'Get This Quote',
+    href: '/quote-request?package=Starter%20Web%20Presence&category=Digital%20Package',
   },
   {
     name: 'Local Business Website',
-    price: 'Starting at $799',
-    badge: 'Most Popular',
-    tone: 'dark',
+    badge: 'MOST POPULAR',
+    tone: 'popular',
+    regularPrice: '$899',
+    pricePrefix: 'Starting at',
+    price: '$799',
+    savings: 'Save $100',
     description:
       'A stronger website package for local businesses that need service pages, lead capture, and better Google visibility.',
     bestFor:
@@ -70,14 +81,17 @@ const WEBSITE_PACKAGES = [
       'Google Analytics setup',
       '2 rounds of revisions',
     ],
-    cta: 'Get a Local Website Quote',
-    href: '/quote-request?product=Local%20Business%20Website&category=Digital%20Services',
+    cta: 'Get This Quote',
+    href: '/quote-request?package=Local%20Business%20Website&category=Digital%20Package',
   },
   {
     name: 'Website + Visibility Setup',
-    price: 'Starting at $999',
-    badge: 'Best Value',
+    badge: 'BEST VALUE',
     tone: 'value',
+    regularPrice: '$1,199',
+    pricePrefix: 'Starting at',
+    price: '$999',
+    savings: 'Save $200',
     description:
       'A website and visibility package that connects your site, Google presence, lead capture, and QR campaign setup.',
     bestFor: 'Businesses that want a complete starter visibility system.',
@@ -91,8 +105,8 @@ const WEBSITE_PACKAGES = [
       'Basic visitor tracking setup',
       '2 rounds of revisions',
     ],
-    cta: 'Build My Visibility System',
-    href: '/quote-request?product=Website%20%2B%20Visibility%20Setup&category=Digital%20Services',
+    cta: 'Get This Quote',
+    href: '/quote-request?package=Website%20%2B%20Visibility%20Setup&category=Digital%20Package',
   },
 ]
 
@@ -199,6 +213,7 @@ const DEFAULT_COPY = {
   packageTitle: 'Foundational Digital Visibility Packages',
   packageCopy:
     'Fixed starter rates for small business websites, local SEO foundations, Google Profile support, and lead capture tools.',
+  launchPricingNote: 'Limited launch pricing for early Pixel & Panel clients.',
   packageNoteStart: 'Looking for the services behind these packages? Review the',
   packageNoteDigital: 'digital services',
   packageNoteMiddle: 'page, start with a',
@@ -289,36 +304,73 @@ function SectionIntro({ label, title, copy, align = 'center' }) {
 }
 
 function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
-  const isDark = pkg.tone === 'dark'
+  const isDark = pkg.tone === 'popular' || pkg.tone === 'dark'
+  const isStarter = pkg.tone === 'starter'
   const isValue = pkg.tone === 'value'
+  const accentColor = isValue ? colors.amber : isStarter ? colors.sky : colors.deep
+  const cardBackground = isDark
+    ? `linear-gradient(145deg, ${colors.dark} 0%, ${colors.deep} 100%)`
+    : isValue
+      ? `linear-gradient(180deg, rgba(245, 158, 11, 0.13) 0%, ${colors.cream} 42%, ${colors.cream} 100%)`
+      : isStarter
+        ? `linear-gradient(180deg, rgba(14, 165, 233, 0.12) 0%, ${colors.cream} 42%, ${colors.cream} 100%)`
+        : colors.cream
+  const borderColor = isDark || isValue
+    ? colors.amber
+    : isStarter
+      ? 'rgba(14, 165, 233, 0.42)'
+      : 'rgba(3, 105, 161, 0.18)'
+  const badgeBackground = isDark || isValue
+    ? colors.amber
+    : isStarter
+      ? 'rgba(14, 165, 233, 0.14)'
+      : 'rgba(3, 105, 161, 0.1)'
+  const badgeColor = isDark || isValue ? colors.dark : accentColor
+  const bodyColor = isDark ? 'rgba(250, 248, 244, 0.82)' : colors.dark
+  const mutedColor = isDark ? 'rgba(250, 248, 244, 0.74)' : 'rgba(28, 25, 23, 0.72)'
+  const priceValue = pkg.price || ''
 
   return (
     <motion.article
       variants={scaleIn}
       className="white-card"
       style={{
-        background: isDark ? colors.navy : 'white',
-        borderColor: isDark || isValue ? colors.amber : '#e8eef2',
+        background: cardBackground,
+        borderColor,
         borderWidth: isDark || isValue ? '2px' : '1px',
         borderStyle: 'solid',
-        borderRadius: '1rem',
+        borderRadius: '0.9rem',
         boxShadow: isDark
-          ? '0 24px 60px rgba(12, 30, 60, 0.22)'
-          : '0 16px 42px rgba(12, 30, 60, 0.08)',
+          ? '0 28px 70px rgba(28, 25, 23, 0.24)'
+          : isValue
+            ? '0 24px 60px rgba(245, 158, 11, 0.18)'
+            : '0 18px 48px rgba(3, 105, 161, 0.1)',
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
-        padding: '1.5rem',
+        overflow: 'hidden',
+        padding: '1.6rem',
         position: 'relative',
       }}
     >
+      <div
+        aria-hidden="true"
+        style={{
+          background: accentColor,
+          height: '5px',
+          left: 0,
+          position: 'absolute',
+          right: 0,
+          top: 0,
+        }}
+      />
       {pkg.badge && (
         <span
           style={{
             alignSelf: 'flex-start',
-            background: colors.amber,
+            background: badgeBackground,
             borderRadius: '999px',
-            color: colors.dark,
+            color: badgeColor,
             fontFamily: 'var(--font-heading)',
             fontSize: '0.72rem',
             fontWeight: 800,
@@ -331,35 +383,134 @@ function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
           {pkg.badge}
         </span>
       )}
-      <h3 style={{ color: isDark ? 'white' : colors.dark, marginBottom: '0.5rem' }}>
+      <h3 style={{ color: isDark ? colors.cream : colors.dark, marginBottom: '0.5rem' }}>
         {pkg.name}
       </h3>
       <p
         style={{
-          color: isDark ? 'rgba(255,255,255,0.72)' : '#5f6f7d',
+          color: mutedColor,
           lineHeight: 1.65,
-          marginBottom: '1.25rem',
+          marginBottom: '1.35rem',
         }}
       >
         {pkg.description}
       </p>
+      {pkg.regularPrice && (
+        <div
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+            marginBottom: '0.55rem',
+          }}
+        >
+          <span
+            style={{
+              color: mutedColor,
+              fontFamily: 'var(--font-heading)',
+              fontSize: '0.78rem',
+              fontWeight: 800,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Regular
+          </span>
+          <span
+            style={{
+              color: mutedColor,
+              fontFamily: 'var(--font-heading)',
+              fontSize: '0.95rem',
+              fontWeight: 800,
+              textDecoration: 'line-through',
+            }}
+          >
+            {pkg.regularPrice}
+          </span>
+          {pkg.savings && (
+            <span
+              style={{
+                background: isDark ? 'rgba(245, 158, 11, 0.16)' : 'rgba(245, 158, 11, 0.18)',
+                border: `1px solid rgba(245, 158, 11, ${isDark ? 0.4 : 0.32})`,
+                borderRadius: '999px',
+                color: isDark ? colors.amber : colors.dark,
+                fontFamily: 'var(--font-heading)',
+                fontSize: '0.72rem',
+                fontWeight: 800,
+                padding: '0.2rem 0.55rem',
+              }}
+            >
+              {pkg.savings}
+            </span>
+          )}
+        </div>
+      )}
       <div
         style={{
-          color: isDark ? 'white' : colors.dark,
+          color: isDark ? colors.cream : colors.dark,
           fontFamily: 'var(--font-heading)',
-          fontSize: '1.65rem',
           fontWeight: 900,
           lineHeight: 1.1,
-          marginBottom: '1rem',
+          marginBottom: '1.25rem',
         }}
       >
-        {pkg.price}
+        {pkg.pricePrefix ? (
+          <>
+            <span
+              style={{
+                color: mutedColor,
+                display: 'block',
+                fontSize: '0.82rem',
+                letterSpacing: '0.08em',
+                marginBottom: '0.25rem',
+                textTransform: 'uppercase',
+              }}
+            >
+              {pkg.pricePrefix}
+            </span>
+            <span style={{ fontSize: '2.25rem' }}>{priceValue}</span>
+          </>
+        ) : (
+          <span style={{ fontSize: '1.65rem' }}>{priceValue}</span>
+        )}
       </div>
+      <Link
+        href={pkg.href}
+        className="btn-amber"
+        style={{
+          boxShadow: isDark
+            ? '0 14px 30px rgba(245, 158, 11, 0.24)'
+            : '0 12px 26px rgba(245, 158, 11, 0.2)',
+          justifyContent: 'center',
+          maxWidth: '100%',
+          minHeight: '3.35rem',
+          padding: isDark ? '1rem 1.2rem' : '0.95rem 1.15rem',
+          textAlign: 'center',
+          whiteSpace: 'normal',
+          width: '100%',
+        }}
+      >
+        {pkg.cta} <ArrowRight size={15} />
+      </Link>
+      <p
+        style={{
+          color: mutedColor,
+          fontSize: '0.82rem',
+          fontWeight: 700,
+          marginBottom: '1.25rem',
+          marginTop: '0.75rem',
+          textAlign: 'center',
+        }}
+      >
+        No payment required today
+      </p>
       <div
         style={{
-          background: isDark ? 'rgba(255,255,255,0.08)' : '#F8FAFC',
+          background: isDark ? 'rgba(250, 248, 244, 0.08)' : 'rgba(250, 248, 244, 0.76)',
+          border: `1px solid ${isDark ? 'rgba(250, 248, 244, 0.14)' : 'rgba(3, 105, 161, 0.12)'}`,
           borderRadius: '0.75rem',
-          color: isDark ? 'rgba(255,255,255,0.76)' : '#475569',
+          color: mutedColor,
           lineHeight: 1.6,
           marginBottom: '1.25rem',
           padding: '0.875rem',
@@ -367,7 +518,7 @@ function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
       >
         <strong
           style={{
-            color: isDark ? colors.amber : colors.deep,
+            color: isDark ? colors.amber : accentColor,
             display: 'block',
             fontFamily: 'var(--font-heading)',
             fontSize: '0.78rem',
@@ -387,7 +538,7 @@ function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
           flexDirection: 'column',
           gap: '0.7rem',
           listStyle: 'none',
-          margin: '0 0 1.5rem',
+          margin: 0,
           padding: 0,
         }}
       >
@@ -396,7 +547,7 @@ function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
             key={feature}
             style={{
               alignItems: 'flex-start',
-              color: isDark ? 'rgba(255,255,255,0.84)' : '#475569',
+              color: bodyColor,
               display: 'flex',
               gap: '0.6rem',
               lineHeight: 1.45,
@@ -404,25 +555,13 @@ function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
           >
             <CheckCircle
               size={16}
-              color={isDark ? colors.amber : colors.deep}
+              color={isDark || isValue ? colors.amber : accentColor}
               style={{ flexShrink: 0, marginTop: '0.18rem' }}
             />
             <span>{feature}</span>
           </li>
         ))}
       </ul>
-      <Link
-        href={pkg.href}
-        className="btn-amber"
-        style={{
-          justifyContent: 'center',
-          maxWidth: '100%',
-          textAlign: 'center',
-          whiteSpace: 'normal',
-        }}
-      >
-        {pkg.cta} <ArrowRight size={15} />
-      </Link>
     </motion.article>
   )
 }
@@ -580,6 +719,31 @@ export default function PricingPage({
             title={copy.packageTitle}
             copy={copy.packageCopy}
           />
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            style={{
+              alignItems: 'center',
+              background: 'rgba(245, 158, 11, 0.13)',
+              border: '1px solid rgba(245, 158, 11, 0.28)',
+              borderRadius: '999px',
+              color: colors.dark,
+              display: 'flex',
+              fontFamily: 'var(--font-heading)',
+              fontSize: '0.88rem',
+              fontWeight: 800,
+              justifyContent: 'center',
+              lineHeight: 1.4,
+              margin: '-1rem auto 2rem',
+              maxWidth: '520px',
+              padding: '0.75rem 1rem',
+              textAlign: 'center',
+            }}
+          >
+            {copy.launchPricingNote}
+          </motion.div>
           <motion.div
             variants={stagger}
             initial="hidden"

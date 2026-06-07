@@ -54,9 +54,11 @@ const defaultCopy = {
     "Free consultation included",
   ],
   productSelected: "Product Selected",
+  packageSelected: "Package Selected",
   formTitle: "Get a Free Quote",
   pickerHelp: "What can we help you with?",
   contactNote: "Takes less than 2 minutes.",
+  packageContactRequirement: "Only your name and phone number are required. Add more details if you want.",
   detailsNote: "Almost there — tell us about your project.",
   stepCounterPrefix: "Step",
   stepCounterMiddle: "of",
@@ -112,23 +114,47 @@ const defaultCopy = {
 
 // Step logic:
 //   showPicker (English, no preselected product): 3 steps — 0=service picker, 1=contact, 2=details
-//   otherwise (preselected product or product field mode): 2 steps — 1=contact, 2=details
-export default function QuoteRequestClient({ selectedProduct = "", selectedCategory = "", copy = {} }) {
+//   otherwise (preselected product/package or product field mode): 2 steps — 1=contact, 2=details
+export default function QuoteRequestClient({
+  selectedProduct = "",
+  selectedPackage = "",
+  selectedCategory = "",
+  copy = {},
+}) {
   const searchParams = useSearchParams();
   const queryProduct = searchParams.get("product") || "";
+  const queryPackage = searchParams.get("package") || "";
   const queryCategory = searchParams.get("category") || "";
   const requestedProduct = selectedProduct || queryProduct;
+  const requestedPackage = requestedProduct ? "" : (selectedPackage || queryPackage);
   const requestedCategory = selectedCategory || queryCategory;
   const content = { ...defaultCopy, ...copy };
+  const selectedItem = requestedProduct
+    ? {
+        type: "product",
+        heading: content.productSelected,
+        name: requestedProduct,
+        category: requestedCategory,
+      }
+    : requestedPackage
+      ? {
+          type: "package",
+          heading: content.packageSelected,
+          name: requestedPackage,
+          category: requestedCategory,
+        }
+      : null;
 
-  const hasPreselected = Boolean(requestedProduct);
+  const hasPreselected = Boolean(selectedItem);
+  const hasPackageRequest = selectedItem?.type === "package";
   const showPicker = !hasPreselected && !content.showProductField;
+  const showBusinessName = content.showBusinessName || hasPackageRequest;
   const initialStep = showPicker ? 0 : 1;
   const totalSteps = showPicker ? 3 : 2;
 
   const [step, setStep] = useState(initialStep);
   const [pickedService, setPickedService] = useState(
-    hasPreselected ? { label: requestedProduct, category: requestedCategory } : null
+    hasPreselected ? { label: selectedItem.name, category: selectedItem.category } : null
   );
 
   const [name, setName] = useState("");
@@ -137,11 +163,13 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
   const [phone, setPhone] = useState("");
   const [productField, setProductField] = useState(
     hasPreselected
-      ? (requestedCategory ? `${requestedCategory} — ${requestedProduct}` : requestedProduct)
+      ? (selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name)
       : ""
   );
   const [message, setMessage] = useState(
-    hasPreselected ? content.defaultMessageTemplate.replace("{product}", requestedProduct) : ""
+    hasPreselected && selectedItem.type === "product"
+      ? content.defaultMessageTemplate.replace("{product}", selectedItem.name)
+      : ""
   );
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -160,12 +188,12 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
     return () => mediaQuery.removeEventListener("change", updateScreenState);
   }, []);
 
-  const effectiveProduct = hasPreselected ? requestedProduct : (pickedService?.label || productField || "");
-  const effectiveCategory = hasPreselected ? requestedCategory : (pickedService?.category || "");
+  const effectiveProduct = hasPreselected ? selectedItem.name : (pickedService?.label || productField || "");
+  const effectiveCategory = hasPreselected ? selectedItem.category : (pickedService?.category || "");
   const hiddenProductValue = effectiveProduct
     ? (effectiveCategory ? `${effectiveCategory} — ${effectiveProduct}` : effectiveProduct)
     : "General Quote";
-  const hasContact = Boolean(email.trim() || phone.trim());
+  const hasContact = hasPackageRequest ? Boolean(phone.trim()) : Boolean(email.trim() || phone.trim());
 
   const displayStep = step - initialStep + 1;
   const stepLabel = showPicker
@@ -216,11 +244,14 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
 
     const formData = new FormData();
     formData.set("name", name);
-    if (content.showBusinessName && businessName) formData.set("businessName", businessName);
+    if (showBusinessName && businessName) formData.set("businessName", businessName);
     formData.set("email", email);
     if (phone) formData.set("phone", phone);
     formData.set("message", message);
     formData.set("productService", hiddenProductValue);
+    if (selectedItem?.category) formData.set("selectedCategory", selectedItem.category);
+    if (selectedItem?.type === "product") formData.set("selectedProduct", selectedItem.name);
+    if (selectedItem?.type === "package") formData.set("selectedPackage", selectedItem.name);
     formData.set("language", content.language);
     formData.set("sourcePage", typeof window !== "undefined" ? window.location.href : "Quote Request Page");
     formData.set("company", ""); // honeypot — empty for real users
@@ -294,16 +325,16 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
             className="mobile-reveal min-w-0 w-[calc(100vw-3rem)] max-w-[calc(100vw-3rem)] overflow-hidden rounded-[2rem] bg-white p-8 text-[#1C1917] shadow-2xl sm:p-10 lg:w-auto lg:max-w-none"
             style={{ "--reveal-delay": "90ms" }}
           >
-            {/* Pre-selected product banner */}
-            {hasPreselected && (
+            {/* Pre-selected product/package banner */}
+            {selectedItem && (
               <div className="mb-6 flex items-center gap-4 rounded-2xl border border-[#F59E0B]/30 bg-[#F59E0B]/10 p-4">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F59E0B] text-[#1C1917]">
                   <Package className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-[#1C1917]">{content.productSelected}</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#1C1917]">{selectedItem.heading}</p>
                   <p className="mt-1 text-sm font-medium text-slate-700">
-                    {requestedCategory ? `${requestedCategory} — ${requestedProduct}` : requestedProduct}
+                    {selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name}
                   </p>
                 </div>
               </div>
@@ -428,7 +459,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
                         />
                       </div>
-                      {content.showBusinessName && (
+                      {showBusinessName && (
                         <div>
                           <label htmlFor="q-business" className="mb-2 block text-xs font-bold uppercase tracking-wide">
                             {content.businessName}
@@ -455,7 +486,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                       </div>
                       <div>
                         <label htmlFor="q-phone" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          {content.phone}
+                          {content.phone}{hasPackageRequest ? " *" : ""}
                         </label>
                         <input
                           id="q-phone" type="tel" autoComplete="tel"
@@ -466,7 +497,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                         />
                       </div>
                       <p id="quote-contact-requirement" className="text-xs font-medium text-slate-500">
-                        {content.contactRequirement}
+                        {hasPackageRequest ? content.packageContactRequirement : content.contactRequirement}
                       </p>
                     </div>
 
@@ -508,10 +539,10 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
 
                       <div>
                         <label htmlFor="quote-message" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          {content.message} *
+                          {content.message}{hasPackageRequest ? "" : " *"}
                         </label>
                         <textarea
-                          id="quote-message" required rows={5}
+                          id="quote-message" required={!hasPackageRequest} rows={5}
                           value={message} onChange={(e) => setMessage(e.target.value)}
                           placeholder={content.messagePlaceholder}
                           className="w-full resize-none rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
@@ -572,7 +603,7 @@ export default function QuoteRequestClient({ selectedProduct = "", selectedCateg
                       </button>
                       <button
                         type="submit"
-                        disabled={loading || !message.trim()}
+                        disabled={loading || (!hasPackageRequest && !message.trim())}
                         className="group flex flex-1 items-center justify-center gap-3 rounded-xl bg-[#F59E0B] px-6 py-4 text-sm font-bold uppercase tracking-widest text-[#1C1917] transition hover:-translate-y-0.5 hover:bg-[#FBBF24] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
                       >
                         {loading ? content.sending : content.submit}

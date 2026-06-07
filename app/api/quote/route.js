@@ -28,19 +28,50 @@ function isAllowedAttachment(file) {
   return ALLOWED_TYPES.has(file.type) || ALLOWED_EXTENSIONS.has(getFileExtension(file.name));
 }
 
-function buildEmail({ name, businessName, email, phone, productService, sourcePage, message, language, hasAttachment }) {
+function buildEmail({
+  name,
+  businessName,
+  email,
+  phone,
+  productService,
+  selectedCategory,
+  selectedProduct,
+  selectedPackage,
+  sourcePage,
+  message,
+  language,
+  hasAttachment,
+}) {
   const submittedAt = new Date().toLocaleString("en-US", {
     timeZone: "America/Chicago",
     dateStyle: "medium",
     timeStyle: "short",
   });
+  const isProductRequest = Boolean(selectedProduct);
+  const isPackageRequest = !isProductRequest && Boolean(selectedPackage);
+  const emptyFallback = isPackageRequest ? "" : "Not provided";
+  const selectedLines = isProductRequest
+    ? [
+        `Selected Category: ${selectedCategory || "Not provided"}`,
+        `Selected Product: ${selectedProduct}`,
+      ]
+    : isPackageRequest
+      ? [
+          `Selected Category: ${selectedCategory || ""}`,
+          `Selected Package: ${selectedPackage}`,
+        ]
+      : [];
+  const messageLabel = isPackageRequest ? "Message / Notes" : "Message";
 
   const safe = {
     name: escapeHtml(name),
-    businessName: escapeHtml(businessName || "Not provided"),
-    email: escapeHtml(email || "Not provided"),
-    phone: escapeHtml(phone || "Not provided"),
+    businessName: escapeHtml(businessName || emptyFallback),
+    email: escapeHtml(email || emptyFallback),
+    phone: escapeHtml(phone || emptyFallback),
     productService: escapeHtml(productService || "General Quote"),
+    selectedCategory: escapeHtml(selectedCategory || emptyFallback),
+    selectedProduct: escapeHtml(selectedProduct || emptyFallback),
+    selectedPackage: escapeHtml(selectedPackage || emptyFallback),
     sourcePage: escapeHtml(sourcePage || "Not provided"),
     message: escapeHtml(message),
     language: escapeHtml(language || "English"),
@@ -53,16 +84,17 @@ function buildEmail({ name, businessName, email, phone, productService, sourcePa
       : "New quote request from www.pixelnpanel.com",
     "",
     `Language: ${language || "English"}`,
+    ...selectedLines,
     `Name: ${name}`,
-    `Business: ${businessName || "Not provided"}`,
-    `Email: ${email || "Not provided"}`,
-    `Phone: ${phone || "Not provided"}`,
-    `Product/Service: ${productService || "General Quote"}`,
+    `Phone Number: ${phone || emptyFallback}`,
+    `Business Name: ${businessName || emptyFallback}`,
+    `Email: ${email || emptyFallback}`,
+    ...(!isPackageRequest ? [`Product/Service: ${productService || "General Quote"}`] : []),
     `Source Page: ${sourcePage || "Not provided"}`,
     `Submitted: ${submittedAt} CT`,
     hasAttachment ? "Attachment: yes (see attached file)" : "",
     "",
-    "Message:",
+    `${messageLabel}:`,
     message,
   ].filter((l) => l !== undefined).join("\n");
 
@@ -72,18 +104,22 @@ function buildEmail({ name, businessName, email, phone, productService, sourcePa
       <table style="border-collapse: collapse; width: 100%; margin: 0 0 20px;">
         <tbody>
           <tr><td style="padding: 8px 0; font-weight: 700;">Language</td><td style="padding: 8px 0;">${safe.language}</td></tr>
+          ${isProductRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Category</td><td style="padding: 8px 0;">${safe.selectedCategory}</td></tr>` : ""}
+          ${isProductRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Product</td><td style="padding: 8px 0;">${safe.selectedProduct}</td></tr>` : ""}
+          ${isPackageRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Category</td><td style="padding: 8px 0;">${safe.selectedCategory}</td></tr>` : ""}
+          ${isPackageRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Package</td><td style="padding: 8px 0;">${safe.selectedPackage}</td></tr>` : ""}
           <tr><td style="padding: 8px 0; font-weight: 700;">Name</td><td style="padding: 8px 0;">${safe.name}</td></tr>
-          <tr><td style="padding: 8px 0; font-weight: 700;">Business</td><td style="padding: 8px 0;">${safe.businessName}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: 700;">Phone Number</td><td style="padding: 8px 0;">${safe.phone}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: 700;">Business Name</td><td style="padding: 8px 0;">${safe.businessName}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Email</td><td style="padding: 8px 0;">${safe.email}</td></tr>
-          <tr><td style="padding: 8px 0; font-weight: 700;">Phone</td><td style="padding: 8px 0;">${safe.phone}</td></tr>
-          <tr><td style="padding: 8px 0; font-weight: 700;">Product/Service</td><td style="padding: 8px 0;">${safe.productService}</td></tr>
+          ${!isPackageRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Product/Service</td><td style="padding: 8px 0;">${safe.productService}</td></tr>` : ""}
           <tr><td style="padding: 8px 0; font-weight: 700;">Source Page</td><td style="padding: 8px 0;">${safe.sourcePage}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Submitted</td><td style="padding: 8px 0;">${safe.submittedAt}</td></tr>
           ${hasAttachment ? '<tr><td style="padding: 8px 0; font-weight: 700;">Attachment</td><td style="padding: 8px 0;">✓ See attached file</td></tr>' : ""}
         </tbody>
       </table>
       <div style="background: #FAF8F4; border-left: 4px solid #F59E0B; padding: 16px;">
-        <h2 style="font-size: 16px; margin: 0 0 8px; color: #1C1917;">Message</h2>
+        <h2 style="font-size: 16px; margin: 0 0 8px; color: #1C1917;">${messageLabel}</h2>
         <p style="white-space: pre-wrap; margin: 0;">${safe.message}</p>
       </div>
     </div>
@@ -116,20 +152,33 @@ export async function POST(request) {
   const email = cleanText(formData.get("email"));
   const phone = cleanText(formData.get("phone"));
   const productService = cleanText(formData.get("productService")) || "General Quote";
+  const selectedCategory = cleanText(formData.get("selectedCategory"));
+  const selectedProduct = cleanText(formData.get("selectedProduct"));
+  const selectedPackageValue = cleanText(formData.get("selectedPackage"));
+  const selectedPackage = selectedProduct ? "" : selectedPackageValue;
   const message = cleanText(formData.get("message"));
   const company = cleanText(formData.get("company"));
   const sourcePage = cleanText(formData.get("sourcePage"));
   const language = cleanText(formData.get("language")) || "English";
+  const isPackageRequest = Boolean(selectedPackage);
 
   if (company) {
     return jsonResponse({ ok: true });
   }
 
-  if (!name || !message) {
+  if (!name) {
+    return jsonResponse({ error: "Name is required." }, 400);
+  }
+
+  if (isPackageRequest && !phone) {
+    return jsonResponse({ error: "Name and phone number are required." }, 400);
+  }
+
+  if (!isPackageRequest && !message) {
     return jsonResponse({ error: "Name and project details are required." }, 400);
   }
 
-  if (!email && !phone) {
+  if (!isPackageRequest && !email && !phone) {
     return jsonResponse({ error: "Email or phone is required." }, 400);
   }
 
@@ -157,6 +206,9 @@ export async function POST(request) {
     email,
     phone,
     productService,
+    selectedCategory,
+    selectedProduct,
+    selectedPackage,
     sourcePage,
     message,
     language,
