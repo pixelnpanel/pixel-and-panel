@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
-import ChatbaseWidget from "@/components/ChatbaseWidget";
+import GuidedQuoteHelper from "@/components/GuidedQuoteHelper";
 
 export const viewport = {
   themeColor: "#0C1E3C",
@@ -51,7 +51,7 @@ export default function EnglishRootLayout({ children }) {
           {children}
         </main>
         <Footer />
-        <ChatbaseWidget />
+        <GuidedQuoteHelper />
         <WhatsAppWidget />
       </body>
     </html>

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowRight, Search, Box, X } from 'lucide-react'
 import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
@@ -48,7 +48,7 @@ const DEFAULT_COPY = {
     bottomCopy: "Send us what you need, and we'll help you choose the right material, size, finish, and installation option.",
     bottomQuote: 'Get a Free Quote',
     bottomVisibility: 'Free Visibility Check',
-    mobileSearchLabel: 'Search Products',
+    mobileSearchLabel: 'Search Signage',
     mobileSearchPlaceholder: 'Search banners, decals, menus, yard signs...',
     mobileNoResultsCopy: 'Try banner, yard sign, vehicle, window, menu, or business card.',
     quoteCategoryFallback: 'Signage',
@@ -84,13 +84,46 @@ const getSearchableText = (product) => [
     .join(' ')
     .toLowerCase()
 
+const getProductSearchScore = (product, query) => {
+    if (!query) return 1
+
+    const name = (product.name || '').toLowerCase()
+    const category = (product.categoryName || '').toLowerCase()
+    const categorySlug = (product.categorySlug || '').toLowerCase()
+    const keywords = [...(product.searchKeywords || []), ...(product.tags || [])]
+        .join(' ')
+        .toLowerCase()
+    const description = (product.description || '').toLowerCase()
+    const queryWords = query.split(/\s+/).filter(Boolean)
+
+    let score = 0
+    if (name === query) score += 120
+    if (name.startsWith(query)) score += 80
+    if (name.includes(query)) score += 65
+    if (category.includes(query)) score += 38
+    if (keywords.includes(query)) score += 32
+    if (description.includes(query)) score += 14
+    if (categorySlug === 'vehicle-graphics' && queryWords.some((word) => ['car', 'cars', 'truck', 'trucks', 'van', 'vans', 'fleet', 'vehicle', 'vehicles'].includes(word))) score += 34
+    if (categorySlug === 'yard-real-estate-signs' && queryWords.some((word) => ['yard', 'lawn', 'realtor', 'realty', 'estate', 'open', 'house'].includes(word))) score += 26
+    if (categorySlug === 'vinyl-decals-window-graphics' && queryWords.some((word) => ['window', 'windows', 'glass', 'door', 'decal', 'decals', 'sticker', 'stickers'].includes(word))) score += 26
+
+    return score
+}
+
 export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY, initialCategorySlug = ALL_PRODUCTS_SLUG }) {
     const content = useMemo(() => ({ ...DEFAULT_COPY, ...copy }), [copy])
     const router = useRouter()
     const searchParams = useSearchParams()
     const categoryFromUrl = searchParams.get('category') || initialCategorySlug
     const productAreaRef = useRef(null)
+    const productGridRef = useRef(null)
+    const productCardRefs = useRef(new Map())
+    const mobileSearchInputRef = useRef(null)
     const [searchTerm, setSearchTerm] = useState('')
+    const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
+    const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false)
+    const [mobileSearchTerm, setMobileSearchTerm] = useState('')
+    const [highlightedProductKey, setHighlightedProductKey] = useState('')
     const [selectedSlug, setSelectedSlug] = useState(categoryFromUrl)
 
     const allProducts = useMemo(() => {
@@ -144,6 +177,91 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const selectedHeading = selectedCategory?.isAllProducts
         ? content.allHeading
         : selectedCategory.name
+    const isAllProductsSelected = Boolean(selectedCategory?.isAllProducts)
+
+    const mobileSearchResults = useMemo(() => {
+        const query = mobileSearchTerm.trim().toLowerCase()
+
+        if (!query) return allProducts
+
+        return allProducts
+            .map((product, index) => ({
+                product,
+                index,
+                score: getProductSearchScore(product, query),
+            }))
+            .filter(({ product, score }) => score > 0 || getSearchableText(product).includes(query))
+            .sort((a, b) => (
+                b.score - a.score ||
+                a.product.name.localeCompare(b.product.name, undefined, { sensitivity: 'base' }) ||
+                a.index - b.index
+            ))
+            .map(({ product }) => product)
+    }, [allProducts, mobileSearchTerm])
+
+    useEffect(() => {
+        const updateFloatingSearchVisibility = () => {
+            if (typeof window === 'undefined') return
+
+            const isMobile = window.matchMedia('(max-width: 767px)').matches
+            const productArea = productAreaRef.current
+            const productGrid = productGridRef.current
+
+            if (!isMobile || !isAllProductsSelected || isSearchSheetOpen || !productArea || !productGrid) {
+                setIsFloatingSearchVisible(false)
+                return
+            }
+
+            const firstCard = productGrid.querySelector('[data-product-card="true"]')
+            const cardHeight = firstCard?.getBoundingClientRect().height || 360
+            const scrollY = window.scrollY || window.pageYOffset
+            const gridTop = productGrid.getBoundingClientRect().top + scrollY
+            const productAreaBottom = productArea.getBoundingClientRect().bottom + scrollY
+            const appearsAfterCards = scrollY > gridTop + cardHeight * 2.2
+            const beforeFooter = scrollY + window.innerHeight < productAreaBottom - 160
+
+            setIsFloatingSearchVisible(appearsAfterCards && beforeFooter)
+        }
+
+        updateFloatingSearchVisibility()
+        window.addEventListener('scroll', updateFloatingSearchVisibility, { passive: true })
+        window.addEventListener('resize', updateFloatingSearchVisibility)
+
+        return () => {
+            window.removeEventListener('scroll', updateFloatingSearchVisibility)
+            window.removeEventListener('resize', updateFloatingSearchVisibility)
+        }
+    }, [isAllProductsSelected, isSearchSheetOpen, selectedSlug])
+
+    useEffect(() => {
+        if (!isSearchSheetOpen) return undefined
+
+        const previousOverflow = document.body.style.overflow
+        document.body.style.overflow = 'hidden'
+        const focusTimer = window.setTimeout(() => mobileSearchInputRef.current?.focus(), 120)
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setIsSearchSheetOpen(false)
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            document.body.style.overflow = previousOverflow
+            window.clearTimeout(focusTimer)
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [isSearchSheetOpen])
+
+    useEffect(() => {
+        if (!highlightedProductKey) return undefined
+
+        const highlightTimer = window.setTimeout(() => setHighlightedProductKey(''), 1800)
+
+        return () => window.clearTimeout(highlightTimer)
+    }, [highlightedProductKey])
 
     const handleCategoryClick = (slug) => {
         const params = new URLSearchParams()
@@ -165,6 +283,23 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const getProductLink = (product) => {
         const productSlug = content.productSlugMap[product.slug] || product.slug
         return productSlug ? `${content.basePath}/${productSlug}` : content.basePath
+    }
+
+    const handleFloatingSearchClick = () => {
+        setIsSearchSheetOpen(true)
+    }
+
+    const handleSearchResultClick = (product) => {
+        const productKey = getProductKey(product)
+        setSearchTerm('')
+        setIsSearchSheetOpen(false)
+        setMobileSearchTerm('')
+        setHighlightedProductKey(productKey)
+
+        window.setTimeout(() => {
+            const targetCard = productCardRefs.current.get(productKey)
+            targetCard?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 80)
     }
 
     return (
@@ -341,16 +476,29 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         {/* PRODUCT GRID — cards animate in when category changes */}
                         {filteredProducts.length > 0 ? (
                             <div
+                                ref={productGridRef}
                                 key={selectedCategory.slug + '-grid-' + normalizedSearchTerm}
                                 className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
                             >
                                 {filteredProducts.map((product) => {
                                     const productKey = getProductKey(product)
+                                    const isHighlighted = highlightedProductKey === productKey
 
                                     return (
                                         <article
                                             key={productKey}
-                                            className="group scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+                                            ref={(node) => {
+                                                if (node) {
+                                                    productCardRefs.current.set(productKey, node)
+                                                } else {
+                                                    productCardRefs.current.delete(productKey)
+                                                }
+                                            }}
+                                            data-product-card="true"
+                                            className={`group scroll-mt-24 overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${isHighlighted
+                                                ? 'border-[#F59E0B] shadow-[0_0_0_4px_rgba(245,158,11,0.22),0_18px_44px_rgba(245,158,11,0.2)]'
+                                                : 'border-slate-200'
+                                                }`}
                                         >
                                             <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
                                                 {product.image ? (
@@ -433,6 +581,115 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     </div>
                 </div>
             </section>
+
+            <button
+                type="button"
+                aria-label={content.mobileSearchLabel}
+                aria-controls="mobile-product-search"
+                aria-expanded={isSearchSheetOpen}
+                onClick={handleFloatingSearchClick}
+                tabIndex={isFloatingSearchVisible ? 0 : -1}
+                className={`fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#FBBF24] bg-[#F59E0B] text-[#1C1917] shadow-[0_16px_38px_rgba(28,25,23,0.28)] transition-[opacity,transform,background-color] duration-200 hover:bg-[#FBBF24] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/35 md:hidden ${isFloatingSearchVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+                    }`}
+            >
+                <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.28),rgba(255,255,255,0))]" />
+                <span className="relative flex items-center justify-center">
+                    <Search size={24} strokeWidth={2.7} />
+                </span>
+            </button>
+
+            {isSearchSheetOpen && (
+                <div className="fixed inset-0 z-50 md:hidden">
+                    <button
+                        type="button"
+                        aria-label="Close product search"
+                        className="absolute inset-0 bg-[#1C1917]/38 backdrop-blur-[2px]"
+                        onClick={() => setIsSearchSheetOpen(false)}
+                    />
+                    <section
+                        id="mobile-product-search"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="mobile-product-search-title"
+                        className="absolute inset-x-0 bottom-0 max-h-[82vh] overflow-hidden rounded-t-[1.75rem] border border-white/70 bg-[#FAF8F4]/95 shadow-[0_-20px_70px_rgba(28,25,23,0.26)] backdrop-blur-2xl"
+                    >
+                        <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-slate-300" />
+                        <div className="flex items-center justify-between px-5 pb-4 pt-5">
+                            <h2 id="mobile-product-search-title" className="text-xl text-[#1C1917]">
+                                {content.mobileSearchLabel}
+                            </h2>
+                            <button
+                                type="button"
+                                onClick={() => setIsSearchSheetOpen(false)}
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-[#1C1917] shadow-sm transition hover:border-[#F59E0B] focus:outline-none focus:ring-4 focus:ring-[#0EA5E9]/20"
+                                aria-label="Close search products"
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
+
+                        <div className="px-5 pb-4">
+                            <div className="relative">
+                                <Search size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0369A1]" />
+                                <input
+                                    ref={mobileSearchInputRef}
+                                    type="search"
+                                    value={mobileSearchTerm}
+                                    onChange={(event) => setMobileSearchTerm(event.target.value)}
+                                    placeholder={content.mobileSearchPlaceholder}
+                                    className="w-full rounded-2xl border border-slate-200 bg-white/90 py-4 pl-12 pr-4 text-base text-[#1C1917] shadow-inner outline-none transition placeholder:text-slate-400 focus:border-[#0EA5E9] focus:ring-4 focus:ring-[#0EA5E9]/15"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="max-h-[54vh] overflow-y-auto px-5 pb-6">
+                            {mobileSearchResults.length > 0 ? (
+                                <div className="grid gap-3">
+                                    {mobileSearchResults.map((product) => (
+                                        <button
+                                            key={`mobile-search-${getProductKey(product)}`}
+                                            type="button"
+                                            onClick={() => handleSearchResultClick(product)}
+                                            className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white/86 p-3 text-left shadow-sm transition hover:border-[#F59E0B]/70 hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#0EA5E9]/15"
+                                        >
+                                            <span className="relative flex h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-[#E0F2FE] text-[#0369A1]">
+                                                {product.image ? (
+                                                    <Image
+                                                        src={product.image}
+                                                        alt=""
+                                                        fill
+                                                        sizes="56px"
+                                                        className="object-cover"
+                                                    />
+                                                ) : (
+                                                    <span className="flex h-full w-full items-center justify-center">
+                                                        <Box size={20} />
+                                                    </span>
+                                                )}
+                                            </span>
+                                            <span className="min-w-0">
+                                                <span className="block font-heading text-base font-bold leading-tight text-[#1C1917]">
+                                                    {product.name}
+                                                </span>
+                                                <span className="mt-1 block text-sm text-slate-500">
+                                                    {product.categoryName}
+                                                </span>
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="rounded-2xl border border-dashed border-slate-300 bg-white/80 p-5 text-center">
+                                    <p className="font-heading font-bold text-[#1C1917]">{content.noResultsTitle}</p>
+                                    <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                                        {content.mobileNoResultsCopy}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </section>
+                </div>
+            )}
 
         </div>
     )

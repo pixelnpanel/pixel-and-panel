@@ -613,33 +613,3 @@
 .mobile-nav-scroll::-webkit-scrollbar {
   display: none;
 }
-
-/* Keep the public Chatbase launcher above the WhatsApp floating button. */
-#chatbase-bubble-button {
-  bottom: 6rem !important;
-  right: 1.5rem !important;
-  z-index: 60 !important;
-}
-
-#chatbase-bubble-window,
-#chatbase-message-bubbles {
-  bottom: 10.5rem !important;
-  right: 1.5rem !important;
-  z-index: 60 !important;
-}
-
-html:not(.chatbase-widget-visible):not(.__cb_widget_active) #chatbase-bubble-button,
-html:not(.chatbase-widget-visible):not(.__cb_widget_active) #chatbase-message-bubbles,
-html:not(.chatbase-widget-visible):not(.__cb_widget_active) #chatbase-bubble-window {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transform: translateY(0.75rem) !important;
-  visibility: hidden !important;
-}
-
-@media (max-width: 640px) {
-  #chatbase-bubble-window {
-    bottom: 0 !important;
-    right: 0 !important;
-  }
-}
