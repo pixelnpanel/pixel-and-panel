@@ -4,8 +4,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
-import FloatingQuoteButton from "@/components/ui/FloatingQuoteButton";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
+import ChatbaseWidget from "@/components/ChatbaseWidget";
 
 export const viewport = {
   themeColor: "#0C1E3C",
@@ -51,7 +51,7 @@ export default function EnglishRootLayout({ children }) {
           {children}
         </main>
         <Footer />
-        <FloatingQuoteButton />
+        <ChatbaseWidget />
         <WhatsAppWidget />
       </body>
     </html>
