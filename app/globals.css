@@ -628,9 +628,9 @@
   z-index: 60 !important;
 }
 
-html:not(.chatbase-widget-visible) #chatbase-bubble-button,
-html:not(.chatbase-widget-visible) #chatbase-message-bubbles,
-html:not(.chatbase-widget-visible) #chatbase-bubble-window {
+html:not(.chatbase-widget-visible):not(.__cb_widget_active) #chatbase-bubble-button,
+html:not(.chatbase-widget-visible):not(.__cb_widget_active) #chatbase-message-bubbles,
+html:not(.chatbase-widget-visible):not(.__cb_widget_active) #chatbase-bubble-window {
   opacity: 0 !important;
   pointer-events: none !important;
   transform: translateY(0.75rem) !important;
