@@ -35,6 +35,9 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  other: {
+    "facebook-domain-verification": "xrurc3oj4fr9szyqqy555vpi7ruom1",
+  },
 };
 
 export default function EnglishRootLayout({ children }) {
