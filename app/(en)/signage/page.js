@@ -4,9 +4,9 @@ import { signageCategories } from '@/lib/signage-data'
 
 export const metadata = {
     metadataBase: new URL('https://www.pixelnpanel.com'),
-    title: 'Custom Signs, Banners & Print Shop',
+    title: 'Custom Signs, Banners & Print in Beaumont and Port Arthur',
     description:
-        'Increase your storefront presence with store signs, exterior banners, yard signs, and custom fleet graphics in Beaumont, TX.',
+        'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
     alternates: {
         canonical: '/signage',
         languages: {
@@ -15,9 +15,9 @@ export const metadata = {
         },
     },
     openGraph: {
-        title: 'Custom Signs, Banners & Print Shop | Pixel & Panel',
+        title: 'Custom Signs, Banners & Print in Beaumont and Port Arthur | Pixel & Panel',
         description:
-            'Increase your storefront presence with store signs, exterior banners, yard signs, and custom fleet graphics in Beaumont, TX.',
+            'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
         url: '/signage',
         siteName: 'Pixel & Panel',
         locale: 'en_US',
@@ -25,9 +25,9 @@ export const metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Custom Signs, Banners & Print Shop | Pixel & Panel',
+        title: 'Custom Signs, Banners & Print in Beaumont and Port Arthur | Pixel & Panel',
         description:
-            'Increase your storefront presence with store signs, exterior banners, yard signs, and custom fleet graphics in Beaumont, TX.',
+            'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
     },
 }
 
