@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
+import FloatingQuoteButton from "@/components/ui/FloatingQuoteButton";
 
 export const viewport = {
   themeColor: "#0C1E3C",
@@ -56,6 +57,7 @@ export default function SpanishRootLayout({ children }) {
         </main>
         <Footer language="es" />
         <WhatsAppWidget />
+        <FloatingQuoteButton />
       </body>
     </html>
   );
