@@ -4,92 +4,66 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertCircle,
   CheckCircle2,
-  Eye,
-  LogOut,
+  Clipboard,
+  Clock3,
+  ExternalLink,
+  Link2,
   Loader2,
-  Lock,
+  LogOut,
   Plus,
   RefreshCw,
   Save,
   Trash2,
 } from "lucide-react";
+import { BRAND } from "@/lib/constants";
 import { orderProductOptions } from "@/lib/order-products";
-
-const statusOptions = [
-  ["quote_received", "Quote received"],
-  ["review_in_progress", "Review in progress"],
-  ["proof_ready", "Proof ready"],
-  ["awaiting_approval", "Awaiting approval"],
-  ["in_production", "In production"],
-  ["install_scheduled", "Install scheduled"],
-  ["completed", "Completed"],
-];
-
-const nextActionOptions = [
-  ["", "No customer action needed"],
-  ["Review the design proof and send approval or changes.", "Review proof / approve or request changes"],
-  ["Approve the invoice or payment request.", "Approve invoice or payment"],
-  ["Send artwork, logo files, photos, or missing project details.", "Send artwork or missing files"],
-  ["Confirm pickup details with Pixel & Panel.", "Confirm pickup details"],
-  ["Confirm delivery details with Pixel & Panel.", "Confirm delivery details"],
-  ["Confirm installation timing with Pixel & Panel.", "Confirm installation timing"],
-  ["We will contact you with the next step.", "Pixel & Panel will contact customer"],
-];
-
-const paymentStatusOptions = [
-  "Not invoiced",
-  "Invoice sent",
-  "Deposit requested",
-  "Deposit paid",
-  "Partially paid",
-  "Paid in full",
-  "Payment due at pickup",
-  "Refunded",
-];
-
-const proofStatusOptions = [
-  "Not ready",
-  "In design",
-  "Proof sent",
-  "Waiting for approval",
-  "Changes requested",
-  "Approved",
-  "No proof needed",
-];
-
-const productStatusOptions = [
-  "Not scheduled",
-  "Customer pickup",
-  "Ready for customer pickup",
-  "Awaiting customer pickup",
-  "Delivery scheduled",
-  "Out for delivery",
-  "Install scheduled",
-  "In installation",
-  "Shipped",
-  "Completed",
-];
+import {
+  orderStatusOptions,
+  paymentStatusOptions,
+  productStatusOptions,
+  proofStatusOptions,
+} from "@/lib/order-status";
 
 const emptyOrder = {
   orderNumber: "",
-  companyName: "",
+  company: "",
   customerName: "",
   customerEmail: "",
   customerPhone: "",
   projectName: "",
   productName: "",
-  productService: "",
+  service: "",
   quantity: "1",
-  unitRate: "",
+  unitPrice: "",
+  invoiceNumber: "",
+  invoiceTotal: "",
+  paymentStatus: "unpaid",
+  paymentMethod: "",
+  paymentReference: "",
+  shippingCharged: "",
+  taxCollected: "",
+  stripeFee: "",
+  orderStatus: "new",
+  proofStatus: "not_sent",
+  productStatus: "not_scheduled",
   orderDate: "",
-  paymentStatus: "Not invoiced",
-  proofStatus: "Not ready",
-  deliveryMethod: "Not scheduled",
-  status: "quote_received",
-  nextAction: "",
-  dueDate: "",
+  targetDate: "",
+  vendorName: "",
+  vendorOrderNumber: "",
+  vendorCost: "",
+  trackingNumber: "",
+  proofFileUrl: "",
+  invoiceUrl: "",
+  designFileUrl: "",
   publicNote: "",
-  updateBody: "",
+  firstTimelineNote: "",
+  internalNote: "",
+};
+
+const emptyTimelineDraft = {
+  title: "",
+  description: "",
+  isCustomerVisible: true,
 };
 
 const inputStyle = {
@@ -99,6 +73,7 @@ const inputStyle = {
   color: "#1C1917",
   padding: "0.72rem 0.8rem",
   outline: "none",
+  background: "white",
 };
 
 const labelStyle = {
@@ -111,7 +86,7 @@ const labelStyle = {
   textTransform: "uppercase",
 };
 
-const panelStyle = {
+const sectionStyle = {
   background: "#f8fafc",
   border: "1px solid #e2e8f0",
   borderRadius: "0.9rem",
@@ -124,9 +99,70 @@ const formGridStyle = {
   gap: "0.85rem",
 };
 
-function Field({ label, children }) {
+const sections = [
+  {
+    title: "Customer",
+    fields: [
+      { key: "orderNumber", label: "Order number", placeholder: "PNP-0245", required: true },
+      { key: "company", label: "Company", placeholder: "RoGo" },
+      { key: "customerName", label: "Customer name", placeholder: "Rolando Gonzalez" },
+      { key: "customerEmail", label: "Customer email", placeholder: "customer@email.com" },
+      { key: "customerPhone", label: "Customer phone", placeholder: "4092252012" },
+    ],
+  },
+  {
+    title: "Project",
+    fields: [
+      { key: "projectName", label: "Project name", placeholder: "Outdoor Sign" },
+      { key: "productName", label: "Product name", placeholder: "Coroplast Signs", list: "pnp-product-options" },
+      { key: "service", label: "Service", placeholder: "Design & Printing" },
+      { key: "quantity", label: "Quantity", type: "number", min: "1" },
+      { key: "unitPrice", label: "Unit price", type: "number", min: "0", step: "0.01", placeholder: "5.99" },
+      { key: "orderDate", label: "Order date", type: "date" },
+      { key: "targetDate", label: "Target date", type: "date" },
+    ],
+  },
+  {
+    title: "Invoice / payment",
+    fields: [
+      { key: "invoiceNumber", label: "Invoice number", placeholder: "INV-0245" },
+      { key: "invoiceTotal", label: "Invoice total", type: "number", min: "0", step: "0.01", placeholder: "81.08" },
+      { key: "paymentStatus", label: "Payment status", type: "select", options: paymentStatusOptions },
+      { key: "paymentMethod", label: "Payment method", placeholder: "Stripe, cash, check" },
+      { key: "paymentReference", label: "Payment reference", placeholder: "Manual reference" },
+      { key: "shippingCharged", label: "Shipping charged", type: "number", min: "0", step: "0.01" },
+      { key: "taxCollected", label: "Tax collected", type: "number", min: "0", step: "0.01" },
+      { key: "stripeFee", label: "Stripe fee", type: "number", min: "0", step: "0.01" },
+    ],
+  },
+  {
+    title: "Production",
+    fields: [
+      { key: "orderStatus", label: "Order status", type: "select", options: orderStatusOptions },
+      { key: "proofStatus", label: "Proof status", type: "select", options: proofStatusOptions },
+      { key: "productStatus", label: "Product status", type: "select", options: productStatusOptions },
+      { key: "vendorName", label: "Vendor name", placeholder: "Vendor or supplier" },
+      { key: "vendorOrderNumber", label: "Vendor order number", placeholder: "Vendor PO / order" },
+      { key: "vendorCost", label: "Vendor cost", type: "number", min: "0", step: "0.01" },
+      { key: "trackingNumber", label: "Tracking number", placeholder: "Shipment tracking" },
+    ],
+  },
+  {
+    title: "Files / notes",
+    fields: [
+      { key: "proofFileUrl", label: "Proof file URL", placeholder: "Private admin URL" },
+      { key: "invoiceUrl", label: "Invoice URL", placeholder: "Private admin URL" },
+      { key: "designFileUrl", label: "Design file URL", placeholder: "Private admin URL" },
+      { key: "publicNote", label: "Public customer note", type: "textarea", wide: true },
+      { key: "firstTimelineNote", label: "First timeline note", type: "textarea", wide: true },
+      { key: "internalNote", label: "Internal admin note", type: "textarea", wide: true },
+    ],
+  },
+];
+
+function Field({ label, wide, children }) {
   return (
-    <label>
+    <label style={wide ? { gridColumn: "1 / -1" } : undefined}>
       <span style={labelStyle}>{label}</span>
       {children}
     </label>
@@ -134,7 +170,14 @@ function Field({ label, children }) {
 }
 
 function TextInput({ value, onChange, ...props }) {
-  return <input value={value || ""} onChange={(event) => onChange(event.target.value)} style={inputStyle} {...props} />;
+  return (
+    <input
+      value={value || ""}
+      onChange={(event) => onChange(event.target.value)}
+      style={inputStyle}
+      {...props}
+    />
+  );
 }
 
 function TextArea({ value, onChange, rows = 3, ...props }) {
@@ -150,20 +193,26 @@ function TextArea({ value, onChange, rows = 3, ...props }) {
 }
 
 function SelectInput({ value, onChange, options }) {
-  const normalizedOptions = options.map((option) =>
-    Array.isArray(option) ? option : [option, option],
-  );
-  const hasValue = !value || normalizedOptions.some(([optionValue]) => optionValue === value);
+  const hasValue = !value || options.some(([optionValue]) => optionValue === value);
 
   return (
     <select value={value || ""} onChange={(event) => onChange(event.target.value)} style={inputStyle}>
       {!hasValue && <option value={value}>{value}</option>}
-      {normalizedOptions.map(([optionValue, label]) => (
-        <option key={optionValue || label} value={optionValue}>
+      {options.map(([optionValue, label]) => (
+        <option key={optionValue} value={optionValue}>
           {label}
         </option>
       ))}
     </select>
+  );
+}
+
+function Section({ title, children }) {
+  return (
+    <div style={sectionStyle}>
+      <h3 style={{ marginBottom: "0.85rem" }}>{title}</h3>
+      {children}
+    </div>
   );
 }
 
@@ -186,36 +235,107 @@ function StatusBadge({ label }) {
   );
 }
 
+function formNumber(value) {
+  return value || value === 0 ? String(value) : "";
+}
+
 function orderToForm(order) {
   if (!order) return emptyOrder;
 
   return {
     orderNumber: order.orderNumber || "",
-    companyName: order.companyName || "",
+    company: order.company || order.companyName || "",
     customerName: order.customerName || "",
     customerEmail: order.customerEmail || "",
     customerPhone: order.customerPhone || "",
     projectName: order.projectName || "",
     productName: order.productName || "",
-    productService: order.productService || "",
-    quantity: String(order.quantity || "1"),
-    unitRate: order.unitRate || order.unitRate === 0 ? String(order.unitRate) : "",
+    service: order.service || order.productService || "",
+    quantity: formNumber(order.quantity) || "1",
+    unitPrice: formNumber(order.unitPrice),
+    invoiceNumber: order.invoiceNumber || "",
+    invoiceTotal: formNumber(order.invoiceTotal),
+    paymentStatus: order.paymentStatus || "unpaid",
+    paymentMethod: order.paymentMethod || "",
+    paymentReference: order.paymentReference || "",
+    shippingCharged: formNumber(order.shippingCharged),
+    taxCollected: formNumber(order.taxCollected),
+    stripeFee: formNumber(order.stripeFee),
+    orderStatus: order.orderStatus || "new",
+    proofStatus: order.proofStatus || "not_sent",
+    productStatus: order.productStatus || "not_scheduled",
     orderDate: order.orderDate || "",
-    paymentStatus: order.paymentStatus || "Not invoiced",
-    proofStatus: order.proofStatus || "Not ready",
-    deliveryMethod: order.deliveryMethod || "Not scheduled",
-    status: order.status || "review_in_progress",
-    nextAction: order.nextAction || "",
-    dueDate: order.dueDate || "",
+    targetDate: order.targetDate || order.dueDate || "",
+    vendorName: order.vendorName || "",
+    vendorOrderNumber: order.vendorOrderNumber || "",
+    vendorCost: formNumber(order.vendorCost),
+    trackingNumber: order.trackingNumber || "",
+    proofFileUrl: order.proofFileUrl || "",
+    invoiceUrl: order.invoiceUrl || "",
+    designFileUrl: order.designFileUrl || "",
     publicNote: order.publicNote || "",
-    updateBody: "",
+    firstTimelineNote: order.firstTimelineNote || "",
+    internalNote: order.internalNote || "",
   };
 }
 
 function displayCustomer(order) {
   if (!order) return "";
-  if (order.companyName && order.customerName) return `${order.companyName} / ${order.customerName}`;
-  return order.companyName || order.customerName || "No customer name";
+  if (order.company && order.customerName) return `${order.company} / ${order.customerName}`;
+  return order.company || order.customerName || "No customer name";
+}
+
+function trackingLink(order) {
+  if (!order?.trackingToken) return "";
+  return `${BRAND.siteUrl}/track/${order.trackingToken}`;
+}
+
+function formatDateTime(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return date.toLocaleString();
+}
+
+function OrderFields({ form, onChange }) {
+  return (
+    <>
+      {sections.map((section) => (
+        <Section key={section.title} title={section.title}>
+          <div style={formGridStyle}>
+            {section.fields.map((field) => (
+              <Field key={field.key} label={field.label} wide={field.wide}>
+                {field.type === "select" ? (
+                  <SelectInput
+                    value={form[field.key]}
+                    onChange={(value) => onChange(field.key, value)}
+                    options={field.options}
+                  />
+                ) : field.type === "textarea" ? (
+                  <TextArea
+                    value={form[field.key]}
+                    onChange={(value) => onChange(field.key, value)}
+                    placeholder={field.placeholder}
+                  />
+                ) : (
+                  <TextInput
+                    type={field.type || "text"}
+                    min={field.min}
+                    step={field.step}
+                    list={field.list}
+                    required={field.required}
+                    value={form[field.key]}
+                    onChange={(value) => onChange(field.key, value)}
+                    placeholder={field.placeholder}
+                  />
+                )}
+              </Field>
+            ))}
+          </div>
+        </Section>
+      ))}
+    </>
+  );
 }
 
 export default function AdminOrdersClient() {
@@ -224,6 +344,7 @@ export default function AdminOrdersClient() {
   const [selectedOrder, setSelectedOrder] = useState("");
   const [newOrder, setNewOrder] = useState(emptyOrder);
   const [editOrder, setEditOrder] = useState(emptyOrder);
+  const [timelineDraft, setTimelineDraft] = useState(emptyTimelineDraft);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -231,9 +352,11 @@ export default function AdminOrdersClient() {
   const noticeAnchorRef = useRef(null);
 
   const selected = useMemo(
-    () => orders.find((order) => order.orderNumber === selectedOrder) || orders[0],
+    () => orders.find((order) => order.orderNumber === selectedOrder) || orders[0] || null,
     [orders, selectedOrder],
   );
+
+  const selectedTrackingLink = trackingLink(selected);
 
   const apiFetch = useCallback(async function apiFetch(path, options = {}) {
     const response = await fetch(path, {
@@ -269,7 +392,7 @@ export default function AdminOrdersClient() {
         setSelectedOrder(preferredOrder?.orderNumber || "");
         setEditOrder(orderToForm(preferredOrder));
         if (!data.configured && clearNotices) {
-          setMessage("Supabase not configured yet. Showing demo order only.");
+          setMessage("Supabase is not configured yet. Manual order entry unlocks after env vars are set.");
         }
       } catch (loadError) {
         setError(loadError.message || "Unable to load orders.");
@@ -301,6 +424,10 @@ export default function AdminOrdersClient() {
     setEditOrder((current) => ({ ...current, [field]: value }));
   }
 
+  function updateTimeline(field, value) {
+    setTimelineDraft((current) => ({ ...current, [field]: value }));
+  }
+
   async function logout() {
     await fetch("/api/admin/logout", { method: "POST" });
     window.location.href = "/admin/login";
@@ -317,8 +444,8 @@ export default function AdminOrdersClient() {
         body: JSON.stringify(newOrder),
       });
       setNewOrder(emptyOrder);
-      setMessage("Order created.");
-      await loadOrders(result.orderNumber, { clearNotices: false });
+      setMessage("Order created. The private customer tracking link is ready to copy.");
+      await loadOrders(result.orderNumber || newOrder.orderNumber, { clearNotices: false });
     } catch (createError) {
       setError(createError.message || "Unable to create order.");
     } finally {
@@ -347,11 +474,42 @@ export default function AdminOrdersClient() {
     }
   }
 
+  async function addTimelineUpdate(event) {
+    event.preventDefault();
+    if (!selected?.orderNumber) return;
+
+    setSaving(true);
+    setError("");
+    setMessage("");
+    try {
+      await apiFetch(`/api/admin/orders/${encodeURIComponent(selected.orderNumber)}/timeline`, {
+        method: "POST",
+        body: JSON.stringify(timelineDraft),
+      });
+      setTimelineDraft(emptyTimelineDraft);
+      setMessage("Timeline update added.");
+      await loadOrders(selected.orderNumber, { clearNotices: false });
+    } catch (timelineError) {
+      setError(timelineError.message || "Unable to add timeline update.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function copyCustomerTrackingLink() {
+    if (!selectedTrackingLink) return;
+    try {
+      await navigator.clipboard.writeText(selectedTrackingLink);
+      setMessage("Customer tracking link copied.");
+      setError("");
+    } catch {
+      window.prompt("Copy customer tracking link", selectedTrackingLink);
+    }
+  }
+
   async function deleteOrder() {
     if (!selected?.orderNumber) return;
-    const confirmed = window.confirm(
-      `Delete order ${selected.orderNumber}? This removes its customer timeline and files from tracking.`,
-    );
+    const confirmed = window.confirm(`Delete order ${selected.orderNumber}? This removes its timeline updates.`);
     if (!confirmed) return;
 
     setSaving(true);
@@ -387,22 +545,12 @@ export default function AdminOrdersClient() {
         >
           <div>
             <span className="section-label">Private Admin</span>
-            <h1 style={{ color: "#1C1917", marginBottom: "0.45rem" }}>Order manager</h1>
-            <p style={{ color: "#64748b", maxWidth: "680px" }}>
-              Create customer orders, edit order details, and control what customers see on the tracking page.
+            <h1 style={{ color: "#1C1917", marginBottom: "0.45rem" }}>Manual order tracking</h1>
+            <p style={{ color: "#64748b", maxWidth: "720px" }}>
+              Create and update Supabase orders manually. No Zoho sync, Stripe webhooks, or automatic payment sync is active here.
             </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.75rem",
-              justifyContent: "flex-end",
-            }}
-          >
-            <a href="/track-order" className="btn-outline" target="_blank" rel="noreferrer">
-              <Eye size={15} /> View tracker
-            </a>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "flex-end" }}>
             <button className="btn-outline" type="button" onClick={() => loadOrders(selectedOrder)} disabled={loading}>
               {loading ? <Loader2 size={15} /> : <RefreshCw size={15} />}
               Refresh
@@ -449,7 +597,7 @@ export default function AdminOrdersClient() {
               padding: "0.85rem 1rem",
             }}
           >
-            {configured ? <CheckCircle2 size={18} /> : <Lock size={18} />}
+            {configured ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
             {message}
           </div>
         )}
@@ -457,7 +605,7 @@ export default function AdminOrdersClient() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))",
             gap: "1rem",
             alignItems: "start",
           }}
@@ -484,6 +632,7 @@ export default function AdminOrdersClient() {
                   onClick={() => {
                     setSelectedOrder(order.orderNumber);
                     setEditOrder(orderToForm(order));
+                    setTimelineDraft(emptyTimelineDraft);
                   }}
                   style={{
                     background: selected?.orderNumber === order.orderNumber ? "#eff6ff" : "white",
@@ -497,254 +646,202 @@ export default function AdminOrdersClient() {
                     textAlign: "left",
                   }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: "0.75rem",
-                      marginBottom: "0.45rem",
-                    }}
-                  >
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: "0.75rem", marginBottom: "0.45rem" }}>
                     <strong>{order.orderNumber}</strong>
-                    <StatusBadge label={order.statusLabel} />
+                    <StatusBadge label={order.orderStatusLabel || order.statusLabel} />
                   </div>
                   <p style={{ color: "#1C1917", fontWeight: 700 }}>{order.projectName}</p>
                   <p style={{ color: "#64748b", fontSize: "0.9rem" }}>
-                    {displayCustomer(order)} · {order.productName || order.productService} · Qty {order.quantity}
+                    {displayCustomer(order)} · {order.productName || order.service || "Project"} · Qty {order.quantity || "-"}
                   </p>
                 </button>
               ))}
+              {orders.length === 0 && (
+                <div style={{ border: "1px dashed #cbd5e1", borderRadius: "0.8rem", color: "#64748b", padding: "1rem" }}>
+                  No Supabase orders loaded yet.
+                </div>
+              )}
             </div>
           </section>
 
-          <section className="white-card" style={{ padding: "1rem" }}>
-            <h2 style={{ marginBottom: "0.35rem" }}>Edit selected order</h2>
-            <p style={{ color: "#64748b", marginBottom: "1rem" }}>
-              Modify customer, project, payment, proof, and product status details in one place.
-            </p>
+          <div style={{ display: "grid", gap: "1rem" }}>
+            <section className="white-card" style={{ padding: "1rem" }}>
+              <h2 style={{ marginBottom: "0.35rem" }}>Edit selected order</h2>
+              <p style={{ color: "#64748b", marginBottom: "1rem" }}>
+                Customer tracking uses a private token URL, never only the order number.
+              </p>
 
-            {selected ? (
-              <form onSubmit={updateOrder} style={{ display: "grid", gap: "1rem" }}>
-                <div style={panelStyle}>
-                  <h3 style={{ marginBottom: "0.85rem" }}>Customer</h3>
-                  <div style={formGridStyle}>
-                    <Field label="Order number">
-                      <TextInput value={editOrder.orderNumber} onChange={(value) => updateEditOrder("orderNumber", value)} placeholder="PNP-1008" />
-                    </Field>
-                    <Field label="Company">
-                      <TextInput value={editOrder.companyName} onChange={(value) => updateEditOrder("companyName", value)} placeholder="Company name" />
-                    </Field>
-                    <Field label="Customer name">
-                      <TextInput value={editOrder.customerName} onChange={(value) => updateEditOrder("customerName", value)} placeholder="Customer name" />
-                    </Field>
-                    <Field label="Customer email">
-                      <TextInput value={editOrder.customerEmail} onChange={(value) => updateEditOrder("customerEmail", value)} placeholder="customer@email.com" />
-                    </Field>
-                    <Field label="Customer phone">
-                      <TextInput value={editOrder.customerPhone} onChange={(value) => updateEditOrder("customerPhone", value)} placeholder="4092252012" />
-                    </Field>
+              {selected ? (
+                <form onSubmit={updateOrder} style={{ display: "grid", gap: "1rem" }}>
+                  <div
+                    style={{
+                      background: "#fffbeb",
+                      border: "1px solid #fde68a",
+                      borderRadius: "0.85rem",
+                      display: "grid",
+                      gap: "0.75rem",
+                      padding: "1rem",
+                    }}
+                  >
+                    <div>
+                      <p style={{ color: "#92400e", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+                        Customer tracking link
+                      </p>
+                      <p style={{ color: "#78350f", fontSize: "0.92rem", overflowWrap: "anywhere" }}>
+                        {selectedTrackingLink || "Tracking token will be created with the order."}
+                      </p>
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem" }}>
+                      <button
+                        className="btn-amber"
+                        disabled={!selectedTrackingLink}
+                        onClick={copyCustomerTrackingLink}
+                        type="button"
+                      >
+                        <Clipboard size={15} />
+                        Copy Customer Tracking Link
+                      </button>
+                      {selectedTrackingLink && (
+                        <a className="btn-outline" href={selectedTrackingLink} target="_blank" rel="noreferrer">
+                          <ExternalLink size={15} />
+                          Open tracking page
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <div style={panelStyle}>
-                  <h3 style={{ marginBottom: "0.85rem" }}>Project details</h3>
+                  <OrderFields form={editOrder} onChange={updateEditOrder} />
+
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "space-between" }}>
+                    <button className="btn-amber" disabled={saving || !configured} type="submit">
+                      {saving ? <Loader2 size={15} /> : <Save size={15} />}
+                      Save order
+                    </button>
+                    <button
+                      disabled={saving || !configured}
+                      onClick={deleteOrder}
+                      style={{
+                        alignItems: "center",
+                        background: "#fff",
+                        border: "1px solid #fecaca",
+                        borderRadius: "0.65rem",
+                        color: "#991b1b",
+                        cursor: saving || !configured ? "not-allowed" : "pointer",
+                        display: "inline-flex",
+                        fontSize: "0.78rem",
+                        fontWeight: 800,
+                        gap: "0.4rem",
+                        letterSpacing: "0.04em",
+                        padding: "0.72rem 0.85rem",
+                        textTransform: "uppercase",
+                      }}
+                      type="button"
+                    >
+                      <Trash2 size={14} /> Delete order
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <p style={{ color: "#64748b" }}>Create or load an order to update one.</p>
+              )}
+            </section>
+
+            {selected && (
+              <section className="white-card" style={{ padding: "1rem" }}>
+                <h2 style={{ marginBottom: "0.35rem" }}>Timeline updates</h2>
+                <p style={{ color: "#64748b", marginBottom: "1rem" }}>
+                  Add manual customer-visible updates below the main progress tracker.
+                </p>
+
+                <form onSubmit={addTimelineUpdate} style={{ display: "grid", gap: "0.85rem", marginBottom: "1rem" }}>
                   <div style={formGridStyle}>
-                    <Field label="Project name">
-                      <TextInput value={editOrder.projectName} onChange={(value) => updateEditOrder("projectName", value)} placeholder="Storefront sign" />
-                    </Field>
-                    <Field label="Product name">
+                    <Field label="Title">
                       <TextInput
-                        list="pnp-product-options"
-                        value={editOrder.productName}
-                        onChange={(value) => updateEditOrder("productName", value)}
-                        placeholder="Choose product or type custom"
+                        required
+                        value={timelineDraft.title}
+                        onChange={(value) => updateTimeline("title", value)}
+                        placeholder="Production scheduled"
                       />
                     </Field>
-                    <Field label="Service">
-                      <TextInput value={editOrder.productService} onChange={(value) => updateEditOrder("productService", value)} placeholder="Storefront Signs" />
-                    </Field>
-                    <Field label="Quantity">
-                      <TextInput type="number" min="1" value={editOrder.quantity} onChange={(value) => updateEditOrder("quantity", value)} />
-                    </Field>
-                    <Field label="Unit price">
-                      <TextInput type="number" min="0" step="0.01" value={editOrder.unitRate} onChange={(value) => updateEditOrder("unitRate", value)} placeholder="450.00" />
-                    </Field>
-                    <Field label="Order date">
-                      <TextInput type="date" value={editOrder.orderDate} onChange={(value) => updateEditOrder("orderDate", value)} />
-                    </Field>
-                    <Field label="Target date">
-                      <TextInput type="date" value={editOrder.dueDate} onChange={(value) => updateEditOrder("dueDate", value)} />
-                    </Field>
+                    <label
+                      style={{
+                        alignItems: "center",
+                        alignSelf: "end",
+                        color: "#334155",
+                        display: "flex",
+                        fontWeight: 800,
+                        gap: "0.5rem",
+                        minHeight: "44px",
+                      }}
+                    >
+                      <input
+                        checked={timelineDraft.isCustomerVisible}
+                        onChange={(event) => updateTimeline("isCustomerVisible", event.target.checked)}
+                        type="checkbox"
+                      />
+                      Customer visible
+                    </label>
                   </div>
-                </div>
-
-                <div style={panelStyle}>
-                  <h3 style={{ marginBottom: "0.85rem" }}>Status and next steps</h3>
-                  <div style={formGridStyle}>
-                    <Field label="Order status">
-                      <SelectInput value={editOrder.status} onChange={(value) => updateEditOrder("status", value)} options={statusOptions} />
-                    </Field>
-                    <Field label="Next action">
-                      <SelectInput value={editOrder.nextAction} onChange={(value) => updateEditOrder("nextAction", value)} options={nextActionOptions} />
-                    </Field>
-                    <Field label="Payment status">
-                      <SelectInput value={editOrder.paymentStatus} onChange={(value) => updateEditOrder("paymentStatus", value)} options={paymentStatusOptions} />
-                    </Field>
-                    <Field label="Proof status">
-                      <SelectInput value={editOrder.proofStatus} onChange={(value) => updateEditOrder("proofStatus", value)} options={proofStatusOptions} />
-                    </Field>
-                    <Field label="Product status">
-                      <SelectInput value={editOrder.deliveryMethod} onChange={(value) => updateEditOrder("deliveryMethod", value)} options={productStatusOptions} />
-                    </Field>
+                  <Field label="Description" wide>
+                    <TextArea
+                      value={timelineDraft.description}
+                      onChange={(value) => updateTimeline("description", value)}
+                      placeholder="Short update for the customer."
+                    />
+                  </Field>
+                  <div>
+                    <button className="btn-amber" disabled={saving || !configured} type="submit">
+                      {saving ? <Loader2 size={15} /> : <Plus size={15} />}
+                      Add Timeline Update
+                    </button>
                   </div>
-                </div>
+                </form>
 
-                <div style={panelStyle}>
-                  <h3 style={{ marginBottom: "0.85rem" }}>Customer notes</h3>
-                  <div style={formGridStyle}>
-                    <Field label="Public note">
-                      <TextArea value={editOrder.publicNote} onChange={(value) => updateEditOrder("publicNote", value)} placeholder="Short note visible to the customer" />
-                    </Field>
-                    <Field label="Timeline update">
-                      <TextArea value={editOrder.updateBody} onChange={(value) => updateEditOrder("updateBody", value)} placeholder="Optional customer-visible update added to the timeline" />
-                    </Field>
-                  </div>
+                <div style={{ display: "grid", gap: "0.65rem" }}>
+                  {(selected.timelineEvents || []).map((event) => (
+                    <div
+                      key={event.id || `${event.title}-${event.createdAt}`}
+                      style={{
+                        border: "1px solid #e2e8f0",
+                        borderRadius: "0.8rem",
+                        display: "grid",
+                        gap: "0.35rem",
+                        padding: "0.85rem",
+                      }}
+                    >
+                      <div style={{ alignItems: "center", display: "flex", gap: "0.5rem", justifyContent: "space-between" }}>
+                        <strong style={{ color: "#1C1917" }}>{event.title}</strong>
+                        <span style={{ color: event.isCustomerVisible ? "#166534" : "#64748b", fontSize: "0.78rem", fontWeight: 800 }}>
+                          {event.isCustomerVisible ? "Customer visible" : "Internal only"}
+                        </span>
+                      </div>
+                      {event.description && <p style={{ color: "#64748b", fontSize: "0.92rem" }}>{event.description}</p>}
+                      {event.createdAt && (
+                        <p style={{ alignItems: "center", color: "#94a3b8", display: "inline-flex", fontSize: "0.78rem", gap: "0.35rem" }}>
+                          <Clock3 size={13} /> {formatDateTime(event.createdAt)}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                  {(!selected.timelineEvents || selected.timelineEvents.length === 0) && (
+                    <p style={{ color: "#64748b" }}>No manual timeline updates yet.</p>
+                  )}
                 </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "0.75rem",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <button className="btn-amber" disabled={saving || !configured} type="submit">
-                    {saving ? <Loader2 size={15} /> : <Save size={15} />}
-                    Save order
-                  </button>
-                  <button
-                    disabled={saving || !configured}
-                    onClick={deleteOrder}
-                    style={{
-                      alignItems: "center",
-                      background: "#fff",
-                      border: "1px solid #fecaca",
-                      borderRadius: "0.65rem",
-                      color: "#991b1b",
-                      cursor: saving || !configured ? "not-allowed" : "pointer",
-                      display: "inline-flex",
-                      fontSize: "0.78rem",
-                      fontWeight: 800,
-                      gap: "0.4rem",
-                      letterSpacing: "0.04em",
-                      padding: "0.72rem 0.85rem",
-                      textTransform: "uppercase",
-                    }}
-                    type="button"
-                  >
-                    <Trash2 size={14} /> Delete order
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <p style={{ color: "#64748b" }}>Load orders to update one.</p>
+              </section>
             )}
-          </section>
+          </div>
         </div>
 
         <section className="white-card" style={{ padding: "1rem", marginTop: "1rem" }}>
-          <h2 style={{ marginBottom: "0.35rem" }}>Create order</h2>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.35rem" }}>
+            <Link2 size={20} style={{ color: "#0369A1" }} />
+            <h2>Create order</h2>
+          </div>
           <p style={{ color: "#64748b", marginBottom: "1rem" }}>
-            Add a new tracking record. Company and customer name are separate, and you can use either one or both.
+            Add a new manually managed order. A private tracking token is generated automatically in Supabase.
           </p>
           <form onSubmit={createOrder} style={{ display: "grid", gap: "1rem" }}>
-            <div style={panelStyle}>
-              <h3 style={{ marginBottom: "0.85rem" }}>Customer</h3>
-              <div style={formGridStyle}>
-                <Field label="Order number">
-                  <TextInput value={newOrder.orderNumber} onChange={(value) => updateNewOrder("orderNumber", value)} placeholder="PNP-1008" />
-                </Field>
-                <Field label="Company">
-                  <TextInput value={newOrder.companyName} onChange={(value) => updateNewOrder("companyName", value)} placeholder="Company name" />
-                </Field>
-                <Field label="Customer name">
-                  <TextInput value={newOrder.customerName} onChange={(value) => updateNewOrder("customerName", value)} placeholder="Customer name" />
-                </Field>
-                <Field label="Customer email">
-                  <TextInput value={newOrder.customerEmail} onChange={(value) => updateNewOrder("customerEmail", value)} placeholder="customer@email.com" />
-                </Field>
-                <Field label="Customer phone">
-                  <TextInput value={newOrder.customerPhone} onChange={(value) => updateNewOrder("customerPhone", value)} placeholder="4092252012" />
-                </Field>
-              </div>
-            </div>
-
-            <div style={panelStyle}>
-              <h3 style={{ marginBottom: "0.85rem" }}>Project details</h3>
-              <div style={formGridStyle}>
-                <Field label="Project name">
-                  <TextInput value={newOrder.projectName} onChange={(value) => updateNewOrder("projectName", value)} placeholder="Storefront sign" />
-                </Field>
-                <Field label="Product name">
-                  <TextInput
-                    list="pnp-product-options"
-                    value={newOrder.productName}
-                    onChange={(value) => updateNewOrder("productName", value)}
-                    placeholder="Choose product or type custom"
-                  />
-                </Field>
-                <Field label="Service">
-                  <TextInput value={newOrder.productService} onChange={(value) => updateNewOrder("productService", value)} placeholder="Storefront Signs" />
-                </Field>
-                <Field label="Quantity">
-                  <TextInput type="number" min="1" value={newOrder.quantity} onChange={(value) => updateNewOrder("quantity", value)} />
-                </Field>
-                <Field label="Unit price">
-                  <TextInput type="number" min="0" step="0.01" value={newOrder.unitRate} onChange={(value) => updateNewOrder("unitRate", value)} placeholder="450.00" />
-                </Field>
-                <Field label="Order date">
-                  <TextInput type="date" value={newOrder.orderDate} onChange={(value) => updateNewOrder("orderDate", value)} />
-                </Field>
-                <Field label="Target date">
-                  <TextInput type="date" value={newOrder.dueDate} onChange={(value) => updateNewOrder("dueDate", value)} />
-                </Field>
-              </div>
-            </div>
-
-            <div style={panelStyle}>
-              <h3 style={{ marginBottom: "0.85rem" }}>Status and next steps</h3>
-              <div style={formGridStyle}>
-                <Field label="Order status">
-                  <SelectInput value={newOrder.status} onChange={(value) => updateNewOrder("status", value)} options={statusOptions} />
-                </Field>
-                <Field label="Next action">
-                  <SelectInput value={newOrder.nextAction} onChange={(value) => updateNewOrder("nextAction", value)} options={nextActionOptions} />
-                </Field>
-                <Field label="Payment status">
-                  <SelectInput value={newOrder.paymentStatus} onChange={(value) => updateNewOrder("paymentStatus", value)} options={paymentStatusOptions} />
-                </Field>
-                <Field label="Proof status">
-                  <SelectInput value={newOrder.proofStatus} onChange={(value) => updateNewOrder("proofStatus", value)} options={proofStatusOptions} />
-                </Field>
-                <Field label="Product status">
-                  <SelectInput value={newOrder.deliveryMethod} onChange={(value) => updateNewOrder("deliveryMethod", value)} options={productStatusOptions} />
-                </Field>
-              </div>
-            </div>
-
-            <div style={panelStyle}>
-              <h3 style={{ marginBottom: "0.85rem" }}>Customer notes</h3>
-              <div style={formGridStyle}>
-                <Field label="Public note">
-                  <TextArea value={newOrder.publicNote} onChange={(value) => updateNewOrder("publicNote", value)} placeholder="Short note visible to the customer" />
-                </Field>
-                <Field label="First timeline note">
-                  <TextArea value={newOrder.updateBody} onChange={(value) => updateNewOrder("updateBody", value)} placeholder="Customer-visible first update" />
-                </Field>
-              </div>
-            </div>
-
+            <OrderFields form={newOrder} onChange={updateNewOrder} />
             <div style={{ display: "flex", alignItems: "end" }}>
               <button className="btn-amber" disabled={saving || !configured} type="submit">
                 {saving ? <Loader2 size={15} /> : <Plus size={15} />}
@@ -762,12 +859,6 @@ export default function AdminOrdersClient() {
               )),
             )}
           </datalist>
-
-          {!configured && (
-            <p style={{ color: "#64748b", fontSize: "0.9rem", marginTop: "1rem" }}>
-              Create and update actions unlock after Supabase env vars are configured.
-            </p>
-          )}
         </section>
       </div>
     </section>
