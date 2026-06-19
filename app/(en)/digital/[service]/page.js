@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { digitalServices, getDigitalService, getRelatedDigitalServices } from "@/lib/digital-services";
 import { digitalSlugMap } from "@/lib/digital-services-es";
-import { cityServiceServices, cityServiceCities } from "@/lib/city-service-pages";
+import { cityServiceServices, getAvailableCitiesForService } from "@/lib/city-service-pages";
 
 const serviceDetails = {
   "web-development": {
@@ -112,6 +112,7 @@ export default async function DigitalServicePage({ params }) {
   const quoteHref = `/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent("Digital Services")}`;
   const visibilityHref = "/free-visibility-check";
   const related = getRelatedDigitalServices(service);
+  const cityServiceCities = getAvailableCitiesForService(service.slug);
   const breadcrumbs = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -319,13 +320,13 @@ export default async function DigitalServicePage({ params }) {
         </section>
 
         {/* ── CITY+SERVICE LINKS ───────────────────────────────── */}
-        {cityServiceServices[service.slug] && (
+        {cityServiceServices[service.slug] && cityServiceCities.length > 0 && (
           <section className="bg-[#FAF8F4] px-6 py-14 md:py-16">
             <div className="mx-auto max-w-7xl">
               <p className="section-label text-[#0369A1]">Service Area</p>
               <h2 className="mb-6 text-[#1C1917]">{service.name} by City</h2>
               <div className="grid gap-3 sm:grid-cols-3">
-                {Object.values(cityServiceCities).map((city) => (
+                {cityServiceCities.map((city) => (
                   <Link
                     key={city.slug}
                     href={`/service-area/${city.slug}/${service.slug}`}

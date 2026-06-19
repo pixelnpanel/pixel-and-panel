@@ -13,10 +13,10 @@ const city = {
     "Local SEO and Google Business Profile support for stronger Beaumont visibility.",
   ],
   featuredLinks: [
-    { label: "Web Development", href: "/digital/web-development", description: "Fast websites built for local search, calls, and quote requests." },
+    { label: "Web Development", href: "/service-area/beaumont-tx/web-development", description: "Fast websites built for Beaumont search, calls, and quote requests." },
     { label: "Local SEO", href: "/digital/local-seo", description: "Improve the way Beaumont customers find your business online." },
     { label: "Storefront Signs", href: "/signage/storefront-signs", description: "Make your location easier to find and trust." },
-    { label: "Vinyl Banners", href: "/signage/vinyl-banners", description: "Durable banners for storefronts, events, fences, and promotions." },
+    { label: "Vinyl Banners", href: "/service-area/beaumont-tx/vinyl-banners", description: "Durable Beaumont banners for storefronts, events, fences, and promotions." },
     { label: "Vehicle Graphics", href: "/signage/vehicle-graphics", description: "Turn work vehicles into clear, professional brand assets." },
     { label: "Google Business Profile", href: "/digital/google-business-profile", description: "Clean up the profile many Beaumont customers see before calling." },
   ],

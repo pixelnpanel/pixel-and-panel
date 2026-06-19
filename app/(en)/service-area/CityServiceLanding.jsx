@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CheckCircle2, MapPin, DollarSign, Building2, Globe2, QrCode, Search } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
-import { createServiceJsonLd, citySchema } from "@/lib/seo";
+import { BUSINESS_SCHEMA_REF, absoluteUrl, createServiceJsonLd, citySchema } from "@/lib/seo";
 
 const signageDigitalLinks = [
   {
@@ -43,6 +43,8 @@ export default function CityServiceLanding({ city, service }) {
   const industries = service.industries ? service.industries(city) : []
   const process = service.process || []
   const crossSell = service.crossSell || null
+  const relatedLinks = service.relatedLinks || []
+  const showVisibilityCta = service.showVisibilityCta !== false
 
   const quoteHref = `/quote-request?product=${encodeURIComponent(service.quoteProduct)}&category=${encodeURIComponent(service.quoteCategory)}`
   const cityHref = `/service-area/${city.slug}`
@@ -60,15 +62,45 @@ export default function CityServiceLanding({ city, service }) {
 
   const serviceType = service.type === 'signage' ? 'Signage & Print' : 'Digital Services'
   const serviceHubHref = service.type === 'signage' ? '/signage' : '/digital'
-  const serviceSchema = createServiceJsonLd({
-    name: `${service.name} in ${city.name}, TX`,
-    description: intro,
-    url: pageUrl,
-    serviceType,
-    category: service.quoteCategory,
-    areaServed: [citySchema(city)],
-    offerUrl: quoteHref,
-  })
+  const offerSchema = service.pricingNote
+    ? {
+        "@type": "Offer",
+        url: absoluteUrl(quoteHref),
+        priceCurrency: "USD",
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          description: service.pricingNote,
+        },
+        availability: "https://schema.org/InStock",
+        seller: BUSINESS_SCHEMA_REF,
+      }
+    : null
+  const serviceSchema = {
+    ...createServiceJsonLd({
+      name: `${service.name} in ${city.name}, TX`,
+      description: intro,
+      url: pageUrl,
+      serviceType,
+      category: service.quoteCategory,
+      areaServed: [citySchema(city)],
+      offerUrl: quoteHref,
+    }),
+    ...(offerSchema ? { offers: offerSchema } : {}),
+  }
+  const productSchema = service.type === 'signage'
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: `${service.name} in ${city.name}, TX`,
+        description: intro,
+        category: service.quoteCategory,
+        brand: BUSINESS_SCHEMA_REF,
+        provider: BUSINESS_SCHEMA_REF,
+        areaServed: [citySchema(city)],
+        url: pageUrl,
+        ...(offerSchema ? { offers: offerSchema } : {}),
+      }
+    : null
 
   return (
     <>
@@ -82,6 +114,7 @@ export default function CityServiceLanding({ city, service }) {
       />
       <JsonLd data={faqSchema} />
       <JsonLd data={serviceSchema} />
+      {productSchema && <JsonLd data={productSchema} />}
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
 
@@ -174,7 +207,7 @@ export default function CityServiceLanding({ city, service }) {
           </div>
         </section>
 
-        {service.type === 'signage' && (
+        {service.type === 'signage' && service.showDigitalSupport !== false && (
           <section className="section-base bg-white" aria-labelledby="phygital-city-heading">
             <div className="container-px">
               <div className="mb-8 max-w-3xl">
@@ -305,6 +338,12 @@ export default function CityServiceLanding({ city, service }) {
                   <p className="font-bold text-[#1C1917] group-hover:text-[#0369A1] transition-colors">{serviceType}</p>
                   <p className="mt-1 text-sm text-slate-500">Browse all options →</p>
                 </Link>
+                {relatedLinks.map((link) => (
+                  <Link key={link.href} href={link.href} className="group rounded-xl border border-slate-200 bg-[#FAF8F4] p-5 shadow-sm hover:border-[#F59E0B] transition-colors">
+                    <p className="font-bold text-[#1C1917] group-hover:text-[#0369A1] transition-colors">{link.label}</p>
+                    <p className="mt-1 text-sm text-slate-500">{link.description}</p>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
@@ -318,16 +357,18 @@ export default function CityServiceLanding({ city, service }) {
                 <p className="section-label" style={{ color: "#F59E0B" }}>{city.name} · {service.name}</p>
                 <h2 className="text-white">Ready to get started?</h2>
                 <p className="mt-3 max-w-2xl text-white/75">
-                  Request a quote for {service.name} in {city.name}, TX — or start with a free visibility check to see where you stand.
+                  Request a quote for {service.name} in {city.name}, TX{showVisibilityCta ? " — or start with a free visibility check to see where you stand." : "."}
                 </p>
               </div>
               <div className="flex flex-col gap-3 lg:shrink-0">
                 <Link href={quoteHref} className="btn-amber justify-center">
                   Request a Quote <ArrowRight size={16} />
                 </Link>
-                <Link href="/free-visibility-check" className="btn-ghost justify-center">
-                  Free Visibility Check
-                </Link>
+                {showVisibilityCta && (
+                  <Link href="/free-visibility-check" className="btn-ghost justify-center">
+                    Free Visibility Check
+                  </Link>
+                )}
               </div>
             </div>
           </div>

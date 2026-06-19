@@ -14,7 +14,7 @@ const city = {
   ],
   featuredLinks: [
     { label: "Small Business Websites", href: "/digital/web-development", description: "Mobile-friendly websites that make your Nederland business easier to contact." },
-    { label: "Business Cards", href: "/signage/business-cards", description: "Clean cards for referrals, local networking, and follow-up." },
+    { label: "Business Cards", href: "/service-area/nederland-tx/business-cards", description: "Clean cards for Nederland referrals, local networking, and follow-up." },
     { label: "Flyers", href: "/signage/flyers", description: "Simple print pieces for offers, events, and service promotion." },
     { label: "Yard Signs", href: "/signage/yard-signs", description: "Affordable signs for neighborhoods, job sites, and events." },
     { label: "Menus", href: "/signage/menus", description: "Printed menus for restaurants, food trucks, catering, and events." },

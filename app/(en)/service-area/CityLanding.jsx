@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import CityVisual from "./CityVisual";
-import { cityServiceServices } from "@/lib/city-service-pages";
+import { getAvailableCityServiceEntries } from "@/lib/city-service-pages";
 
 function JsonLd({ data }) {
   return (
@@ -49,6 +49,7 @@ export default function CityLanding({ city }) {
   ];
 
   const slug = city.slug || citySlug(city.name);
+  const cityServiceEntries = getAvailableCityServiceEntries(slug);
   const pageUrl = `https://www.pixelnpanel.com/service-area/${slug}`;
   const faqSchema = {
     "@context": "https://schema.org",
@@ -190,7 +191,7 @@ export default function CityLanding({ city }) {
             <h2 id="city-services-heading" className="text-[#1C1917]">Explore services specific to {city.name}, TX</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {Object.entries(cityServiceServices).map(([serviceSlug, service]) => (
+            {cityServiceEntries.map(([serviceSlug, service]) => (
               <Link
                 key={serviceSlug}
                 href={`/service-area/${slug}/${serviceSlug}`}
