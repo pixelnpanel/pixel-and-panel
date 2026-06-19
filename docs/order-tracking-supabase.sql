@@ -1,5 +1,5 @@
 -- Pixel & Panel manual order tracking
--- Run this in Supabase SQL editor before adding SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.
+-- Run this in Supabase SQL editor before adding NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.
 
 create extension if not exists pgcrypto;
 

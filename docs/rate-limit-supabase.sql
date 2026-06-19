@@ -1,5 +1,5 @@
 -- Pixel & Panel persistent API rate limiting
--- Run this in Supabase SQL editor after adding SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.
+-- Run this in Supabase SQL editor after adding NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.
 -- The Next.js API calls public.check_rate_limit through Supabase REST with the service role key.
 
 create table if not exists public.rate_limits (

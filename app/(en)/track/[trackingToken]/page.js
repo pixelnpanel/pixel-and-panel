@@ -249,12 +249,14 @@ export default async function CustomerTrackingPage({ params }) {
               <h2 style={{ marginBottom: "0.8rem" }}>Order details</h2>
               <div style={{ display: "grid", gap: "0.75rem" }}>
                 <DetailCard icon={Package} label="Product" value={order.productName} />
+                <DetailCard icon={Package} label="Service" value={order.service} />
                 <DetailCard icon={Package} label="Quantity" value={order.quantity} />
                 <DetailCard icon={CalendarDays} label="Order date" value={formatDate(order.orderDate)} />
                 <DetailCard icon={CalendarDays} label="Estimated completion" value={formatDate(order.targetDate)} />
                 <DetailCard icon={CreditCard} label="Payment status" value={order.paymentStatusLabel} />
                 <DetailCard icon={ShieldCheck} label="Proof status" value={order.proofStatusLabel} />
                 <DetailCard icon={Truck} label="Production status" value={order.productStatusLabel} />
+                <DetailCard icon={Truck} label="Tracking number" value={order.trackingNumber} />
               </div>
             </div>
 
@@ -306,6 +308,21 @@ export default async function CustomerTrackingPage({ params }) {
             >
               <h2 style={{ marginBottom: "0.85rem" }}>Timeline updates</h2>
               <div style={{ display: "grid", gap: "0.75rem" }}>
+                {order.firstTimelineNote && (
+                  <div
+                    style={{
+                      background: "#f8fafc",
+                      border: "1px solid #e2e8f0",
+                      borderRadius: "0.85rem",
+                      padding: "0.9rem",
+                    }}
+                  >
+                    <p style={{ color: "#1C1917", fontWeight: 900 }}>First update</p>
+                    <p style={{ color: "#64748b", fontSize: "0.95rem", marginTop: "0.25rem" }}>
+                      {order.firstTimelineNote}
+                    </p>
+                  </div>
+                )}
                 {visibleEvents.map((event) => (
                   <div
                     key={event.id || `${event.title}-${event.createdAt}`}
@@ -328,7 +345,7 @@ export default async function CustomerTrackingPage({ params }) {
                     )}
                   </div>
                 ))}
-                {visibleEvents.length === 0 && (
+                {visibleEvents.length === 0 && !order.firstTimelineNote && (
                   <p style={{ color: "#64748b" }}>No additional customer-visible updates yet.</p>
                 )}
               </div>

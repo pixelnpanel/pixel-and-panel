@@ -25,7 +25,6 @@ const labelStyle = {
 
 export default function AdminLoginClient() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -39,7 +38,7 @@ export default function AdminLoginClient() {
       const response = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ password }),
       });
       const data = await response.json().catch(() => ({}));
 
@@ -81,9 +80,9 @@ export default function AdminLoginClient() {
           <Lock size={22} />
         </div>
         <span className="section-label">Private Admin</span>
-        <h1 style={{ color: "#1C1917", marginBottom: "0.55rem" }}>Admin login</h1>
+        <h1 style={{ color: "#1C1917", marginBottom: "0.55rem" }}>Order admin</h1>
         <p style={{ color: "#64748b", marginBottom: "1.25rem" }}>
-          Sign in to create orders and update customer-visible status.
+          Enter the admin orders password before loading customer order data.
         </p>
 
         {error && (
@@ -107,17 +106,7 @@ export default function AdminLoginClient() {
 
         <form onSubmit={login} style={{ display: "grid", gap: "0.95rem" }}>
           <label>
-            <span style={labelStyle}>Username</span>
-            <input
-              autoComplete="username"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              style={inputStyle}
-            />
-          </label>
-
-          <label>
-            <span style={labelStyle}>Password</span>
+            <span style={labelStyle}>Admin orders password</span>
             <input
               autoComplete="current-password"
               type="password"
@@ -129,7 +118,7 @@ export default function AdminLoginClient() {
 
           <button
             className="btn-amber"
-            disabled={loading || !username || !password}
+            disabled={loading || !password}
             style={{ justifyContent: "center" }}
             type="submit"
           >

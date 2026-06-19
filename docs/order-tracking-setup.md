@@ -20,19 +20,18 @@ The older `/track-order` lookup page can still ask for an order number plus matc
 2. Open SQL Editor.
 3. Run `docs/order-tracking-supabase.sql`.
 4. Run `docs/rate-limit-supabase.sql` to enable persistent API rate limiting for the older lookup endpoint.
-5. Add these server-only environment variables in Vercel and local `.env.local`:
+5. Add these environment variables in Vercel and local `.env.local`:
 
 ```bash
-SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD_SALT=generated-password-salt
-ADMIN_PASSWORD_HASH=generated-password-hash
+ADMIN_ORDERS_PASSWORD=choose-a-strong-admin-password
 ADMIN_SESSION_SECRET=choose-a-long-random-secret
 ```
 
 Do not expose `SUPABASE_SERVICE_ROLE_KEY` in browser code or prefix it with `NEXT_PUBLIC_`.
-Do not store the raw admin password in code or GitHub. Only store the generated salt/hash and session secret in environment variables.
+Do not store the admin password in code or GitHub. Keep it in environment variables only.
 
 ## Data Flow
 
