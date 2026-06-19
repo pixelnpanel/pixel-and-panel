@@ -60,6 +60,7 @@ export default function Navbar() {
     en: getAlternatePath(pathname, 'en'),
     es: getAlternatePath(pathname, 'es'),
   }
+  const forceSolidHeader = pathname?.startsWith('/track/')
 
   useEffect(() => {
     let ticking = false
@@ -111,7 +112,7 @@ export default function Navbar() {
     startMobileNavigation(href)
   }
 
-  const isLight = scrolled
+  const isLight = scrolled || forceSolidHeader
   const bg = isLight ? 'rgba(255,255,255,0.97)' : 'transparent'
   const textColor = isLight ? '#1C1917' : 'white'
 
@@ -124,7 +125,7 @@ export default function Navbar() {
         backgroundColor: bg,
         backdropFilter: isLight ? 'blur(12px)' : 'none',
         borderBottom: isLight ? '1px solid #e2e8f0' : 'none',
-        boxShadow: scrolled ? '0 1px 20px rgba(0,0,0,0.08)' : 'none',
+        boxShadow: isLight ? '0 1px 20px rgba(0,0,0,0.08)' : 'none',
       }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 0.75rem', overflow: 'hidden' }}>

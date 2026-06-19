@@ -158,42 +158,8 @@ export default async function CustomerTrackingPage({ params }) {
 
   return (
     <section style={{ background: "#FAF8F4", minHeight: "100vh" }}>
-      <div style={{ margin: "0 auto", maxWidth: "1120px", padding: "2rem 1rem 4rem" }}>
-        <div
-          style={{
-            alignItems: "center",
-            display: "flex",
-            gap: "0.8rem",
-            justifyContent: "space-between",
-            marginBottom: "1rem",
-            flexWrap: "wrap",
-          }}
-        >
-          <div style={{ alignItems: "center", display: "flex", gap: "0.75rem" }}>
-            <div
-              aria-hidden="true"
-              style={{
-                alignItems: "center",
-                background: "#0369A1",
-                borderRadius: "0.8rem",
-                color: "white",
-                display: "flex",
-                fontFamily: "var(--font-heading)",
-                fontWeight: 900,
-                height: "42px",
-                justifyContent: "center",
-                width: "42px",
-              }}
-            >
-              P&P
-            </div>
-            <div>
-              <p style={{ color: "#1C1917", fontFamily: "var(--font-heading)", fontWeight: 900 }}>
-                Pixel & Panel
-              </p>
-              <p style={{ color: "#64748b", fontSize: "0.9rem" }}>Order tracking</p>
-            </div>
-          </div>
+      <div style={{ margin: "0 auto", maxWidth: "1120px", padding: "7.5rem 1rem 4rem" }}>
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "1rem" }}>
           <span
             style={{
               background: "rgba(245,158,11,0.16)",
