@@ -11,6 +11,7 @@ import {
   Phone,
   ShieldCheck,
   Truck,
+  UserRound,
 } from "lucide-react";
 import { BRAND } from "@/lib/constants";
 import { findOrderByTrackingToken } from "@/lib/order-tracking";
@@ -48,6 +49,32 @@ function formatDateTime(value) {
     year: "numeric",
     hour: "numeric",
     minute: "2-digit",
+  });
+}
+
+function formatCustomerName(order) {
+  const customerName = String(order.customerName || "").trim();
+  const company = String(order.company || order.companyName || "").trim();
+
+  if (!customerName) return "";
+  return company ? `${company} / ${customerName}` : customerName;
+}
+
+function dedupeTimelineEvents(events) {
+  const seen = new Set();
+
+  return events.filter((event) => {
+    if (!event.isCustomerVisible) return false;
+
+    const title = String(event.title || "").trim();
+    const description = String(event.description || "").trim();
+    const key = `${title.toLowerCase()}|${description.toLowerCase()}`;
+
+    if (!title && !description) return false;
+    if (seen.has(key)) return false;
+
+    seen.add(key);
+    return true;
   });
 }
 
@@ -146,7 +173,9 @@ export default async function CustomerTrackingPage({ params }) {
   if (!order) notFound();
 
   const progressSteps = getProgressSteps(order);
-  const visibleEvents = (order.timelineEvents || []).filter((event) => event.isCustomerVisible);
+  const visibleEvents = dedupeTimelineEvents(order.timelineEvents || []);
+  const customerDisplayName = formatCustomerName(order);
+  const showInitialTimelineNote = visibleEvents.length === 0 && order.firstTimelineNote;
 
   return (
     <section style={{ background: "#FAF8F4", minHeight: "100vh" }}>
@@ -206,15 +235,14 @@ export default async function CustomerTrackingPage({ params }) {
             >
               <h2 style={{ marginBottom: "0.8rem" }}>Order details</h2>
               <div style={{ display: "grid", gap: "0.75rem" }}>
+                <DetailCard icon={UserRound} label="Customer" value={customerDisplayName} />
                 <DetailCard icon={Package} label="Product" value={order.productName} />
-                <DetailCard icon={Package} label="Service" value={order.service} />
                 <DetailCard icon={Package} label="Quantity" value={order.quantity} />
-                <DetailCard icon={CalendarDays} label="Order date" value={formatDate(order.orderDate)} />
-                <DetailCard icon={CalendarDays} label="Estimated completion" value={formatDate(order.targetDate)} />
-                <DetailCard icon={CreditCard} label="Payment status" value={order.paymentStatusLabel} />
-                <DetailCard icon={ShieldCheck} label="Proof status" value={order.proofStatusLabel} />
-                <DetailCard icon={Truck} label="Production status" value={order.productStatusLabel} />
-                <DetailCard icon={Truck} label="Tracking number" value={order.trackingNumber} />
+                <DetailCard icon={CalendarDays} label="Order Date" value={formatDate(order.orderDate)} />
+                <DetailCard icon={CalendarDays} label="Estimated Delivery" value={formatDate(order.targetDate)} />
+                <DetailCard icon={CreditCard} label="Payment Status" value={order.paymentStatusLabel} />
+                <DetailCard icon={ShieldCheck} label="Proof Status" value={order.proofStatusLabel} />
+                <DetailCard icon={Truck} label="Production Status" value={order.productStatusLabel} />
               </div>
             </div>
 
@@ -266,7 +294,7 @@ export default async function CustomerTrackingPage({ params }) {
             >
               <h2 style={{ marginBottom: "0.85rem" }}>Timeline updates</h2>
               <div style={{ display: "grid", gap: "0.75rem" }}>
-                {order.firstTimelineNote && (
+                {showInitialTimelineNote && (
                   <div
                     style={{
                       background: "#f8fafc",
@@ -275,7 +303,7 @@ export default async function CustomerTrackingPage({ params }) {
                       padding: "0.9rem",
                     }}
                   >
-                    <p style={{ color: "#1C1917", fontWeight: 900 }}>First update</p>
+                    <p style={{ color: "#1C1917", fontWeight: 900 }}>Initial update</p>
                     <p style={{ color: "#64748b", fontSize: "0.95rem", marginTop: "0.25rem" }}>
                       {order.firstTimelineNote}
                     </p>
