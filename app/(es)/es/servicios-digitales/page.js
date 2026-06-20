@@ -1,6 +1,7 @@
 import DigitalClientEs from "./DigitalClientEs";
+import { withDefaultSocialImage } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Diseño Web, SEO Local y Perfil de Google | Pixel & Panel",
   },
@@ -20,7 +21,7 @@ export const metadata = {
     url: "https://www.pixelnpanel.com/es/servicios-digitales",
     locale: "es_US",
   },
-};
+});
 
 export default function SpanishDigitalServicesPage() {
   return <DigitalClientEs />;

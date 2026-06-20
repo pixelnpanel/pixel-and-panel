@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import VisibilityCheckForm from "./VisibilityCheckForm";
 import VisibilityGuideCard from "./VisibilityGuideCard";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const whoFor = [
   "New businesses",
@@ -66,7 +67,7 @@ const faqs = [
   },
 ];
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     absolute: "Free Visibility Check | Pixel & Panel",
@@ -87,7 +88,7 @@ export const metadata = {
     url: "https://www.pixelnpanel.com/free-visibility-check",
     type: "website",
   },
-};
+});
 
 function JsonLd({ data }) {
   return (

@@ -1,6 +1,7 @@
 import DigitalClient from "./DigitalClient";
+import { withDefaultSocialImage } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     absolute: "Local Web Design, SEO & Google Profile | Pixel & Panel",
@@ -20,7 +21,7 @@ export const metadata = {
       "Fast websites, local SEO, Google Profile setup, QR campaigns, and lead tools for small businesses in Beaumont and Southeast Texas.",
     url: "/digital",
   },
-};
+});
 
 export default function DigitalPage() {
   return <DigitalClient />;

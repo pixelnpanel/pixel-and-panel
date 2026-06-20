@@ -1,4 +1,5 @@
 import CityLanding from "../CityLanding";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = {
   name: "Beaumont",
@@ -32,7 +33,7 @@ const city = {
   ],
 };
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Web Design, Custom Signs & Local SEO in Beaumont, TX",
   },
@@ -60,7 +61,7 @@ export const metadata = {
     description:
       "Pixel & Panel helps Beaumont, TX businesses look professional and rank high on Google with custom websites, storefront signs, local SEO, and print.",
   },
-};
+});
 
 export default function BeaumontServiceAreaPage() {
   return <CityLanding city={city} />;

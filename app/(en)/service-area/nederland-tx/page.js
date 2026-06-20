@@ -1,4 +1,5 @@
 import CityLanding from "../CityLanding";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = {
   name: "Nederland",
@@ -34,7 +35,7 @@ const city = {
   ],
 };
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Signs, Web Design & SEO in Nederland, TX",
   },
@@ -62,7 +63,7 @@ export const metadata = {
     description:
       "Boost your local presence with professional websites, outdoor signs, banners, and Google Profiles for businesses in Nederland, TX.",
   },
-};
+});
 
 export default function NederlandServiceAreaPage() {
   return <CityLanding city={city} />;

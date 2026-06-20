@@ -1,4 +1,5 @@
 import CityLanding from "../CityLanding";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = {
   name: "Port Arthur",
@@ -33,7 +34,7 @@ const city = {
   ],
 };
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Web Design, Custom Signs & SEO in Port Arthur, TX",
   },
@@ -61,7 +62,7 @@ export const metadata = {
     description:
       "Pixel & Panel serves Port Arthur, TX businesses with high-converting websites, storefront signs, fleet wraps, and local SEO support.",
   },
-};
+});
 
 export default function PortArthurServiceAreaPage() {
   return <CityLanding city={city} />;

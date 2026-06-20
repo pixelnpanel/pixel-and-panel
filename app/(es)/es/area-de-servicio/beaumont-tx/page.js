@@ -1,9 +1,10 @@
 import CityLandingEs from "../CityLandingEs";
 import { getServiceAreaEs } from "@/lib/service-areas-es";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = getServiceAreaEs("beaumont-tx");
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Web, Letreros y SEO en Beaumont, TX | Pixel & Panel",
   },
@@ -31,7 +32,7 @@ export const metadata = {
     description:
       "Pixel & Panel ayuda a negocios en Beaumont, TX con sitios web, letreros, impresión, SEO local, Perfil de Google y campañas con códigos QR.",
   },
-};
+});
 
 export default function BeaumontServiceAreaSpanishPage() {
   return <CityLandingEs city={city} />;

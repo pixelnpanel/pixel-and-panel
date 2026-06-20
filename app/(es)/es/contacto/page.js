@@ -1,4 +1,5 @@
 import ContactClient from "../../../(en)/contact/ContactClient";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const spanishContactCopy = {
   language: "Spanish",
@@ -37,7 +38,7 @@ const spanishContactCopy = {
   trackOrderValue: "Consulta el estado de tu pedido",
 };
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Contacto | Pixel & Panel",
   },
@@ -57,7 +58,7 @@ export const metadata = {
     url: "https://www.pixelnpanel.com/es/contacto",
     locale: "es_US",
   },
-};
+});
 
 export default function SpanishContactPage() {
   return <ContactClient copy={spanishContactCopy} />;

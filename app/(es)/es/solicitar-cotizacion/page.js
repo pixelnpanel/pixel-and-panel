@@ -1,5 +1,6 @@
 import QuoteRequestClient from "../../../(en)/quote-request/QuoteRequestClient";
 import { Suspense } from "react";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const spanishQuoteCopy = {
   language: "Spanish",
@@ -84,7 +85,7 @@ const spanishQuoteCopy = {
   showProductField: false,
 };
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Solicitar Cotización | Pixel & Panel",
   },
@@ -104,7 +105,7 @@ export const metadata = {
     url: "https://www.pixelnpanel.com/es/solicitar-cotizacion",
     locale: "es_US",
   },
-};
+});
 
 export default function SpanishQuoteRequestPage() {
   return (

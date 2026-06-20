@@ -24,6 +24,7 @@ import {
 } from "@/lib/signage-products-es";
 import { cityServiceCities, cityServiceServices } from "@/lib/city-service-pages";
 import { getSpanishCityServicePath } from "@/lib/city-service-pages-es";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const enlacesDigitales = [
   {
@@ -132,10 +133,10 @@ const specsByCategorySlug = {
 };
 
 function getSpecs(product) {
-  return {
+  return withDefaultSocialImage({
     ...defaultSpecs,
     ...(specsByCategorySlug[product.categorySlug] || {}),
-  };
+  });
 }
 
 export function generateStaticParams() {

@@ -5,8 +5,9 @@ import {
   getPostsByCategory,
   learningCenterPosts,
 } from "@/lib/learning-center-posts";
+import { withDefaultSocialImage } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Local Business Marketing Tips | Pixel & Panel",
   },
@@ -19,7 +20,7 @@ export const metadata = {
       "es-US": "https://www.pixelnpanel.com/es/centro-de-aprendizaje",
     },
   },
-};
+});
 
 const featuredSlugs = [
   "website-checklist-for-new-local-businesses",

@@ -1,9 +1,10 @@
 import CityLandingEs from "../CityLandingEs";
 import { getServiceAreaEs } from "@/lib/service-areas-es";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = getServiceAreaEs("port-arthur-tx");
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Letreros, Web y SEO en Port Arthur, TX | Pixel & Panel",
   },
@@ -31,7 +32,7 @@ export const metadata = {
     description:
       "Pixel & Panel ayuda a negocios en Port Arthur, TX con gráficos para vehículos, letreros, sitios web, SEO local, impresión y campañas con códigos QR.",
   },
-};
+});
 
 export default function PortArthurServiceAreaSpanishPage() {
   return <CityLandingEs city={city} />;

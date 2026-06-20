@@ -19,7 +19,7 @@ import {
 } from "@/lib/digital-services-es";
 import { cityServiceCities, cityServiceServices } from "@/lib/city-service-pages";
 import { getSpanishCityServicePath } from "@/lib/city-service-pages-es";
-import { createServiceJsonLd } from "@/lib/seo";
+import { createServiceJsonLd, withDefaultSocialImage } from "@/lib/seo";
 
 const serviceDetails = {
   "web-development": {
@@ -68,7 +68,7 @@ export async function generateMetadata({ params }) {
     return { title: "Servicios Digitales" };
   }
 
-  return {
+  return withDefaultSocialImage({
     title: {
       absolute: service.title,
     },
@@ -93,7 +93,7 @@ export async function generateMetadata({ params }) {
       title: service.title,
       description: service.description,
     },
-  };
+  });
 }
 
 function JsonLd({ data }) {

@@ -1,8 +1,9 @@
 import { Suspense } from 'react'
 import SignageHubClient from '@/components/signage/SignageHubClient'
 import { signageCategories } from '@/lib/signage-data'
+import { withDefaultSocialImage } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
     metadataBase: new URL('https://www.pixelnpanel.com'),
     title: 'Custom Signs, Banners & Print in Beaumont and Port Arthur',
     description:
@@ -29,7 +30,7 @@ export const metadata = {
         description:
             'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
     },
-}
+})
 
 function JsonLd({ data }) {
     return (

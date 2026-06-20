@@ -16,6 +16,7 @@ import {
 import { digitalServices, getDigitalService, getRelatedDigitalServices } from "@/lib/digital-services";
 import { digitalSlugMap } from "@/lib/digital-services-es";
 import { cityServiceServices, getAvailableCitiesForService } from "@/lib/city-service-pages";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const serviceDetails = {
   "web-development": {
@@ -75,7 +76,7 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
+  return withDefaultSocialImage({
     title: service.title,
     description: service.description,
     alternates: {
@@ -98,7 +99,7 @@ export async function generateMetadata({ params }) {
       title: `${service.title} | Pixel & Panel`,
       description: service.description,
     },
-  };
+  });
 }
 
 export default async function DigitalServicePage({ params }) {

@@ -1,6 +1,7 @@
 import PricingClient from "./PricingClient";
+import { withDefaultSocialImage } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Affordable Web Design Pricing & Sign Quotes | Pixel & Panel",
   },
@@ -19,7 +20,7 @@ export const metadata = {
       "Upfront starter prices for small business websites, care packages, and customizable signage project quotes across Southeast Texas.",
     url: "https://www.pixelnpanel.com/pricing",
   },
-};
+});
 
 const pricingFaqs = [
   { q: "Are these one-time prices?", a: "Website packages are starting prices for one-time builds. Larger projects, extra pages, special integrations, or rushed timelines may increase the quote." },

@@ -1,9 +1,10 @@
 import CityLandingEs from "../CityLandingEs";
 import { getServiceAreaEs } from "@/lib/service-areas-es";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = getServiceAreaEs("nederland-tx");
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Web, Letreros e Impresión en Nederland, TX | Pixel & Panel",
   },
@@ -31,7 +32,7 @@ export const metadata = {
     description:
       "Pixel & Panel ayuda a negocios en Nederland, TX con sitios web, tarjetas, volantes, banners, letreros, SEO local y códigos QR.",
   },
-};
+});
 
 export default function NederlandServiceAreaSpanishPage() {
   return <CityLandingEs city={city} />;

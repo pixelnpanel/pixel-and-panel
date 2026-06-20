@@ -1,6 +1,7 @@
 import PortfolioClientEs from "./PortfolioClientEs";
+import { withDefaultSocialImage } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Portafolio de Sitios y Letreros | Pixel & Panel",
   },
@@ -13,7 +14,7 @@ export const metadata = {
       "es-US": "https://www.pixelnpanel.com/es/portafolio",
     },
   },
-};
+});
 
 export default function SpanishPortfolioPage() {
   return <PortfolioClientEs />;

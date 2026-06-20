@@ -5,8 +5,9 @@ import {
   getPostsByCategoryEs,
   learningCenterPostsEs,
 } from "@/lib/learning-center-posts-es";
+import { withDefaultSocialImage } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Consejos de Marketing Local | Pixel & Panel",
   },
@@ -27,7 +28,7 @@ export const metadata = {
     locale: "es_US",
     type: "website",
   },
-};
+});
 
 const featuredSlugs = [
   "checklist-sitio-web-negocios-locales-nuevos",

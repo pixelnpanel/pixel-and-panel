@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import VisibilityCheckForm from "../../../(en)/free-visibility-check/VisibilityCheckForm";
 import VisibilityGuideCard from "../../../(en)/free-visibility-check/VisibilityGuideCard";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const whoFor = [
   "Negocios nuevos",
@@ -103,7 +104,7 @@ const formCopy = {
   ],
 };
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Chequeo Gratis de Visibilidad | Pixel & Panel",
   },
@@ -123,7 +124,7 @@ export const metadata = {
     url: "https://www.pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
     locale: "es_US",
   },
-};
+});
 
 function JsonLd({ data }) {
   return (

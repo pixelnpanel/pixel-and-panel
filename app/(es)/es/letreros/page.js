@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import SignageHubClient from "@/components/signage/SignageHubClient";
 import { signageCategoriesEs, signageHubSlugMapEs } from "@/lib/signage-products-es";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const spanishCopy = {
   eyebrow: "Letreros e Impresión",
@@ -60,7 +61,7 @@ const spanishCopy = {
   productSlugMap: signageHubSlugMapEs,
 };
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
     absolute: "Letreros Comerciales, Banners e Imprenta | Pixel & Panel",
@@ -81,7 +82,7 @@ export const metadata = {
     url: "https://www.pixelnpanel.com/es/letreros",
     locale: "es_US",
   },
-};
+});
 
 function JsonLd({ data }) {
   return (

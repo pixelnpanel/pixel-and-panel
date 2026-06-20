@@ -1,4 +1,5 @@
 import { TrackOrderExperience } from "../../../(en)/track-order/TrackOrderClient";
+import { TRACKING_OG_IMAGE } from "@/lib/order-tracking-metadata";
 
 const spanishPreviewSteps = [
   {
@@ -88,7 +89,22 @@ export const metadata = {
     description:
       "Revisa el estado de tu proyecto, prueba, producción, instalación o entrega.",
     url: "https://www.pixelnpanel.com/es/rastrear-pedido",
+    siteName: "Pixel & Panel",
     locale: "es_US",
+    type: "website",
+    images: [TRACKING_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rastrear Pedido | Pixel & Panel",
+    description:
+      "Revisa el estado de tu proyecto, prueba, producción, instalación o entrega.",
+    images: [
+      {
+        url: TRACKING_OG_IMAGE.url,
+        alt: TRACKING_OG_IMAGE.alt,
+      },
+    ],
   },
   robots: {
     index: false,

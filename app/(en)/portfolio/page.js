@@ -1,6 +1,7 @@
 import PortfolioClient from "./PortfolioClient";
+import { withDefaultSocialImage } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Portfolio | Pixel & Panel — Websites, Signs & Branding Work",
   },
@@ -13,7 +14,7 @@ export const metadata = {
       "es-US": "https://www.pixelnpanel.com/es/portafolio",
     },
   },
-};
+});
 
 export default function PortfolioPage() {
   return <PortfolioClient />;

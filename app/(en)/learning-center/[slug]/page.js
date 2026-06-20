@@ -6,6 +6,7 @@ import {
 } from "@/lib/learning-center-posts";
 import { learningCenterSlugMap } from "@/lib/learning-center-posts-es";
 import { learningCenterSeoOverrides } from "@/lib/seo-copy-overrides";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 export function generateStaticParams() {
   return learningCenterPosts.map((post) => ({ slug: post.slug }));
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }) {
   const title = seo.title || post.title;
   const description = seo.description || post.description;
 
-  return {
+  return withDefaultSocialImage({
     title: { absolute: `${title} | Pixel & Panel` },
     description,
     alternates: {
@@ -59,7 +60,7 @@ export async function generateMetadata({ params }) {
       title: `${title} | Pixel & Panel`,
       description,
     },
-  };
+  });
 }
 
 export default async function LearningCenterArticlePage({ params }) {

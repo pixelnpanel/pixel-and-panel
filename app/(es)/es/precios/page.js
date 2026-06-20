@@ -1,4 +1,5 @@
 import PricingClient from "../../../(en)/pricing/PricingClient";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 const websitePackages = [
   {
@@ -232,7 +233,7 @@ const spanishCopy = {
   finalVisibilityCta: "Chequeo gratis",
 };
 
-export const metadata = {
+export const metadata = withDefaultSocialImage({
   title: {
     absolute: "Precios Web y Cotizaciones de Letreros | Pixel & Panel",
   },
@@ -252,7 +253,7 @@ export const metadata = {
     url: "https://www.pixelnpanel.com/es/precios",
     locale: "es_US",
   },
-};
+});
 
 function JsonLd({ data }) {
   return (

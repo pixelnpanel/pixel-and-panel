@@ -3,6 +3,7 @@ import SignageProductPage from "@/components/signage/SignageProductPage";
 import { getSignageProduct, signageProducts } from "@/lib/signage-products";
 import { signageSeoOverrides } from "@/lib/seo-copy-overrides";
 import { signageSlugMap } from "@/lib/signage-products-es";
+import { withDefaultSocialImage } from "@/lib/seo";
 
 export function generateStaticParams() {
     return signageProducts.map((product) => ({
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }) {
     const title = seo.title || product.title;
     const description = seo.description || product.description;
 
-    return {
+    return withDefaultSocialImage({
         title,
         description,
         alternates: {
@@ -47,7 +48,7 @@ export async function generateMetadata({ params }) {
             title: `${title} | Pixel & Panel`,
             description,
         },
-    };
+    });
 }
 
 export default async function SignageProductRoute({ params }) {
