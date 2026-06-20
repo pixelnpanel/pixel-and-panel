@@ -1,6 +1,7 @@
 import HomeClient from "./HomeClient";
 import HomeSections from "./HomeSections";
 import SpanishSuggestionBanner from "@/components/language/SpanishSuggestionBanner";
+import { DEFAULT_OG_IMAGE, DEFAULT_SITE_DESCRIPTION, DEFAULT_SITE_TITLE } from "@/lib/seo";
 
 const homepageFaq = [
   {
@@ -33,10 +34,9 @@ const homepageFaq = [
 export const metadata = {
   metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
-    absolute: "Website Design, Custom Signs & Local SEO | Pixel & Panel",
+    absolute: DEFAULT_SITE_TITLE,
   },
-  description:
-    "Need more customers? Pixel & Panel builds modern websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and SETX.",
+  description: DEFAULT_SITE_DESCRIPTION,
   alternates: {
     canonical: new URL("https://www.pixelnpanel.com/"),
     languages: {
@@ -45,11 +45,19 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Website Design, Custom Signs & Local SEO | Pixel & Panel",
-    description:
-      "Need more customers? Pixel & Panel builds modern websites, storefront signs, vehicle graphics, and local SEO systems in Beaumont and SETX.",
+    title: DEFAULT_SITE_TITLE,
+    description: DEFAULT_SITE_DESCRIPTION,
     url: "https://www.pixelnpanel.com/",
+    siteName: "Pixel & Panel",
+    locale: "en_US",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_SITE_TITLE,
+    description: DEFAULT_SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

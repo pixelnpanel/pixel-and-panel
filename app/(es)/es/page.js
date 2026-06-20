@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import HomeClient from "../../(en)/HomeClient";
 import HomeSections from "../../(en)/HomeSections";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 const spanishHomepageFaq = [
   {
@@ -357,8 +358,17 @@ export const metadata = {
     description:
       "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
     url: "https://www.pixelnpanel.com/es",
+    siteName: "Pixel & Panel",
     locale: "es_US",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Diseño Web, Letreros y SEO Local | Pixel & Panel",
+    description:
+      "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

@@ -7,6 +7,7 @@ import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
 import FloatingQuoteButton from "@/components/ui/FloatingQuoteButton";
+import { DEFAULT_OG_IMAGE, DEFAULT_SITE_DESCRIPTION, DEFAULT_SITE_TITLE } from "@/lib/seo";
 
 export const viewport = {
   themeColor: "#0C1E3C",
@@ -15,26 +16,27 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
-    default: "Website Design, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel",
+    default: DEFAULT_SITE_TITLE,
     template: "%s | Pixel & Panel",
   },
-  description:
-    "Pixel & Panel helps businesses in Beaumont, Nederland, and Port Arthur, TX with custom signs, print materials, websites, local SEO, and QR-powered marketing.",
+  description: DEFAULT_SITE_DESCRIPTION,
   alternates: {
-    canonical: "/",
+    canonical: "https://www.pixelnpanel.com/",
   },
   openGraph: {
-    title: "Website Design, Signs & Print in Beaumont, Nederland & Port Arthur | Pixel & Panel",
-    description:
-      "Custom signs, print materials, websites, local SEO, and QR-powered marketing for businesses in Beaumont, Nederland, and Port Arthur, TX.",
-    url: "/",
+    title: DEFAULT_SITE_TITLE,
+    description: DEFAULT_SITE_DESCRIPTION,
+    url: "https://www.pixelnpanel.com/",
     siteName: "Pixel & Panel",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.pixelnpanel.com/opengraph-image", width: 1200, height: 630 }],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
+    title: DEFAULT_SITE_TITLE,
+    description: DEFAULT_SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
   },
   other: {
     "facebook-domain-verification": "xrurc3oj4fr9szyqqy555vpi7ruom1",

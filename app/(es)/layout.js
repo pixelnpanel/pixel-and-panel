@@ -7,6 +7,7 @@ import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
 import FloatingQuoteButton from "@/components/ui/FloatingQuoteButton";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 export const viewport = {
   themeColor: "#0C1E3C",
@@ -21,20 +22,24 @@ export const metadata = {
   description:
     "Pixel & Panel ayuda a negocios en Beaumont, Nederland y Port Arthur, TX con letreros personalizados, impresión, sitios web, SEO local y marketing con códigos QR.",
   alternates: {
-    canonical: "/es",
+    canonical: "https://www.pixelnpanel.com/es",
   },
   openGraph: {
     title: "Diseño Web, Letreros e Impresión en Beaumont, Nederland y Port Arthur | Pixel & Panel",
     description:
       "Letreros personalizados, impresión, sitios web, SEO local y marketing con códigos QR para negocios en Beaumont, Nederland y Port Arthur, TX.",
-    url: "/es",
+    url: "https://www.pixelnpanel.com/es",
     siteName: "Pixel & Panel",
     locale: "es_US",
     type: "website",
-    images: [{ url: "https://www.pixelnpanel.com/opengraph-image", width: 1200, height: 630 }],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Diseño Web, Letreros e Impresión en Beaumont, Nederland y Port Arthur | Pixel & Panel",
+    description:
+      "Pixel & Panel ayuda a negocios en Beaumont, Nederland y Port Arthur, TX con letreros personalizados, impresión, sitios web, SEO local y marketing con códigos QR.",
+    images: [DEFAULT_OG_IMAGE],
   },
   other: {
     "facebook-domain-verification": "xrurc3oj4fr9szyqqy555vpi7ruom1",
