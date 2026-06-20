@@ -3,6 +3,9 @@ import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
+const GENERIC_LOOKUP_ERROR =
+  "We couldn’t find an order with those details. Please check your order number and contact information, or contact Pixel & Panel for help.";
+
 function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
 }
@@ -43,14 +46,29 @@ export async function POST(request) {
       return jsonResponse(
         {
           ok: false,
-          error:
-            "No matching order found. Check the order number and email or phone, or contact Pixel & Panel.",
+          error: GENERIC_LOOKUP_ERROR,
         },
         404,
       );
     }
 
-    return jsonResponse({ ok: true, order });
+    if (!order.trackingToken) {
+      return jsonResponse(
+        {
+          ok: false,
+          error: GENERIC_LOOKUP_ERROR,
+        },
+        404,
+      );
+    }
+
+    const trackingUrl = `/track/${encodeURIComponent(order.trackingToken)}`;
+
+    return jsonResponse({
+      ok: true,
+      trackingToken: order.trackingToken,
+      trackingUrl,
+    });
   } catch (error) {
     console.error("Unable to look up order.", error);
     return jsonResponse(

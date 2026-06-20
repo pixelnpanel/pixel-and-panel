@@ -1,57 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
   AlertCircle,
-  Building2,
-  CalendarDays,
-  CheckCircle2,
-  ClipboardCheck,
-  Clock3,
-  CreditCard,
-  ExternalLink,
-  FileText,
-  Hash,
-  Mail,
-  Package,
-  Phone,
   Search,
-  ShieldCheck,
-  Truck,
-  User,
 } from "lucide-react";
 import { fadeUp, stagger } from "@/lib/animations";
-import { BRAND } from "@/lib/constants";
-
-const previewSteps = [
-  {
-    label: "Quote received",
-    detail: "We received your project request and are reviewing the details.",
-    icon: FileText,
-    state: "done",
-  },
-  {
-    label: "Proof ready",
-    detail: "Your design proof or project details are ready to review.",
-    icon: ShieldCheck,
-    state: "active",
-  },
-  {
-    label: "In production",
-    detail: "Your approved project is being printed, built, or prepared.",
-    icon: Clock3,
-    state: "next",
-  },
-  {
-    label: "Pickup or install",
-    detail: "We’ll share pickup, delivery, or installation details when ready.",
-    icon: Truck,
-    state: "next",
-  },
-];
 
 const inputStyle = {
   width: "100%",
@@ -94,100 +52,26 @@ const defaultCopy = {
   submit: "Check status",
   checking: "Checking...",
   lookupError: "Unable to check order status.",
-  orderNumberDetail: "Order number",
-  statusPreviewTitle: "Track your order from start to finish",
-  statusPreviewText:
-    "See where your project stands, what step comes next, and whether we need anything from you.",
-  usefulFeaturesTitle: "What you can check here",
+  lookupNotFound:
+    "We couldn’t find an order with those details. Please check your order number and contact information, or contact Pixel & Panel for help.",
   requestQuote: "Request quote",
-  detailsTitle: "Project details",
-  companyLabel: "Company",
-  clientLabel: "Client",
-  productLabel: "Product",
-  quantityLabel: "Quantity",
-  serviceLabel: "Service",
-  orderDateLabel: "Order date",
-  paymentLabel: "Payment",
-  proofLabel: "Proof",
-  deliveryLabel: "Product status",
-  targetDateLabel: "Target date",
-  nextActionLabel: "Next action",
-  filesLabel: "Files",
-  previewSteps,
-  usefulFeatures: [
-    "Look up your project with your order number and email",
-    "See proof, production, pickup, or install updates",
-    "Review notes and next steps from our team",
-    "Get updates when your order status changes",
-  ],
 };
-
-function formatDate(date) {
-  if (!date) return "";
-  const [year, month, day] = String(date).split("-").map(Number);
-  if (!year || !month || !day) return String(date);
-  return new Date(year, month - 1, day).toLocaleDateString();
-}
-
-function DetailItem({ icon: Icon, label, value }) {
-  if (!value && value !== 0) return null;
-
-  return (
-    <div
-      style={{
-        alignItems: "flex-start",
-        background: "#f8fafc",
-        border: "1px solid #e2e8f0",
-        borderRadius: "0.75rem",
-        display: "grid",
-        gap: "0.65rem",
-        gridTemplateColumns: "28px 1fr",
-        padding: "0.85rem",
-      }}
-    >
-      <Icon size={18} style={{ color: "#0369A1", marginTop: 3 }} />
-      <div>
-        <p style={{ color: "#94a3b8", fontSize: "0.76rem", marginBottom: "0.18rem" }}>
-          {label}
-        </p>
-        <p style={{ color: "#1C1917", fontWeight: 800, lineHeight: 1.35 }}>
-          {value}
-        </p>
-      </div>
-    </div>
-  );
-}
 
 export default function TrackOrderClient() {
   return <TrackOrderExperience copy={defaultCopy} />;
 }
 
 export function TrackOrderExperience({ copy }) {
-  const resultRef = useRef(null);
+  const router = useRouter();
   const [orderNumber, setOrderNumber] = useState("");
   const [contact, setContact] = useState("");
-  const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (!order) return undefined;
-
-    const timeout = window.setTimeout(() => {
-      resultRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 80);
-
-    return () => window.clearTimeout(timeout);
-  }, [order]);
 
   async function handleSubmit(event) {
     event.preventDefault();
     setLoading(true);
     setError("");
-    setOrder(null);
 
     try {
       const response = await fetch("/api/orders/lookup", {
@@ -201,10 +85,14 @@ export function TrackOrderExperience({ copy }) {
         throw new Error(data.error || copy.lookupError);
       }
 
-      setOrder(data.order);
+      const trackingUrl = typeof data.trackingUrl === "string" ? data.trackingUrl : "";
+      if (!trackingUrl.startsWith("/track/")) {
+        throw new Error(copy.lookupError);
+      }
+
+      router.replace(trackingUrl);
     } catch (lookupError) {
-      setError(lookupError.message || copy.lookupError);
-    } finally {
+      setError(lookupError.message || copy.lookupNotFound || copy.lookupError);
       setLoading(false);
     }
   }
@@ -415,313 +303,6 @@ export function TrackOrderExperience({ copy }) {
         </div>
       </section>
 
-      {order && (
-        <section
-          ref={resultRef}
-          className="section-base"
-          style={{ background: "white", scrollMarginTop: "88px" }}
-        >
-          <div className="container-px">
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
-                gap: "1.25rem",
-                alignItems: "start",
-              }}
-            >
-              <div className="white-card" style={{ padding: "1.5rem" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "1rem",
-                    flexWrap: "wrap",
-                    marginBottom: "1.25rem",
-                  }}
-                >
-                  <div>
-                    <p
-                      style={{
-                        color: "#64748b",
-                        fontSize: "0.85rem",
-                        fontWeight: 700,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.06em",
-                        marginBottom: "0.35rem",
-                      }}
-                    >
-                      {order.orderNumber}
-                    </p>
-                    <h2 style={{ color: "#1C1917" }}>{order.projectName}</h2>
-                  </div>
-                  <div
-                    style={{
-                      alignSelf: "flex-start",
-                      background: "rgba(245,158,11,0.14)",
-                      border: "1px solid rgba(245,158,11,0.28)",
-                      borderRadius: "999px",
-                      color: "#92400e",
-                      fontWeight: 800,
-                      padding: "0.45rem 0.8rem",
-                      fontSize: "0.82rem",
-                    }}
-                  >
-                    {order.statusLabel}
-                  </div>
-                </div>
-
-                <div style={{ display: "grid", gap: "1rem" }}>
-                  {order.updates?.map((update, index) => (
-                    <div
-                      key={`${update.title}-${update.createdAt || index}`}
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "42px 1fr",
-                        gap: "0.9rem",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: 42,
-                          height: 42,
-                          borderRadius: "0.8rem",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          background:
-                            index === order.updates.length - 1
-                              ? "rgba(245,158,11,0.14)"
-                              : "rgba(34,197,94,0.12)",
-                          color:
-                            index === order.updates.length - 1
-                              ? "#F59E0B"
-                              : "#16a34a",
-                        }}
-                      >
-                        {index === order.updates.length - 1 ? (
-                          <Clock3 size={20} />
-                        ) : (
-                          <CheckCircle2 size={20} />
-                        )}
-                      </div>
-                      <div>
-                        <h3 style={{ marginBottom: "0.25rem" }}>{update.title}</h3>
-                        <p style={{ color: "#64748b", fontSize: "0.95rem" }}>
-                          {update.body}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="white-card" style={{ padding: "1.5rem" }}>
-                <h2 style={{ marginBottom: "0.85rem" }}>{copy.detailsTitle}</h2>
-                <div style={{ display: "grid", gap: "0.85rem" }}>
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
-                      gap: "0.75rem",
-                    }}
-                  >
-                    <DetailItem icon={Building2} label={copy.companyLabel} value={order.companyName} />
-                    <DetailItem icon={User} label={copy.clientLabel} value={order.customerName} />
-                    <DetailItem icon={Package} label={copy.productLabel} value={order.productName} />
-                    <DetailItem icon={Hash} label={copy.quantityLabel} value={order.quantity} />
-                    <DetailItem icon={FileText} label={copy.serviceLabel} value={order.productService} />
-                    <DetailItem icon={CalendarDays} label={copy.orderDateLabel} value={formatDate(order.orderDate)} />
-                    <DetailItem icon={CreditCard} label={copy.paymentLabel} value={order.paymentStatus} />
-                    <DetailItem icon={ClipboardCheck} label={copy.proofLabel} value={order.proofStatus} />
-                    <DetailItem icon={Truck} label={copy.deliveryLabel} value={order.deliveryMethod} />
-                  </div>
-                  {order.dueDate && (
-                    <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-                      <CalendarDays size={17} style={{ color: "#0369A1" }} />
-                      <p style={{ color: "#1C1917", fontWeight: 700 }}>
-                        {copy.targetDateLabel}: {formatDate(order.dueDate)}
-                      </p>
-                    </div>
-                  )}
-                  {order.nextAction && (
-                    <div
-                      style={{
-                        background: "#fffbeb",
-                        border: "1px solid #fde68a",
-                        borderRadius: "0.75rem",
-                        padding: "1rem",
-                      }}
-                    >
-                      <p
-                        style={{
-                          color: "#92400e",
-                          fontWeight: 800,
-                          fontSize: "0.85rem",
-                          marginBottom: "0.3rem",
-                        }}
-                      >
-                        {copy.nextActionLabel}
-                      </p>
-                      <p style={{ color: "#78350f", fontSize: "0.95rem" }}>
-                        {order.nextAction}
-                      </p>
-                    </div>
-                  )}
-                  {order.publicNote && (
-                    <p style={{ color: "#64748b", fontSize: "0.95rem" }}>
-                      {order.publicNote}
-                    </p>
-                  )}
-                  {order.files?.length > 0 && (
-                    <div style={{ display: "grid", gap: "0.6rem" }}>
-                      <p style={{ color: "#94a3b8", fontSize: "0.78rem" }}>{copy.filesLabel}</p>
-                      {order.files.map((file) => (
-                        <a
-                          key={`${file.label}-${file.fileUrl}`}
-                          href={file.fileUrl}
-                          target={file.fileUrl?.startsWith("http") ? "_blank" : undefined}
-                          rel={file.fileUrl?.startsWith("http") ? "noopener noreferrer" : undefined}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: "0.75rem",
-                            padding: "0.8rem 0.9rem",
-                            borderRadius: "0.75rem",
-                            border: "1px solid #e2e8f0",
-                            color: "#0369A1",
-                            fontWeight: 700,
-                          }}
-                        >
-                          {file.label}
-                          <ExternalLink size={15} />
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="section-base" style={{ background: "#FAF8F4" }}>
-        <div className="container-px">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
-              gap: "1rem",
-              alignItems: "stretch",
-            }}
-          >
-            <div className="white-card" style={{ padding: "1.5rem" }}>
-              <h2 style={{ marginBottom: "0.75rem" }}>{copy.statusPreviewTitle}</h2>
-              <p style={{ color: "#64748b", marginBottom: "1.25rem" }}>
-                {copy.statusPreviewText}
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {copy.previewSteps.map((step) => {
-                  const isDone = step.state === "done";
-                  const isActive = step.state === "active";
-                  const Icon = step.icon || (isActive ? ShieldCheck : Clock3);
-                  return (
-                    <div
-                      key={step.label}
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "40px 1fr",
-                        gap: "0.85rem",
-                        alignItems: "start",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          borderRadius: "0.75rem",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          background: isDone
-                            ? "rgba(34,197,94,0.12)"
-                            : isActive
-                              ? "rgba(245,158,11,0.14)"
-                              : "#f1f5f9",
-                          color: isDone ? "#16a34a" : isActive ? "#F59E0B" : "#64748b",
-                        }}
-                      >
-                        {isDone ? <CheckCircle2 size={20} /> : <Icon size={19} />}
-                      </div>
-                      <div>
-                        <h3 style={{ marginBottom: "0.2rem" }}>{step.label}</h3>
-                        <p style={{ color: "#64748b", fontSize: "0.92rem" }}>
-                          {step.detail}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div
-              className="white-card"
-              style={{
-                padding: "1.5rem",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                gap: "1.5rem",
-              }}
-            >
-              <div>
-                <h2 style={{ marginBottom: "0.75rem" }}>{copy.usefulFeaturesTitle}</h2>
-                <div style={{ display: "grid", gap: "0.8rem" }}>
-                  {copy.usefulFeatures.map((item) => (
-                    <div
-                      key={item}
-                      style={{ display: "flex", gap: "0.65rem", alignItems: "flex-start" }}
-                    >
-                      <CheckCircle2
-                        size={17}
-                        style={{ color: "#16a34a", flexShrink: 0, marginTop: 4 }}
-                      />
-                      <p style={{ color: "#475569", fontSize: "0.95rem" }}>{item}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div
-                style={{
-                  borderTop: "1px solid #e2e8f0",
-                  paddingTop: "1.25rem",
-                  display: "grid",
-                  gap: "0.75rem",
-                }}
-              >
-                <a
-                  href={`mailto:${BRAND.email}`}
-                  style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "#0369A1", fontWeight: 700 }}
-                >
-                  <Mail size={16} /> {BRAND.email}
-                </a>
-                <a
-                  href={BRAND.phoneHref}
-                  style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "#0369A1", fontWeight: 700 }}
-                >
-                  <Phone size={16} /> {BRAND.phone}
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
     </>
   );
 }

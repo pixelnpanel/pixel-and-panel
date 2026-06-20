@@ -60,7 +60,10 @@ export default function Navbar() {
     en: getAlternatePath(pathname, 'en'),
     es: getAlternatePath(pathname, 'es'),
   }
-  const forceSolidHeader = pathname?.startsWith('/track/')
+  const forceSolidHeader =
+    pathname === '/track-order' ||
+    pathname === '/es/rastrear-pedido' ||
+    pathname?.startsWith('/track/')
 
   useEffect(() => {
     let ticking = false
