@@ -116,7 +116,7 @@ export default function Navbar() {
   }
 
   const isLight = scrolled || forceSolidHeader
-  const bg = isLight ? 'rgba(255,255,255,0.97)' : 'transparent'
+  const bg = forceSolidHeader ? '#FAF8F4' : isLight ? 'rgba(255,255,255,0.97)' : 'transparent'
   const textColor = isLight ? '#1C1917' : 'white'
 
   return (
@@ -126,7 +126,7 @@ export default function Navbar() {
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
         transition: 'background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
         backgroundColor: bg,
-        backdropFilter: isLight ? 'blur(12px)' : 'none',
+        backdropFilter: forceSolidHeader ? 'none' : isLight ? 'blur(12px)' : 'none',
         borderBottom: isLight ? '1px solid #e2e8f0' : 'none',
         boxShadow: isLight ? '0 1px 20px rgba(0,0,0,0.08)' : 'none',
       }}

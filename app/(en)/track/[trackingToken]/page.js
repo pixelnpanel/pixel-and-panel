@@ -150,7 +150,7 @@ export default async function CustomerTrackingPage({ params }) {
 
   return (
     <section style={{ background: "#FAF8F4", minHeight: "100vh" }}>
-      <div style={{ margin: "0 auto", maxWidth: "1120px", padding: "7.5rem 1rem 4rem" }}>
+      <div style={{ margin: "0 auto", maxWidth: "1120px", padding: "8.25rem 1rem 4rem" }}>
         <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "1rem" }}>
           <span
             style={{
