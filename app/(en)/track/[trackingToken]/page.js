@@ -18,14 +18,6 @@ import { getProgressSteps } from "@/lib/order-status";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "Order Tracking",
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
-
 function formatDate(date) {
   if (!date) return "";
   const [year, month, day] = String(date).split("-").map(Number);

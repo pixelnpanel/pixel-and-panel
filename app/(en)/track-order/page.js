@@ -1,9 +1,7 @@
+import { createOrderTrackingMetadata } from "@/lib/order-tracking-metadata";
 import TrackOrderClient from "./TrackOrderClient";
 
-export const metadata = {
-  title: "Track Your Order",
-  description:
-    "Track a Pixel & Panel signage, print, website, or marketing project with your order number and contact email.",
+export const metadata = createOrderTrackingMetadata({
   alternates: {
     canonical: "https://www.pixelnpanel.com/track-order",
     languages: {
@@ -11,17 +9,8 @@ export const metadata = {
       "es-US": "https://www.pixelnpanel.com/es/rastrear-pedido",
     },
   },
-  openGraph: {
-    title: "Track Your Order | Pixel & Panel",
-    description:
-      "Check the latest status for your Pixel & Panel project, proof, production, install, or completion step.",
-    url: "https://www.pixelnpanel.com/track-order",
-  },
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+  url: "https://www.pixelnpanel.com/track-order",
+});
 
 export default function TrackOrderPage() {
   return <TrackOrderClient />;
