@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SignCatalogLink from "@/components/analytics/SignCatalogLink";
+import { SIGN_CATALOG_LABEL, SIGN_CATALOG_PATH } from "@/lib/sign-catalog";
 import {
   ArrowRight,
   BadgeCheck,
@@ -83,8 +85,8 @@ const serviceSilos = [
     title: "Get noticed in the real world.",
     description:
       "Custom signs, banners, yard signs, truck lettering, storefront signs, business cards, flyers, menus, and more.",
-    href: "/signage",
-    cta: "View Signage & Print",
+    href: SIGN_CATALOG_PATH,
+    cta: SIGN_CATALOG_LABEL,
     accent: "#F59E0B",
     icon: PanelTop,
     items: [
@@ -421,6 +423,8 @@ export default function HomeSections({ faqs, content = {} }) {
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {serviceItems.map((item) => {
               const Icon = item.icon;
+              const CtaLink = item.href === SIGN_CATALOG_PATH ? SignCatalogLink : Link;
+              const signCatalogProps = item.href === SIGN_CATALOG_PATH ? { sourceLocation: "homepage" } : {};
               return (
                 <article key={item.eyebrow} className="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
                   <div className="absolute right-0 top-0 h-28 w-28 rounded-bl-[3rem] opacity-15" style={{ backgroundColor: item.accent }} />
@@ -443,9 +447,9 @@ export default function HomeSections({ faqs, content = {} }) {
                         </li>
                       ))}
                     </ul>
-                    <Link href={item.href} className="mt-7 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#0EA5E9]">
+                    <CtaLink href={item.href} {...signCatalogProps} className="mt-7 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#0EA5E9]">
                       {item.cta} <ArrowRight className="h-4 w-4" />
-                    </Link>
+                    </CtaLink>
                   </div>
                 </article>
               );

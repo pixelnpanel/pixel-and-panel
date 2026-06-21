@@ -7,10 +7,12 @@ import { usePathname, useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { getAlternatePath, isSpanishPath } from '@/lib/i18n'
+import { trackSignCatalogClick } from '@/lib/analytics'
+import { SIGN_CATALOG_LABEL, SIGN_CATALOG_PATH } from '@/lib/sign-catalog'
 
 const SPANISH_NAV = [
   { label: 'Servicios Digitales', href: '/es/servicios-digitales' },
-  { label: 'Letreros e Impresión', href: '/es/letreros' },
+  { label: SIGN_CATALOG_LABEL, href: SIGN_CATALOG_PATH },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Contacto', href: '/es/contacto' },
@@ -18,7 +20,7 @@ const SPANISH_NAV = [
 
 const MOBILE_NAV_SHORT = [
   { label: 'Digital', href: '/digital' },
-  { label: 'Signage', href: '/signage' },
+  { label: SIGN_CATALOG_LABEL, href: SIGN_CATALOG_PATH },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
@@ -26,7 +28,7 @@ const MOBILE_NAV_SHORT = [
 
 const MOBILE_NAV_SHORT_ES = [
   { label: 'Digital', href: '/es/servicios-digitales' },
-  { label: 'Letreros', href: '/es/letreros' },
+  { label: SIGN_CATALOG_LABEL, href: SIGN_CATALOG_PATH },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Contacto', href: '/es/contacto' },
@@ -95,6 +97,7 @@ export default function Navbar() {
 
   const startMobileNavigation = (href) => {
     if (navIsActive(pathname, href)) return
+    if (href === SIGN_CATALOG_PATH) trackSignCatalogClick('mobile_nav')
     router.push(href)
   }
 
@@ -202,7 +205,14 @@ export default function Navbar() {
             {navLinks.map((item) => {
               const isActive = navIsActive(pathname, item.href)
               return (
-                <Link key={item.label} href={item.href} className="hover:bg-black/5" style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: '1rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', transition: 'background-color 0.2s ease, color 0.2s ease', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}>
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="hover:bg-black/5"
+                  onClick={() => item.href === SIGN_CATALOG_PATH && trackSignCatalogClick('navbar')}
+                  prefetch={item.href === SIGN_CATALOG_PATH ? false : undefined}
+                  style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: item.href === SIGN_CATALOG_PATH ? '0.9rem' : '1rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', transition: 'background-color 0.2s ease, color 0.2s ease', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}
+                >
                   {item.label}
                   {isActive && (
                     <span style={{ position: 'absolute', bottom: 2, left: '0.875rem', right: '0.875rem', height: 3, borderRadius: 2, backgroundColor: '#F5A623' }} />
@@ -274,10 +284,10 @@ export default function Navbar() {
                   display: 'inline-flex',
                   flex: '1 1 0',
                   fontFamily: 'var(--font-body)',
-                  fontSize: '0.78rem',
+                  fontSize: item.href === SIGN_CATALOG_PATH ? '0.62rem' : '0.78rem',
                   fontWeight: isActive ? 750 : 450,
                   justifyContent: 'center',
-                  lineHeight: 1,
+                  lineHeight: item.href === SIGN_CATALOG_PATH ? 1.05 : 1,
                   minWidth: 0,
                   minHeight: '44px',
                   padding: '0.5rem 0.2rem',
@@ -286,7 +296,7 @@ export default function Navbar() {
                   textDecoration: 'none',
                   touchAction: 'manipulation',
                   WebkitTapHighlightColor: 'rgba(245, 158, 11, 0.24)',
-                  whiteSpace: 'nowrap',
+                  whiteSpace: item.href === SIGN_CATALOG_PATH ? 'normal' : 'nowrap',
                 }}
               >
                 {item.label}
