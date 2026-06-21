@@ -208,10 +208,10 @@ export default function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="hover:bg-black/5"
+                  className="text-[15px] font-semibold hover:bg-black/5"
                   onClick={() => item.href === SIGN_CATALOG_PATH && trackSignCatalogClick('navbar')}
                   prefetch={item.href === SIGN_CATALOG_PATH ? false : undefined}
-                  style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', fontSize: item.href === SIGN_CATALOG_PATH ? '0.9rem' : '1rem', fontWeight: isActive ? 700 : 500, color: textColor, textDecoration: 'none', transition: 'background-color 0.2s ease, color 0.2s ease', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}
+                  style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', color: textColor, textDecoration: 'none', transition: 'background-color 0.2s ease, color 0.2s ease', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}
                 >
                   {item.label}
                   {isActive && (
@@ -284,10 +284,10 @@ export default function Navbar() {
                   display: 'inline-flex',
                   flex: '1 1 0',
                   fontFamily: 'var(--font-body)',
-                  fontSize: item.href === SIGN_CATALOG_PATH ? '0.62rem' : '0.78rem',
+                  fontSize: '0.78rem',
                   fontWeight: isActive ? 750 : 450,
                   justifyContent: 'center',
-                  lineHeight: item.href === SIGN_CATALOG_PATH ? 1.05 : 1,
+                  lineHeight: 1,
                   minWidth: 0,
                   minHeight: '44px',
                   padding: '0.5rem 0.2rem',
@@ -296,7 +296,7 @@ export default function Navbar() {
                   textDecoration: 'none',
                   touchAction: 'manipulation',
                   WebkitTapHighlightColor: 'rgba(245, 158, 11, 0.24)',
-                  whiteSpace: item.href === SIGN_CATALOG_PATH ? 'normal' : 'nowrap',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {item.label}
