@@ -7,11 +7,11 @@ import { usePathname, useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { getAlternatePath, isSpanishPath } from '@/lib/i18n'
-import { SIGNAGE_LABEL, SIGNAGE_PATH } from '@/lib/sign-catalog'
+import { SIGNAGE_NAV_LABEL, SIGNAGE_PATH } from '@/lib/sign-catalog'
 
 const SPANISH_NAV = [
   { label: 'Servicios Digitales', href: '/es/servicios-digitales' },
-  { label: SIGNAGE_LABEL, href: SIGNAGE_PATH },
+  { label: SIGNAGE_NAV_LABEL, href: SIGNAGE_PATH },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Contacto', href: '/es/contacto' },
@@ -19,7 +19,7 @@ const SPANISH_NAV = [
 
 const MOBILE_NAV_SHORT = [
   { label: 'Digital', href: '/digital' },
-  { label: SIGNAGE_LABEL, href: SIGNAGE_PATH },
+  { label: SIGNAGE_NAV_LABEL, href: SIGNAGE_PATH },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
@@ -27,7 +27,7 @@ const MOBILE_NAV_SHORT = [
 
 const MOBILE_NAV_SHORT_ES = [
   { label: 'Digital', href: '/es/servicios-digitales' },
-  { label: SIGNAGE_LABEL, href: SIGNAGE_PATH },
+  { label: SIGNAGE_NAV_LABEL, href: SIGNAGE_PATH },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Contacto', href: '/es/contacto' },
