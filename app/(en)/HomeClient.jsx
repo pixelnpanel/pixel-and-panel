@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, HelpCircle, MonitorSmartphone, PanelTop } from "lucide-react";
-import SignCatalogLink from "@/components/analytics/SignCatalogLink";
-import { SIGN_CATALOG_LABEL, SIGN_CATALOG_PATH } from "@/lib/sign-catalog";
+import { SIGNAGE_LABEL, SIGNAGE_PATH } from "@/lib/sign-catalog";
 import HomeHeroVisual from "./HomeHeroVisual";
 
 export const defaultHomeStartOptions = [
@@ -15,11 +14,11 @@ export const defaultHomeStartOptions = [
     accent: "#0EA5E9",
   },
   {
-    title: SIGN_CATALOG_LABEL,
-    actionLabel: `${SIGN_CATALOG_LABEL} →`,
+    title: SIGNAGE_LABEL,
+    actionLabel: `${SIGNAGE_LABEL} →`,
     description: "Signs, print products, and branded materials.",
-    href: SIGN_CATALOG_PATH,
-    label: SIGN_CATALOG_LABEL,
+    href: SIGNAGE_PATH,
+    label: SIGNAGE_LABEL,
     icon: PanelTop,
     accent: "#F59E0B",
   },
@@ -105,14 +104,11 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
               <div className="mt-3 grid gap-3">
                 {startOptions.map((item) => {
                   const Icon = item.icon;
-                  const StartLink = item.href === SIGN_CATALOG_PATH ? SignCatalogLink : Link;
-                  const signCatalogProps = item.href === SIGN_CATALOG_PATH ? { sourceLocation: "homepage" } : {};
 
                   return (
-                    <StartLink
+                    <Link
                       key={item.href}
                       href={item.href}
-                      {...signCatalogProps}
                       className="flex min-h-[88px] items-center gap-3 rounded-xl border border-white/15 bg-white/[0.09] p-4 text-left shadow-sm active:scale-[0.99]"
                     >
                       <span
@@ -128,7 +124,7 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
                       </span>
                       <span className="sr-only">{item.label}</span>
                       <ArrowRight className="h-4 w-4 shrink-0 text-white/45" aria-hidden="true" />
-                    </StartLink>
+                    </Link>
                   );
                 })}
               </div>
@@ -146,20 +142,17 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
               <div className="mt-4 grid gap-2.5" aria-label={content.startOptionsLabel}>
                 {startOptions.map((item) => {
                   const actionLabel = item.actionLabel ?? item.title;
-                  const StartLink = item.href === SIGN_CATALOG_PATH ? SignCatalogLink : Link;
-                  const signCatalogProps = item.href === SIGN_CATALOG_PATH ? { sourceLocation: "homepage" } : {};
 
                   return (
-                    <StartLink
+                    <Link
                       key={item.href}
                       href={item.href}
-                      {...signCatalogProps}
                       className="group flex min-h-[46px] items-center justify-between gap-4 rounded-xl border border-white/14 bg-white/[0.07] px-4 py-3 text-left shadow-sm transition duration-300 hover:border-white/25 hover:bg-white/[0.12] focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/70"
                     >
                       <span className="min-w-0 font-heading text-sm font-bold leading-5 text-white">{actionLabel}</span>
                       <span className="sr-only">{item.label}</span>
                       <span className="h-2 w-2 shrink-0 rounded-full transition group-hover:scale-125" style={{ backgroundColor: item.accent }} aria-hidden="true" />
-                    </StartLink>
+                    </Link>
                   );
                 })}
               </div>

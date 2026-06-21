@@ -4,8 +4,7 @@ import { Globe2, Mail, MapPin, ArrowRight, Phone, Star } from 'lucide-react'
 import { BRAND, DIGITAL_SERVICES, SOCIAL_LINKS, GBP_REVIEW_URL } from '@/lib/constants'
 import { LEGAL_POLICY_LINKS } from '@/lib/legal-policies'
 import SocialLinks from '@/components/ui/SocialLinks'
-import SignCatalogLink from '@/components/analytics/SignCatalogLink'
-import { SIGN_CATALOG_LABEL, SIGN_CATALOG_PATH } from '@/lib/sign-catalog'
+import { SIGNAGE_LABEL, SIGNAGE_PATH } from '@/lib/sign-catalog'
 
 const FOOTER_SIGNAGE_PRODUCTS = [
   { name: 'Vinyl Banners',    href: '/signage/vinyl-banners' },
@@ -74,12 +73,12 @@ const FOOTER_COPY = {
     connectHeading: 'Connect',
     legalHeading: 'LEGAL',
     allDigital: 'All digital services',
-    allSignage: SIGN_CATALOG_LABEL,
+    allSignage: SIGNAGE_LABEL,
     quote: 'Request a Quote',
     quoteHref: '/quote-request',
     rights: 'All rights reserved.',
     allDigitalHref: '/digital',
-    allSignageHref: SIGN_CATALOG_PATH,
+    allSignageHref: SIGNAGE_PATH,
     digitalServices: DIGITAL_SERVICES,
     signageProducts: FOOTER_SIGNAGE_PRODUCTS,
     companyLinks: COMPANY_LINKS_EN,
@@ -102,12 +101,12 @@ const FOOTER_COPY = {
     companyHeading: 'Compañía',
     connectHeading: 'Conecta',
     allDigital: 'Todos los servicios digitales',
-    allSignage: SIGN_CATALOG_LABEL,
+    allSignage: SIGNAGE_LABEL,
     quote: 'Solicitar Cotización',
     quoteHref: '/es/solicitar-cotizacion',
     rights: 'Todos los derechos reservados.',
     allDigitalHref: '/es/servicios-digitales',
-    allSignageHref: SIGN_CATALOG_PATH,
+    allSignageHref: SIGNAGE_PATH,
     digitalServices: FOOTER_DIGITAL_SERVICES_ES,
     signageProducts: FOOTER_SIGNAGE_PRODUCTS_ES,
     companyLinks: COMPANY_LINKS_ES,
@@ -126,8 +125,6 @@ const footerLinkStyle = {
 export default function Footer({ language = 'en' }) {
   const year = new Date().getFullYear()
   const copy = FOOTER_COPY[language] || FOOTER_COPY.en
-  const SignageCtaLink = copy.allSignageHref === SIGN_CATALOG_PATH ? SignCatalogLink : Link
-  const signageCtaProps = copy.allSignageHref === SIGN_CATALOG_PATH ? { sourceLocation: 'footer' } : {}
 
   return (
     <footer style={{ backgroundColor: '#0C1E3C', color: 'white' }}>
@@ -243,9 +240,9 @@ export default function Footer({ language = 'en' }) {
                 </li>
               ))}
             </ul>
-            <SignageCtaLink href={copy.allSignageHref} {...signageCtaProps} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', marginTop: '1.25rem', fontSize: '0.75rem', fontWeight: 700, color: '#F59E0B', textDecoration: 'none', fontFamily: 'var(--font-heading)', textTransform: 'uppercase' }}>
+            <Link href={copy.allSignageHref} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', marginTop: '1.25rem', fontSize: '0.75rem', fontWeight: 700, color: '#F59E0B', textDecoration: 'none', fontFamily: 'var(--font-heading)', textTransform: 'uppercase' }}>
               {copy.allSignage} <ArrowRight size={12} />
-            </SignageCtaLink>
+            </Link>
           </div>
 
           {/* Company */}

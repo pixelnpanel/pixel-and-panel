@@ -6,6 +6,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowRight, Search, Box, X } from 'lucide-react'
 import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
+import { trackExtendedCatalogClick } from '@/lib/analytics'
+import { EXTENDED_CATALOG_URL } from '@/lib/sign-catalog'
 
 const ALL_PRODUCTS_SLUG = 'all-products'
 
@@ -40,6 +42,9 @@ const DEFAULT_COPY = {
     noResultsTitle: 'No matching products found.',
     noResultsCopy: 'Try searching for “banner,” “yard sign,” “vehicle,” “window,” “menu,” or “business card.”',
     requestHelp: 'Request Help Choosing',
+    extendedTitle: 'Need More Sign Options?',
+    extendedCopy: "We offer more signs, banners, displays, stands, flags, table covers, and event products than we can list here. Browse our extended catalog, then send us the product name or screenshot and we'll prepare a quote.",
+    extendedButton: 'Explore More Options',
     helpTitle: 'Need help choosing?',
     helpCopy: "Tell us the size, quantity, logo, and deadline. We'll help you choose the right signage product for your project.",
     helpQuote: 'Get a Free Quote',
@@ -559,6 +564,30 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         )}
                     </div>
 
+                </div>
+            </section>
+
+            {/* EXTENDED CATALOG */}
+            <section className="bg-white px-6 pb-16 md:pb-24">
+                <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-slate-200 bg-[#FAF8F4] p-8 shadow-sm md:p-10">
+                    <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
+                        <div>
+                            <p className="section-label text-[#0369A1]">More Options</p>
+                            <h2 className="mt-4 text-[#1C1917]">{content.extendedTitle}</h2>
+                            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-600 md:text-lg">
+                                {content.extendedCopy}
+                            </p>
+                        </div>
+                        <a
+                            href={EXTENDED_CATALOG_URL}
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            onClick={() => trackExtendedCatalogClick('signage_page')}
+                            className="btn-amber justify-center whitespace-nowrap"
+                        >
+                            {content.extendedButton} <ArrowRight size={18} />
+                        </a>
+                    </div>
                 </div>
             </section>
 

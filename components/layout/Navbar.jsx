@@ -7,12 +7,11 @@ import { usePathname, useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { getAlternatePath, isSpanishPath } from '@/lib/i18n'
-import { trackSignCatalogClick } from '@/lib/analytics'
-import { SIGN_CATALOG_LABEL, SIGN_CATALOG_PATH } from '@/lib/sign-catalog'
+import { SIGNAGE_LABEL, SIGNAGE_PATH } from '@/lib/sign-catalog'
 
 const SPANISH_NAV = [
   { label: 'Servicios Digitales', href: '/es/servicios-digitales' },
-  { label: SIGN_CATALOG_LABEL, href: SIGN_CATALOG_PATH },
+  { label: SIGNAGE_LABEL, href: SIGNAGE_PATH },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Contacto', href: '/es/contacto' },
@@ -20,7 +19,7 @@ const SPANISH_NAV = [
 
 const MOBILE_NAV_SHORT = [
   { label: 'Digital', href: '/digital' },
-  { label: SIGN_CATALOG_LABEL, href: SIGN_CATALOG_PATH },
+  { label: SIGNAGE_LABEL, href: SIGNAGE_PATH },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
@@ -28,7 +27,7 @@ const MOBILE_NAV_SHORT = [
 
 const MOBILE_NAV_SHORT_ES = [
   { label: 'Digital', href: '/es/servicios-digitales' },
-  { label: SIGN_CATALOG_LABEL, href: SIGN_CATALOG_PATH },
+  { label: SIGNAGE_LABEL, href: SIGNAGE_PATH },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Contacto', href: '/es/contacto' },
@@ -97,7 +96,6 @@ export default function Navbar() {
 
   const startMobileNavigation = (href) => {
     if (navIsActive(pathname, href)) return
-    if (href === SIGN_CATALOG_PATH) trackSignCatalogClick('mobile_nav')
     router.push(href)
   }
 
@@ -209,8 +207,6 @@ export default function Navbar() {
                   key={item.label}
                   href={item.href}
                   className="text-[15px] font-semibold hover:bg-black/5"
-                  onClick={() => item.href === SIGN_CATALOG_PATH && trackSignCatalogClick('navbar')}
-                  prefetch={item.href === SIGN_CATALOG_PATH ? false : undefined}
                   style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', color: textColor, textDecoration: 'none', transition: 'background-color 0.2s ease, color 0.2s ease', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}
                 >
                   {item.label}
