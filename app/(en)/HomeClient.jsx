@@ -35,10 +35,10 @@ export const defaultHomeStartOptions = [
 
 export const defaultHomeHeroCopy = {
   eyebrow: "Serving Southeast Texas",
-  mobileTitleStart: "Get Your Business Found",
-  mobileTitleHighlight: "Online & In Town",
-  desktopTitleStart: "We Build Websites, Custom Signs & Local SEO",
-  desktopTitleHighlight: "to Get Your Business Found",
+  mobileTitleStart: "Web Design & Signs in Beaumont TX",
+  mobileTitleHighlight: "for Local Visibility",
+  desktopTitleStart: "Web Design, Custom Signs & Local SEO in Beaumont TX",
+  desktopTitleHighlight: "for Southeast Texas Businesses",
   mobileIntro:
     "Fast websites, custom signs, and local SEO for contractors, stores, and service teams across Southeast Texas.",
   desktopIntro:
