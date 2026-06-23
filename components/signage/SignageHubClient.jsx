@@ -687,7 +687,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                 {product.image ? (
                                                     <Image
                                                         src={product.image}
-                                                        alt=""
+                                                        alt={product.imageAlt || product.name}
                                                         fill
                                                         sizes="56px"
                                                         className="object-cover"
