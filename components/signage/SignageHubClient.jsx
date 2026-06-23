@@ -320,18 +320,20 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
                         {content.eyebrow}
                     </p>
-                    <h1 className="pnp-mobile-hero-title mx-auto break-words md:hidden" style={{ color: 'white' }}>
-                        {content.mobileH1Start}{' '}
-                        <br />
-                        <span style={{ color: '#F59E0B' }}>{content.mobileH1Highlight}</span>
+                    <h1 className="pnp-mobile-hero-title mx-auto break-words md:max-w-[980px] md:text-[clamp(2rem,3.5vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
+                        <span className="md:hidden">
+                            {content.mobileH1Start}{' '}
+                            <br />
+                            <span style={{ color: '#F59E0B' }}>{content.mobileH1Highlight}</span>
+                        </span>
+                        <span className="hidden md:inline">
+                            {content.h1Start}{' '}
+                            <span style={{ color: '#F59E0B' }}>{content.h1Highlight}</span>
+                        </span>
                     </h1>
                     <p className="pnp-mobile-hero-copy mx-auto mt-6 break-words md:hidden">
                         {content.mobileHeroCopy}
                     </p>
-                    <h1 className="hidden md:mx-auto md:block md:max-w-[980px] md:text-[clamp(2rem,3.5vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
-                        {content.h1Start}{' '}
-                        <span style={{ color: '#F59E0B' }}>{content.h1Highlight}</span>
-                    </h1>
                     <p className="mx-auto mt-7 hidden max-w-3xl break-words leading-relaxed text-white/75 md:block md:text-xl">
                         {content.heroCopy}
                     </p>

@@ -662,14 +662,16 @@ export default function PricingPage({
           <motion.span variants={fadeUp} className="section-label">
             {copy.heroLabel}
           </motion.span>
-          <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title md:hidden" style={{ color: 'white', marginBottom: '1.25rem' }}>
-            {copy.mobileHeroTitlePrefix || copy.heroTitlePrefix}{' '}
-            <br />
-            <span style={{ color: colors.amber }}>{copy.mobileHeroTitleHighlight || copy.heroTitleHighlight}</span>
-          </motion.h1>
-          <motion.h1 variants={fadeUp} className="hidden md:block" style={{ color: 'white', marginBottom: '1.25rem' }}>
-            {copy.heroTitlePrefix}{' '}
-            <span style={{ color: colors.amber }}>{copy.heroTitleHighlight}</span>
+          <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
+            <span className="md:hidden">
+              {copy.mobileHeroTitlePrefix || copy.heroTitlePrefix}{' '}
+              <br />
+              <span style={{ color: colors.amber }}>{copy.mobileHeroTitleHighlight || copy.heroTitleHighlight}</span>
+            </span>
+            <span className="hidden md:inline">
+              {copy.heroTitlePrefix}{' '}
+              <span style={{ color: colors.amber }}>{copy.heroTitleHighlight}</span>
+            </span>
           </motion.h1>
           <motion.p
             variants={fadeUp}

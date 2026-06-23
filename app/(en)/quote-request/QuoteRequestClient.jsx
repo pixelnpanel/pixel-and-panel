@@ -292,14 +292,16 @@ export default function QuoteRequestClient({
             <p className="mb-5 section-label">
               {content.eyebrow}
             </p>
-            <h1 className="pnp-mobile-form-title max-w-[342px] break-words md:hidden" style={{ color: "white" }}>
-              {content.mobileH1Start || content.h1Start}
-              <br />
-              <span style={{ color: "#F59E0B" }}>{content.mobileH1Highlight || content.h1Highlight}</span>
-            </h1>
-            <h1 className="hidden max-w-[342px] break-words text-[1.85rem] leading-tight md:block md:max-w-xl md:text-[clamp(2rem,4vw,3rem)]" style={{ color: "white" }}>
-              {content.h1Start}{" "}
-              <span style={{ color: "#F59E0B" }}>{content.h1Highlight}</span>
+            <h1 className="pnp-mobile-form-title max-w-[342px] break-words md:max-w-xl" style={{ color: "white" }}>
+              <span className="md:hidden">
+                {content.mobileH1Start || content.h1Start}
+                <br />
+                <span style={{ color: "#F59E0B" }}>{content.mobileH1Highlight || content.h1Highlight}</span>
+              </span>
+              <span className="hidden max-w-[342px] break-words text-[1.85rem] leading-tight md:block md:max-w-xl md:text-[clamp(2rem,4vw,3rem)]">
+                {content.h1Start}{" "}
+                <span style={{ color: "#F59E0B" }}>{content.h1Highlight}</span>
+              </span>
             </h1>
             <p className="pnp-mobile-form-copy mt-5 max-w-[342px] break-words text-base leading-8 text-slate-200 md:hidden">
               {content.mobileIntro || content.intro}
