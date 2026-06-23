@@ -9,7 +9,7 @@ import {
   QrCode,
   Sparkles,
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { fadeUp, stagger, scaleIn, viewport } from '@/lib/animations'
 
 const WEBSITE_PACKAGES = [
@@ -268,7 +268,7 @@ const colors = {
 
 function SectionIntro({ label, title, copy, align = 'center' }) {
   return (
-    <motion.div
+    <m.div
       variants={stagger}
       initial="hidden"
       whileInView="visible"
@@ -280,15 +280,15 @@ function SectionIntro({ label, title, copy, align = 'center' }) {
       }}
     >
       {label && (
-        <motion.span variants={fadeUp} className="section-label">
+        <m.span variants={fadeUp} className="section-label">
           {label}
-        </motion.span>
+        </m.span>
       )}
-      <motion.h2 variants={fadeUp} style={{ color: colors.dark }}>
+      <m.h2 variants={fadeUp} style={{ color: colors.dark }}>
         {title}
-      </motion.h2>
+      </m.h2>
       {copy && (
-        <motion.p
+        <m.p
           variants={fadeUp}
           style={{
             color: '#5f6f7d',
@@ -297,9 +297,9 @@ function SectionIntro({ label, title, copy, align = 'center' }) {
           }}
         >
           {copy}
-        </motion.p>
+        </m.p>
       )}
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -331,7 +331,7 @@ function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
   const priceValue = pkg.price || ''
 
   return (
-    <motion.article
+    <m.article
       variants={scaleIn}
       className="white-card"
       style={{
@@ -562,13 +562,13 @@ function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
           </li>
         ))}
       </ul>
-    </motion.article>
+    </m.article>
   )
 }
 
 function CareCard({ plan }) {
   return (
-    <motion.article
+    <m.article
       variants={fadeUp}
       className="white-card"
       style={{
@@ -619,7 +619,7 @@ function CareCard({ plan }) {
           </li>
         ))}
       </ul>
-    </motion.article>
+    </m.article>
   )
 }
 
@@ -632,7 +632,8 @@ export default function PricingPage({
   copy = DEFAULT_COPY,
 } = {}) {
   return (
-    <>
+    <LazyMotion features={domAnimation}>
+      <>
       <section
         className="pnp-mobile-hero"
         style={{
@@ -653,16 +654,16 @@ export default function PricingPage({
             position: 'absolute',
           }}
         />
-        <motion.div
+        <m.div
           variants={stagger}
           initial="hidden"
           animate="visible"
           style={{ margin: '0 auto', maxWidth: '820px', position: 'relative' }}
         >
-          <motion.span variants={fadeUp} className="section-label">
+          <m.span variants={fadeUp} className="section-label">
             {copy.heroLabel}
-          </motion.span>
-          <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
+          </m.span>
+          <m.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
             <span className="md:hidden">
               {copy.mobileHeroTitlePrefix || copy.heroTitlePrefix}{' '}
               <br />
@@ -672,8 +673,8 @@ export default function PricingPage({
               {copy.heroTitlePrefix}{' '}
               <span style={{ color: colors.amber }}>{copy.heroTitleHighlight}</span>
             </span>
-          </motion.h1>
-          <motion.p
+          </m.h1>
+          <m.p
             variants={fadeUp}
             className="pnp-mobile-hero-copy md:hidden"
             style={{
@@ -685,8 +686,8 @@ export default function PricingPage({
             }}
           >
             {copy.mobileHeroCopy || copy.heroCopy}
-          </motion.p>
-          <motion.p
+          </m.p>
+          <m.p
             variants={fadeUp}
             className="hidden md:block"
             style={{
@@ -698,8 +699,8 @@ export default function PricingPage({
             }}
           >
             {copy.heroCopy}
-          </motion.p>
-          <motion.p
+          </m.p>
+          <m.p
             variants={fadeUp}
             className="pnp-mobile-hero-note"
             style={{
@@ -710,8 +711,8 @@ export default function PricingPage({
             }}
           >
             {copy.heroNote}
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
       </section>
 
       <section className="section-base" style={{ backgroundColor: colors.cream }}>
@@ -721,7 +722,7 @@ export default function PricingPage({
             title={copy.packageTitle}
             copy={copy.packageCopy}
           />
-          <motion.div
+          <m.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -745,8 +746,8 @@ export default function PricingPage({
             }}
           >
             {copy.launchPricingNote}
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -761,8 +762,8 @@ export default function PricingPage({
             {websitePackages.map((pkg) => (
               <PackageCard key={pkg.name} pkg={pkg} bestForLabel={copy.bestForLabel} />
             ))}
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -784,7 +785,7 @@ export default function PricingPage({
               {copy.packageNoteVisibility}
             </Link>{' '}
             {copy.packageNoteEnd}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -795,7 +796,7 @@ export default function PricingPage({
             title={copy.careTitle}
             copy={copy.careCopy}
           />
-          <motion.div
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -809,7 +810,7 @@ export default function PricingPage({
             {carePlans.map((plan) => (
               <CareCard key={plan.name} plan={plan} />
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -820,7 +821,7 @@ export default function PricingPage({
             title={copy.addOnsTitle}
             copy={copy.addOnsCopy}
           />
-          <motion.div
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -832,7 +833,7 @@ export default function PricingPage({
             }}
           >
             {addOns.map(([name, price]) => (
-              <motion.div
+              <m.div
                 key={name}
                 variants={fadeUp}
                 className="white-card"
@@ -855,15 +856,15 @@ export default function PricingPage({
                   </h3>
                   <p style={{ color: '#5f6f7d' }}>{price}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
-          <motion.div
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -879,7 +880,7 @@ export default function PricingPage({
               padding: 'clamp(1.5rem, 4vw, 2.5rem)',
             }}
           >
-            <motion.div variants={fadeUp}>
+            <m.div variants={fadeUp}>
               <span className="section-label" style={{ color: colors.amber }}>
                 {copy.signageLabel}
               </span>
@@ -896,8 +897,8 @@ export default function PricingPage({
               >
                 {copy.signageCta} <ArrowRight size={15} />
               </Link>
-            </motion.div>
-            <motion.div
+            </m.div>
+            <m.div
               variants={stagger}
               style={{
                 display: 'grid',
@@ -906,7 +907,7 @@ export default function PricingPage({
               }}
             >
               {signageExamples.map((item) => (
-                <motion.div
+                <m.div
                   key={item}
                   variants={fadeUp}
                   style={{
@@ -921,16 +922,16 @@ export default function PricingPage({
                 >
                   <QrCode size={16} color={colors.amber} style={{ flexShrink: 0 }} />
                   {item}
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
 
       <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
-          <motion.div
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
@@ -945,7 +946,7 @@ export default function PricingPage({
               position: 'relative',
             }}
           >
-            <motion.div
+            <m.div
               variants={fadeUp}
               style={{
                 alignItems: 'center',
@@ -958,11 +959,11 @@ export default function PricingPage({
               <span className="section-label" style={{ color: colors.amber, marginBottom: 0 }}>
                 {copy.foundingLabel}
               </span>
-            </motion.div>
-            <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
+            </m.div>
+            <m.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
               {copy.foundingTitle}
-            </motion.h2>
-            <motion.p
+            </m.h2>
+            <m.p
               variants={fadeUp}
               style={{
                 color: 'rgba(255,255,255,0.76)',
@@ -972,8 +973,8 @@ export default function PricingPage({
               }}
             >
               {copy.foundingCopy}
-            </motion.p>
-            <motion.div variants={fadeUp}>
+            </m.p>
+            <m.div variants={fadeUp}>
               <Link
                 href={copy.foundingHref}
                 className="btn-amber"
@@ -981,28 +982,28 @@ export default function PricingPage({
               >
                 {copy.foundingCta} <ArrowRight size={15} />
               </Link>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
 
       <section className="section-base" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
-          <motion.div
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
             style={{ margin: '0 auto', maxWidth: '840px' }}
           >
-            <motion.h2
+            <m.h2
               variants={fadeUp}
               style={{ color: colors.dark, marginBottom: '2rem', textAlign: 'center' }}
             >
               {copy.faqTitle}
-            </motion.h2>
+            </m.h2>
             {faqs.map((item) => (
-              <motion.article
+              <m.article
                 key={item.q}
                 variants={fadeUp}
                 className="white-card"
@@ -1016,9 +1017,9 @@ export default function PricingPage({
                   {item.q}
                 </h3>
                 <p style={{ color: '#5f6f7d', lineHeight: 1.7 }}>{item.a}</p>
-              </motion.article>
+              </m.article>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -1027,17 +1028,17 @@ export default function PricingPage({
         style={{ background: colors.navy, textAlign: 'center' }}
       >
         <div className="container-px">
-          <motion.div
+          <m.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
             style={{ margin: '0 auto', maxWidth: '700px' }}
           >
-            <motion.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
+            <m.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
               {copy.finalTitle}
-            </motion.h2>
-            <motion.p
+            </m.h2>
+            <m.p
               variants={fadeUp}
               style={{
                 color: 'rgba(255,255,255,0.72)',
@@ -1054,8 +1055,8 @@ export default function PricingPage({
                 {copy.finalCopyDigital}
               </Link>{' '}
               {copy.finalCopyEnd}
-            </motion.p>
-            <motion.div variants={fadeUp}>
+            </m.p>
+            <m.div variants={fadeUp}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.9rem', justifyContent: 'center' }}>
                 <Link href={copy.finalQuoteHref} className="btn-amber">
                   {copy.finalQuoteCta} <ArrowRight size={15} />
@@ -1064,10 +1065,11 @@ export default function PricingPage({
                   {copy.finalVisibilityCta} <ArrowRight size={15} />
                 </Link>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
-    </>
+      </>
+    </LazyMotion>
   )
 }

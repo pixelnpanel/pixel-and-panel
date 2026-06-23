@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle, Mail, Clock, Phone, Star, MapPin, ExternalLink } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { fadeUp, slideRight, stagger } from '@/lib/animations'
 import SocialLinks from '@/components/ui/SocialLinks'
 import { SOCIAL_LINKS, GBP_REVIEW_URL, GBP_MAPS_URL } from '@/lib/constants'
@@ -145,7 +145,8 @@ export default function ContactPage({ copy = defaultCopy }) {
     }
 
     return (
-        <>
+        <LazyMotion features={domAnimation}>
+            <>
             <section className="pnp-mobile-contact-hero" style={{
                 minHeight: 'calc(100vh - 72px)',
                 background: 'linear-gradient(135deg, #0C1E3C 0%, #0369A1 60%, #0EA5E9 100%)',
@@ -156,18 +157,18 @@ export default function ContactPage({ copy = defaultCopy }) {
 
                 <div className="gap-8 md:gap-16" style={{ position: 'relative', maxWidth: '1280px', margin: '0 auto', width: '100%', display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
 
-                    <motion.div
+                    <m.div
                         className="pnp-mobile-form-intro order-1 md:hidden"
                         variants={stagger}
                         initial="hidden"
                         animate="visible"
                         style={{ flex: '1 1 100%', color: 'white' }}
                     >
-                        <motion.span variants={fadeUp} className="section-label" style={{ marginBottom: '1rem' }}>
+                        <m.span variants={fadeUp} className="section-label" style={{ marginBottom: '1rem' }}>
                             {content.eyebrow}
-                        </motion.span>
+                        </m.span>
 
-                        <motion.h1 variants={fadeUp} className="pnp-mobile-form-title" style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+                        <m.h1 variants={fadeUp} className="pnp-mobile-form-title" style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
                             {content.mobileHeadlineLines ? (
                                 <>
                                     {content.mobileHeadlineLines[0]}
@@ -182,29 +183,29 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     {' '}<br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[2]}</span>
                                 </>
                             )}
-                        </motion.h1>
+                        </m.h1>
 
-                        <motion.p variants={fadeUp} className="pnp-mobile-form-copy" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: 0, maxWidth: '420px' }}>
+                        <m.p variants={fadeUp} className="pnp-mobile-form-copy" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: 0, maxWidth: '420px' }}>
                             {content.mobileIntroStart || content.introStart}{' '}
                             <Link href={content.visibilityHref} style={{ color: '#F59E0B', fontWeight: 700 }}>
                                 {content.visibilityLabel}
                             </Link>.
-                        </motion.p>
-                    </motion.div>
+                        </m.p>
+                    </m.div>
 
                     {/* Desktop left column — staggered fade up */}
-                    <motion.div
+                    <m.div
                         className="hidden md:order-1 md:block"
                         variants={stagger}
                         initial="hidden"
                         animate="visible"
                         style={{ flex: '1 1 360px', color: 'white' }}
                     >
-                        <motion.span variants={fadeUp} className="section-label" style={{ marginBottom: '1rem' }}>
+                        <m.span variants={fadeUp} className="section-label" style={{ marginBottom: '1rem' }}>
                             {content.eyebrow}
-                        </motion.span>
+                        </m.span>
 
-                        <motion.h1 variants={fadeUp} style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+                        <m.h1 variants={fadeUp} style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
                             {content.h1 ? (
                                 content.h1
                             ) : (
@@ -214,18 +215,18 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     {' '}<br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[2]}</span>
                                 </>
                             )}
-                        </motion.h1>
+                        </m.h1>
 
-                        <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: '2.5rem', maxWidth: '420px' }}>
+                        <m.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: '2.5rem', maxWidth: '420px' }}>
                             {content.introStart}{' '}
                             <Link href={content.visibilityHref} style={{ color: '#F59E0B', fontWeight: 700 }}>
                                 {content.visibilityLabel}
                             </Link>.
-                        </motion.p>
+                        </m.p>
 
-                        <motion.div variants={stagger} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <m.div variants={stagger} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                             {contactCards.map((item) => (
-                                <motion.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
+                                <m.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
                                     <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
                                         onMouseEnter={e => applyInfoHover(e, item)}
                                         onMouseLeave={clearInfoHover}
@@ -236,10 +237,10 @@ export default function ContactPage({ copy = defaultCopy }) {
                                             <p style={infoValueStyle}>{item.value}</p>
                                         </div>
                                     </div>
-                                </motion.a>
+                                </m.a>
                             ))}
 
-                            <motion.div variants={fadeUp}>
+                            <m.div variants={fadeUp}>
                                 <Link href={trackOrderCard.href} style={{ textDecoration: 'none' }}>
                                     <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
                                         onMouseEnter={e => applyInfoHover(e, trackOrderCard)}
@@ -252,21 +253,21 @@ export default function ContactPage({ copy = defaultCopy }) {
                                         </div>
                                     </div>
                                 </Link>
-                            </motion.div>
+                            </m.div>
 
-                            <motion.div variants={fadeUp} style={infoCardStyle}>
+                            <m.div variants={fadeUp} style={infoCardStyle}>
                                 <div style={{ ...infoIconStyle, background: 'rgba(74,222,128,0.15)' }}><Clock size={18} color="#4ade80" /></div>
                                 <div>
                                     <p style={infoLabelStyle}>{content.responseLabel}</p>
                                     <p style={infoValueStyle}>{content.responseValue}</p>
                                 </div>
-                            </motion.div>
+                            </m.div>
 
-                        </motion.div>
-                    </motion.div>
+                        </m.div>
+                    </m.div>
 
                     {/* Right column — slides in from right */}
-                    <motion.div
+                    <m.div
                         className="pnp-mobile-contact-form-card order-2 md:order-2"
                         variants={slideRight}
                         initial="hidden"
@@ -275,7 +276,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                     >
                         <div style={{ background: 'rgba(255,255,255,0.97)', borderRadius: '1.5rem', padding: '2.5rem', boxShadow: '0 24px 60px rgba(0,0,0,0.25)' }}>
                             {submitted ? (
-                                <motion.div role="status" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }} style={{ textAlign: 'center', padding: '2rem 0' }}>
+                                <m.div role="status" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }} style={{ textAlign: 'center', padding: '2rem 0' }}>
                                     <div style={{ width: '72px', height: '72px', background: 'rgba(74,222,128,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
                                         <CheckCircle size={36} color="#4ade80" />
                                     </div>
@@ -283,7 +284,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     <p style={{ color: '#64748b', fontFamily: 'var(--font-body)', lineHeight: 1.7, maxWidth: '320px', margin: '0 auto' }}>
                                         {content.successText}
                                     </p>
-                                </motion.div>
+                                </m.div>
                             ) : (
                                 <form onSubmit={handleSubmit}>
                                     <h2 style={{ color: '#1C1917', marginBottom: '0.5rem' }}>{content.formTitle}</h2>
@@ -332,9 +333,9 @@ export default function ContactPage({ copy = defaultCopy }) {
                                 </form>
                             )}
                         </div>
-                    </motion.div>
+                    </m.div>
 
-                    <motion.div
+                    <m.div
                         className="order-3 flex flex-col gap-4 md:hidden"
                         variants={stagger}
                         initial="hidden"
@@ -342,7 +343,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                         style={{ flex: '1 1 100%', color: 'white' }}
                     >
                         {contactCards.map((item) => (
-                            <motion.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
+                            <m.a key={item.label} variants={fadeUp} href={item.href} style={{ textDecoration: 'none' }}>
                                 <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
                                     onMouseEnter={e => applyInfoHover(e, item)}
                                     onMouseLeave={clearInfoHover}
@@ -353,10 +354,10 @@ export default function ContactPage({ copy = defaultCopy }) {
                                         <p style={infoValueStyle}>{item.value}</p>
                                     </div>
                                 </div>
-                            </motion.a>
+                            </m.a>
                         ))}
 
-                        <motion.div variants={fadeUp}>
+                        <m.div variants={fadeUp}>
                             <Link href={trackOrderCard.href} style={{ textDecoration: 'none' }}>
                                 <div style={{ ...infoCardStyle, cursor: 'pointer', transition: 'all 0.2s' }}
                                     onMouseEnter={e => applyInfoHover(e, trackOrderCard)}
@@ -369,16 +370,16 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     </div>
                                 </div>
                             </Link>
-                        </motion.div>
+                        </m.div>
 
-                        <motion.div variants={fadeUp} style={infoCardStyle}>
+                        <m.div variants={fadeUp} style={infoCardStyle}>
                             <div style={{ ...infoIconStyle, background: 'rgba(74,222,128,0.15)' }}><Clock size={18} color="#4ade80" /></div>
                             <div>
                                 <p style={infoLabelStyle}>{content.responseLabel}</p>
                                 <p style={infoValueStyle}>{content.responseValue}</p>
                             </div>
-                        </motion.div>
-                    </motion.div>
+                        </m.div>
+                    </m.div>
 
                 </div>
             </section>
@@ -467,6 +468,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                     <div style={{ position: 'absolute', inset: 0 }} />
                 </a>
             </section>
-        </>
+            </>
+        </LazyMotion>
     )
 }
