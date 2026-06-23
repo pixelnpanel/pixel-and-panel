@@ -11,7 +11,7 @@ import { SIGNAGE_NAV_LABEL, SIGNAGE_PATH } from '@/lib/sign-catalog'
 
 const SPANISH_NAV = [
   { label: 'Servicios Digitales', href: '/es/servicios-digitales' },
-  { label: SIGNAGE_NAV_LABEL, href: SIGNAGE_PATH },
+  { label: 'Letreros', href: '/es/letreros' },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Contacto', href: '/es/contacto' },
@@ -27,7 +27,7 @@ const MOBILE_NAV_SHORT = [
 
 const MOBILE_NAV_SHORT_ES = [
   { label: 'Digital', href: '/es/servicios-digitales' },
-  { label: SIGNAGE_NAV_LABEL, href: SIGNAGE_PATH },
+  { label: 'Letreros', href: '/es/letreros' },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Precios', href: '/es/precios' },
   { label: 'Contacto', href: '/es/contacto' },

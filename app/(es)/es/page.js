@@ -19,7 +19,6 @@ import {
 import HomeClient from "../../(en)/HomeClient";
 import HomeSections from "../../(en)/HomeSections";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
-import { SIGNAGE_LABEL, SIGNAGE_PATH } from "@/lib/sign-catalog";
 
 const spanishHomepageFaq = [
   {
@@ -81,11 +80,11 @@ const spanishHomeStartOptions = [
     accent: "#0EA5E9",
   },
   {
-    title: SIGNAGE_LABEL,
-    actionLabel: `${SIGNAGE_LABEL} →`,
-    description: "Signs, print products, and branded materials.",
-    href: SIGNAGE_PATH,
-    label: SIGNAGE_LABEL,
+    title: "Letreros e impresión",
+    actionLabel: "Letreros →",
+    description: "Letreros, impresos y materiales de marca.",
+    href: "/es/letreros",
+    label: "Letreros",
     icon: PanelTop,
     accent: "#F59E0B",
   },
@@ -185,8 +184,8 @@ const spanishHomeSections = {
       title: "Haz que te noten en el mundo real.",
       description:
         "Letreros, banners, letreros de jardín, rotulación de camionetas, letreros de fachada, tarjetas, volantes, menús y más.",
-      href: SIGNAGE_PATH,
-      cta: SIGNAGE_LABEL,
+      href: "/es/letreros",
+      cta: "Letreros",
       accent: "#F59E0B",
       icon: PanelTop,
       items: [
