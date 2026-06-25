@@ -128,6 +128,18 @@ const popularServices = [
     icon: CreditCard,
   },
   {
+    title: "Window Graphics",
+    description: "Storefront lettering, decals, and privacy film that turn glass into branding.",
+    href: "/signage/window-graphics",
+    icon: PanelTop,
+  },
+  {
+    title: "Brochures",
+    description: "Trifold and bifold brochures for services, menus, sales packets, and handouts.",
+    href: "/signage/brochures",
+    icon: FileText,
+  },
+  {
     title: "Website Development",
     description: "Fast, mobile-first websites built around calls, quote requests, and trust.",
     href: "/digital/web-development",

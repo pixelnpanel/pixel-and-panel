@@ -4,7 +4,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/"],
+        disallow: ["/api/", "/_next/image"],
       },
     ],
     sitemap: "https://www.pixelnpanel.com/sitemap.xml",
