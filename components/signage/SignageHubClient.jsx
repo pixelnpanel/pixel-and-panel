@@ -212,23 +212,14 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             if (typeof window === 'undefined') return
 
             const isMobile = window.matchMedia('(max-width: 767px)').matches
-            const productArea = productAreaRef.current
-            const productGrid = productGridRef.current
 
-            if (!isMobile || isSearchSheetOpen || !productArea || !productGrid) {
+            if (!isMobile || isSearchSheetOpen) {
                 setIsFloatingSearchVisible(false)
                 return
             }
 
-            const firstCard = productGrid.querySelector('[data-product-card="true"]')
-            const cardHeight = firstCard?.getBoundingClientRect().height || 360
-            const scrollY = window.scrollY || window.pageYOffset
-            const gridTop = productGrid.getBoundingClientRect().top + scrollY
-            const productAreaBottom = productArea.getBoundingClientRect().bottom + scrollY
-            const appearsAfterCards = scrollY > gridTop + cardHeight * 0.9
-            const beforeFooter = scrollY + window.innerHeight < productAreaBottom - 160
-
-            setIsFloatingSearchVisible(appearsAfterCards && beforeFooter)
+            // Match the WhatsApp button: appear after a little scroll, then stay put.
+            setIsFloatingSearchVisible(window.scrollY > 240)
         }
 
         updateFloatingSearchVisibility()
@@ -239,7 +230,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             window.removeEventListener('scroll', updateFloatingSearchVisibility)
             window.removeEventListener('resize', updateFloatingSearchVisibility)
         }
-    }, [isSearchSheetOpen, selectedSlug])
+    }, [isSearchSheetOpen])
 
     useEffect(() => {
         const updateStickyCategoryVisibility = () => {
