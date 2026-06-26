@@ -63,8 +63,7 @@ const FOOTER_COPY = {
     serving: 'Serving Beaumont, Nederland & Port Arthur, TX',
     hours: 'Hours',
     weekdayHours: 'Mon–Fri: 9 AM – 6 PM',
-    saturdayHours: 'Sat: 11 AM – 3 PM',
-    sundayHours: 'Sun: Closed',
+    weekendHours: 'Sat – Sun: 12 PM – 4 PM',
     follow: 'Follow Us',
     review: 'Review us on Google',
     digitalHeading: 'Digital Services',
@@ -92,8 +91,7 @@ const FOOTER_COPY = {
     serving: 'Sirviendo Beaumont, Nederland y Port Arthur, TX',
     hours: 'Horario',
     weekdayHours: 'Lun – Vie: 9:00 AM – 6:00 PM',
-    saturdayHours: 'Sábado: 11:00 AM – 3:00 PM',
-    sundayHours: 'Domingo: Cerrado',
+    weekendHours: 'Sáb – Dom: 12:00 PM – 4:00 PM',
     follow: 'Síguenos',
     review: 'Déjanos una reseña en Google',
     digitalHeading: 'Servicios Digitales',
@@ -188,8 +186,7 @@ export default function Footer({ language = 'en' }) {
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <p style={{ ...footerLinkStyle, fontSize: '0.8rem' }}>{copy.weekdayHours}</p>
-                <p style={{ ...footerLinkStyle, fontSize: '0.8rem' }}>{copy.saturdayHours}</p>
-                <p style={{ ...footerLinkStyle, fontSize: '0.8rem', color: '#475569' }}>{copy.sundayHours}</p>
+                <p style={{ ...footerLinkStyle, fontSize: '0.8rem', fontStyle: 'italic', color: '#64748b' }}>{copy.weekendHours}</p>
               </div>
             </div>
 

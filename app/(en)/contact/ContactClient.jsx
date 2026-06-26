@@ -426,8 +426,8 @@ export default function ContactPage({ copy = defaultCopy }) {
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                 {[
                                     { day: 'Monday – Friday', hours: '9:00 AM – 6:00 PM' },
-                                    { day: 'Saturday', hours: '11:00 AM – 3:00 PM' },
-                                    { day: 'Sunday', hours: 'Closed' },
+                                    { day: 'Saturday', hours: '12:00 PM – 4:00 PM' },
+                                    { day: 'Sunday', hours: '12:00 PM – 4:00 PM' },
                                 ].map(({ day, hours }) => (
                                     <div key={day} style={{ display: 'flex', gap: '1rem', fontSize: '0.9rem', fontFamily: 'var(--font-body)' }}>
                                         <span style={{ color: '#94a3b8', minWidth: '160px' }}>{day}</span>

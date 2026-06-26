@@ -32,9 +32,9 @@ export default function LocalBusinessJsonLd() {
       },
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Saturday"],
-        opens: "11:00",
-        closes: "15:00",
+        dayOfWeek: ["Saturday", "Sunday"],
+        opens: "12:00",
+        closes: "16:00",
       },
     ],
     areaServed: [

@@ -126,6 +126,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const mobileSearchInputRef = useRef(null)
     const mobileChipRowRef = useRef(null)
     const stickyCategoryBarRef = useRef(null)
+    const sidebarRef = useRef(null)
     const [searchTerm, setSearchTerm] = useState('')
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
     const [isStickyCategoryVisible, setIsStickyCategoryVisible] = useState(false)
@@ -298,6 +299,48 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
         return () => window.clearTimeout(highlightTimer)
     }, [highlightedProductKey])
 
+    useEffect(() => {
+        const el = sidebarRef.current
+        if (!el) return
+
+        const NAV = 96  // navbar clearance (top-24)
+        const BOT = 16  // bottom breathing room
+        let prevY = window.scrollY
+        let topValue = NAV
+
+        const update = () => {
+            const vh = window.innerHeight
+            const elH = el.offsetHeight
+            const currentY = window.scrollY
+            const delta = currentY - prevY
+            prevY = currentY
+
+            const minTop = vh - elH - BOT  // bottom-stuck position
+            const maxTop = NAV             // top-stuck position
+
+            if (minTop >= maxTop) {
+                // Sidebar fits in viewport — normal top-24 sticky
+                topValue = maxTop
+            } else {
+                // Sidebar taller than viewport: track scroll direction
+                // Scrolling down (delta > 0) → top decreases toward minTop (bottom sticks)
+                // Scrolling up   (delta < 0) → top increases toward maxTop (top sticks)
+                topValue = Math.max(minTop, Math.min(maxTop, topValue - delta))
+            }
+
+            el.style.top = topValue + 'px'
+        }
+
+        const onResize = () => { prevY = window.scrollY }
+
+        window.addEventListener('scroll', update, { passive: true })
+        window.addEventListener('resize', onResize)
+        return () => {
+            window.removeEventListener('scroll', update)
+            window.removeEventListener('resize', onResize)
+        }
+    }, [])
+
     const handleCategoryClick = (slug) => {
         const params = new URLSearchParams()
         params.set('category', slug)
@@ -384,7 +427,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
                     {/* LEFT: CATEGORY SIDEBAR */}
                     <aside className="hidden lg:block">
-                        <div className="sticky top-24">
+                        <div ref={sidebarRef} className="sticky flex flex-col gap-4" style={{ top: '6rem' }}>
                             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                                 <div className="flex items-center gap-3 border-b border-slate-200 px-5 py-4">
                                     <Search size={20} className="text-[#0369A1]" />
@@ -408,6 +451,20 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                         )
                                     })}
                                 </div>
+                            </div>
+                            <div className="overflow-hidden rounded-2xl border border-amber-200 bg-[#FFFBEB] p-5 shadow-sm">
+                                <p className="mb-2 font-heading text-xs font-bold uppercase tracking-wider text-[#0369A1]">More Options</p>
+                                <h3 className="font-heading text-base font-bold leading-snug text-[#1C1917]">{content.extendedTitle}</h3>
+                                <p className="mt-2 text-sm leading-relaxed text-slate-600">{content.extendedCopy}</p>
+                                <a
+                                    href={EXTENDED_CATALOG_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer nofollow"
+                                    onClick={() => trackExtendedCatalogClick('signage_page')}
+                                    className="btn-amber mt-4 w-full justify-center"
+                                >
+                                    {content.extendedButton} <ArrowRight size={15} />
+                                </a>
                             </div>
                         </div>
 
@@ -564,8 +621,8 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 </div>
             </section>
 
-            {/* EXTENDED CATALOG */}
-            <section className="bg-white px-6 pb-16 md:pb-24">
+            {/* EXTENDED CATALOG — mobile only; desktop shows this in the sidebar */}
+            <section className="bg-white px-6 pb-16 md:pb-24 lg:hidden">
                 <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-slate-200 bg-[#FAF8F4] p-8 shadow-sm md:p-10">
                     <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
                         <div>
