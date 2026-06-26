@@ -256,7 +256,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             // Hand off the moment the top card's chip row reaches the sticky slot,
             // so the bar appears to lock in place rather than fade in after a gap.
             const chipRowBottom = chipRow.getBoundingClientRect().bottom
-            setIsStickyCategoryVisible(chipRowBottom < 104)
+            setIsStickyCategoryVisible(chipRowBottom < 120)
         }
 
         updateStickyCategoryVisibility()
@@ -656,11 +656,10 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             <div
                 ref={stickyCategoryBarRef}
                 aria-hidden={!isStickyCategoryVisible}
-                className={`fixed inset-x-0 top-[84px] z-40 border-b border-slate-200 bg-white/95 shadow-[0_8px_24px_rgba(28,25,23,0.12)] backdrop-blur-md transition-opacity duration-150 md:hidden ${isStickyCategoryVisible ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+                className={`fixed inset-x-0 top-[99px] z-40 border-b border-slate-200 bg-white/95 shadow-[0_8px_24px_rgba(28,25,23,0.12)] backdrop-blur-md transition-opacity duration-150 md:hidden ${isStickyCategoryVisible ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
                     }`}
             >
-                <div className="flex items-center gap-3 overflow-x-auto px-4 py-3">
-                    <MoveHorizontal size={18} className="shrink-0 text-[#0369A1]" />
+                <div className="flex items-center gap-2 overflow-x-auto px-4 py-3">
                     {categoryOptions.map((category) => {
                         const isActive = category.slug === selectedCategory.slug
                         return (
