@@ -124,8 +124,11 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const productGridRef = useRef(null)
     const productCardRefs = useRef(new Map())
     const mobileSearchInputRef = useRef(null)
+    const mobileCategoryCardRef = useRef(null)
+    const stickyCategoryBarRef = useRef(null)
     const [searchTerm, setSearchTerm] = useState('')
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
+    const [isStickyCategoryVisible, setIsStickyCategoryVisible] = useState(false)
     const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false)
     const [mobileSearchTerm, setMobileSearchTerm] = useState('')
     const [highlightedProductKey, setHighlightedProductKey] = useState('')
@@ -237,6 +240,41 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             window.removeEventListener('resize', updateFloatingSearchVisibility)
         }
     }, [isAllProductsSelected, isSearchSheetOpen, selectedSlug])
+
+    useEffect(() => {
+        const updateStickyCategoryVisibility = () => {
+            if (typeof window === 'undefined') return
+
+            const isMobile = window.matchMedia('(max-width: 767px)').matches
+            const card = mobileCategoryCardRef.current
+
+            if (!isMobile || isSearchSheetOpen || !card) {
+                setIsStickyCategoryVisible(false)
+                return
+            }
+
+            // Show once the top category card has scrolled up under the header.
+            const cardBottom = card.getBoundingClientRect().bottom
+            setIsStickyCategoryVisible(cardBottom < 84)
+        }
+
+        updateStickyCategoryVisibility()
+        window.addEventListener('scroll', updateStickyCategoryVisibility, { passive: true })
+        window.addEventListener('resize', updateStickyCategoryVisibility)
+
+        return () => {
+            window.removeEventListener('scroll', updateStickyCategoryVisibility)
+            window.removeEventListener('resize', updateStickyCategoryVisibility)
+        }
+    }, [isSearchSheetOpen])
+
+    useEffect(() => {
+        if (!isStickyCategoryVisible) return
+
+        const bar = stickyCategoryBarRef.current
+        const activeChip = bar?.querySelector('[data-active-chip="true"]')
+        activeChip?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    }, [isStickyCategoryVisible, selectedCategory.slug])
 
     useEffect(() => {
         if (!isSearchSheetOpen) return undefined
@@ -386,7 +424,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     {/* RIGHT: PRODUCT AREA */}
                     <div className="min-w-0">
                         {/* MOBILE CATEGORY CHIPS */}
-                        <section className="mobile-reveal mb-6 lg:hidden" style={{ "--reveal-delay": "120ms" }} aria-labelledby="mobile-category-heading">
+                        <section ref={mobileCategoryCardRef} className="mobile-reveal mb-6 lg:hidden" style={{ "--reveal-delay": "120ms" }} aria-labelledby="mobile-category-heading">
                             <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
                                 <div className="mb-4 flex items-center gap-3">
                                     <Search size={20} className="shrink-0 text-[#0369A1]" />
@@ -612,6 +650,37 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     </div>
                 </div>
             </section>
+
+            {/* MOBILE STICKY CATEGORY BAR — slides in after scrolling past the top category card */}
+            <div
+                ref={stickyCategoryBarRef}
+                aria-hidden={!isStickyCategoryVisible}
+                className={`fixed inset-x-0 top-[84px] z-40 border-b border-slate-200 bg-white/95 shadow-[0_8px_24px_rgba(28,25,23,0.12)] backdrop-blur-md transition-[opacity,transform] duration-200 md:hidden ${isStickyCategoryVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
+                    }`}
+            >
+                <div className="flex items-center gap-2 overflow-x-auto px-4 py-2.5">
+                    <Search size={16} className="shrink-0 text-[#0369A1]" />
+                    {categoryOptions.map((category) => {
+                        const isActive = category.slug === selectedCategory.slug
+                        return (
+                            <button
+                                key={`sticky-${category.slug}`}
+                                type="button"
+                                data-active-chip={isActive ? 'true' : undefined}
+                                onClick={() => handleCategoryClick(category.slug)}
+                                aria-pressed={isActive}
+                                tabIndex={isStickyCategoryVisible ? 0 : -1}
+                                className={`shrink-0 rounded-full border px-3.5 py-1.5 text-sm font-bold transition ${isActive
+                                    ? 'border-[#0369A1] bg-[#0369A1] text-white shadow-sm'
+                                    : 'border-slate-200 bg-[#FAF8F4] text-[#1C1917] hover:border-[#F59E0B]'
+                                    }`}
+                            >
+                                {category.name}
+                            </button>
+                        )
+                    })}
+                </div>
+            </div>
 
             <button
                 type="button"
