@@ -215,7 +215,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             const productArea = productAreaRef.current
             const productGrid = productGridRef.current
 
-            if (!isMobile || !isAllProductsSelected || isSearchSheetOpen || !productArea || !productGrid) {
+            if (!isMobile || isSearchSheetOpen || !productArea || !productGrid) {
                 setIsFloatingSearchVisible(false)
                 return
             }
@@ -225,7 +225,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             const scrollY = window.scrollY || window.pageYOffset
             const gridTop = productGrid.getBoundingClientRect().top + scrollY
             const productAreaBottom = productArea.getBoundingClientRect().bottom + scrollY
-            const appearsAfterCards = scrollY > gridTop + cardHeight * 2.2
+            const appearsAfterCards = scrollY > gridTop + cardHeight * 0.9
             const beforeFooter = scrollY + window.innerHeight < productAreaBottom - 160
 
             setIsFloatingSearchVisible(appearsAfterCards && beforeFooter)
@@ -239,7 +239,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             window.removeEventListener('scroll', updateFloatingSearchVisibility)
             window.removeEventListener('resize', updateFloatingSearchVisibility)
         }
-    }, [isAllProductsSelected, isSearchSheetOpen, selectedSlug])
+    }, [isSearchSheetOpen, selectedSlug])
 
     useEffect(() => {
         const updateStickyCategoryVisibility = () => {
