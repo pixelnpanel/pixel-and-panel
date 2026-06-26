@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ArrowRight, Search, Box, X, MoveHorizontal } from 'lucide-react'
+import { ArrowRight, Search, Box, X } from 'lucide-react'
 import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
 import { trackExtendedCatalogClick } from '@/lib/analytics'
 import { EXTENDED_CATALOG_URL } from '@/lib/sign-catalog'
@@ -424,43 +424,8 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
                     {/* RIGHT: PRODUCT AREA */}
                     <div className="min-w-0">
-                        {/* MOBILE CATEGORY CHIPS */}
-                        <section className="mobile-reveal mb-6 lg:hidden" style={{ "--reveal-delay": "120ms" }} aria-labelledby="mobile-category-heading">
-                            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                                <div className="mb-4 flex items-center gap-3">
-                                    <MoveHorizontal size={20} className="shrink-0 text-[#0369A1]" />
-                                    <div>
-                                        <h2 id="mobile-category-heading" className="text-xl text-[#1C1917]">
-                                            {content.mobileCategoryHeading}
-                                        </h2>
-                                        <p className="mt-1 text-sm text-slate-500">
-                                            {content.mobileCategoryHelp}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div ref={mobileChipRowRef} className="-mx-1 overflow-x-auto pb-1">
-                                    <div className="flex w-max max-w-none gap-2 px-1">
-                                        {categoryOptions.map((category) => {
-                                            const isActive = category.slug === selectedCategory.slug
-                                            return (
-                                                <button
-                                                    key={category.slug}
-                                                    type="button"
-                                                    onClick={() => handleCategoryClick(category.slug)}
-                                                    className={`shrink-0 rounded-full border px-4 py-2.5 text-sm font-bold transition ${isActive
-                                                        ? 'border-[#0369A1] bg-[#0369A1] text-white shadow-sm'
-                                                        : 'border-slate-200 bg-[#FAF8F4] text-[#1C1917] hover:border-[#F59E0B]'
-                                                        }`}
-                                                    aria-pressed={isActive}
-                                                >
-                                                    {category.name}
-                                                </button>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        {/* MOBILE STICKY-BAR TRIGGER — sticky category bar fades in once this scrolls under the navbar */}
+                        <div ref={mobileChipRowRef} aria-hidden="true" className="lg:hidden" />
 
                         {/* SELECTED CATEGORY HEADER */}
                         <div
