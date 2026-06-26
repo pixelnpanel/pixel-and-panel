@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ArrowRight, Search, Box, X } from 'lucide-react'
+import { ArrowRight, Search, Box, X, MoveHorizontal } from 'lucide-react'
 import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
 import { trackExtendedCatalogClick } from '@/lib/analytics'
 import { EXTENDED_CATALOG_URL } from '@/lib/sign-catalog'
@@ -124,7 +124,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const productGridRef = useRef(null)
     const productCardRefs = useRef(new Map())
     const mobileSearchInputRef = useRef(null)
-    const mobileCategoryCardRef = useRef(null)
+    const mobileChipRowRef = useRef(null)
     const stickyCategoryBarRef = useRef(null)
     const [searchTerm, setSearchTerm] = useState('')
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
@@ -246,16 +246,17 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
             if (typeof window === 'undefined') return
 
             const isMobile = window.matchMedia('(max-width: 767px)').matches
-            const card = mobileCategoryCardRef.current
+            const chipRow = mobileChipRowRef.current
 
-            if (!isMobile || isSearchSheetOpen || !card) {
+            if (!isMobile || isSearchSheetOpen || !chipRow) {
                 setIsStickyCategoryVisible(false)
                 return
             }
 
-            // Show once the top category card has scrolled up under the header.
-            const cardBottom = card.getBoundingClientRect().bottom
-            setIsStickyCategoryVisible(cardBottom < 84)
+            // Hand off the moment the top card's chip row reaches the sticky slot,
+            // so the bar appears to lock in place rather than fade in after a gap.
+            const chipRowBottom = chipRow.getBoundingClientRect().bottom
+            setIsStickyCategoryVisible(chipRowBottom < 104)
         }
 
         updateStickyCategoryVisibility()
@@ -424,10 +425,10 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     {/* RIGHT: PRODUCT AREA */}
                     <div className="min-w-0">
                         {/* MOBILE CATEGORY CHIPS */}
-                        <section ref={mobileCategoryCardRef} className="mobile-reveal mb-6 lg:hidden" style={{ "--reveal-delay": "120ms" }} aria-labelledby="mobile-category-heading">
+                        <section className="mobile-reveal mb-6 lg:hidden" style={{ "--reveal-delay": "120ms" }} aria-labelledby="mobile-category-heading">
                             <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
                                 <div className="mb-4 flex items-center gap-3">
-                                    <Search size={20} className="shrink-0 text-[#0369A1]" />
+                                    <MoveHorizontal size={20} className="shrink-0 text-[#0369A1]" />
                                     <div>
                                         <h2 id="mobile-category-heading" className="text-xl text-[#1C1917]">
                                             {content.mobileCategoryHeading}
@@ -437,7 +438,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                         </p>
                                     </div>
                                 </div>
-                                <div className="-mx-1 overflow-x-auto pb-1">
+                                <div ref={mobileChipRowRef} className="-mx-1 overflow-x-auto pb-1">
                                     <div className="flex w-max max-w-none gap-2 px-1">
                                         {categoryOptions.map((category) => {
                                             const isActive = category.slug === selectedCategory.slug
@@ -651,15 +652,15 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 </div>
             </section>
 
-            {/* MOBILE STICKY CATEGORY BAR — slides in after scrolling past the top category card */}
+            {/* MOBILE STICKY CATEGORY BAR — locks in place as the top card's chips reach the header */}
             <div
                 ref={stickyCategoryBarRef}
                 aria-hidden={!isStickyCategoryVisible}
-                className={`fixed inset-x-0 top-[84px] z-40 border-b border-slate-200 bg-white/95 shadow-[0_8px_24px_rgba(28,25,23,0.12)] backdrop-blur-md transition-[opacity,transform] duration-200 md:hidden ${isStickyCategoryVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
+                className={`fixed inset-x-0 top-[84px] z-40 border-b border-slate-200 bg-white/95 shadow-[0_8px_24px_rgba(28,25,23,0.12)] backdrop-blur-md transition-opacity duration-150 md:hidden ${isStickyCategoryVisible ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
                     }`}
             >
-                <div className="flex items-center gap-2 overflow-x-auto px-4 py-2.5">
-                    <Search size={16} className="shrink-0 text-[#0369A1]" />
+                <div className="flex items-center gap-3 overflow-x-auto px-4 py-3">
+                    <MoveHorizontal size={18} className="shrink-0 text-[#0369A1]" />
                     {categoryOptions.map((category) => {
                         const isActive = category.slug === selectedCategory.slug
                         return (
@@ -670,7 +671,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                 onClick={() => handleCategoryClick(category.slug)}
                                 aria-pressed={isActive}
                                 tabIndex={isStickyCategoryVisible ? 0 : -1}
-                                className={`shrink-0 rounded-full border px-3.5 py-1.5 text-sm font-bold transition ${isActive
+                                className={`shrink-0 rounded-full border px-4 py-2.5 text-sm font-bold leading-none transition ${isActive
                                     ? 'border-[#0369A1] bg-[#0369A1] text-white shadow-sm'
                                     : 'border-slate-200 bg-[#FAF8F4] text-[#1C1917] hover:border-[#F59E0B]'
                                     }`}
