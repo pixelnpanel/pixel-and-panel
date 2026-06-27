@@ -5,7 +5,7 @@ import { withDefaultSocialImage } from '@/lib/seo'
 
 export const metadata = withDefaultSocialImage({
     metadataBase: new URL('https://www.pixelnpanel.com'),
-    title: 'Custom Signs, Banners & Print in Beaumont and Port Arthur',
+    title: 'Custom Signs & Print in Beaumont TX',
     description:
         'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
     alternates: {
@@ -16,7 +16,7 @@ export const metadata = withDefaultSocialImage({
         },
     },
     openGraph: {
-        title: 'Custom Signs, Banners & Print in Beaumont and Port Arthur | Pixel & Panel',
+        title: 'Custom Signs & Print in Beaumont TX | Pixel & Panel',
         description:
             'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
         url: '/signage',
@@ -26,7 +26,7 @@ export const metadata = withDefaultSocialImage({
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Custom Signs, Banners & Print in Beaumont and Port Arthur | Pixel & Panel',
+        title: 'Custom Signs & Print in Beaumont TX | Pixel & Panel',
         description:
             'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
     },
