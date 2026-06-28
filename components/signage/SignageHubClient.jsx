@@ -9,7 +9,7 @@ import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
 import { trackExtendedCatalogClick } from '@/lib/analytics'
 import { EXTENDED_CATALOG_URL } from '@/lib/sign-catalog'
 
-const ALL_PRODUCTS_SLUG = 'all-products'
+const EMPTY_CATEGORY = { slug: '', name: '', products: [] }
 
 const DEFAULT_COPY = {
     eyebrow: 'Signage & Print',
@@ -116,11 +116,12 @@ const getProductSearchScore = (product, query) => {
     return score
 }
 
-export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY, initialCategorySlug = ALL_PRODUCTS_SLUG }) {
+export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY, initialCategorySlug }) {
     const content = useMemo(() => ({ ...DEFAULT_COPY, ...copy }), [copy])
     const router = useRouter()
     const searchParams = useSearchParams()
-    const categoryFromUrl = searchParams.get('category') || initialCategorySlug
+    const firstCategorySlug = categories[0]?.slug || ''
+    const categoryFromUrl = searchParams.get('category') || initialCategorySlug || firstCategorySlug
     const productAreaRef = useRef(null)
     const productGridRef = useRef(null)
     const productCardRefs = useRef(new Map())
@@ -146,32 +147,22 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
         ))
     }, [categories])
 
-    const categoryOptions = useMemo(() => [
-        {
-            slug: ALL_PRODUCTS_SLUG,
-            name: content.allProducts,
-            products: allProducts,
-            isAllProducts: true,
-        },
-        ...categories,
-    ], [allProducts, categories, content.allProducts])
+    const categoryOptions = useMemo(() => categories, [categories])
 
-    const defaultCategorySlug = ALL_PRODUCTS_SLUG
+    const defaultCategorySlug = categories[0]?.slug || ''
     const normalizedSelectedSlug = categoryOptions.some((cat) => cat.slug === selectedSlug) ? selectedSlug : defaultCategorySlug
 
     const selectedCategory = useMemo(() => {
-        return categoryOptions.find((cat) => cat.slug === normalizedSelectedSlug) || categoryOptions[0]
+        return categoryOptions.find((cat) => cat.slug === normalizedSelectedSlug) || categoryOptions[0] || EMPTY_CATEGORY
     }, [categoryOptions, normalizedSelectedSlug])
 
     const selectedProducts = useMemo(() => {
-        if (selectedCategory?.isAllProducts) return allProducts
-
         return sortProductsByName((selectedCategory?.products || []).map((product) => ({
             ...product,
-            categoryName: selectedCategory.name,
-            categorySlug: selectedCategory.slug,
+            categoryName: selectedCategory?.name,
+            categorySlug: selectedCategory?.slug,
         })))
-    }, [allProducts, selectedCategory])
+    }, [selectedCategory])
 
     const normalizedSearchTerm = searchTerm.trim().toLowerCase()
     const isSearchActive = normalizedSearchTerm.length > 0
@@ -184,10 +175,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
         })
     }, [normalizedSearchTerm, selectedProducts])
 
-    const selectedHeading = selectedCategory?.isAllProducts
-        ? content.allHeading
-        : selectedCategory.name
-    const isAllProductsSelected = Boolean(selectedCategory?.isAllProducts)
+    const selectedHeading = selectedCategory?.name
 
     const mobileSearchResults = useMemo(() => {
         const query = mobileSearchTerm.trim().toLowerCase()
