@@ -11,8 +11,8 @@ export default function SignageProductDetail({ product, category }) {
     return (
         <div className="min-h-screen bg-[#FAF8F4] text-[#1C1917]">
 
-            {/* BREADCRUMB */}
-            <div className="border-b border-slate-100 bg-white px-6 py-3">
+            {/* BREADCRUMB — top padding clears the fixed site navbar (99px mobile / 68px desktop) */}
+            <div className="border-b border-slate-100 bg-white px-6 pb-3 pt-[calc(99px+0.75rem)] lg:pt-[calc(68px+0.75rem)]">
                 <div className="mx-auto max-w-7xl">
                     <nav className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
                         <Link href="/" className="transition hover:text-[#0369A1]">Home</Link>
