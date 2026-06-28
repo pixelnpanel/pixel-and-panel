@@ -64,7 +64,11 @@ export default function Navbar() {
   const forceSolidHeader =
     pathname === '/track-order' ||
     pathname === '/es/rastrear-pedido' ||
-    pathname?.startsWith('/track/')
+    pathname?.startsWith('/track/') ||
+    // Signage category + product pages have a light top (breadcrumb on cream),
+    // not a dark hero — the navbar must stay solid so it doesn't overlay them.
+    // The /signage hub itself keeps its dark-hero transparent navbar.
+    (pathname?.startsWith('/signage/') && pathname !== '/signage')
 
   useEffect(() => {
     let ticking = false
