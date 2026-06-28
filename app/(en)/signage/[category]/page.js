@@ -1,61 +1,85 @@
-import { notFound } from "next/navigation";
-import SignageProductPage from "@/components/signage/SignageProductPage";
-import { getSignageProduct, signageProducts } from "@/lib/signage-products";
-import { signageSeoOverrides } from "@/lib/seo-copy-overrides";
-import { signageSlugMap } from "@/lib/signage-products-es";
-import { withDefaultSocialImage } from "@/lib/seo";
+import { notFound } from 'next/navigation'
+import SignageCategoryClient from '@/components/signage/SignageCategoryClient'
+import { getCategories, getCategory } from '@/lib/signage/data'
+import { withDefaultSocialImage } from '@/lib/seo'
 
-export function generateStaticParams() {
-    return signageProducts.map((product) => ({
-        category: product.slug,
-    }));
+export const revalidate = 60
+
+const SITE = 'https://www.pixelnpanel.com'
+
+export async function generateStaticParams() {
+    const categories = await getCategories()
+    return categories.map((category) => ({ category: category.slug }))
+}
+
+function JsonLd({ data }) {
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }}
+        />
+    )
 }
 
 export async function generateMetadata({ params }) {
-    const { category } = await params;
-    const product = getSignageProduct(category);
+    const { category } = await params
+    const cat = await getCategory(category)
 
-    if (!product) {
-        return {
-            title: "Signage & Print",
-        };
-    }
+    if (!cat) return { title: 'Signage & Print | Pixel & Panel' }
 
-    const seo = signageSeoOverrides[product.slug] || {};
-    const title = seo.title || product.title;
-    const description = seo.description || product.description;
+    const title = `${cat.name} — Custom Signs in Beaumont, Port Arthur & Orange TX | Pixel & Panel`
+    const description = cat.seoDescription
 
     return withDefaultSocialImage({
         title,
         description,
-        alternates: {
-            canonical: `/signage/${product.slug}`,
-            languages: {
-                "en-US": `/signage/${product.slug}`,
-                "es-US": `/es/letreros/${signageSlugMap[product.slug] || ""}`,
-            },
-        },
+        alternates: { canonical: `/signage/${cat.slug}` },
         openGraph: {
-            title: `${title} | Pixel & Panel`,
+            title,
             description,
-            url: `https://www.pixelnpanel.com/signage/${product.slug}`,
-            siteName: "Pixel & Panel",
-            locale: "en_US",
-            type: "website",
+            url: `${SITE}/signage/${cat.slug}`,
+            siteName: 'Pixel & Panel',
+            locale: 'en_US',
+            type: 'website',
         },
-        twitter: {
-            card: "summary_large_image",
-            title: `${title} | Pixel & Panel`,
-            description,
-        },
-    });
+    })
 }
 
-export default async function SignageProductRoute({ params }) {
-    const { category } = await params;
-    const product = getSignageProduct(category);
+export default async function SignageCategoryRoute({ params }) {
+    const { category } = await params
+    const categories = await getCategories()
+    const cat = categories.find((c) => c.slug === category)
+    if (!cat) notFound()
 
-    if (!product) notFound();
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
+            { '@type': 'ListItem', position: 2, name: 'Signage & Print', item: `${SITE}/signage` },
+            { '@type': 'ListItem', position: 3, name: cat.name, item: `${SITE}/signage/${cat.slug}` },
+        ],
+    }
 
-    return <SignageProductPage product={product} />;
+    const itemListSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: `${cat.name} Products`,
+        url: `${SITE}/signage/${cat.slug}`,
+        numberOfItems: cat.products.length,
+        itemListElement: cat.products.map((p, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: p.name,
+            url: `${SITE}/signage/${cat.slug}/${p.slug}`,
+        })),
+    }
+
+    return (
+        <>
+            <JsonLd data={breadcrumbSchema} />
+            <JsonLd data={itemListSchema} />
+            <SignageCategoryClient category={cat} allCategories={categories} />
+        </>
+    )
 }

@@ -1,4 +1,4 @@
-import { signageProducts } from "@/lib/signage-products";
+import { getCategories } from "@/lib/signage/data";
 import { signageProductsEs } from "@/lib/signage-products-es";
 import { digitalServices } from "@/lib/digital-services";
 import { digitalServicesEs } from "@/lib/digital-services-es";
@@ -38,12 +38,23 @@ const staticPages = [
   { url: "/es/area-de-servicio/port-arthur-tx", priority: 0.7, changeFrequency: "monthly" },
 ];
 
-export default function sitemap() {
-  const signageUrls = signageProducts.map((p) => ({
-    url: `${BASE}/signage/${p.slug}`,
-    priority: 0.8,
-    changeFrequency: "monthly",
-  }));
+export default async function sitemap() {
+  // EN signage catalog (data-driven): hub + category + product pages from CSV.
+  const signageCategories = await getCategories();
+  const signageUrls = [
+    ...signageCategories.map((c) => ({
+      url: `${BASE}/signage/${c.slug}`,
+      priority: 0.85,
+      changeFrequency: "weekly",
+    })),
+    ...signageCategories.flatMap((c) =>
+      c.products.map((p) => ({
+        url: `${BASE}/signage/${c.slug}/${p.slug}`,
+        priority: 0.8,
+        changeFrequency: "monthly",
+      }))
+    ),
+  ];
 
   const digitalUrls = digitalServices.map((s) => ({
     url: `${BASE}/digital/${s.slug}`,

@@ -1,12 +1,40 @@
 const oldServiceAreaRedirects = [
-  { service: "car-magnets", destination: "/signage/car-magnets" },
-  { service: "vehicle-wraps", destination: "/signage/vehicle-graphics" },
+  // The flat /signage/<product> catalog was replaced by the data-driven
+  // /signage/<category>/<product> catalog, so these now point at the hub.
+  { service: "car-magnets", destination: "/signage" },
+  { service: "vehicle-wraps", destination: "/signage" },
   { service: "website-design", destination: "/digital/web-development" },
 ].map(({ service, destination }) => ({
   source: `/service-area/:city(beaumont-tx|nederland-tx|port-arthur-tx)/${service}`,
   destination,
   statusCode: 301,
 }));
+
+// 301s from the old flat /signage/<product> URLs to the new catalog. Banner and
+// stand products map to their new category; everything else (categories no longer
+// in the launch sheet) falls back to the /signage hub so no link equity is lost.
+const oldSignageProductRedirects = (() => {
+  const toBanners = ["vinyl-banners", "mesh-banners", "backlit-banners", "fabric-banners"];
+  const toStands = ["retractable-banners", "step-and-repeat-backdrops"];
+  const toHub = [
+    "yard-signs", "real-estate-signs", "vehicle-graphics", "car-magnets",
+    "window-graphics", "storefront-signs", "metal-signs", "coroplast-signs",
+    "a-frame-signs", "business-cards", "flyers", "posters", "menus",
+    "table-covers", "event-tents", "vehicle-lettering", "partial-vehicle-wraps",
+    "perforated-window-graphics", "frosted-privacy-film", "acrylic-signs",
+    "brochures", "postcards", "channel-letters", "monument-signs", "pylon-signs",
+    "ada-signs", "lobby-signs", "dimensional-letters",
+  ];
+  return [
+    ...toBanners.map((slug) => [slug, "/signage/banners"]),
+    ...toStands.map((slug) => [slug, "/signage/banner-stands"]),
+    ...toHub.map((slug) => [slug, "/signage"]),
+  ].map(([slug, destination]) => ({
+    source: `/signage/${slug}`,
+    destination,
+    statusCode: 301,
+  }));
+})();
 
 if (process.env.VERCEL === "1" && process.env.VERCEL_PREVIEW_COMMENTS_ENABLED === "1") {
   // Vercel CLI 54's Next adapter can crash before build when toolbar injection
@@ -50,6 +78,7 @@ const nextConfig = {
   async redirects() {
     return [
       ...oldServiceAreaRedirects,
+      ...oldSignageProductRedirects,
       {
         source: "/digital/qr-campaigns",
         destination: "/digital/qr-code-campaigns",

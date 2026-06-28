@@ -1,13 +1,17 @@
 import { Suspense } from 'react'
 import SignageHubClient from '@/components/signage/SignageHubClient'
-import { signageCategories } from '@/lib/signage-data'
+import { getCategories } from '@/lib/signage/data'
 import { withDefaultSocialImage } from '@/lib/seo'
 
+export const revalidate = 60
+
+const SITE = 'https://www.pixelnpanel.com'
+
 export const metadata = withDefaultSocialImage({
-    metadataBase: new URL('https://www.pixelnpanel.com'),
+    metadataBase: new URL(SITE),
     title: 'Custom Signs & Print in Beaumont TX',
     description:
-        'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
+        'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Orange, TX. Preset sizes with instant pricing or a fast, free quote.',
     alternates: {
         canonical: '/signage',
         languages: {
@@ -18,7 +22,7 @@ export const metadata = withDefaultSocialImage({
     openGraph: {
         title: 'Custom Signs & Print in Beaumont TX | Pixel & Panel',
         description:
-            'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
+            'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Orange, TX.',
         url: '/signage',
         siteName: 'Pixel & Panel',
         locale: 'en_US',
@@ -28,9 +32,13 @@ export const metadata = withDefaultSocialImage({
         card: 'summary_large_image',
         title: 'Custom Signs & Print in Beaumont TX | Pixel & Panel',
         description:
-            'Custom signs, banners, storefront graphics, vehicle graphics, business cards, and print materials for businesses in Beaumont, Nederland, and Port Arthur, TX.',
+            'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Orange, TX.',
     },
 })
+
+// EN catalog uses nested /signage/<category>/<product> product paths and reads
+// product slugs straight from the sheet (no legacy slug remap).
+const HUB_COPY = { nestedProductPaths: true, productSlugMap: {} }
 
 function JsonLd({ data }) {
     return (
@@ -41,37 +49,15 @@ function JsonLd({ data }) {
     )
 }
 
-const CATEGORY_ORDER = [
-    'banners',
-    'yard-real-estate-signs',
-    'vehicle-graphics',
-    'vinyl-decals-window-graphics',
-    'business-storefront-signs',
-    'rigid-signs',
-    'a-frame-event-displays',
-    'print-marketing-materials',
-]
-
-function getOrderedCategories() {
-    const orderMap = new Map(CATEGORY_ORDER.map((slug, index) => [slug, index]))
-
-    return signageCategories.map((category, index) => ({ category, index })).sort((a, b) => {
-        const aOrder = orderMap.has(a.category.slug) ? orderMap.get(a.category.slug) : 999
-        const bOrder = orderMap.has(b.category.slug) ? orderMap.get(b.category.slug) : 999
-
-        return aOrder - bOrder || a.index - b.index
-    }).map(({ category }) => category)
-}
-
-export default function SignagePage() {
-    const ordered = getOrderedCategories()
+export default async function SignagePage() {
+    const categories = await getCategories()
 
     const breadcrumbSchema = {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pixelnpanel.com' },
-            { '@type': 'ListItem', position: 2, name: 'Signage & Print', item: 'https://www.pixelnpanel.com/signage' },
+            { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
+            { '@type': 'ListItem', position: 2, name: 'Signage & Print', item: `${SITE}/signage` },
         ],
     }
 
@@ -79,15 +65,15 @@ export default function SignagePage() {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
         name: 'Signage & Print Categories',
-        description: 'Custom signage and print products for businesses in Beaumont, Nederland, and Port Arthur, TX.',
-        url: 'https://www.pixelnpanel.com/signage',
-        numberOfItems: ordered.length,
-        itemListElement: ordered.map((cat, index) => ({
+        description: 'Custom signage and print products for businesses in Beaumont, Port Arthur & Orange, TX.',
+        url: `${SITE}/signage`,
+        numberOfItems: categories.length,
+        itemListElement: categories.map((cat, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             name: cat.name,
             description: cat.description,
-            url: `https://www.pixelnpanel.com/signage/${cat.slug}`,
+            url: `${SITE}/signage/${cat.slug}`,
         })),
     }
 
@@ -96,7 +82,7 @@ export default function SignagePage() {
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={itemListSchema} />
             <Suspense fallback={null}>
-                <SignageHubClient categories={ordered} />
+                <SignageHubClient categories={categories} copy={HUB_COPY} />
             </Suspense>
         </>
     )

@@ -38,6 +38,7 @@ const DEFAULT_COPY = {
     clearSearch: 'Clear Search',
     learnMore: 'Learn More',
     requestQuote: 'Request Quote',
+    viewDetails: 'View details & pricing',
     bestFor: 'Best for:',
     noResultsTitle: 'No matching products found.',
     noResultsCopy: 'Try searching for “banner,” “yard sign,” “vehicle,” “window,” “menu,” or “business card.”',
@@ -360,7 +361,12 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
     const getProductLink = (product) => {
         const productSlug = content.productSlugMap[product.slug] || product.slug
-        return productSlug ? `${content.basePath}/${productSlug}` : content.basePath
+        if (!productSlug) return content.basePath
+        // EN catalog uses nested /signage/<category>/<product> paths; ES stays flat.
+        if (content.nestedProductPaths && product.categorySlug) {
+            return `${content.basePath}/${product.categorySlug}/${productSlug}`
+        }
+        return `${content.basePath}/${productSlug}`
     }
 
     const handleFloatingSearchClick = () => {
@@ -554,11 +560,17 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                 }
                                             }}
                                             data-product-card="true"
-                                            className={`group scroll-mt-24 overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${isHighlighted
+                                            className={`group relative scroll-mt-24 cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${isHighlighted
                                                 ? 'border-[#F59E0B] shadow-[0_0_0_4px_rgba(245,158,11,0.22),0_18px_44px_rgba(245,158,11,0.2)]'
                                                 : 'border-slate-200'
                                                 }`}
                                         >
+                                            {/* Whole card is the link to the product detail page. */}
+                                            <Link
+                                                href={getProductLink(product)}
+                                                aria-label={`${product.name} — ${content.viewDetails}`}
+                                                className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0EA5E9]/30"
+                                            />
                                             <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
                                                 {product.image ? (
                                                     <Image
@@ -581,9 +593,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                 )}
                                             </div>
                                             <div className="p-6">
-                                                <Link href={getProductLink(product)} className="block">
-                                                    <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
-                                                </Link>
+                                                <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
                                                 <p className="min-h-[96px] text-base leading-relaxed text-slate-600">{product.description}</p>
                                                 {product.bestFor && (
                                                     <div className="mt-5 border-t border-slate-100 pt-5">
@@ -592,13 +602,8 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                         </p>
                                                     </div>
                                                 )}
-                                                <div className="mt-6 flex flex-wrap gap-4">
-                                                    <Link href={getProductLink(product)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]">
-                                                        {content.learnMore} <ArrowRight size={15} />
-                                                    </Link>
-                                                    <Link href={createQuoteLink(product.name, product.categoryName || selectedCategory.name)} className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition hover:text-[#0369A1]">
-                                                        {content.requestQuote} <ArrowRight size={15} />
-                                                    </Link>
+                                                <div className="mt-6 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition group-hover:gap-3 group-hover:text-[#F59E0B]">
+                                                    {content.viewDetails} <ArrowRight size={15} />
                                                 </div>
                                             </div>
                                         </article>
