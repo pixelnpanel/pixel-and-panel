@@ -104,14 +104,14 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                             aria-label={`${product.name} — view details & pricing`}
                                             className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0EA5E9]/30"
                                         />
-                                        <div className="relative block aspect-square w-full overflow-hidden bg-slate-100">
+                                        <div className="relative block aspect-square w-full overflow-hidden bg-[#FAF8F4] p-2">
                                             {product.image ? (
                                                 <Image
                                                     src={product.image}
                                                     alt={product.alt || product.name}
                                                     fill
                                                     sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 360px"
-                                                    className="object-cover transition duration-300 group-hover:scale-105"
+                                                    className="object-contain object-center transition duration-300 group-hover:scale-105"
                                                     loading="lazy"
                                                 />
                                             ) : (
