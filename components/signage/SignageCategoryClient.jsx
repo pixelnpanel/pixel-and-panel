@@ -104,7 +104,7 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                             aria-label={`${product.name} — view details & pricing`}
                                             className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0EA5E9]/30"
                                         />
-                                        <div className="relative block aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                                        <div className="relative block aspect-square w-full overflow-hidden bg-slate-100">
                                             {product.image ? (
                                                 <Image
                                                     src={product.image}

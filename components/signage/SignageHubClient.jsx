@@ -559,7 +559,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                 aria-label={`${product.name} — ${content.viewDetails}`}
                                                 className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0EA5E9]/30"
                                             />
-                                            <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+                                            <div className="relative aspect-square w-full overflow-hidden bg-slate-100">
                                                 {product.image ? (
                                                     <Image
                                                         src={product.image}
