@@ -33,10 +33,17 @@ export async function generateMetadata({ params }) {
     if (!found) return { title: 'Signage & Print | Pixel & Panel' }
 
     const { product: p, category: c } = found
-    const title = `${p.name} — Custom Signs in Beaumont, Port Arthur & Orange TX | Pixel & Panel`
-    const description = p.notes
-        ? `${p.name} — ${p.notes}`.slice(0, 155)
-        : `Order a custom ${p.name.toLowerCase()} in ${c.name.toLowerCase()} for Beaumont, Port Arthur & Orange TX. Preset sizes with instant pricing or a fast, free quote.`
+    const content = p.content || null
+    // The (en) layout applies a `%s | Pixel & Panel` title template, so the brand
+    // suffix is added automatically — don't repeat it here.
+    const title = content?.seoTitle
+        ? content.seoTitle
+        : `${p.name} — Custom Signs in Beaumont, Port Arthur & Orange TX`
+    const description = content?.metaDescription
+        ? content.metaDescription.slice(0, 160)
+        : p.notes
+            ? `${p.name} — ${p.notes}`.slice(0, 155)
+            : `Order a custom ${p.name.toLowerCase()} in ${c.name.toLowerCase()} for Beaumont, Port Arthur & Orange TX. Preset sizes with instant pricing or a fast, free quote.`
     const url = `${SITE}/signage/${c.slug}/${p.slug}`
 
     return withDefaultSocialImage({
@@ -61,6 +68,7 @@ export default async function SignageProductRoute({ params }) {
     if (!found) notFound()
 
     const { product: p, category: c } = found
+    const content = p.content || null
     const url = `${SITE}/signage/${c.slug}/${p.slug}`
 
     const breadcrumbSchema = {
@@ -79,7 +87,7 @@ export default async function SignageProductRoute({ params }) {
         '@type': 'Product',
         name: p.name,
         ...(p.image ? { image: `${SITE}${p.image}` } : {}),
-        description: p.notes || p.description,
+        description: content?.intro || p.notes || p.description,
         category: c.name,
         brand: { '@type': 'Brand', name: 'Pixel & Panel' },
         ...(p.isLive && p.lowestPrice != null
@@ -95,10 +103,24 @@ export default async function SignageProductRoute({ params }) {
             : {}),
     }
 
+    // FAQPage — only when the content row supplies non-empty Q/A pairs.
+    const faqSchema = content?.faqs?.length
+        ? {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: content.faqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+            })),
+        }
+        : null
+
     return (
         <>
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={productSchema} />
+            {faqSchema && <JsonLd data={faqSchema} />}
             <SignageProductDetail product={p} category={c} />
         </>
     )
