@@ -92,6 +92,8 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                             {products.map((product) => {
                                 const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
                                 const href = `/signage/${category.slug}/${product.slug}`
+                                // First highlight as the card blurb; no content yet -> name only.
+                                const highlight = product.content?.highlights?.[0] || null
                                 return (
                                     <motion.article
                                         key={product.slug}
@@ -125,7 +127,7 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                                 {product.name}
                                             </h3>
                                             <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">
-                                                {product.description}
+                                                {highlight}
                                             </p>
                                             <div className="mt-5 flex items-center justify-between">
                                                 <span className="font-heading text-base font-bold text-[#0369A1]">

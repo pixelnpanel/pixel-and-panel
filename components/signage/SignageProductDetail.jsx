@@ -1,11 +1,9 @@
 // components/signage/SignageProductDetail.jsx — server component
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Box, Check, ChevronDown, Info, MessageCircle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Box, Check, ChevronDown, Info } from 'lucide-react'
 import SignagePriceCalculator from '@/components/signage/SignagePriceCalculator'
 import { formatPrice } from '@/lib/signage/data'
-
-const WHATSAPP_HREF = 'https://wa.me/14092252012'
 
 // City pages that already exist on the site (used in the trust block).
 const CITY_LINKS = [
@@ -116,7 +114,7 @@ export default function SignageProductDetail({ product, category }) {
                         </div>
                     </div>
 
-                    {/* RIGHT: CALCULATOR (unchanged) + CTA pair */}
+                    {/* RIGHT: CALCULATOR (unchanged — its own CTAs handle quote + WhatsApp) */}
                     <div className="lg:sticky lg:top-24">
                         <SignagePriceCalculator
                             productName={product.name}
@@ -125,21 +123,6 @@ export default function SignageProductDetail({ product, category }) {
                             availableSides={product.availableSides}
                             isLive={product.isLive}
                         />
-
-                        {/* PRIMARY + SECONDARY CTA */}
-                        <div className="mt-4 flex flex-col gap-3">
-                            <Link href={quoteHref} className="btn-amber w-full justify-center">
-                                Get my free quote <ArrowRight size={18} />
-                            </Link>
-                            <a
-                                href={WHATSAPP_HREF}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-[#0369A1] px-6 py-3.5 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:bg-[#0369A1] hover:text-white"
-                            >
-                                <MessageCircle size={18} /> Message us on WhatsApp
-                            </a>
-                        </div>
                     </div>
                 </div>
             </section>
