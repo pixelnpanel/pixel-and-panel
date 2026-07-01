@@ -15,6 +15,9 @@ const HIDDEN_PATHS = new Set([
   "/free-visibility-check",
   "/es/chequeo-gratis-de-visibilidad",
 ]);
+// Also hide on every signage detail page (category + product) — those pages
+// have their own quote / price-calculator CTAs, so the floater is redundant.
+const HIDDEN_PREFIXES = ["/signage/", "/es/letreros/"];
 const QUOTE_BUTTON_SCROLL_THRESHOLD = 720;
 
 export default function FloatingQuoteButton() {
@@ -41,7 +44,10 @@ export default function FloatingQuoteButton() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (!visible || HIDDEN_PATHS.has(pathname)) return null;
+  const hidden =
+    HIDDEN_PATHS.has(pathname) ||
+    HIDDEN_PREFIXES.some((prefix) => pathname?.startsWith(prefix));
+  if (!visible || hidden) return null;
 
   const isSpanish = pathname?.startsWith("/es");
   const href = isSpanish ? "/es/solicitar-cotizacion" : "/quote-request";

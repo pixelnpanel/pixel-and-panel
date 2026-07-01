@@ -48,13 +48,16 @@ export default function SignageProductDetail({ product, category }) {
                 </div>
             </div>
 
-            {/* MAIN */}
+            {/* MAIN — three grid children (image, calculator, body). On mobile they
+                stack in DOM order: image → calculator → body. On desktop the image
+                sits top-left, the body flows below it in the left column, and the
+                calculator holds the right column and stays sticky (spanning both
+                rows) until the grid ends, right before "Common questions". */}
             <section className="px-6 py-10 md:py-16">
-                <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_460px] lg:items-start">
+                <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_460px] lg:items-start lg:gap-10">
 
-                    {/* LEFT: IMAGE + COPY */}
-                    <div>
-                        {/* Hero image — full image on cream, never cropped */}
+                    {/* IMAGE — full image on cream, never cropped */}
+                    <div className="lg:col-start-1 lg:row-start-1">
                         <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-slate-200 bg-[#FAF8F4] p-2 shadow-sm">
                             {product.image ? (
                                 <Image
@@ -71,51 +74,10 @@ export default function SignageProductDetail({ product, category }) {
                                 </div>
                             )}
                         </div>
-
-                        <div className="mt-8">
-                            <p className="section-label text-[#0369A1]">{category.name}</p>
-
-                            {/* Price chip — optional */}
-                            {content?.priceChip && (
-                                <p className="mt-3 inline-flex items-center rounded-full bg-[#E0F2FE] px-4 py-1.5 font-heading text-sm font-bold text-[#0369A1]">
-                                    {content.priceChip}
-                                </p>
-                            )}
-
-                            <h1 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-[#1C1917] md:text-5xl">
-                                {heading}
-                            </h1>
-
-                            {fromPrice && (
-                                <p className="mt-3 text-lg text-slate-600">
-                                    From <span className="font-heading font-extrabold text-[#0369A1]">{fromPrice}</span>
-                                </p>
-                            )}
-
-                            <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
-                                {intro}
-                            </p>
-
-                            {product.notes && (
-                                <div className="mt-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-[#FFFBEB] p-5">
-                                    <Info size={18} className="mt-0.5 shrink-0 text-[#0369A1]" />
-                                    <p className="text-sm leading-relaxed text-slate-600">{product.notes}</p>
-                                </div>
-                            )}
-
-                            <div className="mt-8">
-                                <Link
-                                    href={`/signage/${category.slug}`}
-                                    className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]"
-                                >
-                                    <ArrowLeft size={15} /> All {category.name}
-                                </Link>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* RIGHT: CALCULATOR (unchanged — its own CTAs handle quote + WhatsApp) */}
-                    <div className="lg:sticky lg:top-24">
+                    {/* CALCULATOR — right column, sticky until the grid ends */}
+                    <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24 lg:self-start">
                         <SignagePriceCalculator
                             productName={product.name}
                             categoryName={category.name}
@@ -124,17 +86,49 @@ export default function SignageProductDetail({ product, category }) {
                             isLive={product.isLive}
                         />
                     </div>
-                </div>
-            </section>
 
-            {/* CONTENT SECTIONS — only render what the sheet provides */}
-            {(highlights.length > 0 || perfectFor.length > 0 || specGroups.length > 0 || faqs.length > 0) && (
-                <section className="px-6 pb-4">
-                    <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-start">
+                    {/* BODY — product copy + highlights + perfect-for + specs */}
+                    <div className="lg:col-start-1 lg:row-start-2">
+                        {/* Price chip — optional */}
+                        {content?.priceChip && (
+                            <p className="inline-flex items-center rounded-full bg-[#E0F2FE] px-4 py-1.5 font-heading text-sm font-bold text-[#0369A1]">
+                                {content.priceChip}
+                            </p>
+                        )}
+
+                        <h1 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-[#1C1917] md:text-5xl">
+                            {heading}
+                        </h1>
+
+                        {fromPrice && (
+                            <p className="mt-3 text-lg text-slate-600">
+                                From <span className="font-heading font-extrabold text-[#0369A1]">{fromPrice}</span>
+                            </p>
+                        )}
+
+                        <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
+                            {intro}
+                        </p>
+
+                        {product.notes && (
+                            <div className="mt-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-[#FFFBEB] p-5">
+                                <Info size={18} className="mt-0.5 shrink-0 text-[#0369A1]" />
+                                <p className="text-sm leading-relaxed text-slate-600">{product.notes}</p>
+                            </div>
+                        )}
+
+                        <div className="mt-8">
+                            <Link
+                                href={`/signage/${category.slug}`}
+                                className="inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1] transition hover:text-[#F59E0B]"
+                            >
+                                <ArrowLeft size={15} /> All {category.name}
+                            </Link>
+                        </div>
 
                         {/* WHY PEOPLE PICK THIS — Highlights */}
                         {highlights.length > 0 && (
-                            <div>
+                            <div className="mt-12">
                                 <h2 className="font-heading text-2xl font-extrabold text-[#1C1917] md:text-3xl">
                                     Why people pick this
                                 </h2>
@@ -153,7 +147,7 @@ export default function SignageProductDetail({ product, category }) {
 
                         {/* PERFECT FOR — tags */}
                         {perfectFor.length > 0 && (
-                            <div>
+                            <div className="mt-12">
                                 <h2 className="font-heading text-2xl font-extrabold text-[#1C1917] md:text-3xl">
                                     Perfect for
                                 </h2>
@@ -169,43 +163,41 @@ export default function SignageProductDetail({ product, category }) {
                                 </div>
                             </div>
                         )}
-                    </div>
-                </section>
-            )}
 
-            {/* SPECS — collapsible accordion; first two open by default */}
-            {specGroups.length > 0 && (
-                <section className="px-6 py-10">
-                    <div className="mx-auto max-w-7xl">
-                        <h2 className="font-heading text-2xl font-extrabold text-[#1C1917] md:text-3xl">Specs</h2>
-                        <div className="mt-6 grid gap-3 lg:max-w-3xl">
-                            {specGroups.map((group, i) => (
-                                <details
-                                    key={group.title}
-                                    open={i < 2}
-                                    className="group rounded-2xl border border-slate-200 bg-white shadow-sm"
-                                >
-                                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-heading text-base font-bold text-[#1C1917] [&::-webkit-details-marker]:hidden">
-                                        {group.title}
-                                        <ChevronDown
-                                            size={18}
-                                            className="shrink-0 text-[#0369A1] transition-transform duration-200 group-open:rotate-180"
-                                        />
-                                    </summary>
-                                    <ul className="space-y-2 border-t border-slate-100 px-5 py-4">
-                                        {group.items.map((item) => (
-                                            <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-700">
-                                                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#0EA5E9]" />
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </details>
-                            ))}
-                        </div>
+                        {/* SPECS — collapsible accordion; first two open by default */}
+                        {specGroups.length > 0 && (
+                            <div className="mt-12">
+                                <h2 className="font-heading text-2xl font-extrabold text-[#1C1917] md:text-3xl">Specs</h2>
+                                <div className="mt-6 grid gap-3">
+                                    {specGroups.map((group, i) => (
+                                        <details
+                                            key={group.title}
+                                            open={i < 2}
+                                            className="group rounded-2xl border border-slate-200 bg-white shadow-sm"
+                                        >
+                                            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-heading text-base font-bold text-[#1C1917] [&::-webkit-details-marker]:hidden">
+                                                {group.title}
+                                                <ChevronDown
+                                                    size={18}
+                                                    className="shrink-0 text-[#0369A1] transition-transform duration-200 group-open:rotate-180"
+                                                />
+                                            </summary>
+                                            <ul className="space-y-2 border-t border-slate-100 px-5 py-4">
+                                                {group.items.map((item) => (
+                                                    <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-700">
+                                                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#0EA5E9]" />
+                                                        {item}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </details>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
-                </section>
-            )}
+                </div>
+            </section>
 
             {/* COMMON QUESTIONS — FAQ pairs */}
             {faqs.length > 0 && (
