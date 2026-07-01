@@ -582,7 +582,9 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                             </div>
                                             <div className="p-6">
                                                 <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
-                                                <p className="min-h-[96px] text-base leading-relaxed text-brand-muted">{product.description}</p>
+                                                <p className="min-h-[96px] text-base leading-relaxed text-brand-muted line-clamp-3">
+                                                    {product.content?.intro || product.content?.highlights?.[0] || product.description}
+                                                </p>
                                                 {product.bestFor && (
                                                     <div className="mt-5 border-t border-brand-divider pt-5">
                                                         <p className="text-sm leading-relaxed text-brand-subtle">
