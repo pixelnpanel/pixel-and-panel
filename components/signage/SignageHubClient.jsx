@@ -422,8 +422,8 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     {/* LEFT: CATEGORY SIDEBAR */}
                     <aside className="hidden lg:block">
                         <div ref={sidebarRef} className="sticky flex flex-col gap-4" style={{ top: '6rem' }}>
-                            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                                <div className="flex items-center gap-3 border-b border-slate-200 px-5 py-4">
+                            <div className="overflow-hidden rounded-2xl border border-[#E9E2D6] bg-white shadow-[0_2px_14px_rgba(28,25,23,0.05)]">
+                                <div className="flex items-center gap-3 border-b border-[#EFE7DB] px-5 py-4">
                                     <Search size={20} className="text-[#0369A1]" />
                                     <h2 className="text-xl" style={{ color: '#1C1917' }}>{content.categoriesHeading}</h2>
                                 </div>
@@ -483,7 +483,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         </div>
 
                         {/* SEARCH */}
-                        <div className="mobile-reveal mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5" style={{ "--reveal-delay": "190ms" }}>
+                        <div className="mobile-reveal mb-6 rounded-2xl border border-[#E9E2D6] bg-white p-4 shadow-[0_2px_14px_rgba(28,25,23,0.05)] md:p-5" style={{ "--reveal-delay": "190ms" }}>
                             <label htmlFor="signage-product-search" className="mb-2 block font-heading text-sm font-bold uppercase tracking-wide text-[#0369A1]">
                                 {content.findProduct}
                             </label>
@@ -548,9 +548,9 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                 }
                                             }}
                                             data-product-card="true"
-                                            className={`group relative scroll-mt-24 cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${isHighlighted
+                                            className={`group relative scroll-mt-24 cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-[0_2px_14px_rgba(28,25,23,0.05)] transition duration-300 hover:-translate-y-1 ${isHighlighted
                                                 ? 'border-[#F59E0B] shadow-[0_0_0_4px_rgba(245,158,11,0.22),0_18px_44px_rgba(245,158,11,0.2)]'
-                                                : 'border-slate-200'
+                                                : 'border-[#E9E2D6] hover:border-[#CDE6F5] hover:shadow-[0_16px_40px_rgba(3,105,161,0.10)]'
                                                 }`}
                                         >
                                             {/* Whole card is the link to the product detail page. */}
@@ -582,10 +582,10 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                             </div>
                                             <div className="p-6">
                                                 <h3 style={{ color: '#1C1917', marginBottom: '1rem' }}>{product.name}</h3>
-                                                <p className="min-h-[96px] text-base leading-relaxed text-slate-600">{product.description}</p>
+                                                <p className="min-h-[96px] text-base leading-relaxed text-[#57534E]">{product.description}</p>
                                                 {product.bestFor && (
-                                                    <div className="mt-5 border-t border-slate-100 pt-5">
-                                                        <p className="text-sm leading-relaxed text-slate-500">
+                                                    <div className="mt-5 border-t border-[#EFE7DB] pt-5">
+                                                        <p className="text-sm leading-relaxed text-[#78716C]">
                                                             <span className="font-bold text-[#1C1917]">{content.bestFor}</span>{' '}{product.bestFor}
                                                         </p>
                                                     </div>
@@ -616,7 +616,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
             {/* EXTENDED CATALOG — mobile only; desktop shows this in the sidebar */}
             <section className="bg-white px-6 pb-16 md:pb-24 lg:hidden">
-                <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-slate-200 bg-[#FAF8F4] p-8 shadow-sm md:p-10">
+                <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-[#E9E2D6] bg-[#FAF8F4] p-8 shadow-[0_2px_14px_rgba(28,25,23,0.05)] md:p-10">
                     <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
                         <div>
                             <p className="section-label text-[#0369A1]">More Options</p>
