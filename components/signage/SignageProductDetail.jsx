@@ -64,7 +64,7 @@ export default function SignageProductDetail({ product, category }) {
 
                     {/* IMAGE — full image on cream, never cropped */}
                     <div className="lg:col-start-1 lg:row-start-1">
-                        <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-[#E9E2D6] bg-[#FAF8F4] p-2 shadow-[0_2px_14px_rgba(28,25,23,0.05)]">
+                        <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-brand-line bg-[#FAF8F4] p-2 shadow-card">
                             {product.image ? (
                                 <Image
                                     src={product.image}
@@ -96,7 +96,7 @@ export default function SignageProductDetail({ product, category }) {
                         </h1>
 
                         {fromPrice && (
-                            <p className="mt-3 text-lg text-[#57534E]">
+                            <p className="mt-3 text-lg text-brand-muted">
                                 From <span className="font-heading font-extrabold text-[#0369A1]">{fromPrice}</span>
                             </p>
                         )}
@@ -115,7 +115,7 @@ export default function SignageProductDetail({ product, category }) {
 
                     {/* BODY — description + highlights + perfect-for + specs */}
                     <div className="lg:col-start-1 lg:row-start-3">
-                        <p className="max-w-2xl text-lg leading-relaxed text-[#57534E]">
+                        <p className="max-w-2xl text-lg leading-relaxed text-brand-muted">
                             {intro}
                         </p>
 
@@ -147,7 +147,7 @@ export default function SignageProductDetail({ product, category }) {
                                             <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E0F2FE] text-[#0369A1]">
                                                 <Check size={14} strokeWidth={3} />
                                             </span>
-                                            <span className="text-base leading-relaxed text-[#44403C]">{item}</span>
+                                            <span className="text-base leading-relaxed text-brand-strong">{item}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -164,7 +164,7 @@ export default function SignageProductDetail({ product, category }) {
                                     {perfectFor.map((tag) => (
                                         <span
                                             key={tag}
-                                            className="inline-flex items-center rounded-full border border-[#D6EAF6] bg-[#EFF7FC] px-4 py-2 text-sm font-semibold text-[#0369A1]"
+                                            className="inline-flex items-center rounded-full border border-brand-edge bg-brand-tint px-4 py-2 text-sm font-semibold text-[#0369A1]"
                                         >
                                             {tag}
                                         </span>
@@ -182,7 +182,7 @@ export default function SignageProductDetail({ product, category }) {
                                         <details
                                             key={group.title}
                                             open={i < 2}
-                                            className="group rounded-2xl border border-[#E9E2D6] bg-white shadow-[0_2px_14px_rgba(28,25,23,0.05)] transition-colors open:border-[#CDE6F5]"
+                                            className="group rounded-2xl border border-brand-line bg-white shadow-card transition-colors open:border-brand-edge"
                                         >
                                             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-heading text-base font-bold text-[#1C1917] transition-colors group-open:text-[#0369A1] [&::-webkit-details-marker]:hidden">
                                                 {group.title}
@@ -191,9 +191,9 @@ export default function SignageProductDetail({ product, category }) {
                                                     className="shrink-0 text-[#0369A1] transition-transform duration-200 group-open:rotate-180"
                                                 />
                                             </summary>
-                                            <ul className="space-y-2 border-t border-[#EFE7DB] px-5 py-4">
+                                            <ul className="space-y-2 border-t border-brand-divider px-5 py-4">
                                                 {group.items.map((item) => (
-                                                    <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-[#44403C]">
+                                                    <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-brand-strong">
                                                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#0EA5E9]" />
                                                         {item}
                                                     </li>
@@ -217,9 +217,9 @@ export default function SignageProductDetail({ product, category }) {
                         </h2>
                         <div className="mt-8 grid gap-4">
                             {faqs.map((faq) => (
-                                <article key={faq.question} className="rounded-xl border border-[#E9E2D6] bg-[#FAF8F4] p-5 shadow-[0_2px_14px_rgba(28,25,23,0.05)]">
+                                <article key={faq.question} className="rounded-xl border border-brand-line bg-[#FAF8F4] p-5 shadow-card">
                                     <h3 className="mb-2 font-heading text-lg font-bold text-[#1C1917]">{faq.question}</h3>
-                                    <p className="leading-7 text-[#57534E]">{faq.answer}</p>
+                                    <p className="leading-7 text-brand-muted">{faq.answer}</p>
                                 </article>
                             ))}
                         </div>
@@ -229,9 +229,9 @@ export default function SignageProductDetail({ product, category }) {
 
             {/* TRUST BLOCK — constants, same on every product page */}
             <section className="px-6 py-12 md:py-16">
-                <div className="mx-auto max-w-4xl rounded-2xl border border-[#E9E2D6] bg-white p-7 shadow-[0_2px_14px_rgba(28,25,23,0.05)] md:p-10">
+                <div className="mx-auto max-w-4xl rounded-2xl border border-brand-line bg-white p-7 shadow-card md:p-10">
                     <p className="section-label text-[#0369A1]">Why Pixel &amp; Panel</p>
-                    <p className="mt-4 text-lg leading-relaxed text-[#57534E]">
+                    <p className="mt-4 text-lg leading-relaxed text-brand-muted">
                         Local design help and fast turnaround — proudly serving{' '}
                         <Link href={CITY_LINKS[0].href} className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">{CITY_LINKS[0].name}</Link>,{' '}
                         <Link href={CITY_LINKS[1].href} className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">{CITY_LINKS[1].name}</Link>,{' '}

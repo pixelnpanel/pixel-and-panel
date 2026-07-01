@@ -72,7 +72,7 @@ export default function SignagePriceCalculator({
     }, [productName, sizeText, sideText, showPrice, unitPrice])
 
     return (
-        <div className="rounded-2xl border border-[#E9E2D6] bg-white p-6 shadow-[0_8px_30px_rgba(28,25,23,0.06)] md:p-7">
+        <div className="rounded-2xl border border-brand-line bg-white p-6 shadow-calc md:p-7">
             <p className="section-label mb-4 text-[#0369A1]">Build Your Price</p>
 
             {/* SIZE */}
@@ -83,7 +83,7 @@ export default function SignagePriceCalculator({
                 id="signage-size"
                 value={sizeId}
                 onChange={(e) => setSizeId(e.target.value)}
-                className="w-full rounded-xl border border-[#E9E2D6] bg-[#FAF8F4] px-4 py-3.5 text-base text-[#1C1917] outline-none transition focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
+                className="w-full rounded-xl border border-brand-line bg-[#FAF8F4] px-4 py-3.5 text-base text-[#1C1917] outline-none transition focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
             >
                 {sizes.map((s) => (
                     <option key={s.id} value={s.id}>{s.label}</option>
@@ -95,7 +95,7 @@ export default function SignagePriceCalculator({
             {sides.length > 1 && !isCustom && (
                 <div className="mt-5">
                     <span className="mb-2 block font-heading text-sm font-bold text-[#1C1917]">Printed Sides</span>
-                    <div className="inline-flex rounded-xl border border-[#E9E2D6] bg-[#FAF8F4] p-1">
+                    <div className="inline-flex rounded-xl border border-brand-line bg-[#FAF8F4] p-1">
                         {sides.map((s) => {
                             const active = s === side
                             return (
@@ -119,24 +119,24 @@ export default function SignagePriceCalculator({
 
             {/* When a single side is offered (and a real size is chosen), note it. */}
             {sides.length === 1 && !isCustom && hasSizes && (
-                <p className="mt-4 text-sm text-[#78716C]">
+                <p className="mt-4 text-sm text-brand-subtle">
                     {SIDE_LABEL[sides[0]]} only.
                 </p>
             )}
 
             {/* PRICE DISPLAY */}
-            <div className="mt-6 rounded-xl border border-[#EFE7DB] bg-[#FAF8F4] p-5">
+            <div className="mt-6 rounded-xl border border-brand-divider bg-[#FAF8F4] p-5">
                 {showPrice ? (
                     <>
                         <p className="font-heading text-4xl font-extrabold text-[#0369A1]">{priceLabel}</p>
-                        <p className="mt-2 text-sm leading-relaxed text-[#78716C]">
+                        <p className="mt-2 text-sm leading-relaxed text-brand-subtle">
                             Base price — tax (8.25% TX) and shipping confirmed on your quote.
                         </p>
                     </>
                 ) : (
                     <>
                         <p className="font-heading text-2xl font-extrabold text-[#1C1917]">Request a Quote</p>
-                        <p className="mt-2 text-sm leading-relaxed text-[#78716C]">
+                        <p className="mt-2 text-sm leading-relaxed text-brand-subtle">
                             {isCustom
                                 ? 'Tell us your exact size and we’ll price it fast.'
                                 : 'We’ll confirm the exact price for this option on your quote.'}

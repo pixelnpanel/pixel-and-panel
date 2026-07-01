@@ -98,7 +98,7 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                     <motion.article
                                         key={product.slug}
                                         variants={fadeUp}
-                                        className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-[#E9E2D6] bg-white shadow-[0_2px_14px_rgba(28,25,23,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[#CDE6F5] hover:shadow-[0_16px_40px_rgba(3,105,161,0.10)]"
+                                        className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-edge hover:shadow-card-hover"
                                     >
                                         {/* Whole card is the link to the product detail page. */}
                                         <Link
@@ -126,7 +126,7 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                             <h3 className="font-heading text-xl font-extrabold text-[#1C1917] transition group-hover:text-[#0369A1]">
                                                 {product.name}
                                             </h3>
-                                            <p className="mt-3 flex-1 text-sm leading-relaxed text-[#57534E]">
+                                            <p className="mt-3 flex-1 text-sm leading-relaxed text-brand-muted">
                                                 {highlight}
                                             </p>
                                             <div className="mt-5 flex items-center justify-between">
@@ -143,9 +143,9 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                             })}
                         </motion.div>
                     ) : (
-                        <div className="rounded-2xl border border-dashed border-[#E0D8CB] bg-white p-8 text-center shadow-[0_2px_14px_rgba(28,25,23,0.05)]">
+                        <div className="rounded-2xl border border-dashed border-brand-line bg-white p-8 text-center shadow-card">
                             <h3 className="font-heading text-xl font-bold text-[#1C1917]">No products yet in this category.</h3>
-                            <p className="mx-auto mt-3 max-w-xl text-[#57534E]">Tell us what you need and we’ll prepare a quote.</p>
+                            <p className="mx-auto mt-3 max-w-xl text-brand-muted">Tell us what you need and we’ll prepare a quote.</p>
                             <Link href="/quote-request" className="btn-amber mt-6 inline-flex">
                                 Request a Quote <ArrowRight size={18} />
                             </Link>
@@ -166,11 +166,11 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                 <Link
                                     key={cat.slug}
                                     href={`/signage/${cat.slug}`}
-                                    className="group flex items-center justify-between rounded-xl border border-[#E9E2D6] p-5 transition hover:border-[#0EA5E9] hover:bg-[#F0F9FF]"
+                                    className="group flex items-center justify-between rounded-xl border border-brand-line p-5 transition hover:border-[#0EA5E9] hover:bg-[#F0F9FF]"
                                 >
                                     <div>
                                         <p className="font-heading font-bold text-[#1C1917] transition group-hover:text-[#0369A1]">{cat.name}</p>
-                                        <p className="mt-1 text-xs text-[#78716C]">{cat.productCount} products</p>
+                                        <p className="mt-1 text-xs text-brand-subtle">{cat.productCount} products</p>
                                     </div>
                                     <ArrowRight size={16} className="text-slate-300 transition group-hover:text-[#F59E0B]" />
                                 </Link>

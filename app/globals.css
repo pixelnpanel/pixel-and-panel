@@ -27,6 +27,23 @@
   --color-brand-cream: #FAF8F4;
   --color-brand-dark:  #1C1917;
   --color-brand-navy:  #0C1E3C;
+
+  /* WARM SURFACE SYSTEM — cards, borders & copy that harmonize with cream.
+     line/divider = warm hairlines · muted/strong/subtle = warm body copy. */
+  --color-brand-line:    #E9E2D6;
+  --color-brand-divider: #EFE7DB;
+  --color-brand-muted:   #57534E;
+  --color-brand-strong:  #44403C;
+  --color-brand-subtle:  #78716C;
+
+  /* SOFT SKY ACCENTS — chips + active/hover borders. */
+  --color-brand-tint: #EFF7FC;
+  --color-brand-edge: #CDE6F5;
+
+  /* CARD SHADOWS — soft, warm depth. */
+  --shadow-card:       0 2px 14px rgba(28, 25, 23, 0.05);
+  --shadow-card-hover: 0 16px 40px rgba(3, 105, 161, 0.10);
+  --shadow-calc:       0 8px 30px rgba(28, 25, 23, 0.06);
 }
 
 /* ── BASE RESET ─────────────────────────────────────────────── */
