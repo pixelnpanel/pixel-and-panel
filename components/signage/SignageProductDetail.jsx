@@ -14,12 +14,18 @@ const CITY_LINKS = [
 
 const TRUST_POINTS = ['Local design help', 'Fast turnaround', 'A real person answers']
 
+/** Capitalize the first character of each word (keeps units like "13oz" intact). */
+function toTitleCase(str) {
+    return String(str || '').replace(/\S+/g, (word) => word.charAt(0).toUpperCase() + word.slice(1))
+}
+
 export default function SignageProductDetail({ product, category }) {
     const content = product.content || null
     const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
 
     // Single H1 on the page: prefer the written H1, fall back to the product name.
-    const heading = content?.h1 || product.name
+    // Title-cased so every word starts with a capital (e.g. "Custom 13oz Vinyl Banners").
+    const heading = toTitleCase(content?.h1 || product.name)
     const intro = content?.intro || product.description
     const imageAlt = content?.imageAlt || product.alt
 
@@ -48,11 +54,11 @@ export default function SignageProductDetail({ product, category }) {
                 </div>
             </div>
 
-            {/* MAIN — three grid children (image, calculator, body). On mobile they
-                stack in DOM order: image → calculator → body. On desktop the image
-                sits top-left, the body flows below it in the left column, and the
-                calculator holds the right column and stays sticky (spanning both
-                rows) until the grid ends, right before "Common questions". */}
+            {/* MAIN — grid children in DOM order: image, title, calculator, body.
+                Mobile stacks them as image → title → calculator → description.
+                Desktop keeps image + title + body in the left column, with the
+                calculator holding the right column and staying sticky (spanning
+                all rows) until the grid ends, right before "Common questions". */}
             <section className="px-6 py-10 md:py-16">
                 <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_460px] lg:items-start lg:gap-10">
 
@@ -76,18 +82,7 @@ export default function SignageProductDetail({ product, category }) {
                         </div>
                     </div>
 
-                    {/* CALCULATOR — right column, sticky until the grid ends */}
-                    <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24 lg:self-start">
-                        <SignagePriceCalculator
-                            productName={product.name}
-                            categoryName={category.name}
-                            sizes={product.sizes}
-                            availableSides={product.availableSides}
-                            isLive={product.isLive}
-                        />
-                    </div>
-
-                    {/* BODY — product copy + highlights + perfect-for + specs */}
+                    {/* TITLE — price chip + H1 + from-price (sits above the calculator on mobile) */}
                     <div className="lg:col-start-1 lg:row-start-2">
                         {/* Price chip — optional */}
                         {content?.priceChip && (
@@ -105,8 +100,22 @@ export default function SignageProductDetail({ product, category }) {
                                 From <span className="font-heading font-extrabold text-[#0369A1]">{fromPrice}</span>
                             </p>
                         )}
+                    </div>
 
-                        <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
+                    {/* CALCULATOR — right column, sticky until the grid ends */}
+                    <div className="lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:sticky lg:top-24 lg:self-start">
+                        <SignagePriceCalculator
+                            productName={product.name}
+                            categoryName={category.name}
+                            sizes={product.sizes}
+                            availableSides={product.availableSides}
+                            isLive={product.isLive}
+                        />
+                    </div>
+
+                    {/* BODY — description + highlights + perfect-for + specs */}
+                    <div className="lg:col-start-1 lg:row-start-3">
+                        <p className="max-w-2xl text-base leading-relaxed text-slate-600">
                             {intro}
                         </p>
 
