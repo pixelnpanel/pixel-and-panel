@@ -16,11 +16,13 @@ const oldServiceAreaRedirects = [
 const oldSignageProductRedirects = (() => {
   const toBanners = ["vinyl-banners", "mesh-banners", "backlit-banners", "fabric-banners"];
   const toStands = ["retractable-banners", "step-and-repeat-backdrops"];
+  // NOTE: never list a slug here that exists as a live sheet category
+  // (e.g. event-tents, real-estate-signs) — the redirect would shadow the page.
   const toHub = [
-    "yard-signs", "real-estate-signs", "vehicle-graphics", "car-magnets",
+    "yard-signs", "vehicle-graphics", "car-magnets",
     "window-graphics", "storefront-signs", "metal-signs", "coroplast-signs",
     "a-frame-signs", "business-cards", "flyers", "posters", "menus",
-    "table-covers", "event-tents", "vehicle-lettering", "partial-vehicle-wraps",
+    "table-covers", "vehicle-lettering", "partial-vehicle-wraps",
     "perforated-window-graphics", "frosted-privacy-film", "acrylic-signs",
     "brochures", "postcards", "channel-letters", "monument-signs", "pylon-signs",
     "ada-signs", "lobby-signs", "dimensional-letters",
