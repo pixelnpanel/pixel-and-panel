@@ -168,7 +168,8 @@ export default function ContactPage({ copy = defaultCopy }) {
                             {content.eyebrow}
                         </m.span>
 
-                        <m.h1 variants={fadeUp} className="pnp-mobile-form-title" style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem' }}>
+                        {/* Visually a heading, but the desktop block below owns the page's single <h1>. */}
+                        <m.p variants={fadeUp} className="pnp-mobile-form-title font-heading" style={{ color: 'white', lineHeight: 1.1, marginBottom: '1.25rem', fontWeight: 800 }}>
                             {content.mobileHeadlineLines ? (
                                 <>
                                     {content.mobileHeadlineLines[0]}
@@ -183,7 +184,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     {' '}<br /><span style={{ color: '#F59E0B' }}>{content.headlineLines[2]}</span>
                                 </>
                             )}
-                        </m.h1>
+                        </m.p>
 
                         <m.p variants={fadeUp} className="pnp-mobile-form-copy" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', lineHeight: 1.75, fontSize: '1.05rem', marginBottom: 0, maxWidth: '420px' }}>
                             {content.mobileIntroStart || content.introStart}{' '}

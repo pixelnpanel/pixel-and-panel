@@ -6,15 +6,17 @@ import { LEGAL_POLICY_LINKS } from '@/lib/legal-policies'
 import SocialLinks from '@/components/ui/SocialLinks'
 import { SIGNAGE_LABEL, SIGNAGE_PATH } from '@/lib/sign-catalog'
 
+// Keep these pointed at live catalog pages — a retired flat URL here 301s to
+// the hub and wastes the sitewide internal link (see next.config redirects).
 const FOOTER_SIGNAGE_PRODUCTS = [
-  { name: 'Vinyl Banners',    href: '/signage/vinyl-banners' },
-  { name: 'Yard Signs',       href: '/signage/yard-signs' },
-  { name: 'Vehicle Graphics', href: '/signage/vehicle-graphics' },
-  { name: 'Window Graphics',  href: '/signage/window-graphics' },
-  { name: 'Storefront Signs', href: '/signage/storefront-signs' },
-  { name: 'Metal Signs',      href: '/signage/metal-signs' },
-  { name: 'Business Cards',   href: '/signage/business-cards' },
-  { name: 'Flyers',           href: '/signage/flyers' },
+  { name: 'Vinyl Banners',     href: '/signage/banners' },
+  { name: 'Banner Stands',     href: '/signage/banner-stands' },
+  { name: 'Yard Signs',        href: '/signage/rigid-and-metal-signs/coroplast-yard-signs' },
+  { name: 'Car Magnets',       href: '/signage/rigid-and-metal-signs/car-and-vehicle-magnets' },
+  { name: 'Real Estate Signs', href: '/signage/real-estate-signs' },
+  { name: 'Feather Flags',     href: '/signage/flags' },
+  { name: 'A-Frame Signs',     href: '/signage/sidewalk-a-frame-signs' },
+  { name: 'Table Covers',      href: '/signage/table-covers-and-throws' },
 ]
 
 const FOOTER_SIGNAGE_PRODUCTS_ES = [

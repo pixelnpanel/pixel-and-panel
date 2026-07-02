@@ -38,7 +38,7 @@ export async function generateMetadata({ params }) {
     // suffix is added automatically — don't repeat it here.
     const title = content?.seoTitle
         ? content.seoTitle
-        : `${p.name} — Custom Signs in Beaumont, Port Arthur & Nederland TX`
+        : `Custom ${p.name} in Beaumont TX`
     const description = content?.metaDescription
         ? content.metaDescription.slice(0, 160)
         : p.notes
@@ -92,13 +92,21 @@ export default async function SignageProductRoute({ params }) {
         brand: { '@type': 'Brand', name: 'Pixel & Panel' },
         ...(p.isLive && p.lowestPrice != null
             ? {
-                offers: {
-                    '@type': 'Offer',
-                    price: p.lowestPrice.toFixed(2),
-                    priceCurrency: 'USD',
-                    availability: 'https://schema.org/InStock',
-                    url,
-                },
+                offers: (() => {
+                    const prices = (p.sizes || [])
+                        .flatMap((s) => [s.single, s.double])
+                        .filter((v) => v != null)
+                    const highest = prices.length ? Math.max(...prices) : p.lowestPrice
+                    return {
+                        '@type': 'AggregateOffer',
+                        lowPrice: p.lowestPrice.toFixed(2),
+                        highPrice: highest.toFixed(2),
+                        priceCurrency: 'USD',
+                        offerCount: Math.max(prices.length, 1),
+                        availability: 'https://schema.org/InStock',
+                        url,
+                    }
+                })(),
             }
             : {}),
     }

@@ -27,20 +27,24 @@ export async function generateMetadata({ params }) {
 
     if (!cat) return { title: 'Signage & Print | Pixel & Panel' }
 
-    const title = `${cat.name} — Custom Signs in Beaumont, Port Arthur & Nederland TX | Pixel & Panel`
+    // The (en) layout applies a `%s | Pixel & Panel` title template — don't
+    // repeat the brand here, and keep the title inside Google's ~60-char limit.
+    const title = `Custom ${cat.name} in Beaumont TX`
     const description = cat.seoDescription
+    const ogImage = cat.image || cat.products.find((p) => p.image)?.image || null
 
     return withDefaultSocialImage({
         title,
         description,
         alternates: { canonical: `/signage/${cat.slug}` },
         openGraph: {
-            title,
+            title: `${title} | Pixel & Panel`,
             description,
             url: `${SITE}/signage/${cat.slug}`,
             siteName: 'Pixel & Panel',
             locale: 'en_US',
             type: 'website',
+            ...(ogImage ? { images: [{ url: `${SITE}${ogImage}` }] } : {}),
         },
     })
 }
