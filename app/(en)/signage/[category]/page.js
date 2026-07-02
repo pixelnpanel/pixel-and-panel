@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
 
     if (!cat) return { title: 'Signage & Print | Pixel & Panel' }
 
-    const title = `${cat.name} — Custom Signs in Beaumont, Port Arthur & Orange TX | Pixel & Panel`
+    const title = `${cat.name} — Custom Signs in Beaumont, Port Arthur & Nederland TX | Pixel & Panel`
     const description = cat.seoDescription
 
     return withDefaultSocialImage({

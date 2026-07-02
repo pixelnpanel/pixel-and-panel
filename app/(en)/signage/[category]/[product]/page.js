@@ -38,12 +38,12 @@ export async function generateMetadata({ params }) {
     // suffix is added automatically — don't repeat it here.
     const title = content?.seoTitle
         ? content.seoTitle
-        : `${p.name} — Custom Signs in Beaumont, Port Arthur & Orange TX`
+        : `${p.name} — Custom Signs in Beaumont, Port Arthur & Nederland TX`
     const description = content?.metaDescription
         ? content.metaDescription.slice(0, 160)
         : p.notes
             ? `${p.name} — ${p.notes}`.slice(0, 155)
-            : `Order a custom ${p.name.toLowerCase()} in ${c.name.toLowerCase()} for Beaumont, Port Arthur & Orange TX. Preset sizes with instant pricing or a fast, free quote.`
+            : `Order a custom ${p.name.toLowerCase()} in ${c.name.toLowerCase()} for Beaumont, Port Arthur & Nederland TX. Preset sizes with instant pricing or a fast, free quote.`
     const url = `${SITE}/signage/${c.slug}/${p.slug}`
 
     return withDefaultSocialImage({
