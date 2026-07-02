@@ -1,5 +1,4 @@
-import { Suspense } from 'react'
-import SignageHubClient from '@/components/signage/SignageHubClient'
+import SignageHubOverview from '@/components/signage/SignageHubOverview'
 import { getCategories } from '@/lib/signage/data'
 import { withDefaultSocialImage } from '@/lib/seo'
 
@@ -11,7 +10,7 @@ export const metadata = withDefaultSocialImage({
     metadataBase: new URL(SITE),
     title: 'Custom Signs & Print in Beaumont TX',
     description:
-        'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Orange, TX. Preset sizes with instant pricing or a fast, free quote.',
+        'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Nederland, TX. Preset sizes with instant pricing or a fast, free quote.',
     alternates: {
         canonical: '/signage',
         languages: {
@@ -22,7 +21,7 @@ export const metadata = withDefaultSocialImage({
     openGraph: {
         title: 'Custom Signs & Print in Beaumont TX | Pixel & Panel',
         description:
-            'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Orange, TX.',
+            'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Nederland, TX.',
         url: '/signage',
         siteName: 'Pixel & Panel',
         locale: 'en_US',
@@ -32,13 +31,9 @@ export const metadata = withDefaultSocialImage({
         card: 'summary_large_image',
         title: 'Custom Signs & Print in Beaumont TX | Pixel & Panel',
         description:
-            'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Orange, TX.',
+            'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Nederland, TX.',
     },
 })
-
-// EN catalog uses nested /signage/<category>/<product> product paths and reads
-// product slugs straight from the sheet (no legacy slug remap).
-const HUB_COPY = { nestedProductPaths: true, productSlugMap: {} }
 
 function JsonLd({ data }) {
     return (
@@ -65,7 +60,7 @@ export default async function SignagePage() {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
         name: 'Signage & Print Categories',
-        description: 'Custom signage and print products for businesses in Beaumont, Port Arthur & Orange, TX.',
+        description: 'Custom signage and print products for businesses in Beaumont, Port Arthur & Nederland, TX.',
         url: `${SITE}/signage`,
         numberOfItems: categories.length,
         itemListElement: categories.map((cat, index) => ({
@@ -81,9 +76,7 @@ export default async function SignagePage() {
         <>
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={itemListSchema} />
-            <Suspense fallback={null}>
-                <SignageHubClient categories={categories} copy={HUB_COPY} />
-            </Suspense>
+            <SignageHubOverview categories={categories} />
         </>
     )
 }
