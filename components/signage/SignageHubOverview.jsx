@@ -112,9 +112,7 @@ function ProductCard({ product }) {
 
 export default function SignageHubOverview({ categories = [] }) {
     const router = useRouter()
-    const browseRef = useRef(null)
     const mobileSearchInputRef = useRef(null)
-    const [searchTerm, setSearchTerm] = useState('')
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
     const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false)
     const [mobileSearchTerm, setMobileSearchTerm] = useState('')
@@ -152,23 +150,6 @@ export default function SignageHubOverview({ categories = [] }) {
         return picks
     }, [categories])
 
-    const normalizedSearchTerm = searchTerm.trim().toLowerCase()
-    const isSearchActive = normalizedSearchTerm.length > 0
-
-    const searchResults = useMemo(() => {
-        if (!normalizedSearchTerm) return []
-
-        return allProducts
-            .map((product, index) => ({ product, index, score: getProductSearchScore(product, normalizedSearchTerm) }))
-            .filter(({ product, score }) => score > 0 || getSearchableText(product).includes(normalizedSearchTerm))
-            .sort((a, b) => (
-                b.score - a.score ||
-                a.product.name.localeCompare(b.product.name, undefined, { sensitivity: 'base' }) ||
-                a.index - b.index
-            ))
-            .map(({ product }) => product)
-    }, [allProducts, normalizedSearchTerm])
-
     const mobileSearchResults = useMemo(() => {
         const query = mobileSearchTerm.trim().toLowerCase()
         if (!query) return allProducts
@@ -188,12 +169,11 @@ export default function SignageHubOverview({ categories = [] }) {
         const updateFloatingSearchVisibility = () => {
             if (typeof window === 'undefined') return
 
-            const isMobile = window.matchMedia('(max-width: 767px)').matches
-            if (!isMobile || isSearchSheetOpen) {
+            if (isSearchSheetOpen) {
                 setIsFloatingSearchVisible(false)
                 return
             }
-            // Match the WhatsApp button: appear after a little scroll, then stay put.
+            // Appear after a little scroll (all breakpoints), then stay put.
             setIsFloatingSearchVisible(window.scrollY > 240)
         }
 
@@ -266,8 +246,8 @@ export default function SignageHubOverview({ categories = [] }) {
                         <Link href={QUOTE_PATH} className="btn-amber">
                             Request a Quote <ArrowRight size={18} />
                         </Link>
-                        <button onClick={() => browseRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="btn-ghost">
-                            Browse Categories <Search size={17} />
+                        <button onClick={() => setIsSearchSheetOpen(true)} className="btn-ghost" aria-haspopup="dialog" aria-expanded={isSearchSheetOpen}>
+                            Search Products <Search size={17} />
                         </button>
                     </div>
                 </div>
@@ -286,73 +266,11 @@ export default function SignageHubOverview({ categories = [] }) {
             </section>
 
             {/* BROWSE AREA */}
-            <section ref={browseRef} data-pnp-reveal-skip className="px-4 pb-16 pt-8 md:px-6 md:py-16">
+            <section data-pnp-reveal-skip className="px-4 pb-16 pt-8 md:px-6 md:py-16">
                 <div className="mx-auto max-w-7xl">
 
-                    {/* SEARCH */}
-                    <div className="mobile-reveal mx-auto mb-10 max-w-2xl">
-                        <div className="relative">
-                            <Search size={20} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0369A1]" />
-                            <input
-                                id="signage-product-search"
-                                type="search"
-                                value={searchTerm}
-                                onChange={(event) => setSearchTerm(event.target.value)}
-                                placeholder="Search signs, banners, stands, tents..."
-                                aria-label="Search signage products"
-                                className="w-full rounded-2xl border border-brand-line bg-white py-3.5 pl-12 pr-12 text-base text-[#1C1917] shadow-card outline-none transition placeholder:text-slate-400 focus:border-[#0EA5E9] focus:ring-4 focus:ring-[#0EA5E9]/15"
-                            />
-                            {isSearchActive && (
-                                <button
-                                    type="button"
-                                    onClick={() => setSearchTerm('')}
-                                    className="absolute right-2 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#0EA5E9]"
-                                    aria-label="Clear product search"
-                                >
-                                    <X size={18} />
-                                </button>
-                            )}
-                        </div>
-                    </div>
-
-                    {isSearchActive ? (
-                        /* SEARCH RESULTS */
-                        <div>
-                            <div className="mb-6 flex flex-col gap-3 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-                                <p>
-                                    Search results for <span className="font-bold text-[#1C1917]">&ldquo;{searchTerm.trim()}&rdquo;</span>
-                                    {' '}<span className="font-bold text-[#0369A1]">{searchResults.length}</span> {searchResults.length === 1 ? 'matching product' : 'matching products'}
-                                </p>
-                                <button
-                                    type="button"
-                                    onClick={() => setSearchTerm('')}
-                                    className="inline-flex items-center gap-2 self-start rounded-full border border-slate-200 px-4 py-2 font-heading text-xs font-bold uppercase tracking-wide text-[#0369A1] transition hover:border-[#F59E0B] hover:text-[#1C1917] sm:self-auto"
-                                >
-                                    Clear Search <X size={14} />
-                                </button>
-                            </div>
-                            {searchResults.length > 0 ? (
-                                <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-                                    {searchResults.map((product) => (
-                                        <ProductCard key={`${product.categorySlug}-${product.slug}`} product={product} />
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center shadow-sm">
-                                    <h3 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>No matching products found.</h3>
-                                    <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600">
-                                        Try searching for &ldquo;banner,&rdquo; &ldquo;stand,&rdquo; &ldquo;tent,&rdquo; or &ldquo;flag&rdquo; — or ask us directly.
-                                    </p>
-                                    <Link href={`${QUOTE_PATH}?product=${encodeURIComponent('General Signage Help')}&category=Signage`} className="btn-amber mt-6 inline-flex">
-                                        Request Help Choosing <ArrowRight size={18} />
-                                    </Link>
-                                </div>
-                            )}
-                        </div>
-                    ) : (
-                        <>
-                            {/* CATEGORY GRID */}
-                            <div className="mobile-reveal" style={{ '--reveal-delay': '120ms' }}>
+                    {/* CATEGORY GRID */}
+                    <div className="mobile-reveal" style={{ '--reveal-delay': '120ms' }}>
                                 <div className="mb-6 md:mb-8">
                                     <p className="section-label text-[#0EA5E9]">Browse the catalog</p>
                                     <h2 className="mt-2 text-[#1C1917]">Shop by Category</h2>
@@ -415,8 +333,6 @@ export default function SignageHubOverview({ categories = [] }) {
                                     </div>
                                 </div>
                             )}
-                        </>
-                    )}
                 </div>
             </section>
 
@@ -472,7 +388,7 @@ export default function SignageHubOverview({ categories = [] }) {
                 aria-expanded={isSearchSheetOpen}
                 onClick={() => setIsSearchSheetOpen(true)}
                 tabIndex={isFloatingSearchVisible ? 0 : -1}
-                className={`fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#FBBF24] bg-[#F59E0B] text-[#1C1917] shadow-[0_16px_38px_rgba(28,25,23,0.28)] transition-[opacity,transform,background-color] duration-200 hover:bg-[#FBBF24] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/35 md:hidden ${isFloatingSearchVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+                className={`fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#FBBF24] bg-[#F59E0B] text-[#1C1917] shadow-[0_16px_38px_rgba(28,25,23,0.28)] transition-[opacity,transform,background-color] duration-200 hover:bg-[#FBBF24] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/35 ${isFloatingSearchVisible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
                     }`}
             >
                 <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,rgba(255,255,255,0.28),rgba(255,255,255,0))]" />
@@ -481,9 +397,9 @@ export default function SignageHubOverview({ categories = [] }) {
                 </span>
             </button>
 
-            {/* MOBILE SEARCH SHEET — results navigate straight to the product page */}
+            {/* SEARCH SHEET — bottom sheet on mobile, centered modal on desktop; results navigate straight to the product page */}
             {isSearchSheetOpen && (
-                <div className="fixed inset-0 z-50 md:hidden">
+                <div className="fixed inset-0 z-50 md:flex md:items-start md:justify-center md:p-6 md:pt-24">
                     <button
                         type="button"
                         aria-label="Close product search"
@@ -495,9 +411,9 @@ export default function SignageHubOverview({ categories = [] }) {
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="mobile-product-search-title"
-                        className="absolute inset-x-0 bottom-0 max-h-[82vh] overflow-hidden rounded-t-[1.75rem] border border-white/70 bg-[#FAF8F4]/95 shadow-[0_-20px_70px_rgba(28,25,23,0.26)] backdrop-blur-2xl"
+                        className="absolute inset-x-0 bottom-0 max-h-[82vh] overflow-hidden rounded-t-[1.75rem] border border-white/70 bg-[#FAF8F4]/95 shadow-[0_-20px_70px_rgba(28,25,23,0.26)] backdrop-blur-2xl md:relative md:inset-auto md:max-h-[80vh] md:w-full md:max-w-2xl md:rounded-[1.75rem] md:shadow-[0_30px_80px_rgba(28,25,23,0.30)]"
                     >
-                        <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-slate-300" />
+                        <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-slate-300 md:hidden" />
                         <div className="flex items-center justify-between px-5 pb-4 pt-5">
                             <h2 id="mobile-product-search-title" className="text-xl text-[#1C1917]">
                                 Search Signage
@@ -526,7 +442,7 @@ export default function SignageHubOverview({ categories = [] }) {
                             </div>
                         </div>
 
-                        <div className="max-h-[54vh] overflow-y-auto px-5 pb-6">
+                        <div className="max-h-[54vh] overflow-y-auto px-5 pb-6 md:max-h-[58vh]">
                             {mobileSearchResults.length > 0 ? (
                                 <div className="grid gap-3">
                                     {mobileSearchResults.map((product) => (
