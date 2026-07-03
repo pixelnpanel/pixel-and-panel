@@ -42,29 +42,30 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                 </div>
             </div>
 
-            {/* HERO */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 py-16 text-white md:py-24">
+            {/* HERO — compact on mobile so products surface sooner; full size on desktop.
+                H1 + description stay in the DOM for SEO (description hidden on mobile via CSS only). */}
+            <section className="relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 py-7 text-white md:py-24">
                 <div className="absolute inset-0 opacity-40">
                     <div className="h-full w-full" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)', backgroundSize: '34px 34px' }} />
                 </div>
-                <motion.div initial="hidden" animate="visible" variants={stagger} className="relative mx-auto max-w-5xl">
-                    <motion.p variants={fadeUp} className="section-label mb-3" style={{ color: '#F59E0B' }}>
+                <motion.div initial="hidden" animate="visible" variants={stagger} className="relative mx-auto max-w-5xl text-left md:text-center">
+                    <motion.p variants={fadeUp} className="section-label mb-2 md:mb-3" style={{ color: '#F59E0B' }}>
                         Signage &amp; Print
                     </motion.p>
-                    <motion.h1 variants={fadeUp} className="font-heading text-4xl font-extrabold leading-tight md:text-6xl" style={{ color: 'white' }}>
+                    <motion.h1 variants={fadeUp} className="font-heading text-2xl font-extrabold leading-tight md:text-6xl" style={{ color: 'white' }}>
                         {category.h1 || category.name}
                     </motion.h1>
-                    <motion.p variants={fadeUp} className="mt-4 text-xl font-semibold" style={{ color: '#F59E0B' }}>
+                    <motion.p variants={fadeUp} className="mt-2 text-base font-semibold md:mt-4 md:text-xl" style={{ color: '#F59E0B' }}>
                         {category.tagline}
                     </motion.p>
-                    <motion.p variants={fadeUp} className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80">
+                    <motion.p variants={fadeUp} className="mt-4 hidden max-w-2xl text-lg leading-relaxed text-white/80 md:mx-auto md:block">
                         {category.description}
                     </motion.p>
-                    <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-4 sm:flex-row">
+                    <motion.div variants={fadeUp} className="mt-5 flex flex-row flex-wrap gap-3 md:mt-8 md:justify-center md:gap-4">
                         <Link href="/quote-request" className="btn-amber">
                             Request a Quote <ArrowRight size={18} />
                         </Link>
-                        <Link href="/signage" className="btn-ghost">
+                        <Link href="/signage" className="btn-ghost hidden md:inline-flex">
                             <ArrowLeft size={18} /> All Categories
                         </Link>
                     </motion.div>
@@ -72,11 +73,11 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
             </section>
 
             {/* PRODUCT GRID */}
-            <section className="px-6 py-16 md:py-20">
+            <section className="px-4 pb-14 pt-8 md:px-6 md:py-20">
                 <div className="mx-auto max-w-7xl">
-                    <div className="mb-10">
+                    <div className="mb-5 md:mb-10">
                         <p className="section-label text-[#0EA5E9]">{products.length} products available</p>
-                        <h2 className="mt-2 font-heading text-3xl font-extrabold text-[#1C1917] md:text-4xl">
+                        <h2 className="mt-1 font-heading text-2xl font-extrabold text-[#1C1917] md:mt-2 md:text-4xl">
                             {category.name}
                         </h2>
                     </div>
@@ -87,7 +88,7 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                             whileInView="visible"
                             viewport={{ once: true, amount: 0.05 }}
                             variants={stagger}
-                            className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
+                            className="grid grid-cols-2 gap-3 sm:gap-6 xl:grid-cols-3"
                         >
                             {products.map((product) => {
                                 const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
@@ -112,7 +113,7 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                                     src={product.image}
                                                     alt={product.alt || product.name}
                                                     fill
-                                                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 360px"
+                                                    sizes="(max-width: 640px) 50vw, (max-width: 1280px) 50vw, 360px"
                                                     className="object-contain object-center transition duration-300 group-hover:scale-105"
                                                     loading="lazy"
                                                 />
@@ -122,18 +123,18 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                                 </div>
                                             )}
                                         </div>
-                                        <div className="flex flex-1 flex-col p-6">
-                                            <h3 className="font-heading text-xl font-extrabold text-[#1C1917] transition group-hover:text-[#0369A1]">
+                                        <div className="flex flex-1 flex-col p-3.5 md:p-6">
+                                            <h3 className="font-heading text-base font-extrabold leading-snug text-[#1C1917] transition group-hover:text-[#0369A1] md:text-xl">
                                                 {product.name}
                                             </h3>
-                                            <p className="mt-3 flex-1 text-sm leading-relaxed text-brand-muted">
+                                            <p className="mt-3 hidden flex-1 text-sm leading-relaxed text-brand-muted md:block">
                                                 {highlight}
                                             </p>
-                                            <div className="mt-5 flex items-center justify-between">
-                                                <span className="font-heading text-base font-bold text-[#0369A1]">
+                                            <div className="mt-3 flex items-center justify-between md:mt-5">
+                                                <span className="font-heading text-sm font-bold text-[#0369A1] md:text-base">
                                                     {fromPrice ? <>From {fromPrice}</> : 'Request a Quote'}
                                                 </span>
-                                                <span className="inline-flex items-center gap-1 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition group-hover:gap-2">
+                                                <span className="hidden items-center gap-1 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition group-hover:gap-2 md:inline-flex">
                                                     View details <ArrowRight size={15} />
                                                 </span>
                                             </div>
