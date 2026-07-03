@@ -103,7 +103,7 @@ function ProductCard({ product }) {
                 </h3>
                 <p className="mt-1 text-xs text-brand-subtle">{product.categoryName}</p>
                 <p className="mt-auto pt-3 font-heading text-sm font-bold text-[#0369A1]">
-                    {fromPrice ? <>From {fromPrice}</> : 'Request a Quote'}
+                    {fromPrice ? <>From {fromPrice}</> : 'View Custom Sizes'}
                 </p>
             </div>
         </article>
@@ -476,7 +476,7 @@ export default function SignageHubOverview({ categories = [] }) {
                                                 </span>
                                             </span>
                                             <span className="shrink-0 font-heading text-xs font-bold text-[#0369A1]">
-                                                {product.isLive && formatPrice(product.lowestPrice) ? `From ${formatPrice(product.lowestPrice)}` : 'Quote'}
+                                                {product.isLive && formatPrice(product.lowestPrice) ? `From ${formatPrice(product.lowestPrice)}` : 'View Custom Sizes'}
                                             </span>
                                         </button>
                                     ))}

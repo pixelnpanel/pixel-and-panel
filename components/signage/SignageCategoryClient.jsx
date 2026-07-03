@@ -132,10 +132,10 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                             </p>
                                             <div className="mt-3 flex items-center justify-between md:mt-5">
                                                 <span className="font-heading text-sm font-bold text-[#0369A1] md:text-base">
-                                                    {fromPrice ? <>From {fromPrice}</> : 'Request a Quote'}
+                                                    {fromPrice ? <>From {fromPrice}</> : 'View Custom Sizes'}
                                                 </span>
                                                 <span className="hidden items-center gap-1 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition group-hover:gap-2 md:inline-flex">
-                                                    View details <ArrowRight size={15} />
+                                                    See Prices <ArrowRight size={15} />
                                                 </span>
                                             </div>
                                         </div>
