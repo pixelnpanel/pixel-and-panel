@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { ArrowRight, MessageCircle } from 'lucide-react'
+import { ArrowRight, MessageCircle, Truck } from 'lucide-react'
 
 const WHATSAPP_NUMBER = '14092252012'
 const QUOTE_PATH = '/quote-request'
@@ -129,9 +129,9 @@ export default function SignagePriceCalculator({
                 {showPrice ? (
                     <>
                         <p className="font-heading text-4xl font-extrabold text-[#0369A1]">{priceLabel}</p>
-                        <p className="mt-2 text-sm leading-relaxed text-brand-subtle">
-                            Base price — tax (8.25% TX) and shipping confirmed on your quote.
-                        </p>
+                        <span className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#0369A1] px-4 py-2 font-heading text-xs font-bold uppercase tracking-wide text-white shadow-sm">
+                            <Truck size={15} strokeWidth={2.5} /> Free Shipping Anywhere in the US
+                        </span>
                     </>
                 ) : (
                     <>
