@@ -1,4 +1,6 @@
 import Link from "next/link";
+import ReviewsBand from "@/components/sections/ReviewsBand";
+import { reviews } from "@/lib/reviews";
 import { SIGNAGE_LABEL, SIGNAGE_PATH } from "@/lib/sign-catalog";
 import {
   ArrowRight,
@@ -20,6 +22,13 @@ import {
   ShieldCheck,
   Store,
 } from "lucide-react";
+
+const HOMEPAGE_REVIEW_CHIPS = [
+  "Independently owned & operated",
+  "5.0 rated on Google",
+  "Signage + digital under one roof",
+  "Ships nationwide",
+];
 
 const problemCards = [
   {
@@ -591,6 +600,12 @@ export default function HomeSections({ faqs, content = {} }) {
           </div>
         </div>
       </section>
+
+      <ReviewsBand
+        heading="What Our Clients Say"
+        reviews={reviews}
+        chips={HOMEPAGE_REVIEW_CHIPS}
+      />
 
       <section className="px-4 pb-16 md:pb-24" aria-labelledby="final-cta-heading">
         <div
