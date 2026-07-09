@@ -1,6 +1,8 @@
 import SignageHubOverview from '@/components/signage/SignageHubOverview'
 import { getCategories } from '@/lib/signage/data'
 import { withDefaultSocialImage } from '@/lib/seo'
+import { reviewsExcludingChannel } from '@/lib/reviews'
+import { attachReviewImages } from '@/lib/review-images'
 
 export const revalidate = 60
 
@@ -46,6 +48,9 @@ function JsonLd({ data }) {
 
 export default async function SignagePage() {
     const categories = await getCategories()
+    // Exclude the website/digital review — signage shows sign & print work only.
+    // Images resolved here (server) so the client hub never touches the filesystem.
+    const signageReviews = attachReviewImages(reviewsExcludingChannel('digital'))
 
     const breadcrumbSchema = {
         '@context': 'https://schema.org',
@@ -76,7 +81,7 @@ export default async function SignagePage() {
         <>
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={itemListSchema} />
-            <SignageHubOverview categories={categories} />
+            <SignageHubOverview categories={categories} reviews={signageReviews} />
         </>
     )
 }

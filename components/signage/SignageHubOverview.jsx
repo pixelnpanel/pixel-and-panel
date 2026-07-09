@@ -13,7 +13,6 @@ import { ArrowRight, Search, Box, X, BadgeCheck, Zap, PenTool, Truck } from 'luc
 import { trackExtendedCatalogClick } from '@/lib/analytics'
 import { EXTENDED_CATALOG_URL } from '@/lib/sign-catalog'
 import ReviewsBand from '@/components/sections/ReviewsBand'
-import { reviewsExcludingChannel } from '@/lib/reviews'
 
 // Signage positioning stays national — keep chips city-free.
 const SIGNAGE_REVIEW_CHIPS = [
@@ -22,9 +21,6 @@ const SIGNAGE_REVIEW_CHIPS = [
     '5.0 rated on Google',
     'Files proofed before print',
 ]
-
-// Exclude the website/digital review — signage page shows sign & print work only.
-const SIGNAGE_REVIEWS = reviewsExcludingChannel('digital')
 
 const QUOTE_PATH = '/quote-request'
 const VISIBILITY_PATH = '/free-visibility-check'
@@ -123,7 +119,7 @@ function ProductCard({ product }) {
     )
 }
 
-export default function SignageHubOverview({ categories = [] }) {
+export default function SignageHubOverview({ categories = [], reviews = [] }) {
     const router = useRouter()
     const mobileSearchInputRef = useRef(null)
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
@@ -376,7 +372,7 @@ export default function SignageHubOverview({ categories = [] }) {
             {/* SOCIAL PROOF */}
             <ReviewsBand
                 heading="Trusted for Signs, Banners & Print"
-                reviews={SIGNAGE_REVIEWS}
+                reviews={reviews}
                 chips={SIGNAGE_REVIEW_CHIPS}
             />
 

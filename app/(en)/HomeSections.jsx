@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ReviewsBand from "@/components/sections/ReviewsBand";
 import { reviews } from "@/lib/reviews";
+import { attachReviewImages } from "@/lib/review-images";
 import { SIGNAGE_LABEL, SIGNAGE_PATH } from "@/lib/sign-catalog";
 import {
   ArrowRight,
@@ -345,6 +346,7 @@ function LinkCard({ item, variant = "light" }) {
 }
 
 export default function HomeSections({ faqs, content = {} }) {
+  const homeReviews = attachReviewImages(reviews);
   const sections = {
     problem: { ...defaultHomeSectionsContent.problem, ...content.problem },
     problemCta: { ...defaultHomeSectionsContent.problemCta, ...content.problemCta },
@@ -367,6 +369,8 @@ export default function HomeSections({ faqs, content = {} }) {
 
   return (
     <>
+      <ReviewsBand variant="strip" heading="Trusted by Southeast Texas businesses" />
+
       <section className="section-base" aria-labelledby="problem-heading">
         <div className="container-px">
           <SectionIntro
@@ -548,6 +552,12 @@ export default function HomeSections({ faqs, content = {} }) {
         </div>
       </section>
 
+      <ReviewsBand
+        heading="What Our Clients Say"
+        reviews={homeReviews}
+        chips={HOMEPAGE_REVIEW_CHIPS}
+      />
+
       <section className="section-base bg-[#0369A1] text-white" aria-labelledby="portfolio-heading">
         <div className="container-px">
           <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
@@ -600,12 +610,6 @@ export default function HomeSections({ faqs, content = {} }) {
           </div>
         </div>
       </section>
-
-      <ReviewsBand
-        heading="What Our Clients Say"
-        reviews={reviews}
-        chips={HOMEPAGE_REVIEW_CHIPS}
-      />
 
       <section className="px-4 pb-16 md:pb-24" aria-labelledby="final-cta-heading">
         <div
