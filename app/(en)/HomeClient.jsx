@@ -5,44 +5,44 @@ import HomeHeroVisual from "./HomeHeroVisual";
 
 export const defaultHomeStartOptions = [
   {
-    title: "Website / Google",
-    actionLabel: "Website + Google Visibility →",
-    description: "Fast websites and Google Maps help.",
-    href: "/digital",
-    label: "Digital",
-    icon: MonitorSmartphone,
-    accent: "#0EA5E9",
-  },
-  {
     title: SIGNAGE_LABEL,
     actionLabel: `${SIGNAGE_LABEL} →`,
-    description: "Signs, print products, and branded materials.",
+    description: "Signs, banners, vehicle graphics, and print.",
     href: SIGNAGE_PATH,
     label: SIGNAGE_LABEL,
     icon: PanelTop,
     accent: "#F59E0B",
   },
   {
+    title: "Website / Google",
+    actionLabel: "Also Need a Website + Google? →",
+    description: "Websites and Google visibility to match.",
+    href: "/digital",
+    label: "Digital",
+    icon: MonitorSmartphone,
+    accent: "#0EA5E9",
+  },
+  {
     title: "Not Sure Yet?",
-    actionLabel: "Not Sure? Start With a Free Check →",
-    description: "Free Google visibility check.",
-    href: "/free-visibility-check",
-    label: "Free Check",
+    actionLabel: "Not Sure? Get a Free Quote →",
+    description: "Tell us what you need — we'll guide you.",
+    href: "/quote-request",
+    label: "Free Quote",
     icon: HelpCircle,
     accent: "#10B981",
   },
 ];
 
 export const defaultHomeHeroCopy = {
-  eyebrow: "Serving Southeast Texas",
-  mobileTitleStart: "Web Design, Custom Signs & Local SEO",
-  mobileTitleHighlight: "for Southeast Texas Businesses.",
-  desktopTitleStart: "Web Design, Custom Signs & Local SEO",
-  desktopTitleHighlight: "for Southeast Texas Businesses.",
+  eyebrow: "Sign & Print Shop · Southeast Texas",
+  mobileTitleStart: "Custom Signs, Banners & Print",
+  mobileTitleHighlight: "That Get Your Business Noticed.",
+  desktopTitleStart: "Custom Signs, Banners & Print",
+  desktopTitleHighlight: "That Get Your Business Noticed.",
   mobileIntro:
-    "Fast websites, custom signs, and local SEO for contractors, stores, and service teams across Southeast Texas.",
+    "Your one-stop sign shop in Southeast Texas — custom signs, banners, vehicle graphics, and print. Need to grow online too? We also build websites and Google visibility to match.",
   desktopIntro:
-    "We help contractors, retail shops, and service businesses in Beaumont, Nederland, and Port Arthur look professional and get more calls. From fast, mobile-friendly website design to durable street banners and work truck lettering, Pixel & Panel connects everything together.",
+    "Pixel & Panel is the one-stop sign shop for Beaumont, Nederland, and Port Arthur — custom signs, banners, vehicle graphics, and print that make local businesses impossible to miss. And when you're ready to grow online, we also build the website and Google presence to match.",
   startHeading: "What do you need?",
   startOptionsLabel: "Choose what your business needs",
   quoteHref: "/quote-request",
@@ -50,8 +50,8 @@ export const defaultHomeHeroCopy = {
   desktopQuoteLabel: "Request a Quote",
   checklist: [
     "Your Vision. Made Visible.",
-    "Websites, signs, Google, and print working together",
-    "Quote-first process",
+    "Signs, banners & print — plus web & Google",
+    "Quote-first, no pressure",
   ],
 };
 

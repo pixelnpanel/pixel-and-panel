@@ -12,17 +12,17 @@ import {
 const STEPS = [
   {
     num: "01",
-    short: "Website + Google",
-    label: "Website + Google",
-    accent: "#0EA5E9",
-    icon: MonitorSmartphone,
-  },
-  {
-    num: "02",
     short: "Signs + Print",
     label: "Signs + Print",
     accent: "#F59E0B",
     icon: PanelTop,
+  },
+  {
+    num: "02",
+    short: "Website + Google",
+    label: "Website + Google",
+    accent: "#0EA5E9",
+    icon: MonitorSmartphone,
   },
   {
     num: "03",
@@ -140,9 +140,9 @@ function LeadPreview() {
 }
 
 function ActivePreview({ step }) {
-  if (step === 1) return <SignPreview />;
+  if (step === 1) return <OnlinePreview />;
   if (step === 2) return <LeadPreview />;
-  return <OnlinePreview />;
+  return <SignPreview />;
 }
 
 export default function HomeHeroVisual() {
@@ -175,7 +175,7 @@ export default function HomeHeroVisual() {
                 Visibility System
               </p>
               <h2 className="mt-2 max-w-[23rem] font-heading text-[1.35rem] font-extrabold leading-tight text-white xl:text-2xl">
-                Websites, signs, print, and Google working as one.
+                Signs, print, websites, and Google working as one.
               </h2>
             </div>
             <div className="hidden shrink-0 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-xs font-bold text-white/80 xl:flex">
@@ -185,7 +185,7 @@ export default function HomeHeroVisual() {
           </div>
 
           <p className="mt-3 max-w-[26rem] text-sm leading-6 text-white/70">
-            We make the path clear: customers find you online, notice you in town, then request a quote.
+            We make the path clear: customers notice you in town, find you online, then request a quote.
           </p>
 
           <div className="mt-4 grid w-full max-w-full min-w-0 grid-cols-[repeat(3,minmax(0,1fr))] gap-2 overflow-hidden">

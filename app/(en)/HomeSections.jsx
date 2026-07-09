@@ -33,22 +33,22 @@ const HOMEPAGE_REVIEW_CHIPS = [
 
 const problemCards = [
   {
-    title: "Outdated website",
+    title: "Hard-to-read or faded signage",
     description:
-      "Customers check you online before they call. A slow or confusing website can make a good local business look hard to trust.",
-    icon: MonitorSmartphone,
+      "A worn banner or dated sign makes even a great local business look neglected. Clean, professional signage earns trust before a customer ever walks in.",
+    icon: PanelTop,
   },
   {
-    title: "Weak Google presence",
+    title: "A work truck nobody remembers",
     description:
-      "If nearby customers cannot find your services, hours, location, and contact options on Google Maps, they move on fast.",
+      "An unbranded vehicle is a moving billboard going to waste. Truck lettering and magnets put your name in front of the whole town, every day.",
+    icon: Car,
+  },
+  {
+    title: "Hard to find once they're interested",
+    description:
+      "Your signs get you noticed — then customers check you online. A weak website or Google listing loses the lead your signage just earned.",
     icon: Search,
-  },
-  {
-    title: "Signs with no clear next step",
-    description:
-      "A great sign gets noticed. A short URL, QR code, or clear call path gives customers an easy next step.",
-    icon: QrCode,
   },
 ];
 
@@ -75,21 +75,6 @@ const solutionSteps = [
 
 const serviceSilos = [
   {
-    eyebrow: "Digital Services",
-    title: "Show up when nearby customers search on Google.",
-    description:
-      "Website design, local SEO, Google Business Profile optimization, lead capture, and QR campaigns for local business owners.",
-    href: "/digital",
-    cta: "View Digital Services",
-    accent: "#0EA5E9",
-    icon: MonitorSmartphone,
-    items: [
-      "Pages that turn visitors into calls and quote requests",
-      "Google-ready service and location content",
-      "QR codes that send customers from your signs to your website",
-    ],
-  },
-  {
     eyebrow: "Signage & Print",
     title: "Get noticed in the real world.",
     description:
@@ -102,6 +87,21 @@ const serviceSilos = [
       "Business signs that are easy to read",
       "Print materials for handoffs, events, and walk-ins",
       "Designs that give customers a clear next step online or by phone",
+    ],
+  },
+  {
+    eyebrow: "Also Available",
+    title: "Want more than a sign? Get found online, too.",
+    description:
+      "Once your signage gets you noticed, we can build the website, local SEO, Google Business Profile, and QR campaigns that turn attention into calls.",
+    href: "/digital",
+    cta: "View Digital Services",
+    accent: "#0EA5E9",
+    icon: MonitorSmartphone,
+    items: [
+      "Pages that turn visitors into calls and quote requests",
+      "Google-ready service and location content",
+      "QR codes that send customers from your signs to your website",
     ],
   },
 ];
