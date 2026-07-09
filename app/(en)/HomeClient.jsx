@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, HelpCircle, MonitorSmartphone, PanelTop } from "lucide-react";
 import { SIGNAGE_LABEL, SIGNAGE_PATH } from "@/lib/sign-catalog";
 import HomeHeroVisual from "./HomeHeroVisual";
+import HomeHeroPhotos from "./HomeHeroPhotos";
 
 export const defaultHomeStartOptions = [
   {
@@ -55,7 +56,7 @@ export const defaultHomeHeroCopy = {
   ],
 };
 
-export default function HomeClient({ copy = {}, startOptions = defaultHomeStartOptions }) {
+export default function HomeClient({ copy = {}, startOptions = defaultHomeStartOptions, heroImages = [] }) {
   const content = { ...defaultHomeHeroCopy, ...copy };
 
   return (
@@ -76,17 +77,9 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
             </div>
 
             <h1 id="homepage-hero-title" className="pnp-home-hero-title font-heading text-[clamp(2.05rem,4.4vw,3.55rem)] font-extrabold leading-[1.08] tracking-normal text-white">
-              <span className="md:hidden">
-                {content.mobileTitleStart}
-                <span className="mt-2 block text-[#F59E0B]">
-                  {content.mobileTitleHighlight}
-                </span>
-              </span>
-              <span className="hidden md:inline">
-                {content.desktopTitleStart}{" "}
-                <span className="text-[#F59E0B]">
-                  {content.desktopTitleHighlight}
-                </span>
+              {content.desktopTitleStart}{" "}
+              <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">
+                {content.desktopTitleHighlight}
               </span>
             </h1>
 
@@ -169,7 +162,15 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
           </div>
 
           <div className="hidden lg:flex lg:items-center lg:self-center">
-            <HomeHeroVisual />
+            {heroImages.length ? (
+              <HomeHeroPhotos
+                images={heroImages}
+                tagline={content.checklist?.[0]}
+                ratingLabel={content.photoRatingLabel}
+              />
+            ) : (
+              <HomeHeroVisual />
+            )}
           </div>
         </div>
       </section>

@@ -71,8 +71,19 @@ function JsonLd({ data }) {
   );
 }
 
+const heroImagesFrom = (categories) =>
+  categories
+    .map((c) => ({
+      src: c.image || (c.products || []).find((p) => p.image)?.image || null,
+      alt: `Custom ${c.name} by Pixel & Panel`,
+      label: c.name,
+    }))
+    .filter((tile) => tile.src)
+    .slice(0, 4);
+
 export default async function HomePage() {
   const categories = await getCategories();
+  const heroImages = heroImagesFrom(categories);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -90,7 +101,7 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd data={faqSchema} />
-      <HomeClient />
+      <HomeClient heroImages={heroImages} />
       <HomeSections faqs={homepageFaq} categories={categories} />
       <SpanishSuggestionBanner />
     </>

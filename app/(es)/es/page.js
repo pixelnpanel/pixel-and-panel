@@ -4,14 +4,11 @@ import {
   Car,
   ClipboardList,
   CreditCard,
-  FileText,
-  Globe2,
   HelpCircle,
   MapPin,
   Megaphone,
   MonitorSmartphone,
   PanelTop,
-  QrCode,
   Search,
   ShieldCheck,
   Store,
@@ -19,6 +16,7 @@ import {
 import HomeClient from "../../(en)/HomeClient";
 import HomeSections from "../../(en)/HomeSections";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { getCategories } from "@/lib/signage/data";
 
 const spanishHomepageFaq = [
   {
@@ -49,50 +47,53 @@ const spanishHomepageFaq = [
 ];
 
 const spanishHomeHeroCopy = {
-  eyebrow: "Sirviendo el sureste de Texas",
-  mobileTitleStart: "Haz que tu negocio aparezca",
-  mobileTitleHighlight: "en Google y la calle",
-  desktopTitleStart: "Creamos sitios web, letreros y SEO local",
-  desktopTitleHighlight: "para que encuentren tu negocio",
+  eyebrow: "Taller de letreros e impresión · Sureste de Texas",
+  mobileTitleStart: "Letreros, banners e impresión",
+  mobileTitleHighlight: "que hacen que te noten.",
+  desktopTitleStart: "Letreros, banners e impresión",
+  desktopTitleHighlight: "que hacen que te noten.",
   mobileIntro:
-    "Sitios web rápidos, letreros comerciales y SEO local para contratistas, tiendas y equipos de servicio en el sureste de Texas.",
+    "Tu taller de letreros en el sureste de Texas — letreros, banners, rotulación vehicular e impresión. ¿También quieres crecer en internet? También creamos tu sitio web y presencia en Google.",
   desktopIntro:
-    "Ayudamos a contratistas, tiendas y negocios de servicio en Beaumont, Nederland y Port Arthur a verse profesionales y recibir más llamadas. Desde sitios web rápidos para celular hasta banners duraderos y rotulación de camionetas, Pixel & Panel conecta todo.",
+    "Pixel & Panel es el taller de letreros para Beaumont, Nederland y Port Arthur — letreros, banners, rotulación vehicular e impresión que hacen que los negocios locales se noten. Y cuando quieras crecer en internet, también creamos el sitio web y la presencia en Google.",
   startHeading: "¿Qué necesitas?",
   startOptionsLabel: "Elige lo que necesita tu negocio",
   quoteHref: "/es/solicitar-cotizacion",
   mobileQuoteLabel: "Cotizar",
   desktopQuoteLabel: "Solicitar cotización",
+  photoRatingLabel: "5.0 en Google",
   checklist: [
     "Tu visión. Hecha visible.",
-    "Sitios web, letreros, Google e impresión trabajando juntos",
-    "Proceso con cotización primero",
+    "Letreros, banners e impresión — más web y Google",
+    "Cotización primero, sin presión",
   ],
 };
 
 const spanishHomeStartOptions = [
   {
-    title: "Sitio web / Google",
-    description: "Sitios rápidos y ayuda con Google Maps.",
-    href: "/es/servicios-digitales",
-    label: "Digital",
-    icon: MonitorSmartphone,
-    accent: "#0EA5E9",
-  },
-  {
     title: "Letreros e impresión",
-    actionLabel: "Letreros →",
-    description: "Letreros, impresos y materiales de marca.",
+    actionLabel: "Letreros e impresión →",
+    description: "Letreros, banners, rotulación vehicular e impresos.",
     href: "/es/letreros",
     label: "Letreros",
     icon: PanelTop,
     accent: "#F59E0B",
   },
   {
+    title: "Sitio web / Google",
+    actionLabel: "¿También quieres web + Google? →",
+    description: "Sitios web y visibilidad en Google a juego.",
+    href: "/es/servicios-digitales",
+    label: "Digital",
+    icon: MonitorSmartphone,
+    accent: "#0EA5E9",
+  },
+  {
     title: "No estoy seguro",
-    description: "Chequeo gratis de visibilidad en Google.",
-    href: "/es/chequeo-gratis-de-visibilidad",
-    label: "Chequeo gratis",
+    actionLabel: "¿No sabes? Cotización gratis →",
+    description: "Cuéntanos qué necesitas — te guiamos.",
+    href: "/es/solicitar-cotizacion",
+    label: "Cotización gratis",
     icon: HelpCircle,
     accent: "#10B981",
   },
@@ -107,22 +108,22 @@ const spanishHomeSections = {
   },
   problemCards: [
     {
-      title: "Sitio web desactualizado",
+      title: "Letreros gastados o difíciles de leer",
       description:
-        "Los clientes revisan tu negocio en internet antes de llamar. Un sitio lento o confuso puede hacer que un buen negocio local parezca menos confiable.",
-      icon: MonitorSmartphone,
+        "Un banner desgastado o un letrero anticuado hace que hasta un buen negocio local se vea descuidado. Un letrero limpio y profesional genera confianza antes de que el cliente entre.",
+      icon: PanelTop,
     },
     {
-      title: "Poca presencia en Google",
+      title: "Una camioneta que nadie recuerda",
       description:
-        "Si clientes cercanos no encuentran tus servicios, horarios, ubicación y formas de contacto en Google Maps, pasan al siguiente negocio.",
+        "Un vehículo sin rotulación es una valla móvil desaprovechada. La rotulación e imanes ponen tu nombre frente a todo el pueblo, todos los días.",
+      icon: Car,
+    },
+    {
+      title: "Difícil de encontrar cuando ya te buscan",
+      description:
+        "Tus letreros te hacen notar; luego el cliente te busca en internet. Un sitio web o ficha de Google débil pierde el cliente que tu letrero ya ganó.",
       icon: Search,
-    },
-    {
-      title: "Letreros sin siguiente paso claro",
-      description:
-        "Un buen letrero llama la atención. Una URL corta, código QR o ruta clara para llamar le da al cliente un siguiente paso fácil.",
-      icon: QrCode,
     },
   ],
   problemCta: {
@@ -131,32 +132,6 @@ const spanishHomeSections = {
     href: "/es/chequeo-gratis-de-visibilidad",
     label: "Revisar mi visibilidad en Google",
   },
-  solution: {
-    eyebrow: "La solución",
-    title: "Un solo sistema para visibilidad digital y física.",
-    description:
-      "Pixel & Panel conecta lo que los negocios locales ya necesitan: un sitio web claro, mejor presencia en Google, letreros profesionales, materiales impresos útiles, códigos QR y formularios para leads.",
-  },
-  solutionSteps: [
-    {
-      title: "Construir",
-      description:
-        "Crear un sitio web seguro y un Perfil de Google optimizado que expliquen tus servicios, horarios y área de servicio.",
-      icon: Globe2,
-    },
-    {
-      title: "Promover",
-      description:
-        "Promover tu marca con letreros de fachada, letreros de jardín, rotulación vehicular, banners y materiales impresos.",
-      icon: Megaphone,
-    },
-    {
-      title: "Conectar",
-      description:
-        "Conectar impresos y letreros con códigos QR, enlaces cortos y formularios claros para que el cliente pida cotización rápido.",
-      icon: QrCode,
-    },
-  ],
   services: {
     eyebrow: "Servicios",
     title: "Elige lo que necesitas ahora o pide una cotización completa",
@@ -164,21 +139,6 @@ const spanishHomeSections = {
       "Elige lo que necesitas ahora, o empieza con una solicitud de cotización y Pixel & Panel recomendará el siguiente paso correcto.",
   },
   serviceSilos: [
-    {
-      eyebrow: "Servicios digitales",
-      title: "Aparece cuando clientes cercanos buscan en Google.",
-      description:
-        "Diseño web, SEO local, optimización de Perfil de Google, captura de leads y campañas con QR para dueños de negocios locales.",
-      href: "/es/servicios-digitales",
-      cta: "Ver servicios digitales",
-      accent: "#0EA5E9",
-      icon: MonitorSmartphone,
-      items: [
-        "Páginas que convierten visitas en llamadas y solicitudes",
-        "Contenido de servicios y ubicaciones listo para Google",
-        "QR que llevan clientes desde tus letreros hasta tu sitio web",
-      ],
-    },
     {
       eyebrow: "Letreros e impresión",
       title: "Haz que te noten en el mundo real.",
@@ -192,6 +152,21 @@ const spanishHomeSections = {
         "Letreros para negocios fáciles de leer",
         "Impresos para entregas, eventos y visitas en persona",
         "Diseños que guían al cliente a llamar, escanear o visitar tu sitio",
+      ],
+    },
+    {
+      eyebrow: "También disponible",
+      title: "¿Quieres más que un letrero? Aparece también en internet.",
+      description:
+        "Cuando tus letreros ya te hacen notar, podemos crear el sitio web, SEO local, Perfil de Google y campañas con QR que convierten la atención en llamadas.",
+      href: "/es/servicios-digitales",
+      cta: "Ver servicios digitales",
+      accent: "#0EA5E9",
+      icon: MonitorSmartphone,
+      items: [
+        "Páginas que convierten visitas en llamadas y solicitudes",
+        "Contenido de servicios y ubicaciones listo para Google",
+        "QR que llevan clientes desde tus letreros hasta tu sitio web",
       ],
     },
   ],
@@ -312,19 +287,6 @@ const spanishHomeSections = {
       icon: ShieldCheck,
     },
   ],
-  portfolio: {
-    eyebrow: "Portafolio",
-    title: "El portafolio está tomando forma",
-    description:
-      "Fotos reales de proyectos, ejemplos de letreros y trabajos web se agregarán conforme se completen proyectos. Por ahora, cuéntanos qué necesitas y te guiaremos con opciones.",
-    href: "/es/portafolio",
-    label: "Ver portafolio",
-  },
-  portfolioItems: [
-    ["Trabajos web", MonitorSmartphone],
-    ["Ejemplos de letreros", PanelTop],
-    ["Materiales impresos", FileText],
-  ],
   faq: {
     eyebrow: "FAQ",
     title: "Preguntas comunes de inicio",
@@ -343,10 +305,10 @@ const spanishHomeSections = {
 export const metadata = {
   metadataBase: new URL("https://www.pixelnpanel.com"),
   title: {
-    absolute: "Diseño Web, Letreros y SEO Local | Pixel & Panel",
+    absolute: "Letreros, Banners e Impresión en Beaumont TX | Pixel & Panel",
   },
   description:
-    "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
+    "Pixel & Panel es un taller de letreros en Beaumont, TX — letreros, banners, rotulación vehicular e impresión para negocios locales. También creamos sitios web y visibilidad en Google.",
   alternates: {
     canonical: "https://www.pixelnpanel.com/es",
     languages: {
@@ -355,9 +317,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Diseño Web, Letreros y SEO Local | Pixel & Panel",
+    title: "Letreros, Banners e Impresión en Beaumont TX | Pixel & Panel",
     description:
-      "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
+      "Pixel & Panel es un taller de letreros en Beaumont, TX — letreros, banners, rotulación vehicular e impresión para negocios locales. También creamos sitios web y visibilidad en Google.",
     url: "https://www.pixelnpanel.com/es",
     siteName: "Pixel & Panel",
     locale: "es_US",
@@ -366,9 +328,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Diseño Web, Letreros y SEO Local | Pixel & Panel",
+    title: "Letreros, Banners e Impresión en Beaumont TX | Pixel & Panel",
     description:
-      "Creamos páginas web rápidas, letreros para negocios, rotulación vehicular y optimización de Google Maps en Beaumont, Nederland y Port Arthur.",
+      "Pixel & Panel es un taller de letreros en Beaumont, TX — letreros, banners, rotulación vehicular e impresión para negocios locales. También creamos sitios web y visibilidad en Google.",
     images: [DEFAULT_OG_IMAGE],
   },
 };
@@ -382,7 +344,19 @@ function JsonLd({ data }) {
   );
 }
 
-export default function SpanishHomePage() {
+const spanishHeroImagesFrom = (categories) =>
+  categories
+    .map((c) => ({
+      src: c.image || (c.products || []).find((p) => p.image)?.image || null,
+      alt: "Letreros e impresión personalizados — Pixel & Panel",
+    }))
+    .filter((tile) => tile.src)
+    .slice(0, 4);
+
+export default async function SpanishHomePage() {
+  const categories = await getCategories();
+  const heroImages = spanishHeroImagesFrom(categories);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -399,7 +373,7 @@ export default function SpanishHomePage() {
   return (
     <>
       <JsonLd data={faqSchema} />
-      <HomeClient copy={spanishHomeHeroCopy} startOptions={spanishHomeStartOptions} />
+      <HomeClient copy={spanishHomeHeroCopy} startOptions={spanishHomeStartOptions} heroImages={heroImages} />
       <HomeSections faqs={spanishHomepageFaq} content={spanishHomeSections} />
     </>
   );

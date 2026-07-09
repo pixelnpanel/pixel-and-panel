@@ -13,13 +13,11 @@ import {
   ClipboardList,
   CreditCard,
   FileText,
-  Globe2,
   HelpCircle,
   MapPin,
   Megaphone,
   MonitorSmartphone,
   PanelTop,
-  QrCode,
   Search,
   ShieldCheck,
   Store,
@@ -50,27 +48,6 @@ const problemCards = [
     description:
       "Your signs get you noticed — then customers check you online. A weak website or Google listing loses the lead your signage just earned.",
     icon: Search,
-  },
-];
-
-const solutionSteps = [
-  {
-    title: "Build",
-    description:
-      "Build a secure website and optimized Google Profile that clearly explain your services, hours, and service area.",
-    icon: Globe2,
-  },
-  {
-    title: "Promote",
-    description:
-      "Promote your brand with storefront signs, roadside yard signs, vehicle lettering, banners, and print materials.",
-    icon: Megaphone,
-  },
-  {
-    title: "Connect",
-    description:
-      "Connect print and signs with QR code campaigns, short links, and clear forms so customers can request a quote fast.",
-    icon: QrCode,
   },
 ];
 
@@ -218,12 +195,6 @@ const reasons = [
   },
 ];
 
-const portfolioItems = [
-  ["Website work", MonitorSmartphone],
-  ["Signage examples", PanelTop],
-  ["Print materials", FileText],
-];
-
 export const defaultHomeSectionsContent = {
   problem: {
     eyebrow: "The Problem",
@@ -236,12 +207,6 @@ export const defaultHomeSectionsContent = {
       "Not sure where the gap is yet? Start with a free Google visibility review before asking for a project quote.",
     href: "/free-visibility-check",
     label: "Check My Google Visibility",
-  },
-  solution: {
-    eyebrow: "The Solution",
-    title: "One system for online and real-world visibility.",
-    description:
-      "Pixel & Panel connects the pieces local businesses already need: a clear website, a stronger Google presence, professional signs, useful print materials, QR codes, and lead forms.",
   },
   services: {
     eyebrow: "Services",
@@ -266,14 +231,6 @@ export const defaultHomeSectionsContent = {
     title: "Clear enough for customers. Practical enough for local business.",
     description:
       "The goal is simple: make your business easier to notice, easier to understand, and easier to contact.",
-  },
-  portfolio: {
-    eyebrow: "Portfolio",
-    title: "Portfolio Coming Together",
-    description:
-      "Real project photos, signage examples, and website work will be added as projects are completed. For now, tell us what you need and we will guide you with options.",
-    href: "/portfolio",
-    label: "View Portfolio",
   },
   faq: {
     eyebrow: "FAQ",
@@ -351,22 +308,18 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
   const sections = {
     problem: { ...defaultHomeSectionsContent.problem, ...content.problem },
     problemCta: { ...defaultHomeSectionsContent.problemCta, ...content.problemCta },
-    solution: { ...defaultHomeSectionsContent.solution, ...content.solution },
     services: { ...defaultHomeSectionsContent.services, ...content.services },
     popularServices: { ...defaultHomeSectionsContent.popularServices, ...content.popularServices },
     serviceArea: { ...defaultHomeSectionsContent.serviceArea, ...content.serviceArea },
     why: { ...defaultHomeSectionsContent.why, ...content.why },
-    portfolio: { ...defaultHomeSectionsContent.portfolio, ...content.portfolio },
     faq: { ...defaultHomeSectionsContent.faq, ...content.faq },
     finalCta: { ...defaultHomeSectionsContent.finalCta, ...content.finalCta },
   };
   const problemItems = content.problemCards || problemCards;
-  const solutionItems = content.solutionSteps || solutionSteps;
   const serviceItems = content.serviceSilos || serviceSilos;
   const popularItems = content.popularServicesCards || popularServices;
   const cityItems = content.cityCards || cityCards;
   const reasonItems = content.reasons || reasons;
-  const portfolioItemsToRender = content.portfolioItems || portfolioItems;
 
   return (
     <>
@@ -409,36 +362,7 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
         </div>
       </section>
 
-      <section className="section-base bg-white" aria-labelledby="solution-heading">
-        <div className="container-px">
-          <SectionIntro
-            id="solution-heading"
-            eyebrow={sections.solution.eyebrow}
-            title={sections.solution.title}
-            description={sections.solution.description}
-          />
-
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {solutionItems.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.title} className="rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm">
-                  <div className="mb-6 flex items-center justify-between">
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#F59E0B] text-[#1C1917]">
-                      <Icon className="h-6 w-6" />
-                    </span>
-                    <span className="font-heading text-4xl font-black text-[#0369A1]/15">0{index + 1}</span>
-                  </div>
-                  <h3>{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-base" aria-labelledby="services-heading">
+      <section className="section-base bg-white" aria-labelledby="services-heading">
         <div className="container-px">
           <SectionIntro
             id="services-heading"
@@ -561,35 +485,7 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
         chips={HOMEPAGE_REVIEW_CHIPS}
       />
 
-      <section className="section-base bg-[#0369A1] text-white" aria-labelledby="portfolio-heading">
-        <div className="container-px">
-          <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-            <SectionIntro
-              id="portfolio-heading"
-              eyebrow={sections.portfolio.eyebrow}
-              title={sections.portfolio.title}
-              description={sections.portfolio.description}
-              centered={false}
-              light
-            />
-            <div className="rounded-xl border border-white/10 bg-white/[0.08] p-6 md:p-8">
-              <div className="grid gap-4 sm:grid-cols-3">
-                {portfolioItemsToRender.map(([label, Icon]) => (
-                  <div key={label} className="rounded-lg bg-white/10 p-5 text-center">
-                    <Icon className="mx-auto mb-3 h-7 w-7 text-[#F59E0B]" />
-                    <p className="font-heading text-sm font-bold uppercase tracking-[0.12em] text-white/75">{label}</p>
-                  </div>
-                ))}
-              </div>
-              <Link href={sections.portfolio.href} className="btn-amber mt-7 justify-center">
-                {sections.portfolio.label} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-base" aria-labelledby="faq-heading">
+      <section className="section-base bg-white" aria-labelledby="faq-heading">
         <div className="container-px">
           <SectionIntro
             id="faq-heading"
