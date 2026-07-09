@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ReviewsBand from "@/components/sections/ReviewsBand";
+import SignageCategoryTeaser from "@/components/sections/SignageCategoryTeaser";
 import { reviews } from "@/lib/reviews";
 import { attachReviewImages } from "@/lib/review-images";
 import { SIGNAGE_LABEL, SIGNAGE_PATH } from "@/lib/sign-catalog";
@@ -345,7 +346,7 @@ function LinkCard({ item, variant = "light" }) {
   );
 }
 
-export default function HomeSections({ faqs, content = {} }) {
+export default function HomeSections({ faqs, content = {}, categories = [] }) {
   const homeReviews = attachReviewImages(reviews);
   const sections = {
     problem: { ...defaultHomeSectionsContent.problem, ...content.problem },
@@ -370,6 +371,8 @@ export default function HomeSections({ faqs, content = {} }) {
   return (
     <>
       <ReviewsBand variant="strip" heading="Trusted by Southeast Texas businesses" />
+
+      <SignageCategoryTeaser categories={categories} />
 
       <section className="section-base" aria-labelledby="problem-heading">
         <div className="container-px">

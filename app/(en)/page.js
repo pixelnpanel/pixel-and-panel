@@ -1,6 +1,7 @@
 import HomeClient from "./HomeClient";
 import HomeSections from "./HomeSections";
 import SpanishSuggestionBanner from "@/components/language/SpanishSuggestionBanner";
+import { getCategories } from "@/lib/signage/data";
 import { DEFAULT_OG_IMAGE, DEFAULT_SITE_DESCRIPTION, DEFAULT_SITE_TITLE } from "@/lib/seo";
 
 const homepageFaq = [
@@ -70,7 +71,9 @@ function JsonLd({ data }) {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const categories = await getCategories();
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -88,7 +91,7 @@ export default function HomePage() {
     <>
       <JsonLd data={faqSchema} />
       <HomeClient />
-      <HomeSections faqs={homepageFaq} />
+      <HomeSections faqs={homepageFaq} categories={categories} />
       <SpanishSuggestionBanner />
     </>
   );
