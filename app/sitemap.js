@@ -38,6 +38,20 @@ const staticPages = [
   { url: "/es/area-de-servicio/port-arthur-tx", priority: 0.7, changeFrequency: "monthly" },
 ];
 
+// Image sitemap support: absolute raw-file URLs (NOT /_next/image) so
+// Googlebot-Image can index sign/print photos for Google Images traffic.
+const absImage = (src) => {
+  if (!src) return null;
+  if (src.startsWith("http")) return src;
+  if (src.startsWith("/")) return `${BASE}${src}`;
+  return null;
+};
+
+const uniqueImages = (sources) => {
+  const urls = [...new Set(sources.map(absImage).filter(Boolean))];
+  return urls.length ? urls : undefined;
+};
+
 export default async function sitemap() {
   // EN signage catalog (data-driven): hub + category + product pages from CSV.
   const signageCategories = await getCategories();
@@ -46,15 +60,22 @@ export default async function sitemap() {
       url: `${BASE}/signage/${c.slug}`,
       priority: 0.85,
       changeFrequency: "weekly",
+      images: uniqueImages([c.image, ...c.products.map((p) => p.image)]),
     })),
     ...signageCategories.flatMap((c) =>
       c.products.map((p) => ({
         url: `${BASE}/signage/${c.slug}/${p.slug}`,
         priority: 0.8,
         changeFrequency: "monthly",
+        images: uniqueImages([p.image]),
       }))
     ),
   ];
+
+  // Category cover art shown on the homepage teaser/hero and the /signage hub.
+  const categoryCoverImages = uniqueImages(
+    signageCategories.map((c) => c.image || c.products.find((p) => p.image)?.image)
+  );
 
   const digitalUrls = digitalServices.map((s) => ({
     url: `${BASE}/digital/${s.slug}`,
@@ -99,7 +120,14 @@ export default async function sitemap() {
   }));
 
   return [
-    ...staticPages.map(({ url, ...rest }) => ({ url: `${BASE}${url}`, ...rest })),
+    ...staticPages.map(({ url, ...rest }) => ({
+      url: `${BASE}${url}`,
+      ...rest,
+      // Surface real sign photos on the pages that display them.
+      ...((url === "/" || url === "/signage") && categoryCoverImages
+        ? { images: categoryCoverImages }
+        : {}),
+    })),
     ...signageUrls,
     ...digitalUrls,
     ...signageUrlsEs,

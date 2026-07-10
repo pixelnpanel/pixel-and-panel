@@ -4,7 +4,9 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/image"],
+        // NOTE: /_next/image intentionally NOT disallowed — pages serve sign
+        // photos through it, and blocking it kept them out of Google Images.
+        disallow: ["/api/"],
       },
     ],
     sitemap: "https://www.pixelnpanel.com/sitemap.xml",
