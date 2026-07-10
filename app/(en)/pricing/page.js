@@ -3,10 +3,10 @@ import { withDefaultSocialImage } from "@/lib/seo";
 
 export const metadata = withDefaultSocialImage({
   title: {
-    absolute: "Affordable Web Design Pricing & Sign Quotes | Pixel & Panel",
+    absolute: "Sign, Banner & Print Pricing + Web Packages | Pixel & Panel",
   },
   description:
-    "Upfront starter prices for small business websites, care packages, and customizable signage project quotes across Southeast Texas.",
+    "Instant pricing on banners and signs, fast custom quotes for print and signage projects, plus upfront starter prices for small business websites across Southeast Texas.",
   alternates: {
     canonical: "https://www.pixelnpanel.com/pricing",
     languages: {
@@ -15,9 +15,9 @@ export const metadata = withDefaultSocialImage({
     },
   },
   openGraph: {
-    title: "Affordable Web Design Pricing & Sign Quotes | Pixel & Panel",
+    title: "Sign, Banner & Print Pricing + Web Packages | Pixel & Panel",
     description:
-      "Upfront starter prices for small business websites, care packages, and customizable signage project quotes across Southeast Texas.",
+      "Instant pricing on banners and signs, fast custom quotes for print and signage projects, plus upfront starter prices for small business websites across Southeast Texas.",
     url: "https://www.pixelnpanel.com/pricing",
   },
 });

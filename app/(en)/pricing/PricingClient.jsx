@@ -663,16 +663,11 @@ export default function PricingPage({
           <m.span variants={fadeUp} className="section-label">
             {copy.heroLabel}
           </m.span>
+          {/* Single H1 text node — crawlers previously saw the mobile and
+              desktop variants concatenated into one garbled headline. */}
           <m.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
-            <span className="md:hidden">
-              {copy.mobileHeroTitlePrefix || copy.heroTitlePrefix}{' '}
-              <br />
-              <span style={{ color: colors.amber }}>{copy.mobileHeroTitleHighlight || copy.heroTitleHighlight}</span>
-            </span>
-            <span className="hidden md:inline">
-              {copy.heroTitlePrefix}{' '}
-              <span style={{ color: colors.amber }}>{copy.heroTitleHighlight}</span>
-            </span>
+            {copy.heroTitlePrefix}{' '}
+            <span className="mt-2 block md:mt-0 md:inline" style={{ color: colors.amber }}>{copy.heroTitleHighlight}</span>
           </m.h1>
           <m.p
             variants={fadeUp}

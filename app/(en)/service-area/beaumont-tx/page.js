@@ -3,9 +3,9 @@ import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = {
   name: "Beaumont",
-  h1: "Helping Beaumont Businesses Get Found Online and Stand Out on the Street",
+  h1: "Helping Beaumont Businesses Stand Out on the Street and Get Found Online",
   intro:
-    "Pixel & Panel delivers mobile websites, local SEO frameworks, commercial signs, and print materials built to capture more customer calls for companies across Beaumont, TX.",
+    "Pixel & Panel delivers commercial signs, banners, print materials, mobile websites, and local SEO frameworks built to capture more customer calls for companies across Beaumont, TX.",
   body:
     "Beaumont contractors, stores, restaurants, and service companies compete across Google searches, storefront traffic, and word-of-mouth referrals. Your offline branding and digital footprint should reinforce each other so customers can find you, trust you, and contact you.",
   services: [
@@ -35,10 +35,10 @@ const city = {
 
 export const metadata = withDefaultSocialImage({
   title: {
-    absolute: "Web Design, Custom Signs & Local SEO in Beaumont, TX",
+    absolute: "Custom Signs, Print & Web Design in Beaumont, TX",
   },
   description:
-    "Pixel & Panel helps Beaumont, TX businesses look professional and rank high on Google with custom websites, storefront signs, local SEO, and print.",
+    "Pixel & Panel is Beaumont's one-stop sign shop — storefront signs, banners, vehicle graphics, and print, plus websites and local SEO that get you found on Google.",
   alternates: {
     canonical: "/service-area/beaumont-tx",
     languages: {
@@ -47,9 +47,9 @@ export const metadata = withDefaultSocialImage({
     },
   },
   openGraph: {
-    title: "Web Design, Custom Signs & Local SEO in Beaumont, TX",
+    title: "Custom Signs, Print & Web Design in Beaumont, TX",
     description:
-      "Pixel & Panel helps Beaumont, TX businesses look professional and rank high on Google with custom websites, storefront signs, local SEO, and print.",
+      "Pixel & Panel is Beaumont's one-stop sign shop — storefront signs, banners, vehicle graphics, and print, plus websites and local SEO that get you found on Google.",
     url: "https://www.pixelnpanel.com/service-area/beaumont-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
@@ -57,9 +57,9 @@ export const metadata = withDefaultSocialImage({
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Design, Custom Signs & Local SEO in Beaumont, TX",
+    title: "Custom Signs, Print & Web Design in Beaumont, TX",
     description:
-      "Pixel & Panel helps Beaumont, TX businesses look professional and rank high on Google with custom websites, storefront signs, local SEO, and print.",
+      "Pixel & Panel is Beaumont's one-stop sign shop — storefront signs, banners, vehicle graphics, and print, plus websites and local SEO that get you found on Google.",
   },
 });
 

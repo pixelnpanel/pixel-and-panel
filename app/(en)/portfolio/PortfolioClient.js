@@ -78,16 +78,11 @@ export default function PortfolioClient() {
             <motion.p variants={fadeUp} className="section-label !text-[#F59E0B]">
               Portfolio
             </motion.p>
+            {/* Single H1 text node — crawlers previously saw the mobile and
+                desktop variants concatenated into one garbled headline. */}
             <motion.h1 variants={fadeUp} className="pnp-mobile-hero-title mt-4 text-white">
-              <span className="md:hidden">
-                Work Samples
-                <br />
-                <span className="text-[#F59E0B]">&amp; Concepts</span>
-              </span>
-              <span className="hidden md:inline">
-                Portfolio{" "}
-                <span className="text-[#F59E0B]">Coming Together</span>
-              </span>
+              Work Samples{" "}
+              <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">&amp; Concepts</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="pnp-mobile-hero-copy mx-auto mt-6 max-w-3xl text-base leading-8 text-white/78 md:hidden">
               Browse website, signage, print, QR, and brand visibility examples for local businesses.

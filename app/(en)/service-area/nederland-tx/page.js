@@ -3,9 +3,9 @@ import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = {
   name: "Nederland",
-  h1: "Modern Websites, Custom Signs, and Local Marketing in Nederland, TX",
+  h1: "Custom Signs, Modern Websites, and Local Marketing in Nederland, TX",
   intro:
-    "We help Nederland small businesses, shops, and trade contractors look professional with mobile-ready website development, durable exterior signs, custom banners, and optimized Google Business Profiles.",
+    "We help Nederland small businesses, shops, and trade contractors look professional with durable exterior signs, custom banners, mobile-ready website development, and optimized Google Business Profiles.",
   body:
     "Nederland businesses rely on local reputation, repeat customers, and being easy to verify online. When a customer spots your work truck, flyer, or sign, they often search Google to check your hours, photos, reviews, and services.",
   services: [
@@ -37,10 +37,10 @@ const city = {
 
 export const metadata = withDefaultSocialImage({
   title: {
-    absolute: "Signs, Web Design & SEO in Nederland, TX",
+    absolute: "Custom Signs, Banners & Web Design in Nederland, TX",
   },
   description:
-    "Boost your local presence with professional websites, outdoor signs, banners, and Google Profiles for businesses in Nederland, TX.",
+    "Outdoor signs, custom banners, and vehicle graphics for Nederland, TX businesses — plus professional websites and Google Business Profile support.",
   alternates: {
     canonical: "/service-area/nederland-tx",
     languages: {
@@ -49,9 +49,9 @@ export const metadata = withDefaultSocialImage({
     },
   },
   openGraph: {
-    title: "Custom Signs, Web Design & Local SEO in Nederland, TX",
+    title: "Custom Signs, Banners & Web Design in Nederland, TX",
     description:
-      "Boost your local presence with professional websites, outdoor signs, banners, and Google Profiles for businesses in Nederland, TX.",
+      "Outdoor signs, custom banners, and vehicle graphics for Nederland, TX businesses — plus professional websites and Google Business Profile support.",
     url: "https://www.pixelnpanel.com/service-area/nederland-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
@@ -59,9 +59,9 @@ export const metadata = withDefaultSocialImage({
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Signs, Web Design & Local SEO in Nederland, TX",
+    title: "Custom Signs, Banners & Web Design in Nederland, TX",
     description:
-      "Boost your local presence with professional websites, outdoor signs, banners, and Google Profiles for businesses in Nederland, TX.",
+      "Outdoor signs, custom banners, and vehicle graphics for Nederland, TX businesses — plus professional websites and Google Business Profile support.",
   },
 });
 

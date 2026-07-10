@@ -234,16 +234,11 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                     <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
                         Signage &amp; Print
                     </p>
+                    {/* Single H1 text node — crawlers previously saw the mobile and
+                        desktop variants concatenated into one garbled headline. */}
                     <h1 className="pnp-mobile-hero-title mx-auto break-words md:max-w-[980px] md:text-[clamp(2rem,3.5vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
-                        <span className="md:hidden">
-                            Custom Signs, Banners{' '}
-                            <br />
-                            <span style={{ color: '#F59E0B' }}>&amp; Print Shop.</span>
-                        </span>
-                        <span className="hidden md:inline">
-                            Custom Commercial Signs, Banners{' '}
-                            <span style={{ color: '#F59E0B' }}>and Printing Solutions</span>
-                        </span>
+                        Custom Signs, Banners{' '}
+                        <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">&amp; Printing Solutions.</span>
                     </h1>
                     <p className="pnp-mobile-hero-copy mx-auto mt-6 break-words md:hidden">
                         Custom banners, banner stands, flags, rigid signs, event tents, and print materials — designed, printed, and shipped to you.
