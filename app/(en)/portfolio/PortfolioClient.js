@@ -85,13 +85,13 @@ export default function PortfolioClient() {
               <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">&amp; Concepts</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="pnp-mobile-hero-copy mx-auto mt-6 max-w-3xl text-base leading-8 text-white/78 md:hidden">
-              Browse website, signage, print, QR, and brand visibility examples for local businesses.
+              A look at the signs, print, websites, and brand work we design for Southeast Texas businesses.
             </motion.p>
             <motion.p variants={fadeUp} className="hidden mx-auto mt-6 max-w-3xl text-base leading-8 text-white/78 md:block md:text-lg">
-              Pixel &amp; Panel is building a portfolio of websites, signage, print materials, QR campaigns, and brand visibility projects for Southeast Texas businesses.
+              Signage, print, vehicle graphics, websites, and brand work Pixel &amp; Panel designs for local businesses across Southeast Texas — here&apos;s a look at the range.
             </motion.p>
             <motion.p variants={fadeUp} className="hidden mx-auto mt-4 max-w-3xl text-sm leading-7 text-white/70 md:block md:text-base">
-              Some examples may be sample concepts or internal demos created to show style, layout, and service possibilities. Real client projects will be added as work is completed.
+              Every piece is labeled so you always know what you&apos;re looking at — real client projects, sample concepts, and internal demos that show our style and capabilities.
             </motion.p>
             <motion.div variants={fadeUp} className="pnp-mobile-hero-actions mt-8 hidden flex-col justify-center gap-3 md:flex sm:flex-row">
               <Link href="/quote-request" className="btn-amber w-full justify-center sm:w-auto">
@@ -209,10 +209,10 @@ export default function PortfolioClient() {
           {filteredProjects.length === 0 && (
             <div className="mx-auto mt-10 max-w-2xl rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
               <p className="font-heading text-lg font-bold text-[#1C1917]">
-                More portfolio examples are being prepared.
+                Nothing in this category yet — try another filter.
               </p>
               <p className="mt-3 text-slate-600">
-                Use the quote request form to share your project goals and we will recommend the best next step.
+                Or tell us your project in a quick quote request and we&apos;ll show you exactly what we&apos;d do.
               </p>
             </div>
           )}
