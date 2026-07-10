@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import SignageCategoryClient from '@/components/signage/SignageCategoryClient'
 import { getCategories, getCategory } from '@/lib/signage/data'
+import { getCategoryGuide } from '@/lib/signage/category-guides'
 import { withDefaultSocialImage } from '@/lib/seo'
 
 export const revalidate = 60
@@ -79,10 +80,23 @@ export default async function SignageCategoryRoute({ params }) {
         })),
     }
 
+    // FAQPage schema mirrors the visible buying-guide FAQ rendered in the client.
+    const guide = getCategoryGuide(cat.slug, cat.name)
+    const faqSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: guide.faqs.map(([question, answer]) => ({
+            '@type': 'Question',
+            name: question,
+            acceptedAnswer: { '@type': 'Answer', text: answer },
+        })),
+    }
+
     return (
         <>
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={itemListSchema} />
+            <JsonLd data={faqSchema} />
             <SignageCategoryClient category={cat} allCategories={categories} />
         </>
     )

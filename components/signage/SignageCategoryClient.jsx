@@ -4,7 +4,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Box } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Box, ChevronDown } from 'lucide-react'
+import { getCategoryGuide } from '@/lib/signage/category-guides'
 
 const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -25,6 +26,7 @@ function formatPrice(value) {
 export default function SignageCategoryClient({ category, allCategories = [] }) {
     const related = allCategories.filter((c) => c.slug !== category.slug).slice(0, 3)
     const products = category.products || []
+    const guide = getCategoryGuide(category.slug, category.name)
 
     return (
         <div className="min-h-screen bg-[#FAF8F4] text-[#1C1917]">
@@ -152,6 +154,34 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                             </Link>
                         </div>
                     )}
+                </div>
+            </section>
+
+            {/* BUYING GUIDE & FAQ — deepens the category landing page and feeds
+                FAQPage schema (emitted server-side in the route). */}
+            <section className="px-6 py-16 md:py-20">
+                <div className="mx-auto max-w-3xl">
+                    <p className="section-label text-[#0EA5E9]">Buying Guide</p>
+                    <h2 className="mt-2 font-heading text-2xl font-extrabold text-[#1C1917] md:text-4xl">
+                        Choosing your {category.name.toLowerCase()}
+                    </h2>
+                    <p className="mt-4 text-base leading-8 text-slate-600 md:text-lg">
+                        {guide.intro}
+                    </p>
+
+                    <div className="mt-8 divide-y divide-slate-100 rounded-2xl border border-brand-line bg-white px-5 shadow-card md:px-8">
+                        {guide.faqs.map(([question, answer]) => (
+                            <details key={question} className="group py-4">
+                                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading text-base font-bold text-[#1C1917] md:text-lg">
+                                    {question}
+                                    <ChevronDown size={18} className="shrink-0 text-[#0369A1] transition group-open:rotate-180" />
+                                </summary>
+                                <p className="mt-3 text-sm leading-7 text-slate-600 md:text-base">
+                                    {answer}
+                                </p>
+                            </details>
+                        ))}
+                    </div>
                 </div>
             </section>
 

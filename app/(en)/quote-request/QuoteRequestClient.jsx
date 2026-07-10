@@ -8,6 +8,7 @@ import {
   Paperclip, X, Store, Globe, Search, Star, HelpCircle,
 } from "lucide-react";
 import QuoteVisual from "./QuoteVisual";
+import { GOOGLE_REVIEWS } from "@/lib/reviews";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
 const ALLOWED_EXTENSION_SET = new Set(ALLOWED_EXTENSIONS.split(","));
@@ -52,6 +53,13 @@ const defaultCopy = {
     "No contracts or commitments",
     "Plain English — no jargon",
     "Free consultation included",
+  ],
+  reviewsLabel: "from 5 Google reviews",
+  nextStepsTitle: "What happens next",
+  nextSteps: [
+    "You send the details — what you need, size, quantity, and deadline.",
+    "We reply within 1 business day with an exact quote — no guessing.",
+    "We proof everything with you before it prints or goes live.",
   ],
   productSelected: "Product Selected",
   packageSelected: "Package Selected",
@@ -304,6 +312,23 @@ export default function QuoteRequestClient({
             <p className="mt-8 hidden max-w-[342px] break-words text-base leading-8 text-slate-200 md:block md:max-w-lg md:text-lg">
               {content.intro}
             </p>
+
+            {/* Social proof — the form page previously had none. Visible on all sizes. */}
+            <a
+              href={GOOGLE_REVIEWS.profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 transition hover:bg-white/15"
+            >
+              <span className="inline-flex" aria-hidden="true">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <Star key={i} className="h-4 w-4" fill="#F59E0B" color="#F59E0B" />
+                ))}
+              </span>
+              <span className="text-sm font-bold text-white">{GOOGLE_REVIEWS.rating}</span>
+              <span className="text-sm font-medium text-slate-200">{content.reviewsLabel}</span>
+            </a>
+
             <div className="mt-10 hidden gap-4 text-sm text-slate-200 md:grid">
               {content.bullets.map((item) => (
                 <div key={item} className="flex items-center gap-3">
@@ -312,6 +337,25 @@ export default function QuoteRequestClient({
                 </div>
               ))}
             </div>
+
+            {/* What happens next — turns vague reassurance into concrete expectations. */}
+            {content.nextSteps && (
+              <div className="mt-10 hidden md:block">
+                <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
+                  {content.nextStepsTitle}
+                </p>
+                <ol className="mt-4 grid gap-4">
+                  {content.nextSteps.map((step, i) => (
+                    <li key={step} className="flex gap-3 text-sm leading-6 text-slate-200">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F59E0B] font-heading text-xs font-bold text-[#1C1917]">
+                        {i + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
             <div className="mt-10 hidden lg:block">
               {isLargeScreen && <QuoteVisual />}
             </div>

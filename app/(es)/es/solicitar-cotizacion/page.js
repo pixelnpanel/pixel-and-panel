@@ -19,6 +19,13 @@ const spanishQuoteCopy = {
     "Comunicación clara y práctica",
     "Consulta inicial incluida",
   ],
+  reviewsLabel: "de 5 reseñas de Google",
+  nextStepsTitle: "Qué sigue",
+  nextSteps: [
+    "Nos envías los detalles — qué necesitas, tamaño, cantidad y fecha límite.",
+    "Respondemos en 1 día hábil con una cotización exacta — sin adivinar.",
+    "Aprobamos todo contigo antes de imprimir o publicar.",
+  ],
   formTitle: "Solicitar una cotización",
   formNote: "Toma menos de 2 minutos.",
   productSelected: "Producto seleccionado",
