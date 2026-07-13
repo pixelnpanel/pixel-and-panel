@@ -41,7 +41,16 @@ export default function SignagePriceCalculator({
     const [sizeId, setSizeId] = useState(hasSizes ? sizes[0].id : CUSTOM)
     const [side, setSide] = useState(sides[0] || 'single')
 
+    // Manual dimensions, entered only when "Custom size" is selected.
+    const [customWidth, setCustomWidth] = useState('')
+    const [customHeight, setCustomHeight] = useState('')
+    const [customUnit, setCustomUnit] = useState('in')
+
     const isCustom = sizeId === CUSTOM
+    const customDims =
+        customWidth.trim() && customHeight.trim()
+            ? `${customWidth.trim()} × ${customHeight.trim()} ${customUnit}`
+            : ''
     const selectedSize = useMemo(
         () => sizes.find((s) => s.id === sizeId) || null,
         [sizes, sizeId]
@@ -58,7 +67,9 @@ export default function SignagePriceCalculator({
     const priceLabel = showPrice ? formatPrice(unitPrice) : 'Request a Quote'
 
     // Values that flow into the CTAs.
-    const sizeText = isCustom ? 'Custom size' : selectedSize?.label || ''
+    const sizeText = isCustom
+        ? (customDims ? `Custom — ${customDims}` : 'Custom size')
+        : selectedSize?.label || ''
     const sideText = sides.length ? labelFor(side) : ''
     const priceText = showPrice ? formatPrice(unitPrice) : 'need a quote'
 
@@ -99,6 +110,49 @@ export default function SignagePriceCalculator({
                 ))}
                 {(showCustomSize || !hasSizes) && <option value={CUSTOM}>Custom size</option>}
             </select>
+
+            {/* CUSTOM MEASUREMENTS — manual W×H entry when "Custom size" is chosen.
+                Flows into the quote/WhatsApp CTA so the team sees exact dimensions. */}
+            {isCustom && (
+                <div className="mt-4">
+                    <span className="mb-2 block font-heading text-sm font-bold text-[#1C1917]">Custom Size</span>
+                    <div className="flex items-stretch gap-2">
+                        <div className="relative flex-1">
+                            <input
+                                type="number" min="0" inputMode="decimal"
+                                value={customWidth}
+                                onChange={(e) => setCustomWidth(e.target.value)}
+                                placeholder="Width"
+                                aria-label="Custom width"
+                                className="w-full rounded-xl border border-brand-line bg-[#FAF8F4] px-4 py-3 text-base text-[#1C1917] outline-none transition focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
+                            />
+                        </div>
+                        <span className="self-center font-heading text-sm font-bold text-brand-subtle">×</span>
+                        <div className="relative flex-1">
+                            <input
+                                type="number" min="0" inputMode="decimal"
+                                value={customHeight}
+                                onChange={(e) => setCustomHeight(e.target.value)}
+                                placeholder="Height"
+                                aria-label="Custom height"
+                                className="w-full rounded-xl border border-brand-line bg-[#FAF8F4] px-4 py-3 text-base text-[#1C1917] outline-none transition focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
+                            />
+                        </div>
+                        <select
+                            value={customUnit}
+                            onChange={(e) => setCustomUnit(e.target.value)}
+                            aria-label="Measurement unit"
+                            className="rounded-xl border border-brand-line bg-[#FAF8F4] px-3 py-3 text-base text-[#1C1917] outline-none transition focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
+                        >
+                            <option value="in">in</option>
+                            <option value="ft">ft</option>
+                        </select>
+                    </div>
+                    <p className="mt-2 text-xs text-brand-subtle">
+                        Enter width and height — we’ll confirm the exact price on your quote.
+                    </p>
+                </div>
+            )}
 
             {/* SIDE TOGGLE — only when more than one side is offered */}
             {sides.length > 1 && !isCustom && (

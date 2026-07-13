@@ -133,6 +133,8 @@ export default function QuoteRequestClient({
   const queryProduct = searchParams.get("product") || "";
   const queryPackage = searchParams.get("package") || "";
   const queryCategory = searchParams.get("category") || "";
+  const querySize = searchParams.get("size") || "";
+  const querySide = searchParams.get("side") || "";
   const requestedProduct = selectedProduct || queryProduct;
   const requestedPackage = requestedProduct ? "" : (selectedPackage || queryPackage);
   const requestedCategory = selectedCategory || queryCategory;
@@ -174,11 +176,17 @@ export default function QuoteRequestClient({
       ? (selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name)
       : ""
   );
-  const [message, setMessage] = useState(
-    hasPreselected && selectedItem.type === "product"
-      ? content.defaultMessageTemplate.replace("{product}", selectedItem.name)
-      : ""
-  );
+  const [message, setMessage] = useState(() => {
+    if (!(hasPreselected && selectedItem.type === "product")) return "";
+    let base = content.defaultMessageTemplate.replace("{product}", selectedItem.name);
+    // Fold size/dimensions + option passed from the product calculator so the
+    // details land in the quote email (Message field).
+    const specLines = [];
+    if (querySize) specLines.push(`Size: ${querySize}`);
+    if (querySide) specLines.push(`Option: ${querySide}`);
+    if (specLines.length) base += `\n\n${specLines.join("\n")}`;
+    return base;
+  });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
