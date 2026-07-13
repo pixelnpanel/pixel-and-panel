@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { ArrowRight, MessageCircle, Truck } from 'lucide-react'
+import { ArrowRight, Info, MessageCircle, Truck } from 'lucide-react'
 
 const WHATSAPP_NUMBER = '14092252012'
 const QUOTE_PATH = '/quote-request'
@@ -25,6 +25,7 @@ export default function SignagePriceCalculator({
     sizes = [],
     availableSides = [],
     isLive = false,
+    includesPole = false,
 }) {
     const hasSizes = sizes.length > 0
     const sides = availableSides.length ? availableSides : []
@@ -144,6 +145,18 @@ export default function SignagePriceCalculator({
                     </>
                 )}
             </div>
+
+            {/* Flag + pole clarifier — these flag products are priced as a
+                complete kit (printed flag plus the pole hardware). */}
+            {includesPole && (
+                <p className="mt-4 flex items-start gap-2 text-sm leading-relaxed text-brand-subtle">
+                    <Info size={15} className="mt-0.5 shrink-0 text-[#0369A1]" />
+                    <span>
+                        Price is for the <strong className="font-semibold text-[#1C1917]">complete kit — printed flag plus pole hardware</strong>.
+                        Already have a pole and base? Flag-only replacements available — request a quote.
+                    </span>
+                </p>
+            )}
 
             {/* CTAs — both prefilled with the current selection */}
             <div className="mt-6 flex flex-col gap-3">

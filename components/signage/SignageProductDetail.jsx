@@ -14,6 +14,13 @@ const CITY_LINKS = [
 
 const TRUST_POINTS = ['Local design help', 'Fast turnaround', 'A real person answers']
 
+// Flag products priced as a complete kit (printed flag + pole hardware). The
+// calculator shows a clarifier so buyers know the price isn't flag-only.
+const FLAG_KIT_SLUGS = new Set([
+    'feather-angled-flag', 'teardrop-flag', 'feather-convex-flag',
+    'econo-feather-flag', 'rectangle-flag',
+])
+
 /** Capitalize the first character of each word (keeps units like "13oz" intact). */
 function toTitleCase(str) {
     return String(str || '').replace(/\S+/g, (word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -110,6 +117,7 @@ export default function SignageProductDetail({ product, category }) {
                             sizes={product.sizes}
                             availableSides={product.availableSides}
                             isLive={product.isLive}
+                            includesPole={category.slug === 'flags' && FLAG_KIT_SLUGS.has(product.slug)}
                         />
                     </div>
 

@@ -13,6 +13,12 @@ const fadeUp = {
 }
 const stagger = { visible: { transition: { staggerChildren: 0.07 } } }
 
+// Flag products priced as a complete kit (printed flag + pole hardware).
+const FLAG_KIT_SLUGS = new Set([
+    'feather-angled-flag', 'teardrop-flag', 'feather-convex-flag',
+    'econo-feather-flag', 'rectangle-flag',
+])
+
 function formatPrice(value) {
     if (value == null || !Number.isFinite(value)) return null
     return new Intl.NumberFormat('en-US', {
@@ -94,6 +100,7 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                         >
                             {products.map((product) => {
                                 const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
+                                const isFlagKit = category.slug === 'flags' && FLAG_KIT_SLUGS.has(product.slug)
                                 const href = `/signage/${category.slug}/${product.slug}`
                                 // First highlight as the card blurb; no content yet -> name only.
                                 const highlight = product.content?.highlights?.[0] || null
@@ -140,6 +147,11 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                                                     See Prices <ArrowRight size={15} />
                                                 </span>
                                             </div>
+                                            {isFlagKit && fromPrice && (
+                                                <p className="mt-1.5 text-xs font-medium text-brand-subtle">
+                                                    Flag + pole kit · flag-only by quote
+                                                </p>
+                                            )}
                                         </div>
                                     </motion.article>
                                 )
