@@ -44,6 +44,9 @@ export default function SignageProductDetail({ product, category }) {
     const isEcono = isFlags && product.slug === ECONO_SLUG
     const isPoleKit = isFlags && POLE_KIT_SLUGS.has(product.slug)
 
+    // Flags ship in fixed sizes only — hide the custom-size option across the
+    // category. (Size-less quote-only flags still keep it via the calculator's
+    // `!hasSizes` fallback.)
     const calcProps = isEcono
         ? {
             showCustomSize: false,
@@ -58,6 +61,7 @@ export default function SignageProductDetail({ product, category }) {
         }
         : isPoleKit
             ? {
+                showCustomSize: false,
                 priceNote: (
                     <>
                         Price is for the <strong className="font-semibold text-[#1C1917]">complete kit — printed flag plus pole hardware</strong>.
@@ -65,7 +69,9 @@ export default function SignageProductDetail({ product, category }) {
                     </>
                 ),
             }
-            : {}
+            : isFlags
+                ? { showCustomSize: false }
+                : {}
 
     const highlights = content?.highlights || []
     const perfectFor = content?.perfectFor || []
