@@ -7,7 +7,7 @@ const WHATSAPP_NUMBER = '14092252012'
 const QUOTE_PATH = '/quote-request'
 const CUSTOM = 'custom'
 
-const SIDE_LABEL = { single: 'Single-Sided', double: 'Double-Sided' }
+const DEFAULT_SIDE_LABEL = { single: 'Single-Sided', double: 'Double-Sided' }
 
 function formatPrice(value) {
     if (value == null || !Number.isFinite(value)) return null
@@ -25,10 +25,18 @@ export default function SignagePriceCalculator({
     sizes = [],
     availableSides = [],
     isLive = false,
-    includesPole = false,
+    // Optional clarifier rendered under the price box (ReactNode).
+    priceNote = null,
+    // Some products offer a single fixed size — hide the "Custom size" option.
+    showCustomSize = true,
+    // Override the option-toggle labels + heading (e.g. flags sell the toggle as
+    // "Flag Only" / "Flag+Pole" rather than print sides).
+    sideLabels = DEFAULT_SIDE_LABEL,
+    sidesHeading = 'Printed Sides',
 }) {
     const hasSizes = sizes.length > 0
     const sides = availableSides.length ? availableSides : []
+    const labelFor = (s) => sideLabels[s] || DEFAULT_SIDE_LABEL[s] || s
 
     const [sizeId, setSizeId] = useState(hasSizes ? sizes[0].id : CUSTOM)
     const [side, setSide] = useState(sides[0] || 'single')
@@ -51,14 +59,14 @@ export default function SignagePriceCalculator({
 
     // Values that flow into the CTAs.
     const sizeText = isCustom ? 'Custom size' : selectedSize?.label || ''
-    const sideText = sides.length ? SIDE_LABEL[side] : ''
+    const sideText = sides.length ? labelFor(side) : ''
     const priceText = showPrice ? formatPrice(unitPrice) : 'need a quote'
 
     const quoteHref = useMemo(() => {
         const params = new URLSearchParams()
         params.set('product', productName)
         if (sizeText) params.set('size', sizeText)
-        if (sideText) params.set('side', side === 'double' ? 'Double' : 'Single')
+        if (sideText) params.set('side', sideText)
         params.set('price', showPrice ? String(unitPrice) : 'quote')
         if (categoryName) params.set('category', categoryName)
         return `${QUOTE_PATH}?${params.toString()}`
@@ -89,13 +97,13 @@ export default function SignagePriceCalculator({
                 {sizes.map((s) => (
                     <option key={s.id} value={s.id}>{s.label}</option>
                 ))}
-                <option value={CUSTOM}>Custom size</option>
+                {(showCustomSize || !hasSizes) && <option value={CUSTOM}>Custom size</option>}
             </select>
 
             {/* SIDE TOGGLE — only when more than one side is offered */}
             {sides.length > 1 && !isCustom && (
                 <div className="mt-5">
-                    <span className="mb-2 block font-heading text-sm font-bold text-[#1C1917]">Printed Sides</span>
+                    <span className="mb-2 block font-heading text-sm font-bold text-[#1C1917]">{sidesHeading}</span>
                     <div className="inline-flex rounded-xl border border-brand-line bg-[#FAF8F4] p-1">
                         {sides.map((s) => {
                             const active = s === side
@@ -110,7 +118,7 @@ export default function SignagePriceCalculator({
                                         : 'text-[#1C1917] hover:bg-white'
                                         }`}
                                 >
-                                    {SIDE_LABEL[s]}
+                                    {labelFor(s)}
                                 </button>
                             )
                         })}
@@ -121,7 +129,7 @@ export default function SignagePriceCalculator({
             {/* When a single side is offered (and a real size is chosen), note it. */}
             {sides.length === 1 && !isCustom && hasSizes && (
                 <p className="mt-4 text-sm text-brand-subtle">
-                    {SIDE_LABEL[sides[0]]} only.
+                    {labelFor(sides[0])} only.
                 </p>
             )}
 
@@ -146,15 +154,11 @@ export default function SignagePriceCalculator({
                 )}
             </div>
 
-            {/* Flag + pole clarifier — these flag products are priced as a
-                complete kit (printed flag plus the pole hardware). */}
-            {includesPole && (
+            {/* Optional product-specific clarifier under the price box. */}
+            {priceNote && (
                 <p className="mt-4 flex items-start gap-2 text-sm leading-relaxed text-brand-subtle">
                     <Info size={15} className="mt-0.5 shrink-0 text-[#0369A1]" />
-                    <span>
-                        Price is for the <strong className="font-semibold text-[#1C1917]">complete kit — printed flag plus pole hardware</strong>.
-                        Already have a pole and base? Flag-only replacements available — request a quote.
-                    </span>
+                    <span>{priceNote}</span>
                 </p>
             )}
 

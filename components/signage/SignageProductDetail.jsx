@@ -14,12 +14,13 @@ const CITY_LINKS = [
 
 const TRUST_POINTS = ['Local design help', 'Fast turnaround', 'A real person answers']
 
-// Flag products priced as a complete kit (printed flag + pole hardware). The
-// calculator shows a clarifier so buyers know the price isn't flag-only.
-const FLAG_KIT_SLUGS = new Set([
-    'feather-angled-flag', 'teardrop-flag', 'feather-convex-flag',
-    'econo-feather-flag', 'rectangle-flag',
+// Pole-mounted flags priced as a complete kit (printed flag + pole hardware).
+// The calculator shows a clarifier so buyers know the price isn't flag-only.
+// Econo is handled separately: its toggle sells "Flag Only" vs "Flag+Pole".
+const POLE_KIT_SLUGS = new Set([
+    'feather-angled-flag', 'teardrop-flag', 'feather-convex-flag', 'rectangle-flag',
 ])
+const ECONO_SLUG = 'econo-feather-flag'
 
 /** Capitalize the first character of each word (keeps units like "13oz" intact). */
 function toTitleCase(str) {
@@ -37,6 +38,34 @@ export default function SignageProductDetail({ product, category }) {
     const imageAlt = content?.imageAlt || product.alt
 
     const quoteHref = `/quote-request?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent(category.name)}`
+
+    // Flag-specific pricing calculator config.
+    const isFlags = category.slug === 'flags'
+    const isEcono = isFlags && product.slug === ECONO_SLUG
+    const isPoleKit = isFlags && POLE_KIT_SLUGS.has(product.slug)
+
+    const calcProps = isEcono
+        ? {
+            showCustomSize: false,
+            sideLabels: { single: 'Flag Only', double: 'Flag+Pole' },
+            sidesHeading: 'Option',
+            priceNote: (
+                <>
+                    Single-sided print. The <strong className="font-semibold text-[#1C1917]">Flag+Pole</strong> option
+                    includes the pole and a ground-stake base.
+                </>
+            ),
+        }
+        : isPoleKit
+            ? {
+                priceNote: (
+                    <>
+                        Price is for the <strong className="font-semibold text-[#1C1917]">complete kit — printed flag plus pole hardware</strong>.
+                        Already have a pole and base? Flag-only replacements available — request a quote.
+                    </>
+                ),
+            }
+            : {}
 
     const highlights = content?.highlights || []
     const perfectFor = content?.perfectFor || []
@@ -117,7 +146,7 @@ export default function SignageProductDetail({ product, category }) {
                             sizes={product.sizes}
                             availableSides={product.availableSides}
                             isLive={product.isLive}
-                            includesPole={category.slug === 'flags' && FLAG_KIT_SLUGS.has(product.slug)}
+                            {...calcProps}
                         />
                     </div>
 

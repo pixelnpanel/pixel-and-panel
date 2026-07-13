@@ -13,10 +13,10 @@ const fadeUp = {
 }
 const stagger = { visible: { transition: { staggerChildren: 0.07 } } }
 
-// Flag products priced as a complete kit (printed flag + pole hardware).
+// Pole-mounted flags priced as a complete kit (printed flag + pole hardware).
+// Econo is excluded — it sells Flag Only / Flag+Pole options on its own page.
 const FLAG_KIT_SLUGS = new Set([
-    'feather-angled-flag', 'teardrop-flag', 'feather-convex-flag',
-    'econo-feather-flag', 'rectangle-flag',
+    'feather-angled-flag', 'teardrop-flag', 'feather-convex-flag', 'rectangle-flag',
 ])
 
 function formatPrice(value) {
