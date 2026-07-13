@@ -81,7 +81,7 @@ export default function SignagePriceCalculator({
         params.set('price', showPrice ? String(unitPrice) : 'quote')
         if (categoryName) params.set('category', categoryName)
         return `${QUOTE_PATH}?${params.toString()}`
-    }, [productName, sizeText, sideText, side, showPrice, unitPrice, categoryName])
+    }, [productName, sizeText, sideText, showPrice, unitPrice, categoryName])
 
     const whatsappHref = useMemo(() => {
         const sidePart = sideText ? `, ${sideText}` : ''
