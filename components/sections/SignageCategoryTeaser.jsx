@@ -7,6 +7,40 @@ import { ArrowRight, Box } from "lucide-react";
 
 const TEASER_LIMIT = 6;
 
+// Homepage-only featured categories, ranked by market demand (most-searched /
+// most-purchased custom sign + print products that match our catalog). This is
+// independent of the /signage hub order so we can merchandise the front page
+// without reshuffling the full catalog. Any slug missing from the live catalog
+// is skipped; if fewer than 6 resolve, we backfill from catalog order.
+const FEATURED_SLUGS = [
+  "banners", // custom vinyl banners — #1 custom sign product
+  "rigid-and-metal-signs", // coroplast yard + metal signs — highest volume
+  "banner-stands", // retractable stands — top trade-show display
+  "flags", // feather flags — top outdoor advertising flag
+  "table-covers-and-throws", // event / trade-show staple
+  "real-estate-signs", // open house / yard sign demand — local search volume
+];
+
+// Resolve the featured 6 in demand order, backfilling from catalog order so the
+// grid always fills even if a featured category is unpublished in the sheet.
+function pickFeatured(categories) {
+  const bySlug = new Map(categories.map((c) => [c.slug, c]));
+  const picked = [];
+  const seen = new Set();
+  for (const slug of FEATURED_SLUGS) {
+    const category = bySlug.get(slug);
+    if (category) {
+      picked.push(category);
+      seen.add(slug);
+    }
+  }
+  for (const category of categories) {
+    if (picked.length >= TEASER_LIMIT) break;
+    if (!seen.has(category.slug)) picked.push(category);
+  }
+  return picked.slice(0, TEASER_LIMIT);
+}
+
 function formatFromPrice(products = []) {
   const prices = products
     .filter((p) => p.isLive && Number.isFinite(p.lowestPrice))
@@ -26,7 +60,7 @@ function coverFor(category) {
 export default function SignageCategoryTeaser({ categories = [] }) {
   if (!categories.length) return null;
 
-  const tiles = categories.slice(0, TEASER_LIMIT).map((category) => ({
+  const tiles = pickFeatured(categories).map((category) => ({
     slug: category.slug,
     name: category.name,
     tagline: category.tagline,
