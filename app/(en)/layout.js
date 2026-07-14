@@ -1,9 +1,11 @@
 import "../globals.css";
+import { Suspense } from "react";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { inter, montserrat } from "../fonts";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import MetaPixel from "@/components/analytics/MetaPixel";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
 import FloatingQuoteButton from "@/components/ui/FloatingQuoteButton";
@@ -52,6 +54,9 @@ export default function EnglishRootLayout({ children }) {
           Skip to main content
         </a>
         <GoogleAnalytics />
+        <Suspense fallback={null}>
+          <MetaPixel />
+        </Suspense>
         <LocalBusinessJsonLd />
         <Navbar />
         <main id="main-content" className="pnp-site-shell">

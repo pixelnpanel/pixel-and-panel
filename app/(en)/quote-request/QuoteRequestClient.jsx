@@ -287,6 +287,9 @@ export default function QuoteRequestClient({
           value: 1,
         });
       }
+      if (typeof window !== "undefined" && typeof window.fbq === "function") {
+        window.fbq("track", "Lead", { content_name: "Quote Request", currency: "USD" });
+      }
     } catch (err) {
       setError(err.message || content.errorFallback);
     } finally {

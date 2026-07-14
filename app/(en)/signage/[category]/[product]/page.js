@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import SignageProductDetail from '@/components/signage/SignageProductDetail'
+import ViewContentTracker from '@/components/analytics/ViewContentTracker'
 import { getCategories, getProduct } from '@/lib/signage/data'
 import { withDefaultSocialImage } from '@/lib/seo'
 
@@ -129,6 +130,12 @@ export default async function SignageProductRoute({ params }) {
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={productSchema} />
             {faqSchema && <JsonLd data={faqSchema} />}
+            <ViewContentTracker
+                contentName={p.name}
+                contentCategory={c.name}
+                contentId={p.slug}
+                value={typeof p.lowestPrice === 'number' ? p.lowestPrice : undefined}
+            />
             <SignageProductDetail product={p} category={c} />
         </>
     )
