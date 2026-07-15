@@ -28,6 +28,11 @@ const city = {
     "Print materials work better when customers have a simple online next step after they scan or visit.",
     "Pixel & Panel keeps recommendations focused on what helps customers call, visit, request a quote, or place an order.",
   ],
+  crossMarket: {
+    text: "Pixel & Panel also serves the Greater Houston area with custom banners, yard signs, and real estate signs.",
+    label: "Explore Houston signs & printing",
+    href: "/houston",
+  },
   faqs: [
     ["What should a Nederland small business start with?", "Many start with a small business website, business cards, flyers, yard signs, menus, or banners depending on how customers find them."],
     ["Can menus and flyers use QR codes?", "Yes. QR codes can send customers to menus, specials, quote forms, event details, or contact pages."],

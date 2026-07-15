@@ -124,7 +124,7 @@ export default function FreeVisibilityCheckPage() {
             <div className="pt-2 lg:pt-12">
               <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-sky-100">
                 <MapPin className="h-4 w-4 text-[#F59E0B]" />
-                Serving Southeast Texas
+                Serving Houston &amp; Southeast Texas
               </div>
               <h1 className="max-w-3xl text-white">
                 Free Visibility Check for Local Businesses

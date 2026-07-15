@@ -26,6 +26,11 @@ const city = {
     "Website development and local SEO help customers understand services before they call or request a quote.",
     "Storefront signs, banners, yard signs, and vehicle graphics make the same brand easier to recognize around town.",
   ],
+  crossMarket: {
+    text: "Pixel & Panel also serves the Greater Houston area with custom banners, yard signs, and real estate signs.",
+    label: "Explore Houston signs & printing",
+    href: "/houston",
+  },
   faqs: [
     ["What Beaumont services are most common?", "Website development, local SEO, storefront signs, banners, and vehicle graphics are strong starting points for many Beaumont businesses."],
     ["Can Pixel & Panel help if my Beaumont business already has a website?", "Yes. Pixel & Panel can review the site, Google profile, signage, and quote flow to find practical improvements."],

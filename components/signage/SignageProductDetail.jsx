@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Box, Check, ChevronDown, Info } from 'lucide-react'
 import SignagePriceCalculator from '@/components/signage/SignagePriceCalculator'
 import { formatPrice } from '@/lib/signage/data'
+import { houstonCatalogNotes } from '@/content/houston'
 
 // City pages that already exist on the site (used in the trust block).
 const CITY_LINKS = [
@@ -266,6 +267,21 @@ export default function SignageProductDetail({ product, category }) {
                                 </article>
                             ))}
                         </div>
+                    </div>
+                </section>
+            )}
+
+            {/* REGION CROSS-LINK — contextual link to a city landing page for
+                products that have one (see houstonCatalogNotes). */}
+            {houstonCatalogNotes[product.slug] && (
+                <section className="px-6 pb-4" aria-label="Other service areas">
+                    <div className="mx-auto max-w-4xl rounded-xl border border-brand-line bg-white p-5 text-center shadow-card">
+                        <p className="text-slate-600">
+                            {houstonCatalogNotes[product.slug].text}{' '}
+                            <Link href={houstonCatalogNotes[product.slug].href} className="font-bold text-[#0369A1] hover:underline">
+                                {houstonCatalogNotes[product.slug].label}
+                            </Link>
+                        </p>
                     </div>
                 </section>
             )}

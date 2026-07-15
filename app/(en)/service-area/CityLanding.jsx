@@ -230,6 +230,19 @@ export default function CityLanding({ city }) {
         </div>
       </section>
 
+      {city.crossMarket && (
+        <section className="px-6 pb-4" aria-label="Other service areas">
+          <div className="mx-auto max-w-4xl rounded-xl border border-slate-200 bg-white p-5 text-center shadow-sm">
+            <p className="text-slate-600">
+              {city.crossMarket.text}{" "}
+              <Link href={city.crossMarket.href} className="font-bold text-[#0369A1] hover:underline">
+                {city.crossMarket.label}
+              </Link>
+            </p>
+          </div>
+        </section>
+      )}
+
       <section className="section-base" aria-labelledby="city-faq-heading">
         <div className="container-px">
           <div className="mx-auto max-w-4xl">

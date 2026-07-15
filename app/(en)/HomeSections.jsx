@@ -222,9 +222,9 @@ export const defaultHomeSectionsContent = {
   },
   serviceArea: {
     eyebrow: "Service Area",
-    title: "Serving Southeast Texas Businesses",
+    title: "Serving Houston & Southeast Texas Businesses",
     description:
-      "Pixel & Panel works with businesses across Southeast Texas, starting with Beaumont, Nederland, Port Arthur, and nearby communities.",
+      "Pixel & Panel works with businesses across the Greater Houston area and Southeast Texas, including Beaumont, Nederland, Port Arthur, and nearby communities.",
   },
   why: {
     eyebrow: "Why Pixel & Panel",

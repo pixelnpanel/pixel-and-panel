@@ -27,7 +27,7 @@ const spanishHomepageFaq = [
   {
     question: "¿Trabajan fuera de Beaumont, Nederland y Port Arthur?",
     answer:
-      "Sí. Pixel & Panel trabaja con negocios en el sureste de Texas. Beaumont, Nederland y Port Arthur son las áreas principales de SEO local, pero negocios cercanos también pueden solicitar cotización.",
+      "Sí. Pixel & Panel trabaja con negocios en el sureste de Texas y ahora también en el área de Houston. Beaumont, Nederland, Port Arthur y Houston son las áreas principales de servicio, pero negocios cercanos también pueden solicitar cotización.",
   },
   {
     question: "¿Pueden ayudar con sitios web y letreros al mismo tiempo?",

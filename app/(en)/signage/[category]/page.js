@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import SignageCategoryClient from '@/components/signage/SignageCategoryClient'
 import { getCategories, getCategory } from '@/lib/signage/data'
 import { getCategoryGuide } from '@/lib/signage/category-guides'
+import { houstonCatalogNotes } from '@/content/houston'
 import { withDefaultSocialImage } from '@/lib/seo'
 
 export const revalidate = 60
@@ -97,7 +98,11 @@ export default async function SignageCategoryRoute({ params }) {
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={itemListSchema} />
             <JsonLd data={faqSchema} />
-            <SignageCategoryClient category={cat} allCategories={categories} />
+            <SignageCategoryClient
+                category={cat}
+                allCategories={categories}
+                regionNote={houstonCatalogNotes[cat.slug] || null}
+            />
         </>
     )
 }

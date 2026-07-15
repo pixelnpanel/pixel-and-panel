@@ -39,6 +39,7 @@ const FOOTER_DIGITAL_SERVICES_ES = [
 ]
 
 const COMPANY_LINKS_EN = [
+  { label: 'Houston, TX', href: '/houston' },
   { label: 'Portfolio', href: '/portfolio' },
   { label: 'Learning Center', href: '/learning-center' },
   { label: 'Pricing', href: '/pricing' },
@@ -48,6 +49,7 @@ const COMPANY_LINKS_EN = [
 ]
 
 const COMPANY_LINKS_ES = [
+  { label: 'Houston, TX', href: '/es/houston' },
   { label: 'Portafolio', href: '/es/portafolio' },
   { label: 'Centro de Aprendizaje', href: '/es/centro-de-aprendizaje' },
   { label: 'Precios', href: '/es/precios' },
@@ -62,7 +64,7 @@ const FOOTER_COPY = {
     taglineLead: 'Your Vision.',
     taglineAccent: 'Made Visible.',
     description: 'Websites, custom signs, and local marketing materials built to help Southeast Texas businesses stand out, get found on Google, and win more customers.',
-    serving: 'Serving Beaumont, Nederland & Port Arthur, TX',
+    serving: 'Serving Houston & Southeast Texas',
     hours: 'Hours',
     weekdayHours: 'Mon–Fri: 9 AM – 6 PM',
     weekendHours: 'Sat – Sun: 12 PM – 4 PM',
@@ -90,7 +92,7 @@ const FOOTER_COPY = {
     taglineLead: 'Tu Visión.',
     taglineAccent: 'Hecha Visible.',
     description: 'Sitios web, letreros personalizados y marketing local para ayudar a negocios del sureste de Texas a aparecer en Google y ganar más clientes.',
-    serving: 'Sirviendo Beaumont, Nederland y Port Arthur, TX',
+    serving: 'Sirviendo Houston y el Sureste de Texas',
     hours: 'Horario',
     weekdayHours: 'Lun – Vie: 9:00 AM – 6:00 PM',
     weekendHours: 'Sáb – Dom: 12:00 PM – 4:00 PM',

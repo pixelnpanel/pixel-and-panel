@@ -136,7 +136,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               </a>
             </m.div>
             <m.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.8rem', marginTop: '1.25rem', marginBottom: 0 }}>
-              ★ 5.0 on Google · Locally owned Texas LLC · Serving Beaumont, Nederland &amp; Port Arthur
+              ★ 5.0 on Google · Locally owned Texas LLC · Serving Houston &amp; Southeast Texas
             </m.p>
           </m.div>
         </section>

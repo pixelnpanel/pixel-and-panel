@@ -23,6 +23,11 @@ const staticPages = [
   { url: "/service-area/beaumont-tx", priority: 0.9, changeFrequency: "monthly" },
   { url: "/service-area/nederland-tx", priority: 0.9, changeFrequency: "monthly" },
   { url: "/service-area/port-arthur-tx", priority: 0.9, changeFrequency: "monthly" },
+  // Houston market (additive — see content/houston.js)
+  { url: "/houston", priority: 0.9, changeFrequency: "weekly" },
+  { url: "/houston/banners", priority: 0.85, changeFrequency: "monthly" },
+  { url: "/houston/yard-signs", priority: 0.85, changeFrequency: "monthly" },
+  { url: "/houston/real-estate-signs", priority: 0.85, changeFrequency: "monthly" },
   // Spanish
   { url: "/es", priority: 0.7, changeFrequency: "weekly" },
   { url: "/es/servicios-digitales", priority: 0.7, changeFrequency: "weekly" },
@@ -36,6 +41,10 @@ const staticPages = [
   { url: "/es/area-de-servicio/beaumont-tx", priority: 0.7, changeFrequency: "monthly" },
   { url: "/es/area-de-servicio/nederland-tx", priority: 0.7, changeFrequency: "monthly" },
   { url: "/es/area-de-servicio/port-arthur-tx", priority: 0.7, changeFrequency: "monthly" },
+  { url: "/es/houston", priority: 0.7, changeFrequency: "weekly" },
+  { url: "/es/houston/banners", priority: 0.65, changeFrequency: "monthly" },
+  { url: "/es/houston/letreros-para-jardin", priority: 0.65, changeFrequency: "monthly" },
+  { url: "/es/houston/letreros-inmobiliarios", priority: 0.65, changeFrequency: "monthly" },
 ];
 
 // Image sitemap support: absolute raw-file URLs (NOT /_next/image) so

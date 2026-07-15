@@ -29,7 +29,7 @@ function formatPrice(value) {
     }).format(value)
 }
 
-export default function SignageCategoryClient({ category, allCategories = [] }) {
+export default function SignageCategoryClient({ category, allCategories = [], regionNote = null }) {
     const related = allCategories.filter((c) => c.slug !== category.slug).slice(0, 3)
     const products = category.products || []
     const guide = getCategoryGuide(category.slug, category.name)
@@ -196,6 +196,21 @@ export default function SignageCategoryClient({ category, allCategories = [] }) 
                     </div>
                 </div>
             </section>
+
+            {/* REGION CROSS-LINK — contextual link to a city landing page
+                (e.g. Houston) when the route provides one. */}
+            {regionNote && (
+                <section className="px-6 pb-4" aria-label="Other service areas">
+                    <div className="mx-auto max-w-3xl rounded-xl border border-brand-line bg-white p-5 text-center shadow-card">
+                        <p className="text-slate-600">
+                            {regionNote.text}{' '}
+                            <Link href={regionNote.href} className="font-bold text-[#0369A1] hover:underline">
+                                {regionNote.label}
+                            </Link>
+                        </p>
+                    </div>
+                </section>
+            )}
 
             {/* RELATED CATEGORIES */}
             {related.length > 0 && (

@@ -298,7 +298,7 @@ export default async function SpanishSignageProductPage({ params }) {
                   </Link>
                 </div>
                 <div className="mt-8 grid gap-3 text-sm text-white/72 sm:grid-cols-3">
-                  {["Legible desde la distancia correcta", "Diseñado con un siguiente paso claro", "Beaumont, Nederland y Port Arthur"].map((item) => (
+                  {["Legible desde la distancia correcta", "Diseñado con un siguiente paso claro", "Houston y el Sureste de Texas"].map((item) => (
                     <div key={item} className="flex items-center gap-2">
                       <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F59E0B]" />
                       <span>{item}</span>

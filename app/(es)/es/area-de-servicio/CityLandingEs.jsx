@@ -36,7 +36,7 @@ const spanishCityVisualCopy = {
     { name: "Contratista en Beaumont", stars: 5, tag: "Web + Letreros" },
     { name: "Negocio familiar en Nederland", stars: 5, tag: "Perfil de Google" },
   ],
-  regionLine: "Sirviendo Beaumont, Nederland, Port Arthur y áreas cercanas",
+  regionLine: "Sirviendo Beaumont, Nederland, Port Arthur y Houston",
   stepAriaPrefix: "Mostrar paso de área de servicio",
 };
 

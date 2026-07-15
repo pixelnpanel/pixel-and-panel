@@ -28,7 +28,7 @@ const defaultCopy = {
     { name: "Beaumont Auto Detailing", stars: 5, tag: "Website + Signs" },
     { name: "Nederland Cleaning Co.", stars: 5, tag: "Google Profile" },
   ],
-  regionLine: "Serving Beaumont, Nederland, Port Arthur & surrounding areas",
+  regionLine: "Serving Beaumont, Nederland, Port Arthur & Greater Houston",
   stepAriaPrefix: "Show service area step",
 };
 

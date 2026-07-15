@@ -69,6 +69,15 @@ export default function LocalBusinessJsonLd() {
         "@type": "AdministrativeArea",
         name: "Southeast Texas",
       },
+      {
+        "@type": "City",
+        name: "Houston",
+        address: {
+          "@type": "PostalAddress",
+          addressRegion: "TX",
+          addressCountry: "US",
+        },
+      },
     ],
     description:
       "Pixel & Panel helps Southeast Texas businesses get found online, get noticed in the real world, and turn attention into quote requests through websites, signs, print marketing, local SEO, Google Business Profile optimization, and QR code campaigns.",

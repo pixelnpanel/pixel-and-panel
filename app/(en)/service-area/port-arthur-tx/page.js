@@ -27,6 +27,11 @@ const city = {
     "Local SEO and websites help nearby customers understand services before they call or request a quote.",
     "QR paths can connect signs and print materials to quote forms, service pages, or contact details.",
   ],
+  crossMarket: {
+    text: "Pixel & Panel also serves the Greater Houston area with custom banners, yard signs, and real estate signs.",
+    label: "Explore Houston signs & printing",
+    href: "/houston",
+  },
   faqs: [
     ["What Port Arthur services are best for contractors?", "Vehicle graphics, metal signs, storefront signs, banners, websites, and local SEO are common fits for contractor and service business visibility."],
     ["Can Pixel & Panel help with job site visibility?", "Yes. Banners, yard signs, vehicle graphics, and QR-linked pages can help make job sites and service vehicles easier to recognize."],

@@ -27,7 +27,7 @@ const serviceDetails = {
   },
   "local-seo": {
     helps: ["Show up when nearby customers search on Google", "Clarify service areas and service pages", "Build internal links that help customers move naturally"],
-    bestFor: ["Contractors and local service companies", "Businesses with good work but weak online visibility", "Teams serving Beaumont, Nederland, Port Arthur, and nearby Southeast Texas"],
+    bestFor: ["Contractors and local service companies", "Businesses with good work but weak online visibility", "Teams serving Houston, Beaumont, Nederland, Port Arthur, and nearby Southeast Texas"],
     how: "Pixel & Panel improves the local signals customers and search engines use: page structure, service copy, Google profile alignment, and helpful internal links.",
     icon: Search,
   },

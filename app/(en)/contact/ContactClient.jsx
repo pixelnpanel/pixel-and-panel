@@ -422,7 +422,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                                 Service Area
                             </p>
                             <h2 style={{ color: 'white', fontSize: '1.5rem', margin: '0 0 1.25rem' }}>
-                                Serving Southeast Texas
+                                Serving Houston &amp; Southeast Texas
                             </h2>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                 {[
@@ -460,7 +460,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                 >
                     <iframe
                         src="https://maps.google.com/maps?q=Pixel+%26+Panel+Beaumont+TX&output=embed&z=13&hl=en"
-                        title="Pixel & Panel service area — Beaumont, Nederland & Port Arthur, TX"
+                        title="Pixel & Panel service area — Houston & Southeast Texas"
                         style={{ width: '100%', height: '380px', border: 0, display: 'block', pointerEvents: 'none' }}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
