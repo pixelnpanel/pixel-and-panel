@@ -1,16 +1,11 @@
 import {
-  BadgeCheck,
-  Building2,
   Car,
-  ClipboardList,
-  CreditCard,
   HelpCircle,
   MapPin,
   Megaphone,
   MonitorSmartphone,
   PanelTop,
   Search,
-  ShieldCheck,
   Store,
 } from "lucide-react";
 import HomeClient from "../../(en)/HomeClient";
@@ -202,12 +197,6 @@ const spanishHomeSections = {
       icon: Store,
     },
     {
-      title: "Tarjetas de Presentación",
-      description: "Tarjetas limpias para referidos, citas, networking y seguimiento.",
-      href: "/es/letreros/tarjetas-de-presentacion",
-      icon: CreditCard,
-    },
-    {
       title: "Diseño Web",
       description: "Sitios rápidos para celular, hechos alrededor de llamadas, cotizaciones y confianza.",
       href: "/es/servicios-digitales/desarrollo-web",
@@ -218,73 +207,6 @@ const spanishHomeSections = {
       description: "Ayuda para que clientes cercanos encuentren lo que ofreces en tu área.",
       href: "/es/servicios-digitales/seo-local",
       icon: Search,
-    },
-    {
-      title: "Perfil de Google",
-      description: "Mejora la ficha que muchos clientes ven antes de llamar, visitar o cotizar.",
-      href: "/es/servicios-digitales/perfil-de-google",
-      icon: BadgeCheck,
-    },
-  ],
-  serviceArea: {
-    eyebrow: "Área de servicio",
-    title: "Sirviendo negocios del sureste de Texas",
-    description:
-      "Pixel & Panel trabaja con negocios en el sureste de Texas, empezando por Beaumont, Nederland, Port Arthur y comunidades cercanas.",
-  },
-  cityCards: [
-    {
-      city: "Beaumont",
-      label: "Beaumont, TX",
-      href: "/es/area-de-servicio/beaumont-tx",
-      description:
-        "Sitios web, SEO local, letreros e impresión para tiendas, contratistas, equipos de servicio y organizaciones de Beaumont.",
-    },
-    {
-      city: "Nederland",
-      label: "Nederland, TX",
-      href: "/es/area-de-servicio/nederland-tx",
-      description:
-        "Herramientas prácticas de visibilidad para negocios de Nederland, desde tarjetas y banners hasta sitios web e impresos.",
-    },
-    {
-      city: "Port Arthur",
-      label: "Port Arthur, TX",
-      href: "/es/area-de-servicio/port-arthur-tx",
-      description:
-        "Sitios web, letreros e impresión para negocios de Port Arthur que quieren más llamadas y clientes.",
-    },
-  ],
-  why: {
-    eyebrow: "Por qué Pixel & Panel",
-    title: "Claro para tus clientes. Práctico para tu negocio local.",
-    description:
-      "El objetivo es simple: hacer que tu negocio sea más fácil de notar, entender y contactar.",
-  },
-  reasons: [
-    {
-      title: "Tu sitio web, letreros e impresión trabajando juntos",
-      description:
-        "Tu sitio web, letreros y materiales impresos deben guiar al cliente hacia el mismo siguiente paso claro.",
-      icon: Building2,
-    },
-    {
-      title: "Hecho para dueños de negocios locales",
-      description:
-        "El trabajo se adapta a contratistas, tiendas, restaurantes, iglesias, escuelas, clínicas y equipos de servicio.",
-      icon: Store,
-    },
-    {
-      title: "Proceso en lenguaje claro",
-      description:
-        "Recibes recomendaciones directas, opciones útiles y explicaciones simples sin lenguaje técnico innecesario.",
-      icon: ClipboardList,
-    },
-    {
-      title: "Cotización primero, sin presión",
-      description:
-        "Empieza con lo que necesitas. Pixel & Panel recomendará el siguiente paso antes de avanzar con cualquier proyecto.",
-      icon: ShieldCheck,
     },
   ],
   faq: {

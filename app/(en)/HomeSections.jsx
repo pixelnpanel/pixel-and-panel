@@ -6,21 +6,14 @@ import { attachReviewImages } from "@/lib/review-images";
 import { SIGNAGE_LABEL, SIGNAGE_PATH } from "@/lib/sign-catalog";
 import {
   ArrowRight,
-  BadgeCheck,
-  Building2,
   Car,
   CheckCircle2,
-  ClipboardList,
-  CreditCard,
-  FileText,
   HelpCircle,
   MapPin,
   Megaphone,
   MonitorSmartphone,
   PanelTop,
   Search,
-  ShieldCheck,
-  Store,
 } from "lucide-react";
 
 const HOMEPAGE_REVIEW_CHIPS = [
@@ -104,28 +97,10 @@ const popularServices = [
     icon: Car,
   },
   {
-    title: "Banner Stands",
-    description: "Retractable stands and backdrops for trade shows, lobbies, and events.",
-    href: "/signage/banner-stands",
-    icon: Store,
-  },
-  {
-    title: "Feather Flags",
-    description: "Tall, eye-catching flags that pull drive-by traffic into your business.",
-    href: "/signage/flags",
-    icon: CreditCard,
-  },
-  {
     title: "Metal & Rigid Signs",
     description: "Aluminum, acrylic, and coroplast signs for indoor and outdoor branding.",
     href: "/signage/rigid-and-metal-signs",
     icon: PanelTop,
-  },
-  {
-    title: "A-Frame Sidewalk Signs",
-    description: "Sturdy sidewalk signs that put your offer in front of foot traffic.",
-    href: "/signage/sidewalk-a-frame-signs",
-    icon: FileText,
   },
   {
     title: "Website Development",
@@ -138,60 +113,6 @@ const popularServices = [
     description: "Help nearby customers find you when they search for what you offer in your area.",
     href: "/digital/local-seo",
     icon: Search,
-  },
-  {
-    title: "Google Business Profile",
-    description: "Improve the listing many customers see before they call, visit, or request a quote.",
-    href: "/digital/google-business-profile",
-    icon: BadgeCheck,
-  },
-];
-
-const cityCards = [
-  {
-    city: "Beaumont",
-    href: "/service-area/beaumont-tx",
-    description:
-      "Website, local SEO, sign, and print support for Beaumont shops, contractors, service teams, and organizations.",
-  },
-  {
-    city: "Nederland",
-    href: "/service-area/nederland-tx",
-    description:
-      "Practical visibility tools for Nederland businesses, from business cards and banners to websites and print materials.",
-  },
-  {
-    city: "Port Arthur",
-    href: "/service-area/port-arthur-tx",
-    description:
-      "Website, signage, and print support for Port Arthur businesses that want more calls and customers.",
-  },
-];
-
-const reasons = [
-  {
-    title: "Your website, signs, and print all working together",
-    description:
-      "Your website, signs, and print materials should all point customers toward the same clear next step.",
-    icon: Building2,
-  },
-  {
-    title: "Built for local business owners",
-    description:
-      "The work is shaped for contractors, shops, restaurants, churches, schools, clinics, and service-area teams.",
-    icon: Store,
-  },
-  {
-    title: "Plain-English process",
-    description:
-      "You get direct recommendations, useful options, and simple explanations without confusing technical language.",
-    icon: ClipboardList,
-  },
-  {
-    title: "Quote-first, no pressure",
-    description:
-      "Start with what you need. Pixel & Panel will recommend the right next step before any project moves forward.",
-    icon: ShieldCheck,
   },
 ];
 
@@ -219,18 +140,6 @@ export const defaultHomeSectionsContent = {
     title: "Start with the services local businesses ask for most",
     description:
       "Each card links to a real service page with details that help customers and search engines understand what Pixel & Panel offers.",
-  },
-  serviceArea: {
-    eyebrow: "Service Area",
-    title: "Serving Houston & Southeast Texas Businesses",
-    description:
-      "Pixel & Panel works with businesses across the Greater Houston area and Southeast Texas, including Beaumont, Nederland, Port Arthur, and nearby communities.",
-  },
-  why: {
-    eyebrow: "Why Pixel & Panel",
-    title: "Clear enough for customers. Practical enough for local business.",
-    description:
-      "The goal is simple: make your business easier to notice, easier to understand, and easier to contact.",
   },
   faq: {
     eyebrow: "FAQ",
@@ -310,16 +219,12 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
     problemCta: { ...defaultHomeSectionsContent.problemCta, ...content.problemCta },
     services: { ...defaultHomeSectionsContent.services, ...content.services },
     popularServices: { ...defaultHomeSectionsContent.popularServices, ...content.popularServices },
-    serviceArea: { ...defaultHomeSectionsContent.serviceArea, ...content.serviceArea },
-    why: { ...defaultHomeSectionsContent.why, ...content.why },
     faq: { ...defaultHomeSectionsContent.faq, ...content.faq },
     finalCta: { ...defaultHomeSectionsContent.finalCta, ...content.finalCta },
   };
   const problemItems = content.problemCards || problemCards;
   const serviceItems = content.serviceSilos || serviceSilos;
   const popularItems = content.popularServicesCards || popularServices;
-  const cityItems = content.cityCards || cityCards;
-  const reasonItems = content.reasons || reasons;
 
   return (
     <>
@@ -407,6 +312,12 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
         </div>
       </section>
 
+      <ReviewsBand
+        heading="What Our Clients Say"
+        reviews={homeReviews}
+        chips={HOMEPAGE_REVIEW_CHIPS}
+      />
+
       <section className="section-base bg-[#1C1917] text-white" aria-labelledby="popular-services-heading">
         <div className="container-px">
           <SectionIntro
@@ -417,73 +328,13 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
             light
           />
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {popularItems.map((item) => (
               <LinkCard key={item.href} item={item} variant="dark" />
             ))}
           </div>
         </div>
       </section>
-
-      <section className="section-base bg-white" aria-labelledby="service-area-heading">
-        <div className="container-px">
-          <SectionIntro
-            id="service-area-heading"
-            eyebrow={sections.serviceArea.eyebrow}
-            title={sections.serviceArea.title}
-            description={sections.serviceArea.description}
-          />
-
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {cityItems.map((city) => (
-              <div key={city.href}>
-                <Link href={city.href} className="group block h-full rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#F59E0B]/45 hover:shadow-xl">
-                  <div className="mb-5 flex items-center justify-between">
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#F59E0B]/15 text-[#F59E0B]">
-                      <MapPin className="h-6 w-6" />
-                    </span>
-                    <ArrowRight className="h-5 w-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#F59E0B]" />
-                  </div>
-                  <h3>{city.label || `${city.city}, TX`}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{city.description}</p>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-base" aria-labelledby="why-heading">
-        <div className="container-px">
-          <SectionIntro
-            id="why-heading"
-            eyebrow={sections.why.eyebrow}
-            title={sections.why.title}
-            description={sections.why.description}
-          />
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {reasonItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]">
-                    <Icon className="h-6 w-6" />
-                  </span>
-                  <h3 className="text-xl">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <ReviewsBand
-        heading="What Our Clients Say"
-        reviews={homeReviews}
-        chips={HOMEPAGE_REVIEW_CHIPS}
-      />
 
       <section className="section-base bg-white" aria-labelledby="faq-heading">
         <div className="container-px">
