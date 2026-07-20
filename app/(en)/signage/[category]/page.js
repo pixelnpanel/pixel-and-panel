@@ -5,7 +5,7 @@ import { getCategoryGuide } from '@/lib/signage/category-guides'
 import { houstonCatalogNotes } from '@/content/houston'
 import { withDefaultSocialImage } from '@/lib/seo'
 
-export const revalidate = 60
+export const revalidate = 21600
 
 const SITE = 'https://www.pixelnpanel.com'
 

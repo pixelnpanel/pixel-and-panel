@@ -4,7 +4,7 @@ import { withDefaultSocialImage } from '@/lib/seo'
 import { reviewsExcludingChannel } from '@/lib/reviews'
 import { attachReviewImages } from '@/lib/review-images'
 
-export const revalidate = 60
+export const revalidate = 21600
 
 const SITE = 'https://www.pixelnpanel.com'
 
