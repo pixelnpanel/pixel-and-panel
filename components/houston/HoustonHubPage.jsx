@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, MapPin, Truck } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+// Suburb list is language-neutral (place names don't translate), so both the
+// EN and ES hubs render the same array.
+import { HOUSTON_AREAS } from "@/content/houston";
 import { houstonLocalBusinessJsonLd, faqPageJsonLd } from "./houston-schema";
 
 function JsonLd({ data }) {
@@ -18,6 +21,7 @@ const LABELS = {
     quote: "Request a Quote",
     servicesHeading: "Signs & Print for Houston",
     servicesLabel: "What We Make",
+    areaLabel: "Coverage",
     faqHeading: "Houston Questions",
     faqLabel: "FAQ",
     testimonialsHeading: "Houston Businesses on Pixel & Panel",
@@ -33,6 +37,7 @@ const LABELS = {
     quote: "Solicitar Cotización",
     servicesHeading: "Letreros e Impresión para Houston",
     servicesLabel: "Lo Que Hacemos",
+    areaLabel: "Cobertura",
     faqHeading: "Preguntas sobre Houston",
     faqLabel: "Preguntas Frecuentes",
     testimonialsHeading: "Negocios de Houston sobre Pixel & Panel",
@@ -85,13 +90,32 @@ export default function HoustonHubPage({ content, services, locale = "en" }) {
           </div>
         </section>
 
+        {content.localContext && (
+          <section className="section-base" aria-labelledby="houston-context-heading">
+            <div className="container-px">
+              <div className="mx-auto max-w-4xl">
+                <h2 id="houston-context-heading" className="text-[#1C1917]">
+                  {content.localContext.heading}
+                </h2>
+                <div className="mt-6 space-y-5">
+                  {content.localContext.body.map((paragraph) => (
+                    <p key={paragraph.slice(0, 48)} className="leading-8 text-slate-600">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="section-base" aria-labelledby="houston-services-heading">
           <div className="container-px">
             <div className="mb-8">
               <p className="section-label text-[#0369A1]">{t.servicesLabel}</p>
               <h2 id="houston-services-heading" className="text-[#1C1917]">{t.servicesHeading}</h2>
             </div>
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {services.map((service) => (
                 <Link
                   key={service.href}
@@ -120,6 +144,28 @@ export default function HoustonHubPage({ content, services, locale = "en" }) {
             <p className="leading-8 text-slate-600">{content.delivery.body}</p>
           </div>
         </section>
+
+        {content.areaCoverage && (
+          <section className="section-base" aria-labelledby="houston-area-heading">
+            <div className="container-px">
+              <div className="mx-auto max-w-4xl">
+                <p className="section-label text-[#0369A1]">{t.areaLabel}</p>
+                <h2 id="houston-area-heading" className="text-[#1C1917]">{content.areaCoverage.heading}</h2>
+                <p className="mt-4 leading-8 text-slate-600">{content.areaCoverage.body}</p>
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {HOUSTON_AREAS.map((area) => (
+                    <li
+                      key={area}
+                      className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm"
+                    >
+                      {area}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+        )}
 
         {content.testimonials.length > 0 && (
           <section className="section-base" aria-labelledby="houston-testimonials-heading">

@@ -26,6 +26,7 @@ const staticPages = [
   // Houston market (additive — see content/houston.js)
   { url: "/houston", priority: 0.9, changeFrequency: "weekly" },
   { url: "/houston/banners", priority: 0.85, changeFrequency: "monthly" },
+  { url: "/houston/event-banners", priority: 0.85, changeFrequency: "monthly" },
   { url: "/houston/yard-signs", priority: 0.85, changeFrequency: "monthly" },
   { url: "/houston/real-estate-signs", priority: 0.85, changeFrequency: "monthly" },
   // Spanish
@@ -43,6 +44,7 @@ const staticPages = [
   { url: "/es/area-de-servicio/port-arthur-tx", priority: 0.7, changeFrequency: "monthly" },
   { url: "/es/houston", priority: 0.7, changeFrequency: "weekly" },
   { url: "/es/houston/banners", priority: 0.65, changeFrequency: "monthly" },
+  { url: "/es/houston/banners-para-eventos", priority: 0.65, changeFrequency: "monthly" },
   { url: "/es/houston/letreros-para-jardin", priority: 0.65, changeFrequency: "monthly" },
   { url: "/es/houston/letreros-inmobiliarios", priority: 0.65, changeFrequency: "monthly" },
 ];

@@ -116,6 +116,35 @@ const popularServices = [
   },
 ];
 
+// Homepage → city hub links. This is the strongest internal link the Houston
+// hub gets, and it does the same job for the three Southeast Texas cities.
+const SERVICE_AREA_ITEMS = [
+  {
+    title: "Beaumont, TX",
+    description: "Storefront signs, banners, vehicle graphics, and print for Beaumont businesses.",
+    href: "/service-area/beaumont-tx",
+    icon: MapPin,
+  },
+  {
+    title: "Houston, TX",
+    description: "Banners, yard signs, event banners, and real estate signs across Greater Houston.",
+    href: "/houston",
+    icon: MapPin,
+  },
+  {
+    title: "Port Arthur, TX",
+    description: "Custom signs and print for Port Arthur shops, contractors, and service companies.",
+    href: "/service-area/port-arthur-tx",
+    icon: MapPin,
+  },
+  {
+    title: "Nederland, TX",
+    description: "Business cards, signs, and print for Nederland's local businesses.",
+    href: "/service-area/nederland-tx",
+    icon: MapPin,
+  },
+];
+
 export const defaultHomeSectionsContent = {
   problem: {
     eyebrow: "The Problem",
@@ -140,6 +169,12 @@ export const defaultHomeSectionsContent = {
     title: "Start with the services local businesses ask for most",
     description:
       "Each card links to a real service page with details that help customers and search engines understand what Pixel & Panel offers.",
+  },
+  serviceAreas: {
+    eyebrow: "Where We Work",
+    title: "Southeast Texas and Greater Houston",
+    description:
+      "Each city page covers what local businesses there order most, what it costs, and how long it takes.",
   },
   faq: {
     eyebrow: "FAQ",
@@ -219,6 +254,7 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
     problemCta: { ...defaultHomeSectionsContent.problemCta, ...content.problemCta },
     services: { ...defaultHomeSectionsContent.services, ...content.services },
     popularServices: { ...defaultHomeSectionsContent.popularServices, ...content.popularServices },
+    serviceAreas: { ...defaultHomeSectionsContent.serviceAreas, ...content.serviceAreas },
     faq: { ...defaultHomeSectionsContent.faq, ...content.faq },
     finalCta: { ...defaultHomeSectionsContent.finalCta, ...content.finalCta },
   };
@@ -331,6 +367,23 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {popularItems.map((item) => (
               <LinkCard key={item.href} item={item} variant="dark" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-base bg-white" aria-labelledby="service-areas-heading">
+        <div className="container-px">
+          <SectionIntro
+            id="service-areas-heading"
+            eyebrow={sections.serviceAreas.eyebrow}
+            title={sections.serviceAreas.title}
+            description={sections.serviceAreas.description}
+          />
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {SERVICE_AREA_ITEMS.map((item) => (
+              <LinkCard key={item.href} item={item} />
             ))}
           </div>
         </div>
