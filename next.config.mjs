@@ -3,7 +3,10 @@ const oldServiceAreaRedirects = [
   // /signage/<category>/<product> catalog, so these now point at the hub.
   { service: "car-magnets", destination: "/signage" },
   { service: "vehicle-wraps", destination: "/signage" },
-  { service: "website-design", destination: "/digital/web-development" },
+  // Keep city intent: this used to dump every city's /website-design URL on
+  // the generic service hub, discarding the city signal even though a
+  // /service-area/<city>/web-development page exists for all three cities.
+  { service: "website-design", destination: "/service-area/:city/web-development" },
 ].map(({ service, destination }) => ({
   source: `/service-area/:city(beaumont-tx|nederland-tx|port-arthur-tx)/${service}`,
   destination,
