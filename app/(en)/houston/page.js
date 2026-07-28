@@ -24,12 +24,25 @@ export const metadata = withDefaultSocialImage({
   },
 });
 
-const services = Object.entries(houstonServices).map(([slug, service]) => ({
+// Signage leads and digital renders as a secondary group — this is a sign shop
+// that also builds websites, and the hub's H1 reflects that ordering.
+const toCard = ([slug, service]) => ({
   name: service.h1,
   href: `/houston/${slug}`,
   description: service.metaDescription,
-}));
+});
+
+const entries = Object.entries(houstonServices);
+const services = entries.filter(([, s]) => s.type !== "digital").map(toCard);
+const digitalServices = entries.filter(([, s]) => s.type === "digital").map(toCard);
 
 export default function HoustonHubRoute() {
-  return <HoustonHubPage content={houstonHub} services={services} locale="en" />;
+  return (
+    <HoustonHubPage
+      content={houstonHub}
+      services={services}
+      digitalServices={digitalServices}
+      locale="en"
+    />
+  );
 }

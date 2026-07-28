@@ -29,6 +29,8 @@ const staticPages = [
   { url: "/houston/event-banners", priority: 0.85, changeFrequency: "monthly" },
   { url: "/houston/yard-signs", priority: 0.85, changeFrequency: "monthly" },
   { url: "/houston/real-estate-signs", priority: 0.85, changeFrequency: "monthly" },
+  { url: "/houston/web-design", priority: 0.8, changeFrequency: "monthly" },
+  { url: "/houston/local-seo", priority: 0.8, changeFrequency: "monthly" },
   // Spanish
   { url: "/es", priority: 0.7, changeFrequency: "weekly" },
   { url: "/es/servicios-digitales", priority: 0.7, changeFrequency: "weekly" },

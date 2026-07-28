@@ -21,6 +21,10 @@ const LABELS = {
     quote: "Request a Quote",
     servicesHeading: "Signs & Print for Houston",
     servicesLabel: "What We Make",
+    digitalHeading: "Websites & Google Visibility",
+    digitalLabel: "Also Available",
+    digitalBody:
+      "Signs are the main business. If you also need the online side handled — a site that loads fast on a phone, or a Google profile that actually shows up — we do that too, and it comes out looking like the same brand.",
     areaLabel: "Coverage",
     faqHeading: "Houston Questions",
     faqLabel: "FAQ",
@@ -37,6 +41,10 @@ const LABELS = {
     quote: "Solicitar Cotización",
     servicesHeading: "Letreros e Impresión para Houston",
     servicesLabel: "Lo Que Hacemos",
+    digitalHeading: "Sitios Web y Visibilidad en Google",
+    digitalLabel: "También Disponible",
+    digitalBody:
+      "Los letreros son el negocio principal. Si además necesitas resolver la parte digital — un sitio que cargue rápido en el teléfono o un perfil de Google que sí aparezca — también lo hacemos, y queda con la misma imagen de marca.",
     areaLabel: "Cobertura",
     faqHeading: "Preguntas sobre Houston",
     faqLabel: "Preguntas Frecuentes",
@@ -50,7 +58,7 @@ const LABELS = {
   },
 };
 
-export default function HoustonHubPage({ content, services, locale = "en" }) {
+export default function HoustonHubPage({ content, services, digitalServices = [], locale = "en" }) {
   const t = LABELS[locale];
   const isEs = locale === "es";
   const quoteHref = isEs
@@ -134,6 +142,33 @@ export default function HoustonHubPage({ content, services, locale = "en" }) {
             </div>
           </div>
         </section>
+
+        {digitalServices.length > 0 && (
+          <section className="section-base pt-0" aria-labelledby="houston-digital-heading">
+            <div className="container-px">
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+                <p className="section-label text-[#0369A1]">{t.digitalLabel}</p>
+                <h2 id="houston-digital-heading" className="text-[#1C1917]">{t.digitalHeading}</h2>
+                <p className="mt-4 max-w-3xl leading-8 text-slate-600">{t.digitalBody}</p>
+                <div className="mt-6 grid gap-4 md:grid-cols-2">
+                  {digitalServices.map((service) => (
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      className="group rounded-xl border border-slate-200 bg-[#FAF8F4] p-5 transition hover:-translate-y-1 hover:border-[#0EA5E9]/45 hover:shadow-lg"
+                    >
+                      <div className="mb-3 flex items-center justify-between gap-3">
+                        <h3 className="text-[#1C1917]">{service.name}</h3>
+                        <ArrowRight className="h-4 w-4 shrink-0 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#0369A1]" />
+                      </div>
+                      <p className="text-sm leading-6 text-slate-600">{service.description}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         <section className="bg-white px-6 py-16 md:py-20" aria-labelledby="houston-delivery-heading">
           <div className="mx-auto max-w-4xl rounded-xl border border-slate-200 bg-[#FAF8F4] p-6 md:p-8">

@@ -133,10 +133,17 @@ export const houstonHub = {
 };
 
 // Per-service pages under /houston/<slug>.
-// `esPath` pairs each page with its Spanish counterpart for hreflang.
+//
+// `esPath` pairs each page with its Spanish counterpart for hreflang. It is
+// OPTIONAL — a page with no Spanish twin simply omits the hreflang block.
+//
+// `type` is "signage" (default) or "digital". It drives the schema category
+// and, on the hub, which group the card renders in. Signage stays the primary
+// group: this is a sign shop that also builds websites, not an agency.
 export const houstonServices = {
   banners: {
     name: "Banners",
+    type: "signage",
     esPath: "/es/houston/banners",
     catalogHref: "/signage/banners",
     catalogLabel: "Browse all banner options & pricing",
@@ -262,6 +269,7 @@ export const houstonServices = {
 
   "event-banners": {
     name: "Event Banners",
+    type: "signage",
     esPath: "/es/houston/banners-para-eventos",
     catalogHref: "/signage/banners",
     catalogLabel: "See banner materials & pricing",
@@ -389,6 +397,7 @@ export const houstonServices = {
 
   "yard-signs": {
     name: "Yard Signs",
+    type: "signage",
     esPath: "/es/houston/letreros-para-jardin",
     catalogHref: "/signage/rigid-and-metal-signs/coroplast-yard-signs",
     catalogLabel: "See yard sign specs & pricing",
@@ -516,6 +525,7 @@ export const houstonServices = {
 
   "real-estate-signs": {
     name: "Real Estate Signs",
+    type: "signage",
     esPath: "/es/houston/letreros-inmobiliarios",
     catalogHref: "/signage/real-estate-signs",
     catalogLabel: "Browse real estate sign options",
@@ -635,6 +645,268 @@ export const houstonServices = {
         label: "Custom Banners in Houston",
         href: "/houston/banners",
         description: "Large-format banners for developments, leasing offices, and open house weekends.",
+      },
+    ],
+
+    testimonials: [],
+  },
+
+  // ── DIGITAL ───────────────────────────────────────────────────────────────
+  // Secondary to signage by design (see brand positioning). These pages are
+  // written for small local businesses, not for agency-scale work, and they
+  // are deliberately honest that Houston web/SEO is a saturated market. No
+  // client counts, no case studies, no invented results — there is no Houston
+  // digital proof yet, and `testimonials: []` keeps that section hidden.
+  // Pricing MUST stay in sync with lib/city-service-pages.js.
+
+  "web-design": {
+    name: "Web Design",
+    type: "digital",
+    catalogHref: "/digital/web-development",
+    catalogLabel: "See website packages & pricing",
+    quoteProduct: "Website Development",
+    quoteCategory: "Digital Services",
+    metaTitle: "Web Design Houston TX | Small Business Websites",
+    metaDescription:
+      "Web design for Houston small businesses — fast, mobile-first sites built around calls and quote requests. Packages from $299. Plain English, no contracts.",
+    h1: "Web Design for Houston Small Businesses",
+    intro:
+      "Clean, fast websites for Houston contractors, shops, restaurants, and service companies — built around the two things that actually matter, phone calls and quote requests. Plain English, no platform lock-in, no monthly contract required.",
+
+    localContext: {
+      heading: "Being Findable in a City of Seven Million",
+      body: [
+        "Let us be straight with you about the market, because plenty of agencies will not be: Houston web design is one of the most saturated categories in Texas. There are hundreds of shops competing here, from one-person freelancers to firms with real budgets, and no honest person can promise you the top result for anything. If someone guarantees you page one for \"web design Houston,\" walk away.",
+        "What is achievable is much more useful anyway. Almost nobody searches for a plumber by typing \"plumber.\" They type \"plumber Katy TX\" or \"emergency plumber near me\" from a phone in Spring Branch. Those searches are winnable, and they are the ones that actually turn into paid work. That means the site needs real service pages, real service-area content, and a structure Google can read — not a beautiful homepage with everything buried behind a menu.",
+        "The second Houston-specific factor is mobile. A large share of local searches here happen from a phone, often from a truck, often by someone who is going to call whichever business answers first. If your site takes six seconds to load, hides the phone number behind a hamburger menu, or renders a desktop layout scaled down to nothing, you lose that lead before the visitor forms an opinion about your work. Speed and a tappable phone number are not polish. They are the product.",
+        "One thing worth saying plainly: Pixel & Panel is a sign shop that also builds websites. That is the actual advantage. The truck lettering, the storefront sign, the yard signs, and the website all come out of one place, so your brand looks like one business instead of four vendors who never spoke to each other. If you want a large agency with a strategy department, we are honestly not that. If you want a site that loads fast, says the right thing, and matches the sign on your building, that is exactly what we do.",
+      ],
+    },
+
+    pricingNote:
+      "Website packages start at $299 for a Launch Page, $499 for Starter Web Presence, $799 for a Local Business Website, and $999 for Website + Visibility Setup. Larger projects with extra pages, booking systems, or custom features are quoted individually. You own the site when it is paid for — no proprietary platform you cannot leave.",
+
+    delivery:
+      "Most local business sites take 2–4 weeks from kickoff to launch. A single Launch Page can move faster when your logo, copy, and photos are ready. The step that slows projects down is almost never the build — it is waiting on content, so having your service list and photos together up front is what keeps the timeline short.",
+
+    industries: [
+      "Contractors and trades who get most leads by phone and referral",
+      "Restaurants needing menus, hours, and ordering links that work on a phone",
+      "Medical, dental, and professional offices that need appointment paths",
+      "Retail shops building an online presence alongside a storefront",
+      "Service companies covering multiple Houston suburbs",
+      "New businesses launching their first real website",
+    ],
+
+    uses: [
+      "First website for a newly launched Houston business",
+      "Replacing an outdated site that does not work on phones",
+      "Adding proper service pages so each offering can rank on its own",
+      "Service-area pages for companies covering multiple suburbs",
+      "Quote and contact forms that route straight to your inbox",
+      "A site that visually matches your signs, truck, and print materials",
+    ],
+
+    process: [
+      [
+        "Start with what you sell",
+        "What do you do, who do you serve, and what should a visitor do next — call, request a quote, book, or drive over? Everything else follows from that answer.",
+      ],
+      [
+        "Plan the pages",
+        "Homepage, one page per real service, service-area coverage, contact, and trust signals. Useful structure rather than page count for its own sake.",
+      ],
+      [
+        "Design and write it in plain English",
+        "Mobile-first layout using your logo, colors, and photos, with copy that explains the work without marketing filler.",
+      ],
+      [
+        "Launch with the SEO basics done",
+        "Titles, descriptions, headings, internal links, schema, sitemap, and analytics are set before launch — not sold to you later as an upgrade.",
+      ],
+    ],
+
+    benefits: [
+      "Fast, mobile-first build — most local visitors arrive on a phone",
+      "A real page per service, so each one can rank on its own terms",
+      "On-page SEO structure included at launch, not billed as an add-on",
+      "Visible phone number and quote form on every page",
+      "Branding consistent with your signs, vehicle graphics, and print",
+      "You own the site outright — no proprietary platform lock-in",
+    ],
+
+    faqs: [
+      [
+        "How much does a website cost for a Houston small business?",
+        "Packages start at $299 for a Launch Page, $499 for Starter Web Presence, $799 for a Local Business Website, and $999 for Website + Visibility Setup. What fits depends on how many services you need pages for and whether you already have copy and photos. Bigger builds with booking, e-commerce, or custom features are quoted individually.",
+      ],
+      [
+        "How long does a website take?",
+        "Two to four weeks for most local business sites. A single Launch Page can be faster if your logo, text, and photos are ready to go. The realistic bottleneck is content — projects that stall are almost always waiting on photos or a service list, not on development.",
+      ],
+      [
+        "Can you get my Houston business to rank number one on Google?",
+        "No, and be skeptical of anyone who says otherwise — nobody controls Google's results. What a website can do is give you a real foundation: proper titles and descriptions, a page per service, local signals, fast mobile loading, and a structure Google can actually read. That is what makes ranking possible. Ranking itself comes from that foundation plus your Google Business Profile, your reviews, and time.",
+      ],
+      [
+        "Do I own the website when it is done?",
+        "Yes. You own the content and the design once the project is paid in full. Hosting, domain, and email are billed by those providers directly and stay in your name. We do not build on a proprietary platform you would have to abandon the site to leave.",
+      ],
+      [
+        "Do I need a monthly contract?",
+        "No. The website is a one-time project. If you want ongoing help — updates, new pages, local SEO support — that is available separately and month to month. It is not a condition of getting the site built.",
+      ],
+      [
+        "Can you redesign my existing site instead of starting over?",
+        "Often, yes. Sometimes a targeted fix to speed, mobile layout, and page structure gets most of the benefit for a fraction of a rebuild. The first step is looking at what you have now. If a rebuild genuinely is not worth it for you, we will say so.",
+      ],
+      [
+        "What actually makes a small business website get calls?",
+        "Loading fast, saying clearly what you do and where you do it, showing a phone number that is tappable on every screen, proving you serve the caller's part of Houston, and making the next step obvious. That is most of it. Visual polish helps, but it does not rescue a site that is slow or vague.",
+      ],
+      [
+        "Do you build sites in Spanish?",
+        "Yes. Houston has one of the largest Spanish-speaking business populations in the country, and a bilingual site is often a real advantage here. We can build English, Spanish, or both with proper language tagging so search engines serve the right version.",
+      ],
+    ],
+
+    relatedLinks: [
+      {
+        label: "Local SEO in Houston",
+        href: "/houston/local-seo",
+        description: "A site gives you the foundation. Local SEO is what gets nearby customers to it.",
+      },
+      {
+        label: "Signs & Print in Houston",
+        href: "/houston",
+        description: "Banners, yard signs, and real estate signs — branded to match the website.",
+      },
+    ],
+
+    testimonials: [],
+  },
+
+  "local-seo": {
+    name: "Local SEO",
+    type: "digital",
+    catalogHref: "/digital/local-seo",
+    catalogLabel: "See what local SEO covers",
+    quoteProduct: "Local SEO",
+    quoteCategory: "Digital Services",
+    metaTitle: "Local SEO Houston TX | Get Found in Your Part of the City",
+    metaDescription:
+      "Local SEO for Houston small businesses — Google Business Profile, service-area pages, and local signals that help nearby customers find you. From $300.",
+    h1: "Local SEO for Houston Businesses",
+    intro:
+      "Practical local search work for Houston businesses: a Google Business Profile that is actually complete, service pages that match how people search, and local signals that help you show up in the part of the city you serve.",
+
+    localContext: {
+      heading: "You Do Not Rank in Houston — You Rank in a Radius",
+      body: [
+        "This is the single most useful thing to understand about local search in a city this size, and it is where most Houston SEO money gets wasted. Houston covers more than 600 square miles. When someone searches \"AC repair near me\" from Sugar Land, Google is not looking for the best AC company in Houston. It is looking for good options near Sugar Land. Ranking \"in Houston\" is not a real thing. You rank in a radius around where Google believes you are.",
+        "That reframes the whole job. Chasing \"HVAC Houston\" is expensive and largely pointless for a small operator. Being the obvious answer in Katy, Cypress, or Pearland is achievable, and those customers spend the same money. So the work is: be unmistakably clear about where you operate, have real pages for the areas you serve, and make your Google Business Profile precise about your service area.",
+        "Google weighs three things for local results — relevance, distance, and prominence. Distance you cannot change. Relevance and prominence you can, and most small Houston businesses are leaving obvious points on the table: a profile with the wrong primary category, no service list, no photos in two years, hours that go stale over holidays, and a website that never actually names the suburbs it covers. Those are unglamorous fixes and they are usually the ones that move the needle.",
+        "A caution about the map pack, because it is where the calls are. Getting into the top three for a competitive Houston category takes reviews and consistency over months, not a one-time cleanup. Anyone promising the 3-pack in 30 days is either lucky or lying. What a foundational project reliably does is remove the things actively holding you back — and for a lot of businesses that alone is a visible change within a couple of months.",
+      ],
+    },
+
+    pricingNote:
+      "Local SEO is quoted as a one-time foundational project ($300–$800) or as ongoing monthly support ($150–$400/month). Most businesses should start with the one-time audit and fix, then decide whether monthly maintenance is worth it. No long-term contract required either way.",
+
+    delivery:
+      "A foundational project typically takes 1–2 weeks to implement once we have access to your Google Business Profile and website. Results are slower than the work: profile and on-page changes commonly start showing in 4–8 weeks, while competitive ranking movement in a market this size is more realistically a 3–6 month arc.",
+
+    industries: [
+      "Contractors and home services competing across Houston suburbs",
+      "Restaurants and food businesses that live or die by Google Maps",
+      "Medical, dental, and professional offices in the Med Center and beyond",
+      "Auto repair, tire, and automotive shops",
+      "Retail and salons that depend on walk-in and same-day discovery",
+      "New Houston businesses establishing local visibility from zero",
+    ],
+
+    uses: [
+      "Setting up or claiming a Google Business Profile for a new location",
+      "Fixing a profile with wrong categories, stale hours, or no services listed",
+      "Building service-area pages for the suburbs you actually cover",
+      "Correcting inconsistent name, address, and phone data across directories",
+      "Setting up a review request flow that customers will actually complete",
+      "Getting a straight answer on why you are not showing up",
+    ],
+
+    process: [
+      [
+        "Audit what is there now",
+        "Your Google Business Profile, website structure, local citations, and where you currently show up for the searches that matter to your business.",
+      ],
+      [
+        "Fix the things holding you back",
+        "Categories, services, hours, photos, service-area settings, page titles, and missing local content. The unglamorous items usually matter most.",
+      ],
+      [
+        "Build out the areas you serve",
+        "Real pages and real profile settings for the suburbs you cover, so you compete in the radius where your customers actually search.",
+      ],
+      [
+        "Set up reviews and measure",
+        "A review request flow that is easy for customers to complete, plus a documented record of what changed so you can judge whether it worked.",
+      ],
+    ],
+
+    benefits: [
+      "A Google Business Profile that is complete and correctly categorized",
+      "Service-area coverage aimed at the suburbs you actually work in",
+      "Consistent name, address, and phone data across local directories",
+      "A review request flow customers will finish in one tap",
+      "Written record of every change made and why",
+      "No long-term contract — one-time project or month to month",
+    ],
+
+    faqs: [
+      [
+        "How much does local SEO cost in Houston?",
+        "A one-time foundational project runs $300–$800 depending on the state of your profile and website. Ongoing monthly support is $150–$400/month. Most businesses are better off starting with the one-time fix and only moving to monthly if there is a clear reason. No long-term contract either way.",
+      ],
+      [
+        "How long before I see results?",
+        "Profile and on-page changes commonly start showing in 4–8 weeks. Real ranking movement for competitive Houston categories is more like 3–6 months of consistent work. Anyone quoting faster than that in a market this size is selling you something.",
+      ],
+      [
+        "Why is my Houston business not showing up on Google Maps?",
+        "Usually one of a short list: the profile is unverified or incomplete, the primary category is wrong, services are not listed, the service area is not set, or you have too few reviews relative to nearby competitors. Distance also matters more than people expect — you will not show up for searches from the far side of the city, and that is normal, not a failure.",
+      ],
+      [
+        "Can you get me into the Google 3-pack?",
+        "Nobody can promise that, and treat any guarantee as a warning sign. What we can do is fix what is holding you back and build the review and consistency habits that make it possible. In most Houston suburbs, competitors sit at the low end for reviews and profile completeness, so steady work does create a real opening.",
+      ],
+      [
+        "How many reviews do I need?",
+        "In most Houston suburb markets, 20–30 reviews averaging above 4.5 stars is roughly the floor to start competing in the 3-pack, and the top spots often carry 80–150 or more. The practical advice is simpler than the numbers: ask every satisfied customer, every time, and make it one tap.",
+      ],
+      [
+        "Do I need a new website for local SEO to work?",
+        "Not always. Profile fixes, citation cleanup, and metadata work regardless of what your site looks like. But a site that is slow, has no service pages, or never names the suburbs you cover does put a ceiling on how far you can climb. We will tell you honestly whether your current site is the limiting factor.",
+      ],
+      [
+        "What is the difference between local SEO and a Google Business Profile?",
+        "Your profile is what appears on Google Maps and in the local panel — it is the single highest-leverage piece and usually where we start. Local SEO is the broader job: your website structure, service-area content, citations, and reviews. The profile moves faster; the website work is what makes it durable.",
+      ],
+      [
+        "Do you handle local SEO in Spanish?",
+        "Yes. Houston has an enormous Spanish-speaking customer base, and a bilingual site with proper language tagging plus a profile that signals Spanish service is a genuine competitive edge in a lot of Houston categories.",
+      ],
+    ],
+
+    relatedLinks: [
+      {
+        label: "Web Design in Houston",
+        href: "/houston/web-design",
+        description: "If the site itself is the ceiling, this is where to start instead.",
+      },
+      {
+        label: "Signs & Print in Houston",
+        href: "/houston",
+        description: "Online visibility plus a sign people see from the street — both, from one shop.",
       },
     ],
 

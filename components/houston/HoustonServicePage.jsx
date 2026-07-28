@@ -70,12 +70,17 @@ export default function HoustonServicePage({ service, path, locale = "en" }) {
   const hubUrl = `https://www.pixelnpanel.com${t.hubHref}`;
   const pageUrl = `https://www.pixelnpanel.com${path}`;
 
+  const isDigital = service.type === "digital";
+  const category = isDigital
+    ? isEs ? "servicios digitales" : "digital visibility"
+    : isEs ? "letreros e impresión" : "signs and print";
+
   const serviceJsonLd = createServiceJsonLd({
     name: service.h1,
     description: service.metaDescription,
     url: path,
     serviceType: service.quoteProduct,
-    category: isEs ? "letreros e impresión" : "signs and print",
+    category,
     areaServed: HOUSTON_AREA_SERVED,
     inLanguage: isEs ? "es-US" : "en-US",
     offerUrl: quoteHref,
