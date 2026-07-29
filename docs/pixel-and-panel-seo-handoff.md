@@ -55,7 +55,7 @@ Verified across all 214 pages: zero duplicate titles, zero duplicate meta descri
 
 **Code audit conclusion:** the site's code is in good shape. Confirmed things already done right — no self-serving review/AggregateRating schema (which risks a Google manual action), all images use `next/image` with alt text, fonts load with `display: swap`. **The remaining gains are off-page — Google Business Profile, citations, reviews — not in the codebase.** Don't send me down a rabbit hole of more code tweaks; that well is mostly dry.
 
-**Known open code item (for my dev setup, not this chat):** the `/quote-request` page and its Spanish twin each render the same H1 twice — flagged, not yet fixed. Minor; doesn't need strategy input.
+**Checked and cleared:** an earlier note flagged a possible duplicate H1 on `/quote-request` and its Spanish twin. Investigated — it only appears under `npm run dev`; the production build serves exactly one H1 on both pages (the page uses an intentional server-rendered fallback headline while the form component loads). No defect. No known open code items.
 
 ## Baseline data — Google Search Console, May 8 – Jul 26 2026 (before the changes)
 
