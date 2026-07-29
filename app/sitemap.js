@@ -9,6 +9,35 @@ import { cityServiceStaticParamsEs } from "@/lib/city-service-pages-es";
 
 const BASE = "https://www.pixelnpanel.com";
 
+// Real content-change dates (git author dates), grouped by content area.
+// Google uses <lastmod> to prioritize which pages to recrawl, so these MUST
+// stay honest: bump only the entry whose content actually changed. Setting
+// every date to "today" on each deploy trains Google to ignore <lastmod>
+// entirely — the opposite of what we want. When you meaningfully edit a
+// content area, update its date here (YYYY-MM-DD).
+const LASTMOD = {
+  houston: "2026-07-28",     // content/houston.js, content/houston-es.js
+  digital: "2026-07-28",     // lib/digital-services.js (+ /digital hub)
+  cityService: "2026-07-28", // lib/city-service-pages.js (/service-area/*)
+  core: "2026-07-28",        // homepage, hubs, contact/quote/visibility
+  signage: "2026-07-19",     // lib/signage/data.js (catalog)
+  portfolio: "2026-07-10",
+  learning: "2026-07-02",    // lib/learning-center-posts.js
+};
+
+// Resolve the honest lastModified for a URL (relative or absolute — matching
+// is substring-based). Order matters: check the most specific segment first
+// so e.g. /es/houston/... resolves to houston, not to its language prefix.
+function lastmodFor(url) {
+  if (url.includes("/houston")) return LASTMOD.houston;
+  if (url.includes("/service-area") || url.includes("/area-de-servicio")) return LASTMOD.cityService;
+  if (url.includes("/digital") || url.includes("/servicios-digitales")) return LASTMOD.digital;
+  if (url.includes("/learning-center") || url.includes("/centro-de-aprendizaje")) return LASTMOD.learning;
+  if (url.includes("/portfolio") || url.includes("/portafolio")) return LASTMOD.portfolio;
+  if (url.includes("/signage") || url.includes("/letreros")) return LASTMOD.signage;
+  return LASTMOD.core;
+}
+
 const staticPages = [
   { url: "/", priority: 1.0, changeFrequency: "weekly" },
   { url: "/digital", priority: 0.9, changeFrequency: "weekly" },
@@ -132,7 +161,7 @@ export default async function sitemap() {
     changeFrequency: "monthly",
   }));
 
-  return [
+  const entries = [
     ...staticPages.map(({ url, ...rest }) => ({
       url: `${BASE}${url}`,
       ...rest,
@@ -150,4 +179,12 @@ export default async function sitemap() {
     ...cityServiceUrls,
     ...cityServiceUrlsEs,
   ];
+
+  // Attach an honest <lastmod> to every entry from its content area's real
+  // change date. Kept as a final pass so each URL source above stays focused
+  // on its own url/priority/images and never has to repeat a date literal.
+  return entries.map((entry) => ({
+    lastModified: lastmodFor(entry.url),
+    ...entry,
+  }));
 }

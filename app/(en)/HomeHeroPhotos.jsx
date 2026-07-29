@@ -26,16 +26,24 @@ export default function HomeHeroPhotos({
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          {tiles.map((img) => (
+          {tiles.map((img, index) => (
             <div
               key={img.src}
               className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-white p-2"
             >
+              {/* This 2x2 grid is the homepage LCP region. The tiles were
+                  loading="lazy" by default, which delays the LCP image on
+                  mobile. Next 16 deprecated `priority`, and its docs advise
+                  AGAINST `preload` when several images could be the LCP by
+                  viewport (exactly this grid), so we use loading="eager" on
+                  all four and fetchPriority="high" only on the top row. */}
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
                 sizes="(max-width: 1024px) 45vw, 230px"
+                loading="eager"
+                fetchPriority={index < 2 ? "high" : "auto"}
                 className="object-contain object-center"
               />
               {img.label && (
