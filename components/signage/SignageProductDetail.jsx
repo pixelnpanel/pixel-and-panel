@@ -115,7 +115,12 @@ export default function SignageProductDetail({ product, category }) {
                                     fill
                                     sizes="(max-width: 1024px) 100vw, 60vw"
                                     className="object-contain object-center"
-                                    priority
+                                    // Single above-the-fold hero = the page LCP.
+                                    // Next 16 deprecated `priority`; eager + high
+                                    // is the recommended replacement for an
+                                    // unambiguous LCP image.
+                                    loading="eager"
+                                    fetchPriority="high"
                                 />
                             ) : (
                                 <div className="flex h-full items-center justify-center text-[#0369A1]">

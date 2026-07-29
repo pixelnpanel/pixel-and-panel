@@ -199,7 +199,11 @@ export default function SignageProductPage({ product }) {
                       fill
                       sizes="(max-width: 1024px) 100vw, 460px"
                       className="object-cover"
-                      priority
+                      // Single above-the-fold hero = the page LCP. Next 16
+                      // deprecated `priority`; eager + high is the recommended
+                      // replacement for an unambiguous LCP image.
+                      loading="eager"
+                      fetchPriority="high"
                     />
                   </div>
                   <div className="mt-3 rounded-lg bg-white/10 p-4">
