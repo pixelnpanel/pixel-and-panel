@@ -31,12 +31,15 @@ const oldSignageProductRedirects = (() => {
   // (e.g. event-tents, real-estate-signs, dimensional-letters) — the redirect
   // would shadow the page. Check `CATEGORY_ORDER` in lib/signage/data.js before
   // adding to any list below.
+  // business-cards, flyers, brochures and postcards were removed from this list
+  // when the SinaLite print catalog landed: each is now a live sheet category,
+  // and leaving the redirect in place would shadow its page (see the NOTE above).
   const toHub = [
     "yard-signs", "car-magnets",
     "storefront-signs", "metal-signs", "coroplast-signs",
-    "a-frame-signs", "business-cards", "flyers", "menus",
+    "a-frame-signs", "menus",
     "table-covers", "acrylic-signs",
-    "brochures", "postcards", "monument-signs", "pylon-signs",
+    "monument-signs", "pylon-signs",
     "ada-signs", "lobby-signs",
   ];
   return [
