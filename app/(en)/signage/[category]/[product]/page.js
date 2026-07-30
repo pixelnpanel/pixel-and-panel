@@ -4,7 +4,7 @@ import ViewContentTracker from '@/components/analytics/ViewContentTracker'
 import { getCategories, getProduct } from '@/lib/signage/data'
 import { withDefaultSocialImage } from '@/lib/seo'
 
-export const revalidate = 21600
+export const revalidate = 900
 
 const SITE = 'https://www.pixelnpanel.com'
 
