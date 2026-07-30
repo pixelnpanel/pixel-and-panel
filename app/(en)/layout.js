@@ -1,6 +1,8 @@
 import "../globals.css";
 import { Suspense } from "react";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { inter, montserrat } from "../fonts";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -57,6 +59,8 @@ export default function EnglishRootLayout({ children }) {
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>
+        <Analytics />
+        <SpeedInsights />
         <LocalBusinessJsonLd />
         <Navbar />
         <main id="main-content" className="pnp-site-shell">

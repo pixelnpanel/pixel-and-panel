@@ -59,12 +59,27 @@ if (process.env.VERCEL === "1" && process.env.VERCEL_PREVIEW_COMMENTS_ENABLED ==
   process.env.VERCEL_PREVIEW_COMMENTS_ENABLED = "0";
 }
 
+// Vercel Analytics + Speed Insights serve both their script and their beacon
+// from this origin (/_vercel/insights/*, /_vercel/speed-insights/*) in
+// production, so `'self'` already covers them. Only the dev build reaches out
+// to Vercel's CDN for the debug script, so keep the prod policy tight.
+const vercelInsights = process.env.NODE_ENV === "development" ? "https://va.vercel-scripts.com" : "";
+
 const scriptSrc = [
   "'self'",
   "'unsafe-inline'",
   process.env.NODE_ENV === "development" ? "'unsafe-eval'" : "",
   "https://www.googletagmanager.com",
   "https://www.google-analytics.com",
+  vercelInsights,
+].filter(Boolean).join(" ");
+
+const connectSrc = [
+  "'self'",
+  "https://www.google-analytics.com",
+  "https://analytics.google.com",
+  "https://*.supabase.co",
+  vercelInsights,
 ].filter(Boolean).join(" ");
 
 const contentSecurityPolicyReportOnly = [
@@ -73,7 +88,7 @@ const contentSecurityPolicyReportOnly = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.supabase.co",
+  `connect-src ${connectSrc}`,
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
