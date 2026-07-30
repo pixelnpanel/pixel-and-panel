@@ -4,6 +4,9 @@ Generated from the live Google Sheet against the files actually present in `publ
 Every row gives the exact path to save the finished image to — save it there and the
 site picks it up with no code change.
 
+A ready-to-use generation prompt for every item below lives in
+[image-prompts.md](image-prompts.md).
+
 ## Summary
 
 | | Count |
