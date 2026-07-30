@@ -56,6 +56,45 @@ const oldSignageProductRedirects = (() => {
   }));
 })();
 
+// The SinaLite print catalog first shipped as 17 categories, eight of them
+// holding a single product — a category page with one product is only a worse
+// copy of that product's page. Consolidated to 7 while the URLs were still days
+// old and barely indexed, which is the cheapest this change will ever be.
+const printCategoryMerges = {
+  flyers: "flyers-brochures-and-booklets",
+  brochures: "flyers-brochures-and-booklets",
+  booklets: "flyers-brochures-and-booklets",
+  "presentation-folders": "flyers-brochures-and-booklets",
+  bookmarks: "flyers-brochures-and-booklets",
+  postcards: "postcards-and-direct-mail",
+  "door-hangers": "postcards-and-direct-mail",
+  "greeting-cards-and-invitations": "cards-invitations-and-event-print",
+  "tickets-and-calendars": "cards-invitations-and-event-print",
+  "table-tents-and-tear-cards": "cards-invitations-and-event-print",
+  "letterhead-and-envelopes": "stationery-and-business-forms",
+  notepads: "stationery-and-business-forms",
+  "ncr-forms": "stationery-and-business-forms",
+  "labels-and-stickers": "labels-stickers-and-packaging",
+  "packaging-and-boxes": "labels-stickers-and-packaging",
+};
+
+const printMergeRedirects = [
+  // Tear cards were the one product to split away from its old category-mate,
+  // so it has to match before the wildcard below sweeps the rest of
+  // table-tents-and-tear-cards to the event-print category. Order matters here.
+  {
+    source: "/signage/table-tents-and-tear-cards/tear-cards",
+    destination: "/signage/postcards-and-direct-mail/tear-cards",
+    statusCode: 301,
+  },
+  // The :product wildcard carries every product URL across with its category,
+  // so no individual product redirect has to be maintained by hand.
+  ...Object.entries(printCategoryMerges).flatMap(([from, to]) => [
+    { source: `/signage/${from}`, destination: `/signage/${to}`, statusCode: 301 },
+    { source: `/signage/${from}/:product`, destination: `/signage/${to}/:product`, statusCode: 301 },
+  ]),
+];
+
 if (process.env.VERCEL === "1" && process.env.VERCEL_PREVIEW_COMMENTS_ENABLED === "1") {
   // Vercel CLI 54's Next adapter can crash before build when toolbar injection
   // receives an undefined projectDir. The toolbar is not needed for production.
@@ -114,6 +153,7 @@ const nextConfig = {
     return [
       ...oldServiceAreaRedirects,
       ...oldSignageProductRedirects,
+      ...printMergeRedirects,
       {
         source: "/digital/qr-campaigns",
         destination: "/digital/qr-code-campaigns",

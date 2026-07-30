@@ -311,7 +311,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                                                 </p>
                                                 <div className="mt-auto flex items-center justify-between pt-3">
                                                     <span className="text-xs font-semibold text-brand-subtle md:text-sm">
-                                                        {category.productCount} products
+                                                        {category.productCount} {category.productCount === 1 ? 'product' : 'products'}
                                                     </span>
                                                     <span className="inline-flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-wide text-[#F59E0B] transition group-hover:gap-2">
                                                         Shop <ArrowRight size={14} />

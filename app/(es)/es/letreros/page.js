@@ -19,6 +19,7 @@ const spanishCopy = {
     "Elige una categoría y encuentra productos para que clientes vean tu negocio, entiendan el mensaje y tomen el siguiente paso.",
   categoriesHeading: "Categorías",
   productsLabel: "productos",
+  productLabelSingular: "producto",
   allProducts: "Todos los productos",
   allHeading: "Todos los productos de letreros e impresión",
   selectedCategory: "Categoría seleccionada",

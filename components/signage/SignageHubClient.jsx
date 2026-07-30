@@ -23,6 +23,7 @@ const DEFAULT_COPY = {
     viewProducts: 'View Products',
     categoriesHeading: 'Categories',
     productsLabel: 'products',
+    productLabelSingular: 'product',
     allProducts: 'All Products',
     selectedCategory: 'Selected Category',
     allHeading: 'All Signage & Print Products',
@@ -432,7 +433,8 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                                 <span>
                                                     <span className="block font-heading text-sm font-bold leading-tight">{category.name}</span>
                                                     <span className={`mt-1 block text-xs ${isActive ? 'text-white/80' : 'text-slate-500'}`}>
-                                                        {category.products?.length || 0} {content.productsLabel}
+                                                        {category.products?.length || 0}{' '}
+                                                        {category.products?.length === 1 ? content.productLabelSingular : content.productsLabel}
                                                     </span>
                                                 </span>
                                                 <ArrowRight size={16} className={isActive ? 'text-[#F59E0B]' : 'text-slate-400'} />
