@@ -20,7 +20,7 @@ const LASTMOD = {
   digital: "2026-07-28",     // lib/digital-services.js (+ /digital hub)
   cityService: "2026-07-28", // lib/city-service-pages.js (/service-area/*)
   core: "2026-07-28",        // homepage, hubs, contact/quote/visibility
-  signage: "2026-07-19",     // lib/signage/data.js (catalog)
+  signage: "2026-07-30",     // lib/signage/data.js (catalog)
   portfolio: "2026-07-10",
   learning: "2026-07-02",    // lib/learning-center-posts.js
 };

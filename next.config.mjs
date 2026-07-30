@@ -19,20 +19,32 @@ const oldServiceAreaRedirects = [
 const oldSignageProductRedirects = (() => {
   const toBanners = ["vinyl-banners", "mesh-banners", "backlit-banners", "fabric-banners"];
   const toStands = ["retractable-banners", "step-and-repeat-backdrops"];
+  // Old flat URLs whose intent a live category now serves exactly — send them
+  // there instead of the generic hub so the city/product intent survives.
+  const toDecals = [
+    "vehicle-graphics", "vehicle-lettering", "partial-vehicle-wraps", "window-graphics",
+    "perforated-window-graphics", "frosted-privacy-film",
+  ];
+  const toLetters = ["channel-letters"];
+  const toCanvas = ["posters"];
   // NOTE: never list a slug here that exists as a live sheet category
-  // (e.g. event-tents, real-estate-signs) — the redirect would shadow the page.
+  // (e.g. event-tents, real-estate-signs, dimensional-letters) — the redirect
+  // would shadow the page. Check `CATEGORY_ORDER` in lib/signage/data.js before
+  // adding to any list below.
   const toHub = [
-    "yard-signs", "vehicle-graphics", "car-magnets",
-    "window-graphics", "storefront-signs", "metal-signs", "coroplast-signs",
-    "a-frame-signs", "business-cards", "flyers", "posters", "menus",
-    "table-covers", "vehicle-lettering", "partial-vehicle-wraps",
-    "perforated-window-graphics", "frosted-privacy-film", "acrylic-signs",
-    "brochures", "postcards", "channel-letters", "monument-signs", "pylon-signs",
-    "ada-signs", "lobby-signs", "dimensional-letters",
+    "yard-signs", "car-magnets",
+    "storefront-signs", "metal-signs", "coroplast-signs",
+    "a-frame-signs", "business-cards", "flyers", "menus",
+    "table-covers", "acrylic-signs",
+    "brochures", "postcards", "monument-signs", "pylon-signs",
+    "ada-signs", "lobby-signs",
   ];
   return [
     ...toBanners.map((slug) => [slug, "/signage/banners"]),
     ...toStands.map((slug) => [slug, "/signage/banner-stands"]),
+    ...toDecals.map((slug) => [slug, "/signage/vinyl-decals-and-window-graphics"]),
+    ...toLetters.map((slug) => [slug, "/signage/dimensional-letters"]),
+    ...toCanvas.map((slug) => [slug, "/signage/canvas-and-poster-prints"]),
     ...toHub.map((slug) => [slug, "/signage"]),
   ].map(([slug, destination]) => ({
     source: `/signage/${slug}`,
