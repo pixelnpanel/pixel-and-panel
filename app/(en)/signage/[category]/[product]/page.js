@@ -4,6 +4,7 @@ import ViewContentTracker from '@/components/analytics/ViewContentTracker'
 import { getCategories, getProduct } from '@/lib/signage/data'
 import { titleWithinLimit, withDefaultSocialImage } from '@/lib/seo'
 import { esPathForEnCatalog, languageAlternates } from '@/lib/signage/es-en-pairs'
+import { getRelatedProducts } from '@/lib/signage/related'
 
 export const revalidate = 900
 
@@ -78,6 +79,12 @@ export default async function SignageProductRoute({ params }) {
     if (!found) notFound()
 
     const { product: p, category: c } = found
+    // Same cached catalog read that getProduct just used, so this is free.
+    const related = getRelatedProducts({
+        product: p,
+        category: c,
+        allCategories: await getCategories(),
+    })
     const content = p.content || null
     const url = `${SITE}/signage/${c.slug}/${p.slug}`
 
@@ -145,7 +152,7 @@ export default async function SignageProductRoute({ params }) {
                 contentId={p.slug}
                 value={typeof p.lowestPrice === 'number' ? p.lowestPrice : undefined}
             />
-            <SignageProductDetail product={p} category={c} />
+            <SignageProductDetail product={p} category={c} related={related} />
         </>
     )
 }

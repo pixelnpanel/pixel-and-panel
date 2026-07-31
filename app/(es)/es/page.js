@@ -20,9 +20,9 @@ const spanishHomepageFaq = [
       "Pixel & Panel ayuda a negocios locales a ser encontrados en internet, verse profesionales en la calle y convertir la atención en llamadas, solicitudes de cotización y clientes con sitios web, SEO local, Perfil de Google, letreros, impresión, QR y formularios.",
   },
   {
-    question: "¿Trabajan fuera de Beaumont, Nederland y Port Arthur?",
+    question: "¿Qué áreas atienden?",
     answer:
-      "Sí. Pixel & Panel trabaja con negocios en el sureste de Texas y ahora también en el área de Houston. Beaumont, Nederland, Port Arthur y Houston son las áreas principales de servicio, pero negocios cercanos también pueden solicitar cotización.",
+      "Pixel & Panel atiende el área metropolitana de Houston y el sureste de Texas. Houston, Beaumont, Port Arthur y Nederland son las áreas principales de servicio, junto con suburbios de Houston como Katy, Cypress, Sugar Land, The Woodlands, Pearland y Spring. Los letreros e impresos se envían a todo el país, y negocios cercanos fuera de estas áreas también pueden solicitar cotización.",
   },
   {
     question: "¿Pueden ayudar con sitios web y letreros al mismo tiempo?",
@@ -42,15 +42,18 @@ const spanishHomepageFaq = [
 ];
 
 const spanishHomeHeroCopy = {
-  eyebrow: "Taller de letreros e impresión · Sureste de Texas",
+  // Igual que en la versión en inglés: el hero abre con la región, no con una
+  // lista de tres ciudades que le decía a un visitante de Houston que se había
+  // equivocado de sitio. El H1 y el title no se tocan.
+  eyebrow: "Taller de letreros e impresión · Houston y el Sureste de Texas",
   mobileTitleStart: "Letreros, banners e impresión",
   mobileTitleHighlight: "que hacen que te noten.",
   desktopTitleStart: "Letreros, banners e impresión",
   desktopTitleHighlight: "que hacen que te noten.",
   mobileIntro:
-    "Tu taller de letreros en el sureste de Texas — letreros, banners, rotulación vehicular e impresión. ¿También quieres crecer en internet? También creamos tu sitio web y presencia en Google.",
+    "Tu taller de letreros para Houston y el sureste de Texas — letreros, banners, rotulación vehicular e impresión. ¿También quieres crecer en internet? También creamos tu sitio web y presencia en Google.",
   desktopIntro:
-    "Pixel & Panel es el taller de letreros para Beaumont, Nederland y Port Arthur — letreros, banners, rotulación vehicular e impresión que hacen que los negocios locales se noten. Y cuando quieras crecer en internet, también creamos el sitio web y la presencia en Google.",
+    "Pixel & Panel es el taller de letreros para Houston y el sureste de Texas — letreros, banners, rotulación vehicular e impresión que hacen que los negocios locales se noten. Y cuando quieras crecer en internet, también creamos el sitio web y la presencia en Google.",
   startHeading: "¿Qué necesitas?",
   startOptionsLabel: "Elige lo que necesita tu negocio",
   quoteHref: "/es/solicitar-cotizacion",

@@ -11,9 +11,9 @@ const homepageFaq = [
       "Pixel & Panel helps local businesses get found online, get noticed in the real world, and turn attention into quote requests, calls, and customers through websites, local SEO, Google Business Profile support, signs, print materials, QR campaigns, and lead capture forms.",
   },
   {
-    question: "Do you work outside Beaumont, Nederland, and Port Arthur?",
+    question: "What areas do you serve?",
     answer:
-      "Yes. Pixel & Panel works with businesses across Southeast Texas and now the Greater Houston area. Beaumont, Nederland, Port Arthur, and Houston are the primary service areas, but nearby businesses can still request a quote.",
+      "Pixel & Panel serves the Greater Houston area and Southeast Texas. Houston, Beaumont, Port Arthur, and Nederland are the primary service areas, along with Houston suburbs including Katy, Cypress, Sugar Land, The Woodlands, Pearland, and Spring. Signs and print ship nationwide, and nearby businesses outside these areas can still request a quote.",
   },
   {
     question: "Can you help with both websites and signs?",

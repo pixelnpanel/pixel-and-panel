@@ -33,7 +33,7 @@ function toTitleCase(str) {
     return String(str || '').replace(/\S+/g, (word) => word.charAt(0).toUpperCase() + word.slice(1))
 }
 
-export default function SignageProductDetail({ product, category }) {
+export default function SignageProductDetail({ product, category, related = [] }) {
     const content = product.content || null
     const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
 
@@ -277,6 +277,59 @@ export default function SignageProductDetail({ product, category }) {
                                 </article>
                             ))}
                         </div>
+                    </div>
+                </section>
+            )}
+
+            {/* RELATED PRODUCTS — siblings first, then cross-sell. This is the
+                page's only outbound path to another product; without it every
+                product page was a dead end for a visitor and a dead end for
+                internal link equity. See lib/signage/related.js. */}
+            {related.length > 0 && (
+                <section className="bg-white px-6 py-12 md:py-16">
+                    <div className="mx-auto max-w-7xl">
+                        <h2 className="font-heading text-2xl font-extrabold text-[#1C1917] md:text-3xl">
+                            You might also need
+                        </h2>
+                        <ul className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+                            {related.map((item) => (
+                                <li key={item.href}>
+                                    <Link
+                                        href={item.href}
+                                        className="group flex h-full flex-col overflow-hidden rounded-2xl border border-brand-line bg-[#FAF8F4] shadow-card transition hover:border-brand-edge"
+                                    >
+                                        <div className="relative aspect-square w-full bg-white p-2">
+                                            {item.image ? (
+                                                <Image
+                                                    src={item.image}
+                                                    alt={item.alt || item.name}
+                                                    fill
+                                                    sizes="(max-width: 768px) 45vw, 16vw"
+                                                    className="object-contain object-center"
+                                                />
+                                            ) : (
+                                                <div className="flex h-full items-center justify-center text-[#0369A1]">
+                                                    <Box size={28} aria-hidden="true" />
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="flex flex-1 flex-col gap-1 p-3">
+                                            <p className="font-heading text-sm font-bold leading-snug text-[#1C1917] transition group-hover:text-[#0369A1]">
+                                                {item.name}
+                                            </p>
+                                            {item.categorySlug !== category.slug && (
+                                                <p className="text-xs text-brand-muted">{item.categoryName}</p>
+                                            )}
+                                            {item.isLive && item.lowestPrice != null && (
+                                                <p className="mt-auto pt-1 font-heading text-sm font-extrabold text-[#0369A1]">
+                                                    From {formatPrice(item.lowestPrice)}
+                                                </p>
+                                            )}
+                                        </div>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </section>
             )}

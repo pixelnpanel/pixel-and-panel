@@ -47,7 +47,8 @@ export default function CityServiceLanding({ city, service }) {
   const showVisibilityCta = service.showVisibilityCta !== false
 
   const quoteHref = `/quote-request?product=${encodeURIComponent(service.quoteProduct)}&category=${encodeURIComponent(service.quoteCategory)}`
-  const cityHref = `/service-area/${city.slug}`
+  // Houston overrides this: its hub lives at /houston (see cityServiceCities).
+  const cityHref = city.hubHref || `/service-area/${city.slug}`
   const pageUrl = `https://www.pixelnpanel.com/service-area/${city.slug}/${service.slug}`
 
   const faqSchema = {
@@ -108,7 +109,7 @@ export default function CityServiceLanding({ city, service }) {
         items={[
           { name: "Home", url: "https://www.pixelnpanel.com" },
           { name: "Service Area", url: "https://www.pixelnpanel.com/service-area" },
-          { name: `${city.name}, TX`, url: `https://www.pixelnpanel.com/service-area/${city.slug}` },
+          { name: `${city.name}, TX`, url: `https://www.pixelnpanel.com${cityHref}` },
           { name: service.name, url: pageUrl },
         ]}
       />

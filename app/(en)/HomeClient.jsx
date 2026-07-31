@@ -34,16 +34,23 @@ export const defaultHomeStartOptions = [
   },
 ];
 
+// The hero leads with the region, not a city list. It used to name only
+// Beaumont, Nederland and Port Arthur, which told a Houston visitor — the
+// largest market being covered — that they were on the wrong site in the first
+// sentence they read. The individual cities are not lost: the city-hub section
+// further down names and links all four, which is a stronger signal for a
+// city-qualified query than a mention in a paragraph. The H1 and the page
+// title are deliberately untouched.
 export const defaultHomeHeroCopy = {
-  eyebrow: "Sign & Print Shop · Southeast Texas",
+  eyebrow: "Sign & Print Shop · Houston & Southeast Texas",
   mobileTitleStart: "Custom Signs, Banners & Print",
   mobileTitleHighlight: "That Get Your Business Noticed.",
   desktopTitleStart: "Custom Signs, Banners & Print",
   desktopTitleHighlight: "That Get Your Business Noticed.",
   mobileIntro:
-    "Your one-stop sign shop in Southeast Texas — custom signs, banners, vehicle graphics, and print. Need to grow online too? We also build websites and Google visibility to match.",
+    "Your one-stop sign shop for Houston and Southeast Texas — custom signs, banners, vehicle graphics, and print. Need to grow online too? We also build websites and Google visibility to match.",
   desktopIntro:
-    "Pixel & Panel is the one-stop sign shop for Beaumont, Nederland, and Port Arthur — custom signs, banners, vehicle graphics, and print that make local businesses impossible to miss. And when you're ready to grow online, we also build the website and Google presence to match.",
+    "Pixel & Panel is the one-stop sign shop for Houston and Southeast Texas — custom signs, banners, vehicle graphics, and print that make local businesses impossible to miss. And when you're ready to grow online, we also build the website and Google presence to match.",
   startHeading: "What do you need?",
   startOptionsLabel: "Choose what your business needs",
   quoteHref: "/quote-request",

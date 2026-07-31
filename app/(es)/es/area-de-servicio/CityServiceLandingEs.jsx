@@ -45,7 +45,8 @@ export default function CityServiceLandingEs({ city, service }) {
   const crossSell = service.crossSell || null;
 
   const quoteHref = `/es/solicitar-cotizacion?product=${encodeURIComponent(service.quoteProduct)}&category=${encodeURIComponent(service.quoteCategory)}`;
-  const cityHref = `/es/area-de-servicio/${city.slug}`;
+  // Houston lo sobrescribe: su hub está en /es/houston.
+  const cityHref = city.hubHref || `/es/area-de-servicio/${city.slug}`;
   const pageUrl = `https://www.pixelnpanel.com/es/area-de-servicio/${city.slug}/${service.slug}`;
 
   const hubHref = service.type === "signage" ? "/es/letreros" : "/es/servicios-digitales";
@@ -77,7 +78,7 @@ export default function CityServiceLandingEs({ city, service }) {
         items={[
           { name: "Inicio", url: "https://www.pixelnpanel.com/es" },
           { name: "Área de Servicio", url: "https://www.pixelnpanel.com/es/area-de-servicio" },
-          { name: `${city.name}, TX`, url: `https://www.pixelnpanel.com/es/area-de-servicio/${city.slug}` },
+          { name: `${city.name}, TX`, url: `https://www.pixelnpanel.com${cityHref}` },
           { name: service.name, url: pageUrl },
         ]}
       />
