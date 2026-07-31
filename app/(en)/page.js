@@ -39,7 +39,13 @@ export const metadata = {
   },
   description: DEFAULT_SITE_DESCRIPTION,
   alternates: {
-    canonical: new URL("https://www.pixelnpanel.com/"),
+    // Must stay a STRING. Passing `new URL("https://www.pixelnpanel.com/")`
+    // here rendered <link rel="canonical" href="https://www.pixelnpanel.com/index">
+    // — Next resolves a URL object whose pathname is "/" to "/index", so the
+    // homepage pointed every ranking signal at a phantom URL that is in no
+    // sitemap and linked from nowhere. The string form resolves correctly, the
+    // same way the hreflang entries just below always have.
+    canonical: "https://www.pixelnpanel.com/",
     languages: {
       "en-US": "https://www.pixelnpanel.com/",
       "x-default": "https://www.pixelnpanel.com/",
