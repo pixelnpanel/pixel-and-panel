@@ -107,35 +107,65 @@ if (process.env.VERCEL === "1" && process.env.VERCEL_PREVIEW_COMMENTS_ENABLED ==
 // to Vercel's CDN for the debug script, so keep the prod policy tight.
 const vercelInsights = process.env.NODE_ENV === "development" ? "https://va.vercel-scripts.com" : "";
 
-const scriptSrc = [
-  "'self'",
-  "'unsafe-inline'",
-  process.env.NODE_ENV === "development" ? "'unsafe-eval'" : "",
-  "https://www.googletagmanager.com",
-  "https://www.google-analytics.com",
-  vercelInsights,
-].filter(Boolean).join(" ");
+// ── Content Security Policy ──────────────────────────────────────────────────
+//
+// This was sent as Content-Security-Policy-Report-Only with no report-uri and
+// no report-to, so nothing was ever blocked and nothing was ever reported — a
+// header on every response buying nothing. It had also fallen behind the tags
+// actually running: Meta and Pinterest were both absent, and the Pinterest
+// iframe had no frame-src to fall back on at all. It is now accurate and
+// enforced.
+//
+// The origin list below is not guesswork. It is every origin the live site
+// requests, read off the browser's resource timings on the homepage and the
+// quote page after letting the tag manager settle.
+//
+// ⚠ READ THIS BEFORE ADDING A TAG IN GOOGLE TAG MANAGER.
+// The policy is enforced, so a tag whose origin is not listed here will be
+// silently blocked — the tag simply will not fire. Adding a new vendor in GTM
+// (Google Ads, TikTok, LinkedIn, a chat widget…) means adding its origins to
+// the matching directives here and deploying. Violations are visible in the
+// browser console as "Refused to load …", which is where to look first if a
+// newly added tag reports no data.
+//
+// 'unsafe-inline' in script-src is unavoidable while GTM and Next's own
+// bootstrap inline their scripts, and it does weaken the anti-XSS value. The
+// rest still earns its place: an injected <script src> from an unlisted host
+// is blocked, base-uri stops a base tag hijacking every relative URL, and
+// form-action stops an injected form posting to somewhere else.
+const GOOGLE = ["https://www.googletagmanager.com", "https://www.google-analytics.com"];
+const GOOGLE_BEACONS = ["https://analytics.google.com", "https://stats.g.doubleclick.net"];
+const META = ["https://connect.facebook.net", "https://www.facebook.com"];
+const PINTEREST = ["https://s.pinimg.com", "https://ct.pinterest.com"];
 
-const connectSrc = [
-  "'self'",
-  "https://www.google-analytics.com",
-  "https://analytics.google.com",
-  "https://*.supabase.co",
-  vercelInsights,
-].filter(Boolean).join(" ");
+const directive = (...parts) => parts.flat().filter(Boolean).join(" ");
 
-const contentSecurityPolicyReportOnly = [
-  "default-src 'self'",
-  `script-src ${scriptSrc}`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
-  "font-src 'self' data:",
-  `connect-src ${connectSrc}`,
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "object-src 'none'",
-  "upgrade-insecure-requests",
+const contentSecurityPolicy = [
+  directive("default-src 'self'"),
+  directive(
+    "script-src 'self' 'unsafe-inline'",
+    process.env.NODE_ENV === "development" ? "'unsafe-eval'" : "",
+    GOOGLE, META, PINTEREST, vercelInsights,
+  ),
+  directive("style-src 'self' 'unsafe-inline'"),
+  // Tag vendors deliver tracking pixels as images, including Meta's 1x1
+  // <noscript> pixel on every page.
+  directive("img-src 'self' data: blob:", GOOGLE, GOOGLE_BEACONS, META, PINTEREST),
+  directive("font-src 'self' data:"),
+  directive(
+    "connect-src 'self'",
+    GOOGLE, GOOGLE_BEACONS, PINTEREST,
+    "https://*.supabase.co",
+    vercelInsights,
+  ),
+  // Pinterest's conversion tag mounts an iframe. Without this it falls through
+  // to default-src 'self' and is blocked.
+  directive("frame-src", PINTEREST, META),
+  directive("frame-ancestors 'none'"),
+  directive("base-uri 'self'"),
+  directive("form-action 'self'"),
+  directive("object-src 'none'"),
+  directive("upgrade-insecure-requests"),
 ].join("; ");
 
 /** @type {import('next').NextConfig} */
@@ -194,7 +224,7 @@ const nextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicyReportOnly },
+          { key: "Content-Security-Policy", value: contentSecurityPolicy },
         ],
       },
       {
