@@ -77,6 +77,7 @@ export async function generateMetadata({ params }) {
       canonical: `https://www.pixelnpanel.com/es/servicios-digitales/${service.slug}`,
       languages: {
         "en-US": `https://www.pixelnpanel.com/digital/${service.enSlug}`,
+        "x-default": `https://www.pixelnpanel.com/digital/${service.enSlug}`,
         "es-US": `https://www.pixelnpanel.com/es/servicios-digitales/${service.slug}`,
       },
     },

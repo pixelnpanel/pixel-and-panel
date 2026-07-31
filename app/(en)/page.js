@@ -42,6 +42,7 @@ export const metadata = {
     canonical: new URL("https://www.pixelnpanel.com/"),
     languages: {
       "en-US": "https://www.pixelnpanel.com/",
+      "x-default": "https://www.pixelnpanel.com/",
       "es-US": "https://www.pixelnpanel.com/es",
     },
   },

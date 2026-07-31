@@ -12,6 +12,7 @@ export const metadata = withDefaultSocialImage({
     canonical: PATH,
     languages: {
       "en-US": `https://www.pixelnpanel.com${PATH}`,
+      "x-default": `https://www.pixelnpanel.com${PATH}`,
       "es-US": `https://www.pixelnpanel.com${service.esPath}`,
     },
   },

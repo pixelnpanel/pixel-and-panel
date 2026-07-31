@@ -11,6 +11,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "https://www.pixelnpanel.com/es/servicios-digitales",
     languages: {
       "en-US": "https://www.pixelnpanel.com/digital",
+      "x-default": "https://www.pixelnpanel.com/digital",
       "es-US": "https://www.pixelnpanel.com/es/servicios-digitales",
     },
   },

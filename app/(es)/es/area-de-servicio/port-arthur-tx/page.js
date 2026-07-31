@@ -14,6 +14,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "https://www.pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
     languages: {
       "en-US": "https://www.pixelnpanel.com/service-area/port-arthur-tx",
+      "x-default": "https://www.pixelnpanel.com/service-area/port-arthur-tx",
       "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/port-arthur-tx",
     },
   },

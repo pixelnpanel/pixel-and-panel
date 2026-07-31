@@ -9,6 +9,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "/contact",
     languages: {
       "en-US": "/contact",
+      "x-default": "/contact",
       "es-US": "/es/contacto",
     },
   },

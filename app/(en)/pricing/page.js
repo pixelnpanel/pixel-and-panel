@@ -11,6 +11,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "https://www.pixelnpanel.com/pricing",
     languages: {
       "en-US": "https://www.pixelnpanel.com/pricing",
+      "x-default": "https://www.pixelnpanel.com/pricing",
       "es-US": "https://www.pixelnpanel.com/es/precios",
     },
   },

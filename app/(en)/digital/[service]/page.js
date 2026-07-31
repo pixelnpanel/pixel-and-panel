@@ -16,7 +16,7 @@ import {
 import { digitalServices, getDigitalService, getRelatedDigitalServices } from "@/lib/digital-services";
 import { digitalSlugMap } from "@/lib/digital-services-es";
 import { cityServiceServices, getAvailableCitiesForService } from "@/lib/city-service-pages";
-import { withDefaultSocialImage } from "@/lib/seo";
+import { titleWithinLimit, withDefaultSocialImage } from "@/lib/seo";
 
 const serviceDetails = {
   "web-development": {
@@ -77,12 +77,13 @@ export async function generateMetadata({ params }) {
   }
 
   return withDefaultSocialImage({
-    title: service.title,
+    title: titleWithinLimit(service.title),
     description: service.description,
     alternates: {
       canonical: `/digital/${service.slug}`,
       languages: {
         "en-US": `/digital/${service.slug}`,
+        "x-default": `/digital/${service.slug}`,
         "es-US": `/es/servicios-digitales/${digitalSlugMap[service.slug] || ""}`,
       },
     },

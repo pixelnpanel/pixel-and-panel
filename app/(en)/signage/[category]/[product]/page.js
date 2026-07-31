@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation'
 import SignageProductDetail from '@/components/signage/SignageProductDetail'
 import ViewContentTracker from '@/components/analytics/ViewContentTracker'
 import { getCategories, getProduct } from '@/lib/signage/data'
-import { withDefaultSocialImage } from '@/lib/seo'
+import { titleWithinLimit, withDefaultSocialImage } from '@/lib/seo'
+import { esPathForEnCatalog, languageAlternates } from '@/lib/signage/es-en-pairs'
 
 export const revalidate = 900
 
@@ -48,9 +49,17 @@ export async function generateMetadata({ params }) {
     const url = `${SITE}/signage/${c.slug}/${p.slug}`
 
     return withDefaultSocialImage({
-        title,
+        title: titleWithinLimit(title),
         description,
-        alternates: { canonical: `/signage/${c.slug}/${p.slug}` },
+        alternates: {
+            canonical: `/signage/${c.slug}/${p.slug}`,
+            // See the category route — hreflang only counts when reciprocated,
+            // and only the products with a real Spanish twin get a pair.
+            languages: languageAlternates({
+                enPath: `/signage/${c.slug}/${p.slug}`,
+                esPath: esPathForEnCatalog(`/signage/${c.slug}/${p.slug}`),
+            }),
+        },
         openGraph: {
             title,
             description,

@@ -102,6 +102,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "https://www.pixelnpanel.com/es/solicitar-cotizacion",
     languages: {
       "en-US": "https://www.pixelnpanel.com/quote-request",
+      "x-default": "https://www.pixelnpanel.com/quote-request",
       "es-US": "https://www.pixelnpanel.com/es/solicitar-cotizacion",
     },
   },

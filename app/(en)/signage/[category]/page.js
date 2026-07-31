@@ -3,7 +3,8 @@ import SignageCategoryClient from '@/components/signage/SignageCategoryClient'
 import { getCategories, getCategory } from '@/lib/signage/data'
 import { getCategoryGuide } from '@/lib/signage/category-guides'
 import { houstonCatalogNotes } from '@/content/houston'
-import { withDefaultSocialImage } from '@/lib/seo'
+import { titleWithinLimit, withDefaultSocialImage } from '@/lib/seo'
+import { esPathForEnCatalog, languageAlternates } from '@/lib/signage/es-en-pairs'
 
 export const revalidate = 900
 
@@ -31,14 +32,27 @@ export async function generateMetadata({ params }) {
 
     // The (en) layout applies a `%s | Pixel & Panel` title template — don't
     // repeat the brand here, and keep the title inside Google's ~60-char limit.
-    const title = `Custom ${cat.name} in Beaumont TX`
+    //
+    // Built from cat.h1 rather than cat.name so a category that had to rename
+    // itself away from a same-named product (see categoryMetaFor) stays clear
+    // of that product in the title too, not just in the heading.
+    const title = `${cat.h1} in Beaumont TX`
     const description = cat.seoDescription
     const ogImage = cat.image || cat.products.find((p) => p.image)?.image || null
 
     return withDefaultSocialImage({
-        title,
+        title: titleWithinLimit(title),
         description,
-        alternates: { canonical: `/signage/${cat.slug}` },
+        alternates: {
+            canonical: `/signage/${cat.slug}`,
+            // Reciprocity is mandatory: an hreflang pair only counts when both
+            // sides declare it, and the Spanish twins were declaring this one
+            // alone. Undefined for categories with no Spanish counterpart.
+            languages: languageAlternates({
+                enPath: `/signage/${cat.slug}`,
+                esPath: esPathForEnCatalog(`/signage/${cat.slug}`),
+            }),
+        },
         openGraph: {
             title: `${title} | Pixel & Panel`,
             description,

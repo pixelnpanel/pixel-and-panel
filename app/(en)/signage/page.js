@@ -17,6 +17,7 @@ export const metadata = withDefaultSocialImage({
         canonical: '/signage',
         languages: {
             'en-US': '/signage',
+            "x-default": '/signage',
             'es-US': '/es/letreros',
         },
     },

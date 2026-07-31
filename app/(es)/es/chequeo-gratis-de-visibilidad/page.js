@@ -114,6 +114,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "https://www.pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
     languages: {
       "en-US": "https://www.pixelnpanel.com/free-visibility-check",
+      "x-default": "https://www.pixelnpanel.com/free-visibility-check",
       "es-US": "https://www.pixelnpanel.com/es/chequeo-gratis-de-visibilidad",
     },
   },

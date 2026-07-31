@@ -40,6 +40,7 @@ export async function generateMetadata({ params }) {
         ? {
             languages: {
               "en-US": pageUrl,
+              "x-default": pageUrl,
               "es-US": esUrl,
             },
           }

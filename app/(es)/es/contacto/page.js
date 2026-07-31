@@ -48,6 +48,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "https://www.pixelnpanel.com/es/contacto",
     languages: {
       "en-US": "https://www.pixelnpanel.com/contact",
+      "x-default": "https://www.pixelnpanel.com/contact",
       "es-US": "https://www.pixelnpanel.com/es/contacto",
     },
   },

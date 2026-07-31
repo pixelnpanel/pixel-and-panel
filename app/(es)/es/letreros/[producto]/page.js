@@ -19,12 +19,17 @@ import {
 } from "lucide-react";
 import {
   getRelatedSignageProductsEs,
-  getSignageProductEs,
+  getSignageProductEs as getRawSignageProductEs,
   signageProductsEs,
 } from "@/lib/signage-products-es";
 import { cityServiceCities, cityServiceServices } from "@/lib/city-service-pages";
 import { getSpanishCityServicePath } from "@/lib/city-service-pages-es";
 import { withDefaultSocialImage } from "@/lib/seo";
+import { enPathForEsProduct, languageAlternates } from "@/lib/signage/es-en-pairs";
+import { withResolvedImageEs } from "@/lib/signage/es-images";
+
+// Hide image paths with no file behind them — see lib/signage/es-images.js.
+const getSignageProductEs = (slug) => withResolvedImageEs(getRawSignageProductEs(slug));
 
 const enlacesDigitales = [
   {
@@ -160,10 +165,14 @@ export async function generateMetadata({ params }) {
     description: product.description,
     alternates: {
       canonical: `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
-      languages: {
-        "en-US": `https://www.pixelnpanel.com/signage/${product.enSlug}`,
-        "es-US": `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
-      },
+      // `enSlug` points into the retired flat catalog, so building the alternate
+      // from it aimed 30 of these pages at a 301 and got the whole declaration
+      // thrown away. The pair table only carries live 1:1 counterparts and
+      // returns undefined for the rest — see lib/signage/es-en-pairs.js.
+      languages: languageAlternates({
+        enPath: enPathForEsProduct(product.slug),
+        esPath: `/es/letreros/${product.slug}`,
+      }),
     },
     openGraph: {
       title: product.title,
@@ -232,7 +241,9 @@ export default async function SpanishSignageProductPage({ params }) {
     name: product.name,
     description: product.description,
     url: `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
-    image: `https://www.pixelnpanel.com${product.image}`,
+    // Omit the key entirely when there is no photo — an image URL pointing at a
+    // file that 404s is an invalid property, not an empty one.
+    ...(product.image ? { image: `https://www.pixelnpanel.com${product.image}` } : {}),
     serviceType: product.category,
     category: product.category,
     areaServed: [
@@ -311,18 +322,28 @@ export default async function SpanishSignageProductPage({ params }) {
                 <div className="absolute -inset-4 rounded-2xl bg-[#0EA5E9]/18 blur-2xl" />
                 <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-3 shadow-2xl">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-900">
-                    <Image
-                      src={product.image}
-                      alt={product.imageAlt}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 460px"
-                      className="object-cover"
-                      // Single above-the-fold hero = the page LCP. Next 16
-                      // deprecated `priority`; eager + high is the recommended
-                      // replacement for an unambiguous LCP image.
-                      loading="eager"
-                      fetchPriority="high"
-                    />
+                    {/* Most of the Spanish catalog's photos are not on disk yet
+                        and were rendering as broken images. A quiet placeholder
+                        beats a broken one; the photo returns on its own once
+                        the file lands (see lib/signage/es-images.js). */}
+                    {product.image ? (
+                      <Image
+                        src={product.image}
+                        alt={product.imageAlt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 460px"
+                        className="object-cover"
+                        // Single above-the-fold hero = the page LCP. Next 16
+                        // deprecated `priority`; eager + high is the recommended
+                        // replacement for an unambiguous LCP image.
+                        loading="eager"
+                        fetchPriority="high"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-white/40">
+                        <ImageIcon size={44} aria-hidden="true" />
+                      </div>
+                    )}
                   </div>
                   <div className="mt-3 rounded-lg bg-white/10 p-4">
                     <p className="font-heading text-xs font-bold uppercase tracking-[0.14em] text-[#F59E0B]">

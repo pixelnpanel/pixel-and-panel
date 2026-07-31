@@ -12,6 +12,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "/digital",
     languages: {
       "en-US": "/digital",
+      "x-default": "/digital",
       "es-US": "/es/servicios-digitales",
     },
   },

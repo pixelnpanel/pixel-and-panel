@@ -11,6 +11,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "/houston",
     languages: {
       "en-US": PAGE_URL,
+      "x-default": PAGE_URL,
       "es-US": "https://www.pixelnpanel.com/es/houston",
     },
   },

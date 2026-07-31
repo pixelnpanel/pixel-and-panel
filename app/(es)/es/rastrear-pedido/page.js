@@ -81,6 +81,7 @@ export const metadata = {
     canonical: "https://www.pixelnpanel.com/es/rastrear-pedido",
     languages: {
       "en-US": "https://www.pixelnpanel.com/track-order",
+      "x-default": "https://www.pixelnpanel.com/track-order",
       "es-US": "https://www.pixelnpanel.com/es/rastrear-pedido",
     },
   },

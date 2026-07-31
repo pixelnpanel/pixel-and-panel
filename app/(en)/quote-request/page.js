@@ -11,6 +11,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "/quote-request",
     languages: {
       "en-US": "/quote-request",
+      "x-default": "/quote-request",
       "es-US": "/es/solicitar-cotizacion",
     },
   },

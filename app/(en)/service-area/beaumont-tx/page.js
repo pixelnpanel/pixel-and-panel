@@ -48,6 +48,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "/service-area/beaumont-tx",
     languages: {
       "en-US": "https://www.pixelnpanel.com/service-area/beaumont-tx",
+      "x-default": "https://www.pixelnpanel.com/service-area/beaumont-tx",
       "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/beaumont-tx",
     },
   },

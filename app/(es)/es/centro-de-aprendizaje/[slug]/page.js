@@ -34,6 +34,7 @@ export async function generateMetadata({ params }) {
       canonical: pageUrl,
       languages: {
         "en-US": enUrl,
+        "x-default": enUrl,
         "es-US": pageUrl,
       },
     },

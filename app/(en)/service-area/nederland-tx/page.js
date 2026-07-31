@@ -50,6 +50,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "/service-area/nederland-tx",
     languages: {
       "en-US": "https://www.pixelnpanel.com/service-area/nederland-tx",
+      "x-default": "https://www.pixelnpanel.com/service-area/nederland-tx",
       "es-US": "https://www.pixelnpanel.com/es/area-de-servicio/nederland-tx",
     },
   },

@@ -147,6 +147,11 @@ const nextConfig = {
 
   images: {
     formats: ["image/avif", "image/webp"],
+    // Optimized variants are keyed by source path + width + quality, and the
+    // source files never change in place (a new photo gets a new filename), so
+    // there is nothing to invalidate. Without this the default TTL sends
+    // browsers back to revalidate constantly.
+    minimumCacheTTL: 31536000,
   },
 
   async redirects() {
@@ -190,6 +195,20 @@ const nextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicyReportOnly },
+        ],
+      },
+      {
+        // Everything Next.js fingerprints (/_next/static) already ships as
+        // immutable, but files served straight out of /public inherit a
+        // revalidate-every-time default — so every repeat visit re-checked
+        // every sign photo, and the /signage hub alone renders 26 of them.
+        //
+        // These are safe to pin: a replacement image is a new filename (see
+        // the image-prompts docs), never an edit in place. If one ever is
+        // edited in place, rename it rather than shortening this.
+        source: "/:dir(images|logo|og|reviews)/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
     ];

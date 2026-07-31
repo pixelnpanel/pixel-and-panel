@@ -17,6 +17,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "https://www.pixelnpanel.com/es/centro-de-aprendizaje",
     languages: {
       "en-US": "https://www.pixelnpanel.com/learning-center",
+      "x-default": "https://www.pixelnpanel.com/learning-center",
       "es-US": "https://www.pixelnpanel.com/es/centro-de-aprendizaje",
     },
   },

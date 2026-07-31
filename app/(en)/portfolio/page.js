@@ -11,6 +11,7 @@ export const metadata = withDefaultSocialImage({
     canonical: "https://www.pixelnpanel.com/portfolio",
     languages: {
       "en-US": "https://www.pixelnpanel.com/portfolio",
+      "x-default": "https://www.pixelnpanel.com/portfolio",
       "es-US": "https://www.pixelnpanel.com/es/portafolio",
     },
   },

@@ -235,6 +235,7 @@ export const metadata = {
     canonical: "https://www.pixelnpanel.com/es",
     languages: {
       "en-US": "https://www.pixelnpanel.com/",
+      "x-default": "https://www.pixelnpanel.com/",
       "es-US": "https://www.pixelnpanel.com/es",
     },
   },
