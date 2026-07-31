@@ -4,6 +4,7 @@ import {
   getCityServiceDataEs,
   cityServiceStaticParamsEs,
 } from "@/lib/city-service-pages-es";
+import { getEnglishCityServicePath } from "@/lib/city-service-pages";
 import { buildCityServiceMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -17,7 +18,9 @@ export async function generateMetadata({ params }) {
 
   const { city, service } = data;
   const pagePath = `/es/area-de-servicio/${city.slug}/${service.slug}`;
-  const enPath = `/service-area/${city.enSlug}/${service.enSlug}`;
+  // null when the English side has no page for this pair — see
+  // getEnglishCityServicePath. Never point hreflang at a URL that isn't built.
+  const enPath = getEnglishCityServicePath(city.enSlug, service.enSlug);
 
   return buildCityServiceMetadata({
     city,

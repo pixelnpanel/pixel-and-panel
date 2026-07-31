@@ -16,9 +16,9 @@ const BASE = "https://www.pixelnpanel.com";
 // entirely — the opposite of what we want. When you meaningfully edit a
 // content area, update its date here (YYYY-MM-DD).
 const LASTMOD = {
-  houston: "2026-07-28",     // content/houston.js, content/houston-es.js
+  houston: "2026-07-31",     // content/houston.js, content/houston-es.js
   digital: "2026-07-28",     // lib/digital-services.js (+ /digital hub)
-  cityService: "2026-07-28", // lib/city-service-pages.js (/service-area/*)
+  cityService: "2026-07-31", // lib/city-service-pages.js (/service-area/*)
   core: "2026-07-28",        // homepage, hubs, contact/quote/visibility
   signage: "2026-07-30",     // lib/signage/data.js (catalog)
   portfolio: "2026-07-10",

@@ -6,8 +6,13 @@ import SignagePriceCalculator from '@/components/signage/SignagePriceCalculator'
 import { formatPrice } from '@/lib/signage/data'
 import { houstonCatalogNotes } from '@/content/houston'
 
-// City pages that already exist on the site (used in the trust block).
+// City pages that already exist on the site (used in the trust block). Houston
+// leads: it is the largest market being covered, and every one of these 120+
+// product pages used to name only the three Southeast Texas cities, which told
+// a Houston visitor they were on the wrong site. Houston points at its hub
+// rather than /service-area/houston-tx, which deliberately does not exist.
 const CITY_LINKS = [
+    { name: 'Houston', href: '/houston' },
     { name: 'Beaumont', href: '/service-area/beaumont-tx' },
     { name: 'Port Arthur', href: '/service-area/port-arthur-tx' },
     { name: 'Nederland', href: '/service-area/nederland-tx' },
@@ -297,10 +302,13 @@ export default function SignageProductDetail({ product, category }) {
                     <p className="section-label text-[#0369A1]">Why Pixel &amp; Panel</p>
                     <p className="mt-4 text-lg leading-relaxed text-brand-muted">
                         Local design help and fast turnaround — proudly serving{' '}
-                        <Link href={CITY_LINKS[0].href} className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">{CITY_LINKS[0].name}</Link>,{' '}
-                        <Link href={CITY_LINKS[1].href} className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">{CITY_LINKS[1].name}</Link>,{' '}
-                        <Link href={CITY_LINKS[2].href} className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">{CITY_LINKS[2].name}</Link>,
-                        {' '}and businesses nationwide. We handle the artwork and the print, so your banner shows up right the first time.
+                        {CITY_LINKS.map((city, i) => (
+                            <span key={city.href}>
+                                <Link href={city.href} className="font-semibold text-[#0369A1] underline-offset-2 hover:underline">{city.name}</Link>
+                                {i < CITY_LINKS.length - 1 ? ', ' : ','}
+                            </span>
+                        ))}
+                        {' '}and businesses nationwide. We handle the artwork and the print, so your {product.name.toLowerCase()} shows up right the first time.
                     </p>
                     <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 font-heading text-sm font-bold text-[#1C1917]">
                         {TRUST_POINTS.map((point, i) => (

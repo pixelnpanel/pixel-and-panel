@@ -916,20 +916,35 @@ export const houstonServices = {
 
 // Contextual cross-links rendered on existing catalog pages (body links only —
 // no URL/title/meta changes). Keyed by catalog slug.
+// Contextual Houston cross-links, keyed by EITHER a category slug (read by the
+// category page) or a product slug (read by the product page). The catalog is
+// written location-free on purpose, so this is the one place a Houston buyer
+// browsing a product gets handed the page written for their market.
+//
+// Only three of 121 products carried a link before, which left the Houston
+// pages with almost no internal support from the pages that get the traffic.
+// Every href below must be a page that exists — the four /service-area/
+// houston-tx/* targets are generated from lib/city-service-pages.js.
+const houstonNote = (label, href) => ({
+  text: "Ordering for the Houston area?",
+  label,
+  href,
+});
+
 export const houstonCatalogNotes = {
-  banners: {
-    text: "Ordering for the Houston area?",
-    label: "Custom banners in Houston, TX",
-    href: "/houston/banners",
-  },
-  "real-estate-signs": {
-    text: "Ordering for the Houston area?",
-    label: "Real estate signs in Houston, TX",
-    href: "/houston/real-estate-signs",
-  },
-  "coroplast-yard-signs": {
-    text: "Ordering for the Houston area?",
-    label: "Yard signs in Houston, TX",
-    href: "/houston/yard-signs",
-  },
+  // Categories
+  banners: houstonNote("Custom banners in Houston, TX", "/houston/banners"),
+  "real-estate-signs": houstonNote("Real estate signs in Houston, TX", "/houston/real-estate-signs"),
+  "rigid-and-metal-signs": houstonNote("Metal & rigid signs in Houston, TX", "/service-area/houston-tx/metal-signs"),
+  "vinyl-decals-and-window-graphics": houstonNote("Vehicle graphics in Houston, TX", "/service-area/houston-tx/vehicle-graphics"),
+  "dimensional-letters": houstonNote("Storefront signs in Houston, TX", "/service-area/houston-tx/storefront-signs"),
+
+  // Products
+  "coroplast-yard-signs": houstonNote("Yard signs in Houston, TX", "/houston/yard-signs"),
+  "13oz-vinyl-banner": houstonNote("Custom banners in Houston, TX", "/houston/banners"),
+  "yard-sign-and-h-stake": houstonNote("Real estate signs in Houston, TX", "/houston/real-estate-signs"),
+  "car-and-vehicle-magnets": houstonNote("Vehicle graphics in Houston, TX", "/service-area/houston-tx/vehicle-graphics"),
+  "vehicle-wrap-vinyl": houstonNote("Vehicle wraps in Houston, TX", "/service-area/houston-tx/vehicle-graphics"),
+  "aluminum-metal-signs": houstonNote("Metal signs in Houston, TX", "/service-area/houston-tx/metal-signs"),
+  "standard-channel-letters": houstonNote("Storefront signs in Houston, TX", "/service-area/houston-tx/storefront-signs"),
 };
