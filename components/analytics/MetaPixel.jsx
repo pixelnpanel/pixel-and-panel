@@ -3,7 +3,7 @@
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { FB_PIXEL_ID, pageview, event } from "@/lib/fpixel";
+import { FB_PIXEL_ID, pageview } from "@/lib/fpixel";
 
 export default function MetaPixel() {
   const pathname = usePathname();
@@ -15,24 +15,10 @@ export default function MetaPixel() {
     pageview();
   }, [pathname, searchParams]);
 
-  // Delegated Contact tracking: any WhatsApp or phone link, incl. ones built
-  // dynamically, without editing each call site.
-  useEffect(() => {
-    function onClick(e) {
-      const link = e.target.closest?.("a[href]");
-      if (!link) return;
-      const href = link.getAttribute("href") || "";
-      if (
-        href.includes("wa.me/14092252012") ||
-        href.startsWith("tel:+14092252012") ||
-        href.startsWith("tel:14092252012")
-      ) {
-        event("Contact");
-      }
-    }
-    document.addEventListener("click", onClick, true);
-    return () => document.removeEventListener("click", onClick, true);
-  }, []);
+  // Phone / WhatsApp clicks used to be tracked from here, Meta-only and keyed
+  // to a hardcoded number. They now run through ContactClickTracker, which
+  // reports the same clicks to GA4 as well and matches on the link scheme
+  // rather than the number.
 
   if (!FB_PIXEL_ID) return null;
 

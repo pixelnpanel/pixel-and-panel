@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import QuoteVisual from "./QuoteVisual";
 import { GOOGLE_REVIEWS } from "@/lib/reviews";
+import { trackLead } from "@/lib/analytics";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
 const ALLOWED_EXTENSION_SET = new Set(ALLOWED_EXTENSIONS.split(","));
@@ -280,16 +281,7 @@ export default function QuoteRequestClient({
         throw new Error(data.error || content.failed);
       }
       setSubmitted(true);
-      if (typeof window !== "undefined" && typeof window.gtag === "function") {
-        window.gtag("event", "quote_request_submitted", {
-          event_category: "Lead",
-          event_label: hiddenProductValue,
-          value: 1,
-        });
-      }
-      if (typeof window !== "undefined" && typeof window.fbq === "function") {
-        window.fbq("track", "Lead", { content_name: "Quote Request", currency: "USD" });
-      }
+      trackLead("quote", { label: hiddenProductValue, language: content.language });
     } catch (err) {
       setError(err.message || content.errorFallback);
     } finally {

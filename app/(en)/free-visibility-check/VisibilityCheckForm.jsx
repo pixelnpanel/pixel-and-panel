@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { trackLead } from "@/lib/analytics";
 
 const DEFAULT_HELP_OPTIONS = [
   { value: "Website", label: "Website" },
@@ -274,6 +275,10 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
           : defaultSuccessText,
       );
       setStatus("success");
+      trackLead("visibility", {
+        label: helpOptions.join(", "),
+        language: content.language,
+      });
     } catch (submitError) {
       setStatus("idle");
       setError(submitError.message || content.error);

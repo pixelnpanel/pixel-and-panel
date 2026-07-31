@@ -7,6 +7,7 @@ import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { fadeUp, slideRight, stagger } from '@/lib/animations'
 import SocialLinks from '@/components/ui/SocialLinks'
 import { SOCIAL_LINKS, GBP_REVIEW_URL, GBP_MAPS_URL } from '@/lib/constants'
+import { trackLead } from '@/lib/analytics'
 
 const defaultCopy = {
     language: 'English',
@@ -90,6 +91,7 @@ export default function ContactPage({ copy = defaultCopy }) {
             }
 
             setSubmitted(true)
+            trackLead('contact', { label: payload.subject, language: content.language })
             setForm({ name: '', email: '', phone: '', subject: '', message: '' })
             e.currentTarget.reset()
         } catch (submitError) {
