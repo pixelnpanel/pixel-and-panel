@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { inter, montserrat } from "../fonts";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import MetaPixel from "@/components/analytics/MetaPixel";
 import ContactClickTracker from "@/components/analytics/ContactClickTracker";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
@@ -58,7 +59,7 @@ export default function SpanishRootLayout({ children }) {
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-[#F59E0B] focus:px-4 focus:py-2 focus:font-bold focus:text-[#1C1917]">
           Saltar al contenido principal
         </a>
-        {/* GA4 loads from the GTM container only — see lib/analytics.js. */}
+        <GoogleAnalytics />
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>
