@@ -116,8 +116,20 @@ const FOOTER_COPY = {
   },
 }
 
+// The dimmest text this footer may use.
+//
+// The footer ground is #0C1E3C, and everything here is small — 0.7rem to
+// 0.875rem. Against that navy, slate-500 (#64748b) measures 3.48:1 and
+// slate-600 (#475569) measures 2.19:1; both were in use, and both fail the
+// 4.5:1 WCAG AA floor for text this size. slate-400 is 6.48:1.
+//
+// Do not reach further down the slate scale for a quieter tier. The hierarchy
+// here is already carried by size, weight, uppercasing and letter-spacing —
+// dimming the color past this point buys very little and costs legibility.
+const FOOTER_MUTED = '#94a3b8'
+
 const footerLinkStyle = {
-  color: '#94a3b8',
+  color: FOOTER_MUTED,
   fontSize: '0.875rem',
   textDecoration: 'none',
   fontFamily: 'var(--font-body)',
@@ -185,17 +197,17 @@ export default function Footer({ language = 'en' }) {
               {copy.connectHeading}
             </h4>
             <div>
-              <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '0.6rem' }}>
+              <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: FOOTER_MUTED, marginBottom: '0.6rem' }}>
                 {copy.hours}
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <p style={{ ...footerLinkStyle, fontSize: '0.8rem' }}>{copy.weekdayHours}</p>
-                <p style={{ ...footerLinkStyle, fontSize: '0.8rem', fontStyle: 'italic', color: '#64748b' }}>{copy.weekendHours}</p>
+                <p style={{ ...footerLinkStyle, fontSize: '0.8rem', fontStyle: 'italic', color: FOOTER_MUTED }}>{copy.weekendHours}</p>
               </div>
             </div>
 
             <div style={{ marginTop: '1.5rem' }}>
-              <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b', marginBottom: '0.75rem' }}>
+              <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: FOOTER_MUTED, marginBottom: '0.75rem' }}>
                 {copy.follow}
               </p>
               <SocialLinks links={SOCIAL_LINKS} theme="dark" size={44} iconSize={18} />
@@ -284,10 +296,10 @@ export default function Footer({ language = 'en' }) {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem 0', flexWrap: 'wrap', gap: '1rem' }}>
-          <p style={{ fontSize: '0.75rem', color: '#475569', fontFamily: 'var(--font-body)' }}>
+          <p style={{ fontSize: '0.75rem', color: FOOTER_MUTED, fontFamily: 'var(--font-body)' }}>
             © {year} {BRAND.legalName}. {copy.rights}
           </p>
-          <p style={{ fontSize: '0.75rem', color: '#475569', fontFamily: 'var(--font-body)' }}>
+          <p style={{ fontSize: '0.75rem', color: FOOTER_MUTED, fontFamily: 'var(--font-body)' }}>
             {copy.serving}
           </p>
         </div>

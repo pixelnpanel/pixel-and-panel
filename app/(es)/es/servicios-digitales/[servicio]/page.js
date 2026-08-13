@@ -175,7 +175,7 @@ export default async function SpanishDigitalServicePage({ params }) {
 
             <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-center">
               <div>
-                <p className="section-label" style={{ color: "#F59E0B" }}>Servicios digitales en el sureste de Texas</p>
+                <p className="section-label section-label-on-hero">Servicios digitales en el sureste de Texas</p>
                 <h1 className="max-w-4xl text-white">{service.h1}</h1>
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">{service.intro}</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

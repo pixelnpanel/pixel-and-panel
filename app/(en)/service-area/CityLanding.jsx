@@ -93,7 +93,7 @@ export default function CityLanding({ city }) {
         <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
         <div className="relative mx-auto grid max-w-7xl gap-10 pb-20 lg:grid-cols-[1fr_400px] lg:items-center">
           <div>
-            <p className="section-label" style={{ color: "#F59E0B" }}>
+            <p className="section-label section-label-on-hero">
               Southeast Texas Service Area
             </p>
             <h1 className="max-w-4xl text-white">{city.h1}</h1>

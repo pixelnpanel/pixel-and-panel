@@ -223,7 +223,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background-color: transparent;
+    /* A scrim, not transparency. This button carries a white 0.8rem label, so
+       whatever is behind it becomes the ground for that text — and on the
+       135deg hero gradient that ground runs all the way out to #0EA5E9. Fully
+       transparent, the label measured 3.26:1 there against the 4.5:1 small text
+       needs (worst case: /service-area/beaumont-tx at 375px). The scrim pins it
+       to 6.7:1 wherever the button lands.
+       Every ground this button sits on is dark — #0C1E3C, #1C1917, or the
+       gradient — so a navy scrim stays invisible where it isn't needed: over
+       #0C1E3C it composites to exactly #0C1E3C. It only shows itself over the
+       gradient's light corner, which is the point. */
+    background-color: rgba(12, 30, 60, 0.45);
     color: white;
     font-family: var(--font-heading);
     font-weight: 700;
@@ -240,7 +250,12 @@
   }
   .btn-ghost:hover {
     border-color: rgba(255, 255, 255, 0.8);
-    background-color: rgba(255, 255, 255, 0.1);
+    /* Deepens the scrim rather than washing it out. This was
+       rgba(255, 255, 255, 0.1), which on hover replaced the scrim above with a
+       lightening one and handed the contrast problem straight back — hover has
+       to move contrast up, never down. The brightened border carries the state
+       change; going darker here reads as pressed and measures 8.7:1. */
+    background-color: rgba(12, 30, 60, 0.6);
   }
 
   .btn-outline {
@@ -277,6 +292,21 @@
     letter-spacing: 0.12em;
     color: #0EA5E9;
     margin-bottom: 1rem;
+  }
+
+  /* A .section-label sitting on a hero's 135deg gradient.
+     Use this instead of the brand amber there. The gradient ramps out to
+     #0EA5E9, and amber at 0.7rem cannot clear the 4.5:1 small text floor
+     anywhere on its blue half — the Spanish city heroes measured 3.57:1, and
+     the English ones only reached 4.56:1 because the shorter label happens to
+     stay up in the dark end. That is not a passing design, it is a passing
+     string length: translate the same page and it fails.
+     White holds 5.9:1 or better across the whole ramp. On flat dark sections
+     (#0C1E3C, #1C1917) amber is 7.7:1 and stays — this is only for the
+     gradient. Must be declared after .section-label; both are single-class
+     selectors, so source order is what makes this win. */
+  .section-label-on-hero {
+    color: #ffffff;
   }
 
   .pnp-site-shell {

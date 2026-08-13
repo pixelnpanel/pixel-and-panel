@@ -98,7 +98,18 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
             </p>
 
             <div className="mt-7 max-w-[calc(100vw-2rem)] lg:hidden" aria-labelledby="mobile-home-start-heading">
-              <p id="mobile-home-start-heading" className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
+              {/* White, not the brand amber, and only because of where this sits.
+                  On a phone the hero is tall and narrow (375×1165), which drags
+                  this label down into the middle of the 135° gradient — measured
+                  ground here runs #0c4a6c to #036aa2. Amber against that is
+                  2.73:1 at worst, and 12px text needs 4.5:1. No amber passes on
+                  that blue at this size: amber-300 reaches only 4.06:1, and going
+                  pale enough to clear the floor stops reading as the brand color.
+                  White measures 5.85:1 and is already the hero's text color; the
+                  label still reads as a label from the uppercase, weight and
+                  tracking. The amber H1 accent above is fine and stays — it is
+                  large text, which needs 3:1, and it measures 3.74:1 here. */}
+              <p id="mobile-home-start-heading" className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-white">
                 {content.startHeading}
               </p>
               <div className="mt-3 grid gap-3">

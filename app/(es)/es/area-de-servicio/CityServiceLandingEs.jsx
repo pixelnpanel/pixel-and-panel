@@ -99,7 +99,7 @@ export default function CityServiceLandingEs({ city, service }) {
               <span className="text-white/40 text-sm">›</span>
               <span className="text-[#F59E0B] text-sm font-semibold">{service.name}</span>
             </div>
-            <p className="section-label" style={{ color: "#F59E0B" }}>
+            <p className="section-label section-label-on-hero">
               {hubLabel} · {city.name}, TX
             </p>
             <h1 className="mt-3 max-w-4xl text-white">{headline}</h1>

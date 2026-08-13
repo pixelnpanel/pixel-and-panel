@@ -143,7 +143,7 @@ export default function CityLandingEs({ city }) {
 
             <div className="grid gap-10 lg:grid-cols-[1fr_400px] lg:items-center">
               <div>
-                <p className="section-label" style={{ color: "#F59E0B" }}>
+                <p className="section-label section-label-on-hero">
                   Área de servicio en el sureste de Texas
                 </p>
                 <h1 className="max-w-4xl text-white">{city.h1}</h1>
