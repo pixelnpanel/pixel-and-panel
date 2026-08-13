@@ -1,3 +1,5 @@
+import { DEFAULT_OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
+
 export default function LocalBusinessJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -10,7 +12,12 @@ export default function LocalBusinessJsonLd() {
     telephone: "+1-409-225-2012",
     slogan: "Your Vision. Made Visible.",
     priceRange: "$$",
-    image: "https://www.pixelnpanel.com/logo/icon-wordmark.svg",
+    // `image` must be a raster file — Google's structured data image
+    // requirements accept JPG, PNG and GIF only, so the SVG wordmark that used
+    // to sit here was discarded and the schema effectively shipped imageless on
+    // every page. The wordmark still gets represented, as `logo`.
+    image: DEFAULT_OG_IMAGE_URL,
+    logo: `${SITE_URL}/logo/icon-wordmark.svg`,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Beaumont",

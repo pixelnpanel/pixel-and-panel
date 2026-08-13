@@ -4,7 +4,7 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 // Suburb list is language-neutral (place names don't translate), so both the
 // EN and ES hubs render the same array.
 import { HOUSTON_AREAS } from "@/content/houston";
-import { houstonLocalBusinessJsonLd, faqPageJsonLd } from "./houston-schema";
+import { houstonBusinessJsonLd, faqPageJsonLd } from "./houston-schema";
 
 function JsonLd({ data }) {
   return (
@@ -77,7 +77,7 @@ export default function HoustonHubPage({ content, services, digitalServices = []
           { name: t.breadcrumbName, url: pageUrl },
         ]}
       />
-      <JsonLd data={houstonLocalBusinessJsonLd(locale)} />
+      <JsonLd data={houstonBusinessJsonLd(locale)} />
       <JsonLd data={faqPageJsonLd(content.faqs)} />
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
@@ -85,7 +85,7 @@ export default function HoustonHubPage({ content, services, digitalServices = []
           <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_64%,#0EA5E9_100%)]" />
           <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
           <div className="relative mx-auto max-w-7xl pb-20">
-            <p className="section-label" style={{ color: "#F59E0B" }}>
+            <p className="section-label section-label-on-hero">
               {t.sectionLabel}
             </p>
             <h1 className="max-w-4xl text-white">{content.h1}</h1>

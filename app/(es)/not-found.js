@@ -1,8 +1,11 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Página no encontrada | Pixel & Panel",
+  // See the note in app/(en)/not-found.js — same template and same inherited
+  // canonical, which pointed every Spanish 404 at /es.
+  title: { absolute: "Página no encontrada | Pixel & Panel" },
   description: "La página solicitada no se pudo encontrar.",
+  alternates: { canonical: null },
 };
 
 export default function NotFound() {
