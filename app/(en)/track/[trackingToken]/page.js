@@ -14,8 +14,13 @@ import {
   UserRound,
 } from "lucide-react";
 import { BRAND } from "@/lib/constants";
-import { findOrderByTrackingToken } from "@/lib/order-tracking";
+import {
+  TRACKING_FOUND,
+  TRACKING_UNAVAILABLE,
+  loadTrackedOrder,
+} from "@/lib/order-tracking";
 import { getProgressSteps } from "@/lib/order-status";
+import TrackingUnavailable from "../TrackingUnavailable";
 
 export const dynamic = "force-dynamic";
 
@@ -168,9 +173,14 @@ function ProgressStep({ step, isLast }) {
 
 export default async function CustomerTrackingPage({ params }) {
   const { trackingToken } = await params;
-  const order = await findOrderByTrackingToken(trackingToken);
+  const result = await loadTrackedOrder(trackingToken);
 
-  if (!order) notFound();
+  // A backend outage is not a missing order. Telling a customer holding a valid
+  // link that their order does not exist is worse than saying nothing.
+  if (result.status === TRACKING_UNAVAILABLE) return <TrackingUnavailable />;
+  if (result.status !== TRACKING_FOUND) notFound();
+
+  const { order } = result;
 
   const progressSteps = getProgressSteps(order);
   const visibleEvents = dedupeTimelineEvents(order.timelineEvents || []);

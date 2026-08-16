@@ -1,10 +1,17 @@
-import { findOrderForCustomer } from "@/lib/order-tracking";
+import {
+  TRACKING_FOUND,
+  TRACKING_UNAVAILABLE,
+  lookupOrderForCustomer,
+} from "@/lib/order-tracking";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
 const GENERIC_LOOKUP_ERROR =
   "We couldn’t find an order with those details. Please check your order number and contact information, or contact Pixel & Panel for help.";
+
+const UNAVAILABLE_ERROR =
+  "Order status is temporarily unavailable — this isn’t a problem with your order. Please try again in a few minutes, or call (409) 225-2012 and we’ll look it up for you.";
 
 function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
@@ -39,41 +46,27 @@ export async function POST(request) {
     );
   }
 
-  try {
-    const order = await findOrderForCustomer({ orderNumber, contact });
+  const result = await lookupOrderForCustomer({ orderNumber, contact });
 
-    if (!order) {
-      return jsonResponse(
-        {
-          ok: false,
-          error: GENERIC_LOOKUP_ERROR,
-        },
-        404,
-      );
-    }
-
-    if (!order.trackingToken) {
-      return jsonResponse(
-        {
-          ok: false,
-          error: GENERIC_LOOKUP_ERROR,
-        },
-        404,
-      );
-    }
-
-    const trackingUrl = `/track/${encodeURIComponent(order.trackingToken)}`;
-
-    return jsonResponse({
-      ok: true,
-      trackingToken: order.trackingToken,
-      trackingUrl,
-    });
-  } catch (error) {
-    console.error("Unable to look up order.", error);
-    return jsonResponse(
-      { ok: false, error: "Unable to check order status right now." },
-      500,
+  // 503, not 500: the request was valid and the caller should retry. Sending a
+  // 500 here made an infrastructure outage look like a bug in the submission,
+  // and the copy blamed the customer's order number for it.
+  if (result.status === TRACKING_UNAVAILABLE) {
+    return Response.json(
+      { ok: false, error: UNAVAILABLE_ERROR },
+      { status: 503, headers: { "Retry-After": "300" } },
     );
   }
+
+  if (result.status !== TRACKING_FOUND) {
+    return jsonResponse({ ok: false, error: GENERIC_LOOKUP_ERROR }, 404);
+  }
+
+  const { trackingToken } = result.order;
+
+  return jsonResponse({
+    ok: true,
+    trackingToken,
+    trackingUrl: `/track/${encodeURIComponent(trackingToken)}`,
+  });
 }
