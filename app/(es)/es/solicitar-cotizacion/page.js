@@ -1,6 +1,7 @@
 import QuoteRequestClient from "../../../(en)/quote-request/QuoteRequestClient";
 import { Suspense } from "react";
 import { withDefaultSocialImage } from "@/lib/seo";
+import { GOOGLE_REVIEWS } from "@/lib/reviews";
 
 const spanishQuoteCopy = {
   language: "Spanish",
@@ -19,7 +20,7 @@ const spanishQuoteCopy = {
     "Comunicación clara y práctica",
     "Consulta inicial incluida",
   ],
-  reviewsLabel: "de 5 reseñas de Google",
+  reviewsLabel: `de ${GOOGLE_REVIEWS.count} reseñas de Google`,
   nextStepsTitle: "Qué sigue",
   nextSteps: [
     "Nos envías los detalles — qué necesitas, tamaño, cantidad y fecha límite.",

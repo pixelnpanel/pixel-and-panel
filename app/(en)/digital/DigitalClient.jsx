@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { fadeUp, stagger, scaleIn, viewport } from '@/lib/animations'
+import { GOOGLE_REVIEWS, reviews } from '@/lib/reviews'
 
 const SERVICES = [
   {
@@ -78,7 +79,7 @@ const EXPLORE = [
   { name: 'QR Code Campaigns', href: '/digital/qr-code-campaigns' },
 ]
 
-const REVIEW_URL = 'https://g.page/r/CQf3A2TWP9JjEBM/review'
+const websiteReview = reviews.find((review) => review.slug === 'murad-rahman')
 const PHONE_TEL = '+14092252012'
 const PHONE_DISPLAY = 'Call (409) 225-2012'
 
@@ -157,16 +158,16 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
                     <Star key={i} size={20} color="#F59E0B" fill="#F59E0B" />
                   ))}
                 </span>
-                <span style={{ fontWeight: 700, color: '#1C1917', fontSize: '1.05rem' }}>5.0</span>
-                <a href={REVIEW_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#0369A1', fontSize: '0.9rem', fontWeight: 600 }}>
-                  from 5 Google reviews
+                <span style={{ fontWeight: 700, color: '#1C1917', fontSize: '1.05rem' }}>{GOOGLE_REVIEWS.rating}</span>
+                <a href={GOOGLE_REVIEWS.profileUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#0369A1', fontSize: '0.9rem', fontWeight: 600 }}>
+                  from {GOOGLE_REVIEWS.count} Google reviews
                 </a>
               </m.div>
               <m.blockquote variants={fadeUp} style={{ margin: '0 0 1.25rem', color: '#1C1917', fontSize: '1.15rem', lineHeight: 1.6, fontStyle: 'italic' }}>
-                &ldquo;It was great working with Pixel &amp; Panel. Recently I created my portfolio website with them. I got a cheaper price than others. I&rsquo;m really happy with their work.&rdquo;
+                &ldquo;{websiteReview.quote}&rdquo;
               </m.blockquote>
               <m.p variants={fadeUp} style={{ color: '#64748b', fontSize: '0.875rem', fontWeight: 600, marginBottom: '1.75rem' }}>
-                — Murad H. Rahman · Website client · Google review
+                — {websiteReview.name} · Website client · Google review
               </m.p>
               <m.div variants={fadeUp} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', justifyContent: 'center' }}>
                 {['Locally owned, Texas-registered LLC', 'Fast replies on WhatsApp', 'Plain-English updates, no jargon'].map((chip) => (

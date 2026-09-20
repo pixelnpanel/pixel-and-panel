@@ -125,9 +125,14 @@ export default function ReviewsBand({ variant = 'full', heading, reviews = [], c
                 )}
 
                 <StarRow size={15} />
-                <blockquote style={{ margin: '0.9rem 0 1.25rem', color: '#1C1917', fontSize: '0.95rem', lineHeight: 1.7, flex: 1 }}>
-                  &ldquo;{review.quote}&rdquo;
+                <blockquote lang={review.language} style={{ margin: '0.9rem 0 1.25rem', color: '#1C1917', fontSize: '0.95rem', lineHeight: 1.7, flex: 1, whiteSpace: 'pre-line' }}>
+                  &ldquo;{review.excerpt || review.quote}&rdquo;
                 </blockquote>
+                {review.excerpt && (
+                  <span style={{ color: '#0369A1', fontSize: '0.8rem', fontWeight: 600, marginBottom: '1rem' }}>
+                    Review excerpt · Read full review on Google
+                  </span>
+                )}
                 <figcaption>
                   <span style={{ display: 'block', color: '#1C1917', fontWeight: 700, fontSize: '0.9rem' }}>{review.name}</span>
                   <span style={{ display: 'block', color: '#64748b', fontSize: '0.8rem', marginTop: '0.15rem' }}>{review.service} · Google review</span>

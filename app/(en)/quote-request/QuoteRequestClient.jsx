@@ -55,7 +55,7 @@ const defaultCopy = {
     "Plain English — no jargon",
     "Free consultation included",
   ],
-  reviewsLabel: "from 5 Google reviews",
+  reviewsLabel: `from ${GOOGLE_REVIEWS.count} Google reviews`,
   nextStepsTitle: "What happens next",
   nextSteps: [
     "You send the details — what you need, size, quantity, and deadline.",
