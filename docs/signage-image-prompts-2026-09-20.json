@@ -1,0 +1,336 @@
+{
+  "mode": "Built-in image_gen",
+  "auditedProducts": 121,
+  "initiallyMissingImages": 55,
+  "batchSize": 5,
+  "contact": {
+    "phone": "(409) 225-2012",
+    "email": "hello@pixelnpanel.com",
+    "website": "www.pixelnpanel.com"
+  },
+  "artDirection": "Original fictional Southeast Texas small-business brands; use provided Pixel & Panel contacts wherever contact details are appropriate. Review five images at a time.",
+  "prompts": [
+    {
+      "slug": "window-cling",
+      "path": "public/images/signage/vinyl-decals-and-window-graphics/window-cling-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/vinyl-decals-and-window-graphics/window-cling",
+      "description": "Clings hold to glass by static instead of glue, so they go up and come down in seconds and store flat until the next promotion. If your window message changes with the season or the sale, this is the easy pick — no adhesive, no residue, no scraping.",
+      "prompt": "Use case: product-mockup. Edit the provided mockup into a polished square ecommerce listing photograph for Pixel & Panel. Preserve accurate product material, realism, clean uncluttered framing and natural lighting. Make the printed artwork look like a professionally designed, credible Southeast Texas small business identity. All business names and symbols below are invented for this illustration: create original simple logos, no resemblance to known brands, no \"YOUR BRAND\" or placeholder text. Use navy, electric blue, amber and white tastefully. Keep all important text inside the image with generous safe margins and clear, correctly spelled lettering. No watermarks, no extra titles outside product, no QR codes, no certifications, no invented addresses or contact information. Whenever contact details are requested, reproduce the supplied text exactly.\nProduct: removable STATIC WINDOW CLING. Preserve glass storefront panel, transparent film perimeter, realistic translucent vinyl and small top corner lifted gently without glue or residue. Redesign printed artwork completely with original minimal pine-tree + coffee-cup emblem, brand \"PINEWAKE BAYOU\" with \"CAFÉ\" beneath, smaller \"COFFEE • BREAKFAST\", prominent \"OPEN\". Footer contact lines \"(409) 225-2012\" and \"www.pixelnpanel.com\". Balanced boutique neighborhood cafe identity, a little warmth, navy and amber. Brand should be readable and have as much presence as OPEN, not just generic OPEN. Keep cling fully in frame. Bright neutral daylight.",
+      "brand": "Pinewake Bayou Café",
+      "batch": 1
+    },
+    {
+      "slug": "floor-graphics",
+      "path": "public/images/signage/vinyl-decals-and-window-graphics/floor-graphics-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/vinyl-decals-and-window-graphics/floor-graphics",
+      "description": "Printed decals built to be walked on. A slip-rated textured laminate goes over the full-color graphic, so directional arrows, aisle promos, and spacing markers survive foot traffic, rolling carts, and nightly mopping instead of shredding in a week.",
+      "prompt": "Use case: product-mockup. Edit the provided mockup into a polished square ecommerce listing photograph for Pixel & Panel. Preserve accurate product material, realism, clean uncluttered framing and natural lighting. Make the printed artwork look like a professionally designed, credible Southeast Texas small business identity. All business names and symbols below are invented for this illustration: create original simple logos, no resemblance to known brands, no \"YOUR BRAND\" or placeholder text. Use navy, electric blue, amber and white tastefully. Keep all important text inside the image with generous safe margins and clear, correctly spelled lettering. No watermarks, no extra titles outside product, no QR codes, no certifications, no invented addresses or contact information. Whenever contact details are requested, reproduce the supplied text exactly.\nProduct: FLOOR GRAPHIC. Preserve circular decal lying completely flush on a sealed pale-gray indoor retail floor, angled elevated view and finely textured nonslip laminate. Replace generic design with original marsh-reed emblem, heading \"MARSHBEND\" above \"MERCANTILE\", a bold amber directional arrow, and bottom text \"PICKUP THIS WAY\". Deep navy ground, amber perimeter, white clean bold lettering. Brand and arrow must fit well, no tiny lettering. No phone, email or website needed on this directional floor decal. Matte, dry, no raised edge. Calm softly blurred shop shelves only at far edges.",
+      "brand": "Marshbend Mercantile",
+      "batch": 1
+    },
+    {
+      "slug": "high-performance-adhesive-vinyl",
+      "path": "public/images/signage/vinyl-decals-and-window-graphics/high-performance-adhesive-vinyl-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/vinyl-decals-and-window-graphics/high-performance-adhesive-vinyl",
+      "description": "When a decal has to survive years of sun or wrap around something that isn't flat, this is the film to use. Cast vinyl is thinner and far more flexible than standard calendered stock, so it conforms to curves, rivets, and corrugated panels and stays put instead of lifting at the edges.",
+      "prompt": "Use case: product-mockup. Edit the provided mockup into a polished square ecommerce listing photograph for Pixel & Panel. Preserve accurate product material, realism, clean uncluttered framing and natural lighting. Make the printed artwork look like a professionally designed, credible Southeast Texas small business identity. All business names and symbols below are invented for this illustration: create original simple logos, no resemblance to known brands, no \"YOUR BRAND\" or placeholder text. Use navy, electric blue, amber and white tastefully. Keep all important text inside the image with generous safe margins and clear, correctly spelled lettering. No watermarks, no extra titles outside product, no QR codes, no certifications, no invented addresses or contact information. Whenever contact details are requested, reproduce the supplied text exactly.\nProduct: HIGH-PERFORMANCE CAST ADHESIVE VINYL. Show printed gloss vinyl tightly conformed to a white service van's curved front fender, shallow recesses and a few realistic rivets. Zoom out slightly from reference so FULL main door graphic and contact block are visible; avoid cropping brand or contacts. Replace generic SERVICE with original simple cypress-tree/roofline emblem and brand \"CYPRESS BEACON\" with \"HOME SERVICES\" beneath. Service line \"REPAIRS • MAINTENANCE\". Attractive blue/navy/amber swoops flow smoothly across body curves. Clear three-line contact block, exact text: \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Large readable lettering with hierarchy, no microtext. Keep vehicle manufacturer badges absent. Bright clean neutral setting, focus vinyl on vehicle body.",
+      "brand": "Cypress Beacon Home Services",
+      "batch": 1
+    },
+    {
+      "slug": "reflective-adhesive-vinyl",
+      "path": "public/images/signage/vinyl-decals-and-window-graphics/reflective-adhesive-vinyl-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/vinyl-decals-and-window-graphics/reflective-adhesive-vinyl",
+      "description": "Reflective film sends headlight and flashlight beams straight back at the source, so lettering and markings that disappear after dark stay readable. It's the standard for work trucks, trailers, gate numbers, and anything that has to be seen at night from a distance.",
+      "prompt": "Use case: product-mockup. Edit the provided mockup into a polished square ecommerce listing photograph for Pixel & Panel. Preserve accurate product material, realism, clean uncluttered framing and natural lighting. Make the printed artwork look like a professionally designed, credible Southeast Texas small business identity. All business names and symbols below are invented for this illustration: create original simple logos, no resemblance to known brands, no \"YOUR BRAND\" or placeholder text. Use navy, electric blue, amber and white tastefully. Keep all important text inside the image with generous safe margins and clear, correctly spelled lettering. No watermarks, no extra titles outside product, no QR codes, no certifications, no invented addresses or contact information. Whenever contact details are requested, reproduce the supplied text exactly.\nProduct: REFLECTIVE ADHESIVE VINYL. Preserve dark work trailer in subdued gray dusk setting and physically realistic silver reflective film returning light from near-camera headlight source. This is reflective print, NOT illuminated sign: no glowing halos or neon. Replace SERVICE with original angular marsh-and-road emblem and clearly composed brand \"GULFMARSH\" over \"FLEET CARE\", supporting line \"MOBILE SERVICE\". Exact contact lines \"(409) 225-2012\" and \"www.pixelnpanel.com\". Fit complete text cleanly within rear doors, keeping hinges and latch physically plausible and not obscuring wording. Silver-white retroreflective logo, lettering and restrained amber diagonal markings on dark navy trailer. Tight professional catalog framing, entire brand/contact artwork visible. No email needed here.",
+      "brand": "Gulfmarsh Fleet Care",
+      "batch": 1
+    },
+    {
+      "slug": "dry-erase-adhesive-vinyl",
+      "path": "public/images/signage/vinyl-decals-and-window-graphics/dry-erase-adhesive-vinyl-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/vinyl-decals-and-window-graphics/dry-erase-adhesive-vinyl",
+      "description": "A whiteboard surface that comes on a roll. Stick it to a wall, door, or panel and write on it with standard dry-erase markers. Because we print it before it ships, the grid, calendar, or job-board layout you actually use can be built right into the surface.",
+      "prompt": "Use case: product-mockup. Edit the provided mockup into a polished square ecommerce listing photograph for Pixel & Panel. Preserve accurate product material, realism, clean uncluttered framing and natural lighting. Make the printed artwork look like a professionally designed, credible Southeast Texas small business identity. All business names and symbols below are invented for this illustration: create original simple logos, no resemblance to known brands, no \"YOUR BRAND\" or placeholder text. Use navy, electric blue, amber and white tastefully. Keep all important text inside the image with generous safe margins and clear, correctly spelled lettering. No watermarks, no extra titles outside product, no QR codes, no certifications, no invented addresses or contact information. Whenever contact details are requested, reproduce the supplied text exactly.\nProduct: DRY-ERASE ADHESIVE VINYL. Preserve frameless white glossy thin vinyl film adhered to smooth pale wall, but flatten curled lower-right corner: ALL edges flush and secure; thin edge visible, no bulky framed board. Redesign as professional job planner for invented local woodworking shop. Original small cypress-leaf/carpenter-square emblem with header \"BAYOU BRAMBLE\" and \"WORKSHOP\" beneath. Subtitle \"WEEKLY JOB BOARD\". Clean printed five-column grid labeled \"MON\", \"TUE\", \"WED\", \"THU\", \"FRI\", several realistic sparse handwritten blue marker notes such as \"Cabinets\", \"Cut panels\", \"Sand\", \"Finish\", \"Install\"; many cells empty. Small printed footer exact text \"hello@pixelnpanel.com\". Navy thin grid, amber divider accents. No phone or website needed on internal job planner. Keep whole film inside frame, shallow three-quarter view and subtle gloss. Minimal uncluttered wall scene.",
+      "brand": "Bayou Bramble Workshop",
+      "batch": 1
+    },
+    {
+      "slug": "standard-channel-letters",
+      "path": "public/images/signage/dimensional-letters/standard-channel-letters-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/dimensional-letters/standard-channel-letters",
+      "description": "The illuminated storefront sign most people picture: individual fabricated letters with translucent acrylic faces, aluminum returns, and LEDs inside. Front-lit letters glow outward, which makes them the most legible choice from the road at night — and the reason they remain the default for retail frontage.",
+      "prompt": "Use case: product-mockup. Create ONE new square photorealistic ecommerce product image for Pixel & Panel signage catalog. The attached image is BRAND-IDENTITY REFERENCE ONLY: reuse the invented business name, original logo motif and navy/blue/amber identity, but replace its entire physical scene with the product described below. Do not reproduce the reference product. These are fictional Southeast Texas small businesses, not existing client work. Clean professional catalog photography, realistic materials, soft natural shadows, legible typography, strong product hierarchy, generous safe margins. All main product artwork visible inside square frame. No watermark, no title outside product, no 'YOUR BRAND', no placeholders, no famous brands, no certifications, no invented addresses or contact details. No people or irrelevant accessories.\nNEW PRODUCT: STANDARD FRONT-LIT CHANNEL LETTERS on a light neutral smooth cafe storefront fascia at blue-hour dusk. Individual fabricated letters with TRANSLUCENT ACRYLIC FRONT FACES glowing outward, thin visible navy trimcap edges and ordinary painted aluminum side returns. Real dimensional construction, shallow three-quarter view reveals modest letter depth. White illuminated main faces, navy sidewalls and tasteful amber detail. Preserve the reference's pine trees/coffee cup motif as a separate fabricated illuminated emblem left of the name. Exact sign wording: \"PINEWAKE BAYOU\" on primary line, \"CAFÉ\" underneath. Only those words; OMIT reference OPEN, service line and all contacts because this is a building-name sign. All letters and emblem fully visible, no cropped text. Tightly framed sign with only a narrow strip of storefront glass below; not a full building shot. Make front-face illumination unmistakable, no reverse-lit halos, no exposed neon tube.",
+      "brand": "Pinewake Bayou Café",
+      "batch": 2,
+      "referenceSlug": "window-cling"
+    },
+    {
+      "slug": "halo-lit-channel-letters",
+      "path": "public/images/signage/dimensional-letters/halo-lit-channel-letters-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/dimensional-letters/halo-lit-channel-letters",
+      "description": "Reverse-lit letters have solid metal faces and open backs, so the LEDs throw light onto the wall behind and the letter reads as a dark silhouette ringed in glow. It is the more architectural, more expensive look — quieter than front-lit at a distance, and considerably more striking up close.",
+      "prompt": "Use case: product-mockup. Create ONE new square photorealistic ecommerce product image for Pixel & Panel signage catalog. The attached image is BRAND-IDENTITY REFERENCE ONLY: reuse the invented business name, original logo motif and navy/blue/amber identity, but replace its entire physical scene with the product described below. Do not reproduce the reference product. These are fictional Southeast Texas small businesses, not existing client work. Clean professional catalog photography, realistic materials, soft natural shadows, legible typography, strong product hierarchy, generous safe margins. All main product artwork visible inside square frame. No watermark, no title outside product, no 'YOUR BRAND', no placeholders, no famous brands, no certifications, no invented addresses or contact details. No people or irrelevant accessories.\nNEW PRODUCT: REVERSE / HALO-LIT CHANNEL LETTERS. Original Marshbend marsh-reed emblem and exact words \"MARSHBEND\" over \"MERCANTILE\" fabricated as opaque painted navy stainless-steel letters and emblem, standoff-mounted off a smooth pale warm-gray storefront wall. ALL front faces remain opaque DARK METAL, not translucent and not internally glowing. Warm-white LEDs hidden behind letters illuminate the WALL around each letter, creating crisp soft reflected halos and a dark silhouette. Subtle evening setting, premium architectural product photograph, shallow three-quarter angle visibly reveals side returns and wall gap. Gentle front fill keeps opaque faces discernible. Sign dominates square frame, fully framed with breathing room. Remove arrow and pickup language from reference. Only brand name and logo, no contacts or extra copy. No neon tubes, no glowing front faces, no printed flat panel.",
+      "brand": "Marshbend Mercantile",
+      "batch": 2,
+      "referenceSlug": "floor-graphics"
+    },
+    {
+      "slug": "premium-channel-letters",
+      "path": "public/images/signage/dimensional-letters/premium-channel-letters-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/dimensional-letters/premium-channel-letters",
+      "description": "The top of the range: acrylic faces for full front-lit legibility, paired with fabricated and welded stainless steel returns instead of rolled aluminum. Every return is prepped, smooth sanded, and painted, so the letter has no visible seam and holds a finish that looks manufactured rather than assembled.",
+      "prompt": "Use case: product-mockup. Create ONE new square photorealistic ecommerce product image for Pixel & Panel signage catalog. The attached image is BRAND-IDENTITY REFERENCE ONLY: reuse the invented business name, original logo motif and navy/blue/amber identity, but replace its entire physical scene with the product described below. Do not reproduce the reference product. These are fictional Southeast Texas small businesses, not existing client work. Clean professional catalog photography, realistic materials, soft natural shadows, legible typography, strong product hierarchy, generous safe margins. All main product artwork visible inside square frame. No watermark, no title outside product, no 'YOUR BRAND', no placeholders, no famous brands, no certifications, no invented addresses or contact details. No people or irrelevant accessories.\nNEW PRODUCT: PREMIUM FRONT-LIT CHANNEL LETTERS. Exact words \"BAYOU BRAMBLE\" with \"WORKSHOP\" beneath, plus original pine-tree and carpenter-square emblem from reference, installed on a clean pale-gray boutique woodworking-showroom fascia. Precise fabrication: translucent acrylic front faces softly illuminated warm white, deep smooth WELDED STAINLESS STEEL side returns with seamless satin navy painted finish. Show close, slightly oblique three-quarter perspective so immaculate smooth returns and edges are clearly visible while complete sign remains in frame. No exposed rough welds, screws or seams, no rolled-aluminum joint lines, no polished-chrome substitution. Quiet architectural lighting, refined material detail; larger main letters, smaller descriptor. Include restrained amber logo accent. Front-lit only; no halo behind letters. This is a permanent fabricated sign, not printed artwork, not a whiteboard. Remove all grid/notes/contact copy from reference. Only name and emblem. Product fills most of square, pale clean surroundings and soft grounding shadows.",
+      "brand": "Bayou Bramble Workshop",
+      "batch": 2,
+      "referenceSlug": "dry-erase-adhesive-vinyl"
+    },
+    {
+      "slug": "straight-tension-fabric-display-wall",
+      "path": "public/images/signage/trade-show-displays/straight-tension-fabric-display-wall-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/straight-tension-fabric-display-wall",
+      "description": "The workhorse trade show wall. A dye-sublimated fabric skin stretches over a push-fit aluminum frame, giving you a flat, seamless graphic that packs into a carry bag and goes up in minutes without tools. Straight walls give you the most usable print area and butt cleanly against the booths either side of you.",
+      "prompt": "Use case: product-mockup. Create ONE new square photorealistic ecommerce product image for Pixel & Panel signage catalog. The attached image is BRAND-IDENTITY REFERENCE ONLY: reuse the invented business name, original logo motif and navy/blue/amber identity, but replace its entire physical scene with the product described below. Do not reproduce the reference product. These are fictional Southeast Texas small businesses, not existing client work. Clean professional catalog photography, realistic materials, soft natural shadows, legible typography, strong product hierarchy, generous safe margins. All main product artwork visible inside square frame. No watermark, no title outside product, no 'YOUR BRAND', no placeholders, no famous brands, no certifications, no invented addresses or contact details. No people or irrelevant accessories.\nNEW PRODUCT: STRAIGHT TENSION FABRIC DISPLAY WALL, standalone roughly 8-foot-wide by 7.5-foot-tall portable display in white studio. Completely FLAT front face and level straight top with subtly rounded tube-frame corners. Slim push-fit aluminum TUBE FRAME entirely covered by taut pillowcase stretch-polyester graphic; fabric wraps edges smoothly, slight textile weave visible, discreet zipper at bottom. Two modest flat metal stabilizing feet. No accordion lattice, no thick box, no SEG channel extrusion, no retractable base, no counter, bag or lights. Whole unit including both feet in frame; subtle 15-degree three-quarter camera angle makes thin side profile apparent while broad front stays readable. Transfer Cypress Beacon pine-tree/roofline emblem as central large artwork. Exact printed hierarchy: \"CYPRESS BEACON\", \"HOME SERVICES\", \"REPAIRS • MAINTENANCE\", \"Serving Southeast Texas\". Bottom contact block with EXACT text \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". All text large and correctly spelled, no microscopic copy. White and navy artwork with electric-blue and amber sweeping bands derived from reference; clean finished brand display, no vehicle.",
+      "brand": "Cypress Beacon Home Services",
+      "batch": 2,
+      "referenceSlug": "high-performance-adhesive-vinyl"
+    },
+    {
+      "slug": "curved-tension-fabric-display-wall",
+      "path": "public/images/signage/trade-show-displays/curved-tension-fabric-display-wall-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/curved-tension-fabric-display-wall",
+      "description": "Same push-fit frame and seamless fabric skin as our straight walls, bent into a gentle arc. The curve catches the eye from down the aisle and makes a booth feel open rather than boxed in, which is why it is the popular pick when you are working a crowd instead of just holding a backdrop.",
+      "prompt": "Use case: product-mockup. Create ONE new square photorealistic ecommerce product image for Pixel & Panel signage catalog. The attached image is BRAND-IDENTITY REFERENCE ONLY: reuse the invented business name, original logo motif and navy/blue/amber identity, but replace its entire physical scene with the product described below. Do not reproduce the reference product. These are fictional Southeast Texas small businesses, not existing client work. Clean professional catalog photography, realistic materials, soft natural shadows, legible typography, strong product hierarchy, generous safe margins. All main product artwork visible inside square frame. No watermark, no title outside product, no 'YOUR BRAND', no placeholders, no famous brands, no certifications, no invented addresses or contact details. No people or irrelevant accessories.\nNEW PRODUCT: CURVED TENSION FABRIC DISPLAY WALL, standalone roughly 8-foot-wide by 7.5-foot-tall portable fabric wall in bright neutral white studio. Slim push-fit aluminum tubular frame bent in a smooth gentle HORIZONTAL CONCAVE ARC, wrapped tightly in seamless pillowcase stretch-polyester print. Constant height and straight vertical ends; top follows same horizontal curvature as base, not a vertical arch. Three-quarter view from slightly above eye level makes depth of concave arc unmistakable; show both edges and two modest stabilizing feet. Thin fabric-covered round-tube edges, subtle textile weave; no thick box, no accordion frame, no SEG aluminum face frame, no roll-up mechanism. Whole display inside square with breathing room, no extra accessories. Transfer Gulfmarsh geometric marsh-and-winding-road emblem from reference to large central upper area. Exact printed hierarchy: \"GULFMARSH\", \"FLEET CARE\", \"MOBILE SERVICE\", \"Keeping Southeast Texas moving\". Centered lower contact block exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Keep logo and all text in central area where arc reads easily; outer thirds contain only navy/blue/amber flowing graphic bands. White lettering on deep navy ground, flat PRINTED dye-sublimation colors (not reflective or self-illuminated). No trailer.",
+      "brand": "Gulfmarsh Fleet Care",
+      "batch": 2,
+      "referenceSlug": "reflective-adhesive-vinyl"
+    }
+  ],
+  "pendingProducts": [
+    {
+      "slug": "straight-pop-up-fabric-display",
+      "path": "public/images/signage/trade-show-displays/straight-pop-up-fabric-display-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/straight-pop-up-fabric-display"
+    },
+    {
+      "slug": "curved-pop-up-fabric-display",
+      "path": "public/images/signage/trade-show-displays/curved-pop-up-fabric-display-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/curved-pop-up-fabric-display"
+    },
+    {
+      "slug": "trade-show-booth-kit",
+      "path": "public/images/signage/trade-show-displays/trade-show-booth-kit-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/trade-show-booth-kit"
+    },
+    {
+      "slug": "seg-display",
+      "path": "public/images/signage/seg-displays/seg-display-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-display"
+    },
+    {
+      "slug": "seg-backlit-display",
+      "path": "public/images/signage/seg-displays/seg-backlit-display-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-backlit-display"
+    },
+    {
+      "slug": "seg-backlit-pop-up-display",
+      "path": "public/images/signage/seg-displays/seg-backlit-pop-up-display-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-backlit-pop-up-display"
+    },
+    {
+      "slug": "seg-replacement-fabric-print",
+      "path": "public/images/signage/seg-displays/seg-replacement-fabric-print-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-replacement-fabric-print"
+    },
+    {
+      "slug": "poster-print",
+      "path": "public/images/signage/canvas-and-poster-prints/poster-print-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/poster-print"
+    },
+    {
+      "slug": "paper-poster-print",
+      "path": "public/images/signage/canvas-and-poster-prints/paper-poster-print-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/paper-poster-print"
+    },
+    {
+      "slug": "stretched-canvas-print",
+      "path": "public/images/signage/canvas-and-poster-prints/stretched-canvas-print-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/stretched-canvas-print"
+    },
+    {
+      "slug": "framed-canvas-print",
+      "path": "public/images/signage/canvas-and-poster-prints/framed-canvas-print-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/framed-canvas-print"
+    },
+    {
+      "slug": "business-cards",
+      "path": "public/images/signage/business-cards/business-cards-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/business-cards/business-cards"
+    },
+    {
+      "slug": "folded-business-cards",
+      "path": "public/images/signage/business-cards/folded-business-cards-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/business-cards/folded-business-cards"
+    },
+    {
+      "slug": "plastic-business-cards",
+      "path": "public/images/signage/business-cards/plastic-business-cards-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/business-cards/plastic-business-cards"
+    },
+    {
+      "slug": "flyers",
+      "path": "public/images/signage/flyers-brochures-and-booklets/flyers-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/flyers"
+    },
+    {
+      "slug": "brochures",
+      "path": "public/images/signage/flyers-brochures-and-booklets/brochures-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/brochures"
+    },
+    {
+      "slug": "booklets",
+      "path": "public/images/signage/flyers-brochures-and-booklets/booklets-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/booklets"
+    },
+    {
+      "slug": "presentation-folders",
+      "path": "public/images/signage/flyers-brochures-and-booklets/presentation-folders-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/presentation-folders"
+    },
+    {
+      "slug": "bookmarks",
+      "path": "public/images/signage/flyers-brochures-and-booklets/bookmarks-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/bookmarks"
+    },
+    {
+      "slug": "postcards",
+      "path": "public/images/signage/postcards-and-direct-mail/postcards-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/postcards"
+    },
+    {
+      "slug": "door-hangers",
+      "path": "public/images/signage/postcards-and-direct-mail/door-hangers-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/door-hangers"
+    },
+    {
+      "slug": "variable-data-postcards",
+      "path": "public/images/signage/postcards-and-direct-mail/variable-data-postcards-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/variable-data-postcards"
+    },
+    {
+      "slug": "tear-cards",
+      "path": "public/images/signage/postcards-and-direct-mail/tear-cards-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/tear-cards"
+    },
+    {
+      "slug": "invitations-and-announcements",
+      "path": "public/images/signage/cards-invitations-and-event-print/invitations-and-announcements-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/invitations-and-announcements"
+    },
+    {
+      "slug": "greeting-cards",
+      "path": "public/images/signage/cards-invitations-and-event-print/greeting-cards-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/greeting-cards"
+    },
+    {
+      "slug": "numbered-tickets",
+      "path": "public/images/signage/cards-invitations-and-event-print/numbered-tickets-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/numbered-tickets"
+    },
+    {
+      "slug": "table-tent-cards",
+      "path": "public/images/signage/cards-invitations-and-event-print/table-tent-cards-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/table-tent-cards"
+    },
+    {
+      "slug": "wall-calendars",
+      "path": "public/images/signage/cards-invitations-and-event-print/wall-calendars-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/wall-calendars"
+    },
+    {
+      "slug": "roll-labels",
+      "path": "public/images/signage/labels-stickers-and-packaging/roll-labels-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/roll-labels"
+    },
+    {
+      "slug": "square-cut-stickers",
+      "path": "public/images/signage/labels-stickers-and-packaging/square-cut-stickers-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/square-cut-stickers"
+    },
+    {
+      "slug": "cut-to-shape-decals",
+      "path": "public/images/signage/labels-stickers-and-packaging/cut-to-shape-decals-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/cut-to-shape-decals"
+    },
+    {
+      "slug": "product-boxes",
+      "path": "public/images/signage/labels-stickers-and-packaging/product-boxes-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/product-boxes"
+    },
+    {
+      "slug": "mailer-boxes",
+      "path": "public/images/signage/labels-stickers-and-packaging/mailer-boxes-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/mailer-boxes"
+    },
+    {
+      "slug": "stand-up-pouches",
+      "path": "public/images/signage/labels-stickers-and-packaging/stand-up-pouches-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/stand-up-pouches"
+    },
+    {
+      "slug": "ncr-forms",
+      "path": "public/images/signage/stationery-and-business-forms/ncr-forms-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/ncr-forms"
+    },
+    {
+      "slug": "letterhead",
+      "path": "public/images/signage/stationery-and-business-forms/letterhead-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/letterhead"
+    },
+    {
+      "slug": "envelopes",
+      "path": "public/images/signage/stationery-and-business-forms/envelopes-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/envelopes"
+    },
+    {
+      "slug": "notepads",
+      "path": "public/images/signage/stationery-and-business-forms/notepads-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/notepads"
+    },
+    {
+      "slug": "business-card-magnets",
+      "path": "public/images/signage/magnets-and-clings/business-card-magnets-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/business-card-magnets"
+    },
+    {
+      "slug": "cut-to-shape-magnets",
+      "path": "public/images/signage/magnets-and-clings/cut-to-shape-magnets-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/cut-to-shape-magnets"
+    },
+    {
+      "slug": "static-clings",
+      "path": "public/images/signage/magnets-and-clings/static-clings-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/static-clings"
+    },
+    {
+      "slug": "flag-bases",
+      "path": "public/images/signage/hardware/flag-bases-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/hardware/flag-bases"
+    },
+    {
+      "slug": "tent-accessories",
+      "path": "public/images/signage/hardware/tent-accessories-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/hardware/tent-accessories"
+    },
+    {
+      "slug": "flag-poles",
+      "path": "public/images/signage/hardware/flag-poles-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/hardware/flag-poles"
+    },
+    {
+      "slug": "banner-hardware-kit",
+      "path": "public/images/signage/hardware/banner-hardware-kit-beaumont-tx.webp",
+      "url": "https://www.pixelnpanel.com/signage/hardware/banner-hardware-kit"
+    }
+  ]
+}
