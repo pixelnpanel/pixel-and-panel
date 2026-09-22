@@ -2,7 +2,7 @@
   "mode": "Built-in image_gen",
   "auditedProducts": 121,
   "initiallyMissingImages": 55,
-  "batchSize": 5,
+  "batchSize": 10,
   "contact": {
     "phone": "(409) 225-2012",
     "email": "hello@pixelnpanel.com",
@@ -198,59 +198,142 @@
         "motif": "Original marsh leaf and ripple symbol"
       },
       "batch": 3
-    }
-  ],
-  "pendingProducts": [
+    },
     {
       "slug": "seg-backlit-pop-up-display",
       "path": "public/images/signage/seg-displays/seg-backlit-pop-up-display-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-backlit-pop-up-display"
+      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-backlit-pop-up-display",
+      "description": "A backlit light box that travels. The frame collapses into a rolling case, the LEDs mount to the extrusion, and the silicone edge graphic presses in on site — so you get the glowing panel that stops traffic in a trade show hall without leaving a permanent installation behind.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: portable collapsible SEG BACKLIT POP-UP LIGHTBOX, about 8 feet wide by 7.5 feet tall. Crisp square-corner aluminum extrusion, flush silicone-edge fabric face, evenly luminous internally lit graphic, two practical support feet. Whole lightbox and ONE CLOSED ROLLING TRAVEL CASE beside it. The case communicates portability. No counter, overhead lamps or fixed wall mounting. Slight three-quarter angle shows thin lightbox depth. No exposed LED dots, hot spots or fabric seams. Original Bayou Lark bird-and-floral logo and elegant serif from reference. Palette plum, blush, ivory, muted sage; printed floral photography at one edge. Verbatim print: \"BAYOU LARK\", \"EVENTS\", \"Gather beautifully.\", \"WEDDINGS • CELEBRATIONS\", then exact phone/email/website in clear footer. Pale gray studio ambient permits luminous fabric to read. Every letter visible.",
+      "brand": "Bayou Lark Events",
+      "brandKit": {
+        "palette": "Plum, dusty blush, ivory, sage"
+      },
+      "batch": 4,
+      "referenceSlug": "trade-show-booth-kit"
     },
     {
       "slug": "seg-replacement-fabric-print",
       "path": "public/images/signage/seg-displays/seg-replacement-fabric-print-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-replacement-fabric-print"
+      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-replacement-fabric-print",
+      "description": "Keep the frame, change the message. If you already own a SEG display, a replacement graphic is by far the cheapest way to run a new campaign — we print a fresh silicone edge skin to your frame's exact dimensions and you press it in yourself in a few minutes.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: SEG REPLACEMENT FABRIC PRINT ONLY, no frame or hardware. One broad rectangular printed stretch-polyester fabric skin laid mostly flat on a clean ivory studio floor, photographed at shallow elevated oblique angle. One close foreground corner gently folded over to expose reverse stitching and a thin flexible translucent FLAT SILICONE STRIP sewn around edge. This is an unmounted replacement textile, not rigid signage or adhesive vinyl. Light loose drape and subtle woven surface, no grommets or poles. All main artwork readable on flat area. Reference supplies forest-green Neches Fern Nursery branding, fern/river emblem and ivory serif type. Verbatim: \"NECHES FERN\", \"NURSERY\", \"Bring your garden to life\", \"NATIVE PLANTS • GARDEN SUPPLIES\", and exact phone/email/website in clear footer away from folded corner. Pale sage botanical border. No second object or inset diagram.",
+      "brand": "Neches Fern Nursery",
+      "brandKit": {
+        "palette": "Forest green, ivory, sage"
+      },
+      "batch": 4,
+      "referenceSlug": "straight-pop-up-fabric-display"
     },
     {
       "slug": "poster-print",
       "path": "public/images/signage/canvas-and-poster-prints/poster-print-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/poster-print"
+      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/poster-print",
+      "description": "Straightforward large-format posters on satin or matte stock. Cheap enough to swap out whenever the message changes, sharp enough to read from across a room, and sized to whatever frame or holder you already own — including the snap frames and poster stands we sell.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: a SINGLE LARGE-FORMAT SATIN POSTER PRINT, vertical 24-by-36 proportion, lying on pale studio tabletop in shallow three-quarter top-down view. Thin flexible poster stock, slightly curled corner shows paper reverse, smooth satin surface with soft subdued sheen. No frame, stand, canvas weave, thick rigid board or illuminated surface. Full sheet inside square photo. Printed artwork uses reference's Gulfglade leaf/ripple emblem and calm contemporary typography, deep teal, seafoam and small coral accent; broad dew-covered fern photo band. Exact copy: \"GULFGLADE\", \"WELLNESS\", \"Make room for calm.\", \"MOVEMENT • MINDFULNESS\", \"Find your next class\", and exact phone/email/website in lower block. Editorial spacing and strong hierarchy, no prices or health claims.",
+      "brand": "Gulfglade Wellness",
+      "brandKit": {
+        "palette": "Deep teal, seafoam, white, soft coral"
+      },
+      "batch": 4,
+      "referenceSlug": "seg-backlit-display"
     },
     {
       "slug": "paper-poster-print",
       "path": "public/images/signage/canvas-and-poster-prints/paper-poster-print-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/paper-poster-print"
+      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/paper-poster-print",
+      "description": "When you need a lot of posters rather than one nice one, paper is the answer. Gloss text stock at 25 or 250 copies costs a fraction of a rigid or canvas print.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: BULK PAPER POSTER PRINTS. A short tidy stack of thin 11-by-17 portrait gloss text-stock paper posters on white table, with two top sheets offset slightly so layered paper edges communicate multiple copies. Main top sheet completely readable, all sheets carry same printed design. Shallow overhead perspective and realistic small specular highlights. No rigid mounting, frames, stands or canvas. Reference supplies Sabine Ember BBQ smoke/oak-log logo and slab-serif identity. Design uses brick red, charcoal, cream with appetizing printed brisket photography. Exact copy: \"SABINE EMBER\", \"BBQ\", \"Slow smoke. Local flavor.\", \"CATERING • PRIVATE EVENTS\", \"Bring the flavor to your next gathering\", then exact phone/email/website. Bold high-contrast typography with breathing room. No invented dates, prices or restaurant address.",
+      "brand": "Sabine Ember BBQ",
+      "brandKit": {
+        "palette": "Brick red, charcoal, cream"
+      },
+      "batch": 4,
+      "referenceSlug": "curved-pop-up-fabric-display"
     },
     {
       "slug": "stretched-canvas-print",
       "path": "public/images/signage/canvas-and-poster-prints/stretched-canvas-print-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/stretched-canvas-print"
+      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/stretched-canvas-print",
+      "description": "Your image printed on artist canvas and wrapped around a solid wood stretcher bar, so the picture continues around the sides and the piece hangs on its own with no frame. Printed with archival pigment inks that hold their color for years out of direct sun.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: GALLERY-WRAPPED STRETCHED CANVAS PRINT, unframed landscape artwork printed on textured poly-cotton canvas wrapped around a 1.5-inch-deep wooden stretcher. Show complete rectangular 24-by-36 landscape canvas leaning against clean off-white studio wall, slight three-quarter view clearly reveals image continuing around thick side edges. No outer frame, no glass, no mat board. Artwork is an ORIGINAL fine-art photograph-like scene of a quiet Southeast Texas salt marsh at sunrise: reed-lined winding water, distant low cypress silhouettes and expansive soft peach/lavender sky reflected in still water. Natural muted colors and calm premium office-art aesthetic. Fine canvas weave visible, clean neatly wrapped corners and natural grounding shadow. No business names, logos, signage, people, buildings, text, contact info, artist signature or watermark. Do not imitate any named artist.",
+      "brand": "Original Southeast Texas marsh artwork",
+      "brandKit": {
+        "palette": "Dusty lavender, marsh green, soft peach, warm gray"
+      },
+      "batch": 4
     },
     {
       "slug": "framed-canvas-print",
       "path": "public/images/signage/canvas-and-poster-prints/framed-canvas-print-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/framed-canvas-print"
+      "url": "https://www.pixelnpanel.com/signage/canvas-and-poster-prints/framed-canvas-print",
+      "description": "A stretched canvas set inside a wood moulding with a narrow reveal around the edge, so the canvas appears to float within the frame. It is the more formal, more finished presentation — the same print as a gallery wrap, dressed for a boardroom or a hotel corridor rather than a studio wall.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: FRAMED CANVAS PRINT inside a NATURAL WOOD FLOATING FRAME. Complete rectangular landscape canvas with slim warm walnut-toned wood moulding surrounding it and a narrow dark REVEAL GAP on all four sides, so canvas visibly floats within frame. Close three-quarter studio view shows canvas texture, frame depth and gap; lean against clean ivory wall with natural shadow. No glass, no paper mat, no flat poster. Original printed painterly bayou landscape: simplified cypress trees, still reflective water and warm sky, subtle earthy rust, muted olive, dusty rose and sand. Fine canvas texture remains clear; tasteful architectural art, no named-artist imitation. Entire frame visible in square image. No business branding, logos, text, contact information, artist signatures or extra decor.",
+      "brand": "Original bayou landscape artwork",
+      "brandKit": {
+        "palette": "Rust, muted olive, dusty rose, warm sand"
+      },
+      "batch": 4
     },
     {
       "slug": "business-cards",
       "path": "public/images/signage/business-cards/business-cards-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/business-cards/business-cards"
+      "url": "https://www.pixelnpanel.com/signage/business-cards/business-cards",
+      "description": "The card you hand someone is the cheapest advertising you will ever buy — so it should feel like your business. We print on everything from everyday 14pt matte to 32pt painted edge, and we will set the file up for you if you do not have artwork ready.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: STANDARD BUSINESS CARDS, 3.5-by-2-inch horizontal proportions, thick matte cardstock. Two small neat stacks and one loose card display front and reverse in a polished slightly overhead studio still life. Paper cut edges and realistic modest card thickness visible; not plastic, no fold. Reference supplies Neches Loom woven-river monogram, elegant editorial serif and earthy palette of terracotta, sand and espresso. Front: original logo and exact \"NECHES LOOM\" / \"HOME\". Reverse: \"Thoughtful spaces. Everyday comfort.\" and exact phone/email/website clearly typeset with ample spacing. Do not invent a person's name, street address or QR code. Precise print registration, restrained composition and subtle shadows on warm-white table. All cards fully in frame.",
+      "brand": "Neches Loom Home",
+      "brandKit": {
+        "palette": "Terracotta, sand, espresso"
+      },
+      "batch": 4,
+      "referenceSlug": "seg-display"
     },
     {
       "slug": "folded-business-cards",
       "path": "public/images/signage/business-cards/folded-business-cards-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/business-cards/folded-business-cards"
+      "url": "https://www.pixelnpanel.com/signage/business-cards/folded-business-cards",
+      "description": "A folded card gives you four printable panels instead of two, so you can list every service you offer without shrinking the type. It still folds down to a standard card that fits a wallet or card holder.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: FOLDED BUSINESS CARDS: scored 3.5-by-4-inch cardstock folds down to 3.5-by-2 inches. Show one compact card CLOSED with cover visible and one OPEN with the inside spread fully visible, bent at a SINGLE horizontal center score. Exactly two panels per side / four printable panels total, not a tri-fold brochure and not a large greeting card. Matte paper, shallow elevated tabletop view, realistic crisp fold. Reference's Bayou Lark bird/floral emblem, elegant serif, plum/blush/ivory/sage brand system. Cover copy \"BAYOU LARK\" / \"EVENTS\". Inside copy one panel \"Weddings\", \"Celebrations\", \"Event styling\"; other panel \"Let's plan something beautiful.\" plus exact phone/email/website. Keep all text away from fold, clear hierarchy, original restrained botanical corner motifs. No dates, prices, address, QR codes or extra objects.",
+      "brand": "Bayou Lark Events",
+      "brandKit": {
+        "palette": "Plum, blush, ivory, sage"
+      },
+      "batch": 4,
+      "referenceSlug": "trade-show-booth-kit",
+      "revisionPrompts": [
+        "Correct product geometry in this square photograph while preserving Bayou Lark Events plum/blush/ivory/sage artwork, bird/floral logo and typography. Product is a SMALL FOLDED BUSINESS CARD. Actual flat dimensions 3.5 inches WIDE x 4 inches TALL, folded along ONE HORIZONTAL CENTER SCORE to 3.5 inches WIDE x 2 inches TALL. Show closed card in foreground retaining its LANDSCAPE business-card shape, plus a separate OPEN card behind it whose spread is PORTRAIT: top panel ABOVE bottom panel, each a 3.5x2 landscape rectangle. Open card must NOT have a vertical crease or side-by-side panels. Lay open card almost flat on tabletop, top panel gently raised along horizontal crease so fold is visible. Top inside panel text: \"Weddings\", \"Celebrations\", \"Event styling\". Bottom inside panel text: \"Let’s plan something beautiful.\", \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Keep text off crease. Closed front shows logo and \"BAYOU LARK\" / \"EVENTS\". Four printable faces total, one fold. Physically plausible cardstock, no tri-fold or greeting-card proportions. All objects and contacts completely in frame, original soft neutral lighting."
+      ]
     },
     {
       "slug": "plastic-business-cards",
       "path": "public/images/signage/business-cards/plastic-business-cards-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/business-cards/plastic-business-cards"
+      "url": "https://www.pixelnpanel.com/signage/business-cards/plastic-business-cards",
+      "description": "Plastic cards do not soften in a wallet, bend in a pocket, or fall apart when they get wet. If your card needs to survive a job site or a glovebox, this is the one.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: PLASTIC BUSINESS CARDS, thin opaque 14pt solid plastic with softly rounded corners, standard wallet proportions. Show two cards front and reverse on pale studio tabletop, slightly overlapping but every contact line visible. A few small realistic water droplets on one card demonstrate water resistance, crisp smooth polymer edges and subtle glossy reflections. These are thin plastic cards, not thick metal cards or credit cards: no chip, magnetic stripe, embossed account number or hologram. Invent original Southeast Texas small marine-maintenance business \"REEDWAKE\" / \"MARINE CARE\", a distinctive reed-and-propeller emblem and sturdy clean sans typography. Independent palette SEA GREEN, CHARCOAL, WHITE and SMALL SIGNAL-RED accent. Front name/logo; reverse \"Boat care • Dockside service\" and exact phone/email/website. No person name or address, no certification, no Pixel & Panel colors or logo. All cards inside frame.",
+      "brand": "Reedwake Marine Care",
+      "brandKit": {
+        "palette": "Sea green, charcoal, white, signal red"
+      },
+      "batch": 4,
+      "revisionPrompts": [
+        "Precise text correction only. Keep this square plastic business-card product photo, fictional REEDWAKE MARINE CARE brand, colors, layout, objects, droplets, lighting and all other text unchanged. On the lower dark card replace incorrect email \"hello@reedwake.com\" with EXACT \"hello@pixelnpanel.com\". Replace incorrect website \"www.reedwake.com\" with EXACT \"www.pixelnpanel.com\". Keep phone exactly \"(409) 225-2012\". All three contact lines must be fully visible and correctly spelled. Do not substitute brand-specific domain. Final image must contain the email hello@pixelnpanel.com and website www.pixelnpanel.com and no reedwake.com contact text."
+      ]
     },
     {
       "slug": "flyers",
       "path": "public/images/signage/flyers-brochures-and-booklets/flyers-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/flyers"
-    },
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/flyers",
+      "description": "Flyers do the unglamorous work of getting the word out — events, sales, menus, open houses. They are cheap per piece, fast to turn around, and easy to hand out or leave on a counter.",
+      "prompt": "Use case: product-mockup. Create one square photorealistic ecommerce catalog photograph with sharp material detail, soft natural contact shadows, pale neutral studio surroundings, and the complete product safely inside frame. Product dominates image. Use original fictional Southeast Texas small-business branding specified below. Never use Pixel & Panel's logo or blue/navy/amber design system. No \"YOUR BRAND\", famous logos, watermarks, price labels, invented contact details, QR codes, certificates or text outside the product. Promotional text must be spelled correctly and be large enough to read. If a reference is attached it is BRAND-IDENTITY REFERENCE ONLY: reuse its logo motif, palette and typography, completely replace its physical product with the newly specified product. Business contact text, when requested, is exactly \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Omit contacts and logos from fine-art canvas examples.\nPRODUCT: FULL-COLOR FLYERS, 8.5-by-11-inch portrait proportions, thin gloss paper. A small tidy stack plus one slightly offset top sheet on ivory tabletop; all important text visible. Clear thin paper edges and subtle coated-paper sheen, no fold, no rigid backing. Brand reference only: Neches Fern nursery forest-green/ivory/sage identity with fern/river emblem and refined serif. Make a cheerful professionally designed local nursery promotion: original leafy plant photography occupies upper third and structured readable lower section. Verbatim copy \"NECHES FERN NURSERY\", \"Grow something good.\", \"Native plants\", \"Garden supplies\", \"Friendly local advice\", \"Visit us in Southeast Texas\", then exact phone/email/website. No invented store address, prices, dates, coupons or QR codes. Generous margins, restrained botanical accents, no blue/amber branding.",
+      "brand": "Neches Fern Nursery",
+      "brandKit": {
+        "palette": "Forest green, sage, warm ivory"
+      },
+      "batch": 4,
+      "referenceSlug": "straight-pop-up-fabric-display"
+    }
+  ],
+  "pendingProducts": [
     {
       "slug": "brochures",
       "path": "public/images/signage/flyers-brochures-and-booklets/brochures-beaumont-tx.webp",
