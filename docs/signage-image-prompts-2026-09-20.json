@@ -331,59 +331,99 @@
       },
       "batch": 4,
       "referenceSlug": "straight-pop-up-fabric-display"
-    }
-  ],
-  "pendingProducts": [
+    },
     {
       "slug": "brochures",
       "path": "public/images/signage/flyers-brochures-and-booklets/brochures-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/brochures"
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/brochures",
+      "brand": "Gulf Reed Garden Care",
+      "brandKit": "forest green, soft lime and warm ivory",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: forest green, soft lime and warm ivory.\nPRODUCT: Show TWO 8.5x11 inch thin paper TRI-FOLD brochures: one folded narrow portrait cover, one opened showing exactly THREE tall panels separated by two vertical folds. Real paper, no binding. Original reed-and-leaf logo. Cover text 'GULF REED' 'GARDEN CARE' 'Local roots. Beautiful yards.' Inside short headings 'Lawn care' 'Garden beds' 'Seasonal cleanup'. Small original garden photos. Contacts on visible back panel."
     },
     {
       "slug": "booklets",
       "path": "public/images/signage/flyers-brochures-and-booklets/booklets-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/booklets"
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/booklets",
+      "brand": "Bayou Kiln Studio",
+      "brandKit": "burnt sienna, dusty rose and cream",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: burnt sienna, dusty rose and cream.\nPRODUCT: Show 8.5x11 inch portrait SADDLE-STITCHED pottery catalog, one closed cover plus one open spread showing multiple thin paper pages and two small staples along center spine. NOT hardback, spiral or perfect binding. Original simple ceramic bowl logo. Text 'BAYOU KILN' 'STUDIO' 'Handmade for everyday living' 'Southeast Texas'. Tasteful original pottery photographs. Open spread headings 'Bowls' and 'Mugs' with large airy images. Contacts on visible cover footer."
     },
     {
       "slug": "presentation-folders",
       "path": "public/images/signage/flyers-brochures-and-booklets/presentation-folders-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/presentation-folders"
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/presentation-folders",
+      "brand": "Sabine Oak Property Care",
+      "brandKit": "deep burgundy, warm taupe and off-white",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: deep burgundy, warm taupe and off-white.\nPRODUCT: Show one CLOSED 9x12 inch portrait presentation folder front and one OPEN folder displaying TWO actual interior bottom pockets. Letter-size white proposal sheets partly tucked into pockets. A 3.5x2 inch branded business card held by diagonal card slits on right pocket. Crisp heavyweight matte cardstock with center score. Original oak leaf and house logo. Text 'SABINE OAK' 'PROPERTY CARE' 'Prepared for your property'. Business card displays all three contacts. No rings, binder hardware or extra folds."
     },
     {
       "slug": "bookmarks",
       "path": "public/images/signage/flyers-brochures-and-booklets/bookmarks-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/bookmarks"
+      "url": "https://www.pixelnpanel.com/signage/flyers-brochures-and-booklets/bookmarks",
+      "brand": "Neches Nook Books",
+      "brandKit": "aubergine, lavender and pale cream",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: aubergine, lavender and pale cream.\nPRODUCT: Show THREE slim 2x6 inch bookmarks, clear 1:3 proportions, printed heavy matte paper, flat on neutral tabletop with slight overlap, all edges visible. Two fronts with original moon/open-book logo and delicate botanical border; one back reading 'One more chapter.' Brand text 'NECHES NOOK' 'BOOKS' 'Stories close to home'. At least one card shows all three contacts legibly. No tassel, no hole, no generic placeholder text."
     },
     {
       "slug": "postcards",
       "path": "public/images/signage/postcards-and-direct-mail/postcards-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/postcards"
+      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/postcards",
+      "brand": "Cypress Spoon Kitchen",
+      "brandKit": "tomato red, olive green and cream",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: tomato red, olive green and cream.\nPRODUCT: Show TWO landscape 4x6 inch matte postcards on pale neutral tabletop, front and reverse. Front has original spoon/cypress logo, appetizing original homestyle meal photo and text 'CYPRESS SPOON' 'KITCHEN' 'Good food. Close to home.' Reverse left half has brand and all contacts; right half clean blank address writing lines and empty small outlined stamp rectangle. No invented address, no postal barcode. Thin rigid cardstock, no folds."
     },
     {
       "slug": "door-hangers",
       "path": "public/images/signage/postcards-and-direct-mail/door-hangers-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/door-hangers"
+      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/door-hangers",
+      "brand": "Gulf Reed Garden Care",
+      "brandKit": "forest green, soft lime and warm ivory",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: forest green, soft lime and warm ivory.\nPRODUCT: Show TWO tall 4.25x11 inch matte cardstock DOOR HANGERS lying on tabletop, complete shapes visible. Each has a genuine circular HOLE cut THROUGH near top and a slit running from circular hole to outer edge, physically allowing handle insertion. No printed fake hole. One front prominently visible, reverse slightly behind. Original reed-and-leaf logo. Text 'GULF REED' 'GARDEN CARE' 'A greener yard starts here.' 'Lawn care • Garden beds • Cleanup'. All contacts at bottom, clear of cutout. A small blank quote box on reverse."
     },
     {
       "slug": "variable-data-postcards",
       "path": "public/images/signage/postcards-and-direct-mail/variable-data-postcards-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/variable-data-postcards"
+      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/variable-data-postcards",
+      "brand": "Pinewake Auto Care",
+      "brandKit": "charcoal, bright tangerine and warm white",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: charcoal, bright tangerine and warm white.\nPRODUCT: Show THREE 4x6 inch landscape postcards flat and offset, each same original automotive pine-and-wheel branding, SAME layout, but different PERSONALIZATION clearly visible. All three greeting text lines fully visible: 'Hi, Morgan!' / 'Hi, Jordan!' / 'Hi, Taylor!' and respective 'Code: PW101' / 'Code: PW102' / 'Code: PW103'. Brand 'PINEWAKE AUTO CARE'. Main line 'Time for a tune-up?' Original simple car illustration. Each footer phone and website; nearest card also email. Matte 14pt card stock. No actual recipient addresses, no barcode, no invented contacts. Compose wide enough to read all three personalized names without overlap."
     },
     {
       "slug": "tear-cards",
       "path": "public/images/signage/postcards-and-direct-mail/tear-cards-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/tear-cards"
+      "url": "https://www.pixelnpanel.com/signage/postcards-and-direct-mail/tear-cards",
+      "brand": "Cypress Spoon Kitchen",
+      "brandKit": "tomato red, olive green and cream",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: tomato red, olive green and cream.\nPRODUCT: Show one complete portrait 3.5x8 inch printed cardstock TEAR CARD, one second identical card whose bottom 3.5x2 inch contact coupon has been detached and placed just below its torn upper portion. ONE horizontal physical perforation line separates coupon from upper part on intact card; visible tiny perforation cuts and matching fine torn paper edges on separated pair. No fold. Original spoon-and-cypress logo. Upper text 'CYPRESS SPOON KITCHEN' 'Good food. Close to home.' with tasteful meal photograph. Bottom removable coupon text 'Keep us handy' and brand plus ALL THREE contacts clearly readable. No invented discount, no QR."
     },
     {
       "slug": "invitations-and-announcements",
       "path": "public/images/signage/cards-invitations-and-event-print/invitations-and-announcements-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/invitations-and-announcements"
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/invitations-and-announcements",
+      "brand": "Bayou Bloom Atelier",
+      "brandKit": "mauve, sage, ivory and subtle copper foil",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: mauve, sage, ivory and subtle copper foil.\nPRODUCT: Show premium flat 5x7 inch portrait invitation on textured ivory card, a second matching card behind and one unbranded sage envelope. Original botanical wreath and small floral mark, subtle realistic copper foil accents. Brand text 'BAYOU BLOOM ATELIER'. Elegant centered text 'You are invited' 'An evening in bloom' 'Southeast Texas'. Lower text 'RSVP' then ALL THREE contacts exact. No invented street address or event date. Clearly flat thick invitation, not folded greeting card. All objects inside square frame."
     },
     {
       "slug": "greeting-cards",
       "path": "public/images/signage/cards-invitations-and-event-print/greeting-cards-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/greeting-cards"
-    },
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/greeting-cards",
+      "brand": "Neches Hearth Home",
+      "brandKit": "warm russet, muted sage, oatmeal and cream",
+      "batch": 5,
+      "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: warm russet, muted sage, oatmeal and cream.\nPRODUCT: Show one 5x7 inch FOLDED portrait thank-you greeting card standing slightly open in tent-like book form and one second copy opened flat showing two interior portrait panels joined by one vertical center fold. Visible paper grain and precise scored fold, realistic writable matte stock. Original cozy cottage-and-leaf logo, brand 'NECHES HEARTH HOME'. Front text 'Thank you' 'For making us part of your home.' Inside one panel blank for handwriting, other text 'Warm wishes from Southeast Texas' with small brand and ALL THREE contacts in footer. No fake signatures, no extra folds, no envelope needed."
+    }
+  ],
+  "pendingProducts": [
     {
       "slug": "numbered-tickets",
       "path": "public/images/signage/cards-invitations-and-event-print/numbered-tickets-beaumont-tx.webp",
