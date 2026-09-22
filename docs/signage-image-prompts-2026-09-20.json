@@ -517,58 +517,97 @@
       "brandKit": "charcoal, burnt orange and white with yellow/pink copies",
       "batch": 6,
       "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: charcoal, burnt orange and white with yellow/pink copies.\nPRODUCT: One 8.5x11 inch 3-part NCR carbonless WORK ORDER pad on neutral desk, top WHITE sheet gently lifted exposing CANARY YELLOW second sheet and PINK third sheet, glued at top edge; all THREE show same printed form layout. No black carbon sheet, no spiral binding. Original wrench-and-pine logo, text 'PINEWAKE' 'SERVICE & REPAIR' 'WORK ORDER' 'No. 0101'. ALL THREE exact contacts in clear header. Clean spacious blank fields 'Customer', 'Phone', 'Date', 'Service address', table headings 'Description' 'Qty' 'Amount', bottom 'Total' 'Customer signature'. Leave fields EMPTY, no invented customer data. Pen placed nearby for scale, no writing hand. Practical professional form."
-    }
-  ],
-  "pendingProducts": [
+    },
     {
       "slug": "letterhead",
       "path": "public/images/signage/stationery-and-business-forms/letterhead-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/letterhead"
+      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/letterhead",
+      "brand": "Sabine Oak Property Care",
+      "brandKit": "burgundy, taupe and white",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: burgundy, taupe and white.\nPRODUCT: Small stack of 8.5x11 inch US LETTERHEAD, thin 60lb uncoated white paper, one loose sheet offset, viewed overhead at slight angle. Huge clean BLANK writing area, only original oak-leaf/house emblem and 'SABINE OAK' 'PROPERTY CARE' at header. Restrained burgundy rule, footer ALL THREE contacts exact, printed safely inside half-inch margins. No fake letter text, no address, no heavy cardstock. Refined local service stationery."
     },
     {
       "slug": "envelopes",
       "path": "public/images/signage/stationery-and-business-forms/envelopes-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/envelopes"
+      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/envelopes",
+      "brand": "Bayou Lark Events",
+      "brandKit": "plum, blush and ivory",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: plum, blush and ivory.\nPRODUCT: THREE standard #10 BUSINESS ENVELOPES, 9.5 inches wide x4.125 tall with accurate wide 2.3:1 proportions. One front facing with original bird-and-flower mark and 'BAYOU LARK EVENTS' plus all three exact contacts at upper left, large BLANK recipient area. Another reverse side with open long commercial flap exposing subtle gray patterned security tint and white peel-and-seal strip. Third stacked below. Uncoated thin paper, not invitation square envelopes, no invented return street address, no stamps or fake barcode."
     },
     {
       "slug": "notepads",
       "path": "public/images/signage/stationery-and-business-forms/notepads-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/notepads"
+      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/notepads",
+      "brand": "Neches Fern Nursery",
+      "brandKit": "forest green, sage and cream",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: forest green, sage and cream.\nPRODUCT: Two half-letter 5.5x8.5 inch NOTEPADS, each 50 thin uncoated sheets glued along top edge with rigid backing. One pad flat, second slightly angled with top corner gently lifted showing layered paper and backing. Clean mostly blank writable page, small original fern logo and 'NECHES FERN NURSERY' at top, tiny sage corner leaves. ALL THREE contacts in footer. No spiral, no hardcover, no full-page artwork. Pen nearby for scale."
     },
     {
       "slug": "business-card-magnets",
       "path": "public/images/signage/magnets-and-clings/business-card-magnets-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/business-card-magnets"
+      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/business-card-magnets",
+      "brand": "Sabine Breeze Heating & Air",
+      "brandKit": "turquoise, charcoal and white",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: turquoise, charcoal and white.\nPRODUCT: THREE standard 3.5x2 inch landscape refrigerator BUSINESS CARD MAGNETS. One printed magnet attached flush to plain white steel refrigerator, one front-facing on adjacent clean counter and one flipped showing solid dark flexible magnetic rubber back with tiny corner flex. Very thin 14pt magnetic stock, NOT paper card, no adhesive liner. Original breeze/snowflake/sun logo. Text 'SABINE BREEZE' 'HEATING & AIR' and LARGE '(409) 225-2012', smaller exact email and website. No certifications or emergency availability claims. Entire pieces fully in frame."
     },
     {
       "slug": "cut-to-shape-magnets",
       "path": "public/images/signage/magnets-and-clings/cut-to-shape-magnets-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/cut-to-shape-magnets"
+      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/cut-to-shape-magnets",
+      "brand": "Neches Nest Home",
+      "brandKit": "terracotta, sage and cream",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: terracotta, sage and cream.\nPRODUCT: Three custom DIE-CUT HOUSE-SHAPED flexible magnets with broad roof and chimney outline, simple robust chunky silhouette, smooth 30mil rubber magnet edge. Two fronts visible, one rear showing plain matte black magnetic rubber. One front attached to pale steel board behind tabletop. Original nest-and-leaf mark, 'NECHES NEST' 'HOME', large phone '(409) 225-2012', exact website and email legible below. No rectangular surrounding backing, no sticker peel liner, no thick wood or enamel pin. Keep all magnets within frame."
     },
     {
       "slug": "static-clings",
       "path": "public/images/signage/magnets-and-clings/static-clings-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/static-clings"
+      "url": "https://www.pixelnpanel.com/signage/magnets-and-clings/static-clings",
+      "brand": "Cypress Kettle Cafe",
+      "brandKit": "deep teal, peach and white",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: deep teal, peach and white.\nPRODUCT: Photorealistic close-up of reusable TRANSPARENT STATIC CLING on INSIDE of clean cafe window, artwork reads normally to viewer from outside. Glass and blurred cafe clearly visible through unprinted parts of transparent rectangular film. Original kettle logo, text 'CYPRESS KETTLE CAFE' 'Come in for something warm' with ALL THREE exact contacts. One lower corner gently curled away from glass demonstrating removable thin clear film; no sticky adhesive strings, residue, tape, glue or suction cups. Camera focused sharply on cling, entire rectangular film and printed text inside frame. No invented hours."
     },
     {
       "slug": "flag-bases",
       "path": "public/images/signage/hardware/flag-bases-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/hardware/flag-bases"
+      "url": "https://www.pixelnpanel.com/signage/hardware/flag-bases",
+      "brand": "Unbranded hardware",
+      "brandKit": "black powder-coated steel and neutral gray",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: black powder-coated steel and neutral gray.\nPRODUCT: Studio catalog group of FOUR DIFFERENT advertising flag mounting BASE OPTIONS on pale gray seamless background: (1) metal screw-in ground stake with pointed helical lower shaft and short vertical flag pole socket, laid diagonally; (2) low folding four-arm X CROSS BASE with central upright spindle, spread open; (3) heavy flat SQUARE steel base plate with central vertical spindle; (4) black ROUND refillable WATER WEIGHT BAG with central hole and capped fill valve lying next to cross base. Clearly separated parts, physically plausible construction, whole group within frame. No flags, no long poles, no logos, NO TEXT or dimensions. Practical generic hardware product photography, no invented specialty attachments."
     },
     {
       "slug": "tent-accessories",
       "path": "public/images/signage/hardware/tent-accessories-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/hardware/tent-accessories"
+      "url": "https://www.pixelnpanel.com/signage/hardware/tent-accessories",
+      "brand": "Unbranded hardware",
+      "brandKit": "black nylon, silver aluminum and steel",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: black nylon, silver aluminum and steel.\nPRODUCT: Studio catalog photo of ACCESSORIES for a standard pop-up canopy, neatly separated on pale gray floor: four EMPTY black nylon leg weight bags with hook-and-loop straps and fill openings; one silver telescoping horizontal banner RAIL BAR with practical clamp fittings at BOTH ends laid across back; small bundle of steel ground stakes beside coiled white guy ropes; one CLOSED tall black nylon WHEELED CARRY BAG with exactly two wheels at base and carrying handle. NO entire tent, canopy, fabric sidewall, sand, branding, labels, text, or people. Show realistic stitching, metal joints, all objects fully visible and proportions plausible. Rail is segmented/shortened for transport, not oversized across whole scene."
     },
     {
       "slug": "flag-poles",
       "path": "public/images/signage/hardware/flag-poles-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/hardware/flag-poles"
+      "url": "https://www.pixelnpanel.com/signage/hardware/flag-poles",
+      "brand": "Unbranded hardware",
+      "brandKit": "black fiberglass, brushed aluminum and gray",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: black fiberglass, brushed aluminum and gray.\nPRODUCT: Clean studio catalog product photo of ONE REPLACEMENT PORTABLE feather/teardrop advertising FLAG POLE KIT disassembled into five graduated-length slender tubular segments, neatly parallel with ends staggered on pale gray surface. Thicker silver aluminum lower sections, tapered flexible black fiberglass upper tip, visible male/female join connectors and protective black end cap. One plain closed slim black carry sleeve lies beside pieces. NO FLAG FABRIC, NO BASE, NO SPIKE, no fishing reel or guides, no tent cross-bracing. No branding or text. Whole kit fully in frame, crisp realistic hardware detail. These assemble into one tall advertising flag pole."
     },
     {
       "slug": "banner-hardware-kit",
       "path": "public/images/signage/hardware/banner-hardware-kit-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/hardware/banner-hardware-kit"
+      "url": "https://www.pixelnpanel.com/signage/hardware/banner-hardware-kit",
+      "brand": "Unbranded hardware",
+      "brandKit": "black rubber, brass metal and white vinyl",
+      "batch": 7,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog image. Complete main objects fully inside frame, sharp material detail, soft studio daylight, realistic shadows. Original fictional Southeast Texas small-business branding only where specified. No famous logos, no Pixel & Panel logo or blue/navy/amber brand kit, no 'YOUR BRAND', watermarks, UI or dimension annotations. Business contacts whenever specified MUST be exactly '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent brand phone/domain/email. For unbranded hardware omit all printing and contacts.\nPalette: black rubber, brass metal and white vinyl.\nPRODUCT: Studio catalog flat lay of BANNER MOUNTING AND FINISHING OPTIONS on pale gray tabletop: small tidy group of brass grommet eyelets with matching washers; four black elastic BALL BUNGEE loops with round black balls; a bundle of long heavy-duty black ZIP TIES; two small unprinted white vinyl banner material samples, one neatly hemmed corner with installed brass grommet, another with clearly SEWN hollow POLE POCKET sleeve along edge and short silver rod inserted a little way to show opening. Finished samples illustrate options; do not depict pole pocket as standalone metal fitting. Realistic scale, no sharp random tools, no hammer, no hardware labels, no logos, NO TEXT, no huge complete banner. Every item complete within frame."
     }
-  ]
+  ],
+  "pendingProducts": []
 }
