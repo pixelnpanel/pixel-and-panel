@@ -421,59 +421,105 @@
       "brandKit": "warm russet, muted sage, oatmeal and cream",
       "batch": 5,
       "prompt": "Use case: product-mockup. Generate ONE square premium photorealistic ecommerce product photograph, pale warm neutral studio tabletop, soft daylight and realistic contact shadows, tack-sharp print and material detail. Entire product safely inside frame, product fills most frame. ORIGINAL fictional Southeast Texas small-business identity; no existing famous logo, no Pixel & Panel logo or blue/navy/amber brand kit. No 'YOUR BRAND', watermarks, UI, dimension annotations or text outside printed products. Only business contact details permitted: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. When contacts requested print these EXACTLY, never fictional-brand email/domain. All text correct, readable with generous spacing.\nBrand palette: warm russet, muted sage, oatmeal and cream.\nPRODUCT: Show one 5x7 inch FOLDED portrait thank-you greeting card standing slightly open in tent-like book form and one second copy opened flat showing two interior portrait panels joined by one vertical center fold. Visible paper grain and precise scored fold, realistic writable matte stock. Original cozy cottage-and-leaf logo, brand 'NECHES HEARTH HOME'. Front text 'Thank you' 'For making us part of your home.' Inside one panel blank for handwriting, other text 'Warm wishes from Southeast Texas' with small brand and ALL THREE contacts in footer. No fake signatures, no extra folds, no envelope needed."
-    }
-  ],
-  "pendingProducts": [
+    },
     {
       "slug": "numbered-tickets",
       "path": "public/images/signage/cards-invitations-and-event-print/numbered-tickets-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/numbered-tickets"
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/numbered-tickets",
+      "brand": "Sabine Sound Social",
+      "brandKit": "violet, coral and cream",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: violet, coral and cream.\nPRODUCT: Three landscape admission tickets on tabletop, separate full tickets each with one perforated stub at right. Original musical wave logo; text 'SABINE SOUND SOCIAL' 'LIVE MUSIC' 'ADMIT ONE' 'Southeast Texas'. Sequential numbers 00101, 00102, 00103 respectively, each repeated EXACTLY on its matching stub. Stubs must remain attached with visible perforations. Thick paper card, no fake digital tickets or barcodes. Print website on ticket footer; other contacts optional.",
+      "revisionPrompts": [
+        "Edit only numbering positions in this image. Keep design, colors, arrangement, website, perforations unchanged. Each ticket currently has two duplicate numbers BOTH on its right stub. Move LOWER number from each stub onto the MAIN LARGE ticket body, left of perforation, replacing small 'A STRONGER SOUTHEAST TEXAS' text in lower right corner of MAIN ticket. Top ticket main and stub BOTH 00101, middle BOTH 00102, bottom BOTH 00103. Exactly ONE number on each main body and ONE matching number on each stub. Preserve upper number on stub."
+      ]
     },
     {
       "slug": "table-tent-cards",
       "path": "public/images/signage/cards-invitations-and-event-print/table-tent-cards-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/table-tent-cards"
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/table-tent-cards",
+      "brand": "Cypress Kettle Cafe",
+      "brandKit": "deep teal, peach and ivory",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: deep teal, peach and ivory.\nPRODUCT: Two freestanding 4x6 inch portrait folded cardstock TABLE TENTS, triangular prism construction with front and back printed faces joined at top and folded base underneath. One front view, one three-quarter view showing triangular side gap. NO acrylic holder or frame. Original kettle-and-cypress logo. Text 'CYPRESS KETTLE CAFE' 'Take a little break' 'Coffee • Tea • Fresh pastries'. Original appetizing cup and croissant photograph printed on card. Phone and website clear on lower front, email on second visible face.",
+      "revisionPrompts": [
+        "Correct physical construction only. Preserve two cafe table tents, exact front artwork and phone/website, composition and lighting. RIGHT tent currently has a solid printed triangular side panel; REMOVE this triangular side panel entirely to create a visibly OPEN TRIANGULAR GAP where tabletop/background can be seen. A table tent is folded flat cardstock with rectangular front and back faces joined along TOP edge and narrow connecting bottom base. It has NO triangular end walls. Show paper thin edges and hollow side. Delete side text with removed panel. Left frontal tent remains unchanged. Do not add email elsewhere."
+      ]
     },
     {
       "slug": "wall-calendars",
       "path": "public/images/signage/cards-invitations-and-event-print/wall-calendars-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/wall-calendars"
+      "url": "https://www.pixelnpanel.com/signage/cards-invitations-and-event-print/wall-calendars",
+      "brand": "Neches Meadow Garden Care",
+      "brandKit": "forest green, sage and white",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: forest green, sage and white.\nPRODUCT: ONE photorealistic paper WALL CALENDAR hanging flat on pale wall by tiny pin through hanging hole. Open dimensions 11 inches WIDE x17 inches TALL, two 11x8.5 landscape halves, horizontal center fold with two saddle stitch staples, NO spiral binding. Top half original Southeast Texas garden photograph and original leaf logo with 'NECHES MEADOW' 'GARDEN CARE'. Bottom half accurate 'JANUARY 2027' calendar with SEVEN equal columns labeled SUN MON TUE WED THU FRI SAT, precisely FIVE week rows: row1 blank blank blank blank blank 1 2; row2 3 4 5 6 7 8 9; row3 10 11 12 13 14 15 16; row4 17 18 19 20 21 22 23; row5 24 25 26 27 28 29 30; row6 31 blank blank blank blank blank blank. Correction: SIX week rows total as enumerated. No extra dates. Footer ALL THREE contacts exact. Camera nearly frontal for legible accurate grid. Complete calendar in square frame."
     },
     {
       "slug": "roll-labels",
       "path": "public/images/signage/labels-stickers-and-packaging/roll-labels-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/roll-labels"
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/roll-labels",
+      "brand": "Bayou Wick Studio",
+      "brandKit": "warm terracotta, charcoal and cream",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: warm terracotta, charcoal and cream.\nPRODUCT: A roll of round adhesive candle LABELS wound around visible cardboard core, with short unrolled white release liner holding four identical circular labels. Foreground one label partially lifted revealing adhesive underside and matching empty circular area on liner. Original flame-and-reed logo. Text 'BAYOU WICK' 'STUDIO' 'Cypress & Cedar' 'Southeast Texas' and website. No safety/ingredient claims. Crisp printed paper labels, not ribbon, tape or sheets. Website spelled exactly."
     },
     {
       "slug": "square-cut-stickers",
       "path": "public/images/signage/labels-stickers-and-packaging/square-cut-stickers-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/square-cut-stickers"
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/square-cut-stickers",
+      "brand": "Pinebank Pet Supply",
+      "brandKit": "raspberry, sunflower yellow and cream",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: raspberry, sunflower yellow and cream.\nPRODUCT: Stack of square 3x3 inch stickers with STRAIGHT cuts and sharp square corners, some separate square stickers laid nearby. Original cheerful paw and pine logo. Text 'PINEBANK' 'PET SUPPLY' 'Good days. Happy paws.' and website. One corner peeling up from square white backing to show adhesive. Same graphics on each. No circular cutout, contour-cut silhouette or rounded corners; these are square-cut stickers. Playful bold modern branding."
     },
     {
       "slug": "cut-to-shape-decals",
       "path": "public/images/signage/labels-stickers-and-packaging/cut-to-shape-decals-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/cut-to-shape-decals"
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/cut-to-shape-decals",
+      "brand": "Gulftrail Outdoor Goods",
+      "brandKit": "moss green, warm rust and ivory",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: moss green, warm rust and ivory.\nPRODUCT: Three original custom contour-cut white vinyl logo decals displayed on pale tabletop, ONE peeled partly from backing. Decal silhouette follows complex pine-tree, sun, canoe and banner outline closely with thin white margin. No rectangular or square background behind artwork. Text 'GULFTRAIL' 'OUTDOOR GOODS' 'Southeast Texas'. Optional website in lower banner, exact if included. Clearly show irregular die cut edge, smooth satin vinyl, realistic thin adhesive material. Not pins, thick plaques or patches."
     },
     {
       "slug": "product-boxes",
       "path": "public/images/signage/labels-stickers-and-packaging/product-boxes-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/product-boxes"
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/product-boxes",
+      "brand": "Bayou Wick Studio",
+      "brandKit": "lavender, dark plum and cream",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: lavender, dark plum and cream.\nPRODUCT: Three SMALL retail folding cardstock candle product BOXES, one closed upright, one open top showing accurately constructed tuck flap and two dust flaps, one flattened carton behind. Thin smooth printed folding carton board, NOT corrugated mailer. Straight tuck end style, square cross-section. Original flame-and-reed emblem, text 'BAYOU WICK' 'STUDIO' 'Lavender Dusk' 'A little calm, close to home.' Printed side has ALL THREE contacts exact. No actual candle necessary. Distinct lavender/plum product-line palette, professional packaging."
     },
     {
       "slug": "mailer-boxes",
       "path": "public/images/signage/labels-stickers-and-packaging/mailer-boxes-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/mailer-boxes"
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/mailer-boxes",
+      "brand": "Neches Nest Home",
+      "brandKit": "terracotta, pale blush and cream",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: terracotta, pale blush and cream.\nPRODUCT: Two self-locking corrugated shipping MAILER BOXES, one closed and one OPEN with hinged lid upright, visible corrugated flute at edges, side locking ears and folded front walls. Original nest-and-leaf logo. Exterior 'NECHES NEST' 'HOME'. Inside lid text 'Something lovely has arrived.' Contrasting terracotta exterior and pale blush printed interior. A little unbranded cream tissue inside, no products required. Visible front panel ALL THREE contacts exact. Not thin retail tuck carton, not separate removable lid."
     },
     {
       "slug": "stand-up-pouches",
       "path": "public/images/signage/labels-stickers-and-packaging/stand-up-pouches-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/stand-up-pouches"
+      "url": "https://www.pixelnpanel.com/signage/labels-stickers-and-packaging/stand-up-pouches",
+      "brand": "Sabine Trail Snacks",
+      "brandKit": "turquoise, burnt orange and warm cream",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: turquoise, burnt orange and warm cream.\nPRODUCT: Two resealable printed flexible STAND-UP POUCHES of trail mix, one front and one three-quarter rear view. True gusseted base spreads to stand upright, visible heat-sealed perimeter, zipper near top, small side tear notches above zipper. Original mountainless pine-and-river trail logo. Text 'SABINE TRAIL' 'SNACKS' 'A little fuel for the road.' 'TRAIL MIX'. Small clear oval window shows plausible nuts and raisins. Back design short line 'Made for your next adventure' and ALL THREE exact contacts, no fake nutrition chart, certification badges, invented address or net weight. Matte flexible film, not rigid box."
     },
     {
       "slug": "ncr-forms",
       "path": "public/images/signage/stationery-and-business-forms/ncr-forms-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/ncr-forms"
-    },
+      "url": "https://www.pixelnpanel.com/signage/stationery-and-business-forms/ncr-forms",
+      "brand": "Pinewake Service & Repair",
+      "brandKit": "charcoal, burnt orange and white with yellow/pink copies",
+      "batch": 6,
+      "prompt": "Use case: product-mockup. ONE square photorealistic premium ecommerce catalog photograph. Complete products inside frame with generous safety margin; soft daylight, pale neutral background, true physical materials, sharp legible print. Original fictional Southeast Texas small-business brand, no famous logos, no Pixel & Panel logo or navy/blue/amber brand kit, no 'YOUR BRAND', watermarks, dimension labels or UI. Exact business contact details whenever requested: '(409) 225-2012', 'hello@pixelnpanel.com', 'www.pixelnpanel.com'. Never invent fictional-brand email, domain or phone. Typography accurate, not gibberish.\nPalette: charcoal, burnt orange and white with yellow/pink copies.\nPRODUCT: One 8.5x11 inch 3-part NCR carbonless WORK ORDER pad on neutral desk, top WHITE sheet gently lifted exposing CANARY YELLOW second sheet and PINK third sheet, glued at top edge; all THREE show same printed form layout. No black carbon sheet, no spiral binding. Original wrench-and-pine logo, text 'PINEWAKE' 'SERVICE & REPAIR' 'WORK ORDER' 'No. 0101'. ALL THREE exact contacts in clear header. Clean spacious blank fields 'Customer', 'Phone', 'Date', 'Service address', table headings 'Description' 'Qty' 'Amount', bottom 'Total' 'Customer signature'. Leave fields EMPTY, no invented customer data. Pen placed nearby for scale, no writing hand. Practical professional form."
+    }
+  ],
+  "pendingProducts": [
     {
       "slug": "letterhead",
       "path": "public/images/signage/stationery-and-business-forms/letterhead-beaumont-tx.webp",
