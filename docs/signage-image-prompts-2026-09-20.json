@@ -8,7 +8,7 @@
     "email": "hello@pixelnpanel.com",
     "website": "www.pixelnpanel.com"
   },
-  "artDirection": "Original fictional Southeast Texas small-business brands; use provided Pixel & Panel contacts wherever contact details are appropriate. Review five images at a time.",
+  "artDirection": "Original fictional Southeast Texas small-business mockups. Batches 1–2 use approved examples; from batch 3, use distinct palettes, logos, and typography for each business. Pixel & Panel contact details appear where appropriate.",
   "prompts": [
     {
       "slug": "window-cling",
@@ -104,34 +104,103 @@
       "brand": "Gulfmarsh Fleet Care",
       "batch": 2,
       "referenceSlug": "reflective-adhesive-vinyl"
-    }
-  ],
-  "pendingProducts": [
+    },
     {
       "slug": "straight-pop-up-fabric-display",
       "path": "public/images/signage/trade-show-displays/straight-pop-up-fabric-display-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/straight-pop-up-fabric-display"
+      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/straight-pop-up-fabric-display",
+      "description": "An accordion frame that springs open in well under a minute, with fabric panels that attach by velcro. If you work a lot of shows and set up alone, this is the fastest wall we sell — no poles to thread, no skin to stretch, just expand the frame and press the panels on.",
+      "prompt": "Use case: product-mockup.\nAsset type: square ecommerce listing photograph of an actual signage product.\nPrimary request: create a clean photorealistic commercial product mockup with a fully designed original fictional Southeast Texas small-business identity. Make the business branding credible, distinct and finished. Use the specific color palette and typography below; do NOT use Pixel & Panel logo, its blue/navy/amber brand kit, generic \"YOUR BRAND\", or existing real company logos.\nComposition: entire product fully inside square frame including supports, breathing room at edges, white or pale neutral studio background, realistic soft contact shadows, clear material detail. Printed design belongs ON the product, no floating text, labels, watermark or collage. No extra objects unless specified. Printed photos are part of artwork, not physical props.\nText: reproduce only requested words and contact details exactly; all contacts belong to Pixel & Panel as supplied for these fictional mockups. Never invent phone numbers, emails, domains, addresses, credentials or QR codes. Keep type large, clean and correctly spelled. Brand logo must be original.\nProduct: STRAIGHT POP-UP FABRIC DISPLAY. One 8-foot-wide flat rectangular booth wall of Velcro-attached dye-sublimated fabric PANELS over a deep expanding ALUMINUM ACCORDION/SCISSOR frame. Not a thin pillowcase tension wall. Front fully assembled and printed, understated vertical panel seams away from logo and words. Three-quarter view with one side/rear edge showing small visible portion of silver scissor lattice; substantial booth-wall depth, rectangular edges and wrapped end panels. No counter, travel case, spotlights or separate frame.\nBrand: NECHES FERN NURSERY, invented Southeast Texas neighborhood plant nursery. Forest-green main ground with warm ivory type and sage botanical illustrations. Original fern-and-river emblem. High-end friendly serif wordmark; curved botanical ornaments and asymmetric plant photography strip at far left, not blue/amber sweeps. Printed photo strip shows foliage and nursery pots, all inside graphic.\nExact artwork text: \"NECHES FERN\", \"NURSERY\", \"Rooted in Southeast Texas\", \"NATIVE PLANTS • GARDEN SUPPLIES\". A clearly legible warm-ivory footer contact area with \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Professional hierarchy and generous spacing. Soft dry matte fabric texture.",
+      "brand": "Neches Fern Nursery",
+      "brandKit": {
+        "palette": [
+          "forest green #21513C",
+          "warm ivory #F5EFDF",
+          "sage #A8BA91"
+        ],
+        "typography": "Botanical editorial serif wordmark with restrained humanist sans",
+        "motif": "Original fern frond and meandering river emblem"
+      },
+      "batch": 3
     },
     {
       "slug": "curved-pop-up-fabric-display",
       "path": "public/images/signage/trade-show-displays/curved-pop-up-fabric-display-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/curved-pop-up-fabric-display"
+      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/curved-pop-up-fabric-display",
+      "description": "The same one-minute accordion frame as our straight pop-up, shaped into a curve. You get the fastest setup on the floor plus the softer, more open look of a curved wall — a good combination if you travel to shows constantly and still want the booth to feel designed rather than assembled.",
+      "prompt": "Use case: product-mockup.\nAsset type: square ecommerce listing photograph of an actual signage product.\nPrimary request: create a clean photorealistic commercial product mockup with a fully designed original fictional Southeast Texas small-business identity. Make the business branding credible, distinct and finished. Use the specific color palette and typography below; do NOT use Pixel & Panel logo, its blue/navy/amber brand kit, generic \"YOUR BRAND\", or existing real company logos.\nComposition: entire product fully inside square frame including supports, breathing room at edges, white or pale neutral studio background, realistic soft contact shadows, clear material detail. Printed design belongs ON the product, no floating text, labels, watermark or collage. No extra objects unless specified. Printed photos are part of artwork, not physical props.\nText: reproduce only requested words and contact details exactly; all contacts belong to Pixel & Panel as supplied for these fictional mockups. Never invent phone numbers, emails, domains, addresses, credentials or QR codes. Keep type large, clean and correctly spelled. Brand logo must be original.\nProduct: CURVED POP-UP FABRIC DISPLAY. One full-size portable wall formed by deep expanding ALUMINUM SCISSOR/ACCORDION frame with separate Velcro fabric graphic panels, curved in a gentle HORIZONTAL CONCAVE ARC. Vertical sides straight, constant height. Show from three-quarter angle so curved footprint, side depth and a small portion of silver scissor lattice at rear edge are visible. Subtle vertical panel seams. NOT a thin tubular pillowcase tension wall, no SEG frame. No counter, lights or travel case.\nBrand: SABINE EMBER BBQ, invented Southeast Texas catering smokehouse. Brick-burgundy and charcoal with warm cream typography and restrained burnt-terracotta accent; original smoke-and-oak-log emblem. Bold slab-serif lettering, small checked tablecloth-inspired border, tasteful charcoal woodgrain PRINT texture and an appetizing printed brisket photograph in lower corner. Avoid stock seal 'established' claims.\nExact central artwork text: \"SABINE EMBER\", \"BBQ\", \"Slow smoke. Local flavor.\", \"CATERING • PRIVATE EVENTS\". Lower-center contacts, exact \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Keep headline and contacts on central flattest region, edges mostly decorative. Real matte fabric, well lit in white studio, no physical food.",
+      "brand": "Sabine Ember BBQ",
+      "brandKit": {
+        "palette": [
+          "brick burgundy #712A32",
+          "cream #FFF0D4",
+          "charcoal #262322",
+          "burnt terracotta #BF623E"
+        ],
+        "typography": "Bold slab serif smokehouse wordmark and condensed sans",
+        "motif": "Original smoke plume and oak-log badge"
+      },
+      "batch": 3
     },
     {
       "slug": "trade-show-booth-kit",
       "path": "public/images/signage/trade-show-displays/trade-show-booth-kit-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/trade-show-booth-kit"
+      "url": "https://www.pixelnpanel.com/signage/trade-show-displays/trade-show-booth-kit",
+      "description": "Everything the booth needs, designed as one package instead of assembled from parts that nearly match. A kit pairs the display wall with a printed counter, lighting, and travel cases, all laid out from the same artwork so the colors and the alignment actually agree when you set up on the floor.",
+      "prompt": "Use case: product-mockup.\nAsset type: square ecommerce listing photograph of an actual signage product.\nPrimary request: create a clean photorealistic commercial product mockup with a fully designed original fictional Southeast Texas small-business identity. Make the business branding credible, distinct and finished. Use the specific color palette and typography below; do NOT use Pixel & Panel logo, its blue/navy/amber brand kit, generic \"YOUR BRAND\", or existing real company logos.\nComposition: entire product fully inside square frame including supports, breathing room at edges, white or pale neutral studio background, realistic soft contact shadows, clear material detail. Printed design belongs ON the product, no floating text, labels, watermark or collage. No extra objects unless specified. Printed photos are part of artwork, not physical props.\nText: reproduce only requested words and contact details exactly; all contacts belong to Pixel & Panel as supplied for these fictional mockups. Never invent phone numbers, emails, domains, addresses, credentials or QR codes. Keep type large, clean and correctly spelled. Brand logo must be original.\nProduct: COMPLETE TRADE SHOW BOOTH KIT for approximately 10-foot booth space. Show a coordinated fabric display wall, a printed portable counter in front offset slightly to one side, two small clamp-on LED spotlights on top of wall, and one closed rolling hard travel case beside wall. Whole kit in frame, clearly separate four types of components. Fabric wall professionally taut on frame, counter realistically waist-high with dark neutral top. No chairs, furniture, carpet, television, freestanding flowers or extra promotional products.\nBrand: BAYOU LARK EVENTS, invented Southeast Texas event-planning studio. Plum, dusty blush, warm ivory and muted sage; original small lark-and-floral-stem logo, graceful modern serif headline, refined asymmetrical editorial layout, photographic flowers PRINTED on one side of wall. No blue/amber geometric sweeps. Wall and counter must match exactly in palette, logo and type.\nWall text exactly \"BAYOU LARK\", \"EVENTS\", \"Gather beautifully.\", \"WEDDINGS • CELEBRATIONS\", \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Brand large at upper center, simple short text blocks, readable contact block. Counter repeats ONLY logo and \"BAYOU LARK EVENTS\", no tiny contact text. Soft studio light and realistic shadows, polished complete-product photograph.",
+      "brand": "Bayou Lark Events",
+      "brandKit": {
+        "palette": [
+          "plum #573852",
+          "dusty blush #E7CAD0",
+          "warm ivory #F9F4EA",
+          "muted sage #899783"
+        ],
+        "typography": "Elegant modern serif with light clean sans",
+        "motif": "Original lark and floral stem emblem"
+      },
+      "batch": 3
     },
     {
       "slug": "seg-display",
       "path": "public/images/signage/seg-displays/seg-display-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-display"
+      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-display",
+      "description": "SEG stands for silicone edge graphic: a thin silicone strip sewn into the edge of the fabric that presses into a groove in the frame. The graphic sits flush inside the extrusion instead of wrapping around it, so there is no visible hardware, no hem, and no rippling at the edges — the cleanest wall finish in large format.",
+      "prompt": "Use case: product-mockup.\nAsset type: square ecommerce listing photograph of an actual signage product.\nPrimary request: create a clean photorealistic commercial product mockup with a fully designed original fictional Southeast Texas small-business identity. Make the business branding credible, distinct and finished. Use the specific color palette and typography below; do NOT use Pixel & Panel logo, its blue/navy/amber brand kit, generic \"YOUR BRAND\", or existing real company logos.\nComposition: entire product fully inside square frame including supports, breathing room at edges, white or pale neutral studio background, realistic soft contact shadows, clear material detail. Printed design belongs ON the product, no floating text, labels, watermark or collage. No extra objects unless specified. Printed photos are part of artwork, not physical props.\nText: reproduce only requested words and contact details exactly; all contacts belong to Pixel & Panel as supplied for these fictional mockups. Never invent phone numbers, emails, domains, addresses, credentials or QR codes. Keep type large, clean and correctly spelled. Brand logo must be original.\nProduct: NON-ILLUMINATED SEG FABRIC DISPLAY. A broad rectangular freestanding printed textile panel flush within a slim extruded aluminum frame, perfectly square crisp corners, barely visible thin frame lip, smooth silicone-edge graphic pressed into frame groove. Two flat metal feet, slightly oblique angle showing slim extrusion depth. Whole unit in frame. Absolutely no internal lighting, glow or luminous halo; evenly front-lit matte fabric. No rounded pillowcase edges, wrapped tube-frame, scissor lattice, panel seams or retractable base.\nBrand: NECHES LOOM HOME, invented Southeast Texas home-goods boutique. Sophisticated terracotta, sand, espresso and warm-white palette. Original woven river-line monogram, high-contrast editorial serif name, generously spaced clean typography. Off-center split layout: one side is a PHOTO PRINT of a tasteful natural-linen sofa with terracotta cushion and simple ceramic vessel; other side is solid warm sand with strong espresso type. These room items are printed image content, not objects in studio.\nExact copy \"NECHES LOOM\", \"HOME\", \"Thoughtful spaces.\", \"Everyday comfort.\", \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". Large brand, generous negative space, legible stacked contact footer. No navy, electric blue, amber or recognizable brands.",
+      "brand": "Neches Loom Home",
+      "brandKit": {
+        "palette": [
+          "terracotta #B9674F",
+          "sand #E6D5BD",
+          "espresso #3A2924",
+          "warm white #FBF7F0"
+        ],
+        "typography": "Minimal high-contrast editorial serif and spaced sans",
+        "motif": "Original woven river-line monogram"
+      },
+      "batch": 3
     },
     {
       "slug": "seg-backlit-display",
       "path": "public/images/signage/seg-displays/seg-backlit-display-beaumont-tx.webp",
-      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-backlit-display"
-    },
+      "url": "https://www.pixelnpanel.com/signage/seg-displays/seg-backlit-display",
+      "description": "A SEG frame with edge-lit LEDs built into the extrusion. Light spreads across the whole panel rather than hot-spotting behind the middle, and the graphic prints on a blockout-backed fabric so the illumination reads evenly from edge to edge. It is the display people stop and look at in a dim trade show hall.",
+      "prompt": "Use case: product-mockup.\nAsset type: square ecommerce listing photograph of an actual signage product.\nPrimary request: create a clean photorealistic commercial product mockup with a fully designed original fictional Southeast Texas small-business identity. Make the business branding credible, distinct and finished. Use the specific color palette and typography below; do NOT use Pixel & Panel logo, its blue/navy/amber brand kit, generic \"YOUR BRAND\", or existing real company logos.\nComposition: entire product fully inside square frame including supports, breathing room at edges, white or pale neutral studio background, realistic soft contact shadows, clear material detail. Printed design belongs ON the product, no floating text, labels, watermark or collage. No extra objects unless specified. Printed photos are part of artwork, not physical props.\nText: reproduce only requested words and contact details exactly; all contacts belong to Pixel & Panel as supplied for these fictional mockups. Never invent phone numbers, emails, domains, addresses, credentials or QR codes. Keep type large, clean and correctly spelled. Brand logo must be original.\nProduct: BACKLIT SEG FABRIC DISPLAY. Approximately 10-foot-wide freestanding aluminum LIGHTBOX wall with sharp rectangular square corners, taut silicone-edge fabric face flush in extrusion, two stabilizing feet. Three-quarter studio angle shows credible lightbox depth. Entire panel evenly illuminated FROM WITHIN, edge-to-edge bright saturated print, gentle soft light spilling onto floor. NO visible LED dots, hotspots, dark corners or light bulbs. Neutral pale-gray studio ambient slightly subdued so illumination is unmistakable; printed face is luminous but all type stays dark and crisply readable.\nBrand: GULFGLADE WELLNESS, invented Southeast Texas movement and mindfulness studio. Deep teal, seafoam, warm white and small soft-coral accent, original marsh-leaf and water-ripple symbol. Calm rounded contemporary sans typography, flowing organic color fields and a large photorealistic dew-covered fern PHOTO PRINT within artwork. Completely different from a navy/amber trades-business kit.\nExact text: \"GULFGLADE\", \"WELLNESS\", \"Make room for calm.\", \"MOVEMENT • MINDFULNESS\", \"(409) 225-2012\", \"hello@pixelnpanel.com\", \"www.pixelnpanel.com\". High contrast deep-teal words on pale luminous seafoam/white areas, headline upper-center and contact footer lower-center. No medical claims, credentials, prices or people. No outside spotlights or additional props.",
+      "brand": "Gulfglade Wellness",
+      "brandKit": {
+        "palette": [
+          "deep teal #17666A",
+          "seafoam #BFE2D7",
+          "warm white #F4F7F0",
+          "soft coral #D89B89"
+        ],
+        "typography": "Rounded contemporary sans with spacious lower-case tagline",
+        "motif": "Original marsh leaf and ripple symbol"
+      },
+      "batch": 3
+    }
+  ],
+  "pendingProducts": [
     {
       "slug": "seg-backlit-pop-up-display",
       "path": "public/images/signage/seg-displays/seg-backlit-pop-up-display-beaumont-tx.webp",
