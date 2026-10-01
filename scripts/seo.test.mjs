@@ -54,3 +54,15 @@ test('Twitter uses the same product image as Open Graph unless overridden', () =
     const custom = withDefaultSocialImage({ openGraph: { images }, twitter: { images: ['/custom.jpg'] } })
     assert.deepEqual(custom.twitter.images, ['/custom.jpg'])
 })
+
+
+// Product choices must survive the calculator-to-quote handoff in both languages.
+import { validQuantity, quoteSelectionLines } from '../lib/quote-selection.js'
+test('quote selection retains custom dimensions, kit options and requested quantity', () => {
+    assert.deepEqual(quoteSelectionLines({ size: 'Custom — 48 × 96 in', side: 'Flag+Pole', quantity: '10' }), ['Size: Custom — 48 × 96 in', 'Option: Flag+Pole', 'Quantity: 10'])
+    assert.deepEqual(quoteSelectionLines({ size: '4 × 8 ft', side: 'Doble cara', quantity: '5', language: 'Spanish' }), ['Tamaño: 4 × 8 ft', 'Opción: Doble cara', 'Cantidad: 5'])
+})
+test('invalid or missing quantities never become a requested order quantity', () => {
+    for (const value of ['', '0', '-1', '1.5', 'Infinity', '100001', 'hello']) assert.equal(validQuantity(value), '')
+    assert.deepEqual(quoteSelectionLines({ quantity: '0' }), [])
+})

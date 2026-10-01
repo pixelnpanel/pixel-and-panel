@@ -1,3 +1,4 @@
+import { ProductQuoteProvider, ProductQuoteLink, MobileProductQuoteBar } from "@/components/signage/ProductQuoteContext";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -276,6 +277,7 @@ export default async function SpanishSignageProductPage({ params }) {
       <JsonLd data={faq} />
       <JsonLd data={service} />
 
+      <ProductQuoteProvider productName={product.name} categoryName="Letreros" quoteHref={quoteHref} language="Spanish">
       <div className="bg-[#FAF8F4] text-[#1C1917]">
         <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">
           <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_62%,#0EA5E9_100%)]" />
@@ -295,9 +297,9 @@ export default async function SpanishSignageProductPage({ params }) {
                 <h1 className="max-w-4xl text-white">{product.h1}</h1>
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">{product.intro}</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <Link href={quoteHref} className="btn-amber justify-center">
+                  <ProductQuoteLink href={quoteHref} className="btn-amber justify-center">
                     Solicitar cotización <ArrowRight size={16} />
-                  </Link>
+                  </ProductQuoteLink>
                   <Link href={visibilityHref} className="btn-ghost justify-center">
                     Chequeo gratis de visibilidad
                   </Link>
@@ -605,9 +607,9 @@ export default async function SpanishSignageProductPage({ params }) {
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <Link href={quoteHref} className="btn-amber justify-center">
+                <ProductQuoteLink href={quoteHref} className="btn-amber justify-center">
                   Solicitar cotización <ArrowRight size={16} />
-                </Link>
+                </ProductQuoteLink>
                 <Link href={visibilityHref} className="btn-ghost justify-center">
                   Chequeo gratis
                 </Link>
@@ -616,6 +618,8 @@ export default async function SpanishSignageProductPage({ params }) {
           </div>
         </section>
       </div>
+      <MobileProductQuoteBar />
+      </ProductQuoteProvider>
     </>
   );
 }

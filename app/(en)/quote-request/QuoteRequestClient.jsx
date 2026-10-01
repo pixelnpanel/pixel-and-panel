@@ -9,7 +9,9 @@ import {
 } from "lucide-react";
 import QuoteVisual from "./QuoteVisual";
 import { GOOGLE_REVIEWS } from "@/lib/reviews";
-import { trackLead } from "@/lib/analytics";
+import { trackLead, trackEvent } from "@/lib/analytics";
+
+import { quoteSelectionLines } from "@/lib/quote-selection";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
 const ALLOWED_EXTENSION_SET = new Set(ALLOWED_EXTENSIONS.split(","));
@@ -137,10 +139,13 @@ export default function QuoteRequestClient({
   const queryCategory = searchParams.get("category") || "";
   const querySize = searchParams.get("size") || "";
   const querySide = searchParams.get("side") || "";
+  const queryQuantity = searchParams.get("quantity") || "";
   const requestedProduct = selectedProduct || queryProduct;
   const requestedPackage = requestedProduct ? "" : (selectedPackage || queryPackage);
   const requestedCategory = selectedCategory || queryCategory;
   const content = { ...defaultCopy, ...copy };
+  const selectionLines = requestedProduct ? quoteSelectionLines({ size: querySize.slice(0, 120), side: querySide.slice(0, 80), quantity: queryQuantity, language: content.language }) : [];
+  const productHeading = requestedProduct ? (content.language === "Spanish" ? "Cotización para" : "Get a Quote for") : content.h1Start;
   const selectedItem = requestedProduct
     ? {
         type: "product",
@@ -180,14 +185,7 @@ export default function QuoteRequestClient({
   );
   const [message, setMessage] = useState(() => {
     if (!(hasPreselected && selectedItem.type === "product")) return "";
-    let base = content.defaultMessageTemplate.replace("{product}", selectedItem.name);
-    // Fold size/dimensions + option passed from the product calculator so the
-    // details land in the quote email (Message field).
-    const specLines = [];
-    if (querySize) specLines.push(`Size: ${querySize}`);
-    if (querySide) specLines.push(`Option: ${querySide}`);
-    if (specLines.length) base += `\n\n${specLines.join("\n")}`;
-    return base;
+    return content.defaultMessageTemplate.replace("{product}", selectedItem.name);
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -198,6 +196,8 @@ export default function QuoteRequestClient({
   const [honeypot, setHoneypot] = useState("");
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const stepHeadingRef = useRef(null);
+  const formStartedRef = useRef(false);
+  const seenStepsRef = useRef(new Set());
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -225,7 +225,20 @@ export default function QuoteRequestClient({
     ? content.stepLabels[step]
     : content.shortStepLabels[step - 1];
 
+  useEffect(() => {
+    if (submitted || seenStepsRef.current.has(displayStep)) return;
+    seenStepsRef.current.add(displayStep);
+    trackEvent("quote_form_step_view", { step_number: displayStep, total_steps: totalSteps, language: content.language, request_type: selectedItem?.type || "general" });
+  }, [displayStep, totalSteps, content.language, submitted, selectedItem?.type]);
+
+  function trackFormStart() {
+    if (formStartedRef.current) return;
+    formStartedRef.current = true;
+    trackEvent("quote_form_start", { language: content.language, request_type: selectedItem?.type || "general" });
+  }
+
   function handleServicePick(tile) {
+    trackFormStart();
     setPickedService(tile);
     setContactError("");
     if (!message) {
@@ -240,6 +253,7 @@ export default function QuoteRequestClient({
       return;
     }
     if (email.trim() && !/^\S+@\S+\.\S+$/.test(email.trim())) {
+      trackEvent("quote_form_error", { error_type: "invalid_email", step_number: displayStep, language: content.language });
       setContactError(content.invalidEmail);
       return;
     }
@@ -286,7 +300,7 @@ export default function QuoteRequestClient({
     if (showBusinessName && businessName) formData.set("businessName", businessName);
     formData.set("email", email);
     if (phone) formData.set("phone", phone);
-    formData.set("message", message);
+    formData.set("message", [...selectionLines, message].filter(Boolean).join("\n\n"));
     formData.set("productService", hiddenProductValue);
     if (selectedItem?.category) formData.set("selectedCategory", selectedItem.category);
     if (selectedItem?.type === "product") formData.set("selectedProduct", selectedItem.name);
@@ -305,6 +319,7 @@ export default function QuoteRequestClient({
       setSubmitted(true);
       trackLead("quote", { label: hiddenProductValue, language: content.language });
     } catch (err) {
+      trackEvent("quote_form_error", { error_type: "submission_failed", step_number: displayStep, language: content.language });
       setError(err.message || content.errorFallback);
     } finally {
       setLoading(false);
@@ -328,8 +343,8 @@ export default function QuoteRequestClient({
             {/* Single H1 text node — crawlers previously saw the mobile and
                 desktop variants concatenated into one garbled headline. */}
             <h1 className="pnp-mobile-form-title max-w-[342px] break-words text-[1.85rem] leading-tight md:max-w-xl md:text-[clamp(2rem,4vw,3rem)]" style={{ color: "white" }}>
-              {content.h1Start}{" "}
-              <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">{content.h1Highlight}</span>
+              {productHeading}{" "}
+              <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">{requestedProduct || content.h1Highlight}</span>
             </h1>
             <p className="pnp-mobile-form-copy mt-5 max-w-[342px] break-words text-base leading-8 text-slate-200 md:hidden">
               {content.mobileIntro || content.intro}
@@ -388,6 +403,7 @@ export default function QuoteRequestClient({
 
           {/* ── RIGHT (card) ──────────────────────────────────── */}
           <div
+            onChangeCapture={trackFormStart}
             className="mobile-reveal min-w-0 w-[calc(100vw-3rem)] max-w-[calc(100vw-3rem)] overflow-hidden rounded-[2rem] bg-white p-8 text-[#1C1917] shadow-2xl sm:p-10 lg:w-auto lg:max-w-none"
             style={{ "--reveal-delay": "90ms" }}
           >
@@ -402,6 +418,7 @@ export default function QuoteRequestClient({
                   <p className="mt-1 text-sm font-medium text-slate-700">
                     {selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name}
                   </p>
+                  {selectionLines.length > 0 && <ul className="mt-2 space-y-1 text-xs leading-5 text-slate-700">{selectionLines.map(line => <li key={line}>{line}</li>)}</ul>}
                 </div>
               </div>
             )}

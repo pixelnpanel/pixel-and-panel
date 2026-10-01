@@ -1,7 +1,11 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight, Info, MessageCircle, Truck } from 'lucide-react'
+
+import { useProductQuote, ProductQuoteLink } from './ProductQuoteContext'
+import { validQuantity } from '@/lib/quote-selection'
+import { trackEvent } from '@/lib/analytics'
 
 const WHATSAPP_NUMBER = '14092252012'
 const QUOTE_PATH = '/quote-request'
@@ -34,6 +38,11 @@ export default function SignagePriceCalculator({
     sideLabels = DEFAULT_SIDE_LABEL,
     sidesHeading = 'Printed Sides',
 }) {
+    const quote = useProductQuote()
+    const setSelection = quote?.setSelection
+    const [quantity, setQuantity] = useState('1')
+    const requestedQuantity = validQuantity(quantity)
+    const trackChange = (field) => trackEvent('calculator_interaction', { product_name: productName, product_category: categoryName, option_field: field })
     const hasSizes = sizes.length > 0
     const sides = availableSides.length ? availableSides : []
     const labelFor = (s) => sideLabels[s] || DEFAULT_SIDE_LABEL[s] || s
@@ -78,18 +87,23 @@ export default function SignagePriceCalculator({
         params.set('product', productName)
         if (sizeText) params.set('size', sizeText)
         if (sideText) params.set('side', sideText)
+        if (requestedQuantity) params.set('quantity', requestedQuantity)
         params.set('price', showPrice ? String(unitPrice) : 'quote')
         if (categoryName) params.set('category', categoryName)
         return `${QUOTE_PATH}?${params.toString()}`
-    }, [productName, sizeText, sideText, showPrice, unitPrice, categoryName])
+    }, [productName, sizeText, sideText, showPrice, unitPrice, categoryName, requestedQuantity])
+
+    useEffect(() => {
+        setSelection?.({ href: quoteHref, priceLabel: showPrice ? `Listed price ${priceLabel}` : 'Custom quote' })
+    }, [setSelection, quoteHref, showPrice, priceLabel])
 
     const whatsappHref = useMemo(() => {
         const sidePart = sideText ? `, ${sideText}` : ''
         const sizePart = sizeText ? ` — ${sizeText}` : ''
         const pricePart = showPrice ? formatPrice(unitPrice) : 'need a quote'
-        const text = `Hi Pixel & Panel, I'd like to order: ${productName}${sizePart}${sidePart} — ${pricePart}.`
+        const text = `Hi Pixel & Panel, I'd like to order: ${productName}${sizePart}${sidePart} — ${pricePart}${requestedQuantity ? `; quantity requested: ${requestedQuantity}` : ''}.`
         return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
-    }, [productName, sizeText, sideText, showPrice, unitPrice])
+    }, [productName, sizeText, sideText, showPrice, unitPrice, requestedQuantity])
 
     return (
         <div className="rounded-2xl border border-brand-line bg-white p-6 shadow-calc md:p-7">
@@ -102,7 +116,7 @@ export default function SignagePriceCalculator({
             <select
                 id="signage-size"
                 value={sizeId}
-                onChange={(e) => setSizeId(e.target.value)}
+                onChange={(e) => { setSizeId(e.target.value); trackChange('size') }}
                 className="w-full rounded-xl border border-brand-line bg-[#FAF8F4] px-4 py-3.5 text-base text-[#1C1917] outline-none transition focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
             >
                 {sizes.map((s) => (
@@ -121,7 +135,7 @@ export default function SignagePriceCalculator({
                             <input
                                 type="number" min="0" inputMode="decimal"
                                 value={customWidth}
-                                onChange={(e) => setCustomWidth(e.target.value)}
+                                onChange={(e) => setCustomWidth(e.target.value)} onBlur={() => trackChange('custom_width')}
                                 placeholder="Width"
                                 aria-label="Custom width"
                                 className="w-full rounded-xl border border-brand-line bg-[#FAF8F4] px-4 py-3 text-base text-[#1C1917] outline-none transition focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
@@ -132,7 +146,7 @@ export default function SignagePriceCalculator({
                             <input
                                 type="number" min="0" inputMode="decimal"
                                 value={customHeight}
-                                onChange={(e) => setCustomHeight(e.target.value)}
+                                onChange={(e) => setCustomHeight(e.target.value)} onBlur={() => trackChange('custom_height')}
                                 placeholder="Height"
                                 aria-label="Custom height"
                                 className="w-full rounded-xl border border-brand-line bg-[#FAF8F4] px-4 py-3 text-base text-[#1C1917] outline-none transition focus:border-[#0EA5E9] focus:bg-white focus:ring-4 focus:ring-[#0EA5E9]/15"
@@ -165,7 +179,7 @@ export default function SignagePriceCalculator({
                                 <button
                                     key={s}
                                     type="button"
-                                    onClick={() => setSide(s)}
+                                    onClick={() => { setSide(s); trackChange('print_option') }}
                                     aria-pressed={active}
                                     className={`rounded-lg px-4 py-2 font-heading text-sm font-bold transition ${active
                                         ? 'bg-[#0369A1] text-white shadow-sm'
@@ -187,10 +201,21 @@ export default function SignagePriceCalculator({
                 </p>
             )}
 
+            <div className="mt-5">
+                <label htmlFor="signage-quantity" className="mb-2 block font-heading text-sm font-bold text-[#1C1917]">Quantity requested</label>
+                <input id="signage-quantity" type="number" min="1" max="100000" step="1" inputMode="numeric" value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)} onBlur={() => trackChange('quantity')}
+                    aria-describedby="signage-quantity-help" aria-invalid={Boolean(quantity && !requestedQuantity)}
+                    className="w-full rounded-xl border border-brand-line bg-[#FAF8F4] px-4 py-3 text-base text-[#1C1917] outline-none focus:border-[#0EA5E9] focus:ring-4 focus:ring-[#0EA5E9]/15" />
+                <p id="signage-quantity-help" className="mt-2 text-xs leading-5 text-slate-600">For packs or kits, enter the number of packs or kits. We’ll confirm pricing for your quantity.</p>
+                {quantity && !requestedQuantity && <p role="alert" className="mt-2 text-sm text-red-700">Enter a whole number from 1 to 100,000, or leave it blank for help.</p>}
+            </div>
+
             {/* PRICE DISPLAY */}
             <div className="mt-6 rounded-xl border border-brand-divider bg-[#FAF8F4] p-5">
                 {showPrice ? (
                     <>
+                        <p className="mb-1 text-xs font-semibold text-slate-600">Listed price for selected option</p>
                         <p className="font-heading text-4xl font-extrabold text-[#0369A1]">{priceLabel}</p>
                         <span className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#0369A1] px-4 py-2 font-heading text-xs font-bold uppercase tracking-wide text-white shadow-sm">
                             <Truck size={15} strokeWidth={2.5} /> Free Shipping Anywhere in the US
@@ -218,9 +243,9 @@ export default function SignagePriceCalculator({
 
             {/* CTAs — both prefilled with the current selection */}
             <div className="mt-6 flex flex-col gap-3">
-                <a href={quoteHref} className="btn-amber w-full justify-center">
+                <ProductQuoteLink href={quoteHref} source="product_calculator" className="btn-amber w-full justify-center">
                     Request a Quote <ArrowRight size={18} />
-                </a>
+                </ProductQuoteLink>
                 <a
                     href={whatsappHref}
                     target="_blank"
