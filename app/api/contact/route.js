@@ -86,6 +86,14 @@ export async function POST(request) {
     return jsonResponse({ error: "Invalid request body." }, 400);
   }
 
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return jsonResponse({ error: "Invalid request body." }, 400);
+  }
+
+  if (Object.values(payload).some((value) => typeof value === "string" && value.length > 10000)) {
+    return jsonResponse({ error: "Please keep each field under 10,000 characters." }, 400);
+  }
+
   const name = cleanText(payload.name);
   const email = cleanText(payload.email);
   const phone = cleanText(payload.phone);

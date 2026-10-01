@@ -139,7 +139,7 @@ export default async function DigitalServicePage({ params }) {
 
   const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": ["Service", "Product"],
+    "@type": "Service",
     name: service.name,
     description: service.description,
     url: `https://www.pixelnpanel.com/digital/${service.slug}`,
@@ -157,21 +157,10 @@ export default async function DigitalServicePage({ params }) {
       telephone: "(409) 225-2012",
       email: "hello@pixelnpanel.com",
     },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      price: "0",
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        description: "Custom quote based on project scope",
-      },
-      availability: "https://schema.org/InStock",
-      seller: {
-        "@type": "LocalBusiness",
-        name: "Pixel & Panel",
-        url: "https://www.pixelnpanel.com",
-      },
-      url: `https://www.pixelnpanel.com/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent("Digital Services")}`,
+    potentialAction: {
+      "@type": "QuoteAction",
+      name: "Request a quote",
+      target: `https://www.pixelnpanel.com/quote-request?product=${encodeURIComponent(service.name)}&category=${encodeURIComponent("Digital Services")}`,
     },
   };
 

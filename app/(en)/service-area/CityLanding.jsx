@@ -203,7 +203,7 @@ export default function CityLanding({ city }) {
                 <p className="mt-1 font-bold text-[#1C1917] group-hover:text-[#0369A1] transition-colors">
                   {service.name} in {city.name}
                 </p>
-                <p className="mt-1 text-sm text-slate-500">Learn more →</p>
+                <p className="mt-1 text-sm text-slate-600">Learn more →</p>
               </Link>
             ))}
           </div>

@@ -150,7 +150,7 @@ export default async function SpanishDigitalServicePage({ params }) {
     serviceType: "Servicios Digitales",
     category: "Servicios Digitales",
     inLanguage: "es-US",
-    schemaType: ["Service", "Product"],
+    schemaType: "Service",
     offerUrl: quoteHref,
   });
 

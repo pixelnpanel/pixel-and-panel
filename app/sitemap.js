@@ -6,8 +6,25 @@ import { learningCenterPosts } from "@/lib/learning-center-posts";
 import { learningCenterPostsEs } from "@/lib/learning-center-posts-es";
 import { cityServiceStaticParams, cityServiceCities } from "@/lib/city-service-pages";
 import { cityServiceStaticParamsEs } from "@/lib/city-service-pages-es";
+import { ROUTE_ALTERNATES } from "@/lib/i18n";
+import { enPathForEsProduct, esPathForEnCatalog } from "@/lib/signage/es-en-pairs";
 
 const BASE = "https://www.pixelnpanel.com";
+
+function alternatePaths(url) {
+  const pathname = new URL(url).pathname.replace(/\/$/, "") || "/";
+  const mapped = ROUTE_ALTERNATES[pathname];
+  if (mapped) return mapped;
+  if (pathname.startsWith("/signage/")) {
+    const es = esPathForEnCatalog(pathname);
+    return es ? { en: pathname, es } : null;
+  }
+  if (pathname.startsWith("/es/letreros/")) {
+    const en = enPathForEsProduct(pathname.slice("/es/letreros/".length));
+    return en ? { en, es: pathname } : null;
+  }
+  return null;
+}
 
 // Real content-change dates (git author dates), grouped by content area.
 // Google uses <lastmod> to prioritize which pages to recrawl, so these MUST
@@ -180,11 +197,28 @@ export default async function sitemap() {
     ...cityServiceUrlsEs,
   ];
 
+  const sitemapPaths = new Set(entries.map((entry) => new URL(entry.url).pathname.replace(/\/$/, "") || "/"));
+
   // Attach an honest <lastmod> to every entry from its content area's real
   // change date. Kept as a final pass so each URL source above stays focused
   // on its own url/priority/images and never has to repeat a date literal.
-  return entries.map((entry) => ({
-    lastModified: lastmodFor(entry.url),
-    ...entry,
-  }));
+  return entries.map((entry) => {
+    const pair = alternatePaths(entry.url);
+    const hasReciprocalSitemapPair = pair && sitemapPaths.has(pair.en) && sitemapPaths.has(pair.es);
+    return {
+      lastModified: lastmodFor(entry.url),
+      ...entry,
+      ...(hasReciprocalSitemapPair
+        ? {
+            alternates: {
+              languages: {
+                "en-US": `${BASE}${pair.en}`,
+                "es-US": `${BASE}${pair.es}`,
+                "x-default": `${BASE}${pair.en}`,
+              },
+            },
+          }
+        : {}),
+    };
+  });
 }

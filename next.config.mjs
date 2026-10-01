@@ -228,6 +228,13 @@ const nextConfig = {
         ],
       },
       {
+        source: "/track/:path*",
+        headers: [
+          { key: "Referrer-Policy", value: "no-referrer" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
         // Everything Next.js fingerprints (/_next/static) already ships as
         // immutable, but files served straight out of /public inherit a
         // revalidate-every-time default — so every repeat visit re-checked

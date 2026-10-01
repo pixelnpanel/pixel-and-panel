@@ -147,6 +147,10 @@ export async function POST(request) {
     return jsonResponse({ error: "Invalid request body." }, 400);
   }
 
+  if ([...formData.values()].some((value) => typeof value === "string" && value.length > 10000)) {
+    return jsonResponse({ error: "Please keep each field under 10,000 characters." }, 400);
+  }
+
   const name = cleanText(formData.get("name"));
   const businessName = cleanText(formData.get("businessName"));
   const email = cleanText(formData.get("email"));

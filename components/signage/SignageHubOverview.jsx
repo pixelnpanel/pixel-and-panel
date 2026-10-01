@@ -259,7 +259,11 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
 
             {/* TRUST STRIP */}
             <section className="border-b border-brand-line bg-white px-4 py-3 md:py-4">
-                <div className="mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto md:justify-center md:gap-10 md:overflow-visible">
+                <div
+                    className="mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto md:justify-center md:gap-10 md:overflow-visible"
+                    tabIndex={0}
+                    aria-label="Signage service highlights"
+                >
                     {TRUST_ITEMS.map(({ icon: Icon, label }) => (
                         <span key={label} className="flex shrink-0 items-center gap-2 rounded-full bg-[#FAF8F4] px-3.5 py-2 text-xs font-semibold text-[#1C1917] md:bg-transparent md:px-0 md:text-sm">
                             <Icon size={15} className="text-[#0369A1]" />
@@ -276,7 +280,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                     {/* CATEGORY GRID */}
                     <div className="mobile-reveal" style={{ '--reveal-delay': '120ms' }}>
                                 <div className="mb-6 md:mb-8">
-                                    <p className="section-label text-[#0EA5E9]">Browse the catalog</p>
+                                    <p className="section-label">Browse the catalog</p>
                                     <h2 className="mt-2 text-[#1C1917]">Shop by Category</h2>
                                 </div>
                                 <div className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4">
@@ -313,7 +317,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                                                     <span className="text-xs font-semibold text-brand-subtle md:text-sm">
                                                         {category.productCount} {category.productCount === 1 ? 'product' : 'products'}
                                                     </span>
-                                                    <span className="inline-flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-wide text-[#F59E0B] transition group-hover:gap-2">
+                                                    <span className="inline-flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-wide text-[#0369A1] transition group-hover:gap-2 group-hover:text-[#F59E0B]">
                                                         Shop <ArrowRight size={14} />
                                                     </span>
                                                 </div>
@@ -327,7 +331,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                             {featuredProducts.length > 0 && (
                                 <div className="mobile-reveal mt-14 md:mt-20" style={{ '--reveal-delay': '160ms' }}>
                                     <div className="mb-6 md:mb-8">
-                                        <p className="section-label text-[#0EA5E9]">Customer favorites</p>
+                                        <p className="section-label">Customer favorites</p>
                                         <h2 className="mt-2 text-[#1C1917]">Popular Products</h2>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4">

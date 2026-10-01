@@ -270,8 +270,12 @@ export async function POST(request) {
     return jsonResponse({ success: false, message: "Invalid request body." }, 400);
   }
 
-  if (!payload || typeof payload !== "object") {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
     return jsonResponse({ success: false, message: "Invalid request body." }, 400);
+  }
+
+  if (Object.values(payload).some((value) => typeof value === "string" && value.length > 10000)) {
+    return jsonResponse({ success: false, message: "Please keep each field under 10,000 characters." }, 400);
   }
 
   const isCampaignSubmission = Object.prototype.hasOwnProperty.call(payload, "needHelpWith");

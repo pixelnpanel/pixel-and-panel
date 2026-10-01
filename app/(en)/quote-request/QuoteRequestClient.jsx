@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   CheckCircle2, ArrowRight, ArrowLeft, Package, CheckCircle,
@@ -87,6 +87,7 @@ const defaultCopy = {
   emailPlaceholder: "john@email.com",
   phonePlaceholder: "(555) 000-0000",
   contactRequirement: "Email or phone required.",
+  invalidEmail: "Please enter a valid email address.",
   productService: "Product / Service",
   message: "What Do You Need?",
   messagePlaceholder: "Tell us size, quantity, deadline, material, location, or anything you already know.",
@@ -193,7 +194,10 @@ export default function QuoteRequestClient({
   const [error, setError] = useState("");
   const [attachment, setAttachment] = useState(null);
   const [fileError, setFileError] = useState("");
+  const [contactError, setContactError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const stepHeadingRef = useRef(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -204,6 +208,10 @@ export default function QuoteRequestClient({
 
     return () => mediaQuery.removeEventListener("change", updateScreenState);
   }, []);
+
+  useEffect(() => {
+    stepHeadingRef.current?.focus();
+  }, [step]);
 
   const effectiveProduct = hasPreselected ? selectedItem.name : (pickedService?.label || productField || "");
   const effectiveCategory = hasPreselected ? selectedItem.category : (pickedService?.category || "");
@@ -219,10 +227,24 @@ export default function QuoteRequestClient({
 
   function handleServicePick(tile) {
     setPickedService(tile);
+    setContactError("");
     if (!message) {
       setMessage(content.defaultMessageTemplate.replace("{product}", tile.label));
     }
     setStep(1);
+  }
+
+  function continueToDetails() {
+    if (!name.trim() || !hasContact) {
+      setContactError(hasPackageRequest ? content.packageContactRequirement : content.contactRequirement);
+      return;
+    }
+    if (email.trim() && !/^\S+@\S+\.\S+$/.test(email.trim())) {
+      setContactError(content.invalidEmail);
+      return;
+    }
+    setContactError("");
+    setStep(2);
   }
 
   function handleFileChange(e) {
@@ -271,7 +293,7 @@ export default function QuoteRequestClient({
     if (selectedItem?.type === "package") formData.set("selectedPackage", selectedItem.name);
     formData.set("language", content.language);
     formData.set("sourcePage", typeof window !== "undefined" ? window.location.href : "Quote Request Page");
-    formData.set("company", ""); // honeypot — empty for real users
+    formData.set("company", honeypot); // honeypot — empty for real users
     if (attachment) formData.set("attachment", attachment);
 
     try {
@@ -388,7 +410,7 @@ export default function QuoteRequestClient({
             {!submitted && (
               <div className="mb-7">
                 <div className="mb-2 flex items-center justify-between">
-                  <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate-600">
                     {content.stepCounterPrefix} {displayStep} {content.stepCounterMiddle} {totalSteps}
                   </p>
                   <p className="text-xs font-semibold text-[#0369A1]">{stepLabel}</p>
@@ -430,8 +452,8 @@ export default function QuoteRequestClient({
                   <div
                     key="step-0"
                   >
-                    <h2 style={{ color: "#1C1917" }} className="mb-1">{content.formTitle}</h2>
-                    <p className="mb-7 text-sm text-slate-400">{content.pickerHelp}</p>
+                    <h2 ref={stepHeadingRef} tabIndex={-1} style={{ color: "#1C1917" }} className="mb-1 outline-none">{content.formTitle}</h2>
+                    <p className="mb-7 text-sm text-slate-600">{content.pickerHelp}</p>
                     <div className="grid gap-3">
                       {content.serviceTiles.map((tile) => {
                         const Icon = (typeof tile.icon === "string" ? TILE_ICONS[tile.icon] : tile.icon) || HelpCircle;
@@ -447,7 +469,7 @@ export default function QuoteRequestClient({
                             </div>
                             <div className="min-w-0">
                               <p className="font-bold text-[#1C1917]">{tile.label}</p>
-                              <p className="mt-0.5 text-xs text-slate-500">{tile.desc}</p>
+                              <p className="mt-0.5 text-xs text-slate-600">{tile.desc}</p>
                             </div>
                             <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-slate-300" />
                           </button>
@@ -456,7 +478,7 @@ export default function QuoteRequestClient({
                     </div>
                     <div className="mt-5 rounded-2xl border border-[#0369A1]/15 bg-[#0369A1]/5 p-4">
                       <p className="font-heading text-sm font-bold text-[#1C1917]">{content.trackOrderPrompt}</p>
-                      <p className="mt-1 text-sm leading-6 text-slate-500">{content.trackOrderHelp}</p>
+                      <p className="mt-1 text-sm leading-6 text-slate-600">{content.trackOrderHelp}</p>
                       <Link
                         href={content.trackOrderHref}
                         className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl border border-[#0369A1]/25 px-5 py-3 text-xs font-bold uppercase tracking-widest text-[#0369A1] transition hover:border-[#0369A1] hover:bg-white"
@@ -464,7 +486,7 @@ export default function QuoteRequestClient({
                         {content.trackOrder} <ArrowRight className="h-4 w-4" />
                       </Link>
                     </div>
-                    <p className="mt-6 text-center text-xs text-slate-400">{content.footer}</p>
+                    <p className="mt-6 text-center text-xs text-slate-600">{content.footer}</p>
                   </div>
                 )}
 
@@ -473,13 +495,13 @@ export default function QuoteRequestClient({
                   <div
                     key="step-1"
                   >
-                    <h2 style={{ color: "#1C1917" }} className="mb-1">{content.formTitle}</h2>
-                    <p className="mb-6 text-sm text-slate-400">{content.contactNote}</p>
+                    <h2 ref={stepHeadingRef} tabIndex={-1} style={{ color: "#1C1917" }} className="mb-1 outline-none">{content.formTitle}</h2>
+                    <p className="mb-6 text-sm text-slate-600">{content.contactNote}</p>
 
                     {/* Picked service chip — shown only in picker flow */}
                     {showPicker && pickedService && (
                       <div className="mb-5 flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">{content.serviceLabel}</span>
+                        <span className="text-xs font-bold uppercase tracking-widest text-slate-600">{content.serviceLabel}</span>
                         <span className="text-sm font-semibold text-[#1C1917]">{pickedService.label}</span>
                         <button
                           type="button"
@@ -540,20 +562,23 @@ export default function QuoteRequestClient({
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
                         />
                       </div>
-                      <p id="quote-contact-requirement" className="text-xs font-medium text-slate-500">
+                      <p id="quote-contact-requirement" className="text-xs font-medium text-slate-600">
                         {hasPackageRequest ? content.packageContactRequirement : content.contactRequirement}
                       </p>
+                      {contactError && (
+                        <p role="alert" className="text-sm font-medium text-red-700">{contactError}</p>
+                      )}
                     </div>
 
                     <button
                       type="button"
                       disabled={!name.trim() || !hasContact}
-                      onClick={() => setStep(2)}
+                      onClick={continueToDetails}
                       className="group mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-[#0369A1] px-6 py-4 text-sm font-bold uppercase tracking-widest text-white transition hover:-translate-y-0.5 hover:bg-[#0284C7] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {content.continue} <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                     </button>
-                    <p className="mt-4 text-center text-xs text-slate-400">{content.footer}</p>
+                    <p className="mt-4 text-center text-xs text-slate-600">{content.footer}</p>
                   </div>
                 )}
 
@@ -563,8 +588,21 @@ export default function QuoteRequestClient({
                     key="step-2"
                     onSubmit={handleSubmit}
                   >
-                    <h2 style={{ color: "#1C1917" }} className="mb-1">{content.formTitle}</h2>
-                    <p className="mb-6 text-sm text-slate-400">{content.detailsNote}</p>
+                    <h2 ref={stepHeadingRef} tabIndex={-1} style={{ color: "#1C1917" }} className="mb-1 outline-none">{content.formTitle}</h2>
+                    <p className="mb-6 text-sm text-slate-600">{content.detailsNote}</p>
+
+                    <label htmlFor="quote-company" className="sr-only">Company</label>
+                    <input
+                      id="quote-company"
+                      name="company"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      className="absolute -left-[9999px] h-px w-px overflow-hidden"
+                    />
 
                     <div className="space-y-5">
                       {/* Product field — visible only when showProductField=true */}
@@ -597,7 +635,7 @@ export default function QuoteRequestClient({
                       <div>
                         <label className="mb-2 block text-xs font-bold uppercase tracking-wide">
                           {content.attachLabel}{" "}
-                          <span className="font-normal normal-case tracking-normal text-slate-400">{content.attachOptional}</span>
+                          <span className="font-normal normal-case tracking-normal text-slate-600">{content.attachOptional}</span>
                         </label>
                         {attachment ? (
                           <div className="flex items-center gap-3 rounded-xl border-2 border-[#0369A1]/30 bg-[#0369A1]/5 px-4 py-3">
@@ -605,7 +643,7 @@ export default function QuoteRequestClient({
                             <span className="min-w-0 flex-1 truncate text-sm text-slate-700">{attachment.name}</span>
                             <button
                               type="button" onClick={removeAttachment}
-                              className="shrink-0 rounded-full p-0.5 text-slate-400 transition hover:text-red-500"
+                              className="shrink-0 rounded-full p-0.5 text-slate-600 transition hover:text-red-500"
                               aria-label={content.removeAttachmentAria}
                             >
                               <X className="h-4 w-4" />
@@ -616,9 +654,9 @@ export default function QuoteRequestClient({
                             htmlFor="quote-attachment"
                             className="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed border-slate-200 px-4 py-3 transition hover:border-[#0369A1]/50 hover:bg-slate-50"
                           >
-                            <Paperclip className="h-4 w-4 shrink-0 text-slate-400" />
-                            <span className="text-sm text-slate-500">{content.attachPrompt}</span>
-                            <span className="ml-auto shrink-0 text-xs text-slate-400">{content.attachTypes}</span>
+                            <Paperclip className="h-4 w-4 shrink-0 text-slate-600" />
+                            <span className="text-sm text-slate-600">{content.attachPrompt}</span>
+                            <span className="ml-auto shrink-0 text-xs text-slate-600">{content.attachTypes}</span>
                           </label>
                         )}
                         <input
@@ -665,7 +703,7 @@ export default function QuoteRequestClient({
                       </Link>
                       {content.agreementSuffix}
                     </p>
-                    <p className="mt-4 text-center text-xs text-slate-400">{content.footer}</p>
+                    <p className="mt-4 text-center text-xs text-slate-600">{content.footer}</p>
                   </form>
                 )}
 

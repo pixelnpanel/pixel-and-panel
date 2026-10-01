@@ -181,11 +181,13 @@ export async function generateMetadata({ params }) {
       siteName: "Pixel & Panel",
       locale: "es_US",
       type: "website",
+      ...(product.image ? { images: [{ url: `https://www.pixelnpanel.com${product.image}` }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: product.title,
       description: product.description,
+      ...(product.image ? { images: [`https://www.pixelnpanel.com${product.image}`] } : {}),
     },
   };
 }
@@ -237,7 +239,7 @@ export default async function SpanishSignageProductPage({ params }) {
   };
   const service = {
     "@context": "https://schema.org",
-    "@type": ["Service", "Product"],
+    "@type": "Service",
     name: product.name,
     description: product.description,
     url: `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
@@ -258,21 +260,10 @@ export default async function SpanishSignageProductPage({ params }) {
       telephone: "(409) 225-2012",
       email: "hello@pixelnpanel.com",
     },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      price: "0",
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        description: "Cotización personalizada según tamaño, material y cantidad",
-      },
-      availability: "https://schema.org/InStock",
-      seller: {
-        "@type": "LocalBusiness",
-        name: "Pixel & Panel",
-        url: "https://www.pixelnpanel.com",
-      },
-      url: `https://www.pixelnpanel.com/es/solicitar-cotizacion?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent("Letreros")}`,
+    potentialAction: {
+      "@type": "QuoteAction",
+      name: "Solicitar cotización",
+      target: `https://www.pixelnpanel.com/es/solicitar-cotizacion?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent("Letreros")}`,
     },
   };
 
