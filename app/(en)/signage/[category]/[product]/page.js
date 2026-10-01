@@ -5,6 +5,7 @@ import { getCategories, getProduct } from '@/lib/signage/data'
 import { titleWithinLimit, withDefaultSocialImage } from '@/lib/seo'
 import { esPathForEnCatalog, languageAlternates } from '@/lib/signage/es-en-pairs'
 import { getRelatedProducts } from '@/lib/signage/related'
+import { createCatalogProductSchema } from '@/lib/signage/product-schema'
 
 export const revalidate = 900
 
@@ -99,34 +100,7 @@ export default async function SignageProductRoute({ params }) {
         ],
     }
 
-    const productSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        name: p.name,
-        ...(p.image ? { image: `${SITE}${p.image}` } : {}),
-        description: content?.intro || p.notes || p.description,
-        category: c.name,
-        brand: { '@type': 'Brand', name: 'Pixel & Panel' },
-        ...(p.isLive && p.lowestPrice != null
-            ? {
-                offers: (() => {
-                    const prices = (p.sizes || [])
-                        .flatMap((s) => [s.single, s.double])
-                        .filter((v) => v != null)
-                    const highest = prices.length ? Math.max(...prices) : p.lowestPrice
-                    return {
-                        '@type': 'AggregateOffer',
-                        lowPrice: p.lowestPrice.toFixed(2),
-                        highPrice: highest.toFixed(2),
-                        priceCurrency: 'USD',
-                        offerCount: Math.max(prices.length, 1),
-                        availability: 'https://schema.org/InStock',
-                        url,
-                    }
-                })(),
-            }
-            : {}),
-    }
+    const productSchema = createCatalogProductSchema(p, c)
 
     // FAQPage — only when the content row supplies non-empty Q/A pairs.
     const faqSchema = content?.faqs?.length

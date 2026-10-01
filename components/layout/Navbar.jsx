@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
@@ -50,7 +50,6 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const [scrolled, setScrolled] = useState(false)
-  const mobilePointerHrefRef = useRef(null)
   const spanish = isSpanishPath(pathname)
   const navLinks = spanish ? SPANISH_NAV : NAV_LINKS
   const mobileNavLinks = spanish ? MOBILE_NAV_SHORT_ES : MOBILE_NAV_SHORT
@@ -97,28 +96,6 @@ export default function Navbar() {
       router.prefetch(item.href)
     })
   }, [mobileNavLinks, router])
-
-  const startMobileNavigation = (href) => {
-    if (navIsActive(pathname, href)) return
-    router.push(href)
-  }
-
-  const handleMobileNavPointerDown = (event, href) => {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-    mobilePointerHrefRef.current = href
-    startMobileNavigation(href)
-  }
-
-  const handleMobileNavClick = (event, href) => {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-    if (mobilePointerHrefRef.current === href) {
-      event.preventDefault()
-      mobilePointerHrefRef.current = null
-      return
-    }
-    event.preventDefault()
-    startMobileNavigation(href)
-  }
 
   const isLight = scrolled || forceSolidHeader
   const bg = forceSolidHeader ? '#FAF8F4' : isLight ? 'rgba(255,255,255,0.97)' : 'transparent'
@@ -275,8 +252,6 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 aria-current={isActive ? 'page' : undefined}
-                onClick={(event) => handleMobileNavClick(event, item.href)}
-                onPointerDownCapture={(event) => handleMobileNavPointerDown(event, item.href)}
                 style={{
                   alignItems: 'center',
                   borderRadius: '0.5rem',

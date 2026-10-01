@@ -66,7 +66,7 @@ export default function SpanishRootLayout({ children }) {
         <ContactClickTracker />
         <Analytics />
         <SpeedInsights />
-        <LocalBusinessJsonLd />
+        <LocalBusinessJsonLd language="es-US" />
         <Navbar />
         <main id="main-content" className="pnp-site-shell">
           {children}

@@ -62,6 +62,7 @@ const spanishQuoteCopy = {
   emailPlaceholder: "juan@email.com",
   phonePlaceholder: "(555) 000-0000",
   contactRequirement: "Incluye correo electrónico o teléfono.",
+  invalidEmail: "Incluye un correo electrónico válido.",
   attachLabel: "Adjuntar archivo",
   attachOptional: "(opcional)",
   attachPrompt: "Logo, boceto o imagen de referencia",

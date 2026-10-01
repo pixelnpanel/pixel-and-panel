@@ -1,6 +1,7 @@
 import { DEFAULT_OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 
-export default function LocalBusinessJsonLd() {
+export default function LocalBusinessJsonLd({ language = "en-US" }) {
+  const isSpanish = language.startsWith("es");
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "ProfessionalService"],
@@ -25,10 +26,13 @@ export default function LocalBusinessJsonLd() {
       postalCode: "77705",
       addressCountry: "US",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 30.0802,
-      longitude: -94.1266,
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+1-409-225-2012",
+      email: "hello@pixelnpanel.com",
+      contactType: "customer service",
+      availableLanguage: ["English", "Spanish"],
+      url: `${SITE_URL}${isSpanish ? "/es/contacto" : "/contact"}`,
     },
     openingHoursSpecification: [
       {
@@ -86,8 +90,9 @@ export default function LocalBusinessJsonLd() {
         },
       },
     ],
-    description:
-      "Pixel & Panel helps Southeast Texas businesses get found online, get noticed in the real world, and turn attention into quote requests through websites, signs, print marketing, local SEO, Google Business Profile optimization, and QR code campaigns.",
+    description: isSpanish
+      ? "Pixel & Panel ayuda a negocios del sureste de Texas y Houston a conseguir visibilidad con letreros, impresos, sitios web, presencia en Google y códigos QR que conectan sus materiales con consultas y cotizaciones."
+      : "Pixel & Panel helps businesses across Southeast Texas and Houston get noticed with signs, print, websites, Google visibility, and QR codes that connect printed materials to calls and quote requests.",
     sameAs: [
       "https://maps.app.goo.gl/ssAtkxp8XqtEuJ7T9",
       "https://www.facebook.com/pixelnpanel",
@@ -101,7 +106,21 @@ export default function LocalBusinessJsonLd() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            jsonLd,
+            {
+              "@type": "WebSite",
+              "@id": `${SITE_URL}/#website`,
+              url: `${SITE_URL}/`,
+              name: "Pixel & Panel",
+              alternateName: "Pixel & Panel LLC",
+              inLanguage: ["en-US", "es-US"],
+              publisher: { "@id": `${SITE_URL}/#localbusiness` },
+            },
+          ],
+        }).replace(/</g, "\\u003c"),
       }}
     />
   );

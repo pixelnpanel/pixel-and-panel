@@ -107,6 +107,15 @@ export default async function SignageCategoryRoute({ params }) {
         })),
     }
 
+    // The category page only needs slug/name/count for its related links.
+    // Avoid serializing every product in every category into the client/RSC
+    // payload when the page itself is already fully server-rendered.
+    const relatedCategories = categories.map(({ slug, name, productCount }) => ({
+        slug,
+        name,
+        productCount,
+    }))
+
     return (
         <>
             <JsonLd data={breadcrumbSchema} />
@@ -114,7 +123,7 @@ export default async function SignageCategoryRoute({ params }) {
             <JsonLd data={faqSchema} />
             <SignageCategoryClient
                 category={cat}
-                allCategories={categories}
+                allCategories={relatedCategories}
                 regionNote={houstonCatalogNotes[cat.slug] || null}
             />
         </>

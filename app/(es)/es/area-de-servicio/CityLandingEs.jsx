@@ -255,7 +255,7 @@ export default function CityLandingEs({ city }) {
                   <p className="mt-1 font-bold text-[#1C1917] transition-colors group-hover:text-[#0369A1]">
                     {service.name} en {city.name}
                   </p>
-                  <p className="mt-1 text-sm text-slate-500">Ver más →</p>
+                  <p className="mt-1 text-sm text-slate-600">Ver más →</p>
                 </Link>
               ))}
             </div>

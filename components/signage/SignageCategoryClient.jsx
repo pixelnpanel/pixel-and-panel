@@ -1,17 +1,9 @@
 // components/signage/SignageCategoryClient.jsx
-'use client'
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Box, ChevronDown } from 'lucide-react'
 import { getCategoryGuide } from '@/lib/signage/category-guides'
-
-const fadeUp = {
-    hidden: { opacity: 0, y: 24 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-}
-const stagger = { visible: { transition: { staggerChildren: 0.07 } } }
 
 // Pole-mounted flags priced as a complete kit (printed flag + pole hardware).
 // Econo is excluded — it sells Flag Only / Flag+Pole options on its own page.
@@ -56,48 +48,42 @@ export default function SignageCategoryClient({ category, allCategories = [], re
                 <div className="absolute inset-0 opacity-40">
                     <div className="h-full w-full" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)', backgroundSize: '34px 34px' }} />
                 </div>
-                <motion.div initial="hidden" animate="visible" variants={stagger} className="relative mx-auto max-w-5xl text-left md:text-center">
-                    <motion.p variants={fadeUp} className="section-label mb-2 md:mb-3" style={{ color: '#F59E0B' }}>
+                <div className="relative mx-auto max-w-5xl text-left md:text-center">
+                    <p className="section-label mb-2 md:mb-3" style={{ color: '#F59E0B' }}>
                         Signage &amp; Print
-                    </motion.p>
-                    <motion.h1 variants={fadeUp} className="font-heading text-2xl font-extrabold leading-tight md:text-6xl" style={{ color: 'white' }}>
+                    </p>
+                    <h1 className="font-heading text-2xl font-extrabold leading-tight md:text-6xl" style={{ color: 'white' }}>
                         {category.h1 || category.name}
-                    </motion.h1>
-                    <motion.p variants={fadeUp} className="mt-2 text-base font-semibold md:mt-4 md:text-xl" style={{ color: '#F59E0B' }}>
+                    </h1>
+                    <p className="mt-2 text-base font-semibold md:mt-4 md:text-xl" style={{ color: '#F59E0B' }}>
                         {category.tagline}
-                    </motion.p>
-                    <motion.p variants={fadeUp} className="mt-4 hidden max-w-2xl text-lg leading-relaxed text-white/80 md:mx-auto md:block">
+                    </p>
+                    <p className="mt-4 hidden max-w-2xl text-lg leading-relaxed text-white/80 md:mx-auto md:block">
                         {category.description}
-                    </motion.p>
-                    <motion.div variants={fadeUp} className="mt-5 flex flex-row flex-wrap gap-3 md:mt-8 md:justify-center md:gap-4">
+                    </p>
+                    <div className="mt-5 flex flex-row flex-wrap gap-3 md:mt-8 md:justify-center md:gap-4">
                         <Link href="/quote-request" className="btn-amber">
                             Request a Quote <ArrowRight size={18} />
                         </Link>
                         <Link href="/signage" className="btn-ghost hidden md:inline-flex">
                             <ArrowLeft size={18} /> All Categories
                         </Link>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
             </section>
 
             {/* PRODUCT GRID */}
             <section className="px-4 pb-14 pt-8 md:px-6 md:py-20">
                 <div className="mx-auto max-w-7xl">
                     <div className="mb-5 md:mb-10">
-                        <p className="section-label text-[#0EA5E9]">{products.length} products available</p>
+                        <p className="section-label">{products.length} products available</p>
                         <h2 className="mt-1 font-heading text-2xl font-extrabold text-[#1C1917] md:mt-2 md:text-4xl">
                             {category.name}
                         </h2>
                     </div>
 
                     {products.length > 0 ? (
-                        <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.05 }}
-                            variants={stagger}
-                            className="grid grid-cols-2 gap-3 sm:gap-6 xl:grid-cols-3"
-                        >
+                        <div className="grid grid-cols-2 gap-3 sm:gap-6 xl:grid-cols-3">
                             {products.map((product) => {
                                 const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
                                 const isFlagKit = category.slug === 'flags' && FLAG_KIT_SLUGS.has(product.slug)
@@ -105,9 +91,8 @@ export default function SignageCategoryClient({ category, allCategories = [], re
                                 // First highlight as the card blurb; no content yet -> name only.
                                 const highlight = product.content?.highlights?.[0] || null
                                 return (
-                                    <motion.article
+                                    <article
                                         key={product.slug}
-                                        variants={fadeUp}
                                         className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-edge hover:shadow-card-hover"
                                     >
                                         {/* Whole card is the link to the product detail page. */}
@@ -153,10 +138,10 @@ export default function SignageCategoryClient({ category, allCategories = [], re
                                                 </p>
                                             )}
                                         </div>
-                                    </motion.article>
+                                    </article>
                                 )
                             })}
-                        </motion.div>
+                        </div>
                     ) : (
                         <div className="rounded-2xl border border-dashed border-brand-line bg-white p-8 text-center shadow-card">
                             <h3 className="font-heading text-xl font-bold text-[#1C1917]">No products yet in this category.</h3>
@@ -173,7 +158,7 @@ export default function SignageCategoryClient({ category, allCategories = [], re
                 FAQPage schema (emitted server-side in the route). */}
             <section className="px-6 py-16 md:py-20">
                 <div className="mx-auto max-w-3xl">
-                    <p className="section-label text-[#0EA5E9]">Buying Guide</p>
+                    <p className="section-label">Buying Guide</p>
                     <h2 className="mt-2 font-heading text-2xl font-extrabold text-[#1C1917] md:text-4xl">
                         Choosing your {category.name.toLowerCase()}
                     </h2>

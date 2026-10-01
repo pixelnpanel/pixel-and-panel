@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CheckCircle2, MapPin, DollarSign, Building2, Globe2, QrCode, Search } from "lucide-react";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
-import { BUSINESS_SCHEMA_REF, absoluteUrl, createServiceJsonLd, citySchema } from "@/lib/seo";
+import { createServiceJsonLd, citySchema } from "@/lib/seo";
 
 const signageDigitalLinks = [
   {
@@ -63,59 +63,27 @@ export default function CityServiceLanding({ city, service }) {
 
   const serviceType = service.type === 'signage' ? 'Signage & Print' : 'Digital Services'
   const serviceHubHref = service.type === 'signage' ? '/signage' : '/digital'
-  const offerSchema = service.pricingNote
-    ? {
-        "@type": "Offer",
-        url: absoluteUrl(quoteHref),
-        priceCurrency: "USD",
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          description: service.pricingNote,
-        },
-        availability: "https://schema.org/InStock",
-        seller: BUSINESS_SCHEMA_REF,
-      }
-    : null
-  const serviceSchema = {
-    ...createServiceJsonLd({
-      name: `${service.name} in ${city.name}, TX`,
-      description: intro,
-      url: pageUrl,
-      serviceType,
-      category: service.quoteCategory,
-      areaServed: [citySchema(city)],
-      offerUrl: quoteHref,
-    }),
-    ...(offerSchema ? { offers: offerSchema } : {}),
-  }
-  const productSchema = service.type === 'signage'
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        name: `${service.name} in ${city.name}, TX`,
-        description: intro,
-        category: service.quoteCategory,
-        brand: BUSINESS_SCHEMA_REF,
-        provider: BUSINESS_SCHEMA_REF,
-        areaServed: [citySchema(city)],
-        url: pageUrl,
-        ...(offerSchema ? { offers: offerSchema } : {}),
-      }
-    : null
+  const serviceSchema = createServiceJsonLd({
+    name: `${service.name} in ${city.name}, TX`,
+    description: intro,
+    url: pageUrl,
+    serviceType,
+    category: service.quoteCategory,
+    areaServed: [citySchema(city)],
+    offerUrl: quoteHref,
+  })
 
   return (
     <>
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: "https://www.pixelnpanel.com" },
-          { name: "Service Area", url: "https://www.pixelnpanel.com/service-area" },
           { name: `${city.name}, TX`, url: `https://www.pixelnpanel.com${cityHref}` },
           { name: service.name, url: pageUrl },
         ]}
       />
       <JsonLd data={faqSchema} />
       <JsonLd data={serviceSchema} />
-      {productSchema && <JsonLd data={productSchema} />}
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
 

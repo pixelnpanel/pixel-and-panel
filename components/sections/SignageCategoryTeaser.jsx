@@ -73,7 +73,7 @@ export default function SignageCategoryTeaser({ categories = [] }) {
     <section className="section-base bg-white" aria-labelledby="shop-signs-heading">
       <div className="container-px">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
+          <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#0369A1]">
             Signs &amp; Print
           </p>
           <h2 id="shop-signs-heading" className="mt-4 text-[#1C1917]">
@@ -124,7 +124,7 @@ export default function SignageCategoryTeaser({ categories = [] }) {
                 {tile.tagline && (
                   <p className="mt-2 text-sm leading-6 text-slate-600 line-clamp-2">{tile.tagline}</p>
                 )}
-                <span className="mt-auto pt-4 font-heading text-xs font-bold uppercase tracking-wide text-slate-400">
+                <span className="mt-auto pt-4 font-heading text-xs font-bold uppercase tracking-wide text-slate-600">
                   {tile.productCount} {tile.productCount === 1 ? "product" : "products"}
                 </span>
               </div>
