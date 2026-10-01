@@ -19,12 +19,12 @@ const SOURCES = [
   {
     env: "SIGNAGE_SHEET_CSV_URL",
     label: "Price sheet",
-    impact: "The whole catalog empties: /signage renders zero categories and every product URL leaves the sitemap.",
+    impact: "Catalog updates and new builds fail until the feed recovers. Previously generated pages retain their last successful content.",
   },
   {
     env: "SIGNAGE_CONTENT_CSV_URL",
     label: "Product content",
-    impact: "Every product page falls back to generated copy — long-form content, specs and FAQs disappear.",
+    impact: "Product content updates and new builds fail until the configured feed recovers. Previously generated pages retain their last successful content.",
   },
 ];
 
@@ -49,7 +49,7 @@ async function checkSource({ env, label, impact }) {
   try {
     // cache: "no-store" on purpose — the point is to test the live source, not
     // the ISR copy the site is currently serving from.
-    const res = await fetch(url, { cache: "no-store", redirect: "follow" });
+    const res = await fetch(url, { cache: "no-store", redirect: "follow", signal: AbortSignal.timeout(10000) });
     if (!res.ok) {
       return { label, impact, ok: false, detail: `HTTP ${res.status} ${res.statusText}` };
     }

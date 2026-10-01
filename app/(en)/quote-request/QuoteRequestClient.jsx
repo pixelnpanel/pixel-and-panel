@@ -382,7 +382,7 @@ export default function QuoteRequestClient({
               </div>
             )}
             <div className="mt-10 hidden lg:block">
-              {isLargeScreen && <QuoteVisual />}
+              {isLargeScreen && <QuoteVisual language={content.language} />}
             </div>
           </div>
 
