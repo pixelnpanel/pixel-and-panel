@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Box, Check, ChevronDown, Info } from 'lucide-react'
+import { ProductQuoteProvider, ProductQuoteLink, MobileProductQuoteBar } from '@/components/signage/ProductQuoteContext'
 import SignagePriceCalculator from '@/components/signage/SignagePriceCalculator'
 import { formatPrice } from '@/lib/signage/data'
 import { houstonCatalogNotes } from '@/content/houston'
@@ -85,6 +86,7 @@ export default function SignageProductDetail({ product, category, related = [] }
     const faqs = content?.faqs || []
 
     return (
+        <ProductQuoteProvider productName={product.name} categoryName={category.name} quoteHref={quoteHref} priceLabel={fromPrice ? `From ${fromPrice}` : null}>
         <div className="min-h-screen bg-[#FAF8F4] text-[#1C1917]">
 
             {/* BREADCRUMB — top padding clears the fixed site navbar (99px mobile / 68px desktop) */}
@@ -383,11 +385,13 @@ export default function SignageProductDetail({ product, category, related = [] }
                     Send your size, quantity, and artwork — we’ll confirm the exact price, tax, and turnaround for {product.name} in {category.name.toLowerCase()}.
                 </p>
                 <div className="mt-8">
-                    <Link href={quoteHref} className="btn-amber">
+                    <ProductQuoteLink href={quoteHref} className="btn-amber">
                         Get my free quote <ArrowRight size={18} />
-                    </Link>
+                    </ProductQuoteLink>
                 </div>
             </section>
         </div>
+        <MobileProductQuoteBar />
+        </ProductQuoteProvider>
     )
 }
