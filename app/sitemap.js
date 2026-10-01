@@ -4,17 +4,25 @@ import { digitalServices } from "@/lib/digital-services";
 import { digitalServicesEs } from "@/lib/digital-services-es";
 import { learningCenterPosts } from "@/lib/learning-center-posts";
 import { learningCenterPostsEs } from "@/lib/learning-center-posts-es";
-import { cityServiceStaticParams, cityServiceCities } from "@/lib/city-service-pages";
+import { cityServiceStaticParams } from "@/lib/city-service-pages";
 import { cityServiceStaticParamsEs } from "@/lib/city-service-pages-es";
 import { ROUTE_ALTERNATES } from "@/lib/i18n";
 import { enPathForEsProduct, esPathForEnCatalog } from "@/lib/signage/es-en-pairs";
+import { withResolvedImageEs } from "@/lib/signage/es-images";
 
 const BASE = "https://www.pixelnpanel.com";
 
 function alternatePaths(url) {
   const pathname = new URL(url).pathname.replace(/\/$/, "") || "/";
   const mapped = ROUTE_ALTERNATES[pathname];
-  if (mapped) return mapped;
+  // Navigation can offer a related page when no translated equivalent exists.
+  // Those fallback destinations must not be advertised as SEO alternates.
+  const navigationOnly = new Set([
+    "/service-area/nederland-tx/business-cards",
+    "/houston/web-design",
+    "/houston/local-seo",
+  ]);
+  if (mapped && !navigationOnly.has(mapped.en)) return mapped;
   if (pathname.startsWith("/signage/")) {
     const es = esPathForEnCatalog(pathname);
     return es ? { en: pathname, es } : null;
@@ -36,8 +44,7 @@ const LASTMOD = {
   houston: "2026-07-31",     // content/houston.js, content/houston-es.js
   digital: "2026-07-28",     // lib/digital-services.js (+ /digital hub)
   cityService: "2026-07-31", // lib/city-service-pages.js (/service-area/*)
-  core: "2026-07-28",        // homepage, hubs, contact/quote/visibility
-  signage: "2026-07-30",     // lib/signage/data.js (catalog)
+  core: "2026-10-01",        // homepage, contact/quote/visibility improvements
   portfolio: "2026-07-10",
   learning: "2026-07-02",    // lib/learning-center-posts.js
 };
@@ -51,7 +58,9 @@ function lastmodFor(url) {
   if (url.includes("/digital") || url.includes("/servicios-digitales")) return LASTMOD.digital;
   if (url.includes("/learning-center") || url.includes("/centro-de-aprendizaje")) return LASTMOD.learning;
   if (url.includes("/portfolio") || url.includes("/portafolio")) return LASTMOD.portfolio;
-  if (url.includes("/signage") || url.includes("/letreros")) return LASTMOD.signage;
+  // The live catalog has no reliable modification timestamp. Omit lastmod
+  // rather than claim that new sheet copy/images still date from July.
+  if (url.includes("/signage") || url.includes("/letreros")) return undefined;
   return LASTMOD.core;
 }
 
@@ -146,6 +155,7 @@ export default async function sitemap() {
     url: `${BASE}/es/letreros/${p.slug}`,
     priority: 0.7,
     changeFrequency: "monthly",
+    images: uniqueImages([withResolvedImageEs(p).image]),
   }));
 
   const digitalUrlsEs = digitalServicesEs.map((s) => ({
@@ -158,12 +168,14 @@ export default async function sitemap() {
     url: `${BASE}/learning-center/${post.slug}`,
     priority: 0.6,
     changeFrequency: "monthly",
+    lastModified: post.updatedDate || post.publishDate,
   }));
 
   const learningUrlsEs = learningCenterPostsEs.map((post) => ({
     url: `${BASE}/es/centro-de-aprendizaje/${post.slug}`,
     priority: 0.55,
     changeFrequency: "monthly",
+    lastModified: post.updatedDate || post.publishDate,
   }));
 
   const cityServiceUrls = cityServiceStaticParams.map(({ city, service }) => ({

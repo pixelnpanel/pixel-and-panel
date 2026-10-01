@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE_URL } from "@/lib/seo";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { getRelatedPosts } from "@/lib/learning-center-posts";
 
@@ -8,6 +9,7 @@ function formatDate(dateString) {
     month: "long",
     day: "numeric",
     year: "numeric",
+    timeZone: "UTC",
   }).format(date);
 }
 
@@ -86,22 +88,28 @@ export default function ArticlePage({ post }) {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
+    "@id": `${pageUrl}#article`,
+    url: pageUrl,
     headline: post.title,
     description: post.description,
     datePublished: post.publishDate,
     dateModified: post.updatedDate,
     author: {
       "@type": "Organization",
+      "@id": `${SITE_URL}/#localbusiness`,
       name: post.authorName,
+      url: SITE_URL,
     },
     publisher: {
       "@type": "Organization",
+      "@id": `${SITE_URL}/#localbusiness`,
       name: "Pixel & Panel",
       url: "https://www.pixelnpanel.com",
     },
     mainEntityOfPage: pageUrl,
     keywords: [post.primaryKeyword, ...post.secondaryKeywords].join(", "),
     articleSection: post.category,
+    inLanguage: "en-US",
   };
 
   const faqSchema = {

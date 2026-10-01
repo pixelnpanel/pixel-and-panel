@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Link from "next/link";
 import SignageHubClient from "@/components/signage/SignageHubClient";
 import { signageCategoriesEs as rawSignageCategoriesEs, signageHubSlugMapEs } from "@/lib/signage-products-es";
@@ -100,82 +99,37 @@ function JsonLd({ data }) {
   );
 }
 
-// Server-rendered Suspense fallback. SignageHubClient calls useSearchParams,
-// which bails the whole subtree out of SSR — with fallback={null} crawlers got
-// this page with no H1 at all and ~160 words, while the English hub (which
-// renders its client component without a Suspense boundary) served a full one.
-//
-// This mirrors the client hero exactly — same gradient, same single H1 text
-// node — so the swap after hydration is seamless, and lists every product so
-// the Spanish product pages are reachable from the raw HTML. They were only
-// linked from the client-rendered browser before, which left several of them
-// with no crawlable path from anywhere on the site.
-function SpanishSignageFallback() {
-  const products = signageCategoriesEs.flatMap((category) =>
-    (category.products || []).map((product) => ({
-      ...product,
-      href: `/es/letreros/${signageHubSlugMapEs[product.slug] || product.slug}`,
-    }))
-  );
-
+// This directory remains available in the HTML and after hydration, including
+// products outside the currently selected category.
+function SpanishProductDirectory() {
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#FAF8F4] text-[#1C1917]">
-      <section className="pnp-mobile-hero-compact relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 pb-8 pt-24 text-white md:py-28">
-        <div className="absolute inset-0 opacity-40">
-          <div
-            className="h-full w-full"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)",
-              backgroundSize: "34px 34px",
-            }}
-          />
+    <section className="bg-[#FAF8F4] px-6 py-12" aria-labelledby="spanish-product-directory">
+      <div className="mx-auto max-w-7xl">
+        <h2 id="spanish-product-directory" className="text-2xl font-extrabold text-[#1C1917]">
+          Todos nuestros letreros e impresos
+        </h2>
+        <p className="mt-3 max-w-3xl text-slate-700">
+          Compara materiales, tamaños y usos antes de pedir tu cotización. Atendemos en español a negocios de Beaumont, Nederland, Port Arthur y Houston.
+        </p>
+        <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {signageCategoriesEs.map((category) => (
+            <details key={category.slug} className="rounded-xl border border-slate-200 bg-white p-5">
+              <summary className="cursor-pointer font-bold text-[#0369A1]">{category.name}</summary>
+              <p className="mt-3 text-sm text-slate-700">{category.description}</p>
+              <ul className="mt-3 space-y-2">
+                {category.products.map((product) => (
+                  <li key={product.slug}>
+                    <Link href={"/es/letreros/" + (signageHubSlugMapEs[product.slug] || product.slug)} className="text-[#0369A1] underline underline-offset-4">
+                      {product.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ))}
         </div>
-        <div className="relative mx-auto max-w-5xl text-center">
-          <p className="section-label mb-4" style={{ color: "#F59E0B" }}>
-            {spanishCopy.eyebrow}
-          </p>
-          <h1
-            className="pnp-mobile-hero-title mx-auto break-words md:max-w-[980px] md:text-[clamp(2rem,3.5vw,3rem)] md:leading-tight"
-            style={{ color: "white" }}
-          >
-            {spanishCopy.h1Start}{" "}
-            <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">
-              {spanishCopy.h1Highlight}
-            </span>
-          </h1>
-          <p className="pnp-mobile-hero-copy mx-auto mt-6 break-words md:hidden">
-            {spanishCopy.mobileHeroCopy}
-          </p>
-          <p className="mx-auto mt-7 hidden max-w-3xl break-words leading-relaxed text-white/75 md:block md:text-xl">
-            {spanishCopy.heroCopy}
-          </p>
-        </div>
-      </section>
-
-      <section className="px-6 pb-16 pt-6 md:py-20">
-        <div className="mx-auto max-w-7xl">
-          <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-brand-muted">
-            {spanishCopy.intro}
-          </p>
-          <h2 className="mt-12 font-heading text-2xl font-extrabold text-[#1C1917] md:text-3xl">
-            {spanishCopy.allHeading}
-          </h2>
-          <ul className="mt-6 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
-              <li key={product.href}>
-                <Link
-                  href={product.href}
-                  className="font-semibold text-[#0369A1] underline-offset-2 hover:underline"
-                >
-                  {product.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 
@@ -191,17 +145,17 @@ export default function SpanishSignagePage() {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Categorías de letreros e impresión",
+    name: "Productos de letreros e impresión",
     description:
       "Productos de letreros e impresión para negocios en Beaumont, Nederland y Port Arthur, TX.",
     url: "https://www.pixelnpanel.com/es/letreros",
-    numberOfItems: signageCategoriesEs.length,
-    itemListElement: signageCategoriesEs.map((category, index) => ({
+    numberOfItems: signageCategoriesEs.flatMap((category) => category.products).length,
+    itemListElement: signageCategoriesEs.flatMap((category) => category.products).map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: category.name,
-      description: category.description,
-      url: `https://www.pixelnpanel.com/es/letreros?category=${category.slug}`,
+      name: product.name,
+      description: product.description,
+      url: `https://www.pixelnpanel.com/es/letreros/${signageHubSlugMapEs[product.slug] || product.slug}`,
     })),
   };
 
@@ -209,12 +163,8 @@ export default function SpanishSignagePage() {
     <>
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={itemListSchema} />
-      <Suspense fallback={<SpanishSignageFallback />}>
-        <SignageHubClient
-          categories={signageCategoriesEs}
-          copy={spanishCopy}
-        />
-      </Suspense>
+      <SignageHubClient categories={signageCategoriesEs} copy={spanishCopy} />
+      <SpanishProductDirectory />
     </>
   );
 }

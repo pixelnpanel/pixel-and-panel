@@ -168,7 +168,7 @@ export const defaultHomeSectionsContent = {
     eyebrow: "Popular Services",
     title: "Start with the services local businesses ask for most",
     description:
-      "Each card links to a real service page with details that help customers and search engines understand what Pixel & Panel offers.",
+      "Compare signs, print, and digital services to find the right fit for your business, budget, and next project.",
   },
   serviceAreas: {
     eyebrow: "Where We Work",

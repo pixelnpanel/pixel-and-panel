@@ -77,7 +77,6 @@ export default function CityServiceLandingEs({ city, service }) {
       <BreadcrumbJsonLd
         items={[
           { name: "Inicio", url: "https://www.pixelnpanel.com/es" },
-          { name: "Área de Servicio", url: "https://www.pixelnpanel.com/es/area-de-servicio" },
           { name: `${city.name}, TX`, url: `https://www.pixelnpanel.com${cityHref}` },
           { name: service.name, url: pageUrl },
         ]}

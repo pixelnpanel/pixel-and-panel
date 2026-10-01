@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowRight, Search, Box, X } from 'lucide-react'
 import { SIGNAGE_PRODUCT_SLUGS } from '@/lib/signage-products'
@@ -117,12 +117,20 @@ const getProductSearchScore = (product, query) => {
     return score
 }
 
+// Only this small URL observer waits for hydration. Keep the actual catalog
+// in the initial HTML for visitors and crawlers that do not execute JavaScript.
+function CategoryQuerySync({ fallbackSlug, onChange }) {
+    const searchParams = useSearchParams()
+    const slug = searchParams.get('category') || fallbackSlug
+    useEffect(() => { onChange(slug) }, [slug, onChange])
+    return null
+}
+
 export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY, initialCategorySlug }) {
     const content = useMemo(() => ({ ...DEFAULT_COPY, ...copy }), [copy])
     const router = useRouter()
-    const searchParams = useSearchParams()
     const firstCategorySlug = categories[0]?.slug || ''
-    const categoryFromUrl = searchParams.get('category') || initialCategorySlug || firstCategorySlug
+    const initialSlug = initialCategorySlug || firstCategorySlug
     const productAreaRef = useRef(null)
     const productGridRef = useRef(null)
     const productCardRefs = useRef(new Map())
@@ -136,7 +144,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false)
     const [mobileSearchTerm, setMobileSearchTerm] = useState('')
     const [highlightedProductKey, setHighlightedProductKey] = useState('')
-    const [selectedSlug, setSelectedSlug] = useState(categoryFromUrl)
+    const [selectedSlug, setSelectedSlug] = useState(initialSlug)
 
     const allProducts = useMemo(() => {
         return sortProductsByName(categories.flatMap((category) =>
@@ -364,6 +372,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
     const handleSearchResultClick = (product) => {
         const productKey = getProductKey(product)
+        handleCategoryClick(product.categorySlug)
         setSearchTerm('')
         setIsSearchSheetOpen(false)
         setMobileSearchTerm('')
@@ -377,6 +386,9 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
     return (
         <div className="min-h-screen overflow-x-clip bg-[#FAF8F4] text-[#1C1917]">
+            <Suspense fallback={null}>
+                <CategoryQuerySync fallbackSlug={initialSlug} onChange={setSelectedSlug} />
+            </Suspense>
 
             {/* HERO */}
             <section className="pnp-mobile-hero-compact relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 pb-8 pt-24 text-white md:py-28">

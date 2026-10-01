@@ -138,10 +138,10 @@ const specsByCategorySlug = {
 };
 
 function getSpecs(product) {
-  return withDefaultSocialImage({
+  return {
     ...defaultSpecs,
     ...(specsByCategorySlug[product.categorySlug] || {}),
-  });
+  };
 }
 
 export function generateStaticParams() {
@@ -158,7 +158,7 @@ export async function generateMetadata({ params }) {
     return { title: "Letreros e Impresión" };
   }
 
-  return {
+  return withDefaultSocialImage({
     title: {
       absolute: product.title,
     },
@@ -189,7 +189,7 @@ export async function generateMetadata({ params }) {
       description: product.description,
       ...(product.image ? { images: [`https://www.pixelnpanel.com${product.image}`] } : {}),
     },
-  };
+  });
 }
 
 function JsonLd({ data }) {
@@ -240,6 +240,8 @@ export default async function SpanishSignageProductPage({ params }) {
   const service = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": `https://www.pixelnpanel.com/es/letreros/${product.slug}#service`,
+    inLanguage: "es-US",
     name: product.name,
     description: product.description,
     url: `https://www.pixelnpanel.com/es/letreros/${product.slug}`,
@@ -255,6 +257,7 @@ export default async function SpanishSignageProductPage({ params }) {
     ],
     provider: {
       "@type": "LocalBusiness",
+      "@id": "https://www.pixelnpanel.com/#localbusiness",
       name: "Pixel & Panel",
       url: "https://www.pixelnpanel.com",
       telephone: "(409) 225-2012",

@@ -82,7 +82,17 @@ export default async function SignagePage() {
         <>
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={itemListSchema} />
-            <SignageHubOverview categories={categories} reviews={signageReviews} />
+            <SignageHubOverview
+                categories={categories.map(({ slug, name, image, tagline, productCount, products }) => ({
+                    slug, name, image, tagline, productCount,
+                    // Browsing needs card/search data, not every size, FAQ and
+                    // specification from the product detail pages.
+                    products: products.map(({ slug, name, categorySlug, categoryName, image, alt, description, searchKeywords, isLive, lowestPrice }) => ({
+                        slug, name, categorySlug, categoryName, image, alt, description, searchKeywords, isLive, lowestPrice,
+                    })),
+                }))}
+                reviews={signageReviews}
+            />
         </>
     )
 }
