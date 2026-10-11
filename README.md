@@ -45,7 +45,8 @@ For Supabase schema and setup, see [order tracking setup](docs/order-tracking-se
 | `app/admin/`, `app/api/admin/` | Admin UI and authenticated order APIs |
 | `app/api/quote/`, `app/api/contact/` | Form validation and email delivery |
 | `components/signage/` | Catalog, product detail, calculator, shared quote selection |
-| `lib/signage/data.js` | Published CSV fetching, parsing, and catalog normalization |
+| `lib/signage/data.js` | Published CSV fetching and catalog assembly |
+| `lib/signage/parsers.js`, `lib/signage/catalog-config.js` | Pure parsing helpers, display order, editorial metadata, and search terms |
 | `lib/quote-selection.js` | Product-option validation and language-link handoff |
 | `lib/customer-order.js` | Explicit customer-safe order projection |
 | `lib/admin-auth.js`, `lib/rate-limit.js` | Signed sessions and shared request limits |
