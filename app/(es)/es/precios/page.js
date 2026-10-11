@@ -174,6 +174,9 @@ const pricingFaqs = [
 ];
 
 const spanishCopy = {
+  pricingNavLabel: "Elige una categoría de precios",
+  signageNavLabel: "Letreros e impresión",
+  websiteNavLabel: "Paquetes web",
   heroLabel: "Precios para clientes iniciales",
   heroTitlePrefix: "Tarifas fijas de diseño web y",
   heroTitleHighlight: "cotizaciones rápidas",

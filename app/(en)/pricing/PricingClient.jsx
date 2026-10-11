@@ -209,6 +209,9 @@ const DEFAULT_COPY = {
   heroCopy:
     'Every marketing dollar your local company spends should have a clear purpose. We provide starting prices for fixed-scope website development and individual estimates for signage and print projects.',
   heroNote: 'Pricing may increase as availability becomes limited.',
+  pricingNavLabel: 'Choose pricing category',
+  signageNavLabel: 'Signs & Print',
+  websiteNavLabel: 'Website Packages',
   packageLabel: 'Starter Website Packages',
   packageTitle: 'Foundational Digital Visibility Packages',
   packageCopy:
@@ -707,10 +710,81 @@ export default function PricingPage({
           >
             {copy.heroNote}
           </m.p>
+          <nav className="mt-6 flex flex-wrap justify-center gap-3" aria-label={copy.pricingNavLabel}>
+            <a href="#signage-pricing" className="btn-amber">{copy.signageNavLabel}</a>
+            <a href="#website-pricing" className="btn-ghost">{copy.websiteNavLabel}</a>
+          </nav>
         </m.div>
       </section>
 
-      <section className="section-base" style={{ backgroundColor: colors.cream }}>
+      <section id="signage-pricing" className="section-base scroll-mt-28" style={{ backgroundColor: colors.cream }}>
+        <div className="container-px">
+          <m.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            className="white-card"
+            style={{
+              border: `1px solid rgba(3, 105, 161, 0.18)`,
+              borderRadius: '1rem',
+              boxShadow: '0 18px 48px rgba(12, 30, 60, 0.08)',
+              display: 'grid',
+              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
+              padding: 'clamp(1.5rem, 4vw, 2.5rem)',
+            }}
+          >
+            <m.div variants={fadeUp}>
+              <span className="section-label" style={{ color: colors.amber }}>
+                {copy.signageLabel}
+              </span>
+              <h2 style={{ color: colors.dark, marginBottom: '1rem' }}>
+                {copy.signageTitle}
+              </h2>
+              <p style={{ color: '#5f6f7d', lineHeight: 1.75, marginBottom: '1.5rem' }}>
+                {copy.signageCopy}
+              </p>
+              <Link
+                href={copy.signageHref}
+                className="btn-amber"
+                style={{ maxWidth: '100%', whiteSpace: 'normal' }}
+              >
+                {copy.signageCta} <ArrowRight size={15} />
+              </Link>
+            </m.div>
+            <m.div
+              variants={stagger}
+              style={{
+                display: 'grid',
+                gap: '0.85rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              }}
+            >
+              {signageExamples.map((item) => (
+                <m.div
+                  key={item}
+                  variants={fadeUp}
+                  style={{
+                    alignItems: 'center',
+                    background: '#F8FAFC',
+                    borderRadius: '0.75rem',
+                    color: '#475569',
+                    display: 'flex',
+                    gap: '0.6rem',
+                    padding: '0.85rem',
+                  }}
+                >
+                  <QrCode size={16} color={colors.amber} style={{ flexShrink: 0 }} />
+                  {item}
+                </m.div>
+              ))}
+            </m.div>
+          </m.div>
+        </div>
+      </section>
+
+      <section id="website-pricing" className="section-base scroll-mt-28" style={{ backgroundColor: colors.cream }}>
         <div className="container-px">
           <SectionIntro
             label={copy.packageLabel}
@@ -853,73 +927,6 @@ export default function PricingPage({
                 </div>
               </m.div>
             ))}
-          </m.div>
-        </div>
-      </section>
-
-      <section className="section-base" style={{ backgroundColor: colors.cream }}>
-        <div className="container-px">
-          <m.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewport}
-            className="white-card"
-            style={{
-              border: `1px solid rgba(3, 105, 161, 0.18)`,
-              borderRadius: '1rem',
-              boxShadow: '0 18px 48px rgba(12, 30, 60, 0.08)',
-              display: 'grid',
-              gap: '2rem',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              padding: 'clamp(1.5rem, 4vw, 2.5rem)',
-            }}
-          >
-            <m.div variants={fadeUp}>
-              <span className="section-label" style={{ color: colors.amber }}>
-                {copy.signageLabel}
-              </span>
-              <h2 style={{ color: colors.dark, marginBottom: '1rem' }}>
-                {copy.signageTitle}
-              </h2>
-              <p style={{ color: '#5f6f7d', lineHeight: 1.75, marginBottom: '1.5rem' }}>
-                {copy.signageCopy}
-              </p>
-              <Link
-                href={copy.signageHref}
-                className="btn-amber"
-                style={{ maxWidth: '100%', whiteSpace: 'normal' }}
-              >
-                {copy.signageCta} <ArrowRight size={15} />
-              </Link>
-            </m.div>
-            <m.div
-              variants={stagger}
-              style={{
-                display: 'grid',
-                gap: '0.85rem',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-              }}
-            >
-              {signageExamples.map((item) => (
-                <m.div
-                  key={item}
-                  variants={fadeUp}
-                  style={{
-                    alignItems: 'center',
-                    background: '#F8FAFC',
-                    borderRadius: '0.75rem',
-                    color: '#475569',
-                    display: 'flex',
-                    gap: '0.6rem',
-                    padding: '0.85rem',
-                  }}
-                >
-                  <QrCode size={16} color={colors.amber} style={{ flexShrink: 0 }} />
-                  {item}
-                </m.div>
-              ))}
-            </m.div>
           </m.div>
         </div>
       </section>
