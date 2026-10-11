@@ -30,6 +30,8 @@ const spanishQuoteCopy = {
   formTitle: "Solicitar una cotización",
   formNote: "Toma menos de 2 minutos.",
   productSelected: "Producto seleccionado",
+  packageSelected: "Paquete seleccionado",
+  packageContactRequirement: "Solo tu nombre y teléfono son obligatorios. Agrega más detalles si quieres.",
   name: "Nombre",
   businessName: "Nombre del negocio",
   email: "Correo electrónico",

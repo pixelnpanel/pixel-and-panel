@@ -18,7 +18,7 @@ const websitePackages = [
       "1 ronda de cambios",
     ],
     cta: "Empezar con página de lanzamiento",
-    href: "/es/solicitar-cotizacion?product=P%C3%A1gina%20de%20lanzamiento&category=Servicios%20Digitales",
+    href: "/es/solicitar-cotizacion?package=P%C3%A1gina%20de%20lanzamiento&category=Servicios%20Digitales",
   },
   {
     name: "Presencia web inicial",
@@ -37,7 +37,7 @@ const websitePackages = [
       "1 ronda de cambios",
     ],
     cta: "Cotizar sitio inicial",
-    href: "/es/solicitar-cotizacion?product=Presencia%20web%20inicial&category=Servicios%20Digitales",
+    href: "/es/solicitar-cotizacion?package=Presencia%20web%20inicial&category=Servicios%20Digitales",
   },
   {
     name: "Sitio web para negocio local",
@@ -60,7 +60,7 @@ const websitePackages = [
       "2 rondas de cambios",
     ],
     cta: "Cotizar sitio local",
-    href: "/es/solicitar-cotizacion?product=Sitio%20web%20para%20negocio%20local&category=Servicios%20Digitales",
+    href: "/es/solicitar-cotizacion?package=Sitio%20web%20para%20negocio%20local&category=Servicios%20Digitales",
   },
   {
     name: "Sitio web + configuración de visibilidad",
@@ -81,7 +81,7 @@ const websitePackages = [
       "2 rondas de cambios",
     ],
     cta: "Crear mi sistema de visibilidad",
-    href: "/es/solicitar-cotizacion?product=Sitio%20web%20%2B%20configuraci%C3%B3n%20de%20visibilidad&category=Servicios%20Digitales",
+    href: "/es/solicitar-cotizacion?package=Sitio%20web%20%2B%20configuraci%C3%B3n%20de%20visibilidad&category=Servicios%20Digitales",
   },
 ];
 
