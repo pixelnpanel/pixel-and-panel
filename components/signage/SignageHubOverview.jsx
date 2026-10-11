@@ -231,8 +231,8 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                     <p className="mx-auto mt-7 hidden max-w-3xl break-words leading-relaxed text-white/75 md:block md:text-xl">
                         Boost your real-world visibility with custom banners, banner stands, yard signs, feather flags, event tents, table covers, and commercial print materials.
                     </p>
-                    <div className="mt-10 hidden flex-col items-center justify-center gap-4 md:flex md:flex-row">
-                        <Link href={QUOTE_PATH} className="btn-amber">
+                    <div className="mt-8 flex flex-col items-center justify-center gap-4 md:mt-10 md:flex-row">
+                        <Link href={QUOTE_PATH} className="btn-amber hidden md:inline-flex">
                             Request a Quote <ArrowRight size={18} />
                         </Link>
                         <button onClick={() => setIsSearchSheetOpen(true)} className="btn-ghost" aria-haspopup="dialog" aria-expanded={isSearchSheetOpen}>
