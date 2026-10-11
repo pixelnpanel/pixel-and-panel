@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertCircle,
@@ -339,6 +340,7 @@ function OrderFields({ form, onChange }) {
 }
 
 export default function AdminOrdersClient() {
+  const router = useRouter();
   const [orders, setOrders] = useState([]);
   const [configured, setConfigured] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState("");
@@ -429,8 +431,14 @@ export default function AdminOrdersClient() {
   }
 
   async function logout() {
-    await fetch("/api/admin/logout", { method: "POST" });
-    window.location.href = "/admin/login";
+    try {
+      const response = await fetch("/api/admin/logout", { method: "POST" });
+      if (!response.ok) throw new Error("Logout failed. Please try again.");
+      router.replace("/admin/login");
+      router.refresh();
+    } catch {
+      setError("Logout failed. Please try again.");
+    }
   }
 
   async function createOrder(event) {
