@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import LanguageLink from '@/components/language/LanguageLink'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
@@ -169,14 +170,14 @@ export default function Navbar() {
               right: 0,
             }}
           >
-            <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
+            <LanguageLink href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
               style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
               EN
-            </Link>
-            <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
+            </LanguageLink>
+            <LanguageLink href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
               style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
               ES
-            </Link>
+            </LanguageLink>
           </div>
 
           {/* Desktop Nav */}
@@ -214,14 +215,14 @@ export default function Navbar() {
                 overflow: 'hidden',
               }}
             >
-              <Link href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
+              <LanguageLink href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
                 style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.42rem 0.55rem', textDecoration: 'none' }}>
                 EN
-              </Link>
-              <Link href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
+              </LanguageLink>
+              <LanguageLink href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
                 style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.42rem 0.55rem', textDecoration: 'none' }}>
                 ES
-              </Link>
+              </LanguageLink>
             </div>
             <Link href={quoteHref} className="btn-amber" style={{ fontSize: '0.8rem', padding: '0.75rem 1.25rem' }}>
               {quoteLabel} <ArrowRight size={15} />

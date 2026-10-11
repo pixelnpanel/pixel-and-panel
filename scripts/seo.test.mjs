@@ -66,3 +66,22 @@ test('invalid or missing quantities never become a requested order quantity', ()
     for (const value of ['', '0', '-1', '1.5', 'Infinity', '100001', 'hello']) assert.equal(validQuantity(value), '')
     assert.deepEqual(quoteSelectionLines({ quantity: '0' }), [])
 })
+
+import { quoteLanguageHref } from '../lib/quote-selection.js'
+test('language links preserve product options without contact or unrelated query data', () => {
+    const input = new URLSearchParams({ product: '13oz Vinyl Banner', category: 'Banners', size: '8 × 4 ft', side: 'Double-Sided', quantity: '5', email: 'private@example.com', price: '189', utm_source: 'ad' })
+    const es = new URL(quoteLanguageHref('/es/solicitar-cotizacion', input), SITE_URL)
+    assert.equal(es.searchParams.get('product'), '13oz Vinyl Banner')
+    assert.equal(es.searchParams.get('size'), '8 × 4 ft')
+    assert.equal(es.searchParams.get('side'), 'Double-Sided')
+    assert.equal(es.searchParams.get('quantity'), '5')
+    assert.equal(es.searchParams.has('email'), false)
+    assert.equal(es.searchParams.has('price'), false)
+    assert.equal(es.searchParams.has('utm_source'), false)
+    assert.equal(quoteLanguageHref('/quote-request', es.searchParams), '/quote-request?' + es.searchParams.toString())
+    assert.equal(quoteLanguageHref('/es', input), '/es')
+})
+test('language links support packages, normalize quantity and prefer product over package', () => {
+    assert.equal(quoteLanguageHref('/quote-request', new URLSearchParams('package=Launch+Page&quantity=-1')), '/quote-request?package=Launch+Page')
+    assert.equal(quoteLanguageHref('/quote-request', new URLSearchParams('product=Banner&package=Launch&quantity=02')), '/quote-request?product=Banner&quantity=2')
+})
