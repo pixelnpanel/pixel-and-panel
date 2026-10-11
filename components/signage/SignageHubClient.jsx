@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useModalFocus } from '@/lib/use-modal-focus'
 import Image from 'next/image'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -135,6 +136,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
     const productGridRef = useRef(null)
     const productCardRefs = useRef(new Map())
     const mobileSearchInputRef = useRef(null)
+    const searchDialogRef = useRef(null)
     const mobileChipRowRef = useRef(null)
     const stickyCategoryBarRef = useRef(null)
     const sidebarRef = useRef(null)
@@ -267,27 +269,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
         activeChip?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
     }, [isStickyCategoryVisible, selectedCategory.slug])
 
-    useEffect(() => {
-        if (!isSearchSheetOpen) return undefined
-
-        const previousOverflow = document.body.style.overflow
-        document.body.style.overflow = 'hidden'
-        const focusTimer = window.setTimeout(() => mobileSearchInputRef.current?.focus(), 120)
-
-        const handleKeyDown = (event) => {
-            if (event.key === 'Escape') {
-                setIsSearchSheetOpen(false)
-            }
-        }
-
-        window.addEventListener('keydown', handleKeyDown)
-
-        return () => {
-            document.body.style.overflow = previousOverflow
-            window.clearTimeout(focusTimer)
-            window.removeEventListener('keydown', handleKeyDown)
-        }
-    }, [isSearchSheetOpen])
+    useModalFocus(searchDialogRef, isSearchSheetOpen, setIsSearchSheetOpen)
 
     useEffect(() => {
         if (!highlightedProductKey) return undefined
@@ -725,6 +707,8 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                     />
                     <section
                         id="mobile-product-search"
+                        ref={searchDialogRef}
+                        tabIndex={-1}
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="mobile-product-search-title"

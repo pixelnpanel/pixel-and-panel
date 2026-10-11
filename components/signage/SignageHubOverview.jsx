@@ -6,6 +6,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useModalFocus } from '@/lib/use-modal-focus'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -122,6 +123,7 @@ function ProductCard({ product }) {
 export default function SignageHubOverview({ categories = [], reviews = [] }) {
     const router = useRouter()
     const mobileSearchInputRef = useRef(null)
+    const searchDialogRef = useRef(null)
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
     const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false)
     const [mobileSearchTerm, setMobileSearchTerm] = useState('')
@@ -196,24 +198,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
         }
     }, [isSearchSheetOpen])
 
-    useEffect(() => {
-        if (!isSearchSheetOpen) return undefined
-
-        const previousOverflow = document.body.style.overflow
-        document.body.style.overflow = 'hidden'
-        const focusTimer = window.setTimeout(() => mobileSearchInputRef.current?.focus(), 120)
-
-        const handleKeyDown = (event) => {
-            if (event.key === 'Escape') setIsSearchSheetOpen(false)
-        }
-        window.addEventListener('keydown', handleKeyDown)
-
-        return () => {
-            document.body.style.overflow = previousOverflow
-            window.clearTimeout(focusTimer)
-            window.removeEventListener('keydown', handleKeyDown)
-        }
-    }, [isSearchSheetOpen])
+    useModalFocus(searchDialogRef, isSearchSheetOpen, setIsSearchSheetOpen)
 
     const handleSearchResultClick = (product) => {
         setIsSearchSheetOpen(false)
@@ -423,6 +408,8 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                     />
                     <section
                         id="mobile-product-search"
+                        ref={searchDialogRef}
+                        tabIndex={-1}
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="mobile-product-search-title"
