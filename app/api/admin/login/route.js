@@ -16,7 +16,18 @@ export async function POST(request) {
     key: `admin-login:${ip}`,
     limit: 5,
     windowMs: 10 * 60 * 1000,
+    requirePersistent: true,
   });
+
+  if (limit.unavailable) {
+    return NextResponse.json(
+      { ok: false, error: "Admin login is temporarily unavailable. Please try again later." },
+      {
+        status: 503,
+        headers: { "Retry-After": String(Math.max(1, Math.ceil((limit.resetTime - Date.now()) / 1000))) },
+      },
+    );
+  }
 
   if (!limit.success) return rateLimitResponse(limit.resetTime);
 

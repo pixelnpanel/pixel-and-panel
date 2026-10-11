@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test scripts/seo.test.mjs",
+    "test": "node --test scripts/*.test.mjs",
     "check:seo": "node scripts/check-seo.mjs"
   },
   "dependencies": {
