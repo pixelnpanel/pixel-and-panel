@@ -85,7 +85,7 @@ export default function SignageCategoryTeaser({ categories = [] }) {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-4 lg:grid-cols-3">
           {tiles.map((tile) => (
             <Link
               key={tile.slug}
@@ -98,7 +98,7 @@ export default function SignageCategoryTeaser({ categories = [] }) {
                     src={tile.cover.src}
                     alt={tile.cover.alt}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                    sizes="(max-width: 1024px) 50vw, 360px"
                     className="object-contain object-center transition duration-300 group-hover:scale-105"
                   />
                 ) : (
@@ -116,13 +116,13 @@ export default function SignageCategoryTeaser({ categories = [] }) {
                   </span>
                 )}
               </div>
-              <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
+              <div className="flex min-w-0 flex-1 flex-col border-t border-slate-100 p-3 sm:p-5">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-[#1C1917] transition group-hover:text-[#0369A1]">{tile.name}</h3>
-                  <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#F59E0B]" />
+                  <h3 className="break-words text-[#1C1917] transition group-hover:text-[#0369A1]">{tile.name}</h3>
+                  <ArrowRight className="mt-1 hidden h-5 w-5 shrink-0 sm:block text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#F59E0B]" />
                 </div>
                 {tile.tagline && (
-                  <p className="mt-2 text-sm leading-6 text-slate-600 line-clamp-2">{tile.tagline}</p>
+                  <p className="mt-2 hidden text-sm leading-6 text-slate-600 sm:line-clamp-2">{tile.tagline}</p>
                 )}
                 <span className="mt-auto pt-4 font-heading text-xs font-bold uppercase tracking-wide text-slate-600">
                   {tile.productCount} {tile.productCount === 1 ? "product" : "products"}
