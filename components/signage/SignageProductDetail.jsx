@@ -104,17 +104,34 @@ export default function SignageProductDetail({ product, category, related = [] }
                 </div>
             </div>
 
-            {/* MAIN — grid children in DOM order: image, title, calculator, body.
-                Mobile stacks them as image → title → calculator → description.
-                Desktop keeps image + title + body in the left column, with the
-                calculator holding the right column and staying sticky (spanning
-                all rows) until the grid ends, right before "Common questions". */}
+            {/* Title leads on every screen. The calculator stays beside the
+                product on desktop and follows the image on mobile. */}
             <section className="px-6 py-10 md:py-16">
                 <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_460px] lg:items-start lg:gap-10">
 
-                    {/* IMAGE — full image on cream, never cropped */}
+                    {/* TITLE — price chip + H1 + from-price */}
                     <div className="lg:col-start-1 lg:row-start-1">
-                        <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-brand-line bg-[#FAF8F4] p-2 shadow-card">
+                        {/* Price chip — optional */}
+                        {content?.priceChip && (
+                            <p className="inline-flex items-center rounded-full bg-[#E0F2FE] px-4 py-1.5 font-heading text-sm font-bold text-[#0369A1]">
+                                {content.priceChip}
+                            </p>
+                        )}
+
+                        <h1 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-[#1C1917] md:text-5xl">
+                            {heading}
+                        </h1>
+
+                        {fromPrice && (
+                            <p className="mt-3 text-lg text-brand-muted">
+                                From <span className="font-heading font-extrabold text-[#0369A1]">{fromPrice}</span>
+                            </p>
+                        )}
+                    </div>
+
+                    {/* IMAGE — full image on cream, never cropped */}
+                    <div className="lg:col-start-1 lg:row-start-2">
+                        <div className="relative aspect-square max-h-[520px] w-full overflow-hidden rounded-2xl border border-brand-line bg-[#FAF8F4] p-2 shadow-card">
                             {product.image ? (
                                 <Image
                                     src={product.image}
@@ -135,26 +152,6 @@ export default function SignageProductDetail({ product, category, related = [] }
                                 </div>
                             )}
                         </div>
-                    </div>
-
-                    {/* TITLE — price chip + H1 + from-price (sits above the calculator on mobile) */}
-                    <div className="lg:col-start-1 lg:row-start-2">
-                        {/* Price chip — optional */}
-                        {content?.priceChip && (
-                            <p className="inline-flex items-center rounded-full bg-[#E0F2FE] px-4 py-1.5 font-heading text-sm font-bold text-[#0369A1]">
-                                {content.priceChip}
-                            </p>
-                        )}
-
-                        <h1 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-[#1C1917] md:text-5xl">
-                            {heading}
-                        </h1>
-
-                        {fromPrice && (
-                            <p className="mt-3 text-lg text-brand-muted">
-                                From <span className="font-heading font-extrabold text-[#0369A1]">{fromPrice}</span>
-                            </p>
-                        )}
                     </div>
 
                     {/* CALCULATOR — right column, sticky until the grid ends */}
