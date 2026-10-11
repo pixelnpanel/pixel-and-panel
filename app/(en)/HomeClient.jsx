@@ -48,7 +48,7 @@ export const defaultHomeHeroCopy = {
   desktopTitleStart: "Custom Signs, Banners & Print",
   desktopTitleHighlight: "That Get Your Business Noticed.",
   mobileIntro:
-    "Your one-stop sign shop for Houston and Southeast Texas — custom signs, banners, vehicle graphics, and print. Need to grow online too? We also build websites and Google visibility to match.",
+    "Custom signs, banners, vehicle graphics, and print for Houston and Southeast Texas.",
   desktopIntro:
     "Pixel & Panel is the one-stop sign shop for Houston and Southeast Texas — custom signs, banners, vehicle graphics, and print that make local businesses impossible to miss. And when you're ready to grow online, we also build the website and Google presence to match.",
   startHeading: "What do you need?",
@@ -98,29 +98,21 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
             </p>
 
             <div className="mt-7 max-w-[calc(100vw-2rem)] lg:hidden" aria-labelledby="mobile-home-start-heading">
-              {/* White, not the brand amber, and only because of where this sits.
-                  On a phone the hero is tall and narrow (375×1165), which drags
-                  this label down into the middle of the 135° gradient — measured
-                  ground here runs #0c4a6c to #036aa2. Amber against that is
-                  2.73:1 at worst, and 12px text needs 4.5:1. No amber passes on
-                  that blue at this size: amber-300 reaches only 4.06:1, and going
-                  pale enough to clear the floor stops reading as the brand color.
-                  White measures 5.85:1 and is already the hero's text color; the
-                  label still reads as a label from the uppercase, weight and
-                  tracking. The amber H1 accent above is fine and stays — it is
-                  large text, which needs 3:1, and it measures 3.74:1 here. */}
+              <Link href={content.quoteHref} className="btn-amber mb-6 w-full justify-center whitespace-nowrap px-5">
+                {content.mobileQuoteLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
               <p id="mobile-home-start-heading" className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-white">
                 {content.startHeading}
               </p>
               <div className="mt-3 grid gap-3">
-                {startOptions.map((item) => {
+                {startOptions.filter((item) => item.href !== content.quoteHref).map((item) => {
                   const Icon = item.icon;
 
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="flex min-h-[88px] items-center gap-3 rounded-xl border border-white/15 bg-white/[0.09] p-4 text-left shadow-sm active:scale-[0.99]"
+                      className="flex min-h-[72px] items-center gap-3 rounded-xl border border-white/15 bg-white/[0.09] p-4 text-left shadow-sm active:scale-[0.99]"
                     >
                       <span
                         className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[#1C1917]"
@@ -139,9 +131,6 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
                   );
                 })}
               </div>
-              <Link href={content.quoteHref} className="btn-amber mt-4 w-full justify-center whitespace-nowrap px-5">
-                {content.mobileQuoteLabel} <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
             </div>
 
             <div className="mt-8 hidden max-w-2xl lg:block">

@@ -248,7 +248,7 @@ function LinkCard({ item, variant = "light" }) {
 }
 
 export default function HomeSections({ faqs, content = {}, categories = [] }) {
-  const homeReviews = attachReviewImages(reviews);
+  const homeReviews = attachReviewImages(reviews.slice(0, 3));
   const sections = {
     problem: { ...defaultHomeSectionsContent.problem, ...content.problem },
     problemCta: { ...defaultHomeSectionsContent.problemCta, ...content.problemCta },

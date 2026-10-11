@@ -51,7 +51,7 @@ const spanishHomeHeroCopy = {
   desktopTitleStart: "Letreros, banners e impresión",
   desktopTitleHighlight: "que hacen que te noten.",
   mobileIntro:
-    "Tu taller de letreros para Houston y el sureste de Texas — letreros, banners, rotulación vehicular e impresión. ¿También quieres crecer en internet? También creamos tu sitio web y presencia en Google.",
+    "Letreros, banners, rotulación vehicular e impresión para Houston y el sureste de Texas.",
   desktopIntro:
     "Pixel & Panel es el taller de letreros para Houston y el sureste de Texas — letreros, banners, rotulación vehicular e impresión que hacen que los negocios locales se noten. Y cuando quieras crecer en internet, también creamos el sitio web y la presencia en Google.",
   startHeading: "¿Qué necesitas?",
