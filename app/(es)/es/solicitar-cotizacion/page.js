@@ -29,6 +29,7 @@ const spanishQuoteCopy = {
   ],
   formTitle: "Solicitar una cotización",
   formNote: "Toma menos de 2 minutos.",
+  attachmentRestoreNote: "Conservamos tu texto. Vuelve a adjuntar tu archivo después de cambiar de idioma.",
   productSelected: "Producto seleccionado",
   packageSelected: "Paquete seleccionado",
   packageContactRequirement: "Solo tu nombre y teléfono son obligatorios. Agrega más detalles si quieres.",

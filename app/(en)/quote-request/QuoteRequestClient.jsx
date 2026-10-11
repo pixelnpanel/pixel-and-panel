@@ -12,6 +12,7 @@ import { GOOGLE_REVIEWS } from "@/lib/reviews";
 import { trackLead, trackEvent } from "@/lib/analytics";
 
 import { quoteSelectionLines } from "@/lib/quote-selection";
+import { QUOTE_DRAFT_KEY, QUOTE_DRAFT_EVENT, encodeQuoteDraft, decodeQuoteDraft } from "@/lib/quote-draft";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
 const ALLOWED_EXTENSION_SET = new Set(ALLOWED_EXTENSIONS.split(","));
@@ -98,6 +99,7 @@ const defaultCopy = {
   attachPrompt: "Logo, mockup, or reference image",
   attachTypes: "JPG, PNG, PDF · 4 MB",
   removeAttachmentAria: "Remove attachment",
+  attachmentRestoreNote: "Your text was kept. Please attach your file again after changing language.",
   fileSizeError: "File must be 4 MB or smaller.",
   fileTypeError: "Only JPG, PNG, PDF, GIF, WebP, SVG, and AI/EPS files are allowed.",
   submit: "Send My Request",
@@ -169,21 +171,32 @@ export default function QuoteRequestClient({
   const initialStep = showPicker ? 0 : 1;
   const totalSteps = showPicker ? 3 : 2;
 
-  const [step, setStep] = useState(initialStep);
+  const selectionKey = JSON.stringify([requestedProduct, requestedPackage, requestedCategory, querySize, querySide, queryQuantity]);
+  // useSearchParams renders this form inside its client-side Suspense boundary.
+  // Read once; storage is only populated by an explicit language-link click.
+  const [draft] = useState(() => {
+    try {
+      return decodeQuoteDraft(window.sessionStorage.getItem(QUOTE_DRAFT_KEY), { selectionKey, language: content.language });
+    } catch {
+      return null;
+    }
+  });
+  const [step, setStep] = useState(draft ? Math.max(initialStep, draft.step) : initialStep);
   const [pickedService, setPickedService] = useState(
-    hasPreselected ? { label: selectedItem.name, category: selectedItem.category } : null
+    hasPreselected ? { label: selectedItem.name, category: selectedItem.category } : (content.serviceTiles[draft?.serviceIndex] || null)
   );
 
-  const [name, setName] = useState("");
-  const [businessName, setBusinessName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState(draft?.name || "");
+  const [businessName, setBusinessName] = useState(draft?.businessName || "");
+  const [email, setEmail] = useState(draft?.email || "");
+  const [phone, setPhone] = useState(draft?.phone || "");
   const [productField, setProductField] = useState(
-    hasPreselected
+    draft?.productField || (hasPreselected
       ? (selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name)
-      : ""
+      : "")
   );
   const [message, setMessage] = useState(() => {
+    if (draft) return draft.message;
     if (!(hasPreselected && selectedItem.type === "product")) return "";
     return content.defaultMessageTemplate.replace("{product}", selectedItem.name);
   });
@@ -191,13 +204,40 @@ export default function QuoteRequestClient({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [attachment, setAttachment] = useState(null);
-  const [fileError, setFileError] = useState("");
+  const [fileError, setFileError] = useState(draft?.attachmentName ? content.attachmentRestoreNote : "");
   const [contactError, setContactError] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const stepHeadingRef = useRef(null);
   const formStartedRef = useRef(false);
   const seenStepsRef = useRef(new Set());
+
+  useEffect(() => {
+    if (!draft) return;
+    try { window.sessionStorage.removeItem(QUOTE_DRAFT_KEY); } catch { /* Storage may be disabled. */ }
+  }, [draft]);
+
+  useEffect(() => {
+    function saveLanguageDraft() {
+      try {
+        if (submitted) {
+          window.sessionStorage.removeItem(QUOTE_DRAFT_KEY);
+          return;
+        }
+        window.sessionStorage.setItem(QUOTE_DRAFT_KEY, encodeQuoteDraft({
+          selectionKey,
+          language: content.language,
+          fields: {
+            name, businessName, email, phone, productField, message, step,
+            serviceIndex: content.serviceTiles.findIndex((tile) => tile.label === pickedService?.label),
+            attachmentName: attachment?.name || "",
+          },
+        }));
+      } catch { /* A blocked storage API must not block language navigation. */ }
+    }
+    window.addEventListener(QUOTE_DRAFT_EVENT, saveLanguageDraft);
+    return () => window.removeEventListener(QUOTE_DRAFT_EVENT, saveLanguageDraft);
+  }, [selectionKey, content.language, content.serviceTiles, name, businessName, email, phone, productField, message, step, pickedService, attachment, submitted]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
