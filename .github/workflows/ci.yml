@@ -1,0 +1,59 @@
+name: Website checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      # Public published CSV URLs only; no production service credentials needed.
+      SIGNAGE_SHEET_CSV_URL: ${{ vars.SIGNAGE_SHEET_CSV_URL }}
+      SIGNAGE_CONTENT_CSV_URL: ${{ vars.SIGNAGE_CONTENT_CSV_URL }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint -- --max-warnings=0
+      - run: npm test
+      - run: npm run build
+      - name: Explain catalog coverage
+        if: env.SIGNAGE_SHEET_CSV_URL == ''
+        run: echo '::warning::Set repository variable SIGNAGE_SHEET_CSV_URL to include live catalog pages and enable the SEO crawl. Build and unit tests still run.'
+      - name: Crawl public pages and internal links
+        if: env.SIGNAGE_SHEET_CSV_URL != ''
+        shell: bash
+        run: |
+          npm run start -- --port 3000 > /tmp/pnp-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          ready=0
+          for attempt in {1..30}; do
+            if curl --fail --silent http://localhost:3000/ > /dev/null; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" != 1 ]; then
+            cat /tmp/pnp-server.log
+            exit 1
+          fi
+          npm run check:seo -- http://localhost:3000
