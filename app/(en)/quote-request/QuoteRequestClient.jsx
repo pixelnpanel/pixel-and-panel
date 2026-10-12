@@ -295,6 +295,7 @@ export default function QuoteRequestClient({
     if (email.trim() && !/^\S+@\S+\.\S+$/.test(email.trim())) {
       trackEvent("quote_form_error", { error_type: "invalid_email", step_number: displayStep, language: content.language });
       setContactError(content.invalidEmail);
+      document.getElementById("q-email")?.focus();
       return;
     }
     setContactError("");
@@ -576,7 +577,7 @@ export default function QuoteRequestClient({
                           {content.name} *
                         </label>
                         <input
-                          id="q-name" type="text" autoComplete="name"
+                          id="q-name" type="text" autoComplete="name" aria-required="true"
                           value={name} onChange={(e) => setName(e.target.value)}
                           placeholder={content.namePlaceholder}
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
@@ -601,7 +602,8 @@ export default function QuoteRequestClient({
                         </label>
                         <input
                           id="q-email" type="email" autoComplete="email"
-                          aria-describedby="quote-contact-requirement"
+                          aria-invalid={contactError === content.invalidEmail}
+                          aria-describedby={contactError ? "quote-contact-requirement quote-contact-error" : "quote-contact-requirement"}
                           value={email} onChange={(e) => setEmail(e.target.value)}
                           placeholder={content.emailPlaceholder}
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
@@ -612,8 +614,8 @@ export default function QuoteRequestClient({
                           {content.phone}{hasPackageRequest ? " *" : ""}
                         </label>
                         <input
-                          id="q-phone" type="tel" autoComplete="tel"
-                          aria-describedby="quote-contact-requirement"
+                          id="q-phone" type="tel" autoComplete="tel" aria-required={hasPackageRequest}
+                          aria-describedby={contactError ? "quote-contact-requirement quote-contact-error" : "quote-contact-requirement"}
                           value={phone} onChange={(e) => setPhone(e.target.value)}
                           placeholder={content.phonePlaceholder}
                           className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
@@ -689,8 +691,8 @@ export default function QuoteRequestClient({
                       </div>
 
                       {/* File attachment */}
-                      <div>
-                        <label className="mb-2 block text-xs font-bold uppercase tracking-wide">
+                      <div className="rounded-xl focus-within:ring-2 focus-within:ring-[#0369A1] focus-within:ring-offset-4">
+                        <label htmlFor="quote-attachment" className="mb-2 block text-xs font-bold uppercase tracking-wide">
                           {content.attachLabel}{" "}
                           <span className="font-normal normal-case tracking-normal text-slate-600">{content.attachOptional}</span>
                         </label>
@@ -718,10 +720,12 @@ export default function QuoteRequestClient({
                         )}
                         <input
                           id="quote-attachment" type="file"
+                          aria-label={content.attachLabel}
+                          aria-describedby={fileError ? "quote-file-feedback" : undefined}
                           accept={ALLOWED_EXTENSIONS} onChange={handleFileChange}
                           className="sr-only"
                         />
-                        {fileError && <p className="mt-1 text-xs text-red-600">{fileError}</p>}
+                        {fileError && <p id="quote-file-feedback" role="alert" className="mt-1 text-xs text-red-600">{fileError}</p>}
                       </div>
                     </div>
 
