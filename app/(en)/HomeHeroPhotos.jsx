@@ -1,4 +1,4 @@
-// Real-work hero visual: a framed 2x2 wall of actual sign/print samples pulled
+// Product-example hero visual: a framed 2x2 grid pulled
 // from the live catalog (category cover art). Server component — no client JS.
 // Rendered by HomeClient when hero images are available; otherwise HomeClient
 // falls back to the animated HomeHeroVisual.
@@ -9,12 +9,13 @@ export default function HomeHeroPhotos({
   images = [],
   tagline = "Your Vision. Made Visible.",
   ratingLabel = "5.0 on Google",
+  galleryLabel = "Sign and print product examples",
 }) {
   const tiles = images.slice(0, 4);
   if (!tiles.length) return null;
 
   return (
-    <div className="relative mx-auto w-full max-w-[500px]" aria-label="Recent sign and print work by Pixel & Panel">
+    <div className="relative mx-auto w-full max-w-[500px]" aria-label={galleryLabel}>
       <div className="absolute -inset-4 rounded-[2rem] bg-[#F59E0B]/20 blur-3xl" aria-hidden="true" />
       <div className="relative rounded-2xl border border-white/15 bg-white/[0.1] p-4 shadow-2xl shadow-black/25 backdrop-blur-md">
         <div className="mb-3 flex items-center justify-between gap-3 px-1">
@@ -31,18 +32,15 @@ export default function HomeHeroPhotos({
               key={img.src}
               className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-white p-2"
             >
-              {/* This 2x2 grid is the homepage LCP region. The tiles were
-                  loading="lazy" by default, which delays the LCP image on
-                  mobile. Next 16 deprecated `priority`, and its docs advise
-                  AGAINST `preload` when several images could be the LCP by
-                  viewport (exactly this grid), so we use loading="eager" on
-                  all four and fetchPriority="high" only on the top row. */}
+              {/* The gallery is hidden below lg. Native lazy loading avoids
+                  fetching those invisible images on mobile; the visible desktop
+                  top row still receives high fetch priority. */}
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
                 sizes="(max-width: 1024px) 45vw, 230px"
-                loading="eager"
+                loading="lazy"
                 fetchPriority={index < 2 ? "high" : "auto"}
                 className="object-contain object-center"
               />

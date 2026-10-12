@@ -59,6 +59,7 @@ const spanishHomeHeroCopy = {
   quoteHref: "/es/solicitar-cotizacion",
   mobileQuoteLabel: "Cotizar",
   desktopQuoteLabel: "Solicitar cotización",
+  photoGalleryLabel: "Ejemplos de letreros e impresión",
   photoRatingLabel: "5.0 en Google",
   checklist: [
     "Tu visión. Hecha visible.",

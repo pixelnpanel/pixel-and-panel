@@ -174,6 +174,7 @@ export default function HomeClient({ copy = {}, startOptions = defaultHomeStartO
                 images={heroImages}
                 tagline={content.checklist?.[0]}
                 ratingLabel={content.photoRatingLabel}
+                galleryLabel={content.photoGalleryLabel}
               />
             ) : (
               <HomeHeroVisual />
