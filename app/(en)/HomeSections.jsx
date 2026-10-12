@@ -23,27 +23,6 @@ const HOMEPAGE_REVIEW_CHIPS = [
   "Ships nationwide",
 ];
 
-const problemCards = [
-  {
-    title: "Hard-to-read or faded signage",
-    description:
-      "A worn banner or dated sign makes even a great local business look neglected. Clean, professional signage earns trust before a customer ever walks in.",
-    icon: PanelTop,
-  },
-  {
-    title: "A work truck nobody remembers",
-    description:
-      "An unbranded vehicle is a moving billboard going to waste. Truck lettering and magnets put your name in front of the whole town, every day.",
-    icon: Car,
-  },
-  {
-    title: "Hard to find once they're interested",
-    description:
-      "Your signs get you noticed — then customers check you online. A weak website or Google listing loses the lead your signage just earned.",
-    icon: Search,
-  },
-];
-
 const serviceSilos = [
   {
     eyebrow: "Signage & Print",
@@ -146,13 +125,7 @@ const SERVICE_AREA_ITEMS = [
 ];
 
 export const defaultHomeSectionsContent = {
-  problem: {
-    eyebrow: "The Problem",
-    title: "Your competitors are showing up. Are you?",
-    description:
-      "Customers move fast between Google, your website, your street signs, and your contact options. If those pieces do not work together, hot local leads go to a competitor.",
-  },
-  problemCta: {
+  visibilityCta: {
     description:
       "Not sure where the gap is yet? Start with a free Google visibility review before asking for a project quote.",
     href: "/free-visibility-check",
@@ -250,15 +223,13 @@ function LinkCard({ item, variant = "light" }) {
 export default function HomeSections({ faqs, content = {}, categories = [] }) {
   const homeReviews = attachReviewImages(reviews.slice(0, 3));
   const sections = {
-    problem: { ...defaultHomeSectionsContent.problem, ...content.problem },
-    problemCta: { ...defaultHomeSectionsContent.problemCta, ...content.problemCta },
+    visibilityCta: { ...defaultHomeSectionsContent.visibilityCta, ...content.visibilityCta },
     services: { ...defaultHomeSectionsContent.services, ...content.services },
     popularServices: { ...defaultHomeSectionsContent.popularServices, ...content.popularServices },
     serviceAreas: { ...defaultHomeSectionsContent.serviceAreas, ...content.serviceAreas },
     faq: { ...defaultHomeSectionsContent.faq, ...content.faq },
     finalCta: { ...defaultHomeSectionsContent.finalCta, ...content.finalCta },
   };
-  const problemItems = content.problemCards || problemCards;
   const serviceItems = content.serviceSilos || serviceSilos;
   const popularItems = content.popularServicesCards || popularServices;
 
@@ -267,41 +238,6 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
       <ReviewsBand variant="strip" heading="Trusted by Southeast Texas businesses" />
 
       <SignageCategoryTeaser categories={categories} />
-
-      <section className="section-base" aria-labelledby="problem-heading">
-        <div className="container-px">
-          <SectionIntro
-            id="problem-heading"
-            eyebrow={sections.problem.eyebrow}
-            title={sections.problem.title}
-            description={sections.problem.description}
-          />
-
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {problemItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]">
-                    <Icon className="h-6 w-6" />
-                  </span>
-                  <h3>{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="mt-10 text-center">
-            <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600">
-              {sections.problemCta.description}
-            </p>
-            <Link href={sections.problemCta.href} className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
-              {sections.problemCta.label} <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
 
       <section className="section-base bg-white" aria-labelledby="services-heading">
         <div className="container-px">
@@ -345,6 +281,22 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
               );
             })}
           </div>
+          <nav className="mt-8 flex flex-wrap justify-center gap-3" aria-label={sections.popularServices.eyebrow}>
+            {popularItems.map((item) => (
+              <Link key={item.href} href={item.href} className="inline-flex min-h-11 items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-[#0369A1] transition hover:border-[#0369A1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1]">
+                {item.title}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="mt-10 text-center">
+            <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600">
+              {sections.visibilityCta.description}
+            </p>
+            <Link href={sections.visibilityCta.href} className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
+              {sections.visibilityCta.label} <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -353,24 +305,6 @@ export default function HomeSections({ faqs, content = {}, categories = [] }) {
         reviews={homeReviews}
         chips={HOMEPAGE_REVIEW_CHIPS}
       />
-
-      <section className="section-base bg-[#1C1917] text-white" aria-labelledby="popular-services-heading">
-        <div className="container-px">
-          <SectionIntro
-            id="popular-services-heading"
-            eyebrow={sections.popularServices.eyebrow}
-            title={sections.popularServices.title}
-            description={sections.popularServices.description}
-            light
-          />
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {popularItems.map((item) => (
-              <LinkCard key={item.href} item={item} variant="dark" />
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="section-base bg-white" aria-labelledby="service-areas-heading">
         <div className="container-px">

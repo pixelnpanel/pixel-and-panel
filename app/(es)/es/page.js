@@ -99,33 +99,7 @@ const spanishHomeStartOptions = [
 ];
 
 const spanishHomeSections = {
-  problem: {
-    eyebrow: "El problema",
-    title: "Tus competidores aparecen. ¿Tu negocio también?",
-    description:
-      "Los clientes se mueven rápido entre Google, tu sitio web, tus letreros y tus opciones de contacto. Si esas piezas no trabajan juntas, esos clientes terminan llamando a la competencia.",
-  },
-  problemCards: [
-    {
-      title: "Letreros gastados o difíciles de leer",
-      description:
-        "Un banner desgastado o un letrero anticuado hace que hasta un buen negocio local se vea descuidado. Un letrero limpio y profesional genera confianza antes de que el cliente entre.",
-      icon: PanelTop,
-    },
-    {
-      title: "Una camioneta que nadie recuerda",
-      description:
-        "Un vehículo sin rotulación es una valla móvil desaprovechada. La rotulación e imanes ponen tu nombre frente a todo el pueblo, todos los días.",
-      icon: Car,
-    },
-    {
-      title: "Difícil de encontrar cuando ya te buscan",
-      description:
-        "Tus letreros te hacen notar; luego el cliente te busca en internet. Un sitio web o ficha de Google débil pierde el cliente que tu letrero ya ganó.",
-      icon: Search,
-    },
-  ],
-  problemCta: {
+  visibilityCta: {
     description:
       "¿No sabes dónde está el problema? Empieza con un chequeo gratis de visibilidad en Google antes de pedir una cotización completa.",
     href: "/es/chequeo-gratis-de-visibilidad",
