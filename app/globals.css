@@ -667,3 +667,10 @@
     bottom: calc(7rem + env(safe-area-inset-bottom));
   }
 }
+
+/* Use a bottom contact row instead of stacked circles over mobile content. */
+@media (max-width: 767px) {
+  body:has([data-mobile-contact-bar-page]) .pnp-whatsapp-widget {
+    display: none;
+  }
+}

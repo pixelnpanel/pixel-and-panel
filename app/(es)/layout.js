@@ -11,7 +11,7 @@ import MetaPixel from "@/components/analytics/MetaPixel";
 import ContactClickTracker from "@/components/analytics/ContactClickTracker";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
-import FloatingQuoteButton from "@/components/ui/FloatingQuoteButton";
+import MobileContactBar from "@/components/ui/MobileContactBar";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 export const viewport = {
@@ -73,7 +73,7 @@ export default function SpanishRootLayout({ children }) {
         </main>
         <Footer language="es" />
         <WhatsAppWidget />
-        <FloatingQuoteButton />
+        <MobileContactBar />
       </body>
     </html>
   );
