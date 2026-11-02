@@ -23,7 +23,7 @@ Read `AGENTS.md` before changes. This project's Next.js version has local docume
 | --- | --- | --- |
 | Live signage catalog | `SIGNAGE_SHEET_CSV_URL` — published-to-web CSV | Local builds allow an empty catalog. Vercel builds require a valid feed. |
 | Product descriptions, specs, FAQs | `SIGNAGE_CONTENT_CSV_URL` — optional published CSV | Product pages use generated fallback copy. |
-| Contact and quote email | `ZOHO_SMTP_HOST`, `ZOHO_SMTP_PORT`, `ZOHO_SMTP_USER`, `ZOHO_SMTP_PASS`; recipient variables in `.env.example` | Submissions cannot deliver email. |
+| Contact and quote email | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` (Google Workspace SMTP; legacy Zoho keys are supported as a fallback); recipient variables in `.env.example` | Submissions cannot deliver email. |
 | Order storage and shared rate limits | `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | Order operations unavailable; public forms use per-instance rate limits. |
 | Admin sign-in | `ADMIN_ORDERS_PASSWORD`, `ADMIN_SESSION_SECRET`, working Supabase rate-limit RPC | Sign-in returns 503 if shared rate limiting is unavailable. |
 | Catalog health cron | `CRON_SECRET`, optional `CATALOG_ALERT_TO_EMAIL` | Health endpoint rejects unauthenticated requests. |
