@@ -49,9 +49,9 @@ function JsonLd({ data }) {
 
 export default async function SignagePage() {
     const categories = await getCategories()
-    // Exclude the website/digital review — signage shows sign & print work only.
+    // Show only reviews about sign and print work.
     // Images resolved here (server) so the client hub never touches the filesystem.
-    const signageReviews = attachReviewImages(reviewsExcludingChannel('digital'))
+    const signageReviews = attachReviewImages(reviewsExcludingChannel('digital', 'general'))
 
     const breadcrumbSchema = {
         '@context': 'https://schema.org',

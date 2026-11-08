@@ -116,7 +116,7 @@ export default function ReviewsBand({ variant = 'full', heading, reviews = [], c
                   <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 3', borderRadius: '0.625rem', overflow: 'hidden', marginBottom: '1.1rem', background: '#f1eee7' }}>
                     <Image
                       src={review.image}
-                      alt={`${review.service} for ${review.name} — Pixel & Panel`}
+                      alt={`${review.service || 'Customer photo'} for ${review.name} — Pixel & Panel`}
                       fill
                       sizes="(max-width: 640px) 100vw, 340px"
                       style={{ objectFit: 'cover' }}
@@ -135,7 +135,7 @@ export default function ReviewsBand({ variant = 'full', heading, reviews = [], c
                 )}
                 <figcaption>
                   <span style={{ display: 'block', color: '#1C1917', fontWeight: 700, fontSize: '0.9rem' }}>{review.name}</span>
-                  <span style={{ display: 'block', color: '#64748b', fontSize: '0.8rem', marginTop: '0.15rem' }}>{review.service} · Google review</span>
+                  <span style={{ display: 'block', color: '#64748b', fontSize: '0.8rem', marginTop: '0.15rem' }}>{review.service ? `${review.service} · ` : ''}Google review</span>
                 </figcaption>
               </m.figure>
             ))}
