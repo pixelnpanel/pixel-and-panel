@@ -26,6 +26,7 @@ const oldSignageProductRedirects = (() => {
     "perforated-window-graphics", "frosted-privacy-film",
   ];
   const toLetters = ["channel-letters"];
+  const toYardSigns = ["yard-signs", "coroplast-signs"];
   const toCanvas = ["posters"];
   // NOTE: never list a slug here that exists as a live sheet category
   // (e.g. event-tents, real-estate-signs, dimensional-letters) — the redirect
@@ -35,8 +36,7 @@ const oldSignageProductRedirects = (() => {
   // when the SinaLite print catalog landed: each is now a live sheet category,
   // and leaving the redirect in place would shadow its page (see the NOTE above).
   const toHub = [
-    "yard-signs", "car-magnets",
-    "storefront-signs", "metal-signs", "coroplast-signs",
+    "car-magnets", "storefront-signs", "metal-signs",
     "a-frame-signs", "menus",
     "table-covers", "acrylic-signs",
     "monument-signs", "pylon-signs",
@@ -47,6 +47,7 @@ const oldSignageProductRedirects = (() => {
     ...toStands.map((slug) => [slug, "/signage/banner-stands"]),
     ...toDecals.map((slug) => [slug, "/signage/vinyl-decals-and-window-graphics"]),
     ...toLetters.map((slug) => [slug, "/signage/dimensional-letters"]),
+    ...toYardSigns.map((slug) => [slug, "/signage/rigid-and-metal-signs/coroplast-yard-signs"]),
     ...toCanvas.map((slug) => [slug, "/signage/canvas-and-poster-prints"]),
     ...toHub.map((slug) => [slug, "/signage"]),
   ].map(([slug, destination]) => ({

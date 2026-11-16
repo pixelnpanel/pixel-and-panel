@@ -24,8 +24,8 @@ function JsonLd({ data }) {
 
 function splitFeaturedLinks(links) {
   return {
-    signage: links.filter((link) => link.href.startsWith("/signage")),
-    digital: links.filter((link) => link.href.startsWith("/digital")),
+    signage: links.filter((link) => link.type === "signage" || link.href.startsWith("/signage")),
+    digital: links.filter((link) => link.type === "digital" || link.href.startsWith("/digital")),
   };
 }
 

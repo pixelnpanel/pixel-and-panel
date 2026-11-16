@@ -1,10 +1,14 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import Image from 'next/image'
 import SignageCategoryClient from '@/components/signage/SignageCategoryClient'
 import { getCategories, getCategory } from '@/lib/signage/data'
 import { getCategoryGuide } from '@/lib/signage/category-guides'
 import { houstonCatalogNotes } from '@/content/houston'
 import { titleWithinLimit, withDefaultSocialImage } from '@/lib/seo'
 import { esPathForEnCatalog, languageAlternates } from '@/lib/signage/es-en-pairs'
+import { reviews } from '@/lib/reviews'
+import { resolveReviewImage } from '@/lib/review-images'
 
 export const revalidate = 900
 
@@ -36,8 +40,11 @@ export async function generateMetadata({ params }) {
     // Built from cat.h1 rather than cat.name so a category that had to rename
     // itself away from a same-named product (see categoryMetaFor) stays clear
     // of that product in the title too, not just in the heading.
-    const title = `${cat.h1} in Beaumont TX`
-    const description = cat.seoDescription
+    const isBannerCatalog = cat.slug === 'banners'
+    const title = isBannerCatalog ? 'Custom Vinyl, Mesh & Fabric Banners' : `${cat.h1} in Beaumont TX`
+    const description = isBannerCatalog
+        ? 'Compare custom vinyl, mesh, fabric, and blockout banners for storefronts, fences, and events. See sizes, finishing options, and pricing.'
+        : cat.seoDescription
     const ogImage = cat.image || cat.products.find((p) => p.image)?.image || null
 
     return withDefaultSocialImage({
@@ -70,6 +77,19 @@ export default async function SignageCategoryRoute({ params }) {
     const categories = await getCategories()
     const cat = categories.find((c) => c.slug === category)
     if (!cat) notFound()
+
+    const regionNotes = [
+        cat.slug === 'banners' && {
+            text: 'Ordering for a Beaumont business or event?',
+            href: '/service-area/beaumont-tx/vinyl-banners',
+            label: 'See Beaumont banner pricing and turnaround',
+        },
+        houstonCatalogNotes[cat.slug],
+    ].filter(Boolean)
+    const windowReview = cat.slug === 'vinyl-decals-and-window-graphics'
+        ? reviews.find((review) => review.slug === 'jafeth-velasquez')
+        : null
+    const windowPhoto = resolveReviewImage(windowReview?.slug)
 
     const breadcrumbSchema = {
         '@context': 'https://schema.org',
@@ -124,8 +144,37 @@ export default async function SignageCategoryRoute({ params }) {
             <SignageCategoryClient
                 category={cat}
                 allCategories={relatedCategories}
-                regionNote={houstonCatalogNotes[cat.slug] || null}
-            />
+                regionNotes={regionNotes}
+            >
+                {windowPhoto && (
+                    <section className="bg-white px-6 py-12 md:py-16" aria-labelledby="window-project-heading">
+                        <div className="mx-auto grid max-w-5xl items-center gap-8 md:grid-cols-2">
+                            <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#FAF8F4]">
+                                <Image
+                                    src={windowPhoto}
+                                    alt="JC Repair Pro storefront window with a logo, service icons, and store hours"
+                                    fill
+                                    sizes="(max-width: 767px) 100vw, 496px"
+                                    className="object-cover"
+                                />
+                            </div>
+                            <div>
+                                <h2 id="window-project-heading">Storefront Window Graphics for JC Repair Pro</h2>
+                                <p className="mt-4 leading-7 text-slate-600">
+                                    The front window carries the shop’s logo, repair services, and opening hours so customers can see what the shop does before they walk in.
+                                </p>
+                                <figure className="my-5 border-l-2 border-[#F59E0B] pl-4">
+                                    <blockquote className="text-slate-700">&ldquo;{windowReview.quote}&rdquo;</blockquote>
+                                    <figcaption className="mt-2 text-sm text-slate-600">{windowReview.name} · Google review</figcaption>
+                                </figure>
+                                <Link href={`/quote-request?category=${encodeURIComponent(cat.name)}`} className="btn-amber">
+                                    Request a Window Graphics Quote
+                                </Link>
+                            </div>
+                        </div>
+                    </section>
+                )}
+            </SignageCategoryClient>
         </>
     )
 }
