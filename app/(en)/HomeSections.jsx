@@ -16,14 +16,14 @@ import {
   Search,
 } from "lucide-react";
 
-const HOMEPAGE_REVIEW_SLUGS = new Set([
+const HOMEPAGE_REVIEW_SLUGS = [
   "retresia-hughes",
-  "jafeth-velasquez",
+  "jennifer-roebuck",
   "viviana-alvarado",
   "sarah-warren",
   "mohammed-anwar",
   "rolando-gonzalez",
-]);
+];
 
 const HOMEPAGE_REVIEW_CHIPS = [
   "Independently owned & operated",
@@ -230,7 +230,9 @@ function LinkCard({ item, variant = "light" }) {
 }
 
 export default function HomeSections({ faqs, content = {}, categories = [] }) {
-  const homeReviews = attachReviewImages(reviews.filter((review) => HOMEPAGE_REVIEW_SLUGS.has(review.slug)));
+  const homeReviews = attachReviewImages(
+    HOMEPAGE_REVIEW_SLUGS.map((slug) => reviews.find((review) => review.slug === slug)).filter(Boolean),
+  );
   const sections = {
     visibilityCta: { ...defaultHomeSectionsContent.visibilityCta, ...content.visibilityCta },
     services: { ...defaultHomeSectionsContent.services, ...content.services },
