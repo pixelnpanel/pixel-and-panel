@@ -13,7 +13,7 @@ import { GOOGLE_REVIEWS } from '@/lib/reviews'
 // Props:
 //   variant  'full' | 'strip'  — full section with cards, or a slim trust bar
 //   heading  string            — section h2 (full) / small lead (strip)
-//   reviews  array             — { slug, name, service, quote, image? }
+//   reviews  array             — { slug, name, service, quote, image?, imageFit? }
 //   chips    array             — trust-chip strings (full only)
 //
 // Each review card links to the Google profile so visitors can read reviews.
@@ -119,7 +119,7 @@ export default function ReviewsBand({ variant = 'full', heading, reviews = [], c
                       alt={`${review.service || 'Customer photo'} for ${review.name} — Pixel & Panel`}
                       fill
                       sizes="(max-width: 640px) 100vw, 340px"
-                      style={{ objectFit: 'cover' }}
+                      style={{ objectFit: review.imageFit || 'cover' }}
                     />
                   </div>
                 )}
