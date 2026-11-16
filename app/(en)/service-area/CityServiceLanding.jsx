@@ -106,6 +106,9 @@ export default function CityServiceLanding({ city, service }) {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">
               {intro}
             </p>
+            {city.slug === 'nederland-tx' && service.type === 'signage' && (
+              <p className="mt-3 font-semibold text-white">Sign and print orders to Nederland are shipping only.</p>
+            )}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href={quoteHref} className="btn-amber justify-center">
                 Request a Quote <ArrowRight size={16} />

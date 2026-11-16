@@ -144,7 +144,7 @@ export default function CityLandingEs({ city }) {
             <div className="grid gap-10 lg:grid-cols-[1fr_400px] lg:items-center">
               <div>
                 <p className="section-label section-label-on-hero">
-                  Área de servicio en el sureste de Texas
+                  {city.areaLabel || "Área de servicio en el sureste de Texas"}
                 </p>
                 <h1 className="max-w-4xl text-white">{city.h1}</h1>
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">
@@ -172,7 +172,7 @@ export default function CityLandingEs({ city }) {
             <div>
               <div className="mb-6 flex items-center gap-3 text-[#0369A1]">
                 <MapPin size={22} />
-                <span className="font-bold">Sirviendo {city.name} y el sureste de Texas</span>
+                <span className="font-bold">{city.areaLabel || `Sirviendo ${city.name} y el sureste de Texas`}</span>
               </div>
               <h2 className="mb-4 text-[#1C1917]">Servicios para negocios en {city.name}</h2>
               <p className="leading-8 text-slate-600">

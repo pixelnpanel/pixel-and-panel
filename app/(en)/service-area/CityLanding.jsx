@@ -94,7 +94,7 @@ export default function CityLanding({ city }) {
         <div className="relative mx-auto grid max-w-7xl gap-10 pb-20 lg:grid-cols-[1fr_400px] lg:items-center">
           <div>
             <p className="section-label section-label-on-hero">
-              Southeast Texas Service Area
+              {city.areaLabel || "Southeast Texas Service Area"}
             </p>
             <h1 className="max-w-4xl text-white">{city.h1}</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">
@@ -121,7 +121,7 @@ export default function CityLanding({ city }) {
           <div>
             <div className="mb-6 flex items-center gap-3 text-[#0369A1]">
               <MapPin size={22} />
-              <span className="font-bold">Serving {city.name} and the Southeast Texas area</span>
+              <span className="font-bold">{city.areaLabel || `Serving ${city.name} and the Southeast Texas area`}</span>
             </div>
             <h2 className="mb-4 text-[#1C1917]">Services for {city.name} Businesses</h2>
             <p className="leading-8 text-slate-600">

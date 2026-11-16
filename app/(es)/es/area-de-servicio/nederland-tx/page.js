@@ -3,13 +3,13 @@ import { getServiceAreaEs } from "@/lib/service-areas-es";
 import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = getServiceAreaEs("nederland-tx");
+const { title, description } = city;
 
 export const metadata = withDefaultSocialImage({
   title: {
-    absolute: "Web, Letreros e Impresión en Nederland, TX | Pixel & Panel",
+    absolute: title,
   },
-  description:
-    "Pixel & Panel ayuda a negocios en Nederland, TX con sitios web, tarjetas, volantes, banners, letreros, SEO local y códigos QR.",
+  description,
   alternates: {
     canonical: "https://www.pixelnpanel.com/es/area-de-servicio/nederland-tx",
     languages: {
@@ -19,9 +19,8 @@ export const metadata = withDefaultSocialImage({
     },
   },
   openGraph: {
-    title: "Web, Letreros e Impresión en Nederland, TX | Pixel & Panel",
-    description:
-      "Pixel & Panel ayuda a negocios en Nederland, TX con sitios web, tarjetas, volantes, banners, letreros, SEO local y códigos QR.",
+    title,
+    description,
     url: "https://www.pixelnpanel.com/es/area-de-servicio/nederland-tx",
     siteName: "Pixel & Panel",
     locale: "es_US",
@@ -29,9 +28,8 @@ export const metadata = withDefaultSocialImage({
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web, Letreros e Impresión en Nederland, TX | Pixel & Panel",
-    description:
-      "Pixel & Panel ayuda a negocios en Nederland, TX con sitios web, tarjetas, volantes, banners, letreros, SEO local y códigos QR.",
+    title,
+    description,
   },
 });
 

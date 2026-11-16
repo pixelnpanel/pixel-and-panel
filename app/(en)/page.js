@@ -13,7 +13,7 @@ const homepageFaq = [
   {
     question: "What areas do you serve?",
     answer:
-      "Pixel & Panel serves the Greater Houston area and Southeast Texas. Houston, Beaumont, Port Arthur, and Nederland are the primary service areas, along with Houston suburbs including Katy, Cypress, Sugar Land, The Woodlands, Pearland, and Spring. Signs and print ship nationwide, and nearby businesses outside these areas can still request a quote.",
+      "Our local service areas include Beaumont, Port Arthur, and Greater Houston, including Katy, Cypress, Sugar Land, The Woodlands, Pearland, and Spring. Sign and print orders to Nederland, TX are shipping only. We also ship signs and print nationwide.",
   },
   {
     question: "Can you help with both websites and signs?",

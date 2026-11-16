@@ -3,9 +3,10 @@ import { withDefaultSocialImage } from "@/lib/seo";
 
 const city = {
   name: "Nederland",
-  h1: "Custom Signs, Modern Websites, and Local Marketing in Nederland, TX",
+  h1: "Custom Signs and Printing Shipped to Nederland, TX",
+  areaLabel: "Shipping to Southeast Texas",
   intro:
-    "We help Nederland small businesses, shops, and trade contractors look professional with durable exterior signs, custom banners, mobile-ready website development, and optimized Google Business Profiles.",
+    "We ship custom signs, banners, and printed materials to Nederland businesses. Physical orders are shipping only. We also provide website design and Google Business Profile support remotely.",
   body:
     "Nederland businesses rely on local reputation, repeat customers, and being easy to verify online. When a customer spots your work truck, flyer, or sign, they often search Google to check your hours, photos, reviews, and services.",
   services: [
@@ -34,18 +35,21 @@ const city = {
     href: "/houston",
   },
   faqs: [
+    ["How do I receive my sign or print order in Nederland?", "We ship your order to your Nederland address. If your sign needs installation, arrange it with a local installer."],
     ["What should a Nederland small business start with?", "Many start with a small business website, business cards, flyers, yard signs, menus, or banners depending on how customers find them."],
     ["Can menus and flyers use QR codes?", "Yes. QR codes can send customers to menus, specials, quote forms, event details, or contact pages."],
     ["Do you only work with larger businesses?", "No. Pixel & Panel can help small Nederland businesses choose practical visibility pieces without starting with a large project."],
   ],
 };
 
+const title = "Custom Signs and Banners Shipped to Nederland, TX";
+const description = "Order custom signs, vinyl banners, and business cards shipped to Nederland, TX. Website design and Google Business Profile support are available remotely.";
+
 export const metadata = withDefaultSocialImage({
   title: {
-    absolute: "Custom Signs, Banners & Web Design in Nederland, TX",
+    absolute: title,
   },
-  description:
-    "Outdoor signs, custom banners, and vehicle graphics for Nederland, TX businesses — plus professional websites and Google Business Profile support.",
+  description,
   alternates: {
     canonical: "/service-area/nederland-tx",
     languages: {
@@ -55,9 +59,8 @@ export const metadata = withDefaultSocialImage({
     },
   },
   openGraph: {
-    title: "Custom Signs, Banners & Web Design in Nederland, TX",
-    description:
-      "Outdoor signs, custom banners, and vehicle graphics for Nederland, TX businesses — plus professional websites and Google Business Profile support.",
+    title,
+    description,
     url: "https://www.pixelnpanel.com/service-area/nederland-tx",
     siteName: "Pixel & Panel",
     locale: "en_US",
@@ -65,9 +68,8 @@ export const metadata = withDefaultSocialImage({
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Signs, Banners & Web Design in Nederland, TX",
-    description:
-      "Outdoor signs, custom banners, and vehicle graphics for Nederland, TX businesses — plus professional websites and Google Business Profile support.",
+    title,
+    description,
   },
 });
 

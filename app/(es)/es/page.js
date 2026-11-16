@@ -22,7 +22,7 @@ const spanishHomepageFaq = [
   {
     question: "¿Qué áreas atienden?",
     answer:
-      "Pixel & Panel atiende el área metropolitana de Houston y el sureste de Texas. Houston, Beaumont, Port Arthur y Nederland son las áreas principales de servicio, junto con suburbios de Houston como Katy, Cypress, Sugar Land, The Woodlands, Pearland y Spring. Los letreros e impresos se envían a todo el país, y negocios cercanos fuera de estas áreas también pueden solicitar cotización.",
+      "Nuestras áreas de servicio local incluyen Beaumont, Port Arthur y el área metropolitana de Houston, como Katy, Cypress, Sugar Land, The Woodlands, Pearland y Spring. Los pedidos de letreros e impresos para Nederland, TX se atienden únicamente por envío. También enviamos a todo el país.",
   },
   {
     question: "¿Pueden ayudar con sitios web y letreros al mismo tiempo?",

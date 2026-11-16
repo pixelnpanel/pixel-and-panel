@@ -127,7 +127,7 @@ const SERVICE_AREA_ITEMS = [
   },
   {
     title: "Nederland, TX",
-    description: "Business cards, signs, and print for Nederland's local businesses.",
+    description: "Business cards, signs, and print shipped to Nederland businesses.",
     href: "/service-area/nederland-tx",
     icon: MapPin,
   },
