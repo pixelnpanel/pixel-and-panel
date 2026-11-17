@@ -96,6 +96,17 @@ const printMergeRedirects = [
   ]),
 ];
 
+const segProductRedirects = Object.entries({
+  "seg-display": "10ft-seg-fabric-display",
+  "seg-backlit-display": "10ft-seg-backlit-fabric-display",
+  "seg-backlit-pop-up-display": "10ft-seg-backlit-pop-up-display",
+  "seg-replacement-fabric-print": "custom-seg-fabric",
+}).map(([from, to]) => ({
+  source: `/signage/seg-displays/${from}`,
+  destination: `/signage/seg-displays/${to}`,
+  statusCode: 301,
+}));
+
 if (process.env.VERCEL === "1" && process.env.VERCEL_PREVIEW_COMMENTS_ENABLED === "1") {
   // Vercel CLI 54's Next adapter can crash before build when toolbar injection
   // receives an undefined projectDir. The toolbar is not needed for production.
@@ -190,6 +201,7 @@ const nextConfig = {
       ...oldServiceAreaRedirects,
       ...oldSignageProductRedirects,
       ...printMergeRedirects,
+      ...segProductRedirects,
       {
         source: "/digital/qr-campaigns",
         destination: "/digital/qr-code-campaigns",

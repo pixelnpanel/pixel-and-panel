@@ -163,6 +163,7 @@ export default function SignageProductDetail({ product, category, related = [] }
                             availableSides={product.availableSides}
                             isLive={product.isLive}
                             {...calcProps}
+                            showCustomSize={product.allowCustomSize ?? calcProps.showCustomSize}
                         />
                     </div>
 

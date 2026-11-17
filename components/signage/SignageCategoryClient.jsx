@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { Fragment } from 'react'
 import { ArrowLeft, ArrowRight, Box, ChevronDown } from 'lucide-react'
 import { getCategoryGuide } from '@/lib/signage/category-guides'
 
@@ -21,9 +22,73 @@ function formatPrice(value) {
     }).format(value)
 }
 
+function CategoryProductCard({ product, categorySlug, grouped }) {
+    const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
+    const isFlagKit = categorySlug === 'flags' && FLAG_KIT_SLUGS.has(product.slug)
+    const href = `/signage/${categorySlug}/${product.slug}`
+    const highlight = product.cardSummary || product.content?.highlights?.[0] || null
+    const detailLabel = grouped ? 'View Details' : 'View Custom Sizes'
+    const ProductHeading = grouped ? 'h4' : 'h3'
+    return (
+        <article
+            className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-edge hover:shadow-card-hover"
+        >
+            {/* Whole card is the link to the product detail page. */}
+            <Link
+                href={href}
+                aria-label={grouped ? `${product.name} — view details and quote options` : `${product.name} — view details & pricing`}
+                className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0EA5E9]/30"
+            />
+            <div className="relative block aspect-square w-full overflow-hidden bg-[#FAF8F4] p-2">
+                {product.image ? (
+                    <Image
+                        src={product.image}
+                        alt={product.alt || product.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1280px) 50vw, 360px"
+                        className="object-contain object-center transition duration-300 group-hover:scale-105"
+                        loading="lazy"
+                    />
+                ) : (
+                    <div className="flex h-full items-center justify-center text-[#0369A1]">
+                        <Box size={28} />
+                    </div>
+                )}
+            </div>
+            <div className="flex flex-1 flex-col p-3.5 md:p-6">
+                <ProductHeading className="font-heading text-base font-extrabold leading-snug text-[#1C1917] transition group-hover:text-[#0369A1] md:text-xl">
+                    {product.name}
+                </ProductHeading>
+                <p className={`mt-3 flex-1 text-sm leading-relaxed text-brand-muted ${grouped ? '' : 'hidden md:block'}`}>
+                    {highlight}
+                </p>
+                <div className="mt-3 flex items-center justify-between md:mt-5">
+                    <span className="font-heading text-sm font-bold text-[#0369A1] md:text-base">
+                        {fromPrice ? <>From {fromPrice}</> : detailLabel}
+                    </span>
+                    <span className="hidden items-center gap-1 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition group-hover:gap-2 md:inline-flex">
+                        {grouped ? 'Get a Quote' : 'See Prices'} <ArrowRight size={15} />
+                    </span>
+                </div>
+                {isFlagKit && fromPrice && (
+                    <p className="mt-1.5 text-xs font-medium text-brand-subtle">
+                        Flag + pole kit · flag-only by quote
+                    </p>
+                )}
+            </div>
+        </article>
+    )
+}
+
 export default function SignageCategoryClient({ category, allCategories = [], regionNotes = [], children }) {
     const related = allCategories.filter((c) => c.slug !== category.slug).slice(0, 3)
     const products = category.products || []
+    const groups = new Map()
+    for (const product of products) {
+        const group = product.group || ''
+        if (!groups.has(group)) groups.set(group, [])
+        groups.get(group).push(product)
+    }
     const guide = getCategoryGuide(category.slug, category.name)
 
     return (
@@ -84,63 +149,23 @@ export default function SignageCategoryClient({ category, allCategories = [], re
 
                     {products.length > 0 ? (
                         <div className="grid grid-cols-2 gap-3 sm:gap-6 xl:grid-cols-3">
-                            {products.map((product) => {
-                                const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
-                                const isFlagKit = category.slug === 'flags' && FLAG_KIT_SLUGS.has(product.slug)
-                                const href = `/signage/${category.slug}/${product.slug}`
-                                // First highlight as the card blurb; no content yet -> name only.
-                                const highlight = product.content?.highlights?.[0] || null
-                                return (
-                                    <article
-                                        key={product.slug}
-                                        className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-edge hover:shadow-card-hover"
-                                    >
-                                        {/* Whole card is the link to the product detail page. */}
-                                        <Link
-                                            href={href}
-                                            aria-label={`${product.name} — view details & pricing`}
-                                            className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0EA5E9]/30"
+                            {Array.from(groups, ([group, items]) => (
+                                <Fragment key={group}>
+                                    {group && (
+                                        <h3 className="col-span-full mt-6 font-heading text-xl font-extrabold text-[#1C1917] first:mt-0 md:text-2xl">
+                                            {group}
+                                        </h3>
+                                    )}
+                                    {items.map((product) => (
+                                        <CategoryProductCard
+                                            key={product.slug}
+                                            product={product}
+                                            categorySlug={category.slug}
+                                            grouped={Boolean(group)}
                                         />
-                                        <div className="relative block aspect-square w-full overflow-hidden bg-[#FAF8F4] p-2">
-                                            {product.image ? (
-                                                <Image
-                                                    src={product.image}
-                                                    alt={product.alt || product.name}
-                                                    fill
-                                                    sizes="(max-width: 640px) 50vw, (max-width: 1280px) 50vw, 360px"
-                                                    className="object-contain object-center transition duration-300 group-hover:scale-105"
-                                                    loading="lazy"
-                                                />
-                                            ) : (
-                                                <div className="flex h-full items-center justify-center text-[#0369A1]">
-                                                    <Box size={28} />
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="flex flex-1 flex-col p-3.5 md:p-6">
-                                            <h3 className="font-heading text-base font-extrabold leading-snug text-[#1C1917] transition group-hover:text-[#0369A1] md:text-xl">
-                                                {product.name}
-                                            </h3>
-                                            <p className="mt-3 hidden flex-1 text-sm leading-relaxed text-brand-muted md:block">
-                                                {highlight}
-                                            </p>
-                                            <div className="mt-3 flex items-center justify-between md:mt-5">
-                                                <span className="font-heading text-sm font-bold text-[#0369A1] md:text-base">
-                                                    {fromPrice ? <>From {fromPrice}</> : 'View Custom Sizes'}
-                                                </span>
-                                                <span className="hidden items-center gap-1 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition group-hover:gap-2 md:inline-flex">
-                                                    See Prices <ArrowRight size={15} />
-                                                </span>
-                                            </div>
-                                            {isFlagKit && fromPrice && (
-                                                <p className="mt-1.5 text-xs font-medium text-brand-subtle">
-                                                    Flag + pole kit · flag-only by quote
-                                                </p>
-                                            )}
-                                        </div>
-                                    </article>
-                                )
-                            })}
+                                    ))}
+                                </Fragment>
+                            ))}
                         </div>
                     ) : (
                         <div className="rounded-2xl border border-dashed border-brand-line bg-white p-8 text-center shadow-card">
