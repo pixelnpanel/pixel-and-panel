@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Fragment } from 'react'
 import { ArrowLeft, ArrowRight, Box, ChevronDown } from 'lucide-react'
 import { getCategoryGuide } from '@/lib/signage/category-guides'
+import { signageQuoteHref } from '@/lib/quote-selection'
 
 // Pole-mounted flags priced as a complete kit (printed flag + pole hardware).
 // Econo is excluded — it sells Flag Only / Flag+Pole options on its own page.
@@ -27,7 +28,6 @@ function CategoryProductCard({ product, categorySlug, grouped }) {
     const isFlagKit = categorySlug === 'flags' && FLAG_KIT_SLUGS.has(product.slug)
     const href = `/signage/${categorySlug}/${product.slug}`
     const highlight = product.cardSummary || product.content?.highlights?.[0] || null
-    const detailLabel = grouped ? 'View Details' : 'View Custom Sizes'
     const ProductHeading = grouped ? 'h4' : 'h3'
     return (
         <article
@@ -36,7 +36,7 @@ function CategoryProductCard({ product, categorySlug, grouped }) {
             {/* Whole card is the link to the product detail page. */}
             <Link
                 href={href}
-                aria-label={grouped ? `${product.name} — view details and quote options` : `${product.name} — view details & pricing`}
+                aria-label={`${product.name} — ${fromPrice ? 'see sizes and prices' : 'view specs and quote options'}`}
                 className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0EA5E9]/30"
             />
             <div className="relative block aspect-square w-full overflow-hidden bg-[#FAF8F4] p-2">
@@ -62,12 +62,12 @@ function CategoryProductCard({ product, categorySlug, grouped }) {
                 <p className={`mt-3 flex-1 text-sm leading-relaxed text-brand-muted ${grouped ? '' : 'hidden md:block'}`}>
                     {highlight}
                 </p>
-                <div className="mt-3 flex items-center justify-between md:mt-5">
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 md:mt-5">
                     <span className="font-heading text-sm font-bold text-[#0369A1] md:text-base">
-                        {fromPrice ? <>From {fromPrice}</> : detailLabel}
+                        {fromPrice ? <>From {fromPrice}</> : 'Request a Quote'}
                     </span>
-                    <span className="hidden items-center gap-1 font-heading text-sm font-bold uppercase tracking-wide text-[#F59E0B] transition group-hover:gap-2 md:inline-flex">
-                        {grouped ? 'Get a Quote' : 'See Prices'} <ArrowRight size={15} />
+                    <span className="inline-flex items-center gap-1 font-heading text-xs font-bold text-[#0369A1] md:text-sm">
+                        {fromPrice ? 'See sizes & prices' : 'View Specs'} <ArrowRight size={14} aria-hidden="true" />
                     </span>
                 </div>
                 {isFlagKit && fromPrice && (
@@ -83,6 +83,7 @@ function CategoryProductCard({ product, categorySlug, grouped }) {
 export default function SignageCategoryClient({ category, allCategories = [], regionNotes = [], children }) {
     const related = allCategories.filter((c) => c.slug !== category.slug).slice(0, 3)
     const products = category.products || []
+    const quoteHref = signageQuoteHref(category.name)
     const groups = new Map()
     for (const product of products) {
         const group = product.group || ''
@@ -127,7 +128,7 @@ export default function SignageCategoryClient({ category, allCategories = [], re
                         {category.description}
                     </p>
                     <div className="mt-5 flex flex-row flex-wrap gap-3 md:mt-8 md:justify-center md:gap-4">
-                        <Link href="/quote-request" className="btn-amber">
+                        <Link href={quoteHref} className="btn-amber">
                             Request a Quote <ArrowRight size={18} />
                         </Link>
                         <Link href="/signage" className="btn-ghost hidden md:inline-flex">
@@ -171,7 +172,7 @@ export default function SignageCategoryClient({ category, allCategories = [], re
                         <div className="rounded-2xl border border-dashed border-brand-line bg-white p-8 text-center shadow-card">
                             <h3 className="font-heading text-xl font-bold text-[#1C1917]">No products yet in this category.</h3>
                             <p className="mx-auto mt-3 max-w-xl text-brand-muted">Tell us what you need and we’ll prepare a quote.</p>
-                            <Link href="/quote-request" className="btn-amber mt-6 inline-flex">
+                            <Link href={quoteHref} className="btn-amber mt-6 inline-flex">
                                 Request a Quote <ArrowRight size={18} />
                             </Link>
                         </div>
@@ -259,7 +260,7 @@ export default function SignageCategoryClient({ category, allCategories = [], re
                     Tell us your size, quantity, and deadline. We’ll send an exact quote within one business day — no guessing, no surprises.
                 </p>
                 <div className="mt-8">
-                    <Link href={`/quote-request?category=${encodeURIComponent(category.name)}`} className="btn-amber">
+                    <Link href={quoteHref} className="btn-amber">
                         Request a Free Quote <ArrowRight size={18} />
                     </Link>
                 </div>

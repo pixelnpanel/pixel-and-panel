@@ -85,6 +85,7 @@ export default function SignagePriceCalculator({
     const quoteHref = useMemo(() => {
         const params = new URLSearchParams()
         params.set('product', productName)
+        params.set('request', 'signage')
         if (sizeText) params.set('size', sizeText)
         if (sideText) params.set('side', sideText)
         if (requestedQuantity) params.set('quantity', requestedQuantity)
@@ -107,7 +108,8 @@ export default function SignagePriceCalculator({
 
     return (
         <div className="rounded-2xl border border-brand-line bg-white p-6 shadow-calc md:p-7">
-            <p className="section-label mb-4 text-[#0369A1]">Build Your Price</p>
+            <p className="section-label mb-4 text-[#0369A1]">{isLive ? 'Sizes & Prices' : 'Configure Your Quote'}</p>
+            {!isLive && <p className="mb-4 text-sm leading-6 text-brand-muted">Share your size and quantity. You can add a deadline or artwork on the quote form.</p>}
 
             {/* SIZE */}
             <label htmlFor="signage-size" className="mb-2 block font-heading text-sm font-bold text-[#1C1917]">

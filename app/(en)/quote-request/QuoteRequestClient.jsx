@@ -11,7 +11,7 @@ import QuoteVisual from "./QuoteVisual";
 import { GOOGLE_REVIEWS } from "@/lib/reviews";
 import { trackLead, trackEvent } from "@/lib/analytics";
 
-import { quoteSelectionLines } from "@/lib/quote-selection";
+import { quoteSelectionLines, validQuantity } from "@/lib/quote-selection";
 import { QUOTE_DRAFT_KEY, QUOTE_DRAFT_EVENT, encodeQuoteDraft, decodeQuoteDraft } from "@/lib/quote-draft";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
@@ -67,6 +67,15 @@ const defaultCopy = {
   ],
   productSelected: "Product Selected",
   packageSelected: "Package Selected",
+  signageHeadingStart: "Request a Quote for",
+  signageHeadingHighlight: "Signs & Print",
+  signageCategory: "Signage & Print",
+  signageDetailsPlaceholder: "Tell us what you need, the size, quantity, and any deadline. Attach a photo or artwork if you have it.",
+  editSelection: "Edit size or quantity",
+  sizeLabel: "Requested size",
+  quantityLabel: "Requested quantity",
+  saveSelection: "Save changes",
+  cancelEdit: "Cancel",
   formTitle: "Get a Free Quote",
   pickerHelp: "What can we help you with?",
   contactNote: "Takes less than 2 minutes.",
@@ -146,8 +155,13 @@ export default function QuoteRequestClient({
   const requestedPackage = requestedProduct ? "" : (selectedPackage || queryPackage);
   const requestedCategory = selectedCategory || queryCategory;
   const content = { ...defaultCopy, ...copy };
-  const selectionLines = requestedProduct ? quoteSelectionLines({ size: querySize.slice(0, 120), side: querySide.slice(0, 80), quantity: queryQuantity, language: content.language }) : [];
-  const productHeading = requestedProduct ? (content.language === "Spanish" ? "Cotización para" : "Get a Quote for") : content.h1Start;
+  const fromSignage = searchParams.get("request") === "signage";
+  const isSignageRequest = fromSignage && !requestedProduct && !requestedPackage;
+  const canEditSelection = Boolean(requestedProduct && (fromSignage || querySize || queryQuantity));
+  const productHeading = requestedProduct
+    ? (content.language === "Spanish" ? "Cotización para" : "Get a Quote for")
+    : (isSignageRequest ? content.signageHeadingStart : content.h1Start);
+  const headingHighlight = requestedProduct || (isSignageRequest ? content.signageHeadingHighlight : content.h1Highlight);
   const selectedItem = requestedProduct
     ? {
         type: "product",
@@ -166,12 +180,12 @@ export default function QuoteRequestClient({
 
   const hasPreselected = Boolean(selectedItem);
   const hasPackageRequest = selectedItem?.type === "package";
-  const showPicker = !hasPreselected && !content.showProductField;
+  const showPicker = !hasPreselected && !content.showProductField && !isSignageRequest;
   const showBusinessName = content.showBusinessName || hasPackageRequest;
   const initialStep = showPicker ? 0 : 1;
   const totalSteps = showPicker ? 3 : 2;
 
-  const selectionKey = JSON.stringify([requestedProduct, requestedPackage, requestedCategory, querySize, querySide, queryQuantity]);
+  const selectionKey = JSON.stringify([requestedProduct, requestedPackage, requestedCategory, querySize, querySide, queryQuantity, isSignageRequest]);
   // useSearchParams renders this form inside its client-side Suspense boundary.
   // Read once; storage is only populated by an explicit language-link click.
   const [draft] = useState(() => {
@@ -190,6 +204,11 @@ export default function QuoteRequestClient({
   const [businessName, setBusinessName] = useState(draft?.businessName || "");
   const [email, setEmail] = useState(draft?.email || "");
   const [phone, setPhone] = useState(draft?.phone || "");
+  const [size, setSize] = useState(draft?.requestedSize ?? querySize.slice(0, 120));
+  const [quantity, setQuantity] = useState(draft?.requestedQuantity ?? validQuantity(queryQuantity));
+  const [isEditingSelection, setIsEditingSelection] = useState(false);
+  const selectionEditRef = useRef(null);
+  const selectionLines = requestedProduct ? quoteSelectionLines({ size, side: querySide.slice(0, 80), quantity, language: content.language }) : [];
   const [productField, setProductField] = useState(
     draft?.productField || (hasPreselected
       ? (selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name)
@@ -229,6 +248,7 @@ export default function QuoteRequestClient({
           language: content.language,
           fields: {
             name, businessName, email, phone, productField, message, step,
+            requestedSize: size, requestedQuantity: quantity,
             serviceIndex: content.serviceTiles.findIndex((tile) => tile.label === pickedService?.label),
             attachmentName: attachment?.name || "",
           },
@@ -237,7 +257,7 @@ export default function QuoteRequestClient({
     }
     window.addEventListener(QUOTE_DRAFT_EVENT, saveLanguageDraft);
     return () => window.removeEventListener(QUOTE_DRAFT_EVENT, saveLanguageDraft);
-  }, [selectionKey, content.language, content.serviceTiles, name, businessName, email, phone, productField, message, step, pickedService, attachment, submitted]);
+  }, [selectionKey, content.language, content.serviceTiles, name, businessName, email, phone, productField, message, step, pickedService, attachment, submitted, size, quantity]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -254,10 +274,12 @@ export default function QuoteRequestClient({
   }, [step]);
 
   const effectiveProduct = hasPreselected ? selectedItem.name : (pickedService?.label || productField || "");
-  const effectiveCategory = hasPreselected ? selectedItem.category : (pickedService?.category || "");
+  const effectiveCategory = hasPreselected
+    ? selectedItem.category
+    : (isSignageRequest ? requestedCategory || content.signageCategory : pickedService?.category || "");
   const hiddenProductValue = effectiveProduct
     ? (effectiveCategory ? `${effectiveCategory} — ${effectiveProduct}` : effectiveProduct)
-    : "General Quote";
+    : (isSignageRequest ? effectiveCategory : "General Quote");
   const hasContact = hasPackageRequest ? Boolean(phone.trim()) : Boolean(email.trim() || phone.trim());
 
   const displayStep = step - initialStep + 1;
@@ -331,6 +353,19 @@ export default function QuoteRequestClient({
     if (input) input.value = "";
   }
 
+  function closeSelectionEditor() {
+    setIsEditingSelection(false);
+    selectionEditRef.current?.focus();
+  }
+
+  function updateQuoteSelection(event) {
+    event.preventDefault();
+    const edited = new FormData(event.currentTarget);
+    setSize(String(edited.get("requestedSize") || "").trim().slice(0, 120));
+    setQuantity(validQuantity(edited.get("requestedQuantity")));
+    closeSelectionEditor();
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -343,7 +378,7 @@ export default function QuoteRequestClient({
     if (phone) formData.set("phone", phone);
     formData.set("message", [...selectionLines, message].filter(Boolean).join("\n\n"));
     formData.set("productService", hiddenProductValue);
-    if (selectedItem?.category) formData.set("selectedCategory", selectedItem.category);
+    if ((selectedItem || isSignageRequest) && effectiveCategory) formData.set("selectedCategory", effectiveCategory);
     if (selectedItem?.type === "product") formData.set("selectedProduct", selectedItem.name);
     if (selectedItem?.type === "package") formData.set("selectedPackage", selectedItem.name);
     formData.set("language", content.language);
@@ -385,7 +420,7 @@ export default function QuoteRequestClient({
                 desktop variants concatenated into one garbled headline. */}
             <h1 className="pnp-mobile-form-title max-w-[342px] break-words text-[1.85rem] leading-tight md:max-w-xl md:text-[clamp(2rem,4vw,3rem)]" style={{ color: "white" }}>
               {productHeading}{" "}
-              <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">{requestedProduct || content.h1Highlight}</span>
+              <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">{headingHighlight}</span>
             </h1>
             <p className="pnp-mobile-form-copy mt-5 max-w-[342px] break-words text-base leading-8 text-slate-200 md:hidden">
               {content.mobileIntro || content.intro}
@@ -450,16 +485,48 @@ export default function QuoteRequestClient({
           >
             {/* Pre-selected product/package banner */}
             {selectedItem && (
-              <div className="mb-6 flex items-center gap-4 rounded-2xl border border-[#F59E0B]/30 bg-[#F59E0B]/10 p-4">
+              <div className="mb-6 flex items-start gap-3 rounded-2xl border border-[#F59E0B]/30 bg-[#F59E0B]/10 p-4">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F59E0B] text-[#1C1917]">
                   <Package className="h-5 w-5" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-xs font-bold uppercase tracking-widest text-[#1C1917]">{selectedItem.heading}</p>
                   <p className="mt-1 text-sm font-medium text-slate-700">
                     {selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name}
                   </p>
                   {selectionLines.length > 0 && <ul className="mt-2 space-y-1 text-xs leading-5 text-slate-700">{selectionLines.map(line => <li key={line}>{line}</li>)}</ul>}
+                  {canEditSelection && !submitted && (
+                    <>
+                      <button
+                        ref={selectionEditRef}
+                        type="button"
+                        aria-expanded={isEditingSelection}
+                        aria-controls="quote-selection-editor"
+                        onClick={() => setIsEditingSelection(!isEditingSelection)}
+                        className="mt-1 inline-flex min-h-10 items-center text-sm font-bold text-[#0369A1] underline underline-offset-2"
+                      >
+                        {content.editSelection}
+                      </button>
+                      <div id="quote-selection-editor" hidden={!isEditingSelection}>
+                        {isEditingSelection && (
+                          <form onSubmit={updateQuoteSelection} className="space-y-3 border-t border-amber-200 pt-3">
+                            <div>
+                              <label htmlFor="quote-edit-size" className="mb-1 block text-sm font-semibold">{content.sizeLabel}</label>
+                              <input id="quote-edit-size" name="requestedSize" type="text" maxLength={120} defaultValue={size} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2" />
+                            </div>
+                            <div>
+                              <label htmlFor="quote-edit-quantity" className="mb-1 block text-sm font-semibold">{content.quantityLabel}</label>
+                              <input id="quote-edit-quantity" name="requestedQuantity" type="number" min="1" max="100000" step="1" inputMode="numeric" defaultValue={quantity} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2" />
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <button type="submit" className="min-h-10 rounded-lg bg-[#0369A1] px-3 text-sm font-bold text-white">{content.saveSelection}</button>
+                              <button type="button" onClick={closeSelectionEditor} className="min-h-10 px-2 text-sm font-semibold text-slate-700">{content.cancelEdit}</button>
+                            </div>
+                          </form>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -664,8 +731,7 @@ export default function QuoteRequestClient({
                     />
 
                     <div className="space-y-5">
-                      {/* Product field — visible only when showProductField=true */}
-                      {content.showProductField && (
+                      {(content.showProductField || isSignageRequest) && (
                         <div>
                           <label htmlFor="q-product" className="mb-2 block text-xs font-bold uppercase tracking-wide">
                             {content.productService}
@@ -685,7 +751,7 @@ export default function QuoteRequestClient({
                         <textarea
                           id="quote-message" required={!hasPackageRequest} rows={5}
                           value={message} onChange={(e) => setMessage(e.target.value)}
-                          placeholder={content.messagePlaceholder}
+                          placeholder={isSignageRequest ? content.signageDetailsPlaceholder : content.messagePlaceholder}
                           className="w-full resize-none rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
                         />
                       </div>

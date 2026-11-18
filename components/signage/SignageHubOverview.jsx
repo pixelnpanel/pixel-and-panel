@@ -14,6 +14,7 @@ import { trackExtendedCatalogClick } from '@/lib/analytics'
 import { EXTENDED_CATALOG_URL } from '@/lib/sign-catalog'
 import ReviewsBand from '@/components/sections/ReviewsBand'
 import { indexSignageProducts, searchSignageProducts } from '@/lib/signage/search'
+import { signageQuoteHref } from '@/lib/quote-selection'
 
 // Signage positioning stays national — keep chips city-free.
 const SIGNAGE_REVIEW_CHIPS = [
@@ -23,7 +24,7 @@ const SIGNAGE_REVIEW_CHIPS = [
     'Files proofed before print',
 ]
 
-const QUOTE_PATH = '/quote-request'
+const QUOTE_PATH = signageQuoteHref()
 const VISIBILITY_PATH = '/free-visibility-check'
 const SEARCH_SUGGESTIONS = ['Yard signs', 'Retractable banner', 'Storefront signs', 'Business cards']
 const PROJECTS = [
@@ -69,15 +70,10 @@ function ProductCard({ product }) {
         <article className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-edge hover:shadow-card-hover">
             <Link
                 href={productHref(product)}
-                aria-label={`${product.name} — view details & pricing`}
+                aria-label={`${product.name} — ${fromPrice ? 'see sizes and prices' : 'view specs and quote options'}`}
                 className="absolute inset-0 z-10 rounded-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0EA5E9]/30"
             />
             <div className="relative aspect-square w-full overflow-hidden bg-white p-2">
-                {product.isLive && (
-                    <span className="absolute left-2.5 top-2.5 z-10 rounded-full bg-[#F59E0B] px-2.5 py-1 font-heading text-[10px] font-bold uppercase tracking-wide text-[#1C1917] shadow-sm">
-                        Instant Pricing
-                    </span>
-                )}
                 {product.image ? (
                     <Image
                         src={product.image}
@@ -100,8 +96,9 @@ function ProductCard({ product }) {
                 <p className="mt-1 text-xs text-brand-subtle">{product.categoryName}</p>
                 <p className="mt-2 text-sm leading-snug text-brand-muted">{product.useCase}</p>
                 <p className="mt-auto pt-3 font-heading text-sm font-bold text-[#0369A1]">
-                    {fromPrice ? <>From {fromPrice}</> : 'View Custom Sizes'}
+                    {fromPrice ? <>From {fromPrice}</> : 'Request a Quote'}
                 </p>
+                <p className="mt-1 text-xs font-semibold text-brand-muted">{fromPrice ? 'See sizes & prices' : 'View Specs'}</p>
             </div>
         </article>
     )
@@ -531,7 +528,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                                                 </span>
                                             </span>
                                             <span className="shrink-0 font-heading text-xs font-bold text-[#0369A1]">
-                                                {product.isLive && formatPrice(product.lowestPrice) ? `From ${formatPrice(product.lowestPrice)}` : 'View Custom Sizes'}
+                                                {product.isLive && formatPrice(product.lowestPrice) ? `From ${formatPrice(product.lowestPrice)}` : 'View Specs'}
                                             </span>
                                         </Link>
                                     ))}

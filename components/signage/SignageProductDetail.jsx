@@ -44,7 +44,7 @@ export default function SignageProductDetail({ product, category, related = [] }
     const intro = content?.intro || product.description
     const imageAlt = content?.imageAlt || product.alt
 
-    const quoteHref = `/quote-request?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent(category.name)}`
+    const quoteHref = `/quote-request?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent(category.name)}&request=signage`
 
     // Flag-specific pricing calculator config.
     const isFlags = category.slug === 'flags'

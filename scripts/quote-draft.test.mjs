@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { encodeQuoteDraft, decodeQuoteDraft } from '../lib/quote-draft.js';
+import { quoteLanguageHref } from '../lib/quote-selection.js';
 const fields = { name: 'Test Customer', email: 'test@example.test', message: 'Need two banners', step: 2, serviceIndex: 0, attachmentName: 'art.pdf', honeypot: 'excluded', privateExtra: 'excluded' };
 const raw = encodeQuoteDraft({ selectionKey: 'banner-8x4', language: 'English', fields }, 1000);
 const target = { selectionKey: 'banner-8x4', language: 'Spanish' };
@@ -32,4 +33,17 @@ test('draft sanitizes arbitrary storage fields and invalid form steps', () => {
   assert.equal(draft.serviceIndex, -1);
   assert.equal(draft.phone, '');
   assert.equal(draft.message.length, 10000);
+});
+
+test('a signage quote keeps the edited details when switching languages', () => {
+  const params = new URLSearchParams('request=signage&product=Banner&size=4x6&quantity=2');
+  const translated = new URL(quoteLanguageHref('/es/solicitar-cotizacion', params), 'https://example.test');
+  assert.equal(translated.searchParams.get('request'), 'signage');
+  const edited = encodeQuoteDraft({ selectionKey: 'banner-8x4', language: 'English', fields: {
+    ...fields, requestedSize: '6 × 10 ft', requestedQuantity: '3',
+  } }, 1000);
+  const draft = decodeQuoteDraft(edited, target, 2000);
+  assert.equal(draft.requestedSize, '6 × 10 ft');
+  assert.equal(draft.requestedQuantity, '3');
+  assert.equal(draft.email, fields.email);
 });
