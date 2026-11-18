@@ -206,6 +206,8 @@ const DEFAULT_COPY = {
   packageCopy:
     'One-time starting prices for small business websites, local SEO foundations, Google Profile support, and lead capture tools.',
   launchPricingNote: 'One-time build prices. Hosting and paid third-party services may cost extra.',
+  compareHeading: 'Compare website packages',
+  compareQuote: 'Request a quote',
   packageNoteStart: 'Looking for the services behind these packages? Review the',
   packageNoteDigital: 'digital services',
   packageNoteMiddle: 'page, start with a',
@@ -748,6 +750,20 @@ export default function PricingPage({
           >
             {copy.launchPricingNote}
           </m.div>
+          <section aria-labelledby="package-comparison-heading" className="mb-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
+            <h3 id="package-comparison-heading" className="mb-4">{copy.compareHeading}</h3>
+            <ul className="divide-y divide-slate-200">
+              {websitePackages.map((pkg) => (
+                <li key={pkg.name} className="grid gap-2 py-3 sm:grid-cols-[minmax(0,1.5fr)_1fr_auto] sm:items-center">
+                  <p className="font-semibold">{pkg.name}</p>
+                  <p className="text-sm text-slate-700"><strong>{[pkg.pricePrefix, pkg.price].filter(Boolean).join(' ')}</strong> · {pkg.features[0]}</p>
+                  <Link href={pkg.href} aria-label={copy.compareQuote + ' – ' + pkg.name} className="text-sm font-semibold text-[#0369A1] underline underline-offset-4">
+                    {copy.compareQuote}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
           <m.div
             variants={stagger}
             initial="hidden"

@@ -18,6 +18,16 @@ const spanishCopy = {
   heroCopy:
     "Maximiza el impacto visual de tu local y tus camionetas de trabajo con letreros para fachadas, lonas publicitarias, gráficos para vidrios e impresos comerciales.",
   quoteCta: "Solicitar cotización",
+  quickProductsHeading: "Empieza con un producto",
+  quickProducts: [
+    { name: "Letreros para jardín", href: "/es/letreros/letreros-para-jardin" },
+    { name: "Banners de vinilo", href: "/es/letreros/banners-de-vinilo" },
+    { name: "Banners retráctiles", href: "/es/letreros/banners-retractiles" },
+    { name: "Tarjetas de presentación", href: "/es/letreros/tarjetas-de-presentacion" },
+  ],
+  extendedTitle: "¿Buscas otro tipo de letrero?",
+  extendedCopy: "Explora el catálogo ampliado y envíanos el nombre o una captura del producto que te interesa para cotizarlo.",
+  extendedButton: "Explorar más opciones",
   viewProducts: "Ver productos",
   intro:
     "Elige una categoría y encuentra productos para que clientes vean tu negocio, entiendan el mensaje y tomen el siguiente paso.",

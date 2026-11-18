@@ -184,6 +184,8 @@ const spanishCopy = {
     "Cada dólar invertido en tu empresa debe tener un propósito claro. Ofrecemos precios iniciales transparentes para páginas web y cotizaciones personalizadas para letreros comerciales e impresos.",
   heroNote: "Confirmaremos el alcance y el precio antes de que apruebes.",
   launchPricingNote: "Precios iniciales por el desarrollo del sitio. El alojamiento y los servicios de terceros pueden tener costos adicionales.",
+  compareHeading: "Compara los paquetes de sitios web",
+  compareQuote: "Solicitar cotización",
   packageLabel: "Paquetes iniciales de sitio web",
   packageTitle: "Paquetes de páginas web e internet",
   packageCopy:

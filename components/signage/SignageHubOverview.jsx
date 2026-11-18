@@ -296,6 +296,20 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                         </Link>
                     </nav>
 
+                    {/* Common projects paired with products from the catalog. */}
+                    {featuredProducts.length > 0 && (
+                        <div className="mobile-reveal mb-10 md:mb-14" style={{ '--reveal-delay': '160ms' }}>
+                            <div className="mb-6 md:mb-8">
+                                <h2 className="text-[#1C1917]">Common Starting Points</h2>
+                            </div>
+                            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+                                {featuredProducts.slice(0, 4).map((product) => (
+                                    <ProductCard key={`featured-${product.categorySlug}-${product.slug}`} product={product} />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     {/* CATEGORY GRID */}
                     <div className="mobile-reveal" style={{ '--reveal-delay': '120ms' }}>
                                 <div id="signage-categories" className="mb-6 scroll-mt-28 md:mb-8 md:scroll-mt-20">
@@ -345,19 +359,6 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                                 </div>
                             </div>
 
-                            {/* Common projects paired with products from the catalog. */}
-                            {featuredProducts.length > 0 && (
-                                <div className="mobile-reveal mt-14 md:mt-20" style={{ '--reveal-delay': '160ms' }}>
-                                    <div className="mb-6 md:mb-8">
-                                        <h2 className="text-[#1C1917]">Common Starting Points</h2>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-                                        {featuredProducts.map((product) => (
-                                            <ProductCard key={`featured-${product.categorySlug}-${product.slug}`} product={product} />
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
                 </div>
             </section>
 

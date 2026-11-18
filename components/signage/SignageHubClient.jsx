@@ -405,6 +405,21 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 </div>
             </section>
 
+            {content.quickProducts?.length > 0 && (
+                <nav className="mx-auto max-w-7xl px-6 pt-8" aria-labelledby="catalog-quick-products">
+                    <h2 id="catalog-quick-products" className="mb-3 text-xl">{content.quickProductsHeading}</h2>
+                    <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                        {content.quickProducts.map(({ name, href }) => (
+                            <li key={href}>
+                                <Link href={href} className="flex min-h-12 items-center gap-2 rounded-xl border border-slate-200 bg-white p-3 text-sm font-semibold text-[#0369A1] underline-offset-4 hover:underline">
+                                    {name} <ArrowRight size={14} className="shrink-0" aria-hidden="true" />
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            )}
+
             {/* PRODUCT BROWSER */}
             <section ref={productAreaRef} data-pnp-reveal-skip className="px-6 pb-16 pt-6 md:py-20">
                 <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[320px_1fr]">
