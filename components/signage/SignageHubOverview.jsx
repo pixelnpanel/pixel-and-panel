@@ -9,11 +9,11 @@ import Link from 'next/link'
 import { useModalFocus } from '@/lib/use-modal-focus'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { ArrowRight, Search, Box, X, BadgeCheck, Zap, PenTool, Truck } from 'lucide-react'
 import { trackExtendedCatalogClick } from '@/lib/analytics'
 import { EXTENDED_CATALOG_URL } from '@/lib/sign-catalog'
 import ReviewsBand from '@/components/sections/ReviewsBand'
+import { indexSignageProducts, searchSignageProducts } from '@/lib/signage/search'
 
 // Signage positioning stays national — keep chips city-free.
 const SIGNAGE_REVIEW_CHIPS = [
@@ -26,6 +26,7 @@ const SIGNAGE_REVIEW_CHIPS = [
 const QUOTE_PATH = '/quote-request'
 const VISIBILITY_PATH = '/free-visibility-check'
 const FEATURED_LIMIT = 8
+const SEARCH_SUGGESTIONS = ['Yard signs', 'Retractable banner', 'Storefront signs', 'Business cards']
 
 const TRUST_ITEMS = [
     { icon: BadgeCheck, label: 'Premium materials' },
@@ -45,35 +46,6 @@ function formatPrice(value) {
 }
 
 const productHref = (product) => `/signage/${product.categorySlug}/${product.slug}`
-
-const getSearchableText = (product) => [
-    product.name,
-    product.categoryName,
-    product.description,
-    ...(product.searchKeywords || []),
-]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase()
-
-const getProductSearchScore = (product, query) => {
-    if (!query) return 1
-
-    const name = (product.name || '').toLowerCase()
-    const category = (product.categoryName || '').toLowerCase()
-    const keywords = (product.searchKeywords || []).join(' ').toLowerCase()
-    const description = (product.description || '').toLowerCase()
-
-    let score = 0
-    if (name === query) score += 120
-    if (name.startsWith(query)) score += 80
-    if (name.includes(query)) score += 65
-    if (category.includes(query)) score += 38
-    if (keywords.includes(query)) score += 32
-    if (description.includes(query)) score += 14
-
-    return score
-}
 
 // Compact, scannable product card — shared by Popular Products + search results.
 function ProductCard({ product }) {
@@ -121,7 +93,6 @@ function ProductCard({ product }) {
 }
 
 export default function SignageHubOverview({ categories = [], reviews = [] }) {
-    const router = useRouter()
     const mobileSearchInputRef = useRef(null)
     const searchDialogRef = useRef(null)
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
@@ -161,20 +132,14 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
         return picks
     }, [categories])
 
-    const mobileSearchResults = useMemo(() => {
-        const query = mobileSearchTerm.trim().toLowerCase()
-        if (!query) return allProducts
-
-        return allProducts
-            .map((product, index) => ({ product, index, score: getProductSearchScore(product, query) }))
-            .filter(({ product, score }) => score > 0 || getSearchableText(product).includes(query))
-            .sort((a, b) => (
-                b.score - a.score ||
-                a.product.name.localeCompare(b.product.name, undefined, { sensitivity: 'base' }) ||
-                a.index - b.index
-            ))
-            .map(({ product }) => product)
-    }, [allProducts, mobileSearchTerm])
+    const searchIndex = useMemo(() => indexSignageProducts(allProducts), [allProducts])
+    const hasSearchTerm = Boolean(mobileSearchTerm.trim())
+    const { products: searchResults, closeMatches } = useMemo(
+        () => searchSignageProducts(searchIndex, mobileSearchTerm),
+        [searchIndex, mobileSearchTerm]
+    )
+    const resultCategories = [...new Map(searchResults.map((product) => [product.categorySlug, product.categoryName]))].slice(0, 3)
+    const shownProducts = hasSearchTerm ? searchResults : featuredProducts.slice(0, 4)
 
     useEffect(() => {
         const updateFloatingSearchVisibility = () => {
@@ -200,10 +165,8 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
 
     useModalFocus(searchDialogRef, isSearchSheetOpen, setIsSearchSheetOpen)
 
-    const handleSearchResultClick = (product) => {
+    const closeSearch = () => {
         setIsSearchSheetOpen(false)
-        setMobileSearchTerm('')
-        router.push(productHref(product))
     }
 
     return (
@@ -418,7 +381,8 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                 <div className="fixed inset-0 z-50 md:flex md:items-start md:justify-center md:p-6 md:pt-24">
                     <button
                         type="button"
-                        aria-label="Close product search"
+                        aria-hidden="true"
+                        tabIndex={-1}
                         className="absolute inset-0 bg-[#1C1917]/38 backdrop-blur-[2px]"
                         onClick={() => setIsSearchSheetOpen(false)}
                     />
@@ -429,7 +393,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="mobile-product-search-title"
-                        className="absolute inset-x-0 bottom-0 max-h-[82vh] overflow-hidden rounded-t-[1.75rem] border border-white/70 bg-[#FAF8F4]/95 shadow-[0_-20px_70px_rgba(28,25,23,0.26)] backdrop-blur-2xl md:relative md:inset-auto md:max-h-[80vh] md:w-full md:max-w-2xl md:rounded-[1.75rem] md:shadow-[0_30px_80px_rgba(28,25,23,0.30)]"
+                        className="absolute inset-x-0 bottom-0 flex max-h-[85dvh] flex-col overflow-hidden rounded-t-[1.75rem] border border-white/70 bg-[#FAF8F4]/95 shadow-[0_-20px_70px_rgba(28,25,23,0.26)] backdrop-blur-2xl md:relative md:inset-auto md:max-h-[80dvh] md:w-full md:max-w-2xl md:rounded-[1.75rem] md:shadow-[0_30px_80px_rgba(28,25,23,0.30)]"
                     >
                         <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-slate-300 md:hidden" />
                         <div className="flex items-center justify-between px-5 pb-4 pt-5">
@@ -447,10 +411,12 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                         </div>
 
                         <div className="px-5 pb-4">
+                            <label htmlFor="signage-search-query" className="sr-only">Search the signage catalog</label>
                             <div className="relative">
                                 <Search size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0369A1]" />
                                 <input
                                     ref={mobileSearchInputRef}
+                                    id="signage-search-query"
                                     type="search"
                                     value={mobileSearchTerm}
                                     onChange={(event) => setMobileSearchTerm(event.target.value)}
@@ -460,21 +426,45 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                             </div>
                         </div>
 
-                        <div className="max-h-[54vh] overflow-y-auto px-5 pb-6 md:max-h-[58vh]">
-                            {mobileSearchResults.length > 0 ? (
+                        <div className="min-h-0 overflow-y-auto px-5 pb-6">
+                            <p role="status" aria-live="polite" className="mb-3 text-sm font-semibold text-brand-muted">
+                                {hasSearchTerm
+                                    ? (closeMatches ? `Showing ${searchResults.length} close matches` : `${searchResults.length} ${searchResults.length === 1 ? 'product' : 'products'} found`)
+                                    : 'Try a search or browse these starting points'}
+                            </p>
+                            {(!hasSearchTerm || !searchResults.length) && (
+                                <div className="mb-4 flex flex-wrap gap-2">
+                                    {SEARCH_SUGGESTIONS.map((suggestion) => (
+                                        <button key={suggestion} type="button" className="min-h-10 rounded-full border border-brand-line bg-white px-3 text-sm font-semibold text-[#0369A1] hover:border-brand-edge"
+                                            onClick={() => { setMobileSearchTerm(suggestion); mobileSearchInputRef.current?.focus() }}>
+                                            {suggestion}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                            {resultCategories.length > 0 && (
+                                <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+                                    <span className="font-semibold text-brand-muted">Categories</span>
+                                    {resultCategories.map(([slug, name]) => (
+                                        <Link key={slug} href={`/signage/${slug}`} onClick={closeSearch} className="font-semibold text-[#0369A1] underline underline-offset-2">{name}</Link>
+                                    ))}
+                                </div>
+                            )}
+                            {shownProducts.length > 0 ? (
                                 <div className="grid gap-3">
-                                    {mobileSearchResults.map((product) => (
-                                        <button
+                                    {shownProducts.map((product) => (
+                                        <Link
                                             key={`mobile-search-${product.categorySlug}-${product.slug}`}
-                                            type="button"
-                                            onClick={() => handleSearchResultClick(product)}
+                                            href={productHref(product)}
+                                            prefetch={false}
+                                            onClick={closeSearch}
                                             className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white/86 p-3 text-left shadow-sm transition hover:border-[#F59E0B]/70 hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#0EA5E9]/15"
                                         >
                                             <span className="relative flex h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-[#E0F2FE] text-[#0369A1]">
                                                 {product.image ? (
                                                     <Image
                                                         src={product.image}
-                                                        alt={product.imageAlt || product.name}
+                                                        alt=""
                                                         fill
                                                         sizes="56px"
                                                         className="object-cover"
@@ -496,15 +486,18 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                                             <span className="shrink-0 font-heading text-xs font-bold text-[#0369A1]">
                                                 {product.isLive && formatPrice(product.lowestPrice) ? `From ${formatPrice(product.lowestPrice)}` : 'View Custom Sizes'}
                                             </span>
-                                        </button>
+                                        </Link>
                                     ))}
                                 </div>
                             ) : (
                                 <div className="rounded-2xl border border-dashed border-slate-300 bg-white/80 p-5 text-center">
                                     <p className="font-heading font-bold text-[#1C1917]">No matching products found.</p>
                                     <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                                        Try banner, stand, tent, flag, or table cover.
+                                        Try one of the suggestions or tell us what you need.
                                     </p>
+                                    <Link href={QUOTE_PATH} onClick={closeSearch} className="mt-3 inline-flex min-h-11 items-center font-bold text-[#0369A1] underline underline-offset-4">
+                                        Request help with this sign
+                                    </Link>
                                 </div>
                             )}
                         </div>
