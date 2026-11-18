@@ -393,7 +393,7 @@ export default function QuoteRequestClient({
         throw new Error(data.error || content.failed);
       }
       setSubmitted(true);
-      trackLead("quote", { label: hiddenProductValue, language: content.language });
+      trackLead("quote", { language: content.language, packageName: requestedPackage });
     } catch (err) {
       trackEvent("quote_form_error", { error_type: "submission_failed", step_number: displayStep, language: content.language });
       setError(err.message || content.errorFallback);

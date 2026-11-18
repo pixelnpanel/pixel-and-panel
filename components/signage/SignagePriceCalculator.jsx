@@ -42,7 +42,7 @@ export default function SignagePriceCalculator({
     const setSelection = quote?.setSelection
     const [quantity, setQuantity] = useState('1')
     const requestedQuantity = validQuantity(quantity)
-    const trackChange = (field) => trackEvent('calculator_interaction', { product_name: productName, product_category: categoryName, option_field: field })
+    const trackChange = (field) => trackEvent('calculator_interaction', { option_field: field })
     const hasSizes = sizes.length > 0
     const sides = availableSides.length ? availableSides : []
     const labelFor = (s) => sideLabels[s] || DEFAULT_SIDE_LABEL[s] || s

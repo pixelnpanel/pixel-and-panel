@@ -1,13 +1,9 @@
 import "../globals.css";
 import { Suspense } from "react";
-import { GoogleTagManager } from "@next/third-parties/google";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { inter, montserrat } from "../fonts";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
-import MetaPixel from "@/components/analytics/MetaPixel";
+import SiteAnalytics from "@/components/analytics/SiteAnalytics";
 import ContactClickTracker from "@/components/analytics/ContactClickTracker";
 import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
@@ -51,18 +47,14 @@ export const metadata = {
 export default function EnglishRootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${montserrat.variable} ${inter.variable}`}>
-      <GoogleTagManager gtmId="GTM-W5NHMVJF" />
       <body>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-[#F59E0B] focus:px-4 focus:py-2 focus:font-bold focus:text-[#1C1917]">
           Skip to main content
         </a>
-        <GoogleAnalytics />
         <Suspense fallback={null}>
-          <MetaPixel />
+          <SiteAnalytics />
         </Suspense>
         <ContactClickTracker />
-        <Analytics />
-        <SpeedInsights />
         <OrganizationJsonLd />
         <Navbar />
         <main id="main-content" className="pnp-site-shell">

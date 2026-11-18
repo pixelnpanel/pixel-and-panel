@@ -276,7 +276,6 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
       );
       setStatus("success");
       trackLead("visibility", {
-        label: helpOptions.join(", "),
         language: content.language,
       });
     } catch (submitError) {

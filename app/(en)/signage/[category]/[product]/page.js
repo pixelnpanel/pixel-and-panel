@@ -120,12 +120,7 @@ export default async function SignageProductRoute({ params }) {
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={productSchema} />
             {faqSchema && <JsonLd data={faqSchema} />}
-            <ViewContentTracker
-                contentName={p.name}
-                contentCategory={c.name}
-                contentId={p.slug}
-                value={typeof p.lowestPrice === 'number' ? p.lowestPrice : undefined}
-            />
+            <ViewContentTracker contentId={p.slug} />
             <SignageProductDetail product={p} category={c} related={related} />
         </>
     )

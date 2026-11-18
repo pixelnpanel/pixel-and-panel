@@ -19,8 +19,6 @@ export function ProductQuoteLink({ href, source = 'product_footer', children, ..
     return (
         <Link {...props} href={quote?.selection.href || href} prefetch={false} onClick={() => {
             trackEvent('quote_start', {
-                product_name: quote?.productName,
-                product_category: quote?.categoryName,
                 source_location: source,
                 language: quote?.language || 'English',
             })

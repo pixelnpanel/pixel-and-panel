@@ -91,7 +91,7 @@ export default function ContactPage({ copy = defaultCopy }) {
             }
 
             setSubmitted(true)
-            trackLead('contact', { label: payload.subject, language: content.language })
+            trackLead('contact', { language: content.language })
             setForm({ name: '', email: '', phone: '', subject: '', message: '' })
             e.currentTarget.reset()
         } catch (submitError) {

@@ -1,27 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
-import { event } from "@/lib/fpixel";
+import { useEffect, useRef } from "react";
+import { trackProductView } from "@/lib/analytics";
 
-export default function ViewContentTracker({
-  contentName,
-  contentCategory,
-  contentId,
-  value,
-  currency = "USD",
-}) {
+export default function ViewContentTracker({ contentId }) {
+  const lastId = useRef(null);
   useEffect(() => {
-    const options = {
-      content_name: contentName,
-      content_category: contentCategory,
-      content_ids: [contentId],
-      content_type: "product",
-      currency,
-    };
-    // Only live products carry a numeric starting price.
-    if (typeof value === "number") options.value = value;
-    event("ViewContent", options);
-  }, [contentName, contentCategory, contentId, value, currency]);
-
+    if (lastId.current === contentId) return;
+    lastId.current = contentId;
+    trackProductView();
+  }, [contentId]);
   return null;
 }

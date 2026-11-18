@@ -30,14 +30,14 @@ export default function ContactClickTracker() {
       if (!link) return;
 
       const channel = channelFor(link.getAttribute("href") || "");
-      if (channel) trackContactClick(channel, { sourcePath: pathname });
+      if (channel) trackContactClick(channel);
     }
 
     // Capture phase so the event is queued before the browser hands off to the
     // dialer or to WhatsApp and this document stops running.
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
-  }, [pathname]);
+  }, []);
 
   return null;
 }

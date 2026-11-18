@@ -149,6 +149,8 @@ const GOOGLE = ["https://www.googletagmanager.com", "https://www.google-analytic
 const GOOGLE_BEACONS = ["https://analytics.google.com", "https://stats.g.doubleclick.net"];
 const META = ["https://connect.facebook.net", "https://www.facebook.com"];
 const PINTEREST = ["https://s.pinimg.com", "https://ct.pinterest.com"];
+const ANALYTICS_HOSTS = ["https://www.pixelnpanel.com", "https://www.pixelandpanel.com"];
+if (process.env.VERCEL !== "1") ANALYTICS_HOSTS.push("http://localhost:*", "http://127.0.0.1:*");
 
 const directive = (...parts) => parts.flat().filter(Boolean).join(" ");
 
@@ -172,7 +174,7 @@ const contentSecurityPolicy = [
   ),
   // Pinterest's conversion tag mounts an iframe. Without this it falls through
   // to default-src 'self' and is blocked.
-  directive("frame-src", PINTEREST, META),
+  directive("frame-src", ANALYTICS_HOSTS.map((host) => host + "/analytics-frame"), PINTEREST, META),
   directive("frame-ancestors 'none'"),
   directive("base-uri 'self'"),
   directive("form-action 'self'"),
@@ -234,17 +236,24 @@ const nextConfig = {
           { key: "X-Frame-Options", value: "DENY" },
           { key: "X-XSS-Protection", value: "1; mode=block" },
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Referrer-Policy", value: "strict-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "Content-Security-Policy", value: contentSecurityPolicy },
         ],
       },
       {
-        source: "/track/:path*",
+        source: "/:section(track|admin)/:path*",
         headers: [
           { key: "Referrer-Policy", value: "no-referrer" },
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
+        source: "/analytics-frame",
+        headers: [
+          { key: "Referrer-Policy", value: "no-referrer" },
+          { key: "Content-Security-Policy", value: contentSecurityPolicy.replace("frame-ancestors 'none'", directive("frame-ancestors", ANALYTICS_HOSTS)) },
         ],
       },
       {
