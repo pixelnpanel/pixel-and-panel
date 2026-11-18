@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { useModalFocus } from '@/lib/use-modal-focus'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowRight, Search, Box, X, BadgeCheck, Zap, PenTool, Truck } from 'lucide-react'
+import { ArrowRight, Search, Box, X, BadgeCheck, Zap, PenTool, Truck, Store, Tent, Signpost, FileText, ChevronDown } from 'lucide-react'
 import { trackExtendedCatalogClick } from '@/lib/analytics'
 import { EXTENDED_CATALOG_URL } from '@/lib/sign-catalog'
 import ReviewsBand from '@/components/sections/ReviewsBand'
@@ -25,8 +25,23 @@ const SIGNAGE_REVIEW_CHIPS = [
 
 const QUOTE_PATH = '/quote-request'
 const VISIBILITY_PATH = '/free-visibility-check'
-const FEATURED_LIMIT = 8
 const SEARCH_SUGGESTIONS = ['Yard signs', 'Retractable banner', 'Storefront signs', 'Business cards']
+const PROJECTS = [
+    { label: 'Storefronts & windows', icon: Store, categories: ['vinyl-decals-and-window-graphics', 'dimensional-letters', 'sidewalk-a-frame-signs', 'rigid-and-metal-signs'] },
+    { label: 'Events & trade shows', icon: Tent, categories: ['banners', 'banner-stands', 'trade-show-displays', 'event-tents', 'seg-displays', 'table-covers-and-throws'] },
+    { label: 'Yard & real estate', icon: Signpost, categories: ['real-estate-signs', 'rigid-and-metal-signs', 'flags'] },
+    { label: 'Print & packaging', icon: FileText, categories: ['business-cards', 'flyers-brochures-and-booklets', 'postcards-and-direct-mail', 'labels-stickers-and-packaging', 'stationery-and-business-forms'] },
+]
+const FEATURED_PRODUCTS = [
+    ['banners', '13oz-vinyl-banner', 'Announce a sale, opening, or event.'],
+    ['rigid-and-metal-signs', 'coroplast-yard-signs', 'Put a temporary message by the road.'],
+    ['banner-stands', 'standard-retractable', 'Set up a portable display indoors.'],
+    ['vinyl-decals-and-window-graphics', 'frosted-window-vinyl', 'Add privacy to a glass door or partition.'],
+    ['event-tents', 'event-tent', 'Shade a branded booth at an outdoor market.'],
+    ['flags', 'feather-angled-flag', 'Draw attention to an entrance from the street.'],
+    ['sidewalk-a-frame-signs', 'standard-signicade', 'Point pedestrians toward your business.'],
+    ['business-cards', 'business-cards', 'Give customers a way to contact you.'],
+]
 
 const TRUST_ITEMS = [
     { icon: BadgeCheck, label: 'Premium materials' },
@@ -47,7 +62,6 @@ function formatPrice(value) {
 
 const productHref = (product) => `/signage/${product.categorySlug}/${product.slug}`
 
-// Compact, scannable product card — shared by Popular Products + search results.
 function ProductCard({ product }) {
     const fromPrice = product.isLive ? formatPrice(product.lowestPrice) : null
 
@@ -84,6 +98,7 @@ function ProductCard({ product }) {
                     {product.name}
                 </h3>
                 <p className="mt-1 text-xs text-brand-subtle">{product.categoryName}</p>
+                <p className="mt-2 text-sm leading-snug text-brand-muted">{product.useCase}</p>
                 <p className="mt-auto pt-3 font-heading text-sm font-bold text-[#0369A1]">
                     {fromPrice ? <>From {fromPrice}</> : 'View Custom Sizes'}
                 </p>
@@ -98,6 +113,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
     const [isFloatingSearchVisible, setIsFloatingSearchVisible] = useState(false)
     const [isSearchSheetOpen, setIsSearchSheetOpen] = useState(false)
     const [mobileSearchTerm, setMobileSearchTerm] = useState('')
+    const [activeProject, setActiveProject] = useState(null)
 
     const allProducts = useMemo(
         () => categories.flatMap((category) => category.products || []),
@@ -117,20 +133,17 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
         })
     }, [categories])
 
-    // Popular products: round-robin one photo product per category per pass, so
-    // the row shows breadth (vendor "Feature Products" style) without curation.
     const featuredProducts = useMemo(() => {
-        const picks = []
-        const maxLen = Math.max(0, ...categories.map((c) => c.products?.length || 0))
-        for (let round = 0; round < maxLen && picks.length < FEATURED_LIMIT; round += 1) {
-            for (const category of categories) {
-                if (picks.length >= FEATURED_LIMIT) break
-                const product = (category.products || [])[round]
-                if (product?.image) picks.push(product)
-            }
-        }
-        return picks
-    }, [categories])
+        return FEATURED_PRODUCTS.flatMap(([categorySlug, slug, useCase]) => {
+            const item = allProducts.find((product) => product.categorySlug === categorySlug && product.slug === slug)
+            return item ? [{ ...item, useCase }] : []
+        })
+    }, [allProducts])
+    const availableProjects = PROJECTS.map((project) => ({
+        ...project,
+        categories: project.categories.map((slug) => categories.find((category) => category.slug === slug)).filter(Boolean),
+    })).filter((project) => project.categories.length > 0)
+    const selectedProject = availableProjects.find((project) => project.label === activeProject)
 
     const searchIndex = useMemo(() => indexSignageProducts(allProducts), [allProducts])
     const hasSearchTerm = Boolean(mobileSearchTerm.trim())
@@ -242,6 +255,41 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
             <section data-pnp-reveal-skip className="px-4 pb-16 pt-8 md:px-6 md:py-16">
                 <div className="mx-auto max-w-7xl">
 
+                    {availableProjects.length > 0 && (
+                        <section aria-labelledby="signage-project-heading" className="mb-6 md:mb-9">
+                            <h2 id="signage-project-heading" className="mb-3 text-[#1C1917]">Shop by Project</h2>
+                            <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
+                                {availableProjects.map(({ label, icon: Icon }) => (
+                                    <button
+                                        key={label}
+                                        type="button"
+                                        aria-expanded={activeProject === label}
+                                        aria-controls="signage-project-categories"
+                                        onClick={() => setActiveProject(activeProject === label ? null : label)}
+                                        className="flex min-h-11 items-center gap-2 rounded-xl border border-brand-line bg-white px-2.5 py-2 text-left font-heading text-xs font-bold leading-snug text-[#1C1917] transition hover:border-brand-edge focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1] aria-expanded:border-[#0369A1] aria-expanded:bg-[#E0F2FE] md:px-4 md:text-sm"
+                                    >
+                                        <Icon size={16} className="shrink-0 text-[#0369A1]" aria-hidden="true" />
+                                        <span className="flex-1">{label}</span>
+                                        <ChevronDown size={14} className={activeProject === label ? 'shrink-0 rotate-180' : 'shrink-0'} aria-hidden="true" />
+                                    </button>
+                                ))}
+                            </div>
+                            <div id="signage-project-categories" hidden={!selectedProject} className="mt-2 rounded-xl border border-brand-line bg-white px-3 py-2 md:px-4">
+                                {selectedProject && (
+                                    <ul aria-label={selectedProject.label} className="flex flex-wrap gap-x-5 gap-y-1">
+                                        {selectedProject.categories.map((category) => (
+                                            <li key={category.slug}>
+                                                <Link href={`/signage/${category.slug}`} className="inline-flex min-h-10 items-center gap-1 font-heading text-sm font-bold text-[#0369A1] underline-offset-4 hover:underline">
+                                                    {category.name} <ArrowRight size={14} aria-hidden="true" />
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        </section>
+                    )}
+
                     {/* CATEGORY GRID */}
                     <div className="mobile-reveal" style={{ '--reveal-delay': '120ms' }}>
                                 <div id="signage-categories" className="mb-6 scroll-mt-28 md:mb-8 md:scroll-mt-20">
@@ -291,12 +339,11 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                                 </div>
                             </div>
 
-                            {/* POPULAR PRODUCTS */}
+                            {/* Common projects paired with products from the catalog. */}
                             {featuredProducts.length > 0 && (
                                 <div className="mobile-reveal mt-14 md:mt-20" style={{ '--reveal-delay': '160ms' }}>
                                     <div className="mb-6 md:mb-8">
-                                        <p className="section-label">Customer favorites</p>
-                                        <h2 className="mt-2 text-[#1C1917]">Popular Products</h2>
+                                        <h2 className="text-[#1C1917]">Common Starting Points</h2>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
                                         {featuredProducts.map((product) => (
