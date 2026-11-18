@@ -59,9 +59,11 @@ function CategoryProductCard({ product, categorySlug, grouped }) {
                 <ProductHeading className="font-heading text-base font-extrabold leading-snug text-[#1C1917] transition group-hover:text-[#0369A1] md:text-xl">
                     {product.name}
                 </ProductHeading>
-                <p className={`mt-3 flex-1 text-sm leading-relaxed text-brand-muted ${grouped ? '' : 'hidden md:block'}`}>
-                    {highlight}
-                </p>
+                {highlight && (
+                    <p className={`mt-3 flex-1 text-sm leading-relaxed text-brand-muted ${grouped || product.cardSummary ? '' : 'hidden md:block'}`}>
+                        {highlight}
+                    </p>
+                )}
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 md:mt-5">
                     <span className="font-heading text-sm font-bold text-[#0369A1] md:text-base">
                         {fromPrice ? <>From {fromPrice}</> : 'Request a Quote'}

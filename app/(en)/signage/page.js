@@ -87,8 +87,8 @@ export default async function SignagePage() {
                     slug, name, image, tagline, productCount,
                     // Browsing needs card/search data, not every size, FAQ and
                     // specification from the product detail pages.
-                    products: products.map(({ slug, name, categorySlug, categoryName, image, alt, description, isLive, lowestPrice }) => ({
-                        slug, name, categorySlug, categoryName, image, alt, description, isLive, lowestPrice,
+                    products: products.map(({ slug, name, categorySlug, categoryName, image, alt, description, cardSummary, isLive, lowestPrice }) => ({
+                        slug, name, categorySlug, categoryName, image, alt, description, cardSummary, isLive, lowestPrice,
                     })),
                 }))}
                 reviews={signageReviews}

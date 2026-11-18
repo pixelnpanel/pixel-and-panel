@@ -526,6 +526,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                                                 <span className="mt-1 block text-sm text-slate-500">
                                                     {product.categoryName}
                                                 </span>
+                                                {product.cardSummary && <span className="mt-1 block text-xs text-brand-muted">{product.cardSummary}</span>}
                                             </span>
                                             <span className="shrink-0 font-heading text-xs font-bold text-[#0369A1]">
                                                 {product.isLive && formatPrice(product.lowestPrice) ? `From ${formatPrice(product.lowestPrice)}` : 'View Specs'}
