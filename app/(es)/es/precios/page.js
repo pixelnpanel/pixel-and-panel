@@ -42,7 +42,7 @@ const websitePackages = [
   {
     name: "Sitio web para negocio local",
     price: "Desde $799",
-    badge: "Más popular",
+    badge: "Sitio web y Google",
     tone: "dark",
     description:
       "Un paquete más fuerte para negocios locales que necesitan páginas de servicios, captura de leads y mejor visibilidad en Google.",
@@ -65,7 +65,7 @@ const websitePackages = [
   {
     name: "Sitio web + configuración de visibilidad",
     price: "Desde $999",
-    badge: "Mejor valor",
+    badge: "Sitio web, Google y QR",
     tone: "value",
     description:
       "Un paquete que conecta tu sitio web, presencia en Google, captura de leads y configuración inicial de campaña QR.",
@@ -167,18 +167,14 @@ const pricingFaqs = [
     q: "¿Garantizan posiciones en Google?",
     a: "No. Pixel & Panel configura la base de SEO y ayuda a que tu negocio sea más fácil de encontrar, pero ningún proveedor ético puede garantizar posiciones exactas en Google.",
   },
-  {
-    q: "¿Puedo recibir precio con descuento para portafolio?",
-    a: "Posiblemente. Pixel & Panel está aceptando proyectos seleccionados de clientes iniciales con descuento a cambio de comentarios honestos y permiso para portafolio.",
-  },
 ];
 
 const spanishCopy = {
   pricingNavLabel: "Elige una categoría de precios",
   signageNavLabel: "Letreros e impresión",
   websiteNavLabel: "Paquetes web",
-  heroLabel: "Precios para clientes iniciales",
-  heroTitlePrefix: "Tarifas fijas de diseño web y",
+  heroLabel: "Precios",
+  heroTitlePrefix: "Precios iniciales de diseño web y",
   heroTitleHighlight: "cotizaciones rápidas",
   mobileHeroTitlePrefix: "Precios claros",
   mobileHeroTitleHighlight: "y cotizaciones.",
@@ -186,7 +182,8 @@ const spanishCopy = {
     "Tarifas fijas para páginas web y cotizaciones rápidas para letreros, lonas e imprenta.",
   heroCopy:
     "Cada dólar invertido en tu empresa debe tener un propósito claro. Ofrecemos precios iniciales transparentes para páginas web y cotizaciones personalizadas para letreros comerciales e impresos.",
-  heroNote: "Los precios pueden subir cuando la disponibilidad sea limitada.",
+  heroNote: "Confirmaremos el alcance y el precio antes de que apruebes.",
+  launchPricingNote: "Precios iniciales por el desarrollo del sitio. El alojamiento y los servicios de terceros pueden tener costos adicionales.",
   packageLabel: "Paquetes iniciales de sitio web",
   packageTitle: "Paquetes de páginas web e internet",
   packageCopy:
@@ -213,13 +210,6 @@ const spanishCopy = {
   signageCta: "Cotizar letreros",
   signageHref:
     "/es/solicitar-cotizacion?product=Proyecto%20de%20letreros&category=Letreros%20e%20Impresi%C3%B3n",
-  foundingLabel: "Disponibilidad limitada",
-  foundingTitle: "Programa de clientes iniciales",
-  foundingCopy:
-    "Pixel & Panel está aceptando un número limitado de negocios del sureste de Texas con precios iniciales mientras construimos nuestro portafolio local. Proyectos seleccionados pueden calificar para descuento a cambio de comentarios honestos, permiso para portafolio y testimonio si quedan satisfechos.",
-  foundingCta: "Preguntar por precio de cliente inicial",
-  foundingHref:
-    "/es/solicitar-cotizacion?product=Programa%20de%20clientes%20iniciales&category=Servicios%20Digitales",
   faqTitle: "Preguntas sobre precios",
   finalTitle: "¿Necesitas ayuda con sitio web, visibilidad o letreros?",
   finalCopyStart:

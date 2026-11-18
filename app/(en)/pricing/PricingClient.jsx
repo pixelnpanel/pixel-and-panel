@@ -7,7 +7,6 @@ import {
   CheckCircle,
   ClipboardCheck,
   QrCode,
-  Sparkles,
 } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { fadeUp, stagger, scaleIn, viewport } from '@/lib/animations'
@@ -15,7 +14,7 @@ import { fadeUp, stagger, scaleIn, viewport } from '@/lib/animations'
 const WEBSITE_PACKAGES = [
   {
     name: 'Launch Page',
-    badge: 'QUICK START',
+    badge: 'ONE PAGE',
     tone: 'entry',
     pricePrefix: 'Starting at',
     price: '$299',
@@ -36,12 +35,10 @@ const WEBSITE_PACKAGES = [
   },
   {
     name: 'Starter Web Presence',
-    badge: 'LAUNCH OFFER',
+    badge: 'UP TO 5 PAGES',
     tone: 'starter',
-    regularPrice: '$599',
     pricePrefix: 'Starting at',
     price: '$499',
-    savings: 'Save $100',
     description:
       'A clean starter website for new small businesses that need a professional online presence.',
     bestFor:
@@ -60,12 +57,10 @@ const WEBSITE_PACKAGES = [
   },
   {
     name: 'Local Business Website',
-    badge: 'MOST POPULAR',
+    badge: 'WEBSITE + GOOGLE',
     tone: 'popular',
-    regularPrice: '$899',
     pricePrefix: 'Starting at',
     price: '$799',
-    savings: 'Save $100',
     description:
       'A stronger website package for local businesses that need service pages, lead capture, and better Google visibility.',
     bestFor:
@@ -86,12 +81,10 @@ const WEBSITE_PACKAGES = [
   },
   {
     name: 'Website + Visibility Setup',
-    badge: 'BEST VALUE',
+    badge: 'WEBSITE + GOOGLE + QR',
     tone: 'value',
-    regularPrice: '$1,199',
     pricePrefix: 'Starting at',
     price: '$999',
-    savings: 'Save $200',
     description:
       'A website and visibility package that connects your site, Google presence, lead capture, and QR campaign setup.',
     bestFor: 'Businesses that want a complete starter visibility system.',
@@ -192,31 +185,27 @@ const FAQS = [
     q: 'Do you guarantee Google rankings?',
     a: 'No. Pixel & Panel sets up the SEO foundation and helps your business become easier to find, but no ethical provider can guarantee exact Google rankings.',
   },
-  {
-    q: 'Can I get discounted portfolio pricing?',
-    a: 'Possibly. Pixel & Panel is currently accepting selected founding client projects at discounted rates in exchange for honest feedback and portfolio permission.',
-  },
 ]
 
 const DEFAULT_COPY = {
-  heroLabel: 'Founding Client Pricing',
-  heroTitlePrefix: 'Upfront Fixed Pricing and',
-  heroTitleHighlight: 'Fast Custom Estimates',
+  heroLabel: 'Pricing',
+  heroTitlePrefix: 'Website Starting Prices and',
+  heroTitleHighlight: 'Custom Sign Quotes',
   mobileHeroTitlePrefix: 'Transparent Packages',
   mobileHeroTitleHighlight: '& Quotes.',
   mobileHeroCopy:
     'Upfront starting prices for websites and rapid custom estimates for signs, banners, and print.',
   heroCopy:
     'Every marketing dollar your local company spends should have a clear purpose. We provide starting prices for fixed-scope website development and individual estimates for signage and print projects.',
-  heroNote: 'Pricing may increase as availability becomes limited.',
+  heroNote: 'We’ll confirm the scope and price before you approve.',
   pricingNavLabel: 'Choose pricing category',
   signageNavLabel: 'Signs & Print',
   websiteNavLabel: 'Website Packages',
   packageLabel: 'Starter Website Packages',
   packageTitle: 'Foundational Digital Visibility Packages',
   packageCopy:
-    'Fixed starter rates for small business websites, local SEO foundations, Google Profile support, and lead capture tools.',
-  launchPricingNote: 'Limited launch pricing for early Pixel & Panel clients.',
+    'One-time starting prices for small business websites, local SEO foundations, Google Profile support, and lead capture tools.',
+  launchPricingNote: 'One-time build prices. Hosting and paid third-party services may cost extra.',
   packageNoteStart: 'Looking for the services behind these packages? Review the',
   packageNoteDigital: 'digital services',
   packageNoteMiddle: 'page, start with a',
@@ -238,12 +227,6 @@ const DEFAULT_COPY = {
     'Custom signs, channel letters, fleet wraps, banners, and printed materials vary by size, material, quantity, mounting needs, and permit requirements. Request a quote and Pixel & Panel will recommend the right option.',
   signageCta: 'Get a Signage Quote',
   signageHref: '/quote-request?product=Signage%20Project&category=Signage',
-  foundingLabel: 'Limited Availability',
-  foundingTitle: 'Founding Client Program',
-  foundingCopy:
-    'Pixel & Panel is accepting a limited number of Southeast Texas businesses at starter pricing while we build our local portfolio. Selected projects may qualify for discounted pricing in exchange for honest feedback, portfolio permission, and a testimonial if satisfied.',
-  foundingCta: 'Ask About Founding Client Pricing',
-  foundingHref: '/quote-request?product=Founding%20Client%20Program&category=Digital%20Services',
   faqTitle: 'Pricing Questions',
   finalTitle: 'Need Website, Visibility, or Signage Help?',
   finalCopyStart:
@@ -398,57 +381,6 @@ function PackageCard({ pkg, bestForLabel = DEFAULT_COPY.bestForLabel }) {
       >
         {pkg.description}
       </p>
-      {pkg.regularPrice && (
-        <div
-          style={{
-            alignItems: 'center',
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-            marginBottom: '0.55rem',
-          }}
-        >
-          <span
-            style={{
-              color: mutedColor,
-              fontFamily: 'var(--font-heading)',
-              fontSize: '0.78rem',
-              fontWeight: 800,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-            }}
-          >
-            Regular
-          </span>
-          <span
-            style={{
-              color: mutedColor,
-              fontFamily: 'var(--font-heading)',
-              fontSize: '0.95rem',
-              fontWeight: 800,
-              textDecoration: 'line-through',
-            }}
-          >
-            {pkg.regularPrice}
-          </span>
-          {pkg.savings && (
-            <span
-              style={{
-                background: isDark ? 'rgba(245, 158, 11, 0.16)' : 'rgba(245, 158, 11, 0.18)',
-                border: `1px solid rgba(245, 158, 11, ${isDark ? 0.4 : 0.32})`,
-                borderRadius: '999px',
-                color: isDark ? colors.amber : colors.dark,
-                fontFamily: 'var(--font-heading)',
-                fontSize: '0.72rem',
-                fontWeight: 800,
-                padding: '0.2rem 0.55rem',
-              }}
-            >
-              {pkg.savings}
-            </span>
-          )}
-        </div>
-      )}
       <div
         style={{
           color: isDark ? colors.cream : colors.dark,
@@ -927,64 +859,6 @@ export default function PricingPage({
                 </div>
               </m.div>
             ))}
-          </m.div>
-        </div>
-      </section>
-
-      <section className="section-base" style={{ backgroundColor: colors.cream }}>
-        <div className="container-px">
-          <m.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewport}
-            style={{
-              background: colors.navy,
-              borderRadius: '1rem',
-              boxShadow: '0 22px 54px rgba(12, 30, 60, 0.18)',
-              color: 'white',
-              overflow: 'hidden',
-              padding: 'clamp(1.5rem, 5vw, 3rem)',
-              position: 'relative',
-            }}
-          >
-            <m.div
-              variants={fadeUp}
-              style={{
-                alignItems: 'center',
-                display: 'inline-flex',
-                gap: '0.6rem',
-                marginBottom: '1rem',
-              }}
-            >
-              <Sparkles size={18} color={colors.amber} />
-              <span className="section-label" style={{ color: colors.amber, marginBottom: 0 }}>
-                {copy.foundingLabel}
-              </span>
-            </m.div>
-            <m.h2 variants={fadeUp} style={{ color: 'white', marginBottom: '1rem' }}>
-              {copy.foundingTitle}
-            </m.h2>
-            <m.p
-              variants={fadeUp}
-              style={{
-                color: 'rgba(255,255,255,0.76)',
-                lineHeight: 1.75,
-                marginBottom: '1.75rem',
-                maxWidth: '820px',
-              }}
-            >
-              {copy.foundingCopy}
-            </m.p>
-            <m.div variants={fadeUp}>
-              <Link
-                href={copy.foundingHref}
-                className="btn-amber"
-                style={{ maxWidth: '100%', whiteSpace: 'normal' }}
-              >
-                {copy.foundingCta} <ArrowRight size={15} />
-              </Link>
-            </m.div>
           </m.div>
         </div>
       </section>

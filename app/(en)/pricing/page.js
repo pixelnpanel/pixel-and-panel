@@ -31,7 +31,6 @@ const pricingFaqs = [
   { q: "Can I start small and upgrade later?", a: "Yes. Many businesses start with a Launch Page or Starter Web Presence and add more pages, QR campaigns, SEO setup, or signage later." },
   { q: "Do you offer signs and print too?", a: "Yes. Pixel & Panel offers signage and print quote options including banners, yard signs, vehicle graphics, storefront signs, business cards, flyers, menus, and more." },
   { q: "Do you guarantee Google rankings?", a: "No. Pixel & Panel sets up the SEO foundation and helps your business become easier to find, but no ethical provider can guarantee exact Google rankings." },
-  { q: "Can I get discounted portfolio pricing?", a: "Possibly. Pixel & Panel is currently accepting selected founding client projects at discounted rates in exchange for honest feedback and portfolio permission." },
 ];
 
 const faqSchema = {
