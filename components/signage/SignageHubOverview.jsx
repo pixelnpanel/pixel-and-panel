@@ -210,34 +210,51 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
         <div className="min-h-screen overflow-x-clip bg-[#FAF8F4] text-[#1C1917]">
 
             {/* HERO */}
-            <section className="pnp-mobile-hero-compact relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-6 pb-8 pt-24 text-white md:py-24">
+            <section className="relative overflow-hidden bg-gradient-to-br from-[#061B35] via-[#0369A1] to-[#0EA5E9] px-4 pb-6 pt-[7.5rem] text-white sm:px-6 md:pb-10 md:pt-28">
                 <div className="absolute inset-0 opacity-40">
                     <div className="h-full w-full" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.16) 1px, transparent 0)', backgroundSize: '34px 34px' }} />
                 </div>
 
-                <div data-pnp-reveal-target className="mobile-reveal pnp-desktop-hero-reveal relative mx-auto max-w-5xl text-center">
-                    <p className="section-label mb-4" style={{ color: '#F59E0B' }}>
-                        Signage &amp; Print
-                    </p>
-                    {/* Single H1 text node — crawlers previously saw the mobile and
-                        desktop variants concatenated into one garbled headline. */}
-                    <h1 className="pnp-mobile-hero-title mx-auto break-words md:max-w-[980px] md:text-[clamp(2rem,3.5vw,3rem)] md:leading-tight" style={{ color: 'white' }}>
-                        Custom Signs, Banners{' '}
-                        <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">&amp; Printing Solutions.</span>
+                <div className="relative mx-auto max-w-5xl md:text-center">
+                    <h1 className="mx-auto break-words text-white">
+                        Custom signs, banners, and print
                     </h1>
-                    <p className="pnp-mobile-hero-copy mx-auto mt-6 break-words md:hidden">
-                        Custom banners, banner stands, flags, rigid signs, event tents, and print materials — designed, printed, and shipped to you.
+                    <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-white/90 md:mt-3 md:text-lg">
+                        Design help, artwork proofs, and nationwide shipping.
                     </p>
-                    <p className="mx-auto mt-7 hidden max-w-3xl break-words leading-relaxed text-white/75 md:block md:text-xl">
-                        Boost your real-world visibility with custom banners, banner stands, yard signs, feather flags, event tents, table covers, and commercial print materials.
-                    </p>
-                    <div className="mt-8 flex flex-col items-center justify-center gap-4 md:mt-10 md:flex-row">
-                        <Link href={QUOTE_PATH} className="btn-amber hidden md:inline-flex">
-                            Request a Quote <ArrowRight size={18} />
-                        </Link>
-                        <button onClick={() => setIsSearchSheetOpen(true)} className="btn-ghost" aria-haspopup="dialog" aria-expanded={isSearchSheetOpen}>
-                            Search Products <Search size={17} />
+                    <form
+                        role="search"
+                        className="mx-auto mt-4 flex max-w-lg items-center gap-1 rounded-xl bg-white p-1 text-[#1C1917] shadow-sm focus-within:ring-2 focus-within:ring-[#FBBF24] md:mt-6"
+                        onSubmit={(event) => {
+                            event.preventDefault()
+                            setIsSearchSheetOpen(true)
+                        }}
+                    >
+                        <label htmlFor="signage-hero-search" className="sr-only">Search signage products</label>
+                        <input
+                            id="signage-hero-search"
+                            type="search"
+                            value={mobileSearchTerm}
+                            onChange={(event) => setMobileSearchTerm(event.target.value)}
+                            placeholder="Search products"
+                            className="min-w-0 flex-1 rounded-lg bg-transparent px-3 py-2.5 text-base outline-none placeholder:text-slate-600"
+                        />
+                        <button
+                            type="submit"
+                            aria-haspopup="dialog"
+                            aria-expanded={isSearchSheetOpen}
+                            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 rounded-lg bg-[#0369A1] px-3 font-heading text-sm font-bold text-white transition hover:bg-[#075985] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1]"
+                        >
+                            <Search size={15} aria-hidden="true" /> Search
                         </button>
+                    </form>
+                    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 md:mt-5 md:justify-center">
+                        <Link href={QUOTE_PATH} className="btn-amber min-h-11 !px-3.5 !py-2.5 !text-xs md:!px-5 md:!text-sm">
+                            Request a Quote <ArrowRight size={18} className="hidden min-[360px]:block" />
+                        </Link>
+                        <a href="#signage-categories" className="inline-flex min-h-11 items-center gap-1.5 rounded font-heading text-sm font-bold text-white underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                            Browse categories
+                        </a>
                     </div>
                 </div>
             </section>
@@ -264,9 +281,8 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
 
                     {/* CATEGORY GRID */}
                     <div className="mobile-reveal" style={{ '--reveal-delay': '120ms' }}>
-                                <div className="mb-6 md:mb-8">
-                                    <p className="section-label">Browse the catalog</p>
-                                    <h2 className="mt-2 text-[#1C1917]">Shop by Category</h2>
+                                <div id="signage-categories" className="mb-6 scroll-mt-28 md:mb-8 md:scroll-mt-20">
+                                    <h2 className="text-[#1C1917]">Shop by Category</h2>
                                 </div>
                                 <div className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4">
                                     {categoryTiles.map((category, index) => (
