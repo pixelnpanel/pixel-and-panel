@@ -1,6 +1,6 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
-import { quoteSelectionLines } from "@/lib/quote-selection";
+import { quoteSelectionLines, validReplyPhone } from "@/lib/quote-selection";
 
 export const runtime = "nodejs";
 
@@ -38,6 +38,7 @@ function buildEmail({
   selectedCategory,
   selectedProduct,
   selectedPackage,
+  replyMethod,
   selection,
   sourcePage,
   message,
@@ -62,6 +63,7 @@ function buildEmail({
       ? [
           `Selected Category: ${selectedCategory || ""}`,
           `Selected Package: ${selectedPackage}`,
+          `Preferred reply: ${replyMethod === "phone" ? "Phone" : "Email"}`,
         ]
       : [];
   const messageLabel = isPackageRequest ? "Message / Notes" : "Message";
@@ -112,6 +114,7 @@ function buildEmail({
           ${isProductRequest && selection.length ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected options</td><td style="padding: 8px 0;">${selection.map(escapeHtml).join("<br>")}</td></tr>` : ""}
           ${isPackageRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Category</td><td style="padding: 8px 0;">${safe.selectedCategory}</td></tr>` : ""}
           ${isPackageRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Package</td><td style="padding: 8px 0;">${safe.selectedPackage}</td></tr>` : ""}
+          ${isPackageRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Preferred reply</td><td style="padding: 8px 0;">${replyMethod === "phone" ? "Phone" : "Email"}</td></tr>` : ""}
           <tr><td style="padding: 8px 0; font-weight: 700;">Name</td><td style="padding: 8px 0;">${safe.name}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Phone Number</td><td style="padding: 8px 0;">${safe.phone}</td></tr>
           <tr><td style="padding: 8px 0; font-weight: 700;">Business Name</td><td style="padding: 8px 0;">${safe.businessName}</td></tr>
@@ -169,6 +172,8 @@ export async function POST(request) {
   const sourcePage = cleanText(formData.get("sourcePage"));
   const language = cleanText(formData.get("language")) || "English";
   const isPackageRequest = Boolean(selectedPackage);
+  const requestedReply = cleanText(formData.get("replyMethod"));
+  const replyMethod = ["email", "phone"].includes(requestedReply) ? requestedReply : (email ? "email" : "phone");
   const selection = selectedProduct ? quoteSelectionLines({
     size: cleanText(formData.get("selectedSize")).slice(0, 120),
     side: cleanText(formData.get("selectedSide")).slice(0, 80),
@@ -185,8 +190,8 @@ export async function POST(request) {
     return jsonResponse({ error: "Name is required." }, 400);
   }
 
-  if (isPackageRequest && !phone) {
-    return jsonResponse({ error: "Name and phone number are required." }, 400);
+  if (isPackageRequest && (replyMethod === "phone" ? !validReplyPhone(phone) : !emailPattern.test(email))) {
+    return jsonResponse({ error: replyMethod === "phone" ? "Please enter a valid phone number." : "Please enter a valid email address." }, 400);
   }
 
   if (!isPackageRequest && !message) {
@@ -224,6 +229,7 @@ export async function POST(request) {
     selectedCategory,
     selectedProduct,
     selectedPackage,
+    replyMethod,
     selection,
     sourcePage,
     message,

@@ -11,7 +11,7 @@ import QuoteVisual from "./QuoteVisual";
 import { GOOGLE_REVIEWS } from "@/lib/reviews";
 import { trackLead, trackEvent } from "@/lib/analytics";
 
-import { quoteSelectionLines, validQuantity } from "@/lib/quote-selection";
+import { quoteSelectionLines, validQuantity, validReplyPhone } from "@/lib/quote-selection";
 import { QUOTE_DRAFT_KEY, QUOTE_DRAFT_EVENT, encodeQuoteDraft, decodeQuoteDraft } from "@/lib/quote-draft";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
@@ -79,7 +79,6 @@ const defaultCopy = {
   formTitle: "Get a Free Quote",
   pickerHelp: "What can we help you with?",
   contactNote: "Takes less than 2 minutes.",
-  packageContactRequirement: "Only your name and phone number are required. Add more details if you want.",
   detailsNote: "Almost there — tell us about your project.",
   stepCounterPrefix: "Step",
   stepCounterMiddle: "of",
@@ -100,6 +99,14 @@ const defaultCopy = {
   phonePlaceholder: "(555) 000-0000",
   contactRequirement: "Email or phone required.",
   invalidEmail: "Please enter a valid email address.",
+  invalidPhone: "Please enter a valid phone number.",
+  packageHeading: "Request a quote for",
+  packageNote: "Share your name and how you’d like us to reply. Project details are optional.",
+  packageContactRequired: "Enter your name and a contact method.",
+  replyMethodLabel: "How should we reply?",
+  replyByEmail: "Email",
+  replyByPhone: "Phone",
+  packageDetails: "Project details (optional)",
   productService: "Product / Service",
   message: "What Do You Need?",
   messagePlaceholder: "Tell us size, quantity, deadline, material, location, or anything you already know.",
@@ -163,8 +170,8 @@ export default function QuoteRequestClient({
   const canEditSelection = Boolean(requestedProduct && (fromSignage || querySize || queryQuantity));
   const productHeading = requestedProduct
     ? (content.language === "Spanish" ? "Cotización para" : "Get a Quote for")
-    : (isSignageRequest ? content.signageHeadingStart : content.h1Start);
-  const headingHighlight = requestedProduct || (isSignageRequest ? content.signageHeadingHighlight : content.h1Highlight);
+    : (requestedPackage ? content.packageHeading : isSignageRequest ? content.signageHeadingStart : content.h1Start);
+  const headingHighlight = requestedProduct || requestedPackage || (isSignageRequest ? content.signageHeadingHighlight : content.h1Highlight);
   const selectedItem = requestedProduct
     ? {
         type: "product",
@@ -185,10 +192,10 @@ export default function QuoteRequestClient({
   const hasPackageRequest = selectedItem?.type === "package";
   const showPicker = !hasPreselected && !content.showProductField && !isSignageRequest;
   const showBusinessName = content.showBusinessName || hasPackageRequest;
-  const initialStep = showPicker ? 0 : 1;
-  const totalSteps = showPicker ? 3 : 2;
+  const initialStep = hasPackageRequest ? 2 : showPicker ? 0 : 1;
+  const totalSteps = hasPackageRequest ? 1 : showPicker ? 3 : 2;
 
-  const selectionKey = JSON.stringify([requestedProduct, requestedPackage, requestedCategory, querySize, querySide, queryQuantity, isSignageRequest]);
+  const selectionKey = JSON.stringify([requestedProduct, requestedPackage, requestedCategory, querySize, querySide, queryMaterial, queryQuantity, isSignageRequest]);
   // useSearchParams renders this form inside its client-side Suspense boundary.
   // Read once; storage is only populated by an explicit language-link click.
   const [draft] = useState(() => {
@@ -207,6 +214,7 @@ export default function QuoteRequestClient({
   const [businessName, setBusinessName] = useState(draft?.businessName || "");
   const [email, setEmail] = useState(draft?.email || "");
   const [phone, setPhone] = useState(draft?.phone || "");
+  const [replyMethod, setReplyMethod] = useState(draft?.replyMethod || "email");
   const [size, setSize] = useState(draft?.requestedSize ?? querySize.slice(0, 120));
   const [quantity, setQuantity] = useState(draft?.requestedQuantity ?? validQuantity(queryQuantity));
   const [isEditingSelection, setIsEditingSelection] = useState(false);
@@ -251,7 +259,7 @@ export default function QuoteRequestClient({
           selectionKey,
           language: content.language,
           fields: {
-            name, businessName, email, phone, productField, message, step,
+            name, businessName, email, phone, replyMethod, productField, message, step,
             requestedSize: size, requestedQuantity: quantity,
             serviceIndex: content.serviceTiles.findIndex((tile) => tile.label === pickedService?.label),
             attachmentName: attachment?.name || "",
@@ -261,7 +269,7 @@ export default function QuoteRequestClient({
     }
     window.addEventListener(QUOTE_DRAFT_EVENT, saveLanguageDraft);
     return () => window.removeEventListener(QUOTE_DRAFT_EVENT, saveLanguageDraft);
-  }, [selectionKey, content.language, content.serviceTiles, name, businessName, email, phone, productField, message, step, pickedService, attachment, submitted, size, quantity]);
+  }, [selectionKey, content.language, content.serviceTiles, name, businessName, email, phone, replyMethod, productField, message, step, pickedService, attachment, submitted, size, quantity]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -284,7 +292,9 @@ export default function QuoteRequestClient({
   const hiddenProductValue = effectiveProduct
     ? (effectiveCategory ? `${effectiveCategory} — ${effectiveProduct}` : effectiveProduct)
     : (isSignageRequest ? effectiveCategory : "General Quote");
-  const hasContact = hasPackageRequest ? Boolean(phone.trim()) : Boolean(email.trim() || phone.trim());
+  const submittedEmail = hasPackageRequest && replyMethod === "phone" ? "" : email.trim();
+  const submittedPhone = hasPackageRequest && replyMethod === "email" ? "" : phone.trim();
+  const hasContact = Boolean(submittedEmail || submittedPhone);
 
   const displayStep = step - initialStep + 1;
   const stepLabel = showPicker
@@ -313,19 +323,29 @@ export default function QuoteRequestClient({
     setStep(1);
   }
 
-  function continueToDetails() {
+  function validateContact() {
     if (!name.trim() || !hasContact) {
-      setContactError(hasPackageRequest ? content.packageContactRequirement : content.contactRequirement);
-      return;
+      setContactError(hasPackageRequest ? content.packageContactRequired : content.contactRequirement);
+      document.getElementById(!name.trim() ? "q-name" : replyMethod === "phone" ? "q-phone" : "q-email")?.focus();
+      return false;
     }
-    if (email.trim() && !/^\S+@\S+\.\S+$/.test(email.trim())) {
+    if (submittedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submittedEmail)) {
       trackEvent("quote_form_error", { error_type: "invalid_email", step_number: displayStep, language: content.language });
       setContactError(content.invalidEmail);
       document.getElementById("q-email")?.focus();
-      return;
+      return false;
+    }
+    if (hasPackageRequest && submittedPhone && !validReplyPhone(submittedPhone)) {
+      setContactError(content.invalidPhone);
+      document.getElementById("q-phone")?.focus();
+      return false;
     }
     setContactError("");
-    setStep(2);
+    return true;
+  }
+
+  function continueToDetails() {
+    if (validateContact()) setStep(2);
   }
 
   function handleFileChange(e) {
@@ -372,14 +392,15 @@ export default function QuoteRequestClient({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (hasPackageRequest && !validateContact()) return;
     setLoading(true);
     setError("");
 
     const formData = new FormData();
     formData.set("name", name);
     if (showBusinessName && businessName) formData.set("businessName", businessName);
-    formData.set("email", email);
-    if (phone) formData.set("phone", phone);
+    formData.set("email", submittedEmail);
+    if (submittedPhone) formData.set("phone", submittedPhone);
     formData.set("message", message);
     formData.set("productService", hiddenProductValue);
     if ((selectedItem || isSignageRequest) && effectiveCategory) formData.set("selectedCategory", effectiveCategory);
@@ -390,7 +411,10 @@ export default function QuoteRequestClient({
       formData.set("selectedMaterial", selectedOptions.material);
       formData.set("requestedQuantity", selectedOptions.quantity);
     }
-    if (selectedItem?.type === "package") formData.set("selectedPackage", selectedItem.name);
+    if (selectedItem?.type === "package") {
+      formData.set("selectedPackage", selectedItem.name);
+      formData.set("replyMethod", replyMethod);
+    }
     formData.set("language", content.language);
     formData.set("sourcePage", window.location.origin + window.location.pathname);
     formData.set("company", honeypot); // honeypot — empty for real users
@@ -411,6 +435,60 @@ export default function QuoteRequestClient({
       setLoading(false);
     }
   };
+
+  const contactInputClass = "w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none focus:border-[#0369A1]";
+  const contactLabelClass = "mb-2 block text-xs font-bold uppercase tracking-wide";
+  const contactDescription = contactError ? "quote-contact-requirement quote-contact-error" : "quote-contact-requirement";
+  const contactFields = (
+    <div className="space-y-5">
+      <div>
+        <label htmlFor="q-name" className={contactLabelClass}>{content.name} *</label>
+        <input id="q-name" type="text" autoComplete="name" aria-required="true"
+          value={name} onChange={(event) => setName(event.target.value)}
+          placeholder={content.namePlaceholder} className={contactInputClass} />
+      </div>
+      {showBusinessName && (
+        <div>
+          <label htmlFor="q-business" className={contactLabelClass}>{content.businessName}</label>
+          <input id="q-business" type="text" autoComplete="organization"
+            value={businessName} onChange={(event) => setBusinessName(event.target.value)}
+            placeholder={content.businessNamePlaceholder} className={contactInputClass} />
+        </div>
+      )}
+      {hasPackageRequest && (
+        <div>
+          <label htmlFor="q-reply-method" className={contactLabelClass}>{content.replyMethodLabel}</label>
+          <select id="q-reply-method" className={contactInputClass} value={replyMethod}
+            onChange={(event) => { setReplyMethod(event.target.value); setContactError(""); }}>
+            <option value="email">{content.replyByEmail}</option>
+            <option value="phone">{content.replyByPhone}</option>
+          </select>
+        </div>
+      )}
+      {(!hasPackageRequest || replyMethod === "email") && (
+        <div>
+          <label htmlFor="q-email" className={contactLabelClass}>{content.email}{hasPackageRequest ? " *" : ""}</label>
+          <input id="q-email" type="email" autoComplete="email" aria-required={hasPackageRequest}
+            aria-invalid={contactError === content.invalidEmail} aria-describedby={contactDescription}
+            value={email} onChange={(event) => setEmail(event.target.value)}
+            placeholder={content.emailPlaceholder} className={contactInputClass} />
+        </div>
+      )}
+      {(!hasPackageRequest || replyMethod === "phone") && (
+        <div>
+          <label htmlFor="q-phone" className={contactLabelClass}>{content.phone}{hasPackageRequest ? " *" : ""}</label>
+          <input id="q-phone" type="tel" autoComplete="tel" aria-required={hasPackageRequest}
+            aria-invalid={contactError === content.invalidPhone} aria-describedby={contactDescription}
+            value={phone} onChange={(event) => setPhone(event.target.value)}
+            placeholder={content.phonePlaceholder} className={contactInputClass} />
+        </div>
+      )}
+      <p id="quote-contact-requirement" className="text-xs font-medium text-slate-600">
+        {hasPackageRequest ? content.packageContactRequired : content.contactRequirement}
+      </p>
+      {contactError && <p id="quote-contact-error" role="alert" className="text-sm font-medium text-red-700">{contactError}</p>}
+    </div>
+  );
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#0369A1] bg-[radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.65),transparent_32%),linear-gradient(135deg,#06213f_0%,#0369A1_48%,#0EA5E9_100%)] text-white">
@@ -433,10 +511,10 @@ export default function QuoteRequestClient({
               <span className="mt-2 block text-[#F59E0B] md:mt-0 md:inline">{headingHighlight}</span>
             </h1>
             <p className="pnp-mobile-form-copy mt-5 max-w-[342px] break-words text-base leading-8 text-slate-200 md:hidden">
-              {content.mobileIntro || content.intro}
+              {hasPackageRequest ? content.packageNote : content.mobileIntro || content.intro}
             </p>
             <p className="mt-8 hidden max-w-[342px] break-words text-base leading-8 text-slate-200 md:block md:max-w-lg md:text-lg">
-              {content.intro}
+              {hasPackageRequest ? content.packageNote : content.intro}
             </p>
 
             {/* Social proof — the form page previously had none. Visible on all sizes. */}
@@ -547,7 +625,7 @@ export default function QuoteRequestClient({
             )}
 
             {/* Progress bar */}
-            {!submitted && (
+            {!submitted && !hasPackageRequest && (
               <div className="mb-7">
                 <div className="mb-2 flex items-center justify-between">
                   <p className="text-xs font-bold uppercase tracking-widest text-slate-600">
@@ -653,63 +731,7 @@ export default function QuoteRequestClient({
                       </div>
                     )}
 
-                    <div className="space-y-5">
-                      <div>
-                        <label htmlFor="q-name" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          {content.name} *
-                        </label>
-                        <input
-                          id="q-name" type="text" autoComplete="name" aria-required="true"
-                          value={name} onChange={(e) => setName(e.target.value)}
-                          placeholder={content.namePlaceholder}
-                          className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
-                        />
-                      </div>
-                      {showBusinessName && (
-                        <div>
-                          <label htmlFor="q-business" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                            {content.businessName}
-                          </label>
-                          <input
-                            id="q-business" type="text" autoComplete="organization"
-                            value={businessName} onChange={(e) => setBusinessName(e.target.value)}
-                            placeholder={content.businessNamePlaceholder}
-                            className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
-                          />
-                        </div>
-                      )}
-                      <div>
-                        <label htmlFor="q-email" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          {content.email}
-                        </label>
-                        <input
-                          id="q-email" type="email" autoComplete="email"
-                          aria-invalid={contactError === content.invalidEmail}
-                          aria-describedby={contactError ? "quote-contact-requirement quote-contact-error" : "quote-contact-requirement"}
-                          value={email} onChange={(e) => setEmail(e.target.value)}
-                          placeholder={content.emailPlaceholder}
-                          className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="q-phone" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          {content.phone}{hasPackageRequest ? " *" : ""}
-                        </label>
-                        <input
-                          id="q-phone" type="tel" autoComplete="tel" aria-required={hasPackageRequest}
-                          aria-describedby={contactError ? "quote-contact-requirement quote-contact-error" : "quote-contact-requirement"}
-                          value={phone} onChange={(e) => setPhone(e.target.value)}
-                          placeholder={content.phonePlaceholder}
-                          className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
-                        />
-                      </div>
-                      <p id="quote-contact-requirement" className="text-xs font-medium text-slate-600">
-                        {hasPackageRequest ? content.packageContactRequirement : content.contactRequirement}
-                      </p>
-                      {contactError && (
-                        <p role="alert" className="text-sm font-medium text-red-700">{contactError}</p>
-                      )}
-                    </div>
+                    {contactFields}
 
                     <button
                       type="button"
@@ -730,7 +752,7 @@ export default function QuoteRequestClient({
                     onSubmit={handleSubmit}
                   >
                     <h2 ref={stepHeadingRef} tabIndex={-1} style={{ color: "#1C1917" }} className="mb-1 outline-none">{content.formTitle}</h2>
-                    <p className="mb-6 text-sm text-slate-600">{content.detailsNote}</p>
+                    <p className="mb-6 text-sm text-slate-600">{hasPackageRequest ? content.packageNote : content.detailsNote}</p>
 
                     <label htmlFor="quote-company" className="sr-only">Company</label>
                     <input
@@ -746,6 +768,7 @@ export default function QuoteRequestClient({
                     />
 
                     <div className="space-y-5">
+                      {hasPackageRequest && contactFields}
                       {(content.showProductField || isSignageRequest) && (
                         <div>
                           <label htmlFor="q-product" className="mb-2 block text-xs font-bold uppercase tracking-wide">
@@ -761,7 +784,7 @@ export default function QuoteRequestClient({
 
                       <div>
                         <label htmlFor="quote-message" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          {content.message}{hasPackageRequest ? "" : " *"}
+                          {hasPackageRequest ? content.packageDetails : content.message + " *"}
                         </label>
                         <textarea
                           id="quote-message" required={!hasPackageRequest} rows={5}
@@ -817,14 +840,14 @@ export default function QuoteRequestClient({
                     )}
 
                     <div className="mt-7 flex gap-3">
-                      <button
+                      {!hasPackageRequest && <button
                         type="button"
                         onClick={() => setStep(1)}
                         className="flex shrink-0 items-center gap-2 rounded-xl border-2 border-slate-200 px-5 py-4 text-sm font-bold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
                         aria-label={content.backToContactAria}
                       >
                         <ArrowLeft className="h-4 w-4" /> {content.back}
-                      </button>
+                      </button>}
                       <button
                         type="submit"
                         disabled={loading || (!hasPackageRequest && !message.trim())}
