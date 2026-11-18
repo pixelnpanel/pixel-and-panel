@@ -29,7 +29,7 @@ const HOMEPAGE_REVIEW_CHIPS = [
   "Independently owned & operated",
   "5.0 rated on Google",
   "Signage + digital under one roof",
-  "Ships nationwide",
+  "Eligible products ship nationwide",
 ];
 
 const serviceSilos = [

@@ -23,7 +23,7 @@ export function houstonBusinessJsonLd(locale = "en") {
       : "Custom Signs, Banners & Print in Houston, TX",
     description: isEs
       ? "Letreros comerciales, banners, gráficos vehiculares e impresión para negocios de Houston y el área metropolitana, con envío a todo el país."
-      : "Custom signs, banners, vehicle graphics, and print for businesses across Houston and Greater Houston, shipped nationwide.",
+      : "Custom signs, banners, vehicle graphics, and print for businesses across Greater Houston. Nationwide shipping is available on eligible products.",
     url: pageUrl,
     serviceType: isEs ? "Letreros e impresión" : "Signs and print",
     inLanguage: isEs ? "es-US" : "en-US",

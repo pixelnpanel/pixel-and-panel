@@ -1,5 +1,6 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
+import { quoteSelectionLines } from "@/lib/quote-selection";
 
 export const runtime = "nodejs";
 
@@ -37,6 +38,7 @@ function buildEmail({
   selectedCategory,
   selectedProduct,
   selectedPackage,
+  selection,
   sourcePage,
   message,
   language,
@@ -54,6 +56,7 @@ function buildEmail({
     ? [
         `Selected Category: ${selectedCategory || "Not provided"}`,
         `Selected Product: ${selectedProduct}`,
+        ...selection,
       ]
     : isPackageRequest
       ? [
@@ -106,6 +109,7 @@ function buildEmail({
           <tr><td style="padding: 8px 0; font-weight: 700;">Language</td><td style="padding: 8px 0;">${safe.language}</td></tr>
           ${isProductRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Category</td><td style="padding: 8px 0;">${safe.selectedCategory}</td></tr>` : ""}
           ${isProductRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Product</td><td style="padding: 8px 0;">${safe.selectedProduct}</td></tr>` : ""}
+          ${isProductRequest && selection.length ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected options</td><td style="padding: 8px 0;">${selection.map(escapeHtml).join("<br>")}</td></tr>` : ""}
           ${isPackageRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Category</td><td style="padding: 8px 0;">${safe.selectedCategory}</td></tr>` : ""}
           ${isPackageRequest ? `<tr><td style="padding: 8px 0; font-weight: 700;">Selected Package</td><td style="padding: 8px 0;">${safe.selectedPackage}</td></tr>` : ""}
           <tr><td style="padding: 8px 0; font-weight: 700;">Name</td><td style="padding: 8px 0;">${safe.name}</td></tr>
@@ -165,6 +169,13 @@ export async function POST(request) {
   const sourcePage = cleanText(formData.get("sourcePage"));
   const language = cleanText(formData.get("language")) || "English";
   const isPackageRequest = Boolean(selectedPackage);
+  const selection = selectedProduct ? quoteSelectionLines({
+    size: cleanText(formData.get("selectedSize")).slice(0, 120),
+    side: cleanText(formData.get("selectedSide")).slice(0, 80),
+    material: cleanText(formData.get("selectedMaterial")).slice(0, 120),
+    quantity: cleanText(formData.get("requestedQuantity")),
+    language,
+  }) : [];
 
   if (company) {
     return jsonResponse({ ok: true });
@@ -213,6 +224,7 @@ export async function POST(request) {
     selectedCategory,
     selectedProduct,
     selectedPackage,
+    selection,
     sourcePage,
     message,
     language,

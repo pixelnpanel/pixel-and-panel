@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Box, Check, ChevronDown, Info } from 'lucide-rea
 import { ProductQuoteProvider, ProductQuoteLink, MobileProductQuoteBar } from '@/components/signage/ProductQuoteContext'
 import SignagePriceCalculator from '@/components/signage/SignagePriceCalculator'
 import { formatPrice } from '@/lib/signage/data'
+import { signageQuoteOptions } from '@/lib/signage/quote-options'
 import { houstonCatalogNotes } from '@/content/houston'
 
 // City pages that already exist on the site (used in the trust block). Houston
@@ -20,14 +21,6 @@ const CITY_LINKS = [
 ]
 
 const TRUST_POINTS = ['Local design help', 'Fast turnaround', 'A real person answers']
-
-// Pole-mounted flags priced as a complete kit (printed flag + pole hardware).
-// The calculator shows a clarifier so buyers know the price isn't flag-only.
-// Econo is handled separately: its toggle sells "Flag Only" vs "Flag+Pole".
-const POLE_KIT_SLUGS = new Set([
-    'feather-angled-flag', 'teardrop-flag', 'feather-convex-flag', 'rectangle-flag',
-])
-const ECONO_SLUG = 'econo-feather-flag'
 
 /** Capitalize the first character of each word (keeps units like "13oz" intact). */
 function toTitleCase(str) {
@@ -45,40 +38,7 @@ export default function SignageProductDetail({ product, category, related = [] }
     const imageAlt = content?.imageAlt || product.alt
 
     const quoteHref = `/quote-request?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent(category.name)}&request=signage`
-
-    // Flag-specific pricing calculator config.
-    const isFlags = category.slug === 'flags'
-    const isEcono = isFlags && product.slug === ECONO_SLUG
-    const isPoleKit = isFlags && POLE_KIT_SLUGS.has(product.slug)
-
-    // Flags ship in fixed sizes only — hide the custom-size option across the
-    // category. (Size-less quote-only flags still keep it via the calculator's
-    // `!hasSizes` fallback.)
-    const calcProps = isEcono
-        ? {
-            showCustomSize: false,
-            sideLabels: { single: 'Flag Only', double: 'Flag+Pole' },
-            sidesHeading: 'Option',
-            priceNote: (
-                <>
-                    Single-sided print. The <strong className="font-semibold text-[#1C1917]">Flag+Pole</strong> option
-                    includes the pole and a ground-stake base.
-                </>
-            ),
-        }
-        : isPoleKit
-            ? {
-                showCustomSize: false,
-                priceNote: (
-                    <>
-                        Price is for the <strong className="font-semibold text-[#1C1917]">complete kit — printed flag plus pole hardware</strong>.
-                        Already have a pole and base? Flag-only replacements available — request a quote.
-                    </>
-                ),
-            }
-            : isFlags
-                ? { showCustomSize: false }
-                : {}
+    const calcProps = signageQuoteOptions(product)
 
     const highlights = content?.highlights || []
     const perfectFor = content?.perfectFor || []

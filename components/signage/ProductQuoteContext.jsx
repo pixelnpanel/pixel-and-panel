@@ -49,7 +49,7 @@ export function MobileProductQuoteBar() {
                             <p className="mt-1 text-sm font-bold text-[#0369A1]">{quote.selection.priceLabel || (spanish ? 'Precio por cotización' : 'Custom quote')}</p>
                         </div>
                         <ProductQuoteLink href={quote.selection.href} source="mobile_product_bar" className="btn-amber shrink-0 gap-2 px-4 py-3 text-xs">
-                            {spanish ? 'Cotizar' : 'Get a Quote'} <ArrowRight size={16} aria-hidden="true" />
+                            {spanish ? 'Cotizar' : 'Get my quote'} <ArrowRight size={16} aria-hidden="true" />
                         </ProductQuoteLink>
                     </div>
                 </aside>

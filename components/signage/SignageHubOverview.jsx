@@ -18,7 +18,7 @@ import { signageQuoteHref } from '@/lib/quote-selection'
 
 // Signage positioning stays national — keep chips city-free.
 const SIGNAGE_REVIEW_CHIPS = [
-    'Nationwide shipping',
+    'Eligible products ship nationwide',
     'Independently owned & operated',
     '5.0 rated on Google',
     'Files proofed before print',
@@ -48,7 +48,7 @@ const TRUST_ITEMS = [
     { icon: BadgeCheck, label: 'Premium materials' },
     { icon: Zap, label: 'Fast turnaround' },
     { icon: PenTool, label: 'Free design help' },
-    { icon: Truck, label: 'Nationwide shipping' },
+    { icon: Truck, label: 'Shipping on eligible products' },
 ]
 
 function formatPrice(value) {
@@ -193,7 +193,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                         Custom signs, banners, and print
                     </h1>
                     <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-white/90 md:mt-3 md:text-lg">
-                        Design help, artwork proofs, and nationwide shipping.
+                        Design help, artwork proofs, and shipping on eligible products.
                     </p>
                     <form
                         role="search"
@@ -399,7 +399,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                         Ready to make your business more visible?
                     </h2>
                     <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
-                        Send us what you need, and we&rsquo;ll help you choose the material, size, and finish. Sign and print orders ship nationwide.
+                        Send us what you need, and we&rsquo;ll help you choose the material, size, and finish. Eligible signs and print products ship nationwide.
                     </p>
                     <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <Link href={QUOTE_PATH} className="btn-amber">

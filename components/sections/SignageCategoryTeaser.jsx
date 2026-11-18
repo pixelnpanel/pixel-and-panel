@@ -80,7 +80,7 @@ export default function SignageCategoryTeaser({ categories = [] }) {
             Shop Signs by Category
           </h2>
           <p className="mt-5 text-base leading-8 text-slate-600 md:text-lg">
-            Durable, professional signage and print — designed, printed, and shipped nationwide.
+            Durable signage and print with nationwide shipping on eligible products.
             Instant pricing on popular products, or a fast free quote for anything custom.
           </p>
         </div>

@@ -124,6 +124,8 @@ const defaultCopy = {
   agreementConnector: "and",
   privacyLabel: "Privacy Policy",
   privacyHref: "/privacy-policy",
+  shippingHref: "/shipping-policy",
+  shippingLabel: "Shipping and delivery options",
   agreementSuffix: ".",
   successTitle: "Request Sent",
   successText: "We received your quote request and will reply within 1 business day.",
@@ -150,6 +152,7 @@ export default function QuoteRequestClient({
   const queryCategory = searchParams.get("category") || "";
   const querySize = searchParams.get("size") || "";
   const querySide = searchParams.get("side") || "";
+  const queryMaterial = searchParams.get("material") || "";
   const queryQuantity = searchParams.get("quantity") || "";
   const requestedProduct = selectedProduct || queryProduct;
   const requestedPackage = requestedProduct ? "" : (selectedPackage || queryPackage);
@@ -208,7 +211,8 @@ export default function QuoteRequestClient({
   const [quantity, setQuantity] = useState(draft?.requestedQuantity ?? validQuantity(queryQuantity));
   const [isEditingSelection, setIsEditingSelection] = useState(false);
   const selectionEditRef = useRef(null);
-  const selectionLines = requestedProduct ? quoteSelectionLines({ size, side: querySide.slice(0, 80), quantity, language: content.language }) : [];
+  const selectedOptions = { size, side: querySide.slice(0, 80), material: queryMaterial.slice(0, 120), quantity };
+  const selectionLines = requestedProduct ? quoteSelectionLines({ ...selectedOptions, language: content.language }) : [];
   const [productField, setProductField] = useState(
     draft?.productField || (hasPreselected
       ? (selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name)
@@ -376,13 +380,19 @@ export default function QuoteRequestClient({
     if (showBusinessName && businessName) formData.set("businessName", businessName);
     formData.set("email", email);
     if (phone) formData.set("phone", phone);
-    formData.set("message", [...selectionLines, message].filter(Boolean).join("\n\n"));
+    formData.set("message", message);
     formData.set("productService", hiddenProductValue);
     if ((selectedItem || isSignageRequest) && effectiveCategory) formData.set("selectedCategory", effectiveCategory);
-    if (selectedItem?.type === "product") formData.set("selectedProduct", selectedItem.name);
+    if (selectedItem?.type === "product") {
+      formData.set("selectedProduct", selectedItem.name);
+      formData.set("selectedSize", selectedOptions.size);
+      formData.set("selectedSide", selectedOptions.side);
+      formData.set("selectedMaterial", selectedOptions.material);
+      formData.set("requestedQuantity", selectedOptions.quantity);
+    }
     if (selectedItem?.type === "package") formData.set("selectedPackage", selectedItem.name);
     formData.set("language", content.language);
-    formData.set("sourcePage", typeof window !== "undefined" ? window.location.href : "Quote Request Page");
+    formData.set("sourcePage", window.location.origin + window.location.pathname);
     formData.set("company", honeypot); // honeypot — empty for real users
     if (attachment) formData.set("attachment", attachment);
 
@@ -495,6 +505,11 @@ export default function QuoteRequestClient({
                     {selectedItem.category ? `${selectedItem.category} — ${selectedItem.name}` : selectedItem.name}
                   </p>
                   {selectionLines.length > 0 && <ul className="mt-2 space-y-1 text-xs leading-5 text-slate-700">{selectionLines.map(line => <li key={line}>{line}</li>)}</ul>}
+                  {selectedItem.type === "product" && (
+                    <Link href={content.shippingHref} className="mt-2 inline-block text-xs font-semibold text-[#0369A1] underline underline-offset-2">
+                      {content.shippingLabel}
+                    </Link>
+                  )}
                   {canEditSelection && !submitted && (
                     <>
                       <button

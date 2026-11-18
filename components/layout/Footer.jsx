@@ -112,7 +112,8 @@ const FOOTER_COPY = {
     digitalServices: FOOTER_DIGITAL_SERVICES_ES,
     signageProducts: FOOTER_SIGNAGE_PRODUCTS_ES,
     companyLinks: COMPANY_LINKS_ES,
-    legalLinks: [],
+    legalHeading: 'POLÍTICAS',
+    legalLinks: [{ label: 'Envío y entrega', href: '/es/politica-de-envio' }],
   },
 }
 

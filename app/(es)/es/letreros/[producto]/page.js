@@ -1,4 +1,7 @@
 import { ProductQuoteProvider, ProductQuoteLink, MobileProductQuoteBar } from "@/components/signage/ProductQuoteContext";
+import SignagePriceCalculator from "@/components/signage/SignagePriceCalculator";
+import { getProduct } from "@/lib/signage/data";
+import { signageQuoteOptions } from "@/lib/signage/quote-options";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -145,6 +148,8 @@ function getSpecs(product) {
   };
 }
 
+export const revalidate = 900;
+
 export function generateStaticParams() {
   return signageProductsEs.map((product) => ({
     producto: product.slug,
@@ -208,6 +213,9 @@ export default async function SpanishSignageProductPage({ params }) {
 
   if (!product) notFound();
 
+  const pair = enPathForEsProduct(producto)?.match(/^\/signage\/([^/]+)\/([^/]+)$/);
+  const catalogProduct = pair ? (await getProduct(pair[1], pair[2]))?.product : null;
+  const calculatorOptions = catalogProduct ? signageQuoteOptions(catalogProduct, true) : null;
   const quoteHref = `/es/solicitar-cotizacion?product=${encodeURIComponent(product.name)}&category=${encodeURIComponent("Letreros")}`;
   const visibilityHref = "/es/chequeo-gratis-de-visibilidad";
   const related = getRelatedSignageProductsEs(product);
@@ -343,6 +351,21 @@ export default async function SpanishSignageProductPage({ params }) {
             </div>
           </div>
         </section>
+
+        {catalogProduct && (
+          <section className="mx-auto max-w-2xl px-4 pt-8 md:pt-12" aria-label="Opciones para cotizar">
+            <SignagePriceCalculator
+              productName={product.name}
+              categoryName="Letreros"
+              sizes={catalogProduct.sizes}
+              availableSides={catalogProduct.availableSides}
+              isLive={catalogProduct.isLive}
+              language="Spanish"
+              {...calculatorOptions}
+              showCustomSize={catalogProduct.allowCustomSize ?? calculatorOptions.showCustomSize}
+            />
+          </section>
+        )}
 
         <section className="section-base">
           <div className="container-px">
