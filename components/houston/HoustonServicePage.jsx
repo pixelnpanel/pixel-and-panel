@@ -62,7 +62,7 @@ const LABELS = {
   },
 };
 
-export default function HoustonServicePage({ service, path, locale = "en" }) {
+export default function HoustonServicePage({ service, path, locale = "en", children }) {
   const t = LABELS[locale];
   const isEs = locale === "es";
   const quoteHref = `${isEs ? "/es/solicitar-cotizacion" : "/quote-request"}?product=${encodeURIComponent(service.quoteProduct)}&category=${encodeURIComponent(service.quoteCategory)}`;
@@ -118,6 +118,8 @@ export default function HoustonServicePage({ service, path, locale = "en" }) {
             </div>
           </div>
         </section>
+
+        {children}
 
         {service.localContext && (
           <section className="section-base" aria-labelledby="houston-service-context-heading">

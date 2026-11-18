@@ -33,7 +33,7 @@ function JsonLd({ data }) {
   );
 }
 
-export default function CityServiceLanding({ city, service }) {
+export default function CityServiceLanding({ city, service, children }) {
   const headline = service.headline(city)
   const intro = service.intro(city)
   const localContext = service.localContext(city)
@@ -119,6 +119,8 @@ export default function CityServiceLanding({ city, service }) {
             </div>
           </div>
         </section>
+
+        {children}
 
         {/* ── LOCAL CONTEXT + PRICING ────────────────────────────── */}
         <section className="section-base bg-white">

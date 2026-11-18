@@ -275,20 +275,18 @@ export const houstonServices = {
     catalogLabel: "See banner materials & pricing",
     quoteProduct: "Event Banners",
     quoteCategory: "Signage",
-    metaTitle: "Event Banners Houston TX | Festival & Grand Opening Banners",
+    metaTitle: "Custom Event Banners in Houston, TX | Pixel & Panel",
     metaDescription:
-      "Custom event banners in Houston, TX for festivals, grand openings, fundraisers, conferences, and church events. Reusable designs, indoor and outdoor materials, fast quotes.",
+      "Shop custom vinyl event banners, fabric banners, and photo backdrops for Houston, TX. Compare sizes and request a quote with shipping and production timing.",
     h1: "Event Banners in Houston, TX",
     intro:
-      "Banners for Houston events — festivals, grand openings, school fundraisers, conferences, church functions, and booth backdrops. Designed to read from across a crowded room or a parking lot, and built to come back out next year.",
+      "Order custom event banners for Houston festivals, grand openings, fundraisers, and conferences. Choose outdoor vinyl, indoor fabric, or a photo backdrop and get a proof before we print.",
 
     localContext: {
-      heading: "Houston Runs on Events",
+      heading: "What to Send With Your Event Banner Quote",
       body: [
-        "Between the rodeo, the festival calendar, convention traffic downtown, school fundraisers, and a church community as large as any city in Texas, Houston has an events economy that never really stops. Most of the banners printed for those events get used once and thrown away — which is a waste, because the thing that usually forces a reprint is not wear. It is a date printed on the banner.",
-        "That is the first conversation we have on any event banner: is this a one-time announcement, or something you will run again? If the event repeats, we keep the year, the date, and any pricing off the main banner and put them on a smaller companion piece or a separate rider. The main banner then survives four or five cycles instead of one. Groups running an annual fundraiser or a seasonal festival notice that difference immediately.",
-        "The second thing that separates an event banner from a business banner is where it gets read. Event banners compete with crowds, tents, other vendors, and a lot of visual noise. Copy that would be perfectly readable on a quiet storefront disappears at a busy festival. We size event banners for the actual environment — which usually means fewer words and bigger type than people expect going in.",
-        "Indoor and outdoor also pull in different directions. Vinyl is the workhorse for anything outdoors or general-purpose. For indoor use at close range — conference booths, banquet backdrops, registration tables — fabric hangs better, does not glare under venue lighting, and photographs far better, which matters when the whole point is that attendees post pictures of it.",
+        "Send the venue ZIP code, the date you need the banner in hand, and the width and height of the display area. Include any mounting restrictions from the venue. For an indoor exhibit where wall attachments are restricted, ask about a freestanding banner stand or backdrop.",
+        "Share your event logo, sponsor logos, and any required wording. For an annual fundraiser or festival, use a small companion sign for the date and keep the main banner reusable.",
       ],
     },
 
@@ -296,7 +294,7 @@ export const houstonServices = {
       "Event banners are priced like standard banners: a 3'×8' runs $60–$120 depending on material and quantity, with larger spans at $100–$250. Fabric upgrades for indoor and photo-facing use are quoted separately. Reusable designs cost the same to print — the savings come from not reprinting next year.",
 
     delivery:
-      "Event work runs on hard deadlines, so we schedule backwards from your event date rather than forwards from the order date. Standard production is 3–5 business days after proof approval, with rush available. Tell us the event date and the venue when you request a quote and we will confirm whether the timeline works before you commit.",
+      "Standard production typically takes 3–5 business days after proof approval. Allow extra time for carrier transit to the Houston area. Send your in-hand date and ZIP code so we can confirm timing and available rush options before you order.",
 
     industries: [
       "Festivals, markets, and community events across Greater Houston",
@@ -319,7 +317,7 @@ export const houstonServices = {
     process: [
       [
         "Tell us the event and the date",
-        "Event date, venue, and whether the banner hangs indoors or outdoors. We schedule production backwards from the date so nothing arrives late.",
+        "Share your in-hand date, venue ZIP code, and whether the banner hangs indoors or outdoors.",
       ],
       [
         "Decide if it needs to be reusable",
@@ -330,8 +328,8 @@ export const houstonServices = {
         "We build the layout and send it for approval. Check names and sponsor logos carefully — sponsor spelling is the most common last-minute correction on event work.",
       ],
       [
-        "Print and get it on site",
-        "Standard production is 3–5 business days. We deliver across Greater Houston, including directly to venues when that is easier than routing through your office.",
+        "Print and ship",
+        "We print after proof approval and ship to your confirmed address. If you want it sent to the venue, check its receiving hours and package instructions.",
       ],
     ],
 
@@ -341,7 +339,7 @@ export const houstonServices = {
       "Step-and-repeat backdrops sized for photos and social sharing",
       "Sponsor logo placement handled cleanly without crowding the message",
       "Deadline-driven scheduling built backwards from your event date",
-      "Delivery to venues across Greater Houston",
+      "Shipping to businesses and venues in Greater Houston",
     ],
 
     faqs: [
@@ -363,15 +361,15 @@ export const houstonServices = {
       ],
       [
         "How far ahead should I order for a Houston event?",
-        "Two weeks before the event is comfortable. That covers 3–5 business days of production plus proof rounds plus a buffer for the sponsor logo that always arrives late. Rush is available and we do it regularly, but ordering early is how you get the banner you actually wanted instead of the one that fit the timeline.",
+        "Start at least two weeks ahead when possible. Allow time for the proof, 3–5 business days for standard production after approval, and carrier transit. We’ll confirm what fits your deadline for your ZIP code.",
       ],
       [
         "Can you fit sponsor logos on a fundraiser banner?",
         "Yes, and there is a right way to do it. Sponsors get tiered by level with the largest logos at top, and the event name stays dominant. The failure mode is treating every sponsor equally, which shrinks all the logos until none of them are legible and no one is happy. Send the sponsor files at the highest resolution you have.",
       ],
       [
-        "Do you deliver to Houston event venues?",
-        "Yes. We deliver across Greater Houston and can ship directly to a venue, a hotel, or a convention facility when that is simpler than routing through your office. Give us the venue name, the delivery contact, and the date it needs to be on site.",
+        "Can you ship banners to Houston event venues?",
+        "Yes, if the venue accepts packages. Send its full shipping address, receiving contact and instructions, and the date the banner needs to arrive.",
       ],
       [
         "Can you match our event's existing branding?",

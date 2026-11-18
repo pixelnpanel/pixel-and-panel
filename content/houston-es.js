@@ -241,7 +241,7 @@ export const houstonServicesEs = {
       "Los banners para eventos se cotizan como los banners estándar: un 3'×8' va de $60 a $120 según material y cantidad, y los formatos más grandes de $100 a $250. La tela para uso interior y fotográfico se cotiza aparte. Los diseños reutilizables cuestan lo mismo de imprimir — el ahorro está en no reimprimir el año siguiente.",
 
     delivery:
-      "Los eventos tienen fechas que no se mueven, así que programamos hacia atrás desde la fecha del evento y no hacia adelante desde la fecha del pedido. La producción estándar es de 3 a 5 días hábiles después de aprobar la prueba, con opción urgente. Dinos la fecha y la sede al cotizar y confirmamos si el tiempo alcanza antes de que te comprometas.",
+      "La producción estándar suele tomar de 3 a 5 días hábiles después de aprobar la prueba. Agrega el tiempo de envío al área de Houston. Dinos cuándo necesitas recibir el banner y comparte el código postal para confirmar los plazos y las opciones urgentes disponibles.",
 
     industries: [
       "Festivales, mercados y eventos comunitarios en el área de Houston",
@@ -264,7 +264,7 @@ export const houstonServicesEs = {
     process: [
       [
         "Dinos el evento y la fecha",
-        "Fecha, sede y si el banner va adentro o afuera. Programamos la producción hacia atrás desde la fecha para que nada llegue tarde.",
+        "Comparte la fecha en que necesitas recibir el banner, el código postal de la sede y si se usará en interiores o exteriores.",
       ],
       [
         "Decide si tiene que ser reutilizable",
@@ -275,8 +275,8 @@ export const houstonServicesEs = {
         "Armamos el diseño y lo enviamos para aprobación. Revisa con cuidado los nombres y los logotipos de patrocinadores — la ortografía de patrocinadores es la corrección de último minuto más común.",
       ],
       [
-        "Imprimir y llevarlo a sitio",
-        "La producción estándar es de 3 a 5 días hábiles. Entregamos en toda el área metropolitana de Houston, incluso directo a la sede cuando es más práctico que pasar por tu oficina.",
+        "Impresión y envío",
+        "Imprimimos después de que apruebes la prueba y enviamos a la dirección confirmada. Si quieres enviarlo a la sede, revisa su horario y sus requisitos de recepción.",
       ],
     ],
 
@@ -286,7 +286,7 @@ export const houstonServicesEs = {
       "Fondos fotográficos dimensionados para fotos y redes sociales",
       "Acomodo de logotipos de patrocinadores sin saturar el mensaje",
       "Programación por fecha límite, calculada hacia atrás desde tu evento",
-      "Entrega a sedes en toda el área metropolitana de Houston",
+      "Envío a negocios y sedes de eventos en el área de Houston",
     ],
 
     faqs: [
@@ -308,15 +308,15 @@ export const houstonServicesEs = {
       ],
       [
         "¿Con cuánta anticipación debo pedir para un evento en Houston?",
-        "Dos semanas antes del evento es cómodo. Eso cubre de 3 a 5 días hábiles de producción, las rondas de prueba y un margen para el logotipo del patrocinador que siempre llega tarde. Hay servicio urgente y lo hacemos seguido, pero pedir con tiempo es como consigues el banner que querías y no el que cupo en el plazo.",
+        "Empieza al menos dos semanas antes si es posible. Calcula tiempo para revisar la prueba, de 3 a 5 días hábiles de producción estándar después de aprobarla y el tiempo de envío. Confirmaremos las opciones para tu fecha y código postal.",
       ],
       [
         "¿Pueden acomodar logotipos de patrocinadores en un banner de colecta?",
         "Sí, y hay una forma correcta de hacerlo. Los patrocinadores se agrupan por nivel, con los logotipos más grandes arriba, y el nombre del evento se mantiene dominante. El error clásico es tratar a todos los patrocinadores igual, lo que encoge todos los logotipos hasta que ninguno se lee y nadie queda contento. Manda los archivos de patrocinadores en la mayor resolución que tengas.",
       ],
       [
-        "¿Entregan en sedes de eventos en Houston?",
-        "Sí. Entregamos en toda el área metropolitana y podemos enviar directo a una sede, un hotel o un centro de convenciones cuando es más simple que pasar por tu oficina. Danos el nombre de la sede, el contacto de recepción y la fecha en que debe estar en sitio.",
+        "¿Pueden enviar banners a sedes de eventos en Houston?",
+        "Sí, si la sede recibe paquetes. Comparte la dirección completa, el contacto y las instrucciones de recepción, y la fecha en que debe llegar.",
       ],
       [
         "¿Pueden igualar la imagen que ya usa nuestro evento?",

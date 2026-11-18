@@ -16,7 +16,7 @@ const city = {
   featuredLinks: [
     { label: "Storefront Signs", href: "/service-area/beaumont-tx/storefront-signs", type: "signage", description: "Building signs and dimensional letters for storefronts, offices, and commercial spaces." },
     { label: "Custom Banners in Beaumont", href: "/service-area/beaumont-tx/vinyl-banners", type: "signage", description: "Vinyl banners for grand openings, events, fences, and promotions." },
-    { label: "Window Graphics & Vinyl Decals", href: "/signage/vinyl-decals-and-window-graphics", description: "Compare lettering, clear decals, and one-way vinyl for storefront glass." },
+    { label: "Window Graphics in Beaumont", href: "/signage/vinyl-decals-and-window-graphics", description: "Compare clear decals, frosted privacy film, and perforated vinyl for storefront glass." },
     { label: "Truck Lettering & Wraps", href: "/service-area/beaumont-tx/vehicle-graphics", type: "signage", description: "Lettering, wraps, and graphics for work trucks, vans, and fleets." },
     { label: "Web Development", href: "/service-area/beaumont-tx/web-development", type: "digital", description: "Fast websites built for Beaumont search, calls, and quote requests." },
     { label: "Local SEO", href: "/digital/local-seo", description: "Improve the way Beaumont customers find your business online." },

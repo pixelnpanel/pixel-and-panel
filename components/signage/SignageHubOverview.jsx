@@ -287,6 +287,15 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                         </section>
                     )}
 
+                    <nav aria-label="Signage by service area" className="mb-6 flex flex-wrap gap-x-5 rounded-xl border border-brand-line bg-white px-3 py-1 md:mb-9 md:px-4">
+                        <Link href="/service-area/beaumont-tx" className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-[#0369A1] underline-offset-4 hover:underline">
+                            Custom signs in Beaumont <ArrowRight size={14} aria-hidden="true" />
+                        </Link>
+                        <Link href="/houston/event-banners" className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-[#0369A1] underline-offset-4 hover:underline">
+                            Event banners in Houston <ArrowRight size={14} aria-hidden="true" />
+                        </Link>
+                    </nav>
+
                     {/* CATEGORY GRID */}
                     <div className="mobile-reveal" style={{ '--reveal-delay': '120ms' }}>
                                 <div id="signage-categories" className="mb-6 scroll-mt-28 md:mb-8 md:scroll-mt-20">
