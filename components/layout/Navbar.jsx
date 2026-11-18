@@ -101,6 +101,7 @@ export default function Navbar() {
   const isLight = scrolled || forceSolidHeader
   const bg = forceSolidHeader ? '#FAF8F4' : isLight ? 'rgba(255,255,255,0.97)' : 'transparent'
   const textColor = isLight ? '#1C1917' : 'white'
+  const focusClass = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F59E0B]'
 
   return (
     <header
@@ -114,7 +115,7 @@ export default function Navbar() {
         boxShadow: isLight ? '0 1px 20px rgba(0,0,0,0.08)' : 'none',
       }}
     >
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 0.75rem', overflow: 'hidden' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 0.75rem' }}>
         <div
           className="min-h-[50px] lg:min-h-[68px]"
           style={{
@@ -127,9 +128,9 @@ export default function Navbar() {
         >
 
           {/* Logo */}
-          <Link href={homeHref} style={{ textDecoration: 'none', flexShrink: 0 }}>
+          <Link href={homeHref} className={focusClass} style={{ textDecoration: 'none', flexShrink: 0 }}>
             {/* Full wordmark on mobile */}
-            <span className="relative block lg:hidden" style={{ width: 'min(176px, 62vw)', aspectRatio: '3447 / 532' }}>
+            <span className="relative block lg:hidden" style={{ width: 'clamp(120px, 47vw, 176px)', aspectRatio: '3447 / 532' }}>
               <Image
                 src="/logo/icon-wordmark.svg"
                 alt="Pixel & Panel"
@@ -141,43 +142,45 @@ export default function Navbar() {
               />
             </span>
             {/* Full wordmark on desktop */}
-            <span className="relative hidden lg:block" style={{ width: 'min(240px, 42vw)', aspectRatio: '3447 / 532' }}>
+            <span className="relative hidden w-[176px] lg:block xl:w-[240px]" style={{ aspectRatio: '3447 / 532' }}>
               <Image
                 src="/logo/icon-wordmark.svg"
                 alt="Pixel & Panel"
                 fill
                 loading="eager"
-                sizes="(min-width: 1024px) 240px"
+                sizes="(min-width: 1280px) 240px, 176px"
                 style={{ objectFit: 'contain' }}
                 unoptimized
               />
             </span>
           </Link>
 
-          {/* Mobile Language — right aligned */}
-          <div
-            className="flex lg:hidden"
-            aria-label="Language switcher"
-            style={{
-              alignItems: 'center',
-              border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
-              borderRadius: '999px',
-              fontFamily: 'var(--font-heading)',
-              fontSize: '0.66rem',
-              fontWeight: 800,
-              overflow: 'hidden',
-              position: 'absolute',
-              right: 0,
-            }}
-          >
-            <LanguageLink href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
-              style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
-              EN
-            </LanguageLink>
-            <LanguageLink href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
-              style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
-              ES
-            </LanguageLink>
+          <div className="flex shrink-0 items-center gap-2 lg:hidden">
+            <Link href={quoteHref} aria-label={quoteLabel}
+              className={`inline-flex min-h-8 items-center rounded-lg bg-[#F59E0B] px-2.5 text-xs font-bold text-[#1C1917] ${focusClass}`}>
+              {spanish ? 'Cotizar' : 'Quote'}
+            </Link>
+            <div
+              className="flex"
+              aria-label="Language switcher"
+              style={{
+                alignItems: 'center',
+                border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
+                borderRadius: '999px',
+                fontFamily: 'var(--font-heading)',
+                fontSize: '0.66rem',
+                fontWeight: 800,
+              }}
+            >
+              <LanguageLink href={languageSwitch.en} hrefLang="en-US" className={`rounded-l-full ${focusClass}`} onClick={() => rememberLanguage('en')}
+                style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
+                EN
+              </LanguageLink>
+              <LanguageLink href={languageSwitch.es} hrefLang="es-US" className={`rounded-r-full ${focusClass}`} onClick={() => rememberLanguage('es')}
+                style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
+                ES
+              </LanguageLink>
+            </div>
           </div>
 
           {/* Desktop Nav */}
@@ -188,8 +191,9 @@ export default function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-[15px] font-semibold hover:bg-black/5"
-                  style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', color: textColor, textDecoration: 'none', transition: 'background-color 0.2s ease, color 0.2s ease', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`px-2 py-2 text-sm font-semibold hover:bg-black/5 xl:px-3.5 xl:text-[15px] ${focusClass}`}
+                  style={{ borderRadius: '0.5rem', color: textColor, textDecoration: 'none', transition: 'background-color 0.2s ease, color 0.2s ease', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap', position: 'relative' }}
                 >
                   {item.label}
                   {isActive && (
@@ -212,19 +216,18 @@ export default function Navbar() {
                 fontFamily: 'var(--font-heading)',
                 fontSize: '0.72rem',
                 fontWeight: 800,
-                overflow: 'hidden',
               }}
             >
-              <LanguageLink href={languageSwitch.en} hrefLang="en-US" onClick={() => rememberLanguage('en')}
+              <LanguageLink href={languageSwitch.en} hrefLang="en-US" className={`rounded-l-full ${focusClass}`} onClick={() => rememberLanguage('en')}
                 style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.42rem 0.55rem', textDecoration: 'none' }}>
                 EN
               </LanguageLink>
-              <LanguageLink href={languageSwitch.es} hrefLang="es-US" onClick={() => rememberLanguage('es')}
+              <LanguageLink href={languageSwitch.es} hrefLang="es-US" className={`rounded-r-full ${focusClass}`} onClick={() => rememberLanguage('es')}
                 style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.42rem 0.55rem', textDecoration: 'none' }}>
                 ES
               </LanguageLink>
             </div>
-            <Link href={quoteHref} className="btn-amber" style={{ fontSize: '0.8rem', padding: '0.75rem 1.25rem' }}>
+            <Link href={quoteHref} className={`btn-amber whitespace-nowrap px-3 xl:px-5 ${focusClass}`} style={{ fontSize: '0.8rem' }}>
               {quoteLabel} <ArrowRight size={15} />
             </Link>
           </div>
@@ -252,6 +255,7 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
+                className={focusClass}
                 aria-current={isActive ? 'page' : undefined}
                 style={{
                   alignItems: 'center',
