@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, CheckCircle, Mail, Clock, Phone, Star, MapPin, ExternalLink } from 'lucide-react'
+import { ArrowRight, CheckCircle, Mail, Clock, Phone, Star, MapPin, ExternalLink, MessageCircle } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { fadeUp, slideRight, stagger } from '@/lib/animations'
 import SocialLinks from '@/components/ui/SocialLinks'
-import { SOCIAL_LINKS, GBP_REVIEW_URL, GBP_MAPS_URL } from '@/lib/constants'
+import { BRAND, SOCIAL_LINKS, GBP_REVIEW_URL, GBP_MAPS_URL } from '@/lib/constants'
 import { trackLead } from '@/lib/analytics'
 
 const defaultCopy = {
@@ -41,7 +41,22 @@ const defaultCopy = {
     trackOrderHref: '/track-order',
     trackOrderLabel: 'Track My Order',
     trackOrderValue: 'Check your order status',
+    serviceAreaLabel: 'Service area',
+    serviceAreaTitle: 'Serving Houston & Southeast Texas',
+    serviceAreaDescription: 'We serve customers by phone, email, and WhatsApp. Share your project and location so we can confirm the available service or delivery options.',
+    supportHours: 'Support hours',
+    weekdays: 'Monday–Friday',
+    weekend: 'Saturday–Sunday',
+    googleProfile: 'View our Google Business Profile',
+    quoteHref: '/quote-request',
+    quoteLabel: 'Request a quote',
+    followLabel: 'Stay connected',
+    followTitle: 'Follow Pixel & Panel',
+    followDescription: 'See sign projects, local business tips, and behind-the-scenes updates.',
+    reviewLabel: 'Leave us a Google review',
 }
+
+const whatsAppHref = SOCIAL_LINKS.find((link) => link.name === 'WhatsApp').href
 
 export default function ContactPage({ copy = defaultCopy }) {
     const content = { ...defaultCopy, ...copy }
@@ -391,13 +406,13 @@ export default function ContactPage({ copy = defaultCopy }) {
             <section style={{ background: '#f8fafc', padding: '4rem 1.5rem', textAlign: 'center' }}>
                 <div style={{ maxWidth: '640px', margin: '0 auto' }}>
                     <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#0EA5E9', marginBottom: '0.75rem' }}>
-                        Stay Connected
+                        {content.followLabel}
                     </p>
                     <h2 style={{ fontSize: '1.75rem', color: '#0C1E3C', marginBottom: '0.75rem' }}>
-                        Follow Pixel &amp; Panel
+                        {content.followTitle}
                     </h2>
                     <p style={{ color: '#64748b', fontFamily: 'var(--font-body)', lineHeight: 1.7, marginBottom: '2rem', fontSize: '0.95rem' }}>
-                        Stay up to date on sign projects, local business tips, and behind-the-scenes content.
+                        {content.followDescription}
                     </p>
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
                         <SocialLinks links={SOCIAL_LINKS} theme="light" />
@@ -409,67 +424,38 @@ export default function ContactPage({ copy = defaultCopy }) {
                         style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: '#0C1E3C', color: 'white', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0.875rem 1.5rem', borderRadius: '0.75rem', textDecoration: 'none' }}
                     >
                         <Star size={15} style={{ fill: '#F59E0B', color: '#F59E0B' }} />
-                        Leave Us a Google Review
+                        {content.reviewLabel}
                         <ExternalLink size={13} style={{ opacity: 0.6 }} />
                     </a>
                 </div>
             </section>
 
-            {/* Hours + Map section */}
-            <section style={{ background: '#0C1E3C', padding: '0' }}>
-                <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 1.5rem 1.5rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2rem', marginBottom: '1.5rem' }}>
-                        <div>
-                            <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#0EA5E9', marginBottom: '0.4rem' }}>
-                                Service Area
-                            </p>
-                            <h2 style={{ color: 'white', fontSize: '1.5rem', margin: '0 0 1.25rem' }}>
-                                Serving Houston &amp; Southeast Texas
-                            </h2>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                {[
-                                    { day: 'Monday – Friday', hours: '9:00 AM – 6:00 PM' },
-                                    { day: 'Saturday', hours: '12:00 PM – 4:00 PM' },
-                                    { day: 'Sunday', hours: '12:00 PM – 4:00 PM' },
-                                ].map(({ day, hours }) => (
-                                    <div key={day} style={{ display: 'flex', gap: '1rem', fontSize: '0.9rem', fontFamily: 'var(--font-body)' }}>
-                                        <span style={{ color: '#94a3b8', minWidth: '160px' }}>{day}</span>
-                                        <span style={{ color: hours === 'Closed' ? '#64748b' : 'white', fontWeight: hours === 'Closed' ? 400 : 600 }}>{hours}</span>
-                                    </div>
-                                ))}
-                            </div>
+            <section className="bg-[#FAF8F4] px-6 py-12 md:py-16" aria-labelledby="contact-service-area">
+                <div className="mx-auto grid max-w-5xl gap-8 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-[1fr_auto] md:p-9">
+                    <div>
+                        <p className="section-label mb-2 text-[#0369A1]"><MapPin size={15} aria-hidden="true" /> {content.serviceAreaLabel}</p>
+                        <h2 id="contact-service-area">{content.serviceAreaTitle}</h2>
+                        <p className="mt-3 max-w-xl text-slate-700">{content.serviceAreaDescription}</p>
+                        <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold text-[#0369A1]">
+                            <li><a className="inline-flex items-center gap-2 underline underline-offset-4" href={BRAND.phoneHref}><Phone size={16} aria-hidden="true" /> {BRAND.phone}</a></li>
+                            <li><a className="inline-flex items-center gap-2 underline underline-offset-4" href={whatsAppHref} target="_blank" rel="noopener noreferrer"><MessageCircle size={16} aria-hidden="true" /> WhatsApp</a></li>
+                            <li><a className="inline-flex items-center gap-2 underline underline-offset-4" href={`mailto:${BRAND.email}`}><Mail size={16} aria-hidden="true" /> {BRAND.email}</a></li>
+                        </ul>
+                        <div className="mt-6 flex flex-wrap items-center gap-4">
+                            <Link href={content.quoteHref} className="btn-amber">{content.quoteLabel} <ArrowRight size={16} aria-hidden="true" /></Link>
+                            <a className="inline-flex items-center gap-2 text-sm font-semibold text-[#0369A1] underline underline-offset-4" href={GBP_MAPS_URL} target="_blank" rel="noopener noreferrer">
+                                {content.googleProfile} <ExternalLink size={14} aria-hidden="true" />
+                            </a>
                         </div>
-                        <a
-                            href={GBP_MAPS_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#F59E0B', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.06em' }}
-                        >
-                            <MapPin size={14} />
-                            View on Google Maps
-                            <ExternalLink size={12} style={{ opacity: 0.7 }} />
-                        </a>
+                    </div>
+                    <div className="self-start rounded-xl bg-[#FAF8F4] p-5">
+                        <h3 className="flex items-center gap-2 text-base"><Clock size={16} aria-hidden="true" /> {content.supportHours}</h3>
+                        <dl className="mt-3 space-y-2 text-sm text-slate-700">
+                            <div><dt className="font-semibold">{content.weekdays}</dt><dd>9:00 AM – 6:00 PM</dd></div>
+                            <div><dt className="font-semibold">{content.weekend}</dt><dd>12:00 PM – 4:00 PM</dd></div>
+                        </dl>
                     </div>
                 </div>
-
-                {/* Clickable map iframe */}
-                <a
-                    href={GBP_MAPS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ display: 'block', position: 'relative', cursor: 'pointer' }}
-                    aria-label="View Pixel & Panel on Google Maps"
-                >
-                    <iframe
-                        src="https://maps.google.com/maps?q=Pixel+%26+Panel+Beaumont+TX&output=embed&z=13&hl=en"
-                        title="Pixel & Panel service area — Houston & Southeast Texas"
-                        style={{ width: '100%', height: '380px', border: 0, display: 'block', pointerEvents: 'none' }}
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                    />
-                    {/* Click capture overlay */}
-                    <div style={{ position: 'absolute', inset: 0 }} />
-                </a>
             </section>
             </>
         </LazyMotion>

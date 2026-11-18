@@ -36,6 +36,19 @@ const spanishContactCopy = {
   trackOrderHref: "/es/rastrear-pedido",
   trackOrderLabel: "Rastrear mi pedido",
   trackOrderValue: "Consulta el estado de tu pedido",
+  serviceAreaLabel: "Área de servicio",
+  serviceAreaTitle: "Atendemos Houston y el sureste de Texas",
+  serviceAreaDescription: "Te atendemos por teléfono, correo electrónico o WhatsApp. Cuéntanos sobre tu proyecto y tu ubicación para confirmar las opciones de servicio o entrega.",
+  supportHours: "Horario de atención",
+  weekdays: "Lunes a viernes",
+  weekend: "Sábado y domingo",
+  googleProfile: "Ver nuestro Perfil de Negocio en Google",
+  quoteHref: "/es/solicitar-cotizacion",
+  quoteLabel: "Solicitar cotización",
+  followLabel: "Mantente al día",
+  followTitle: "Sigue a Pixel & Panel",
+  followDescription: "Conoce nuestros proyectos de letreros y encuentra consejos para negocios locales.",
+  reviewLabel: "Déjanos una reseña en Google",
 };
 
 export const metadata = withDefaultSocialImage({
