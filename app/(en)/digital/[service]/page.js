@@ -16,7 +16,7 @@ import {
 import { digitalServices, getDigitalService, getRelatedDigitalServices } from "@/lib/digital-services";
 import { digitalSlugMap } from "@/lib/digital-services-es";
 import { cityServiceServices, getAvailableCitiesForService } from "@/lib/city-service-pages";
-import { titleWithinLimit, withDefaultSocialImage } from "@/lib/seo";
+import { BUSINESS_SCHEMA_REF, titleWithinLimit, withDefaultSocialImage } from "@/lib/seo";
 
 const serviceDetails = {
   "web-development": {
@@ -150,13 +150,7 @@ export default async function DigitalServicePage({ params }) {
       { "@type": "City", name: "Nederland", containedInPlace: { "@type": "State", name: "Texas" } },
       { "@type": "City", name: "Port Arthur", containedInPlace: { "@type": "State", name: "Texas" } },
     ],
-    provider: {
-      "@type": "LocalBusiness",
-      name: "Pixel & Panel",
-      url: "https://www.pixelnpanel.com",
-      telephone: "(409) 225-2012",
-      email: "hello@pixelnpanel.com",
-    },
+    provider: BUSINESS_SCHEMA_REF,
     potentialAction: {
       "@type": "QuoteAction",
       name: "Request a quote",

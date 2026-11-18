@@ -25,7 +25,7 @@ import {
 } from "@/lib/signage-products-es";
 import { cityServiceCities, cityServiceServices } from "@/lib/city-service-pages";
 import { getSpanishCityServicePath } from "@/lib/city-service-pages-es";
-import { withDefaultSocialImage } from "@/lib/seo";
+import { BUSINESS_SCHEMA_REF, withDefaultSocialImage } from "@/lib/seo";
 import { enPathForEsProduct, languageAlternates } from "@/lib/signage/es-en-pairs";
 import { withResolvedImageEs } from "@/lib/signage/es-images";
 
@@ -55,7 +55,7 @@ const enlacesDigitales = [
 
 const defaultSpecs = {
   turnaround:
-    "Normalmente 3-5 días hábiles después de aprobar el diseño. Proyectos con instalación, medidas especiales o materiales de pedido pueden tardar más.",
+    "La producción estándar suele tomar de 3 a 5 días hábiles después de aprobar el diseño. Los pedidos especiales pueden tardar más. Agrega el tiempo de envío.",
   minOrder: "Depende del producto; muchas piezas se pueden cotizar desde 1 unidad.",
   materials: [
     "Material recomendado según uso interior o exterior",
@@ -118,7 +118,7 @@ const specsByCategorySlug = {
   },
   "business-storefront-signs": {
     turnaround:
-      "Normalmente 7-14 días hábiles según material, tamaño, instalación y permisos.",
+      "El plazo de producción y envío depende del material y el tamaño. Consulta con tu instalador sobre montaje y permisos.",
     materials: [
       "Acrílico, aluminio compuesto, vinilo o materiales rígidos",
       "Opciones para exterior o interior",
@@ -130,7 +130,7 @@ const specsByCategorySlug = {
       "Opciones según restricciones del local o arrendamiento",
     ],
     finishing: [
-      "Montaje, separadores o panel rígido cuando aplica",
+      "Separadores o panel rígido cuando aplica",
       "Acabados resistentes para exterior",
       "Preparación para instalación",
       "Revisión de legibilidad antes de producir",
@@ -251,19 +251,8 @@ export default async function SpanishSignageProductPage({ params }) {
     ...(product.image ? { image: `https://www.pixelnpanel.com${product.image}` } : {}),
     serviceType: product.category,
     category: product.category,
-    areaServed: [
-      { "@type": "City", name: "Beaumont", containedInPlace: { "@type": "State", name: "Texas" } },
-      { "@type": "City", name: "Nederland", containedInPlace: { "@type": "State", name: "Texas" } },
-      { "@type": "City", name: "Port Arthur", containedInPlace: { "@type": "State", name: "Texas" } },
-    ],
-    provider: {
-      "@type": "LocalBusiness",
-      "@id": "https://www.pixelnpanel.com/#localbusiness",
-      name: "Pixel & Panel",
-      url: "https://www.pixelnpanel.com",
-      telephone: "(409) 225-2012",
-      email: "hello@pixelnpanel.com",
-    },
+    areaServed: BUSINESS_SCHEMA_REF.areaServed,
+    provider: BUSINESS_SCHEMA_REF,
     potentialAction: {
       "@type": "QuoteAction",
       name: "Solicitar cotización",

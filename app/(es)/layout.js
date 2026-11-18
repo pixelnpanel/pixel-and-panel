@@ -9,7 +9,7 @@ import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import MetaPixel from "@/components/analytics/MetaPixel";
 import ContactClickTracker from "@/components/analytics/ContactClickTracker";
-import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
+import OrganizationJsonLd from "@/components/seo/OrganizationJsonLd";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
 import MobileContactBar from "@/components/ui/MobileContactBar";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
@@ -66,7 +66,7 @@ export default function SpanishRootLayout({ children }) {
         <ContactClickTracker />
         <Analytics />
         <SpeedInsights />
-        <LocalBusinessJsonLd language="es-US" />
+        <OrganizationJsonLd language="es-US" />
         <Navbar />
         <main id="main-content" className="pnp-site-shell">
           {children}

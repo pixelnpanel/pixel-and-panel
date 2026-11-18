@@ -1,5 +1,5 @@
 import PricingClient from "./PricingClient";
-import { withDefaultSocialImage } from "@/lib/seo";
+import { BUSINESS_SCHEMA_REF, withDefaultSocialImage } from "@/lib/seo";
 
 export const metadata = withDefaultSocialImage({
   title: {
@@ -62,7 +62,7 @@ const offersSchema = {
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
         url: "https://www.pixelnpanel.com/pricing",
-        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://www.pixelnpanel.com" },
+        seller: BUSINESS_SCHEMA_REF,
       },
     },
     {
@@ -77,7 +77,7 @@ const offersSchema = {
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
         url: "https://www.pixelnpanel.com/pricing",
-        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://www.pixelnpanel.com" },
+        seller: BUSINESS_SCHEMA_REF,
       },
     },
     {
@@ -92,7 +92,7 @@ const offersSchema = {
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
         url: "https://www.pixelnpanel.com/pricing",
-        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://www.pixelnpanel.com" },
+        seller: BUSINESS_SCHEMA_REF,
       },
     },
     {
@@ -107,7 +107,7 @@ const offersSchema = {
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
         url: "https://www.pixelnpanel.com/pricing",
-        seller: { "@type": "LocalBusiness", name: "Pixel & Panel", url: "https://www.pixelnpanel.com" },
+        seller: BUSINESS_SCHEMA_REF,
       },
     },
   ],

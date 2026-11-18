@@ -22,7 +22,7 @@ const spanishHomepageFaq = [
   {
     question: "¿Qué áreas atienden?",
     answer:
-      "Nuestras áreas de servicio local incluyen Beaumont, Port Arthur y el área metropolitana de Houston, como Katy, Cypress, Sugar Land, The Woodlands, Pearland y Spring. Los pedidos de letreros e impresos para Nederland, TX se atienden únicamente por envío. También enviamos a todo el país.",
+      "Enviamos letreros e impresos a todo Estados Unidos, incluyendo Beaumont, Port Arthur, Nederland y el área metropolitana de Houston. Las cotizaciones y la aprobación del arte se hacen en línea. Si tu letrero requiere instalación, coordina con un instalador local.",
   },
   {
     question: "¿Pueden ayudar con sitios web y letreros al mismo tiempo?",

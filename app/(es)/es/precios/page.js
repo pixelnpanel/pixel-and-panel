@@ -1,5 +1,5 @@
 import PricingClient from "../../../(en)/pricing/PricingClient";
-import { withDefaultSocialImage } from "@/lib/seo";
+import { BUSINESS_SCHEMA_REF, withDefaultSocialImage } from "@/lib/seo";
 
 const websitePackages = [
   {
@@ -209,7 +209,7 @@ const spanishCopy = {
   signageLabel: "Letreros con cotización",
   signageTitle: "Cotizaciones para letreros, banners e impresión",
   signageCopy:
-    "Cada proyecto de letreros, lonas, tarjetas, volantes o rotulación vehicular depende de medidas, materiales, cantidad e instalación. Te damos una cotización clara antes de producir.",
+    "Cada proyecto de letreros, lonas, tarjetas, volantes o rotulación vehicular se cotiza según medidas, materiales, cantidad y envío. Te damos una cotización antes de producir.",
   signageCta: "Cotizar letreros",
   signageHref:
     "/es/solicitar-cotizacion?product=Proyecto%20de%20letreros&category=Letreros%20e%20Impresi%C3%B3n",
@@ -296,11 +296,7 @@ export default function SpanishPricingPage() {
         priceValidUntil: "2026-12-31",
         availability: "https://schema.org/InStock",
         url: "https://www.pixelnpanel.com/es/precios",
-        seller: {
-          "@type": "LocalBusiness",
-          name: "Pixel & Panel",
-          url: "https://www.pixelnpanel.com",
-        },
+        seller: BUSINESS_SCHEMA_REF,
       },
     })),
   };

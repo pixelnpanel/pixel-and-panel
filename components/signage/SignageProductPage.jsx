@@ -17,6 +17,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { getRelatedSignageProducts, serviceAreaPhrase } from "@/lib/signage-products";
+import { BUSINESS_SCHEMA_REF } from "@/lib/seo";
 import { cityServiceServices, getAvailableCitiesForService } from "@/lib/city-service-pages";
 
 const bestForBySlug = {
@@ -116,18 +117,8 @@ export default function SignageProductPage({ product }) {
     image: `https://www.pixelnpanel.com${product.image}`,
     serviceType: product.category,
     category: product.category,
-    areaServed: [
-      { "@type": "City", name: "Beaumont", containedInPlace: { "@type": "State", name: "Texas" } },
-      { "@type": "City", name: "Nederland", containedInPlace: { "@type": "State", name: "Texas" } },
-      { "@type": "City", name: "Port Arthur", containedInPlace: { "@type": "State", name: "Texas" } },
-    ],
-    provider: {
-      "@type": "LocalBusiness",
-      name: "Pixel & Panel",
-      url: "https://www.pixelnpanel.com",
-      telephone: "(409) 225-2012",
-      email: "hello@pixelnpanel.com",
-    },
+    areaServed: BUSINESS_SCHEMA_REF.areaServed,
+    provider: BUSINESS_SCHEMA_REF,
     potentialAction: {
       "@type": "QuoteAction",
       name: "Request a quote",

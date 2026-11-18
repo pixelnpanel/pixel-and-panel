@@ -60,22 +60,6 @@ export default function CityLanding({ city }) {
       acceptedAnswer: { "@type": "Answer", text: answer },
     })),
   };
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Pixel & Panel",
-    url: "https://www.pixelnpanel.com",
-    email: "hello@pixelnpanel.com",
-    telephone: "(409) 225-2012",
-    areaServed: ["Beaumont, TX", "Nederland, TX", "Port Arthur, TX", "Southeast Texas"],
-    knowsAbout: [
-      "Website design and development",
-      "Local SEO",
-      "Google Business Profile optimization",
-      "Custom signs and print materials",
-      "QR code campaigns",
-    ],
-  };
 
   return (
     <>
@@ -86,7 +70,6 @@ export default function CityLanding({ city }) {
         ]}
       />
       <JsonLd data={faqSchema} />
-      <JsonLd data={localBusinessSchema} />
       <div className="bg-[#FAF8F4] text-[#1C1917]">
       <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_64%,#0EA5E9_100%)]" />

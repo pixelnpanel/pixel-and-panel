@@ -5,7 +5,7 @@ const city = {
   name: "Port Arthur",
   h1: "Commercial Signs, Fleet Graphics, and Websites in Port Arthur, TX",
   intro:
-    "We deliver industrial building signage, heavy vinyl site banners, durable work vehicle graphics, small business website design, and targeted local SEO for companies operating in Port Arthur, TX.",
+    "We ship building signs, heavy vinyl site banners, and work vehicle graphics to Port Arthur, TX. We also offer website design and local SEO for businesses in the area.",
   body:
     "Port Arthur industrial teams, marine contractors, auto shops, restaurants, and service businesses need branding that performs in demanding real-world conditions and remains easy to verify online.",
   services: [

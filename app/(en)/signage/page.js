@@ -7,12 +7,12 @@ import { attachReviewImages } from '@/lib/review-images'
 export const revalidate = 900
 
 const SITE = 'https://www.pixelnpanel.com'
+const DESCRIPTION = 'Shop custom signs, banners, and print for Beaumont, Houston, and businesses nationwide. Compare sizes and materials, request a quote, and get your order shipped.'
 
 export const metadata = withDefaultSocialImage({
     metadataBase: new URL(SITE),
     title: 'Custom Signs & Print in Beaumont TX',
-    description:
-        'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Nederland, TX. Preset sizes with instant pricing or a fast, free quote.',
+    description: DESCRIPTION,
     alternates: {
         canonical: '/signage',
         languages: {
@@ -23,8 +23,7 @@ export const metadata = withDefaultSocialImage({
     },
     openGraph: {
         title: 'Custom Signs & Print in Beaumont TX | Pixel & Panel',
-        description:
-            'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Nederland, TX.',
+        description: DESCRIPTION,
         url: '/signage',
         siteName: 'Pixel & Panel',
         locale: 'en_US',
@@ -33,8 +32,7 @@ export const metadata = withDefaultSocialImage({
     twitter: {
         card: 'summary_large_image',
         title: 'Custom Signs & Print in Beaumont TX | Pixel & Panel',
-        description:
-            'Custom banners, banner stands, and signage for businesses in Beaumont, Port Arthur & Nederland, TX.',
+        description: DESCRIPTION,
     },
 })
 
@@ -66,7 +64,7 @@ export default async function SignagePage() {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
         name: 'Signage & Print Categories',
-        description: 'Custom signage and print products for businesses in Beaumont, Port Arthur & Nederland, TX.',
+        description: DESCRIPTION,
         url: `${SITE}/signage`,
         numberOfItems: categories.length,
         itemListElement: categories.map((cat, index) => ({

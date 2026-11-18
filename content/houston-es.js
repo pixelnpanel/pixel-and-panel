@@ -17,12 +17,12 @@
 export const houstonHubEs = {
   metaTitle: "Letreros, Banners e Impresión en Houston, TX | Pixel & Panel",
   metaDescription:
-    "Letreros, banners, letreros para jardín e impresión personalizada para negocios en Houston, TX. Diseño, impresión y entrega en toda el área metropolitana.",
+    "Letreros, banners e impresión personalizada para negocios en Houston, TX. Cotiza en línea, aprueba tu diseño y recibe tu pedido por envío.",
 
   h1: "Letreros, Banners e Impresión para Negocios de Houston",
 
   intro:
-    "Pixel & Panel hace letreros, banners e impresión personalizada para negocios en toda el área metropolitana de Houston — diseñados para leerse a velocidad, fabricados para el clima de la costa del Golfo y cotizados en español claro, sin tecnicismos.",
+    "Pixel & Panel diseña, imprime y envía letreros, banners e impresos para negocios en el área de Houston. Solicita una cotización en línea y aprueba el diseño antes de imprimir.",
 
   localContext: {
     heading: "Letreros que Funcionan en una Ciudad Así de Grande",
@@ -42,7 +42,7 @@ export const houstonHubEs = {
   areaCoverage: {
     heading: "Zonas que Cubrimos Alrededor de Houston",
     body:
-      "Entregamos en toda el área metropolitana de Houston y los suburbios cercanos. Si tu dirección no aparece en la lista, pregunta de todos modos — la cobertura es más amplia que la lista.",
+      "Enviamos pedidos a Houston, a los suburbios cercanos y a todo Estados Unidos. Si tu letrero requiere instalación, coordina con un instalador local.",
   },
 
   faqs: [
@@ -51,12 +51,12 @@ export const houstonHubEs = {
       "Sí. Servimos a negocios en toda el área metropolitana de Houston con banners, letreros para jardín, letreros inmobiliarios, banners para eventos e impresión — incluyendo los condados de Harris, Fort Bend, Montgomery, Brazoria y Galveston.",
     ],
     [
-      "¿Tienen una tienda en Houston que pueda visitar?",
-      "Por ahora no. En Houston operamos como negocio de área de servicio, lo que mantiene los gastos fijos fuera de tu factura. Las pruebas se manejan por correo y el trabajo terminado se entrega o se coordina para recoger. Todo el proceso — cotización, aprobación y entrega — se resuelve sin que tengas que manejar a ningún lado.",
+      "¿Cómo pido letreros con envío a Houston?",
+      "Solicita una cotización en línea, aprueba el diseño por correo y recibe tu pedido por paquetería. Si necesitas instalación, coordina con un instalador local.",
     ],
     [
       "¿Qué tan rápido puedo tener letreros o banners en Houston?",
-      "Los banners y letreros para jardín estándar normalmente toman de 3 a 5 días hábiles después de aprobar la prueba. Hay producción urgente disponible en tamaños comunes cuando el arte ya está listo. Las instalaciones grandes, la señalización con permiso y la fabricación a medida toman más — te damos una fecha firme con la cotización, no un estimado vago.",
+      "Los banners y letreros para jardín estándar normalmente toman de 3 a 5 días hábiles de producción después de aprobar la prueba. La fabricación a medida puede tardar más. Agrega el tiempo de envío y pregunta por opciones urgentes si tienes una fecha límite.",
     ],
     [
       "¿Necesito permiso para un letrero en Houston?",
@@ -72,7 +72,7 @@ export const houstonHubEs = {
     ],
     [
       "¿Siguen dando servicio en Beaumont y el sureste de Texas?",
-      "Sí, completamente. Beaumont, Nederland y Port Arthur siguen atendidos igual que antes. Houston es una adición, no un reemplazo.",
+      "Sí. Enviamos letreros e impresos a Beaumont, Nederland, Port Arthur y al resto de Estados Unidos.",
     ],
     [
       "¿Ustedes diseñan el arte o tengo que enviarlo?",
@@ -115,7 +115,7 @@ export const houstonServicesEs = {
       "Un banner estándar de 3'×8' cuesta entre $60 y $120 según el peso del material y la cantidad. Los banners grandes para obra (4'×12' o más) normalmente van de $100 a $250. Los ojales, los bordes reforzados y las bolsas para tubo están incluidos. Hay producción urgente disponible en la mayoría de los tamaños comunes.",
 
     delivery:
-      "La producción de banners normalmente toma de 3 a 5 días hábiles después de aprobar la prueba, con opciones urgentes en tamaños estándar. Indícanos tu ubicación en Houston y tu fecha límite al cotizar y confirmamos los tiempos exactos desde el principio — incluyendo entrega a obras y sedes de eventos en toda el área metropolitana.",
+      "La producción de banners suele tomar de 3 a 5 días hábiles después de la aprobación, más el envío. Comparte tu código postal y la fecha en que necesitas recibir el pedido. Si va a una obra o sede, confirma que pueda recibir paquetes.",
 
     industries: [
       "Comercios y restaurantes con aperturas o promociones de temporada",
@@ -148,7 +148,7 @@ export const houstonServicesEs = {
         "Nada se imprime hasta que revises ortografía, teléfonos, colores y medidas. Revisa el número de teléfono dos veces — es la corrección de último momento más común.",
       ],
       [
-        "Impresión, acabado y entrega",
+        "Impresión, acabado y envío",
         "La producción estándar toma de 3 a 5 días hábiles. Los banners salen con ojales y bordes reforzados, enrollados y no doblados para que cuelguen sin marcas de dobleces.",
       ],
     ],
@@ -368,7 +368,7 @@ export const houstonServicesEs = {
       "Los letreros estándar de 18\"×24\" con estaca de alambre cuestan de $3 a $8 cada uno según la cantidad. Los pedidos de 50 o más obtienen el mejor precio por unidad. La impresión a dos lados tiene un costo adicional pequeño y vale la pena en cruces donde el tráfico llega desde ambas direcciones.",
 
     delivery:
-      "Los pedidos estándar suelen estar listos de 3 a 5 días hábiles después de aprobar la prueba. Los pedidos por volumen para el área de Houston se cotizan con tiempos exactos desde el inicio, y podemos dividir una tanda grande en varias entregas si tus cuadrillas trabajan zonas distintas de la ciudad.",
+      "Los pedidos estándar suelen estar listos para enviarse de 3 a 5 días hábiles después de aprobar la prueba. Comparte el código postal y la fecha en que necesitas recibirlos. Para pedidos grandes con varios destinos, incluye las direcciones al cotizar.",
 
     industries: [
       "Cuadrillas de techos, restauración y reparación por tormenta en Houston",
@@ -402,8 +402,8 @@ export const houstonServicesEs = {
         "Enviamos la prueba en aproximadamente un día hábil. Confirma el teléfono y cualquier número de licencia antes de aprobar — reimprimir una tanda de 50 por un error de dedo es una lección cara.",
       ],
       [
-        "Impresión, estacas y entrega",
-        "La producción toma de 3 a 5 días hábiles. Las estacas de alambre vienen incluidas, y las tandas grandes pueden repartirse en varias entregas en Houston.",
+        "Impresión y envío",
+        "La producción estándar toma de 3 a 5 días hábiles. Agrega el tiempo de paquetería para calcular cuándo llegarán tus letreros.",
       ],
     ],
 

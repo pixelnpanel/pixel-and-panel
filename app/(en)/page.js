@@ -13,7 +13,7 @@ const homepageFaq = [
   {
     question: "What areas do you serve?",
     answer:
-      "Our local service areas include Beaumont, Port Arthur, and Greater Houston, including Katy, Cypress, Sugar Land, The Woodlands, Pearland, and Spring. Sign and print orders to Nederland, TX are shipping only. We also ship signs and print nationwide.",
+      "We ship signs and print throughout the United States, including Beaumont, Port Arthur, Nederland, and Greater Houston. Quotes and artwork approvals are handled online. If your sign requires installation, coordinate with a local installer.",
   },
   {
     question: "Can you help with both websites and signs?",

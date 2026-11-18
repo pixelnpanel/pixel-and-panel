@@ -98,22 +98,6 @@ export default function CityLandingEs({ city }) {
       acceptedAnswer: { "@type": "Answer", text: answer },
     })),
   };
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Pixel & Panel",
-    url: "https://www.pixelnpanel.com",
-    email: "hello@pixelnpanel.com",
-    telephone: "(409) 225-2012",
-    areaServed: ["Beaumont, TX", "Nederland, TX", "Port Arthur, TX", "el sureste de Texas"],
-    knowsAbout: [
-      "Sitios web",
-      "SEO local",
-      "Perfil de Google",
-      "Letreros e impresión",
-      "Campañas con códigos QR",
-    ],
-  };
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -128,7 +112,6 @@ export default function CityLandingEs({ city }) {
     <>
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={faqSchema} />
-      <JsonLd data={localBusinessSchema} />
 
       <div className="bg-[#FAF8F4] text-[#1C1917]">
         <section className="relative overflow-hidden bg-[#0C1E3C] px-6 pt-24 text-white md:pt-28">

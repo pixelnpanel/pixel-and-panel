@@ -103,8 +103,8 @@ export default function CityServiceLandingEs({ city, service }) {
             </p>
             <h1 className="mt-3 max-w-4xl text-white">{headline}</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">{intro}</p>
-            {city.slug === 'nederland-tx' && service.type === 'signage' && (
-              <p className="mt-3 font-semibold text-white">Los pedidos de letreros e impresos para Nederland se atienden únicamente por envío.</p>
+            {service.type === 'signage' && (
+              <p className="mt-3 font-semibold text-white">Los pedidos de letreros e impresos para {city.name} se atienden únicamente por envío.</p>
             )}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href={quoteHref} className="btn-amber justify-center">

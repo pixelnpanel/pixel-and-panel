@@ -17,14 +17,6 @@
 //  • Only claim what is true. No invented address, no invented review counts.
 // ─────────────────────────────────────────────────────────────────────────────
 
-// TODO(address): Houston runs as a service-area business — the working address
-// is residential and is deliberately NOT published. This MUST stay `null`:
-// while null, the LocalBusiness schema on /houston omits the PostalAddress
-// block entirely and expresses coverage through `areaServed` instead, which is
-// what Google expects from a service-area business. Fill this in ONLY if a
-// real commercial storefront opens that customers can visit.
-export const HOUSTON_STREET_ADDRESS = null;
-
 // TODO(phone): swap if Houston gets its own phone line.
 export const HOUSTON_PHONE = "+1-409-225-2012";
 
@@ -62,12 +54,12 @@ export const HOUSTON_DISTRICTS =
 export const houstonHub = {
   metaTitle: "Custom Signs, Banners & Print in Houston, TX | Pixel & Panel",
   metaDescription:
-    "Custom signs, banners, yard signs, and real estate signs for Houston, TX businesses. Design, printing, and delivery across Greater Houston. Request a free quote.",
+    "Shop custom signs, banners, yard signs, and real estate signs for Houston, TX. Get design and printing help, approve a proof online, and have your order shipped.",
 
   h1: "Custom Signs, Banners & Print for Houston Businesses",
 
   intro:
-    "Pixel & Panel makes custom signs, banners, and print for businesses across Greater Houston — designed to be read at speed, built for Gulf Coast weather, and quoted in plain English. Same shop, same standards Southeast Texas businesses have relied on since day one.",
+    "Pixel & Panel designs, prints, and ships custom signs, banners, and print materials to businesses across Greater Houston. Request a quote online and approve a proof before we print.",
 
   // Market-level context. This is the section that earns the page relevance for
   // broad head terms like "sign shop houston" and "custom signs houston".
@@ -81,15 +73,15 @@ export const houstonHub = {
   },
 
   delivery: {
-    heading: "Houston Delivery & Turnaround",
+    heading: "Shipping & Turnaround for Houston Orders",
     body:
-      "We serve the full Greater Houston area — Harris, Fort Bend, Montgomery, Brazoria, and Galveston counties. Most banners and yard signs are produced within a few business days of proof approval, with rush options on common sizes. Tell us your Houston location and your deadline when you request a quote and we will confirm exact production and delivery timing before you commit.",
+      "We ship to Houston and nationwide. Most banners and yard signs are produced within a few business days of proof approval. Share your ZIP code and in-hand date so we can confirm production and carrier transit before you order.",
   },
 
   areaCoverage: {
     heading: "Areas We Serve Around Houston",
     body:
-      "Orders go out across Greater Houston and the surrounding suburbs. If your address is not on this list, ask anyway — coverage is broader than the list.",
+      "Get your order shipped to Houston or any of the surrounding communities. If you need a sign installed, arrange it with a local installer.",
   },
 
   faqs: [
@@ -98,12 +90,12 @@ export const houstonHub = {
       "Yes. We serve businesses across the Greater Houston area with custom banners, yard signs, real estate signs, event banners, and print — including Harris, Fort Bend, Montgomery, Brazoria, and Galveston counties.",
     ],
     [
-      "Do you have a Houston storefront I can walk into?",
-      "Not currently. Pixel & Panel runs Houston as a service-area business, which keeps overhead off your invoice. Proofs are handled by email, and finished work is delivered or arranged for pickup. Everything from quote to approval to delivery happens without you needing to drive anywhere.",
+      "How do I order signs for a Houston address?",
+      "Request a quote online, approve the emailed proof, and receive your finished order by carrier. If you need installation, coordinate it with a local installer.",
     ],
     [
       "How fast can I get signs or banners in Houston?",
-      "Standard banners and yard signs typically run 3–5 business days after you approve the proof. Rush production is available on common sizes when the artwork is ready. Larger installs, permitted signage, and custom fabrication take longer — we give you a firm date with the quote rather than a vague estimate.",
+      "Standard banners and yard signs typically take 3–5 business days to produce after proof approval. Custom fabrication can take longer. Allow time for carrier transit and ask about rush options if you have a deadline.",
     ],
     [
       "Do I need a permit for a sign in Houston?",
@@ -119,7 +111,7 @@ export const houstonHub = {
     ],
     [
       "Do you still serve Beaumont and Southeast Texas?",
-      "Yes, fully. Beaumont, Nederland, and Port Arthur remain served exactly as before. Houston is an addition, not a replacement.",
+      "Yes. We ship signs and print to Beaumont, Nederland, Port Arthur, and other addresses across the United States.",
     ],
     [
       "Can you design the artwork, or do I need to supply it?",
@@ -169,7 +161,7 @@ export const houstonServices = {
       "A standard 3'×8' banner runs $60–$120 depending on material weight and quantity. Larger job-site banners (4'×12' and up) typically fall in the $100–$250 range. Grommets, hemmed edges, and pole pockets are included. Rush production is available on most common sizes.",
 
     delivery:
-      "Banner production typically runs 3–5 business days after proof approval, with rush options on standard sizes. Tell us your Houston location and your deadline when you request a quote and we will confirm exact timing up front — including delivery to job sites and event venues across Greater Houston.",
+      "Banner production typically takes 3–5 business days after proof approval, plus carrier transit. Include your shipping ZIP code and in-hand date. If you need it shipped to a job site or venue, confirm it can receive packages.",
 
     industries: [
       "Retail and restaurants running grand openings or seasonal promotions",
@@ -202,7 +194,7 @@ export const houstonServices = {
         "Nothing prints until you sign off on spelling, phone numbers, colors, and sizing. Check the phone number twice — it is the single most common late catch.",
       ],
       [
-        "Print, finish, and deliver",
+        "Print, finish, and ship",
         "Standard production is 3–5 business days. Banners ship with grommets and hemmed edges, rolled rather than folded so they hang without crease lines.",
       ],
     ],
@@ -246,7 +238,7 @@ export const houstonServices = {
         "A short headline, your business name or logo, one offer or service, and one way to contact you. That is the whole list. Every additional line makes the others smaller and less likely to be read. Hours, addresses, and full service menus belong on your website and your Google profile, not on something a driver sees for two seconds.",
       ],
       [
-        "Do you deliver banners to job sites and venues around Houston?",
+        "Can you ship banners to job sites and venues around Houston?",
         "Yes. Banners go out across Greater Houston including Katy, Cypress, Sugar Land, The Woodlands, Pearland, Spring, and the surrounding suburbs. Give us the delivery address and the date you need it on site when you request the quote.",
       ],
     ],
@@ -422,7 +414,7 @@ export const houstonServices = {
       "Standard 18\"×24\" yard signs with wire H-stakes run $3–$8 per sign depending on quantity. Orders of 50+ get the best per-unit pricing. Double-sided printing is a small upcharge and is worth it at intersections where traffic approaches from both directions.",
 
     delivery:
-      "Standard yard sign orders are typically ready within 3–5 business days of proof approval. Volume orders for the Houston area are quoted with exact timing up front, and we can split a large run into multiple delivery drops across Greater Houston if your crews are working different sides of the city.",
+      "Standard yard signs are typically ready to ship within 3–5 business days of proof approval. Share your ZIP code and deadline. For a bulk order going to multiple addresses, include those addresses when you request a quote.",
 
     industries: [
       "Roofing, restoration, and storm repair crews working Houston neighborhoods",
@@ -456,8 +448,8 @@ export const houstonServices = {
         "We send a proof within about one business day. Confirm the phone number and any license number before approving — reprinting a 50-sign run over a typo is an expensive lesson.",
       ],
       [
-        "Print, stake, and deliver",
-        "Production runs 3–5 business days. Wire H-stakes are included, and large runs can be split across multiple Houston delivery drops.",
+        "Print and ship",
+        "Standard production takes 3–5 business days. Add carrier transit to estimate when your signs will arrive.",
       ],
     ],
 
@@ -467,7 +459,7 @@ export const houstonServices = {
       "Wire H-stakes included — no separate hardware order",
       "Single- or double-sided printing depending on placement",
       "Fast 3–5 business day turnaround with rush available",
-      "Split delivery across Greater Houston for crews working multiple areas",
+      "Carrier shipping to Houston and nationwide",
     ],
 
     faqs: [

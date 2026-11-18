@@ -399,7 +399,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                         Ready to make your business more visible?
                     </h2>
                     <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
-                        Send us what you need, and we&rsquo;ll help you choose the right material, size, finish, and installation option.
+                        Send us what you need, and we&rsquo;ll help you choose the material, size, and finish. Sign and print orders ship nationwide.
                     </p>
                     <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <Link href={QUOTE_PATH} className="btn-amber">

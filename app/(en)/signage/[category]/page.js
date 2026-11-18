@@ -184,7 +184,7 @@ export default async function SignageCategoryRoute({ params }) {
                 {cat.slug === WINDOW_CATEGORY && (
                     <SignageMaterialGuide
                         heading="Choose Window Graphics for Your Storefront"
-                        intro="Start with how much of the glass you want covered. For a quote in Beaumont, send a straight-on photo and the width and height of each glass panel you want to cover."
+                        intro="Start with how much of the glass you want covered. We ship window graphics to Beaumont and nationwide. For a quote, send a straight-on photo and the width and height of each glass panel you want to cover."
                         products={WINDOW_PRODUCTS}
                     />
                 )}

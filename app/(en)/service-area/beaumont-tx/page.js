@@ -5,7 +5,7 @@ const city = {
   name: "Beaumont",
   h1: "Custom Signs for Beaumont Businesses",
   intro:
-    "Pixel & Panel makes storefront signs, custom banners, window graphics, and truck lettering for businesses in Beaumont, TX. Tell us where your sign will go and when you need it. We’ll help you choose a size, material, and finish.",
+    "Pixel & Panel makes and ships storefront signs, custom banners, window graphics, and truck lettering for businesses in Beaumont, TX. Tell us where your sign will go and when you need it. We’ll help you choose a size, material, and finish.",
   body:
     "Beaumont contractors, stores, restaurants, and service companies compete across Google searches, storefront traffic, and word-of-mouth referrals. Your offline branding and digital footprint should reinforce each other so customers can find you, trust you, and contact you.",
   services: [
