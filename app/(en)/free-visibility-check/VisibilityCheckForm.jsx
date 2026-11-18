@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { trackLead } from "@/lib/analytics";
+import { leadErrorMessage, leadReferenceLabel, postLeadRequest } from "@/lib/lead-request";
 
 const DEFAULT_HELP_OPTIONS = [
   { value: "Website", label: "Website" },
@@ -115,6 +116,8 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
   const [form, setForm] = useState(initialForm);
   const [helpOptions, setHelpOptions] = useState([]);
   const [status, setStatus] = useState("idle");
+  const [requestReference, setRequestReference] = useState("");
+  const submission = useRef({ active: false, attemptId: null });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const campaignSuccessTitle = "Thanks — we received your request.";
@@ -206,7 +209,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (isSubmitting) {
+    if (submission.current.active) {
       return;
     }
 
@@ -234,38 +237,23 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
           ...getTrackingFromForm(formData),
           company: String(formData.get("company") || ""),
           language: content.language,
-          sourcePage: typeof window !== "undefined" ? window.location.href : content.sourceFallback,
+          sourcePage: window.location.origin + window.location.pathname,
         }
       : {
           ...form,
           helpOptions,
           company: String(formData.get("company") || ""),
           language: content.language,
-          sourcePage: typeof window !== "undefined" ? window.location.href : content.sourceFallback,
+          sourcePage: window.location.origin + window.location.pathname,
         };
 
+    submission.current.active = true;
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/visibility-check", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      let result = {};
-      try {
-        result = await response.json();
-      } catch {
-        result = {};
-      }
-
-      if (!response.ok || result.success === false) {
-        throw new Error(
-          result.message || result.error || "Unable to send visibility check request right now.",
-        );
-      }
-
+      submission.current.attemptId ||= crypto.randomUUID();
+      const result = await postLeadRequest("/api/visibility-check", payload, submission.current.attemptId);
+      setRequestReference(result.reference);
       setForm(initialForm);
       setHelpOptions([]);
       setError("");
@@ -280,8 +268,9 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
       });
     } catch (submitError) {
       setStatus("idle");
-      setError(submitError.message || content.error);
+      setError(leadErrorMessage(submitError, content.language, content.error));
     } finally {
+      submission.current.active = false;
       setIsSubmitting(false);
     }
   }
@@ -301,6 +290,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
           <p className="mx-auto mt-4 max-w-md text-green-700">
             {successMessage}
           </p>
+          {requestReference && <p className="mt-4 text-sm font-semibold text-[#0369A1]">{leadReferenceLabel(requestReference, content.language)}</p>}
         </div>
       ) : (
         <form ref={formRef} onSubmit={handleSubmit} noValidate>

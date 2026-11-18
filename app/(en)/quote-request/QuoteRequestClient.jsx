@@ -12,6 +12,7 @@ import { GOOGLE_REVIEWS } from "@/lib/reviews";
 import { trackLead, trackEvent } from "@/lib/analytics";
 
 import { quoteSelectionLines, validQuantity, validReplyPhone } from "@/lib/quote-selection";
+import { leadErrorMessage, leadReferenceLabel, postLeadRequest } from "@/lib/lead-request";
 import { QUOTE_DRAFT_KEY, QUOTE_DRAFT_EVENT, encodeQuoteDraft, decodeQuoteDraft } from "@/lib/quote-draft";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
@@ -120,7 +121,7 @@ const defaultCopy = {
   fileTypeError: "Only JPG, PNG, PDF, GIF, WebP, SVG, and AI/EPS files are allowed.",
   submit: "Send My Request",
   sending: "Sending...",
-  trackOrderPrompt: "Already have an order or already submitted a quote?",
+  trackOrderPrompt: "Already have an order number?",
   trackOrderHelp: "Use your order number with the same email or phone to see status, proof notes, and next steps.",
   trackOrder: "Track my order",
   trackOrderHref: "/track-order",
@@ -135,7 +136,7 @@ const defaultCopy = {
   shippingLabel: "Shipping and delivery options",
   agreementSuffix: ".",
   successTitle: "Request Sent",
-  successText: "We received your quote request and will reply within 1 business day.",
+  successText: "We received your quote request. We’ll review your details and follow up using the contact method you provided.",
   errorFallback: "Unable to send quote request right now.",
   failed: "Quote request failed",
   defaultMessageTemplate: "I would like a quote for {product}.",
@@ -232,6 +233,7 @@ export default function QuoteRequestClient({
     return content.defaultMessageTemplate.replace("{product}", selectedItem.name);
   });
   const [submitted, setSubmitted] = useState(false);
+  const [requestReference, setRequestReference] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [attachment, setAttachment] = useState(null);
@@ -241,6 +243,7 @@ export default function QuoteRequestClient({
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const stepHeadingRef = useRef(null);
   const formStartedRef = useRef(false);
+  const submission = useRef({ active: false, attemptId: null });
   const seenStepsRef = useRef(new Set());
 
   useEffect(() => {
@@ -392,7 +395,9 @@ export default function QuoteRequestClient({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submission.current.active) return;
     if (hasPackageRequest && !validateContact()) return;
+    submission.current.active = true;
     setLoading(true);
     setError("");
 
@@ -421,17 +426,16 @@ export default function QuoteRequestClient({
     if (attachment) formData.set("attachment", attachment);
 
     try {
-      const response = await fetch("/api/quote", { method: "POST", body: formData });
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.error || content.failed);
-      }
+      submission.current.attemptId ||= crypto.randomUUID();
+      const result = await postLeadRequest("/api/quote", formData, submission.current.attemptId);
+      setRequestReference(result.reference);
       setSubmitted(true);
       trackLead("quote", { language: content.language, packageName: requestedPackage });
     } catch (err) {
       trackEvent("quote_form_error", { error_type: "submission_failed", step_number: displayStep, language: content.language });
-      setError(err.message || content.errorFallback);
+      setError(leadErrorMessage(err, content.language, content.errorFallback));
     } finally {
+      submission.current.active = false;
       setLoading(false);
     }
   };
@@ -655,12 +659,7 @@ export default function QuoteRequestClient({
                 <CheckCircle className="mx-auto h-12 w-12 text-emerald-500" />
                 <h3 className="mt-4" style={{ color: "#1C1917" }}>{content.successTitle}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{content.successText}</p>
-                <Link
-                  href={content.trackOrderHref}
-                  className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0369A1] px-5 py-3 text-xs font-bold uppercase tracking-widest text-white transition hover:bg-[#0284C7]"
-                >
-                  {content.trackOrder} <ArrowRight className="h-4 w-4" />
-                </Link>
+                {requestReference && <p className="mt-4 text-sm font-semibold text-[#0369A1]">{leadReferenceLabel(requestReference, content.language)}</p>}
               </div>
             ) : (
               <>

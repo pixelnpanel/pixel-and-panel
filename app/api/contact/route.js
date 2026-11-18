@@ -1,5 +1,6 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
+import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
 
 export const runtime = "nodejs";
 
@@ -119,7 +120,7 @@ export async function POST(request) {
     return jsonResponse({ error: "Please enter a valid email address." }, 400);
   }
 
-  const { text, html } = buildEmail({
+  const details = {
     name,
     email,
     phone,
@@ -127,24 +128,24 @@ export async function POST(request) {
     sourcePage,
     message,
     language,
-  });
+  };
 
   try {
-    await sendEmail({
-      fromName: process.env.CONTACT_FROM_NAME || "Pixel & Panel Contact Form",
-      to: process.env.CONTACT_TO_EMAIL || "hello@pixelnpanel.com",
-      replyTo: email || undefined,
-      subject:
-        language === "Spanish"
-          ? cleanHeader("Nuevo mensaje de contacto — Pixel & Panel")
-          : `New Contact Message: ${cleanHeader(subject)}`,
-      text,
-      html,
+    const reference = await deliverLead("contact", request, details, async (ref) => {
+      const { text, html } = buildEmail(details);
+      await sendEmail({
+        fromName: process.env.CONTACT_FROM_NAME || "Pixel & Panel Contact Form",
+        to: process.env.CONTACT_TO_EMAIL || "hello@pixelnpanel.com",
+        replyTo: email || undefined,
+        subject: language === "Spanish" ? `[${ref}] Nuevo mensaje de contacto` : `[${ref}] New Contact Message: ${cleanHeader(subject)}`,
+        text,
+        html,
+      });
     });
 
-    return jsonResponse({ ok: true });
+    return jsonResponse({ ok: true, accepted: true, reference });
   } catch (error) {
-    console.error("Unable to send contact email.", error);
+    logLeadFailure("contact", "internal message", error);
     return jsonResponse({ error: "Unable to send contact message right now." }, 500);
   }
 }

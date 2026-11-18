@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle, Mail, Clock, Phone, Star, MapPin, ExternalLink, MessageCircle } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
@@ -8,6 +8,7 @@ import { fadeUp, slideRight, stagger } from '@/lib/animations'
 import SocialLinks from '@/components/ui/SocialLinks'
 import { BRAND, SOCIAL_LINKS, GBP_REVIEW_URL, GBP_MAPS_URL } from '@/lib/constants'
 import { trackLead } from '@/lib/analytics'
+import { leadErrorMessage, leadReferenceLabel, postLeadRequest } from '@/lib/lead-request'
 
 const defaultCopy = {
     language: 'English',
@@ -62,14 +63,16 @@ export default function ContactPage({ copy = defaultCopy }) {
     const content = { ...defaultCopy, ...copy }
     const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
     const [submitted, setSubmitted] = useState(false)
+    const [requestReference, setRequestReference] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
+    const submission = useRef({ active: false, attemptId: null })
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setLoading(true)
+        if (submission.current.active) return
         setError('')
 
         const formData = new FormData(e.currentTarget)
@@ -78,10 +81,11 @@ export default function ContactPage({ copy = defaultCopy }) {
 
         if (!email.trim() && !phone.trim()) {
             setError(content.language === 'Spanish' ? 'Por favor incluye correo electrónico o teléfono.' : 'Please include an email address or phone number.')
-            setLoading(false)
             return
         }
 
+        submission.current.active = true
+        setLoading(true)
         const payload = {
             name: String(formData.get('name') || ''),
             email,
@@ -90,29 +94,22 @@ export default function ContactPage({ copy = defaultCopy }) {
             message: String(formData.get('message') || ''),
             company: String(formData.get('company') || ''),
             language: content.language,
-            sourcePage: typeof window !== 'undefined' ? window.location.href : 'Contact Page',
+            sourcePage: window.location.origin + window.location.pathname,
         }
 
         try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            })
-
-            if (!response.ok) {
-                const data = await response.json().catch(() => ({}))
-                throw new Error(content.language === 'Spanish' ? content.errorFallback : data.error || content.errorFallback)
-            }
-
+            submission.current.attemptId ||= crypto.randomUUID()
+            const result = await postLeadRequest('/api/contact', payload, submission.current.attemptId)
+            setRequestReference(result.reference)
             setSubmitted(true)
             trackLead('contact', { language: content.language })
             setForm({ name: '', email: '', phone: '', subject: '', message: '' })
-            e.currentTarget.reset()
         } catch (submitError) {
-            setError(submitError.message || content.errorFallback)
+            setError(leadErrorMessage(submitError, content.language, content.errorFallback))
+        } finally {
+            submission.current.active = false
+            setLoading(false)
         }
-        finally { setLoading(false) }
     }
 
     const inputStyle = {
@@ -302,6 +299,7 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     <p style={{ color: '#64748b', fontFamily: 'var(--font-body)', lineHeight: 1.7, maxWidth: '320px', margin: '0 auto' }}>
                                         {content.successText}
                                     </p>
+                                    {requestReference && <p className="mt-4 text-sm font-semibold text-[#0369A1]">{leadReferenceLabel(requestReference, content.language)}</p>}
                                 </m.div>
                             ) : (
                                 <form onSubmit={handleSubmit}>

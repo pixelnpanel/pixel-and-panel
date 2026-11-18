@@ -1,5 +1,7 @@
-import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
+import { cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
+import { after } from "next/server";
+import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
 
 export const runtime = "nodejs";
 
@@ -103,7 +105,7 @@ async function sendZohoFlowWebhook({
       throw new Error(`Zoho Flow webhook responded with ${response.status}.`);
     }
   } catch (error) {
-    console.error("Unable to send visibility check lead to Zoho Flow webhook.", error);
+    logLeadFailure("visibility", "Zoho Flow", error);
   } finally {
     clearTimeout(timeout);
   }
@@ -334,7 +336,7 @@ export async function POST(request) {
   const submittedAtDate = new Date();
   const submittedAt = submittedAtLabel(submittedAtDate);
   const submittedAtIso = submittedAtDate.toISOString();
-  const { text, html } = buildInternalEmail({
+  const details = {
     name,
     businessName,
     email,
@@ -347,64 +349,68 @@ export async function POST(request) {
     utmMedium,
     utmCampaign,
     sourcePage,
-    submittedAt,
     language,
     websiteUrl,
     businessCity,
-  });
+  };
 
   try {
-    await sendEmail({
-      fromName: process.env.VISIBILITY_CHECK_FROM_NAME || "Pixel & Panel Visibility Check",
-      to: process.env.VISIBILITY_CHECK_TO_EMAIL || "hello@pixelnpanel.com",
-      replyTo: email || undefined,
-      subject:
-        language === "Spanish" && !isCampaignSubmission
-          ? cleanHeader("Nueva solicitud de chequeo de visibilidad - Pixel & Panel")
-          : cleanHeader("New Free Visibility Check Lead - Pixel & Panel"),
-      text,
-      html,
-    });
+    const reference = await deliverLead("visibility", request, [details, isCampaignSubmission], async (ref) => {
+      const { text, html } = buildInternalEmail({ ...details, submittedAt });
+      const recipient = process.env.VISIBILITY_CHECK_TO_EMAIL || "hello@pixelnpanel.com";
+      const spanish = language === "Spanish";
+      await sendEmail({
+        fromName: process.env.VISIBILITY_CHECK_FROM_NAME || "Pixel & Panel Visibility Check",
+        to: recipient,
+        replyTo: email || undefined,
+        subject: spanish ? `[${ref}] Nueva solicitud de chequeo de visibilidad` : `[${ref}] New Free Visibility Check Lead`,
+        text,
+        html,
+      });
 
-    await sendZohoFlowWebhook({
-      name,
-      businessName,
-      phone,
-      email,
-      helpNeeded: helpText,
-      message,
-      source,
-      campaign,
-      utmSource,
-      utmMedium,
-      utmCampaign,
-      submittedFrom: sourcePage,
-      submittedAtIso,
-    });
+      await sendZohoFlowWebhook({
+        name,
+        businessName,
+        phone,
+        email,
+        helpNeeded: helpText,
+        message,
+        source,
+        campaign,
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        submittedFrom: sourcePage,
+        submittedAtIso,
+      });
 
-    if (email && isCampaignSubmission) {
-      const autoReply = buildAutoReply({ name });
-
-      try {
-        await sendEmail({
-          fromName: process.env.VISIBILITY_CHECK_REPLY_FROM_NAME || "Pixel & Panel",
-          to: email,
-          replyTo: process.env.VISIBILITY_CHECK_TO_EMAIL || "hello@pixelnpanel.com",
-          subject: cleanHeader("We received your Free Visibility Check request"),
-          text: autoReply.text,
-          html: autoReply.html,
+      if (email && (isCampaignSubmission || spanish)) {
+        const autoReply = spanish ? null : buildAutoReply({ name });
+        after(async () => {
+          try {
+            await sendEmail({
+              fromName: process.env.VISIBILITY_CHECK_REPLY_FROM_NAME || "Pixel & Panel",
+              to: email,
+              replyTo: recipient,
+              subject: spanish ? `Recibimos tu solicitud ${ref}` : `We received your Free Visibility Check request ${ref}`,
+              text: spanish
+                ? `Recibimos tu solicitud de chequeo de visibilidad. Tu referencia es ${ref}. Revisaremos los detalles y te responderemos.`
+                : autoReply.text + `\n\nRequest reference ${ref}`,
+              ...(autoReply && { html: autoReply.html + `<p>Request reference ${ref}</p>` }),
+            });
+          } catch (error) {
+            logLeadFailure("visibility", "customer receipt", error);
+          }
         });
-      } catch (autoReplyError) {
-        console.error("Unable to send visibility check auto-reply email.", autoReplyError);
       }
-    }
+    });
 
     return Response.json(
-      { success: true, message: SUCCESS_MESSAGE },
+      { success: true, accepted: true, reference, message: SUCCESS_MESSAGE },
       { status: 200 },
     );
   } catch (error) {
-    console.error("Unable to send visibility check request email.", error);
+    logLeadFailure("visibility", "internal message", error);
     return Response.json(
       { success: false, message: ERROR_MESSAGE },
       { status: 500 },

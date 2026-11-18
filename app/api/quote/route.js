@@ -1,6 +1,8 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 import { quoteSelectionLines, validReplyPhone } from "@/lib/quote-selection";
+import { after } from "next/server";
+import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
 
 export const runtime = "nodejs";
 
@@ -220,7 +222,7 @@ export async function POST(request) {
     attachments.push({ filename: file.name, content: buffer, contentType: file.type });
   }
 
-  const { text, html } = buildEmail({
+  const details = {
     name,
     businessName,
     email,
@@ -235,25 +237,48 @@ export async function POST(request) {
     message,
     language,
     hasAttachment: attachments.length > 0,
-  });
+  };
 
   try {
-    await sendEmail({
-      fromName: process.env.QUOTE_FROM_NAME || "Pixel & Panel Website",
-      to: process.env.QUOTE_TO_EMAIL || "hello@pixelnpanel.com",
-      replyTo: email || undefined,
-      subject:
-        language === "Spanish"
-          ? cleanHeader("Nueva solicitud de cotización — Pixel & Panel")
-          : `New Quote Request: ${cleanHeader(productService)}`,
-      text,
-      html,
-      attachments,
-    });
+    const reference = await deliverLead(
+      "quote", request, [details, attachments[0]?.filename, attachments[0]?.contentType],
+      async (ref) => {
+        const { text, html } = buildEmail(details);
+        const recipient = process.env.QUOTE_TO_EMAIL || "hello@pixelnpanel.com";
+        const spanish = language === "Spanish";
+        await sendEmail({
+          fromName: process.env.QUOTE_FROM_NAME || "Pixel & Panel Website",
+          to: recipient,
+          replyTo: email || undefined,
+          subject: spanish ? `[${ref}] Nueva solicitud de cotización` : `[${ref}] New Quote Request: ${cleanHeader(productService)}`,
+          text,
+          html,
+          attachments,
+        });
+        if (!email || (isPackageRequest && replyMethod === "phone")) return;
 
-    return jsonResponse({ ok: true });
+        after(async () => {
+          try {
+            await sendEmail({
+              fromName: "Pixel & Panel",
+              to: email,
+              replyTo: recipient,
+              subject: spanish ? `Recibimos tu solicitud ${ref}` : `We received your quote request ${ref}`,
+              text: spanish
+                ? `Recibimos tu solicitud de cotización. Tu referencia es ${ref}. Revisaremos los detalles y te responderemos. Si no enviaste esta solicitud, puedes ignorar este mensaje.`
+                : `We received your quote request. Your reference is ${ref}. We’ll review the details and follow up. If you didn’t send this request, you can ignore this email.`,
+            });
+          } catch (error) {
+            logLeadFailure("quote", "customer receipt", error);
+          }
+        });
+      },
+      attachments[0]?.content,
+    );
+
+    return jsonResponse({ ok: true, accepted: true, reference });
   } catch (error) {
-    console.error("Unable to send quote request email.", error);
+    logLeadFailure("quote", "internal message", error);
     return jsonResponse({ error: "Unable to send quote request right now." }, 500);
   }
 }

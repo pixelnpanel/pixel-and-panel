@@ -59,7 +59,7 @@ const spanishQuoteCopy = {
     "Cuéntanos qué necesitas: sitio web, letreros, impresión, SEO local, códigos QR, tamaño, cantidad, fecha o detalles que ya tengas.",
   submit: "Enviar solicitud",
   sending: "Enviando...",
-  trackOrderPrompt: "¿Ya tienes un pedido o ya enviaste una solicitud?",
+  trackOrderPrompt: "¿Ya tienes un número de pedido?",
   trackOrderHelp:
     "Usa tu número de pedido con el mismo correo o teléfono para ver el estado, notas y próximos pasos.",
   trackOrder: "Rastrear mi pedido",
@@ -100,7 +100,7 @@ const spanishQuoteCopy = {
   shippingLabel: "Opciones de envío y entrega",
   agreementSuffix: ".",
   successTitle: "Gracias — recibimos tu solicitud.",
-  successText: "Pixel & Panel te contactará pronto.",
+  successText: "Recibimos tu solicitud. Revisaremos los detalles y te responderemos por el medio de contacto que indicaste.",
   errorFallback: "Algo salió mal. Por favor escríbenos directamente a hello@pixelnpanel.com.",
   failed: "Algo salió mal. Por favor escríbenos directamente a hello@pixelnpanel.com.",
   defaultMessageTemplate: "Quiero una cotización para {product}.",
