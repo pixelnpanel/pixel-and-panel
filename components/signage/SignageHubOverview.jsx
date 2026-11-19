@@ -26,7 +26,7 @@ const SIGNAGE_REVIEW_CHIPS = [
 
 const QUOTE_PATH = signageQuoteHref()
 const VISIBILITY_PATH = '/free-visibility-check'
-const SEARCH_SUGGESTIONS = ['Yard signs', 'Retractable banner', 'Storefront signs', 'Business cards']
+const SEARCH_SUGGESTIONS = ['Yard signs', 'Vinyl banners', 'Retractable banner', 'Feather flags', 'SEG displays', 'Business cards', 'Trade show displays']
 const PROJECTS = [
     { label: 'Storefronts & windows', icon: Store, categories: ['vinyl-decals-and-window-graphics', 'dimensional-letters', 'sidewalk-a-frame-signs', 'rigid-and-metal-signs'] },
     { label: 'Events & trade shows', icon: Tent, categories: ['banners', 'banner-stands', 'trade-show-displays', 'event-tents', 'seg-displays', 'table-covers-and-throws'] },
@@ -37,17 +37,16 @@ const FEATURED_PRODUCTS = [
     ['banners', '13oz-vinyl-banner', 'Announce a sale, opening, or event.'],
     ['rigid-and-metal-signs', 'coroplast-yard-signs', 'Put a temporary message by the road.'],
     ['banner-stands', 'standard-retractable', 'Set up a portable display indoors.'],
-    ['vinyl-decals-and-window-graphics', 'frosted-window-vinyl', 'Add privacy to a glass door or partition.'],
-    ['event-tents', 'event-tent', 'Shade a branded booth at an outdoor market.'],
     ['flags', 'feather-angled-flag', 'Draw attention to an entrance from the street.'],
-    ['sidewalk-a-frame-signs', 'standard-signicade', 'Point pedestrians toward your business.'],
+    ['seg-displays', '10ft-seg-fabric-display', 'Create a backdrop with a replaceable printed fabric graphic.'],
     ['business-cards', 'business-cards', 'Give customers a way to contact you.'],
+    ['trade-show-displays', 'straight-tension-fabric-display-wall', 'Build a branded backdrop for your trade show booth.'],
 ]
 
 const TRUST_ITEMS = [
     { icon: BadgeCheck, label: 'Premium materials' },
-    { icon: Zap, label: 'Fast turnaround' },
-    { icon: PenTool, label: 'Free design help' },
+    { icon: Zap, label: 'Timing confirmed in your quote' },
+    { icon: PenTool, label: 'Artwork and proof support' },
     { icon: Truck, label: 'Shipping on eligible products' },
 ]
 
@@ -96,7 +95,7 @@ function ProductCard({ product }) {
                 <p className="mt-1 text-xs text-brand-subtle">{product.categoryName}</p>
                 <p className="mt-2 text-sm leading-snug text-brand-muted">{product.useCase}</p>
                 <p className="mt-auto pt-3 font-heading text-sm font-bold text-[#0369A1]">
-                    {fromPrice ? <>From {fromPrice}</> : 'Request a Quote'}
+                    {fromPrice ? <>Options from {fromPrice}</> : 'Request a Quote'}
                 </p>
                 <p className="mt-1 text-xs font-semibold text-brand-muted">{fromPrice ? 'See sizes & prices' : 'View Specs'}</p>
             </div>
@@ -209,7 +208,7 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                             type="search"
                             value={mobileSearchTerm}
                             onChange={(event) => setMobileSearchTerm(event.target.value)}
-                            placeholder="Search products"
+                            placeholder="Try yard signs or vinyl banners"
                             className="min-w-0 flex-1 rounded-lg bg-transparent px-3 py-2.5 text-base outline-none placeholder:text-slate-600"
                         />
                         <button
@@ -300,10 +299,10 @@ export default function SignageHubOverview({ categories = [], reviews = [] }) {
                     {featuredProducts.length > 0 && (
                         <div className="mobile-reveal mb-10 md:mb-14" style={{ '--reveal-delay': '160ms' }}>
                             <div className="mb-6 md:mb-8">
-                                <h2 className="text-[#1C1917]">Common Starting Points</h2>
+                                <h2 className="text-[#1C1917]">Start with these products</h2>
                             </div>
                             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-                                {featuredProducts.slice(0, 4).map((product) => (
+                                {featuredProducts.map((product) => (
                                     <ProductCard key={`featured-${product.categorySlug}-${product.slug}`} product={product} />
                                 ))}
                             </div>

@@ -161,6 +161,7 @@ export default function QuoteRequestClient({
   const querySize = searchParams.get("size") || "";
   const querySide = searchParams.get("side") || "";
   const queryMaterial = searchParams.get("material") || "";
+  const queryConfiguration = searchParams.get("configuration") || "";
   const queryQuantity = searchParams.get("quantity") || "";
   const requestedProduct = selectedProduct || queryProduct;
   const requestedPackage = requestedProduct ? "" : (selectedPackage || queryPackage);
@@ -191,12 +192,14 @@ export default function QuoteRequestClient({
 
   const hasPreselected = Boolean(selectedItem);
   const hasPackageRequest = selectedItem?.type === "package";
+  const hasProductRequest = selectedItem?.type === "product";
+  const singleStep = hasPackageRequest || hasProductRequest;
   const showPicker = !hasPreselected && !content.showProductField && !isSignageRequest;
   const showBusinessName = content.showBusinessName || hasPackageRequest;
-  const initialStep = hasPackageRequest ? 2 : showPicker ? 0 : 1;
-  const totalSteps = hasPackageRequest ? 1 : showPicker ? 3 : 2;
+  const initialStep = singleStep ? 2 : showPicker ? 0 : 1;
+  const totalSteps = singleStep ? 1 : showPicker ? 3 : 2;
 
-  const selectionKey = JSON.stringify([requestedProduct, requestedPackage, requestedCategory, querySize, querySide, queryMaterial, queryQuantity, isSignageRequest]);
+  const selectionKey = JSON.stringify([requestedProduct, requestedPackage, requestedCategory, querySize, querySide, queryMaterial, queryConfiguration, queryQuantity, isSignageRequest]);
   // useSearchParams renders this form inside its client-side Suspense boundary.
   // Read once; storage is only populated by an explicit language-link click.
   const [draft] = useState(() => {
@@ -220,7 +223,7 @@ export default function QuoteRequestClient({
   const [quantity, setQuantity] = useState(draft?.requestedQuantity ?? validQuantity(queryQuantity));
   const [isEditingSelection, setIsEditingSelection] = useState(false);
   const selectionEditRef = useRef(null);
-  const selectedOptions = { size, side: querySide.slice(0, 80), material: queryMaterial.slice(0, 120), quantity };
+  const selectedOptions = { size, side: querySide.slice(0, 80), material: queryMaterial.slice(0, 120), configuration: queryConfiguration.slice(0, 120), quantity };
   const selectionLines = requestedProduct ? quoteSelectionLines({ ...selectedOptions, language: content.language }) : [];
   const [productField, setProductField] = useState(
     draft?.productField || (hasPreselected
@@ -396,7 +399,7 @@ export default function QuoteRequestClient({
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (submission.current.active) return;
-    if (hasPackageRequest && !validateContact()) return;
+    if (singleStep && !validateContact()) return;
     submission.current.active = true;
     setLoading(true);
     setError("");
@@ -406,7 +409,7 @@ export default function QuoteRequestClient({
     if (showBusinessName && businessName) formData.set("businessName", businessName);
     formData.set("email", submittedEmail);
     if (submittedPhone) formData.set("phone", submittedPhone);
-    formData.set("message", message);
+    formData.set("message", message.trim() || (hasProductRequest ? content.defaultMessageTemplate.replace("{product}", requestedProduct) : ""));
     formData.set("productService", hiddenProductValue);
     if ((selectedItem || isSignageRequest) && effectiveCategory) formData.set("selectedCategory", effectiveCategory);
     if (selectedItem?.type === "product") {
@@ -414,6 +417,7 @@ export default function QuoteRequestClient({
       formData.set("selectedSize", selectedOptions.size);
       formData.set("selectedSide", selectedOptions.side);
       formData.set("selectedMaterial", selectedOptions.material);
+      formData.set("selectedConfiguration", selectedOptions.configuration);
       formData.set("requestedQuantity", selectedOptions.quantity);
     }
     if (selectedItem?.type === "package") {
@@ -629,7 +633,7 @@ export default function QuoteRequestClient({
             )}
 
             {/* Progress bar */}
-            {!submitted && !hasPackageRequest && (
+            {!submitted && !singleStep && (
               <div className="mb-7">
                 <div className="mb-2 flex items-center justify-between">
                   <p className="text-xs font-bold uppercase tracking-widest text-slate-600">
@@ -751,7 +755,7 @@ export default function QuoteRequestClient({
                     onSubmit={handleSubmit}
                   >
                     <h2 ref={stepHeadingRef} tabIndex={-1} style={{ color: "#1C1917" }} className="mb-1 outline-none">{content.formTitle}</h2>
-                    <p className="mb-6 text-sm text-slate-600">{hasPackageRequest ? content.packageNote : content.detailsNote}</p>
+                    <p className="mb-6 text-sm text-slate-600">{hasPackageRequest ? content.packageNote : hasProductRequest ? content.contactRequirement : content.detailsNote}</p>
 
                     <label htmlFor="quote-company" className="sr-only">Company</label>
                     <input
@@ -767,8 +771,8 @@ export default function QuoteRequestClient({
                     />
 
                     <div className="space-y-5">
-                      {hasPackageRequest && contactFields}
-                      {(content.showProductField || isSignageRequest) && (
+                      {singleStep && contactFields}
+                      {!hasProductRequest && (content.showProductField || isSignageRequest) && (
                         <div>
                           <label htmlFor="q-product" className="mb-2 block text-xs font-bold uppercase tracking-wide">
                             {content.productService}
@@ -783,10 +787,10 @@ export default function QuoteRequestClient({
 
                       <div>
                         <label htmlFor="quote-message" className="mb-2 block text-xs font-bold uppercase tracking-wide">
-                          {hasPackageRequest ? content.packageDetails : content.message + " *"}
+                          {singleStep ? content.packageDetails : content.message + " *"}
                         </label>
                         <textarea
-                          id="quote-message" required={!hasPackageRequest} rows={5}
+                          id="quote-message" required={!singleStep} rows={singleStep ? 3 : 5}
                           value={message} onChange={(e) => setMessage(e.target.value)}
                           placeholder={isSignageRequest ? content.signageDetailsPlaceholder : content.messagePlaceholder}
                           className="w-full resize-none rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none transition focus:border-[#0369A1]"
@@ -839,7 +843,7 @@ export default function QuoteRequestClient({
                     )}
 
                     <div className="mt-7 flex gap-3">
-                      {!hasPackageRequest && <button
+                      {!singleStep && <button
                         type="button"
                         onClick={() => setStep(1)}
                         className="flex shrink-0 items-center gap-2 rounded-xl border-2 border-slate-200 px-5 py-4 text-sm font-bold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
@@ -849,7 +853,7 @@ export default function QuoteRequestClient({
                       </button>}
                       <button
                         type="submit"
-                        disabled={loading || (!hasPackageRequest && !message.trim())}
+                        disabled={loading || (!singleStep && !message.trim())}
                         className="group flex flex-1 items-center justify-center gap-3 rounded-xl bg-[#F59E0B] px-6 py-4 text-sm font-bold uppercase tracking-widest text-[#1C1917] transition hover:-translate-y-0.5 hover:bg-[#FBBF24] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
                       >
                         {loading ? content.sending : content.submit}

@@ -29,6 +29,7 @@ export function ProductQuoteLink({ href, source = 'product_footer', children, ..
 export function MobileProductQuoteBar() {
     const quote = useProductQuote()
     const [footerVisible, setFooterVisible] = useState(false)
+    const [quoteVisible, setQuoteVisible] = useState(false)
     useEffect(() => {
         const footer = document.querySelector('footer')
         if (!footer) return
@@ -36,12 +37,19 @@ export function MobileProductQuoteBar() {
         observer.observe(footer)
         return () => observer.disconnect()
     }, [])
+    useEffect(() => {
+        const button = document.getElementById('product-options-quote')
+        if (!button) return
+        const observer = new IntersectionObserver(([entry]) => setQuoteVisible(entry.isIntersecting), { threshold: 1, rootMargin: '0px 0px -76px 0px' })
+        observer.observe(button)
+        return () => observer.disconnect()
+    }, [])
     if (!quote) return null
     const spanish = quote.language === 'Spanish'
     return (
         <>
             <div className="h-24 lg:hidden" aria-hidden="true" />
-            {!footerVisible && (
+            {!footerVisible && !quoteVisible && (
                 <aside data-mobile-product-quote aria-label={spanish ? 'Cotización del producto' : 'Product quote'} className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg lg:hidden">
                     <div className="mx-auto flex max-w-xl items-center gap-3">
                         <div className="min-w-0 flex-1">

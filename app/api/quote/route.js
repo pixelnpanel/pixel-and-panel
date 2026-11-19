@@ -180,6 +180,7 @@ export async function POST(request) {
     size: cleanText(formData.get("selectedSize")).slice(0, 120),
     side: cleanText(formData.get("selectedSide")).slice(0, 80),
     material: cleanText(formData.get("selectedMaterial")).slice(0, 120),
+    configuration: cleanText(formData.get("selectedConfiguration")).slice(0, 120),
     quantity: cleanText(formData.get("requestedQuantity")),
     language,
   }) : [];

@@ -17,7 +17,7 @@ const COPY = {
         sidesHeading: 'Printed sides', sideLabels: { single: 'Single-sided', double: 'Double-sided' },
         quantity: 'Requested quantity', quantityHelp: 'For packs or kits, count each pack or kit once.',
         invalidQuantity: 'Enter a whole number from 1 to 100,000, or leave it blank for help.',
-        selection: 'Your selection', material: 'Material', option: 'Option', unknown: 'To confirm',
+        selection: 'Your selection', material: 'Material', option: 'Option', configuration: 'Configuration', unknown: 'To confirm',
         reference: 'Reference price for this option', referenceShort: 'reference', quotePrice: 'Price by quote',
         unitPending: 'We’ll confirm the selling unit and the total for your quantity.',
         totalPending: 'We’ll confirm the total for your quantity.',
@@ -33,7 +33,7 @@ const COPY = {
         sidesHeading: 'Lados impresos', sideLabels: { single: 'Un lado', double: 'Dos lados' },
         quantity: 'Cantidad solicitada', quantityHelp: 'Si se vende en paquetes o kits, cuenta cada paquete o kit como uno.',
         invalidQuantity: 'Ingresa un número entero de 1 a 100,000 o deja el campo en blanco.',
-        selection: 'Tu selección', material: 'Material', option: 'Opción', unknown: 'Por confirmar',
+        selection: 'Tu selección', material: 'Material', option: 'Opción', configuration: 'Configuración', unknown: 'Por confirmar',
         reference: 'Precio de referencia para esta opción', referenceShort: 'referencia', quotePrice: 'Precio por cotización',
         unitPending: 'Confirmaremos la unidad de venta y el total para la cantidad solicitada.',
         totalPending: 'Confirmaremos el total para la cantidad solicitada.',
@@ -60,6 +60,7 @@ export default function SignagePriceCalculator({
     showCustomSize = true,
     sideLabels,
     sidesHeading,
+    configurations = [],
 }) {
     const spanish = language === 'Spanish'
     const copy = spanish ? COPY.es : COPY.en
@@ -67,6 +68,7 @@ export default function SignagePriceCalculator({
     const setSelection = quote?.setSelection
     const [quantity, setQuantity] = useState('1')
     const [sizeId, setSizeId] = useState(sizes[0]?.id || CUSTOM)
+    const [configuration, setConfiguration] = useState(configurations[0] || '')
     const [side, setSide] = useState(availableSides[0] || 'single')
     const [customWidth, setCustomWidth] = useState('')
     const [customHeight, setCustomHeight] = useState('')
@@ -85,7 +87,7 @@ export default function SignagePriceCalculator({
     const sideText = availableSides.length ? labelFor(side) : ''
     const trackChange = (field) => trackEvent('calculator_interaction', { option_field: field })
     const params = new URLSearchParams({ product: productName, request: 'signage' })
-    for (const [key, value] of Object.entries({ category: categoryName, size: sizeText, side: sideText, quantity: requestedQuantity, material })) {
+    for (const [key, value] of Object.entries({ category: categoryName, size: sizeText, side: sideText, quantity: requestedQuantity, material, configuration })) {
         if (value) params.set(key, value)
     }
     const quoteHref = copy.quotePath + '?' + params.toString()
@@ -99,6 +101,7 @@ export default function SignagePriceCalculator({
 
     const details = [
         [copy.size, sizeText],
+        ...(configuration ? [[copy.configuration, configuration]] : []),
         ...(sideText ? [[sidesHeading || copy.option, sideText]] : []),
         ...(material ? [[copy.material, material]] : []),
         [copy.quantity, requestedQuantity],
@@ -109,8 +112,14 @@ export default function SignagePriceCalculator({
     ].join('\n')
 
     return (
-        <div className="rounded-2xl border border-brand-line bg-white p-6 text-[#1C1917] shadow-calc md:p-7">
-            <p className="section-label mb-4 text-[#0369A1]">{isLive ? copy.sizes : copy.configure}</p>
+        <section id="product-options" aria-labelledby="product-options-heading" className="scroll-mt-32 rounded-2xl border border-brand-line bg-white p-4 text-[#1C1917] shadow-calc sm:p-6 md:p-7">
+            <h2 id="product-options-heading" className="mb-4 text-xl text-[#0369A1]">{isLive ? copy.sizes : copy.configure}</h2>
+            {configurations.length > 0 && <div className="mb-4">
+                <label htmlFor="signage-configuration" className={LABEL}>{copy.configuration}</label>
+                <select id="signage-configuration" className={INPUT} value={configuration} onChange={(event) => setConfiguration(event.target.value)}>
+                    {configurations.map((item) => <option key={item}>{item}</option>)}
+                </select>
+            </div>}
             <label htmlFor="signage-size" className={LABEL}>{copy.size}</label>
             <select id="signage-size" className={INPUT} value={sizeId}
                 onChange={(event) => { setSizeId(event.target.value); trackChange('size') }}>
@@ -141,11 +150,11 @@ export default function SignagePriceCalculator({
             {availableSides.length > 1 && (
                 <fieldset className="mt-5">
                     <legend className={LABEL}>{sidesHeading || copy.sidesHeading}</legend>
-                    <div className="inline-flex rounded-xl border border-brand-line bg-[#FAF8F4] p-1">
+                    <div className="inline-flex flex-wrap gap-1 rounded-xl border border-brand-line bg-[#FAF8F4] p-1">
                         {availableSides.map((value) => (
                             <button key={value} type="button" aria-pressed={value === side}
                                 onClick={() => { setSide(value); trackChange('print_option') }}
-                                className={'rounded-lg px-3 py-2 font-heading text-sm font-bold transition ' + (value === side ? 'bg-[#0369A1] text-white' : 'text-[#1C1917] hover:bg-white')}>
+                                className={'min-h-11 rounded-lg px-3 py-2 font-heading text-sm font-bold transition ' + (value === side ? 'bg-[#0369A1] text-white' : 'text-[#1C1917] hover:bg-white')}>
                                 {labelFor(value)}
                             </button>
                         ))}
@@ -188,7 +197,7 @@ export default function SignagePriceCalculator({
             )}
 
             <div className="mt-6 flex flex-col gap-3">
-                <ProductQuoteLink href={quoteHref} source="product_calculator" className="btn-amber w-full justify-center">
+                <ProductQuoteLink id="product-options-quote" href={quoteHref} source="product_calculator" className="btn-amber w-full justify-center">
                     {copy.quote} <ArrowRight size={18} aria-hidden="true" />
                 </ProductQuoteLink>
                 <a href={'https://wa.me/14092252012?text=' + encodeURIComponent(whatsappText)}
@@ -197,6 +206,6 @@ export default function SignagePriceCalculator({
                     <MessageCircle size={18} aria-hidden="true" /> {copy.whatsapp}
                 </a>
             </div>
-        </div>
+        </section>
     )
 }

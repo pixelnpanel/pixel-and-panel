@@ -20,7 +20,7 @@ const CITY_LINKS = [
     { name: 'Nederland', href: '/service-area/nederland-tx' },
 ]
 
-const TRUST_POINTS = ['Local design help', 'Fast turnaround', 'A real person answers']
+const TRUST_POINTS = ['Artwork and proof support', 'Delivery options confirmed with your quote', 'A real person answers']
 
 /** Capitalize the first character of each word (keeps units like "13oz" intact). */
 function toTitleCase(str) {
@@ -66,8 +66,8 @@ export default function SignageProductDetail({ product, category, related = [] }
 
             {/* Title leads on every screen. The calculator stays beside the
                 product on desktop and follows the image on mobile. */}
-            <section className="px-6 py-10 md:py-16">
-                <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_460px] lg:items-start lg:gap-10">
+            <section className="px-4 py-7 sm:px-6 md:py-12">
+                <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-start lg:gap-8">
 
                     {/* TITLE — price chip + H1 + from-price */}
                     <div className="lg:col-start-1 lg:row-start-1">
@@ -84,20 +84,22 @@ export default function SignageProductDetail({ product, category, related = [] }
 
                         {fromPrice && (
                             <p className="mt-3 text-lg text-brand-muted">
-                                From <span className="font-heading font-extrabold text-[#0369A1]">{fromPrice}</span>
+                                Options from <span className="font-heading font-extrabold text-[#0369A1]">{fromPrice}</span>
                             </p>
                         )}
+                        {intro && <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-muted">{intro}</p>}
+                        <a href="#product-options" className="mt-2 inline-flex min-h-11 items-center font-bold text-[#0369A1] underline underline-offset-4 lg:hidden">Choose options</a>
                     </div>
 
                     {/* IMAGE — full image on cream, never cropped */}
                     <div className="lg:col-start-1 lg:row-start-2">
-                        <div className="relative aspect-square max-h-[520px] w-full overflow-hidden rounded-2xl border border-brand-line bg-[#FAF8F4] p-2 shadow-card">
+                        <div className="relative aspect-[4/3] max-h-[520px] w-full overflow-hidden rounded-2xl border border-brand-line bg-white shadow-card">
                             {product.image ? (
                                 <Image
                                     src={product.image}
                                     alt={imageAlt}
                                     fill
-                                    sizes="(max-width: 1024px) 100vw, 60vw"
+                                    sizes="(max-width: 1023px) 94vw, (max-width: 1350px) 60vw, 825px"
                                     className="object-contain object-center"
                                     // Single above-the-fold hero = the page LCP.
                                     // Next 16 deprecated `priority`; eager + high
@@ -129,10 +131,6 @@ export default function SignageProductDetail({ product, category, related = [] }
 
                     {/* BODY — description + highlights + perfect-for + specs */}
                     <div className="lg:col-start-1 lg:row-start-3">
-                        <p className="max-w-2xl text-lg leading-relaxed text-brand-muted">
-                            {intro}
-                        </p>
-
                         {product.notes && (
                             <div className="mt-6 flex items-start gap-3 rounded-2xl border border-amber-200 bg-[#FFFBEB] p-5">
                                 <Info size={18} className="mt-0.5 shrink-0 text-[#0369A1]" />

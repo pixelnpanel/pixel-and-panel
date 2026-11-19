@@ -58,6 +58,13 @@ test('Twitter uses the same product image as Open Graph unless overridden', () =
 
 // Product choices must survive the calculator-to-quote handoff in both languages.
 import { validQuantity, validReplyPhone, quoteSelectionLines } from '../lib/quote-selection.js'
+import { signageQuoteOptions } from '../lib/signage/quote-options.js'
+
+test('SEG quotes distinguish display kits from replacement graphics', () => {
+    const categorySlug = 'seg-displays'
+    assert.deepEqual(signageQuoteOptions({ categorySlug, slug: '10ft-seg-fabric-display' }).configurations, ['Frame and graphic kit', 'Replacement graphic only'])
+    assert.deepEqual(signageQuoteOptions({ categorySlug, slug: 'custom-seg-fabric' }, true).configurations, ['Solo gráfica de repuesto'])
+})
 
 test('phone-only package requests accept formatted numbers and reject non-phone text', () => {
     assert.equal(validReplyPhone('+1 (202) 555-0100'), true)
@@ -68,6 +75,7 @@ test('phone-only package requests accept formatted numbers and reject non-phone 
 test('quote selection retains custom dimensions, kit options and requested quantity', () => {
     assert.deepEqual(quoteSelectionLines({ size: 'Custom — 48 × 96 in', side: 'Flag+Pole', quantity: '10' }), ['Size: Custom — 48 × 96 in', 'Option: Flag+Pole', 'Quantity: 10'])
     assert.deepEqual(quoteSelectionLines({ size: '4 × 8 ft', side: 'Doble cara', quantity: '5', language: 'Spanish' }), ['Tamaño: 4 × 8 ft', 'Opción: Doble cara', 'Cantidad: 5'])
+    assert.deepEqual(quoteSelectionLines({ configuration: 'Replacement graphic only', quantity: '2' }), ['Configuration: Replacement graphic only', 'Quantity: 2'])
 })
 test('invalid or missing quantities never become a requested order quantity', () => {
     for (const value of ['', '0', '-1', '1.5', 'Infinity', '100001', 'hello']) assert.equal(validQuantity(value), '')
