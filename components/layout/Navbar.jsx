@@ -5,7 +5,6 @@ import Link from 'next/link'
 import LanguageLink from '@/components/language/LanguageLink'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { ArrowRight } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { getAlternatePath, isSpanishPath } from '@/lib/i18n'
 import { SIGNAGE_NAV_LABEL, SIGNAGE_PATH } from '@/lib/sign-catalog'
@@ -54,8 +53,6 @@ export default function Navbar() {
   const navLinks = spanish ? SPANISH_NAV : NAV_LINKS
   const mobileNavLinks = spanish ? MOBILE_NAV_SHORT_ES : MOBILE_NAV_SHORT
   const homeHref = spanish ? '/es' : '/'
-  const quoteHref = spanish ? '/es/solicitar-cotizacion' : '/quote-request'
-  const quoteLabel = spanish ? 'Solicitar Cotización' : 'Request a Quote'
   const languageSwitch = {
     en: getAlternatePath(pathname, 'en'),
     es: getAlternatePath(pathname, 'es'),
@@ -146,11 +143,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="flex shrink-0 items-center gap-2 lg:hidden">
-            <Link href={quoteHref} aria-label={quoteLabel}
-              className={`inline-flex min-h-11 items-center rounded-lg bg-[#F59E0B] px-2.5 text-xs font-bold text-[#1C1917] ${focusClass}`}>
-              {spanish ? 'Cotizar' : 'Quote'}
-            </Link>
+          <div className="flex shrink-0 items-center lg:hidden">
             <div
               className="flex"
               role="group"
@@ -196,8 +189,8 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Desktop CTA + Language */}
-          <div className="hidden lg:flex" style={{ alignItems: 'center', flexShrink: 0, gap: '0.75rem' }}>
+          {/* Desktop Language */}
+          <div className="hidden shrink-0 items-center lg:flex">
             <div
               role="group"
               aria-label={spanish ? 'Idioma' : 'Language'}
@@ -220,9 +213,6 @@ export default function Navbar() {
                 ES
               </LanguageLink>
             </div>
-            <Link href={quoteHref} className={`btn-amber whitespace-nowrap px-3 xl:px-5 ${focusClass}`} style={{ fontSize: '0.8rem' }}>
-              {quoteLabel} <ArrowRight size={15} />
-            </Link>
           </div>
 
         </div>
