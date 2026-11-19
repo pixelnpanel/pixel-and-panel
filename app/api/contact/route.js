@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
@@ -133,13 +134,31 @@ export async function POST(request) {
   try {
     const reference = await deliverLead("contact", request, details, async (ref) => {
       const { text, html } = buildEmail(details);
+      const recipient = process.env.CONTACT_TO_EMAIL || "hello@pixelnpanel.com";
+      const spanish = language === "Spanish";
       await sendEmail({
         fromName: process.env.CONTACT_FROM_NAME || "Pixel & Panel Contact Form",
-        to: process.env.CONTACT_TO_EMAIL || "hello@pixelnpanel.com",
+        to: recipient,
         replyTo: email || undefined,
-        subject: language === "Spanish" ? `[${ref}] Nuevo mensaje de contacto` : `[${ref}] New Contact Message: ${cleanHeader(subject)}`,
+        subject: spanish ? `[${ref}] Nuevo mensaje de contacto` : `[${ref}] New Contact Message: ${cleanHeader(subject)}`,
         text,
         html,
+      });
+      if (!email) return;
+      after(async () => {
+        try {
+          await sendEmail({
+            fromName: "Pixel & Panel",
+            to: email,
+            replyTo: recipient,
+            subject: spanish ? `Recibimos tu mensaje ${ref}` : `We received your message ${ref}`,
+            text: spanish
+              ? `Recibimos tu mensaje. Tu referencia es ${ref}. Revisaremos tu consulta y te responderemos. Si no enviaste este mensaje, puedes ignorar este correo.`
+              : `We received your message. Your reference is ${ref}. We’ll review your inquiry and reply. If you didn’t send this message, you can ignore this email.`,
+          });
+        } catch (error) {
+          logLeadFailure("contact", "customer receipt", error);
+        }
       });
     });
 

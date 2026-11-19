@@ -430,7 +430,7 @@ export default function QuoteRequestClient({
       const result = await postLeadRequest("/api/quote", formData, submission.current.attemptId);
       setRequestReference(result.reference);
       setSubmitted(true);
-      trackLead("quote", { language: content.language, packageName: requestedPackage });
+      trackLead("quote", { language: content.language, packageName: requestedPackage, reference: result.reference });
     } catch (err) {
       trackEvent("quote_form_error", { error_type: "submission_failed", step_number: displayStep, language: content.language });
       setError(leadErrorMessage(err, content.language, content.errorFallback));

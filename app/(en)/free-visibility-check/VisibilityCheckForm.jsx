@@ -265,6 +265,7 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
       setStatus("success");
       trackLead("visibility", {
         language: content.language,
+        reference: result.reference,
       });
     } catch (submitError) {
       setStatus("idle");

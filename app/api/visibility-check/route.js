@@ -384,7 +384,7 @@ export async function POST(request) {
         submittedAtIso,
       });
 
-      if (email && (isCampaignSubmission || spanish)) {
+      if (email) {
         const autoReply = spanish ? null : buildAutoReply({ name });
         after(async () => {
           try {

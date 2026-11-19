@@ -102,7 +102,7 @@ export default function ContactPage({ copy = defaultCopy }) {
             const result = await postLeadRequest('/api/contact', payload, submission.current.attemptId)
             setRequestReference(result.reference)
             setSubmitted(true)
-            trackLead('contact', { language: content.language })
+            trackLead('contact', { language: content.language, reference: result.reference })
             setForm({ name: '', email: '', phone: '', subject: '', message: '' })
         } catch (submitError) {
             setError(leadErrorMessage(submitError, content.language, content.errorFallback))
