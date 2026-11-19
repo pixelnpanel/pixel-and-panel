@@ -18,7 +18,7 @@ test('customer order projection excludes private data and newly added database f
     customerEmail: 'customer@example.test', customerPhone: '555-0100',
     internalNote: 'PRIVATE', vendorCost: 12, vendorName: 'PRIVATE',
     invoiceTotal: 100, trackingToken: 'PRIVATE', id: 'PRIVATE',
-    newPrivateField: 'PRIVATE', proofFileUrl: 'PRIVATE', invoiceUrl: 'PRIVATE', designFileUrl: 'PRIVATE',
+    inquiryReference: 'PRIVATE', proofFileUrl: 'PRIVATE', invoiceUrl: 'PRIVATE', designFileUrl: 'PRIVATE',
     timelineEvents: [
       { ...publicEvent, id: 'PRIVATE', internalNote: 'PRIVATE' },
       { title: 'PRIVATE', description: 'PRIVATE', isCustomerVisible: false },
@@ -29,7 +29,7 @@ test('customer order projection excludes private data and newly added database f
   assert.equal(result.orderNumber, 'PNP-TEST');
   assert.equal(result.publicNote, 'Ready soon');
   assert.deepEqual(result.timelineEvents, [publicEvent]);
-  for (const field of ['customerEmail', 'customerPhone', 'internalNote', 'vendorCost', 'vendorName', 'invoiceTotal', 'trackingToken', 'id', 'newPrivateField', 'proofFileUrl', 'invoiceUrl', 'designFileUrl']) {
+  for (const field of ['customerEmail', 'customerPhone', 'internalNote', 'vendorCost', 'vendorName', 'invoiceTotal', 'trackingToken', 'id', 'inquiryReference', 'proofFileUrl', 'invoiceUrl', 'designFileUrl']) {
     assert.equal(Object.hasOwn(result, field), false, field);
   }
   assert.equal(JSON.stringify(result).includes('PRIVATE'), false);

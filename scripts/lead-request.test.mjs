@@ -7,6 +7,8 @@ test("only an accepted lead can reach the website acknowledgment", async (t) => 
   await assert.rejects(postLeadRequest("/api/quote", {}, "test-attempt"), { unconfirmed: true });
   fetch.mock.mockImplementation(async () => Response.json({ ok: true, accepted: true, reference: "PNP-0123456789AB", message: "Old server copy" }));
   assert.deepEqual(await postLeadRequest("/api/quote", {}, "test-attempt"), { reference: "PNP-0123456789AB" });
+  fetch.mock.mockImplementation(async () => Response.json({ ok: true, accepted: true, reference: "PNP-01R2" }));
+  assert.deepEqual(await postLeadRequest("/api/quote", {}, "test-attempt"), { reference: "PNP-01R2" });
 });
 
 test("website acknowledgments describe a personal response in both languages", () => {

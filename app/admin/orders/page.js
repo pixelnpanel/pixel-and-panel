@@ -2,6 +2,7 @@ import AdminOrdersClient from "./AdminOrdersClient";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ADMIN_SESSION_COOKIE, verifyAdminSession } from "@/lib/admin-auth";
+import { shortReferencesEnabled } from "@/lib/business-reference";
 
 export const metadata = {
   title: "Admin Orders",
@@ -19,5 +20,5 @@ export default async function AdminOrdersPage() {
     redirect("/admin/login");
   }
 
-  return <AdminOrdersClient />;
+  return <AdminOrdersClient showInquiryReference={shortReferencesEnabled()} />;
 }
