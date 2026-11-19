@@ -8,8 +8,14 @@ Monitor registry usage as it grows and extend the format before it runs low.
 
 ## Before activation
 
-1. Verify the Vercel project's service-role connection to Supabase and confirm
-   the existing order lookup works with an authorized test order.
+1. Verify Vercel production's `SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_URL` and
+   server-only `SUPABASE_SERVICE_ROLE_KEY` point to the same Supabase project.
+   The supported project is `svpjxtdpptfvsrdylccs`. If it has the legacy
+   `order_updates` schema, apply the order compatibility migration under
+   `supabase/migrations` and [the rate-limiter SQL](rate-limit-supabase.sql).
+   The compatibility migration copies prior timeline entries and leaves
+   existing order numbers, invoice values, and files in place. Verify the
+   order lookup with an authorized test order.
 2. Rehearse [the migration](pnp-reference-registry.sql) against the current
    production schema in an isolated database. Existing short order numbers are
    reserved in the migration. If two stored order numbers normalize to the
@@ -24,6 +30,10 @@ Monitor registry usage as it grows and extend the format before it runs low.
    Deploy and test the three forms with controlled submissions. Check internal
    email subjects, Reply-To, attachment handling, retry behavior, and tracking
    for an existing and a newly linked order.
+
+The hosted production migration `20261119220848_pnp_short_business_references`
+applied the order compatibility, rate limiter, and registry SQL together.
+For the production project, verify that migration in Supabase before redeploying.
 
 ## Daily use
 
