@@ -183,8 +183,8 @@ export default async function DigitalServicePage({ params }) {
                 <h1 className="max-w-4xl text-white">{service.h1}</h1>
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">{service.intro}</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <Link href={quoteHref} className="btn-amber justify-center">
-                    Request Quote <ArrowRight size={16} />
+                  <Link href={service.slug === 'web-development' ? '/pricing#website-pricing' : quoteHref} className="btn-amber justify-center">
+                    {service.slug === 'web-development' ? 'Compare website packages' : 'Request Quote'} <ArrowRight size={16} />
                   </Link>
                   <Link href={visibilityHref} className="btn-ghost justify-center">
                     Free Visibility Check

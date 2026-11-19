@@ -155,7 +155,7 @@ export default function HomeSections({ faqs, categories, locale = "en" }) {
             <p className="mt-3 max-w-xl leading-relaxed text-stone-700">{copy.onlineText}</p>
           </div>
           <div className="flex flex-wrap items-center gap-3 md:justify-end">
-            <Link className={primary} href={copy.paths.pricing}>{copy.pricing}</Link>
+            <Link className={primary} href={copy.paths.pricing + "#website-pricing"}>{copy.pricing}</Link>
             <Link className={textLink + " text-sm"} href={copy.paths.check}>{copy.check} <ArrowRight size={15} aria-hidden="true" /></Link>
           </div>
         </div>

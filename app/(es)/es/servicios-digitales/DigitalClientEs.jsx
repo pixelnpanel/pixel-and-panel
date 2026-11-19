@@ -67,6 +67,7 @@ const services = [
 ]
 
 const copy = {
+  locale: 'es',
   label: 'Servicios Digitales',
   titleStart: 'Sitios web y optimización en Google',
   titleHighlight: 'para convertir búsquedas en clientes.',
@@ -85,6 +86,31 @@ const copy = {
   bottomQuoteCta: 'Solicitar cotización',
   bottomVisibilityHref: '/es/chequeo-gratis-de-visibilidad',
   bottomVisibilityCta: 'Chequeo gratis en Google',
+  pricingHref: '/es/precios#website-pricing',
+  pricingCta: 'Comparar paquetes web',
+  region: 'Atendemos Houston y el sureste de Texas',
+  reviewLabel: 'Lee las reseñas de clientes en Google',
+  reviewerLabel: 'Cliente de diseño web · Reseña de Google',
+  how: 'Cómo funciona',
+  step: 'Paso',
+  steps: [
+    ['Cuéntanos qué necesitas', 'Comparte qué ofreces, dónde trabajas y cómo te gustaría recibir consultas.'],
+    ['Revisa la propuesta', 'Confirmamos el alcance y el precio. Podrás revisar el sitio antes de publicarlo.'],
+    ['Publica tu sitio', 'Ponemos el sitio en línea y comprobamos los medios de contacto incluidos en tu paquete.'],
+  ],
+  faq: 'Preguntas frecuentes',
+  faqs: [
+    ['¿Cuánto cuesta un sitio web?', 'La página de lanzamiento empieza en $299 y el paquete de hasta cinco páginas empieza en $499. Consulta los paquetes para comparar el alcance y los costos opcionales.'],
+    ['¿Necesito un sitio si ya tengo un Perfil de Google?', 'El Perfil de Google ayuda a que te encuentren. En tu sitio, los clientes pueden ver tus servicios, revisar ejemplos y pedir una cotización.'],
+    ['¿Mi sitio funciona en celulares?', 'Sí. Diseñamos la navegación y las acciones de contacto para que funcionen en teléfonos y pantallas más grandes.'],
+    ['¿Cuánto tarda el SEO local?', 'Depende del punto de partida, la competencia y la indexación de Google. Te explicamos qué podemos mejorar y cómo dar seguimiento.'],
+    ['¿Garantizan una posición en Google?', 'La posición depende de Google y de la competencia. Podemos mejorar la estructura del sitio y el Perfil de Google según el servicio contratado.'],
+    ['¿Puedo conectar mis impresos con el sitio?', 'Sí. Un código QR puede llevar a un menú, una página de servicio o un formulario de cotización.'],
+  ],
+  explore: 'Explora todos los servicios',
+  exploreLinks: [...services.map(({ name, href }) => ({ name, href })), { name: 'Perfil de Google', href: '/es/servicios-digitales/perfil-de-google' }],
+  shop: 'Ver letreros e impresos',
+  shopHref: '/es/letreros',
 }
 
 export default function DigitalClientEs() {

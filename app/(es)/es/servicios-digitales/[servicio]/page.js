@@ -179,8 +179,8 @@ export default async function SpanishDigitalServicePage({ params }) {
                 <h1 className="max-w-4xl text-white">{service.h1}</h1>
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">{service.intro}</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <Link href={quoteHref} className="btn-amber justify-center">
-                    Solicitar cotización <ArrowRight size={16} />
+                  <Link href={service.enSlug === 'web-development' ? '/es/precios#website-pricing' : quoteHref} className="btn-amber justify-center">
+                    {service.enSlug === 'web-development' ? 'Comparar paquetes web' : 'Solicitar cotización'} <ArrowRight size={16} />
                   </Link>
                   <Link href={visibilityHref} className="btn-ghost justify-center">
                     Chequeo gratis de visibilidad

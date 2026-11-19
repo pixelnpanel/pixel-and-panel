@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   ArrowRight,
   BadgeCheck,
@@ -202,12 +203,24 @@ const DEFAULT_COPY = {
   signageNavLabel: 'Signs & Print',
   websiteNavLabel: 'Website Packages',
   packageLabel: 'Starter Website Packages',
-  packageTitle: 'Foundational Digital Visibility Packages',
+  packageTitle: 'Choose a website package',
   packageCopy:
     'One-time starting prices for small business websites, local SEO foundations, Google Profile support, and lead capture tools.',
   launchPricingNote: 'One-time build prices. Hosting and paid third-party services may cost extra.',
   compareHeading: 'Compare website packages',
   compareQuote: 'Request a quote',
+  costsHeading: 'What you pay for',
+  costDetails: [
+    ['Website build', 'The package price is a one-time starting price. We confirm your scope and price in the quote.'],
+    ['Domain and hosting', 'The domain is your web address. Hosting keeps the site online. Domain, hosting, business email, and paid tools may be billed separately.'],
+    ['Ongoing help', 'Monthly care is optional. You can compare its scope and pricing below.'],
+  ],
+  exampleHeading: 'Website design concept',
+  exampleText: 'This concept shows how a local service website can organize its services and let customers call or request a quote.',
+  exampleAlt: 'Local business website concept with service information and contact actions',
+  exampleHref: '/portfolio#portfolio-projects',
+  exampleLink: 'See more work',
+  unsure: 'Unsure which package fits? Start with a free visibility check.',
   packageNoteStart: 'Looking for the services behind these packages? Review the',
   packageNoteDigital: 'digital services',
   packageNoteMiddle: 'page, start with a',
@@ -645,8 +658,8 @@ export default function PricingPage({
             {copy.heroNote}
           </m.p>
           <nav className="mt-6 flex flex-wrap justify-center gap-3" aria-label={copy.pricingNavLabel}>
-            <a href="#signage-pricing" className="btn-amber">{copy.signageNavLabel}</a>
-            <a href="#website-pricing" className="btn-ghost">{copy.websiteNavLabel}</a>
+            <a href="#website-pricing" className="btn-amber">{copy.websiteNavLabel}</a>
+            <a href="#signage-pricing" className="btn-ghost">{copy.signageNavLabel}</a>
           </nav>
         </m.div>
       </section>
@@ -755,14 +768,21 @@ export default function PricingPage({
             <ul className="divide-y divide-slate-200">
               {websitePackages.map((pkg) => (
                 <li key={pkg.name} className="grid gap-2 py-3 sm:grid-cols-[minmax(0,1.5fr)_1fr_auto] sm:items-center">
-                  <p className="font-semibold">{pkg.name}</p>
+                  <div><p className="font-semibold">{pkg.name}</p><p className="mt-1 text-sm leading-5 text-slate-700">{pkg.bestFor}</p></div>
                   <p className="text-sm text-slate-700"><strong>{[pkg.pricePrefix, pkg.price].filter(Boolean).join(' ')}</strong> · {pkg.features[0]}</p>
-                  <Link href={pkg.href} aria-label={copy.compareQuote + ' – ' + pkg.name} className="text-sm font-semibold text-[#0369A1] underline underline-offset-4">
+                  <Link href={pkg.href} aria-label={copy.compareQuote + ' – ' + pkg.name} className="inline-flex min-h-11 items-center text-sm font-semibold text-[#0369A1] underline underline-offset-4">
                     {copy.compareQuote}
                   </Link>
                 </li>
               ))}
             </ul>
+            <Link href={copy.visibilityHref} className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[#0369A1] underline underline-offset-4">{copy.unsure} <ArrowRight size={16} className="shrink-0" aria-hidden="true" /></Link>
+          </section>
+          <section aria-labelledby="package-cost-heading" className="mb-8 rounded-2xl border border-slate-200 bg-sky-50 p-5 sm:p-7">
+            <h3 id="package-cost-heading">{copy.costsHeading}</h3>
+            <dl className="mt-4 grid gap-5 sm:grid-cols-3">
+              {copy.costDetails.map(([label, text]) => <div key={label}><dt className="font-bold text-[#1C1917]">{label}</dt><dd className="mt-1 text-sm leading-6 text-slate-700">{text}</dd></div>)}
+            </dl>
           </section>
           <m.div
             variants={stagger}
@@ -780,6 +800,10 @@ export default function PricingPage({
               <PackageCard key={pkg.name} pkg={pkg} bestForLabel={copy.bestForLabel} />
             ))}
           </m.div>
+          <figure className="mt-8 grid items-center overflow-hidden rounded-2xl border border-slate-200 bg-white md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+            <div className="relative aspect-[16/10] bg-[#FAF8F4]"><Image src="/images/portfolio/local-business-website-concept.webp" alt={copy.exampleAlt} fill sizes="(max-width: 767px) 94vw, 620px" className="object-contain" /></div>
+            <figcaption className="p-5 sm:p-7"><h3>{copy.exampleHeading}</h3><p className="mt-2 text-sm leading-6 text-slate-700">{copy.exampleText}</p><Link href={copy.exampleHref} className="mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-[#0369A1] underline underline-offset-4">{copy.exampleLink} <ArrowRight size={16} aria-hidden="true" /></Link></figcaption>
+          </figure>
           <m.div
             variants={fadeUp}
             initial="hidden"

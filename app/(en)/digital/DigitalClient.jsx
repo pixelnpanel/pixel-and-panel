@@ -52,13 +52,13 @@ const STEPS = [
   },
   {
     icon: PenTool,
-    title: 'We build & optimize',
-    copy: 'We design your site, set up your Google presence, and connect your lead paths — then send it to you for review before launch.',
+    title: 'Review your proposal',
+    copy: 'We confirm the scope and price with you. You’ll be able to review the site before it goes live.',
   },
   {
     icon: Rocket,
-    title: 'You get found & called',
-    copy: 'Your site goes live, your Google profile starts working for you, and new inquiries land in one organized place.',
+    title: 'Launch your site',
+    copy: 'We publish the site and check the contact options included in your package.',
   },
 ]
 
@@ -66,7 +66,7 @@ const FAQS = [
   ['How much does a website cost?', 'Websites start at $299 for a clean one-page site and $499 for a multi-page starter. Local business packages that include Google Business Profile setup and lead capture start at $799. Full package details are on our pricing page.'],
   ['Do I need a website if I already have a Google profile?', 'Yes. A Google profile helps customers find you, but your website is where they confirm your services, see your work, request a quote, and decide whether to call. Profiles and websites work together — one does not replace the other.'],
   ['Will my website work on phones?', 'Yes. Mobile layout is the starting point, not an afterthought. Most local customers search, compare, and call from their phones, so we design the mobile experience first and scale up to desktop from there.'],
-  ['How long does local SEO take?', 'Foundational fixes — page structure, service copy, and Google profile alignment — can start improving visibility within 4–8 weeks. Competitive ranking improvements typically take 3–6 months of consistent signals. SEO is a long game, but the value compounds over time.'],
+  ['How long does local SEO take?', 'Timing depends on your starting point, local competition, and whether Google has indexed your pages. We explain what we can improve and how to track progress.'],
   ['Can you guarantee Google rankings?', 'No. We set up a strong SEO foundation and make your business easier to find, but no honest provider can guarantee exact Google rankings. Anyone who promises a #1 spot is a warning sign.'],
   ['Can my signs and QR codes connect to my website?', 'Yes. QR codes on signs, flyers, business cards, and vehicle graphics can send people straight to a quote form, service page, menu, or offer — connecting your print and signage to trackable digital actions.'],
 ]
@@ -84,6 +84,7 @@ const PHONE_TEL = '+14092252012'
 const PHONE_DISPLAY = 'Call (409) 225-2012'
 
 const DEFAULT_COPY = {
+  locale: 'en',
   label: 'Digital Services',
   titleStart: 'Websites & Local SEO That Turn ',
   titleHighlight: 'Searchers Into Customers.',
@@ -93,7 +94,6 @@ const DEFAULT_COPY = {
   quoteCta: 'Get a Quote',
   quotePath: '/quote-request',
   quoteCategory: 'Digital Services',
-  heroQuoteCta: 'Request a Quote',
   bottomTitle: 'Need a Website or Google Visibility Plan?',
   bottomCopy:
     'Tell us what you sell, where you work, and what kind of leads you want. We will recommend a practical website or Google visibility plan without confusing technical language.',
@@ -101,6 +101,20 @@ const DEFAULT_COPY = {
   bottomQuoteCta: 'Request a Quote',
   bottomVisibilityHref: '/free-visibility-check',
   bottomVisibilityCta: 'Check My Google Visibility',
+  pricingHref: '/pricing#website-pricing',
+  pricingCta: 'Compare website packages',
+  region: 'Serving Houston & Southeast Texas',
+  reviewLabel: 'Read customer reviews on Google',
+  reviewerLabel: 'Website client · Google review',
+  how: 'How it works',
+  step: 'Step',
+  steps: STEPS.map((item) => [item.title, item.copy]),
+  faq: 'Frequently asked questions',
+  faqs: FAQS,
+  explore: 'Explore each service',
+  exploreLinks: EXPLORE,
+  shop: 'See signs & print',
+  shopHref: '/signage',
 }
 
 export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY } = {}) {
@@ -122,22 +136,20 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
           >
             <m.span variants={fadeUp} className="section-label">{copy.label}</m.span>
             <m.h1 variants={fadeUp} className="pnp-mobile-hero-title" style={{ color: 'white', marginBottom: '1.25rem' }}>
-              {copy.titleStart}
+              {copy.titleStart.trim()}{' '}
               <span style={{ color: '#F59E0B' }}>{copy.titleHighlight}</span>
             </m.h1>
             <m.p variants={fadeUp} className="pnp-mobile-hero-copy" style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '560px', margin: '0 auto' }}>
               {copy.intro}
             </m.p>
             <m.div variants={fadeUp} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.9rem', justifyContent: 'center', marginTop: '2rem' }}>
-              <Link href={copy.quotePath} className="btn-amber">
-                {copy.heroQuoteCta} <ArrowRight size={15} />
+              <Link href={copy.pricingHref} className="btn-amber">
+                {copy.pricingCta} <ArrowRight size={15} />
               </Link>
-              <a href={`tel:${PHONE_TEL}`} className="btn-ghost">
-                <Phone size={15} /> {PHONE_DISPLAY}
-              </a>
+              <Link href={copy.bottomVisibilityHref} className="btn-ghost">{copy.bottomVisibilityCta}</Link>
             </m.div>
             <m.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.8rem', marginTop: '1.25rem', marginBottom: 0 }}>
-              ★ 5.0 on Google · Locally owned Texas LLC · Serving Houston &amp; Southeast Texas
+              {copy.region}
             </m.p>
           </m.div>
         </section>
@@ -160,22 +172,15 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
                 </span>
                 <span style={{ fontWeight: 700, color: '#1C1917', fontSize: '1.05rem' }}>{GOOGLE_REVIEWS.rating}</span>
                 <a href={GOOGLE_REVIEWS.profileUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#0369A1', fontSize: '0.9rem', fontWeight: 600 }}>
-                  from {GOOGLE_REVIEWS.count} Google reviews
+                  {copy.reviewLabel}
                 </a>
               </m.div>
-              <m.blockquote variants={fadeUp} style={{ margin: '0 0 1.25rem', color: '#1C1917', fontSize: '1.15rem', lineHeight: 1.6, fontStyle: 'italic' }}>
+              <m.blockquote lang="en" variants={fadeUp} style={{ margin: '0 0 1.25rem', color: '#1C1917', fontSize: '1.15rem', lineHeight: 1.6, fontStyle: 'italic' }}>
                 &ldquo;{websiteReview.quote}&rdquo;
               </m.blockquote>
               <m.p variants={fadeUp} style={{ color: '#64748b', fontSize: '0.875rem', fontWeight: 600, marginBottom: '1.75rem' }}>
-                — {websiteReview.name} · Website client · Google review
+                — {websiteReview.name} · {copy.reviewerLabel}
               </m.p>
-              <m.div variants={fadeUp} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', justifyContent: 'center' }}>
-                {['Locally owned, Texas-registered LLC', 'Fast replies on WhatsApp', 'Plain-English updates, no jargon'].map((chip) => (
-                  <span key={chip} style={{ background: '#FAF8F4', border: '1px solid #ece7de', borderRadius: '999px', padding: '0.4rem 0.9rem', fontSize: '0.8rem', color: '#475569', fontWeight: 600 }}>
-                    {chip}
-                  </span>
-                ))}
-              </m.div>
             </m.div>
           </div>
         </section>
@@ -248,8 +253,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               transition={{ duration: 0.5 }}
               style={{ textAlign: 'center', color: '#475569', fontSize: '0.95rem', marginBottom: '4rem' }}
             >
-              Transparent starter pricing, no surprises.{' '}
-              <Link href="/pricing" style={{ color: '#0369A1', fontWeight: 700 }}>See full pricing &amp; packages</Link>
+              <Link href={copy.pricingHref} style={{ color: '#0369A1', fontWeight: 700 }}>{copy.pricingCta}</Link>
             </m.p>
 
             {/* Bottom CTA */}
@@ -271,7 +275,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
                   {copy.bottomQuoteCta} <ArrowRight size={15} />
                 </Link>
                 <a href={`tel:${PHONE_TEL}`} className="btn-ghost">
-                  <Phone size={15} /> {PHONE_DISPLAY}
+                  <Phone size={15} /> {copy.locale === 'es' ? 'Llama al (409) 225-2012' : PHONE_DISPLAY}
                 </a>
                 <Link href={copy.bottomVisibilityHref} className="btn-ghost">
                   {copy.bottomVisibilityCta} <ArrowRight size={15} />
@@ -291,7 +295,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               transition={{ duration: 0.5 }}
               style={{ color: '#1C1917', textAlign: 'center', marginBottom: '2.5rem' }}
             >
-              How It Works
+              {copy.how}
             </m.h2>
             <m.div
               variants={stagger}
@@ -300,16 +304,16 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               viewport={viewport}
               style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem', maxWidth: '960px', margin: '0 auto' }}
             >
-              {STEPS.map((step, i) => {
-                const Icon = step.icon
+              {copy.steps.map(([title, description], i) => {
+                const Icon = STEPS[i].icon
                 return (
-                  <m.div key={step.title} variants={scaleIn} className="white-card" style={{ padding: '2rem', textAlign: 'center' }}>
+                  <m.div key={title} variants={scaleIn} className="white-card" style={{ padding: '2rem', textAlign: 'center' }}>
                     <div style={{ width: '56px', height: '56px', background: 'rgba(3,105,161,0.08)', borderRadius: '999px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
                       <Icon size={26} color="#0369A1" />
                     </div>
-                    <p style={{ color: '#0369A1', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em', marginBottom: '0.35rem' }}>STEP {i + 1}</p>
-                    <h3 style={{ color: '#1C1917', marginBottom: '0.6rem' }}>{step.title}</h3>
-                    <p style={{ color: '#64748b', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: 0 }}>{step.copy}</p>
+                    <p style={{ color: '#0369A1', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em', marginBottom: '0.35rem' }}>{copy.step} {i + 1}</p>
+                    <h3 style={{ color: '#1C1917', marginBottom: '0.6rem' }}>{title}</h3>
+                    <p style={{ color: '#64748b', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: 0 }}>{description}</p>
                   </m.div>
                 )
               })}
@@ -327,7 +331,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               transition={{ duration: 0.5 }}
               style={{ color: '#1C1917', textAlign: 'center', marginBottom: '2.5rem' }}
             >
-              Frequently Asked Questions
+              {copy.faq}
             </m.h2>
             <m.div
               initial={{ opacity: 0, y: 20 }}
@@ -337,7 +341,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               className="white-card"
               style={{ maxWidth: '760px', margin: '0 auto', padding: '0.5rem 2rem' }}
             >
-              {FAQS.map(([q, a]) => (
+              {copy.faqs.map(([q, a]) => (
                 <details key={q} style={{ borderBottom: '1px solid #f1eee7', padding: '1.1rem 0' }}>
                   <summary style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', cursor: 'pointer', listStyle: 'none', color: '#1C1917', fontWeight: 600, fontSize: '1rem' }}>
                     {q}
@@ -360,7 +364,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               transition={{ duration: 0.5 }}
               style={{ color: '#1C1917', marginBottom: '2rem' }}
             >
-              Explore Each Service
+              {copy.explore}
             </m.h2>
             <m.div
               variants={stagger}
@@ -369,7 +373,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               viewport={viewport}
               style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center', maxWidth: '820px', margin: '0 auto' }}
             >
-              {EXPLORE.map((item) => (
+              {copy.exploreLinks.map((item) => (
                 <m.span key={item.href} variants={fadeUp}>
                   <Link href={item.href} className="btn-outline">
                     {item.name} <ArrowRight size={14} />
@@ -384,8 +388,7 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
               transition={{ duration: 0.5 }}
               style={{ color: '#475569', fontSize: '0.95rem', marginTop: '1.75rem', marginBottom: 0 }}
             >
-              Need physical signs, banners, or print too?{' '}
-              <Link href="/signage" style={{ color: '#0369A1', fontWeight: 700 }}>See our signage services</Link>
+              <Link href={copy.shopHref} style={{ color: '#0369A1', fontWeight: 700 }}>{copy.shop}</Link>
             </m.p>
           </div>
         </section>
