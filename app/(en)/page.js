@@ -1,4 +1,3 @@
-import HomeClient from "./HomeClient";
 import HomeSections from "./HomeSections";
 import SpanishSuggestionBanner from "@/components/language/SpanishSuggestionBanner";
 import { getCategories } from "@/lib/signage/data";
@@ -13,7 +12,7 @@ const homepageFaq = [
   {
     question: "What areas do you serve?",
     answer:
-      "We ship signs and print throughout the United States, including Beaumont, Port Arthur, Nederland, and Greater Houston. Quotes and artwork approvals are handled online. If your sign requires installation, coordinate with a local installer.",
+      "Eligible signs and print can ship throughout the United States, including Beaumont, Port Arthur, Nederland, and Greater Houston. Quotes and artwork approvals are handled online. If your sign requires installation, coordinate with a local installer.",
   },
   {
     question: "Can you help with both websites and signs?",
@@ -78,19 +77,8 @@ function JsonLd({ data }) {
   );
 }
 
-const heroImagesFrom = (categories) =>
-  categories
-    .map((c) => ({
-      src: c.image || (c.products || []).find((p) => p.image)?.image || null,
-      alt: `Custom ${c.name} by Pixel & Panel`,
-      label: c.name,
-    }))
-    .filter((tile) => tile.src)
-    .slice(0, 4);
-
 export default async function HomePage() {
   const categories = await getCategories();
-  const heroImages = heroImagesFrom(categories);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -108,7 +96,6 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd data={faqSchema} />
-      <HomeClient heroImages={heroImages} />
       <HomeSections faqs={homepageFaq} categories={categories} />
       <SpanishSuggestionBanner />
     </>

@@ -467,7 +467,7 @@
     }
 
     .pnp-site-shell .pnp-home-hero-title {
-      font-size: clamp(2.25rem, 3vw, 3rem) !important;
+      font-size: clamp(2.35rem, 4.35vw, 4.1rem) !important;
       line-height: 1.06 !important;
       margin-left: 0 !important;
       margin-right: auto !important;

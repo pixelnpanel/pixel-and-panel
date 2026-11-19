@@ -62,6 +62,8 @@ export default function Navbar() {
     es: getAlternatePath(pathname, 'es'),
   }
   const forceSolidHeader =
+    pathname === '/' ||
+    pathname === '/es' ||
     pathname === '/track-order' ||
     pathname === '/es/rastrear-pedido' ||
     pathname?.startsWith('/track/') ||

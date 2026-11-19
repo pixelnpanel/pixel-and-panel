@@ -1,382 +1,200 @@
+import Image from "next/image";
 import Link from "next/link";
-import ReviewsBand from "@/components/sections/ReviewsBand";
-import SignageCategoryTeaser from "@/components/sections/SignageCategoryTeaser";
-import { reviews } from "@/lib/reviews";
-import { attachReviewImages } from "@/lib/review-images";
-import { SIGNAGE_LABEL, SIGNAGE_PATH } from "@/lib/sign-catalog";
-import {
-  ArrowRight,
-  Car,
-  CheckCircle2,
-  HelpCircle,
-  MapPin,
-  Megaphone,
-  MonitorSmartphone,
-  PanelTop,
-  Search,
-} from "lucide-react";
+import { ArrowRight, ChevronDown, MapPin, Star } from "lucide-react";
+import { portfolioProjects } from "@/lib/portfolio-projects";
+import { portfolioProjectsEs } from "@/lib/portfolio-projects-es";
+import { GOOGLE_REVIEWS } from "@/lib/reviews";
 
-const HOMEPAGE_REVIEW_SLUGS = [
-  "retresia-hughes",
-  "jennifer-roebuck",
-  "viviana-alvarado",
-  "sarah-warren",
-  "mohammed-anwar",
-  "rolando-gonzalez",
-];
-
-const HOMEPAGE_REVIEW_CHIPS = [
-  "Independently owned & operated",
-  "5.0 rated on Google",
-  "Signage + digital under one roof",
-  "Eligible products ship nationwide",
-];
-
-const serviceSilos = [
-  {
-    eyebrow: "Signage & Print",
-    title: "Get noticed in the real world.",
-    description:
-      "Custom signs, banners, yard signs, truck lettering, storefront signs, business cards, flyers, menus, and more.",
-    href: SIGNAGE_PATH,
-    cta: SIGNAGE_LABEL,
-    accent: "#F59E0B",
-    icon: PanelTop,
-    items: [
-      "Business signs that are easy to read",
-      "Print materials for handoffs, events, and walk-ins",
-      "Designs that give customers a clear next step online or by phone",
+const COPY = {
+  en: {
+    heading: "Custom signs & print that get your business noticed.",
+    intro: "From banners and yard signs to business printing and displays, Pixel & Panel helps businesses stand out. Serving Houston and Southeast Texas, with nationwide shipping on eligible products.",
+    shop: "Shop Signs & Print", quote: "Get a Quote", digital: "Websites & Google",
+    paths: { shop: "/signage", quote: "/quote-request", digital: "/digital", portfolio: "/portfolio", pricing: "/pricing", check: "/free-visibility-check", shipping: "/shipping-policy" },
+    reviews: "Read customer reviews on Google",
+    featured: "Explore signs, print & displays", all: "Browse the full catalog",
+    work: "Work for real businesses", workLink: "See the portfolio",
+    online: "Help customers find you online", onlineText: "Get a website that makes it easy to call or request a quote, and help nearby customers find your business on Google.",
+    pricing: "Compare website packages", check: "Get a free visibility check",
+    order: "From first idea to finished order",
+    steps: [
+      ["Tell us what you need", "Choose a product or share your project, quantity, and deadline."],
+      ["Review your quote", "We confirm your options, artwork needs, price, and delivery details."],
+      ["Approve your proof", "Review the design before we move your order into production."],
     ],
+    area: "Houston & Southeast Texas", areaText: "Serving Houston, Beaumont, Port Arthur, and Nederland. Eligible signs and print can ship nationwide.",
+    shipping: "See shipping and delivery options", faq: "Questions before you order",
+    final: "What are you working on?", finalText: "Tell us what you need and when you need it. We’ll help you choose the right product and confirm your quote.",
   },
-  {
-    eyebrow: "Also Available",
-    title: "Want more than a sign? Get found online, too.",
-    description:
-      "Once your signage gets you noticed, we can build the website, local SEO, Google Business Profile, and QR campaigns that turn attention into calls.",
-    href: "/digital",
-    cta: "View Digital Services",
-    accent: "#0EA5E9",
-    icon: MonitorSmartphone,
-    items: [
-      "Pages that turn visitors into calls and quote requests",
-      "Google-ready service and location content",
-      "QR codes that send customers from your signs to your website",
+  es: {
+    heading: "Letreros e impresos personalizados para destacar tu negocio.",
+    intro: "Desde banners y letreros para jardín hasta impresos y exhibidores, Pixel & Panel ayuda a tu negocio a destacar. Atendemos Houston y el sureste de Texas, con envío nacional en productos elegibles.",
+    shop: "Ver letreros e impresos", quote: "Pedir cotización", digital: "Sitios web y Google",
+    paths: { shop: "/es/letreros", quote: "/es/solicitar-cotizacion", digital: "/es/servicios-digitales", portfolio: "/es/portafolio", pricing: "/es/precios", check: "/es/chequeo-gratis-de-visibilidad", shipping: "/es/politica-de-envio" },
+    reviews: "Lee las reseñas de clientes en Google",
+    featured: "Explora letreros, impresos y exhibidores", all: "Ver el catálogo completo",
+    work: "Proyectos para negocios reales", workLink: "Ver el portafolio",
+    online: "Ayuda a tus clientes a encontrarte en internet", onlineText: "Crea un sitio web donde tus clientes puedan llamar o pedir una cotización, y facilita que te encuentren en Google.",
+    pricing: "Comparar paquetes web", check: "Pedir un chequeo gratis",
+    order: "De la idea al pedido terminado",
+    steps: [
+      ["Cuéntanos qué necesitas", "Elige un producto o comparte tu proyecto, la cantidad y la fecha en que lo necesitas."],
+      ["Revisa tu cotización", "Confirmamos las opciones, el arte, el precio y los detalles de entrega."],
+      ["Aprueba tu diseño", "Revisa la prueba de diseño antes de que iniciemos la producción."],
     ],
-  },
-];
-
-const popularServices = [
-  {
-    title: "Vinyl Banners",
-    description: "Durable banners for storefronts, events, job sites, and promotions.",
-    href: "/signage/banners",
-    icon: Megaphone,
-  },
-  {
-    title: "Yard Signs",
-    description: "Roadside and lawn signs for contractors, events, real estate, and local offers.",
-    href: "/signage/rigid-and-metal-signs/coroplast-yard-signs",
-    icon: MapPin,
-  },
-  {
-    title: "Car & Vehicle Magnets",
-    description: "Removable magnetic signs that turn work trucks and vans into moving ads.",
-    href: "/signage/rigid-and-metal-signs/car-and-vehicle-magnets",
-    icon: Car,
-  },
-  {
-    title: "Metal & Rigid Signs",
-    description: "Aluminum, acrylic, and coroplast signs for indoor and outdoor branding.",
-    href: "/signage/rigid-and-metal-signs",
-    icon: PanelTop,
-  },
-  {
-    title: "Website Development",
-    description: "Fast, mobile-first websites built around calls, quote requests, and trust.",
-    href: "/digital/web-development",
-    icon: MonitorSmartphone,
-  },
-  {
-    title: "Get Found on Google",
-    description: "Help nearby customers find you when they search for what you offer in your area.",
-    href: "/digital/local-seo",
-    icon: Search,
-  },
-];
-
-// Homepage → city hub links. This is the strongest internal link the Houston
-// hub gets, and it does the same job for the three Southeast Texas cities.
-const SERVICE_AREA_ITEMS = [
-  {
-    title: "Beaumont, TX",
-    description: "Storefront signs, banners, vehicle graphics, and print for Beaumont businesses.",
-    href: "/service-area/beaumont-tx",
-    icon: MapPin,
-  },
-  {
-    title: "Houston, TX",
-    description: "Banners, yard signs, event banners, and real estate signs across Greater Houston.",
-    href: "/houston",
-    icon: MapPin,
-  },
-  {
-    title: "Port Arthur, TX",
-    description: "Custom signs and print for Port Arthur shops, contractors, and service companies.",
-    href: "/service-area/port-arthur-tx",
-    icon: MapPin,
-  },
-  {
-    title: "Nederland, TX",
-    description: "Business cards, signs, and print shipped to Nederland businesses.",
-    href: "/service-area/nederland-tx",
-    icon: MapPin,
-  },
-];
-
-export const defaultHomeSectionsContent = {
-  visibilityCta: {
-    description:
-      "Not sure where the gap is yet? Start with a free Google visibility review before asking for a project quote.",
-    href: "/free-visibility-check",
-    label: "Check My Google Visibility",
-  },
-  services: {
-    eyebrow: "Services",
-    title: "Choose what you need now or request a complete project quote",
-    description:
-      "Choose what you need now, or start with a quote request and Pixel & Panel will recommend the right next step.",
-  },
-  popularServices: {
-    eyebrow: "Popular Services",
-    title: "Start with the services local businesses ask for most",
-    description:
-      "Compare signs, print, and digital services to find the right fit for your business, budget, and next project.",
-  },
-  serviceAreas: {
-    eyebrow: "Where We Work",
-    title: "Southeast Texas and Greater Houston",
-    description:
-      "Each city page covers what local businesses there order most, what it costs, and how long it takes.",
-  },
-  faq: {
-    eyebrow: "FAQ",
-    title: "Common homepage questions",
-    description: "Quick answers before you request a quote.",
-  },
-  finalCta: {
-    eyebrow: "Start a Project",
-    title: "Ready to Make Your Business Easier to Find?",
-    description:
-      "Start with a quote request. Tell us what you need, and Pixel & Panel will recommend the right next step for your website, sign, print, or Google visibility project.",
-    href: "/quote-request",
-    label: "Request a Quote",
+    area: "Houston y el sureste de Texas", areaText: "Atendemos Houston, Beaumont, Port Arthur y Nederland. Los letreros e impresos elegibles se envían a todo el país.",
+    shipping: "Ver opciones de envío y entrega", faq: "Preguntas antes de hacer un pedido",
+    final: "¿Qué proyecto tienes en mente?", finalText: "Cuéntanos qué necesitas y para cuándo. Te ayudaremos a elegir y confirmaremos tu cotización.",
   },
 };
 
-function SectionIntro({ eyebrow, title, description, centered = true, light = false, id }) {
-  return (
-    <div
-      className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}
-    >
-      {eyebrow && (
-        <p
-          className="font-heading text-xs font-bold uppercase tracking-[0.16em]"
-          style={{ color: light ? "#F59E0B" : "#0369A1" }}
-        >
-          {eyebrow}
-        </p>
-      )}
-      <h2 id={id} className={eyebrow ? "mt-4" : ""}>
-        <span className={light ? "text-white" : "text-[#1C1917]"}>{title}</span>
-      </h2>
-      {description && (
-        <p
-          className={light ? "mt-5 text-base leading-8 text-white/72 md:text-lg" : "mt-5 text-base leading-8 text-slate-600 md:text-lg"}
-        >
-          {description}
-        </p>
-      )}
-    </div>
-  );
-}
+const PRODUCTS = [
+  ["rigid-and-metal-signs", "coroplast-yard-signs", "Yard Signs", "Letreros para jardín", "letreros-para-jardin"],
+  ["banners", "13oz-vinyl-banner", "Vinyl Banners", "Banners de vinilo", "banners-de-vinilo"],
+  ["banner-stands", "standard-retractable", "Retractable Banners", "Banners retráctiles", "banners-retractiles"],
+  ["flags", null, "Feather Flags & Kits", "Banderas y kits", null],
+  ["business-cards", null, "Business Cards", "Tarjetas de presentación", "tarjetas-de-presentacion"],
+  ["seg-displays", null, "SEG Fabric Displays", "Exhibidores de tela SEG", null],
+];
 
-function LinkCard({ item, variant = "light" }) {
-  const Icon = item.icon || ArrowRight;
-  const isDark = variant === "dark";
+const action = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0369A1]";
+const primary = action + " bg-[#0369A1] text-white hover:bg-sky-900";
+const secondary = action + " border border-stone-400 bg-white text-[#1C1917] hover:border-[#0369A1] hover:text-[#0369A1]";
+const textLink = "inline-flex min-h-11 items-center gap-2 font-bold text-[#0369A1] hover:underline";
+const shell = "mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12";
 
-  return (
-    <div>
-      <Link
-        href={item.href}
-        className={
-          isDark
-            ? "group block h-full rounded-xl border border-white/10 bg-white/[0.07] p-5 transition duration-200 hover:-translate-y-1 hover:border-[#F59E0B]/45 hover:bg-white/[0.1]"
-            : "group block h-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#0EA5E9]/35 hover:shadow-xl"
-        }
-      >
-        <div className="mb-5 flex items-start justify-between gap-4">
-          <span className={isDark ? "inline-flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-[#F59E0B]" : "inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#0369A1]/10 text-[#0369A1]"}>
-            <Icon className="h-5 w-5" />
-          </span>
-          <ArrowRight className={isDark ? "h-5 w-5 text-white/35 transition group-hover:translate-x-1 group-hover:text-[#F59E0B]" : "h-5 w-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-[#0369A1]"} />
-        </div>
-        <h3 className={isDark ? "text-white" : "text-[#1C1917]"}>{item.title}</h3>
-        <p className={isDark ? "mt-3 text-sm leading-7 text-white/65" : "mt-3 text-sm leading-7 text-slate-600"}>
-          {item.description}
-        </p>
-      </Link>
-    </div>
-  );
-}
-
-export default function HomeSections({ faqs, content = {}, categories = [] }) {
-  const homeReviews = attachReviewImages(
-    HOMEPAGE_REVIEW_SLUGS.map((slug) => reviews.find((review) => review.slug === slug)).filter(Boolean),
-  );
-  const sections = {
-    visibilityCta: { ...defaultHomeSectionsContent.visibilityCta, ...content.visibilityCta },
-    services: { ...defaultHomeSectionsContent.services, ...content.services },
-    popularServices: { ...defaultHomeSectionsContent.popularServices, ...content.popularServices },
-    serviceAreas: { ...defaultHomeSectionsContent.serviceAreas, ...content.serviceAreas },
-    faq: { ...defaultHomeSectionsContent.faq, ...content.faq },
-    finalCta: { ...defaultHomeSectionsContent.finalCta, ...content.finalCta },
-  };
-  const serviceItems = content.serviceSilos || serviceSilos;
-  const popularItems = content.popularServicesCards || popularServices;
+export default function HomeSections({ faqs, categories, locale = "en" }) {
+  const copy = COPY[locale];
+  const spanish = locale === "es";
+  const projects = (spanish ? portfolioProjectsEs : portfolioProjects).filter((project) => !project.isSample);
+  const hero = projects.find((project) => project.slug === "house-of-rogo-storefront-sign");
+  const featured = PRODUCTS.map(([categoryId, productId, en, es, esSlug]) => {
+    const category = categories.find((entry) => entry.slug === categoryId);
+    if (!category) return null;
+    const product = category.products.find((entry) => entry.slug === productId);
+    return {
+      id: categoryId,
+      title: spanish ? es : en,
+      image: product?.image || category.image || category.products.find((entry) => entry.image)?.image,
+      href: spanish ? (esSlug ? copy.paths.shop + "/" + esSlug : copy.paths.shop)
+        : copy.paths.shop + "/" + categoryId + (product ? "/" + product.slug : ""),
+    };
+  }).filter(Boolean);
 
   return (
     <>
-      <ReviewsBand variant="strip" heading="Trusted by Southeast Texas businesses" />
-
-      <SignageCategoryTeaser categories={categories} />
-
-      <section className="section-base bg-white" aria-labelledby="services-heading">
-        <div className="container-px">
-          <SectionIntro
-            id="services-heading"
-            eyebrow={sections.services.eyebrow}
-            title={sections.services.title}
-            description={sections.services.description}
-          />
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            {serviceItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.eyebrow} className="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-                  <div className="absolute right-0 top-0 h-28 w-28 rounded-bl-[3rem] opacity-15" style={{ backgroundColor: item.accent }} />
-                  <div className="relative">
-                    <div className="mb-6 flex items-center gap-4">
-                      <span className="inline-flex h-14 w-14 items-center justify-center rounded-lg text-white" style={{ backgroundColor: item.accent }}>
-                        <Icon className="h-7 w-7" />
-                      </span>
-                      <div>
-                        <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-slate-500">{item.eyebrow}</p>
-                        <h3 className="mt-1">{item.title}</h3>
-                      </div>
-                    </div>
-                    <p className="max-w-xl leading-8 text-slate-600">{item.description}</p>
-                    <ul className="mt-6 grid gap-3">
-                      {item.items.map((listItem) => (
-                        <li key={listItem} className="flex gap-3 text-sm leading-6 text-slate-700">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" style={{ color: item.accent }} />
-                          {listItem}
-                        </li>
-                      ))}
-                    </ul>
-                    <Link href={item.href} className="mt-7 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#0EA5E9]">
-                      {item.cta} <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
+      <section className="bg-[#FAF8F4] pb-9 pt-30 text-[#1C1917] lg:pb-12 lg:pt-28">
+        <div className={shell + " grid items-center gap-7 md:grid-cols-[1fr_0.94fr] lg:gap-14"}>
+          <div className="min-w-0 md:py-6">
+            <h1 className="pnp-home-hero-title font-extrabold tracking-[-0.055em]">{copy.heading}</h1>
+            <p className="mt-4 max-w-[34rem] text-base leading-relaxed text-stone-700 lg:mt-6 lg:text-lg">{copy.intro}</p>
+            <div className="mt-5 flex flex-wrap gap-2.5 lg:mt-7">
+              <Link className={primary} href={copy.paths.shop}>{copy.shop} <ArrowRight size={17} aria-hidden="true" /></Link>
+              <Link className={secondary} href={copy.paths.quote}>{copy.quote}</Link>
+            </div>
+            <Link className={textLink + " mt-1 text-sm"} href={copy.paths.digital}>{copy.digital} <ArrowRight size={15} aria-hidden="true" /></Link>
           </div>
-          <nav className="mt-8 flex flex-wrap justify-center gap-3" aria-label={sections.popularServices.eyebrow}>
-            {popularItems.map((item) => (
-              <Link key={item.href} href={item.href} className="inline-flex min-h-11 items-center rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-[#0369A1] transition hover:border-[#0369A1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1]">
-                {item.title}
-              </Link>
-            ))}
-          </nav>
+          <figure className="min-w-0 overflow-hidden rounded-2xl bg-[#1C1917] shadow-lg">
+            <div className="relative aspect-[4/3]">
+              <Image src={hero.image} alt={hero.imageAlt} fill preload sizes="(max-width: 767px) 94vw, (max-width: 1440px) 48vw, 628px" className="object-cover" />
+            </div>
+            <figcaption className="px-4 py-3 text-sm font-semibold text-white">{hero.title}</figcaption>
+          </figure>
+        </div>
+      </section>
 
-          <div className="mt-10 text-center">
-            <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-600">
-              {sections.visibilityCta.description}
-            </p>
-            <Link href={sections.visibilityCta.href} className="mt-4 inline-flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:text-[#F59E0B]">
-              {sections.visibilityCta.label} <ArrowRight className="h-4 w-4" />
+      <div className="border-y border-stone-200 bg-white">
+        <div className={shell}>
+          <a className={textLink + " py-3 text-sm"} href={GOOGLE_REVIEWS.profileUrl}>
+            <Star size={17} fill="#F59E0B" stroke="#8A4B07" aria-hidden="true" /> {copy.reviews} <ArrowRight size={15} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+
+      {featured.length > 0 && <section className={shell + " py-13 lg:py-20"} aria-labelledby="home-featured">
+        <div className="flex flex-wrap items-end justify-between gap-x-5">
+          <h2 id="home-featured">{copy.featured}</h2>
+          <Link className={textLink + " text-sm"} href={copy.paths.shop}>{copy.all} <ArrowRight size={16} aria-hidden="true" /></Link>
+        </div>
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-5">
+          {featured.map((item) => (
+            <Link key={item.id} href={item.href} className="group overflow-hidden rounded-xl border border-stone-200 bg-white hover:border-[#0369A1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1]">
+              {item.image && <div className="relative aspect-[4/3] bg-[#FAF8F4]"><Image src={item.image} alt="" fill sizes="(max-width: 639px) 48vw, (max-width: 1360px) 32vw, 390px" className="object-contain" /></div>}
+              <span className="flex min-h-12 items-center justify-between gap-1 px-3 py-2 text-sm font-bold text-[#1C1917] group-hover:text-[#0369A1] sm:px-5 sm:text-base">
+                {item.title} <ArrowRight size={15} className="shrink-0" aria-hidden="true" />
+              </span>
             </Link>
-          </div>
+          ))}
         </div>
-      </section>
+      </section>}
 
-      <ReviewsBand
-        heading="What Our Clients Say"
-        reviews={homeReviews}
-        chips={HOMEPAGE_REVIEW_CHIPS}
-      />
-
-      <section className="section-base bg-white" aria-labelledby="service-areas-heading">
-        <div className="container-px">
-          <SectionIntro
-            id="service-areas-heading"
-            eyebrow={sections.serviceAreas.eyebrow}
-            title={sections.serviceAreas.title}
-            description={sections.serviceAreas.description}
-          />
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {SERVICE_AREA_ITEMS.map((item) => (
-              <LinkCard key={item.href} item={item} />
-            ))}
+      <section className="bg-[#FAF8F4]" aria-labelledby="home-work">
+        <div className={shell + " py-13 lg:py-20"}>
+          <div className="flex flex-wrap items-end justify-between gap-x-5">
+            <h2 id="home-work">{copy.work}</h2>
+            <Link className={textLink + " text-sm"} href={copy.paths.portfolio}>{copy.workLink} <ArrowRight size={16} aria-hidden="true" /></Link>
           </div>
-        </div>
-      </section>
-
-      <section className="section-base bg-white" aria-labelledby="faq-heading">
-        <div className="container-px">
-          <SectionIntro
-            id="faq-heading"
-            eyebrow={sections.faq.eyebrow}
-            title={sections.faq.title}
-            description={sections.faq.description}
-          />
-
-          <div className="mx-auto mt-12 grid max-w-4xl gap-4">
-            {faqs.map((faq) => (
-              <article key={faq.question} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="flex gap-4">
-                  <HelpCircle className="mt-1 h-5 w-5 shrink-0 text-[#0369A1]" />
-                  <div>
-                    <h3 className="text-xl">{faq.question}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{faq.answer}</p>
-                  </div>
+          <div className="mt-5 grid gap-5 sm:grid-cols-2">
+            {projects.map((project) => (
+              <article key={project.slug} className="overflow-hidden rounded-xl border border-stone-200 bg-white">
+                <div className="relative aspect-[4/3] bg-[#1C1917]">
+                  <Image src={project.image} alt={project.imageAlt} fill sizes="(max-width: 639px) 95vw, 48vw" className="object-contain" />
                 </div>
+                <div className="p-4 sm:p-5"><h3 className="text-lg">{project.title}</h3><p className="mt-1 text-sm text-stone-600">{project.category}</p></div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="px-4 pb-16 md:pb-24" aria-labelledby="final-cta-heading">
-        <div
-          className="mx-auto max-w-6xl overflow-hidden rounded-xl bg-[#1C1917] px-6 py-14 text-center text-white shadow-2xl md:px-12"
-        >
-          <p className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-[#F59E0B]">
-            {sections.finalCta.eyebrow}
-          </p>
-          <h2 id="final-cta-heading" className="mx-auto mt-4 max-w-3xl text-white">
-            {sections.finalCta.title}
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/75">
-            {sections.finalCta.description}
-          </p>
-          <div className="mt-8 flex justify-center">
-            <Link href={sections.finalCta.href} className="btn-amber">
-              {sections.finalCta.label} <ArrowRight className="h-4 w-4" />
-            </Link>
+      <section className="bg-sky-50" aria-labelledby="home-digital">
+        <div className={shell + " grid gap-5 py-12 md:grid-cols-2 md:items-center lg:gap-10"}>
+          <div>
+            <p className="mb-2 text-sm font-bold text-[#0369A1]">{copy.digital}</p>
+            <h2 id="home-digital">{copy.online}</h2>
+            <p className="mt-3 max-w-xl leading-relaxed text-stone-700">{copy.onlineText}</p>
           </div>
+          <div className="flex flex-wrap items-center gap-3 md:justify-end">
+            <Link className={primary} href={copy.paths.pricing}>{copy.pricing}</Link>
+            <Link className={textLink + " text-sm"} href={copy.paths.check}>{copy.check} <ArrowRight size={15} aria-hidden="true" /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className={shell + " py-13 lg:py-20"} aria-labelledby="home-order">
+        <h2 id="home-order">{copy.order}</h2>
+        <ol className="mt-6 grid list-decimal gap-6 pl-6 marker:font-bold marker:text-[#0369A1] md:grid-cols-3 md:gap-10">
+          {copy.steps.map(([title, text]) => <li key={title} className="pl-1"><h3 className="text-lg">{title}</h3><p className="mt-2 text-sm leading-6 text-stone-700">{text}</p></li>)}
+        </ol>
+      </section>
+
+      <section className="border-y border-stone-200 bg-[#FAF8F4]" aria-labelledby="home-area">
+        <div className={shell + " py-9 md:flex md:items-center md:justify-between md:gap-5"}>
+          <div>
+            <h2 id="home-area" className="flex items-center gap-2 text-2xl"><MapPin className="shrink-0 text-[#0369A1]" aria-hidden="true" />{copy.area}</h2>
+            <p className="mt-2 text-stone-700">{copy.areaText}</p>
+            <div className="mt-1 flex flex-wrap gap-x-4">
+              {[["Houston", spanish ? "/es/houston" : "/houston"], ...["Beaumont", "Port Arthur", "Nederland"].map((city) => [city, (spanish ? "/es/area-de-servicio/" : "/service-area/") + city.toLowerCase().replace(" ", "-") + "-tx"])].map(([name, href]) => <Link className={textLink + " text-sm"} key={href} href={href}>{name}</Link>)}
+            </div>
+          </div>
+          <Link className={textLink + " shrink-0 text-sm"} href={copy.paths.shipping}>{copy.shipping} <ArrowRight size={15} aria-hidden="true" /></Link>
+        </div>
+      </section>
+
+      <section className={shell + " py-13 lg:py-18"} aria-labelledby="home-faq">
+        <h2 id="home-faq">{copy.faq}</h2>
+        <div className="mt-5 max-w-4xl divide-y divide-stone-200 border-y border-stone-200">
+          {faqs.map(({ question, answer }) => <details key={question} className="group">
+            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 font-bold text-[#1C1917]">{question}<ChevronDown className="shrink-0 text-[#0369A1] group-open:rotate-180" size={19} aria-hidden="true" /></summary>
+            <p className="pb-4 leading-relaxed text-stone-700">{answer}</p>
+          </details>)}
+        </div>
+      </section>
+
+      <section className="bg-[#1C1917] py-12 text-white lg:py-16" aria-labelledby="home-quote">
+        <div className={shell + " sm:flex sm:items-center sm:justify-between sm:gap-6"}>
+          <div><h2 id="home-quote" className="text-white">{copy.final}</h2><p className="mt-3 max-w-2xl leading-relaxed text-stone-200">{copy.finalText}</p></div>
+          <Link className={action + " mt-5 shrink-0 bg-[#F59E0B] text-[#1C1917] hover:bg-amber-300 sm:mt-0"} href={copy.paths.quote}>{copy.quote} <ArrowRight size={17} aria-hidden="true" /></Link>
         </div>
       </section>
     </>

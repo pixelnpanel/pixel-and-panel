@@ -1,14 +1,3 @@
-import {
-  Car,
-  HelpCircle,
-  MapPin,
-  Megaphone,
-  MonitorSmartphone,
-  PanelTop,
-  Search,
-  Store,
-} from "lucide-react";
-import HomeClient from "../../(en)/HomeClient";
 import HomeSections from "../../(en)/HomeSections";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { getCategories } from "@/lib/signage/data";
@@ -22,7 +11,7 @@ const spanishHomepageFaq = [
   {
     question: "¿Qué áreas atienden?",
     answer:
-      "Enviamos letreros e impresos a todo Estados Unidos, incluyendo Beaumont, Port Arthur, Nederland y el área metropolitana de Houston. Las cotizaciones y la aprobación del arte se hacen en línea. Si tu letrero requiere instalación, coordina con un instalador local.",
+      "Los letreros e impresos elegibles se envían a todo Estados Unidos, incluyendo Beaumont, Port Arthur, Nederland y el área metropolitana de Houston. Las cotizaciones y la aprobación del arte se hacen en línea. Si tu letrero requiere instalación, coordina con un instalador local.",
   },
   {
     question: "¿Pueden ayudar con sitios web y letreros al mismo tiempo?",
@@ -40,167 +29,6 @@ const spanishHomepageFaq = [
       "Usa el formulario de cotización y comparte qué necesitas, tu fecha ideal y los detalles que ya tengas. Pixel & Panel revisará la solicitud y recomendará el siguiente paso.",
   },
 ];
-
-const spanishHomeHeroCopy = {
-  // Igual que en la versión en inglés: el hero abre con la región, no con una
-  // lista de tres ciudades que le decía a un visitante de Houston que se había
-  // equivocado de sitio. El H1 y el title no se tocan.
-  eyebrow: "Taller de letreros e impresión · Houston y el Sureste de Texas",
-  mobileTitleStart: "Letreros, banners e impresión",
-  mobileTitleHighlight: "que hacen que te noten.",
-  desktopTitleStart: "Letreros, banners e impresión",
-  desktopTitleHighlight: "que hacen que te noten.",
-  mobileIntro:
-    "Letreros, banners, rotulación vehicular e impresión para Houston y el sureste de Texas.",
-  desktopIntro:
-    "Pixel & Panel es el taller de letreros para Houston y el sureste de Texas — letreros, banners, rotulación vehicular e impresión que hacen que los negocios locales se noten. Y cuando quieras crecer en internet, también creamos el sitio web y la presencia en Google.",
-  startHeading: "¿Qué necesitas?",
-  startOptionsLabel: "Elige lo que necesita tu negocio",
-  quoteHref: "/es/solicitar-cotizacion",
-  mobileQuoteLabel: "Cotizar",
-  desktopQuoteLabel: "Solicitar cotización",
-  photoGalleryLabel: "Ejemplos de letreros e impresión",
-  photoRatingLabel: "5.0 en Google",
-  checklist: [
-    "Tu visión. Hecha visible.",
-    "Letreros, banners e impresión — más web y Google",
-    "Cotización primero, sin presión",
-  ],
-};
-
-const spanishHomeStartOptions = [
-  {
-    title: "Letreros e impresión",
-    actionLabel: "Letreros e impresión →",
-    description: "Letreros, banners, rotulación vehicular e impresos.",
-    href: "/es/letreros",
-    label: "Letreros",
-    icon: PanelTop,
-    accent: "#F59E0B",
-  },
-  {
-    title: "Sitio web / Google",
-    actionLabel: "¿También quieres web + Google? →",
-    description: "Sitios web y visibilidad en Google a juego.",
-    href: "/es/servicios-digitales",
-    label: "Digital",
-    icon: MonitorSmartphone,
-    accent: "#0EA5E9",
-  },
-  {
-    title: "No estoy seguro",
-    actionLabel: "¿No sabes? Cotización gratis →",
-    description: "Cuéntanos qué necesitas — te guiamos.",
-    href: "/es/solicitar-cotizacion",
-    label: "Cotización gratis",
-    icon: HelpCircle,
-    accent: "#10B981",
-  },
-];
-
-const spanishHomeSections = {
-  visibilityCta: {
-    description:
-      "¿No sabes dónde está el problema? Empieza con un chequeo gratis de visibilidad en Google antes de pedir una cotización completa.",
-    href: "/es/chequeo-gratis-de-visibilidad",
-    label: "Revisar mi visibilidad en Google",
-  },
-  services: {
-    eyebrow: "Servicios",
-    title: "Elige lo que necesitas ahora o pide una cotización completa",
-    description:
-      "Elige lo que necesitas ahora, o empieza con una solicitud de cotización y Pixel & Panel recomendará el siguiente paso correcto.",
-  },
-  serviceSilos: [
-    {
-      eyebrow: "Letreros e impresión",
-      title: "Haz que te noten en el mundo real.",
-      description:
-        "Letreros, banners, letreros de jardín, rotulación de camionetas, letreros de fachada, tarjetas, volantes, menús y más.",
-      href: "/es/letreros",
-      cta: "Letreros",
-      accent: "#F59E0B",
-      icon: PanelTop,
-      items: [
-        "Letreros para negocios fáciles de leer",
-        "Impresos para entregas, eventos y visitas en persona",
-        "Diseños que guían al cliente a llamar, escanear o visitar tu sitio",
-      ],
-    },
-    {
-      eyebrow: "También disponible",
-      title: "¿Quieres más que un letrero? Aparece también en internet.",
-      description:
-        "Cuando tus letreros ya te hacen notar, podemos crear el sitio web, SEO local, Perfil de Google y campañas con QR que convierten la atención en llamadas.",
-      href: "/es/servicios-digitales",
-      cta: "Ver servicios digitales",
-      accent: "#0EA5E9",
-      icon: MonitorSmartphone,
-      items: [
-        "Páginas que convierten visitas en llamadas y solicitudes",
-        "Contenido de servicios y ubicaciones listo para Google",
-        "QR que llevan clientes desde tus letreros hasta tu sitio web",
-      ],
-    },
-  ],
-  popularServices: {
-    eyebrow: "Servicios populares",
-    title: "Empieza con los servicios que más piden los negocios locales",
-    description:
-      "Cada tarjeta lleva a una página real de servicio con detalles para clientes y señales claras para buscadores.",
-  },
-  popularServicesCards: [
-    {
-      title: "Banners de Vinilo",
-      description: "Banners duraderos para fachadas, eventos, sitios de trabajo y promociones.",
-      href: "/es/letreros/banners-de-vinilo",
-      icon: Megaphone,
-    },
-    {
-      title: "Letreros para Jardín",
-      description: "Letreros para contratistas, eventos, bienes raíces y ofertas locales.",
-      href: "/es/letreros/letreros-para-jardin",
-      icon: MapPin,
-    },
-    {
-      title: "Gráficos para Vehículos",
-      description: "Decals, letras, imanes y gráficos de flotilla para vehículos de trabajo.",
-      href: "/es/letreros/graficos-para-vehiculos",
-      icon: Car,
-    },
-    {
-      title: "Letreros para Negocios",
-      description: "Letreros exteriores e interiores para que los clientes reconozcan tu local.",
-      href: "/es/letreros/letreros-para-negocios",
-      icon: Store,
-    },
-    {
-      title: "Diseño Web",
-      description: "Sitios rápidos para celular, hechos alrededor de llamadas, cotizaciones y confianza.",
-      href: "/es/servicios-digitales/desarrollo-web",
-      icon: MonitorSmartphone,
-    },
-    {
-      title: "Aparecer en Google",
-      description: "Ayuda para que clientes cercanos encuentren lo que ofreces en tu área.",
-      href: "/es/servicios-digitales/seo-local",
-      icon: Search,
-    },
-  ],
-  faq: {
-    eyebrow: "FAQ",
-    title: "Preguntas comunes de inicio",
-    description: "Respuestas rápidas antes de pedir una cotización.",
-  },
-  finalCta: {
-    eyebrow: "Empezar proyecto",
-    title: "¿Listo para que tu negocio sea más fácil de encontrar?",
-    description:
-      "Empieza con una solicitud de cotización. Cuéntanos qué necesitas y Pixel & Panel recomendará el siguiente paso correcto para tu sitio web, letrero, impresión o visibilidad en Google.",
-    href: "/es/solicitar-cotizacion",
-    label: "Solicitar cotización",
-  },
-};
 
 export const metadata = {
   metadataBase: new URL("https://www.pixelnpanel.com"),
@@ -245,18 +73,8 @@ function JsonLd({ data }) {
   );
 }
 
-const spanishHeroImagesFrom = (categories) =>
-  categories
-    .map((c) => ({
-      src: c.image || (c.products || []).find((p) => p.image)?.image || null,
-      alt: "Letreros e impresión personalizados — Pixel & Panel",
-    }))
-    .filter((tile) => tile.src)
-    .slice(0, 4);
-
 export default async function SpanishHomePage() {
   const categories = await getCategories();
-  const heroImages = spanishHeroImagesFrom(categories);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -274,8 +92,7 @@ export default async function SpanishHomePage() {
   return (
     <>
       <JsonLd data={faqSchema} />
-      <HomeClient copy={spanishHomeHeroCopy} startOptions={spanishHomeStartOptions} heroImages={heroImages} />
-      <HomeSections faqs={spanishHomepageFaq} content={spanishHomeSections} />
+      <HomeSections faqs={spanishHomepageFaq} categories={categories} locale="es" />
     </>
   );
 }
