@@ -1,26 +1,39 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { adjacentHeroSlide, heroFrameReducer, initialHeroFrame } from "../lib/hero-carousel.js";
+import { createHeroFrame, heroFrameReducer } from "../lib/hero-carousel.js";
 
-test("the slideshow loops in both directions", () => {
-  assert.equal(adjacentHeroSlide(5, 1, 6), 0);
-  assert.equal(adjacentHeroSlide(0, -1, 6), 5);
+const act = (frame, type, index) => heroFrameReducer(frame, { type, index });
+
+test("commits a slide only after its image has loaded and the dissolve finishes", () => {
+  let frame = act(createHeroFrame(3), "loaded", 0);
+  frame = act(frame, "elapsed");
+  assert.equal(act(frame, "finished", 1), frame);
+  frame = act(frame, "loaded", 1);
+  assert.equal(frame.current, 0);
+  assert.equal(act(frame, "finished", 2), frame);
+  frame = act(frame, "finished", 1);
+  assert.deepEqual([frame.current, frame.next, frame.visible, frame.ready, frame.elapsed], [1, 2, true, false, false]);
 });
 
-test("the current slide stays visible until the latest selection loads", () => {
-  let frame = heroFrameReducer(initialHeroFrame, { type: "select", index: 1 });
-  frame = heroFrameReducer(frame, { type: "select", index: 2 });
-  assert.equal(frame.active, 0);
-  assert.equal(heroFrameReducer(frame, { type: "loaded", index: 1 }), frame);
-  assert.deepEqual(heroFrameReducer(frame, { type: "loaded", index: 2 }), { active: 2, requested: 2, previous: 0 });
+test("skips failed images while preserving the current frame and loops to the first image", () => {
+  let frame = act(createHeroFrame(3), "loaded", 0);
+  frame = act(frame, "failed", 1);
+  assert.deepEqual([frame.current, frame.next], [0, 2]);
+  assert.equal(act(frame, "loaded", 1), frame);
+  frame = act(act(act(frame, "loaded", 2), "elapsed"), "finished", 2);
+  assert.deepEqual([frame.current, frame.next], [2, 0]);
+  frame = act(act(act(frame, "loaded", 0), "elapsed"), "finished", 0);
+  assert.deepEqual([frame.current, frame.next], [0, 2]);
 });
 
-test("reselecting the previous frame can show the already-loaded image immediately", () => {
-  const frame = { active: 3, requested: 3, previous: 2 };
-  assert.deepEqual(heroFrameReducer(frame, { type: "select", index: 2 }), { active: 2, requested: 2, previous: 3 });
+test("a failed first image falls through to the next cover before autoplay starts", () => {
+  const frame = act(createHeroFrame(3), "failed", 0);
+  assert.deepEqual([frame.current, frame.next, frame.visible], [1, 2, false]);
+  assert.equal(act(frame, "loaded", 1).visible, true);
 });
 
-test("a failed image leaves the existing image and caption in place", () => {
-  const frame = { active: 2, requested: 3, previous: 1 };
-  assert.deepEqual(heroFrameReducer(frame, { type: "failed", index: 3 }), { active: 2, requested: 2, previous: 1 });
+test("one remaining cover stays visible when all alternatives fail", () => {
+  let frame = act(createHeroFrame(3), "loaded", 0);
+  frame = act(act(frame, "failed", 1), "failed", 2);
+  assert.deepEqual([frame.current, frame.next, frame.visible], [0, null, true]);
 });

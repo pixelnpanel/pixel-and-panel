@@ -196,13 +196,24 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes pnp-home-slide-in {
+  @keyframes pnp-home-dissolve-in {
     from { opacity: 0; }
     to { opacity: 1; }
   }
 
-  .pnp-home-slide-in {
-    animation: pnp-home-slide-in 500ms ease-out both;
+  @keyframes pnp-home-dissolve-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  .pnp-home-dissolve-in {
+    animation: pnp-home-dissolve-in 800ms ease-in-out both;
+    mix-blend-mode: plus-lighter;
+  }
+
+  .pnp-home-dissolve-out {
+    animation: pnp-home-dissolve-out 800ms ease-in-out both;
+    mix-blend-mode: plus-lighter;
   }
 }
 

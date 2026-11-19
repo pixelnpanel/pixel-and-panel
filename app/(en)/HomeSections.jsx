@@ -5,6 +5,7 @@ import HomeHeroSlideshow from "@/components/sections/HomeHeroSlideshow";
 import { portfolioProjects } from "@/lib/portfolio-projects";
 import { portfolioProjectsEs } from "@/lib/portfolio-projects-es";
 import { GOOGLE_REVIEWS } from "@/lib/reviews";
+import { resolveCategoryImage } from "@/lib/signage/data";
 
 const COPY = {
   en: {
@@ -58,27 +59,25 @@ const PRODUCTS = [
   ["seg-displays", null, "SEG Fabric Displays", "Exhibidores de tela SEG", null],
 ];
 
-const HERO_EXAMPLES = [
-  {
-    image: "banners/13oz-vinyl-banner-beaumont-tx.webp",
-    en: ["Custom Vinyl Banner", "Grand-opening banner with corner grommets", "/signage/banners/13oz-vinyl-banner"],
-    es: ["Banner de vinilo personalizado", "Lona de gran apertura con ojales en las esquinas", "/es/letreros/banners-de-vinilo"],
-  },
-  {
-    image: "rigid-and-metal-signs/coroplast-yard-sign-beaumont-tx.webp",
-    en: ["Contractor Yard Sign", "Roofing and repairs yard sign on a wire stake", "/signage/rigid-and-metal-signs/coroplast-yard-signs"],
-    es: ["Letrero para jardín de un contratista", "Letrero de reparación de techos con estaca metálica", "/es/letreros/letreros-para-jardin"],
-  },
-  {
-    image: "banner-stands/standard-retractable-banner-stand-beaumont-tx.webp",
-    en: ["Retractable Banner Display", "Clinic welcome banner on a freestanding retractable base", "/signage/banner-stands/standard-retractable"],
-    es: ["Exhibidor con banner retráctil", "Banner de bienvenida para una clínica con base retráctil", "/es/letreros/banners-retractiles"],
-  },
-  {
-    image: "flags/econo-feather-flag-beaumont-tx.webp",
-    en: ["Custom Feather Flag", "Colorful taco shop flag displayed on a pole", "/signage/flags/econo-feather-flag"],
-    es: ["Bandera pluma personalizada", "Bandera colorida de una taquería colocada en un mástil", "/es/letreros/bandera-pluma-econo"],
-  },
+const HERO_CATEGORIES = [
+  ["banners", "vinyl banners in several formats", "banners de vinilo en varios formatos"],
+  ["banner-stands", "retractable banner stands and backdrops", "exhibidores retráctiles y fondos impresos"],
+  ["rigid-and-metal-signs", "rigid yard signs, metal panels, and acrylic signs", "letreros rígidos para jardín y paneles de metal y acrílico"],
+  ["vinyl-decals-and-window-graphics", "vinyl decals and branded window graphics", "calcomanías de vinilo y gráficos para ventanas"],
+  ["real-estate-signs", "real estate and open house signs", "letreros inmobiliarios y de jornadas de puertas abiertas"],
+  ["flags", "printed feather flags and rectangular flags", "banderas pluma y rectangulares impresas"],
+  ["dimensional-letters", "channel letters with different lighting and construction", "letras de canal con distintas construcciones e iluminación"],
+  ["sidewalk-a-frame-signs", "portable sidewalk A-frame signs", "letreros portátiles tipo A para acera"],
+  ["trade-show-displays", "printed trade show display walls", "paredes gráficas para exhibiciones y ferias"],
+  ["event-tents", "a branded canopy tent for outdoor events", "una carpa personalizada para eventos al aire libre"],
+  ["table-covers-and-throws", "branded fitted and draped table covers", "manteles personalizados ajustados y de caída libre"],
+  ["seg-displays", "silicone-edge fabric graphics in display frames", "gráficos de tela con borde de silicona en marcos"],
+  ["business-cards", "stacks, folded designs, and individual business cards", "tarjetas de presentación en pilas, plegadas e individuales"],
+  ["flyers-brochures-and-booklets", "printed flyers, folded brochures, and booklets", "volantes impresos, folletos plegados y cuadernillos"],
+  ["canvas-and-poster-prints", "framed canvas prints and illustrated posters", "lienzos enmarcados y carteles ilustrados"],
+  ["dtf-transfers", "direct-to-film transfers shown on apparel and accessories", "transferencias DTF en prendas y accesorios"],
+  ["labels-stickers-and-packaging", "custom labels, stickers, and printed packaging", "etiquetas, calcomanías y empaques personalizados"],
+  ["magnets-and-clings", "vehicle magnets and branded window clings", "imanes para vehículos y adhesivos removibles para ventanas"],
 ];
 
 const action = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0369A1]";
@@ -91,17 +90,11 @@ export default function HomeSections({ faqs, categories, locale = "en" }) {
   const copy = COPY[locale];
   const spanish = locale === "es";
   const projects = (spanish ? portfolioProjectsEs : portfolioProjects).filter((project) => !project.isSample);
-  const heroSlides = [
-    ...["house-of-rogo-storefront-sign", "remax-realtor-business-cards"].flatMap((slug) => {
-      const project = projects.find((item) => item.slug === slug);
-      if (!project?.image) return [];
-      return [{ image: project.image, alt: project.imageAlt, title: project.title, kind: spanish ? "Proyecto completado" : "Completed project", href: copy.paths.portfolio + "#" + slug }];
-    }),
-    ...HERO_EXAMPLES.map((example) => {
-      const [title, alt, href] = example[locale];
-      return { image: "/images/signage/" + example.image, title, alt, href, kind: spanish ? "Ejemplo de producto" : "Product example" };
-    }),
-  ];
+  const heroSlides = HERO_CATEGORIES.flatMap(([slug, en, es]) => {
+    const image = resolveCategoryImage(slug);
+    if (!image) return [];
+    return [{ image, alt: spanish ? `Ejemplos de ${es}` : `Examples of ${en}` }];
+  });
   const featured = PRODUCTS.map(([categoryId, productId, en, es, esSlug]) => {
     const category = categories.find((entry) => entry.slug === categoryId);
     if (!category) return null;
