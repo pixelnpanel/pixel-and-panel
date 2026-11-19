@@ -12,7 +12,7 @@ import { GOOGLE_REVIEWS } from "@/lib/reviews";
 import { trackLead, trackEvent } from "@/lib/analytics";
 
 import { quoteSelectionLines, validQuantity, validReplyPhone } from "@/lib/quote-selection";
-import { leadErrorMessage, leadReferenceLabel, postLeadRequest } from "@/lib/lead-request";
+import { leadErrorMessage, leadSuccessCopy, postLeadRequest } from "@/lib/lead-request";
 import { QUOTE_DRAFT_KEY, QUOTE_DRAFT_EVENT, encodeQuoteDraft, decodeQuoteDraft } from "@/lib/quote-draft";
 
 const ALLOWED_EXTENSIONS = ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps";
@@ -135,8 +135,6 @@ const defaultCopy = {
   shippingHref: "/shipping-policy",
   shippingLabel: "Shipping and delivery options",
   agreementSuffix: ".",
-  successTitle: "Request Sent",
-  successText: "We received your quote request. We’ll review your details and follow up using the contact method you provided.",
   errorFallback: "Unable to send quote request right now.",
   failed: "Quote request failed",
   defaultMessageTemplate: "I would like a quote for {product}.",
@@ -167,6 +165,7 @@ export default function QuoteRequestClient({
   const requestedPackage = requestedProduct ? "" : (selectedPackage || queryPackage);
   const requestedCategory = selectedCategory || queryCategory;
   const content = { ...defaultCopy, ...copy };
+  const success = leadSuccessCopy(content.language);
   const fromSignage = searchParams.get("request") === "signage";
   const isSignageRequest = fromSignage && !requestedProduct && !requestedPackage;
   const canEditSelection = Boolean(requestedProduct && (fromSignage || querySize || queryQuantity));
@@ -236,7 +235,6 @@ export default function QuoteRequestClient({
     return content.defaultMessageTemplate.replace("{product}", selectedItem.name);
   });
   const [submitted, setSubmitted] = useState(false);
-  const [requestReference, setRequestReference] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [attachment, setAttachment] = useState(null);
@@ -432,7 +430,6 @@ export default function QuoteRequestClient({
     try {
       submission.current.attemptId ||= crypto.randomUUID();
       const result = await postLeadRequest("/api/quote", formData, submission.current.attemptId);
-      setRequestReference(result.reference);
       setSubmitted(true);
       trackLead("quote", { language: content.language, packageName: requestedPackage, reference: result.reference });
     } catch (err) {
@@ -661,9 +658,8 @@ export default function QuoteRequestClient({
                 className="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center"
               >
                 <CheckCircle className="mx-auto h-12 w-12 text-emerald-500" />
-                <h3 className="mt-4" style={{ color: "#1C1917" }}>{content.successTitle}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{content.successText}</p>
-                {requestReference && <p className="mt-4 text-sm font-semibold text-[#0369A1]">{leadReferenceLabel(requestReference, content.language)}</p>}
+                <h3 className="mt-4" style={{ color: "#1C1917" }}>{success.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{success.text}</p>
               </div>
             ) : (
               <>

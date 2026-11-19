@@ -8,7 +8,7 @@ import { fadeUp, slideRight, stagger } from '@/lib/animations'
 import SocialLinks from '@/components/ui/SocialLinks'
 import { BRAND, SOCIAL_LINKS, GBP_REVIEW_URL, GBP_MAPS_URL } from '@/lib/constants'
 import { trackLead } from '@/lib/analytics'
-import { leadErrorMessage, leadReferenceLabel, postLeadRequest } from '@/lib/lead-request'
+import { leadErrorMessage, leadSuccessCopy, postLeadRequest } from '@/lib/lead-request'
 
 const defaultCopy = {
     language: 'English',
@@ -36,8 +36,6 @@ const defaultCopy = {
     submit: 'Send Message',
     sending: 'Sending...',
     footer: 'We respond within 1 business day. No spam, ever.',
-    successTitle: 'Message Sent!',
-    successText: 'We read every message personally and will get back to you as soon as we do — usually within 1 business day.',
     errorFallback: 'Unable to send contact message right now.',
     trackOrderHref: '/track-order',
     trackOrderLabel: 'Track My Order',
@@ -61,9 +59,9 @@ const whatsAppHref = SOCIAL_LINKS.find((link) => link.name === 'WhatsApp').href
 
 export default function ContactPage({ copy = defaultCopy }) {
     const content = { ...defaultCopy, ...copy }
+    const success = leadSuccessCopy(content.language)
     const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
     const [submitted, setSubmitted] = useState(false)
-    const [requestReference, setRequestReference] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const submission = useRef({ active: false, attemptId: null })
@@ -100,7 +98,6 @@ export default function ContactPage({ copy = defaultCopy }) {
         try {
             submission.current.attemptId ||= crypto.randomUUID()
             const result = await postLeadRequest('/api/contact', payload, submission.current.attemptId)
-            setRequestReference(result.reference)
             setSubmitted(true)
             trackLead('contact', { language: content.language, reference: result.reference })
             setForm({ name: '', email: '', phone: '', subject: '', message: '' })
@@ -295,11 +292,10 @@ export default function ContactPage({ copy = defaultCopy }) {
                                     <div style={{ width: '72px', height: '72px', background: 'rgba(74,222,128,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
                                         <CheckCircle size={36} color="#4ade80" />
                                     </div>
-                                    <h2 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>{content.successTitle}</h2>
+                                    <h2 style={{ color: '#1C1917', marginBottom: '0.75rem' }}>{success.title}</h2>
                                     <p style={{ color: '#64748b', fontFamily: 'var(--font-body)', lineHeight: 1.7, maxWidth: '320px', margin: '0 auto' }}>
-                                        {content.successText}
+                                        {success.text}
                                     </p>
-                                    {requestReference && <p className="mt-4 text-sm font-semibold text-[#0369A1]">{leadReferenceLabel(requestReference, content.language)}</p>}
                                 </m.div>
                             ) : (
                                 <form onSubmit={handleSubmit}>

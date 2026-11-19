@@ -30,8 +30,6 @@ const spanishContactCopy = {
   submit: "Enviar mensaje",
   sending: "Enviando...",
   footer: "Respondemos dentro de 1 día hábil. Sin spam.",
-  successTitle: "Gracias — recibimos tu mensaje.",
-  successText: "Pixel & Panel te contactará pronto.",
   errorFallback: "Algo salió mal. Por favor escríbenos directamente a hello@pixelnpanel.com.",
   trackOrderHref: "/es/rastrear-pedido",
   trackOrderLabel: "Rastrear mi pedido",

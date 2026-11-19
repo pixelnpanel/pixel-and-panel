@@ -1,7 +1,6 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 import { quoteSelectionLines, validReplyPhone } from "@/lib/quote-selection";
-import { after } from "next/server";
 import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
 
 export const runtime = "nodejs";
@@ -255,23 +254,6 @@ export async function POST(request) {
           text,
           html,
           attachments,
-        });
-        if (!email || (isPackageRequest && replyMethod === "phone")) return;
-
-        after(async () => {
-          try {
-            await sendEmail({
-              fromName: "Pixel & Panel",
-              to: email,
-              replyTo: recipient,
-              subject: spanish ? `Recibimos tu solicitud ${ref}` : `We received your quote request ${ref}`,
-              text: spanish
-                ? `Recibimos tu solicitud de cotización. Tu referencia es ${ref}. Revisaremos los detalles y te responderemos. Si no enviaste esta solicitud, puedes ignorar este mensaje.`
-                : `We received your quote request. Your reference is ${ref}. We’ll review the details and follow up. If you didn’t send this request, you can ignore this email.`,
-            });
-          } catch (error) {
-            logLeadFailure("quote", "customer receipt", error);
-          }
         });
       },
       attachments[0]?.content,

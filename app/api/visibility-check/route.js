@@ -1,6 +1,6 @@
 import { cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
-import { after } from "next/server";
+import { leadSuccessCopy } from "@/lib/lead-request";
 import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
 
 export const runtime = "nodejs";
@@ -24,8 +24,6 @@ const LEGACY_HELP_OPTIONS = new Set([
   "Not sure yet",
 ]);
 
-const SUCCESS_MESSAGE =
-  "Thank you. Your free visibility check request was sent successfully. Pixel & Panel will review it and follow up soon.";
 const ERROR_MESSAGE = "Unable to send visibility check request right now.";
 
 function jsonResponse(body, status = 200) {
@@ -219,39 +217,6 @@ function buildInternalEmail({
   return { text, html };
 }
 
-function buildAutoReply({ name }) {
-  const greetingName = cleanText(name) || "there";
-  const safeName = escapeHtml(greetingName);
-
-  const text = [
-    `Hi ${greetingName},`,
-    "",
-    "Thanks for requesting a Free Visibility Check from Pixel & Panel.",
-    "",
-    "We’ll review your business visibility and follow up within 1 business day. We may look at your website, Google presence, signs, print materials, and QR opportunities based on the information you submitted.",
-    "",
-    "If you need to add anything, you can reply to this email or contact us at hello@pixelnpanel.com.",
-    "",
-    "Pixel & Panel | Your Vision. Made Visible.",
-    "www.pixelnpanel.com | (409) 225-2012",
-  ].join("\n");
-
-  const html = `
-    <div style="font-family: Arial, sans-serif; color: #1C1917; line-height: 1.7; max-width: 640px;">
-      <p>Hi ${safeName},</p>
-      <p>Thanks for requesting a Free Visibility Check from Pixel &amp; Panel.</p>
-      <p>We’ll review your business visibility and follow up within 1 business day. We may look at your website, Google presence, signs, print materials, and QR opportunities based on the information you submitted.</p>
-      <p>If you need to add anything, you can reply to this email or contact us at <a href="mailto:hello@pixelnpanel.com" style="color: #0369A1;">hello@pixelnpanel.com</a>.</p>
-      <p style="margin-top: 18px;">
-        <strong>Pixel &amp; Panel</strong> | Your Vision. Made Visible.<br />
-        <a href="https://www.pixelnpanel.com" style="color: #0369A1;">www.pixelnpanel.com</a> | (409) 225-2012
-      </p>
-    </div>
-  `;
-
-  return { text, html };
-}
-
 export async function POST(request) {
   const ip = getClientIp(request);
   const limiter = await rateLimit({
@@ -302,7 +267,7 @@ export async function POST(request) {
 
   if (company) {
     return Response.json(
-      { success: true, message: SUCCESS_MESSAGE },
+      { success: true, message: leadSuccessCopy(language).text },
       { status: 200 },
     );
   }
@@ -384,29 +349,10 @@ export async function POST(request) {
         submittedAtIso,
       });
 
-      if (email) {
-        const autoReply = spanish ? null : buildAutoReply({ name });
-        after(async () => {
-          try {
-            await sendEmail({
-              fromName: process.env.VISIBILITY_CHECK_REPLY_FROM_NAME || "Pixel & Panel",
-              to: email,
-              replyTo: recipient,
-              subject: spanish ? `Recibimos tu solicitud ${ref}` : `We received your Free Visibility Check request ${ref}`,
-              text: spanish
-                ? `Recibimos tu solicitud de chequeo de visibilidad. Tu referencia es ${ref}. Revisaremos los detalles y te responderemos.`
-                : autoReply.text + `\n\nRequest reference ${ref}`,
-              ...(autoReply && { html: autoReply.html + `<p>Request reference ${ref}</p>` }),
-            });
-          } catch (error) {
-            logLeadFailure("visibility", "customer receipt", error);
-          }
-        });
-      }
     });
 
     return Response.json(
-      { success: true, accepted: true, reference, message: SUCCESS_MESSAGE },
+      { success: true, accepted: true, reference, message: leadSuccessCopy(language).text },
       { status: 200 },
     );
   } catch (error) {

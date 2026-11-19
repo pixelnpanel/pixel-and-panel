@@ -99,8 +99,6 @@ const spanishQuoteCopy = {
   shippingHref: "/es/politica-de-envio",
   shippingLabel: "Opciones de envío y entrega",
   agreementSuffix: ".",
-  successTitle: "Gracias — recibimos tu solicitud.",
-  successText: "Recibimos tu solicitud. Revisaremos los detalles y te responderemos por el medio de contacto que indicaste.",
   errorFallback: "Algo salió mal. Por favor escríbenos directamente a hello@pixelnpanel.com.",
   failed: "Algo salió mal. Por favor escríbenos directamente a hello@pixelnpanel.com.",
   defaultMessageTemplate: "Quiero una cotización para {product}.",

@@ -88,8 +88,6 @@ const formCopy = {
   submit: "Solicitar chequeo gratis",
   sending: "Enviando...",
   footer: "Sin garantías falsas, sin presión. Solo próximos pasos prácticos para tu negocio.",
-  successTitle: "Gracias — recibimos tu solicitud.",
-  successText: "Pixel & Panel te contactará pronto.",
   validationName: "Por favor incluye tu nombre y el nombre del negocio.",
   validationContact: "Por favor incluye correo electrónico o teléfono.",
   validationHelp: "Elige al menos una área o cuéntanos qué quieres mejorar.",

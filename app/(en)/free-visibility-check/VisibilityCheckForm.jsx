@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { trackLead } from "@/lib/analytics";
-import { leadErrorMessage, leadReferenceLabel, postLeadRequest } from "@/lib/lead-request";
+import { leadErrorMessage, leadSuccessCopy, postLeadRequest } from "@/lib/lead-request";
 
 const DEFAULT_HELP_OPTIONS = [
   { value: "Website", label: "Website" },
@@ -63,8 +63,6 @@ const defaultCopy = {
   submit: "Start My Free Visibility Check",
   sending: "Sending...",
   footer: "No ranking guarantees, no pressure. Just practical next steps for your business.",
-  successTitle: "Thank you — your request was sent.",
-  successText: "Thanks! Your free visibility check request was sent. We'll review it and follow up soon.",
   validationName: "Please include your name and business name.",
   validationContact: "Please include an email address or phone number.",
   validationHelp: "Please choose at least one area or tell us what you are trying to improve.",
@@ -111,24 +109,17 @@ function getTrackingFromForm(formData) {
 
 export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode = false }) {
   const content = { ...defaultCopy, ...copy };
+  const success = leadSuccessCopy(content.language);
   const containerRef = useRef(null);
   const formRef = useRef(null);
   const [form, setForm] = useState(initialForm);
   const [helpOptions, setHelpOptions] = useState([]);
   const [status, setStatus] = useState("idle");
-  const [requestReference, setRequestReference] = useState("");
   const submission = useRef({ active: false, attemptId: null });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const campaignSuccessTitle = "Thanks — we received your request.";
-  const campaignSuccessText =
-    "Pixel & Panel will review your business visibility and follow up within 1 business day.";
-  const defaultSuccessText = campaignMode ? campaignSuccessText : content.successText;
-  const [successMessage, setSuccessMessage] = useState(defaultSuccessText);
-
   const isLoading = isSubmitting;
   const isSuccess = status === "success";
-  const successTitle = campaignMode ? campaignSuccessTitle : content.successTitle;
 
   useEffect(() => {
     if (!campaignMode || !formRef.current) return;
@@ -215,7 +206,6 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
 
     setError("");
     setStatus("idle");
-    setSuccessMessage(content.successText);
 
     const formData = new FormData(event.currentTarget);
     const submittedForm = getSubmittedForm(formData);
@@ -253,15 +243,9 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
     try {
       submission.current.attemptId ||= crypto.randomUUID();
       const result = await postLeadRequest("/api/visibility-check", payload, submission.current.attemptId);
-      setRequestReference(result.reference);
       setForm(initialForm);
       setHelpOptions([]);
       setError("");
-      setSuccessMessage(
-        !campaignMode && content.language === defaultCopy.language && result.message
-          ? result.message
-          : defaultSuccessText,
-      );
       setStatus("success");
       trackLead("visibility", {
         language: content.language,
@@ -287,11 +271,10 @@ export default function VisibilityCheckForm({ copy = defaultCopy, campaignMode =
           <span className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-lg bg-green-100 text-green-700">
             <CheckCircle2 className="h-8 w-8" />
           </span>
-          <h2 className="text-[#1C1917]">{successTitle}</h2>
+          <h2 className="text-[#1C1917]">{success.title}</h2>
           <p className="mx-auto mt-4 max-w-md text-green-700">
-            {successMessage}
+            {success.text}
           </p>
-          {requestReference && <p className="mt-4 text-sm font-semibold text-[#0369A1]">{leadReferenceLabel(requestReference, content.language)}</p>}
         </div>
       ) : (
         <form ref={formRef} onSubmit={handleSubmit} noValidate>
