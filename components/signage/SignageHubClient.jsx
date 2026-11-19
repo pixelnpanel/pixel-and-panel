@@ -509,7 +509,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                         type="button"
                                         onClick={() => setSearchTerm('')}
                                         className="absolute right-2 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#0EA5E9]"
-                                        aria-label="Clear product search"
+                                        aria-label={content.clearSearch}
                                     >
                                         <X size={18} />
                                     </button>
@@ -716,7 +716,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                 <div className="fixed inset-0 z-50 md:hidden">
                     <button
                         type="button"
-                        aria-label="Close product search"
+                        aria-label={content.closeSearchLabel || 'Close product search'}
                         className="absolute inset-0 bg-[#1C1917]/38 backdrop-blur-[2px]"
                         onClick={() => setIsSearchSheetOpen(false)}
                     />
@@ -738,7 +738,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                                 type="button"
                                 onClick={() => setIsSearchSheetOpen(false)}
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-[#1C1917] shadow-sm transition hover:border-[#F59E0B] focus:outline-none focus:ring-4 focus:ring-[#0EA5E9]/20"
-                                aria-label="Close search products"
+                                aria-label={content.closeSearchLabel || 'Close product search'}
                             >
                                 <X size={18} />
                             </button>

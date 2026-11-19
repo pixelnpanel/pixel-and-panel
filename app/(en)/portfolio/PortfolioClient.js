@@ -151,7 +151,7 @@ export default function PortfolioClient() {
                 {index === completed.length && (
                   <h2 className="col-span-full pb-2 pt-6">Concepts and internal demos</h2>
                 )}
-                <motion.article variants={fadeUp} className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-xl">
+                <motion.article id={project.slug} variants={fadeUp} className="flex h-full scroll-mt-32 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-xl">
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#0369A1]/10">
                     {project.image ? (
                       <Image
@@ -159,7 +159,7 @@ export default function PortfolioClient() {
                         alt={project.imageAlt}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                        className="object-cover"
+                        className={project.catalogHref ? "object-contain" : "object-cover"}
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center bg-[linear-gradient(135deg,#E0F2FE_0%,#FAF8F4_100%)] p-6 text-center">
@@ -207,12 +207,12 @@ export default function PortfolioClient() {
                     </div>
 
                     <div className="mt-6 flex flex-col gap-3">
-                      {SERVICE_LINKS[project.category] && (
-                        <Link href={SERVICE_LINKS[project.category].href} className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#0369A1]/30 bg-[#0369A1]/5 px-4 py-2.5 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:border-[#0369A1] hover:bg-[#0369A1]/10">
-                          {SERVICE_LINKS[project.category].label} <ArrowRight className="h-4 w-4" />
+                      {(project.catalogHref || SERVICE_LINKS[project.category]) && (
+                        <Link href={project.catalogHref || SERVICE_LINKS[project.category].href} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[#0369A1]/30 bg-[#0369A1]/5 px-4 py-2.5 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:border-[#0369A1] hover:bg-[#0369A1]/10">
+                          {project.catalogHref ? "Shop similar products" : SERVICE_LINKS[project.category].label} <ArrowRight className="h-4 w-4" />
                         </Link>
                       )}
-                      <Link href={createQuoteLink(project)} className="inline-flex items-center justify-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:underline">
+                      <Link href={createQuoteLink(project)} className="inline-flex min-h-11 items-center justify-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.12em] text-[#0369A1] transition hover:underline">
                         Request Similar Project <ArrowRight className="h-4 w-4" />
                       </Link>
                     </div>

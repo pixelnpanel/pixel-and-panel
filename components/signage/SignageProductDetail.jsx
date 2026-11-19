@@ -1,6 +1,7 @@
 // components/signage/SignageProductDetail.jsx — server component
 import Image from 'next/image'
 import Link from 'next/link'
+import ProductProjectProof from './ProductProjectProof'
 import { ArrowLeft, ArrowRight, Box, Check, ChevronDown, Info } from 'lucide-react'
 import { ProductQuoteProvider, ProductQuoteLink, MobileProductQuoteBar } from '@/components/signage/ProductQuoteContext'
 import SignagePriceCalculator from '@/components/signage/SignagePriceCalculator'
@@ -137,6 +138,7 @@ export default function SignageProductDetail({ product, category, related = [] }
                                 <p className="text-sm leading-relaxed text-slate-600">{product.notes}</p>
                             </div>
                         )}
+                        <ProductProjectProof slug={product.slug} />
 
                         <div className="mt-8">
                             <Link

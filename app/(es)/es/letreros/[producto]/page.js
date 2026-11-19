@@ -1,5 +1,6 @@
 import { ProductQuoteProvider, ProductQuoteLink, MobileProductQuoteBar } from "@/components/signage/ProductQuoteContext";
 import SignagePriceCalculator from "@/components/signage/SignagePriceCalculator";
+import ProductProjectProof from "@/components/signage/ProductProjectProof";
 import { getProduct } from "@/lib/signage/data";
 import { signageQuoteOptions } from "@/lib/signage/quote-options";
 import Image from "next/image";
@@ -58,8 +59,8 @@ const enlacesDigitales = [
 
 const defaultSpecs = {
   turnaround:
-    "La producción estándar suele tomar de 3 a 5 días hábiles después de aprobar el diseño. Los pedidos especiales pueden tardar más. Agrega el tiempo de envío.",
-  minOrder: "Depende del producto; muchas piezas se pueden cotizar desde 1 unidad.",
+    "Confirmaremos el plazo en la cotización. El tiempo de producción y el de envío se calculan por separado.",
+  minOrder: "La cantidad depende del producto y se confirma en la cotización.",
   materials: [
     "Material recomendado según uso interior o exterior",
     "Opciones resistentes para calor, humedad y uso local",
@@ -280,7 +281,7 @@ export default async function SpanishSignageProductPage({ params }) {
           <div className="absolute inset-0 bg-[linear-gradient(135deg,#1C1917_0%,#0369A1_62%,#0EA5E9_100%)]" />
           <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.09)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.09)_1px,transparent_1px)] [background-size:44px_44px]" />
           <div className="relative mx-auto max-w-7xl pb-18 md:pb-24">
-            <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/65" aria-label="Breadcrumb">
+            <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/75" aria-label="Ruta de navegación">
               <Link href="/es" className="transition hover:text-white">Inicio</Link>
               <span aria-hidden="true">/</span>
               <Link href="/es/letreros" className="transition hover:text-white">Letreros e Impresión</Link>
@@ -294,12 +295,12 @@ export default async function SpanishSignageProductPage({ params }) {
                 <h1 className="max-w-4xl text-white">{product.h1}</h1>
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-white/75">{product.intro}</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <ProductQuoteLink href={quoteHref} className="btn-amber justify-center">
-                    Solicitar cotización <ArrowRight size={16} />
-                  </ProductQuoteLink>
-                  <Link href={visibilityHref} className="btn-ghost justify-center">
-                    Chequeo gratis de visibilidad
-                  </Link>
+                  {catalogProduct ? (
+                    <a href="#product-options" className="btn-amber justify-center">Elegir opciones <ArrowRight size={16} aria-hidden="true" /></a>
+                  ) : (
+                    <ProductQuoteLink href={quoteHref} className="btn-amber justify-center">Solicitar cotización <ArrowRight size={16} aria-hidden="true" /></ProductQuoteLink>
+                  )}
+                  <Link href="/es/politica-de-envio" className="btn-ghost justify-center">Envío y entrega</Link>
                 </div>
                 <div className="mt-8 grid gap-3 text-sm text-white/72 sm:grid-cols-3">
                   {["Legible desde la distancia correcta", "Diseñado con un siguiente paso claro", "Houston y el Sureste de Texas"].map((item) => (
@@ -338,14 +339,6 @@ export default async function SpanishSignageProductPage({ params }) {
                       </div>
                     )}
                   </div>
-                  <div className="mt-3 rounded-lg bg-white/10 p-4">
-                    <p className="font-heading text-xs font-bold uppercase tracking-[0.14em] text-[#F59E0B]">
-                      Primera pregunta útil
-                    </p>
-                    <p className="mt-2 text-sm leading-6 text-white/72">
-                      ¿Dónde lo verá la gente y qué quieres que hagan después?
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -369,6 +362,7 @@ export default async function SpanishSignageProductPage({ params }) {
 
         <section className="section-base">
           <div className="container-px">
+            <div className="mb-7 empty:hidden"><ProductProjectProof slug={product.slug} locale="es" /></div>
             <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
               <section aria-labelledby="best-for-heading" className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
                 <p className="section-label text-[#0369A1]">Ideal para</p>

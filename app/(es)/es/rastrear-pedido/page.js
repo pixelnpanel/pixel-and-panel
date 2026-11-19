@@ -25,6 +25,7 @@ const spanishPreviewSteps = [
 ];
 
 const spanishCopy = {
+  locale: "es",
   eyebrow: "Rastreo de pedido",
   headline: "Revisa el estado de tu proyecto.",
   intro:
@@ -44,6 +45,7 @@ const spanishCopy = {
   submit: "Revisar estado",
   checking: "Revisando...",
   lookupError: "No se pudo revisar el estado del pedido.",
+  lookupNotFound: "No encontramos un pedido con esos datos. Revisa el número y el correo o teléfono, o comunícate con Pixel & Panel.",
   statusPreviewTitle: "Rastrea tu pedido de principio a fin",
   statusPreviewText:
     "Ve en qué paso está tu proyecto, qué sigue y si necesitamos algo de ti.",

@@ -82,7 +82,7 @@ export function TrackOrderExperience({ copy }) {
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(data.error || copy.lookupError);
+        throw new Error(response.status === 404 ? copy.lookupNotFound : copy.lookupError);
       }
 
       const trackingUrl = typeof data.trackingUrl === "string" ? data.trackingUrl : "";
@@ -90,7 +90,7 @@ export function TrackOrderExperience({ copy }) {
         throw new Error(copy.lookupError);
       }
 
-      router.replace(trackingUrl);
+      router.replace(copy.locale === "es" ? `${trackingUrl}?lang=es` : trackingUrl);
     } catch (lookupError) {
       setError(lookupError.message || copy.lookupNotFound || copy.lookupError);
       setLoading(false);

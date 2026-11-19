@@ -19,11 +19,19 @@ import { getProgressSteps } from "@/lib/order-status";
 
 export const dynamic = "force-dynamic";
 
-function formatDate(date) {
+const SPANISH_STATUS = {
+  "Order Received": "Pedido recibido", "In Production": "En producción", "Waiting on Your Approval": "Esperando tu aprobación", "Completed": "Completado", "Cancelled": "Cancelado",
+  "Payment Pending": "Pago pendiente", "Deposit Paid": "Depósito recibido", "Paid in Full": "Pagado en su totalidad", "Refunded": "Reembolsado",
+  "Proof Not Sent Yet": "Prueba pendiente de envío", "Proof Sent for Review": "Prueba enviada para revisión", "Artwork Approved": "Diseño aprobado", "Revision Requested": "Cambios solicitados",
+  "Production Not Scheduled": "Producción sin programar", "Scheduled for Production": "Producción programada", "Printing": "En impresión", "Finishing / Quality Check": "Acabado y revisión de calidad", "Shipped": "Enviado", "Delivered": "Entregado",
+  "Payment Confirmed": "Pago confirmado", "Quality Check": "Revisión de calidad", "Shipped / Ready": "Enviado o listo", "Delivered / Completed": "Entregado o completado",
+};
+
+function formatDate(date, locale) {
   if (!date) return "";
   const [year, month, day] = String(date).split("-").map(Number);
   if (year && month && day) {
-    return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+    return new Date(year, month - 1, day).toLocaleDateString(locale, {
       month: "long",
       day: "numeric",
       year: "numeric",
@@ -32,18 +40,18 @@ function formatDate(date) {
 
   const parsed = new Date(date);
   if (Number.isNaN(parsed.getTime())) return String(date);
-  return parsed.toLocaleDateString("en-US", {
+  return parsed.toLocaleDateString(locale, {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
 }
 
-function formatDateTime(value) {
+function formatDateTime(value, locale) {
   if (!value) return "";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleString("en-US", {
+  return date.toLocaleString(locale, {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -117,7 +125,7 @@ function DetailCard({ icon: Icon, label, value }) {
   );
 }
 
-function ProgressStep({ step, isLast }) {
+function ProgressStep({ step, isLast, spanish }) {
   const isCompleted = step.state === "completed";
   const isCurrent = step.state === "current";
   const iconColor = isCompleted ? "#15803d" : isCurrent ? "#F59E0B" : "#94a3b8";
@@ -159,26 +167,29 @@ function ProgressStep({ step, isLast }) {
       <div style={{ paddingBottom: isLast ? 0 : "1rem" }}>
         <p style={{ color: "#1C1917", fontWeight: 900 }}>{step.label}</p>
         <p style={{ color: isCurrent ? "#92400e" : "#64748b", fontSize: "0.9rem" }}>
-          {isCompleted ? "Completed" : isCurrent ? "Current step" : "Upcoming"}
+          {isCompleted ? (spanish ? "Completado" : "Completed") : isCurrent ? (spanish ? "Paso actual" : "Current step") : (spanish ? "Próximo paso" : "Upcoming")}
         </p>
       </div>
     </div>
   );
 }
 
-export default async function CustomerTrackingPage({ params }) {
+export default async function CustomerTrackingPage({ params, searchParams }) {
   const { trackingToken } = await params;
   const order = await findOrderByTrackingToken(trackingToken);
 
   if (!order) notFound();
 
+  const spanish = (await searchParams)?.lang === "es";
+  const locale = spanish ? "es-US" : "en-US";
+  const statusLabel = (value) => (spanish ? SPANISH_STATUS[value] || value : value);
   const progressSteps = getProgressSteps(order);
   const visibleEvents = dedupeTimelineEvents(order.timelineEvents || []);
   const customerDisplayName = formatCustomerName(order);
   const showInitialTimelineNote = visibleEvents.length === 0 && order.firstTimelineNote;
 
   return (
-    <section style={{ background: "#FAF8F4", minHeight: "100vh" }}>
+    <section lang={locale} style={{ background: "#FAF8F4", minHeight: "100vh" }}>
       <div style={{ margin: "0 auto", maxWidth: "1120px", padding: "8.25rem 1rem 4rem" }}>
         <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "1rem" }}>
           <span
@@ -192,7 +203,7 @@ export default async function CustomerTrackingPage({ params }) {
               padding: "0.45rem 0.8rem",
             }}
           >
-            {order.orderStatusLabel}
+            {statusLabel(order.orderStatusLabel)}
           </span>
         </div>
 
@@ -212,7 +223,7 @@ export default async function CustomerTrackingPage({ params }) {
           </p>
           <h1 style={{ color: "white", marginBottom: "0.65rem" }}>{order.projectName}</h1>
           <p style={{ color: "rgba(255,255,255,0.82)", maxWidth: "720px" }}>
-            Track the safe customer-facing progress for your Pixel & Panel order. Contact us if anything looks off or you need help.
+            {spanish ? "Consulta el estado de tu pedido. Comunícate con Pixel & Panel si tienes alguna pregunta o necesitas ayuda." : "Check your order’s progress. Contact Pixel & Panel if you have a question or need help."}
           </p>
         </div>
 
@@ -233,16 +244,16 @@ export default async function CustomerTrackingPage({ params }) {
                 padding: "1rem",
               }}
             >
-              <h2 style={{ marginBottom: "0.8rem" }}>Order details</h2>
+              <h2 style={{ marginBottom: "0.8rem" }}>{spanish ? "Detalles del pedido" : "Order details"}</h2>
               <div style={{ display: "grid", gap: "0.75rem" }}>
-                <DetailCard icon={UserRound} label="Customer" value={customerDisplayName} />
-                <DetailCard icon={Package} label="Product" value={order.productName} />
-                <DetailCard icon={Package} label="Quantity" value={order.quantity} />
-                <DetailCard icon={CalendarDays} label="Order Date" value={formatDate(order.orderDate)} />
-                <DetailCard icon={CalendarDays} label="Estimated Delivery" value={formatDate(order.targetDate)} />
-                <DetailCard icon={CreditCard} label="Payment Status" value={order.paymentStatusLabel} />
-                <DetailCard icon={ShieldCheck} label="Proof Status" value={order.proofStatusLabel} />
-                <DetailCard icon={Truck} label="Production Status" value={order.productStatusLabel} />
+                <DetailCard icon={UserRound} label={spanish ? "Cliente" : "Customer"} value={customerDisplayName} />
+                <DetailCard icon={Package} label={spanish ? "Producto" : "Product"} value={order.productName} />
+                <DetailCard icon={Package} label={spanish ? "Cantidad" : "Quantity"} value={order.quantity} />
+                <DetailCard icon={CalendarDays} label={spanish ? "Fecha de pedido" : "Order date"} value={formatDate(order.orderDate, locale)} />
+                <DetailCard icon={CalendarDays} label={spanish ? "Entrega estimada" : "Estimated delivery"} value={formatDate(order.targetDate, locale)} />
+                <DetailCard icon={CreditCard} label={spanish ? "Estado del pago" : "Payment status"} value={statusLabel(order.paymentStatusLabel)} />
+                <DetailCard icon={ShieldCheck} label={spanish ? "Estado de la prueba" : "Proof status"} value={statusLabel(order.proofStatusLabel)} />
+                <DetailCard icon={Truck} label={spanish ? "Estado de producción" : "Production status"} value={statusLabel(order.productStatusLabel)} />
               </div>
             </div>
 
@@ -256,7 +267,7 @@ export default async function CustomerTrackingPage({ params }) {
                 }}
               >
                 <p style={{ color: "#92400e", fontSize: "0.78rem", fontWeight: 900, letterSpacing: "0.06em", marginBottom: "0.35rem", textTransform: "uppercase" }}>
-                  Note from Pixel & Panel
+                  {spanish ? "Nota de Pixel & Panel" : "Note from Pixel & Panel"}
                 </p>
                 <p style={{ color: "#78350f", fontWeight: 700 }}>{order.publicNote}</p>
               </div>
@@ -272,12 +283,13 @@ export default async function CustomerTrackingPage({ params }) {
                 padding: "1rem",
               }}
             >
-              <h2 style={{ marginBottom: "0.85rem" }}>Progress</h2>
+              <h2 style={{ marginBottom: "0.85rem" }}>{spanish ? "Progreso" : "Progress"}</h2>
               <div style={{ display: "grid" }}>
                 {progressSteps.map((step, index) => (
                   <ProgressStep
                     key={step.label}
-                    step={step}
+                    step={{ ...step, label: statusLabel(step.label) }}
+                    spanish={spanish}
                     isLast={index === progressSteps.length - 1}
                   />
                 ))}
@@ -292,7 +304,7 @@ export default async function CustomerTrackingPage({ params }) {
                 padding: "1rem",
               }}
             >
-              <h2 style={{ marginBottom: "0.85rem" }}>Timeline updates</h2>
+              <h2 style={{ marginBottom: "0.85rem" }}>{spanish ? "Actualizaciones del pedido" : "Timeline updates"}</h2>
               <div style={{ display: "grid", gap: "0.75rem" }}>
                 {showInitialTimelineNote && (
                   <div
@@ -303,7 +315,7 @@ export default async function CustomerTrackingPage({ params }) {
                       padding: "0.9rem",
                     }}
                   >
-                    <p style={{ color: "#1C1917", fontWeight: 900 }}>Initial update</p>
+                    <p style={{ color: "#1C1917", fontWeight: 900 }}>{spanish ? "Primera actualización" : "Initial update"}</p>
                     <p style={{ color: "#64748b", fontSize: "0.95rem", marginTop: "0.25rem" }}>
                       {order.firstTimelineNote}
                     </p>
@@ -326,13 +338,13 @@ export default async function CustomerTrackingPage({ params }) {
                     )}
                     {event.createdAt && (
                       <p style={{ color: "#94a3b8", fontSize: "0.8rem", marginTop: "0.5rem" }}>
-                        {formatDateTime(event.createdAt)}
+                        {formatDateTime(event.createdAt, locale)}
                       </p>
                     )}
                   </div>
                 ))}
                 {visibleEvents.length === 0 && !order.firstTimelineNote && (
-                  <p style={{ color: "#64748b" }}>No additional customer-visible updates yet.</p>
+                  <p style={{ color: "#64748b" }}>{spanish ? "Todavía no hay más actualizaciones." : "No further updates yet."}</p>
                 )}
               </div>
             </div>
@@ -348,7 +360,7 @@ export default async function CustomerTrackingPage({ params }) {
             padding: "1rem",
           }}
         >
-          <h2 style={{ marginBottom: "0.75rem" }}>Need help?</h2>
+          <h2 style={{ marginBottom: "0.75rem" }}>{spanish ? "¿Necesitas ayuda?" : "Need help?"}</h2>
           <div
             style={{
               display: "grid",
@@ -357,13 +369,13 @@ export default async function CustomerTrackingPage({ params }) {
             }}
           >
             <a className="btn-amber" href={BRAND.phoneHref} style={{ justifyContent: "center" }}>
-              <Phone size={16} /> Call
+              <Phone size={16} /> {spanish ? "Llamar" : "Call"}
             </a>
             <a className="btn-amber" href="https://wa.me/14092252012" style={{ justifyContent: "center" }}>
               <MessageCircle size={16} /> WhatsApp
             </a>
             <a className="btn-amber" href={`mailto:${BRAND.email}`} style={{ justifyContent: "center" }}>
-              <Mail size={16} /> Email
+              <Mail size={16} /> {spanish ? "Correo" : "Email"}
             </a>
           </div>
         </div>

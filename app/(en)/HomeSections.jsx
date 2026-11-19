@@ -52,7 +52,7 @@ const PRODUCTS = [
   ["rigid-and-metal-signs", "coroplast-yard-signs", "Yard Signs", "Letreros para jardín", "letreros-para-jardin"],
   ["banners", "13oz-vinyl-banner", "Vinyl Banners", "Banners de vinilo", "banners-de-vinilo"],
   ["banner-stands", "standard-retractable", "Retractable Banners", "Banners retráctiles", "banners-retractiles"],
-  ["flags", null, "Feather Flags & Kits", "Banderas y kits", null],
+  ["flags", "econo-feather-flag", "Feather Flags & Kits", "Banderas y kits", "bandera-pluma-econo"],
   ["business-cards", null, "Business Cards", "Tarjetas de presentación", "tarjetas-de-presentacion"],
   ["seg-displays", null, "SEG Fabric Displays", "Exhibidores de tela SEG", null],
 ];
