@@ -74,7 +74,7 @@
     if (typeof data.path !== "string") return;
     const { type, path } = data;
     if (!/^\/(?:[a-z0-9-]+(?:\/[a-z0-9-]+){0,3})?$/i.test(path) ||
-        /^\/(?:admin|api|track|analytics-frame)(?:\/|$)/i.test(path)) return;
+        /^\/(?:admin|api|track|track-order|es\/rastrear-pedido|analytics-frame)(?:\/|$)/i.test(path)) return;
     if (!initialized) initialize();
 
     if (type === "page") {

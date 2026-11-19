@@ -60,11 +60,11 @@ export default function SpanishRootLayout({ children }) {
         <ContactClickTracker />
         <OrganizationJsonLd language="es-US" />
         <Navbar />
-        <main id="main-content" className="pnp-site-shell">
+        <main id="main-content" tabIndex={-1} className="pnp-site-shell scroll-mt-28">
           {children}
         </main>
         <Footer language="es" />
-        <WhatsAppWidget />
+        <WhatsAppWidget language="es" />
         <MobileContactBar />
       </body>
     </html>

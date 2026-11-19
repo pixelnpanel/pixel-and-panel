@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import LanguageLink from '@/components/language/LanguageLink'
 import Image from 'next/image'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import { NAV_LINKS } from '@/lib/constants'
 import { getAlternatePath, isSpanishPath } from '@/lib/i18n'
@@ -49,7 +49,6 @@ function navIsActive(pathname, href) {
 
 export default function Navbar() {
   const pathname = usePathname()
-  const router = useRouter()
   const [scrolled, setScrolled] = useState(false)
   const spanish = isSpanishPath(pathname)
   const navLinks = spanish ? SPANISH_NAV : NAV_LINKS
@@ -92,14 +91,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    if (!window.matchMedia('(max-width: 1023px)').matches) return
-    mobileNavLinks.forEach((item) => {
-      router.prefetch(item.href)
-    })
-  }, [mobileNavLinks, router])
-
   const isLight = scrolled || forceSolidHeader
   const bg = forceSolidHeader ? '#FAF8F4' : isLight ? 'rgba(255,255,255,0.97)' : 'transparent'
   const textColor = isLight ? '#1C1917' : 'white'
@@ -107,7 +98,7 @@ export default function Navbar() {
 
   return (
     <header
-      aria-label="Site navigation"
+      aria-label={spanish ? 'Navegación del sitio' : 'Site navigation'}
       style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
         transition: 'background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
@@ -159,12 +150,13 @@ export default function Navbar() {
 
           <div className="flex shrink-0 items-center gap-2 lg:hidden">
             <Link href={quoteHref} aria-label={quoteLabel}
-              className={`inline-flex min-h-8 items-center rounded-lg bg-[#F59E0B] px-2.5 text-xs font-bold text-[#1C1917] ${focusClass}`}>
+              className={`inline-flex min-h-11 items-center rounded-lg bg-[#F59E0B] px-2.5 text-xs font-bold text-[#1C1917] ${focusClass}`}>
               {spanish ? 'Cotizar' : 'Quote'}
             </Link>
             <div
               className="flex"
-              aria-label="Language switcher"
+              role="group"
+              aria-label={spanish ? 'Idioma' : 'Language'}
               style={{
                 alignItems: 'center',
                 border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
@@ -174,11 +166,11 @@ export default function Navbar() {
                 fontWeight: 800,
               }}
             >
-              <LanguageLink href={languageSwitch.en} hrefLang="en-US" className={`rounded-l-full ${focusClass}`} onClick={() => rememberLanguage('en')}
+              <LanguageLink href={languageSwitch.en} hrefLang="en-US" aria-label="English" lang="en" aria-current={!spanish ? 'true' : undefined} className={`inline-flex min-h-8 items-center rounded-l-full ${focusClass}`} onClick={() => rememberLanguage('en')}
                 style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
                 EN
               </LanguageLink>
-              <LanguageLink href={languageSwitch.es} hrefLang="es-US" className={`rounded-r-full ${focusClass}`} onClick={() => rememberLanguage('es')}
+              <LanguageLink href={languageSwitch.es} hrefLang="es-US" aria-label="Español" lang="es" aria-current={spanish ? 'true' : undefined} className={`inline-flex min-h-8 items-center rounded-r-full ${focusClass}`} onClick={() => rememberLanguage('es')}
                 style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.3rem 0.4rem', textDecoration: 'none' }}>
                 ES
               </LanguageLink>
@@ -186,7 +178,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Nav */}
-          <nav aria-label="Desktop navigation" className="hidden lg:flex" style={{ alignItems: 'center', gap: '0.25rem' }}>
+          <nav aria-label={spanish ? 'Navegación principal' : 'Main navigation'} className="hidden lg:flex" style={{ alignItems: 'center', gap: '0.25rem' }}>
             {navLinks.map((item) => {
               const isActive = navIsActive(pathname, item.href)
               return (
@@ -209,7 +201,8 @@ export default function Navbar() {
           {/* Desktop CTA + Language */}
           <div className="hidden lg:flex" style={{ alignItems: 'center', flexShrink: 0, gap: '0.75rem' }}>
             <div
-              aria-label="Language switcher"
+              role="group"
+              aria-label={spanish ? 'Idioma' : 'Language'}
               style={{
                 alignItems: 'center',
                 border: `1px solid ${isLight ? 'rgba(28,25,23,0.16)' : 'rgba(255,255,255,0.28)'}`,
@@ -220,11 +213,11 @@ export default function Navbar() {
                 fontWeight: 800,
               }}
             >
-              <LanguageLink href={languageSwitch.en} hrefLang="en-US" className={`rounded-l-full ${focusClass}`} onClick={() => rememberLanguage('en')}
+              <LanguageLink href={languageSwitch.en} hrefLang="en-US" aria-label="English" lang="en" aria-current={!spanish ? 'true' : undefined} className={`rounded-l-full ${focusClass}`} onClick={() => rememberLanguage('en')}
                 style={{ background: spanish ? 'transparent' : '#F59E0B', color: spanish ? textColor : '#1C1917', padding: '0.42rem 0.55rem', textDecoration: 'none' }}>
                 EN
               </LanguageLink>
-              <LanguageLink href={languageSwitch.es} hrefLang="es-US" className={`rounded-r-full ${focusClass}`} onClick={() => rememberLanguage('es')}
+              <LanguageLink href={languageSwitch.es} hrefLang="es-US" aria-label="Español" lang="es" aria-current={spanish ? 'true' : undefined} className={`rounded-r-full ${focusClass}`} onClick={() => rememberLanguage('es')}
                 style={{ background: spanish ? '#F59E0B' : 'transparent', color: spanish ? '#1C1917' : textColor, padding: '0.42rem 0.55rem', textDecoration: 'none' }}>
                 ES
               </LanguageLink>
@@ -238,7 +231,7 @@ export default function Navbar() {
 
         {/* Mobile Nav — same links as desktop */}
         <nav
-          aria-label="Mobile navigation"
+          aria-label={spanish ? 'Navegación principal' : 'Main navigation'}
           className="flex lg:hidden"
           style={{
             alignItems: 'stretch',
@@ -257,6 +250,7 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
+                prefetch={false}
                 className={focusClass}
                 aria-current={isActive ? 'page' : undefined}
                 style={{

@@ -266,7 +266,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
         const bar = stickyCategoryBarRef.current
         const activeChip = bar?.querySelector('[data-active-chip="true"]')
-        activeChip?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+        activeChip?.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' })
     }, [isStickyCategoryVisible, selectedCategory.slug])
 
     useModalFocus(searchDialogRef, isSearchSheetOpen, setIsSearchSheetOpen)
@@ -327,7 +327,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
         setSelectedSlug(slug)
         router.push(`${content.basePath}?${params.toString()}`, { scroll: false })
         setTimeout(() => {
-            productAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            productAreaRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' })
         }, 80)
     }
 
@@ -362,7 +362,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
 
         window.setTimeout(() => {
             const targetCard = productCardRefs.current.get(productKey)
-            targetCard?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            targetCard?.scrollIntoView({ behavior: 'auto', block: 'center' })
         }, 80)
     }
 
@@ -398,7 +398,7 @@ export default function SignageHubClient({ categories = [], copy = DEFAULT_COPY,
                         <Link href={content.quotePath} className="btn-amber">
                             {content.quoteCta} <ArrowRight size={18} />
                         </Link>
-                        <button onClick={() => productAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="btn-ghost">
+                        <button onClick={() => productAreaRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' })} className="btn-ghost">
                             {content.viewProducts} <Search size={17} />
                         </button>
                     </div>

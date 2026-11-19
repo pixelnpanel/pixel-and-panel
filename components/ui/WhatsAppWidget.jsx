@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function WhatsAppWidget() {
+export default function WhatsAppWidget({ language = "en" }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function WhatsAppWidget() {
       href="https://wa.me/14092252012"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with Pixel & Panel on WhatsApp"
+      aria-label={language === "es" ? "Escríbenos por WhatsApp" : "Chat with Pixel & Panel on WhatsApp"}
       className="pnp-whatsapp-widget fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[#25D366]/50"
       style={{ backgroundColor: "#25D366" }}
     >

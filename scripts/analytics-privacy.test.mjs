@@ -9,6 +9,8 @@ test("analytics URLs strip query and hash data and exclude private routes", () =
   assert.equal(analyticsUrl("/quote-request?email=person@example.test#private", origin), origin + "/quote-request");
   assert.equal(analyticsUrl("/admin/orders?test=1", origin), null);
   assert.equal(analyticsUrl("/track/test-token", origin), null);
+  assert.equal(analyticsUrl("/track-order?email=person@example.test", origin), null);
+  assert.equal(analyticsUrl("/es/rastrear-pedido", origin), null);
   assert.equal(analyticsUrl("https://elsewhere.example/quote-request", origin), null);
   assert.equal(analyticsReferrer("https://elsewhere.example/user?email=person@example.test"), "https://elsewhere.example/");
 });

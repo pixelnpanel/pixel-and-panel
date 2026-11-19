@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Fragment, useMemo, useState } from "react";
 import { GOOGLE_REVIEWS } from "@/lib/reviews";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
 import { fadeUp, stagger, viewport } from "@/lib/animations";
 import { portfolioFilters, portfolioProjects } from "@/lib/portfolio-projects";
 
@@ -72,6 +72,7 @@ export default function PortfolioClient() {
   const concepts = filteredProjects.filter((project) => project.label !== "Real Project");
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="bg-[#FAF8F4] text-[#1C1917]">
       <section className="pnp-mobile-hero relative overflow-hidden bg-[#0C1E3C] pt-24 text-white md:pt-28">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#0C1E3C_0%,#0369A1_100%)]" />
@@ -275,5 +276,6 @@ export default function PortfolioClient() {
         </div>
       </section>
     </div>
+    </MotionConfig>
   );
 }

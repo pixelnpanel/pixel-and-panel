@@ -19,7 +19,7 @@ export default function PrivateRootLayout({ children }) {
           Skip to main content
         </a>
         <Navbar />
-        <main id="main-content" className="pnp-site-shell">{children}</main>
+        <main id="main-content" tabIndex={-1} className="pnp-site-shell scroll-mt-28">{children}</main>
         <Footer />
       </body>
     </html>

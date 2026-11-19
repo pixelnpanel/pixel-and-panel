@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { attachAnalyticsRelay, trackPageView } from "@/lib/analytics";
-import { analyticsReferrer, analyticsRelayOrigin, analyticsUrl } from "@/lib/analytics-privacy";
+import { analyticsPath, analyticsReferrer, analyticsRelayOrigin, analyticsUrl } from "@/lib/analytics-privacy";
 
 function sanitizeVercelEvent(event) {
   const url = analyticsUrl(event.url, window.location.origin);
@@ -19,6 +19,10 @@ function sanitizeVercelEvent(event) {
 
 export default function SiteAnalytics() {
   const pathname = usePathname();
+  return pathname && analyticsPath(pathname) ? <PublicSiteAnalytics pathname={pathname} /> : null;
+}
+
+function PublicSiteAnalytics({ pathname }) {
   const frame = useRef(null);
   const relayOrigin = useRef(null);
   const previousPath = useRef(null);
@@ -27,14 +31,18 @@ export default function SiteAnalytics() {
     const origin = analyticsRelayOrigin(window.location.href);
     if (!origin || !frame.current) return;
     relayOrigin.current = origin;
+    let disconnect;
     function connect(event) {
       if (event.origin !== origin || event.data !== "analytics-ready") return;
       if (event.source !== frame.current?.contentWindow) return;
-      attachAnalyticsRelay(event.source, origin);
+      disconnect = attachAnalyticsRelay(event.source, origin);
     }
     window.addEventListener("message", connect);
     frame.current.src = origin + "/analytics-frame";
-    return () => window.removeEventListener("message", connect);
+    return () => {
+      window.removeEventListener("message", connect);
+      disconnect?.();
+    };
   }, []);
 
   useEffect(() => {

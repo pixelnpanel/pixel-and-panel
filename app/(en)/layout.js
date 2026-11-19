@@ -57,7 +57,7 @@ export default function EnglishRootLayout({ children }) {
         <ContactClickTracker />
         <OrganizationJsonLd />
         <Navbar />
-        <main id="main-content" className="pnp-site-shell">
+        <main id="main-content" tabIndex={-1} className="pnp-site-shell scroll-mt-28">
           {children}
         </main>
         <Footer />

@@ -9,7 +9,7 @@ import {
   ClipboardCheck,
   QrCode,
 } from 'lucide-react'
-import { LazyMotion, domAnimation, m } from 'framer-motion'
+import { LazyMotion, MotionConfig, domAnimation, m } from 'framer-motion'
 import { fadeUp, stagger, scaleIn, viewport } from '@/lib/animations'
 
 const WEBSITE_PACKAGES = [
@@ -582,6 +582,7 @@ export default function PricingPage({
   copy = DEFAULT_COPY,
 } = {}) {
   return (
+    <MotionConfig reducedMotion="user">
     <LazyMotion features={domAnimation}>
       <>
       <section
@@ -987,5 +988,6 @@ export default function PricingPage({
       </section>
       </>
     </LazyMotion>
+    </MotionConfig>
   )
 }

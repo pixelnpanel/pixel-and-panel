@@ -140,6 +140,11 @@
     max-width: 100%;
   }
 
+  :focus-visible {
+    outline: 2px solid #0369A1;
+    outline-offset: 3px;
+  }
+
   @keyframes pnp-progress {
     from {
       transform: scaleX(0);

@@ -118,7 +118,7 @@ export default function HomeSections({ faqs, categories, locale = "en" }) {
         </div>
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-5">
           {featured.map((item) => (
-            <Link key={item.id} href={item.href} className="group overflow-hidden rounded-xl border border-stone-200 bg-white hover:border-[#0369A1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1]">
+            <Link key={item.id} href={item.href} prefetch={false} className="group overflow-hidden rounded-xl border border-stone-200 bg-white hover:border-[#0369A1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0369A1]">
               {item.image && <div className="relative aspect-[4/3] bg-[#FAF8F4]"><Image src={item.image} alt="" fill sizes="(max-width: 639px) 48vw, (max-width: 1360px) 32vw, 390px" className="object-contain" /></div>}
               <span className="flex min-h-12 items-center justify-between gap-1 px-3 py-2 text-sm font-bold text-[#1C1917] group-hover:text-[#0369A1] sm:px-5 sm:text-base">
                 {item.title} <ArrowRight size={15} className="shrink-0" aria-hidden="true" />

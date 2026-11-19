@@ -243,7 +243,7 @@ const nextConfig = {
         ],
       },
       {
-        source: "/:section(track|admin)/:path*",
+        source: "/:section(track|admin|track-order|es/rastrear-pedido)/:path*",
         headers: [
           { key: "Referrer-Policy", value: "no-referrer" },
           { key: "X-Robots-Tag", value: "noindex, nofollow" },

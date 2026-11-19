@@ -5,7 +5,7 @@ import {
   Monitor, MapPin, Zap, QrCode, ArrowRight,
   Phone, Star, MessageSquare, PenTool, Rocket, ChevronDown,
 } from 'lucide-react'
-import { LazyMotion, domAnimation, m } from 'framer-motion'
+import { LazyMotion, MotionConfig, domAnimation, m } from 'framer-motion'
 import { fadeUp, stagger, scaleIn, viewport } from '@/lib/animations'
 import { GOOGLE_REVIEWS, reviews } from '@/lib/reviews'
 
@@ -119,6 +119,7 @@ const DEFAULT_COPY = {
 
 export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY } = {}) {
   return (
+    <MotionConfig reducedMotion="user">
     <LazyMotion features={domAnimation}>
       <>
         {/* Hero */}
@@ -394,5 +395,6 @@ export default function DigitalPage({ services = SERVICES, copy = DEFAULT_COPY }
         </section>
       </>
     </LazyMotion>
+    </MotionConfig>
   )
 }
