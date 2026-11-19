@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, MapPin, Star } from "lucide-react";
+import HomeHeroSlideshow from "@/components/sections/HomeHeroSlideshow";
 import { portfolioProjects } from "@/lib/portfolio-projects";
 import { portfolioProjectsEs } from "@/lib/portfolio-projects-es";
 import { GOOGLE_REVIEWS } from "@/lib/reviews";
@@ -57,17 +58,50 @@ const PRODUCTS = [
   ["seg-displays", null, "SEG Fabric Displays", "Exhibidores de tela SEG", null],
 ];
 
+const HERO_EXAMPLES = [
+  {
+    image: "banners/13oz-vinyl-banner-beaumont-tx.webp",
+    en: ["Custom Vinyl Banner", "Grand-opening banner with corner grommets", "/signage/banners/13oz-vinyl-banner"],
+    es: ["Banner de vinilo personalizado", "Lona de gran apertura con ojales en las esquinas", "/es/letreros/banners-de-vinilo"],
+  },
+  {
+    image: "rigid-and-metal-signs/coroplast-yard-sign-beaumont-tx.webp",
+    en: ["Contractor Yard Sign", "Roofing and repairs yard sign on a wire stake", "/signage/rigid-and-metal-signs/coroplast-yard-signs"],
+    es: ["Letrero para jardín de un contratista", "Letrero de reparación de techos con estaca metálica", "/es/letreros/letreros-para-jardin"],
+  },
+  {
+    image: "banner-stands/standard-retractable-banner-stand-beaumont-tx.webp",
+    en: ["Retractable Banner Display", "Clinic welcome banner on a freestanding retractable base", "/signage/banner-stands/standard-retractable"],
+    es: ["Exhibidor con banner retráctil", "Banner de bienvenida para una clínica con base retráctil", "/es/letreros/banners-retractiles"],
+  },
+  {
+    image: "flags/econo-feather-flag-beaumont-tx.webp",
+    en: ["Custom Feather Flag", "Colorful taco shop flag displayed on a pole", "/signage/flags/econo-feather-flag"],
+    es: ["Bandera pluma personalizada", "Bandera colorida de una taquería colocada en un mástil", "/es/letreros/bandera-pluma-econo"],
+  },
+];
+
 const action = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0369A1]";
 const primary = action + " bg-[#0369A1] text-white hover:bg-sky-900";
-const secondary = action + " border border-stone-400 bg-white text-[#1C1917] hover:border-[#0369A1] hover:text-[#0369A1]";
 const textLink = "inline-flex min-h-11 items-center gap-2 font-bold text-[#0369A1] hover:underline";
 const shell = "mx-auto max-w-[86rem] px-5 sm:px-8 lg:px-12";
+const heroAction = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-center text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
 
 export default function HomeSections({ faqs, categories, locale = "en" }) {
   const copy = COPY[locale];
   const spanish = locale === "es";
   const projects = (spanish ? portfolioProjectsEs : portfolioProjects).filter((project) => !project.isSample);
-  const hero = projects.find((project) => project.slug === "house-of-rogo-storefront-sign");
+  const heroSlides = [
+    ...["house-of-rogo-storefront-sign", "remax-realtor-business-cards"].flatMap((slug) => {
+      const project = projects.find((item) => item.slug === slug);
+      if (!project?.image) return [];
+      return [{ image: project.image, alt: project.imageAlt, title: project.title, kind: spanish ? "Proyecto completado" : "Completed project", href: copy.paths.portfolio + "#" + slug }];
+    }),
+    ...HERO_EXAMPLES.map((example) => {
+      const [title, alt, href] = example[locale];
+      return { image: "/images/signage/" + example.image, title, alt, href, kind: spanish ? "Ejemplo de producto" : "Product example" };
+    }),
+  ];
   const featured = PRODUCTS.map(([categoryId, productId, en, es, esSlug]) => {
     const category = categories.find((entry) => entry.slug === categoryId);
     if (!category) return null;
@@ -83,23 +117,18 @@ export default function HomeSections({ faqs, categories, locale = "en" }) {
 
   return (
     <>
-      <section className="bg-[#FAF8F4] pb-9 pt-30 text-[#1C1917] lg:pb-12 lg:pt-28">
+      <section className="bg-linear-to-br from-brand-navy via-brand-deep via-75% to-brand-sky pb-9 pt-30 text-white lg:pb-12 lg:pt-28">
         <div className={shell + " grid items-center gap-7 md:grid-cols-[1fr_0.94fr] lg:gap-14"}>
           <div className="min-w-0 md:py-6">
-            <h1 className="pnp-home-hero-title font-extrabold tracking-[-0.055em]">{copy.heading}</h1>
-            <p className="mt-4 max-w-[34rem] text-base leading-relaxed text-stone-700 lg:mt-6 lg:text-lg">{copy.intro}</p>
+            <h1 className="pnp-home-hero-title font-extrabold tracking-[-0.055em] text-white">{copy.heading}</h1>
+            <p className="mt-4 max-w-[34rem] text-base leading-relaxed text-white lg:mt-6 lg:text-lg">{copy.intro}</p>
             <div className="mt-5 flex flex-wrap gap-2.5 lg:mt-7">
-              <Link className={primary} href={copy.paths.shop}>{copy.shop} <ArrowRight size={17} aria-hidden="true" /></Link>
-              <Link className={secondary} href={copy.paths.quote}>{copy.quote}</Link>
+              <Link className={heroAction + " bg-brand-amber text-brand-dark hover:bg-amber-300"} href={copy.paths.shop}>{copy.shop} <ArrowRight size={17} aria-hidden="true" /></Link>
+              <Link className={heroAction + " border border-white/60 bg-brand-navy/45 text-white hover:border-white"} href={copy.paths.quote}>{copy.quote}</Link>
             </div>
-            <Link className={textLink + " mt-1 text-sm"} href={copy.paths.digital}>{copy.digital} <ArrowRight size={15} aria-hidden="true" /></Link>
+            <Link className="mt-1 inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-bold text-white underline decoration-white/60 underline-offset-4 hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white" href={copy.paths.digital}>{copy.digital} <ArrowRight size={15} aria-hidden="true" /></Link>
           </div>
-          <figure className="min-w-0 overflow-hidden rounded-2xl bg-[#1C1917] shadow-lg">
-            <div className="relative aspect-[4/3]">
-              <Image src={hero.image} alt={hero.imageAlt} fill preload sizes="(max-width: 767px) 94vw, (max-width: 1440px) 48vw, 628px" className="object-cover" />
-            </div>
-            <figcaption className="px-4 py-3 text-sm font-semibold text-white">{hero.title}</figcaption>
-          </figure>
+          <HomeHeroSlideshow slides={heroSlides} locale={locale} />
         </div>
       </section>
 

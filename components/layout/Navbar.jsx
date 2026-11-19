@@ -60,9 +60,8 @@ export default function Navbar() {
     en: getAlternatePath(pathname, 'en'),
     es: getAlternatePath(pathname, 'es'),
   }
+  const isHomepage = pathname === '/' || pathname === '/es'
   const forceSolidHeader =
-    pathname === '/' ||
-    pathname === '/es' ||
     pathname === '/track-order' ||
     pathname === '/es/rastrear-pedido' ||
     pathname?.startsWith('/track/') ||
@@ -95,6 +94,9 @@ export default function Navbar() {
   const bg = forceSolidHeader ? '#FAF8F4' : isLight ? 'rgba(255,255,255,0.97)' : 'transparent'
   const textColor = isLight ? '#1C1917' : 'white'
   const focusClass = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F59E0B]'
+  const logoSurface = isHomepage && !isLight
+    ? ' relative isolate before:absolute before:-inset-x-1.5 before:-inset-y-1.5 before:-z-10 before:rounded-md before:bg-brand-cream'
+    : ''
 
   return (
     <header
@@ -121,7 +123,7 @@ export default function Navbar() {
         >
 
           {/* Logo */}
-          <Link href={homeHref} className={focusClass} style={{ textDecoration: 'none', flexShrink: 0 }}>
+          <Link href={homeHref} className={focusClass + logoSurface} style={{ textDecoration: 'none', flexShrink: 0 }}>
             {/* Full wordmark on mobile */}
             <span className="relative block lg:hidden" style={{ width: 'clamp(120px, 47vw, 176px)', aspectRatio: '3447 / 532' }}>
               <Image
