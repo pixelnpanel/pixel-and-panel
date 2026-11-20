@@ -3,7 +3,7 @@ import { test } from 'node:test';
 
 let moduleId = 0;
 async function setup(t, configured = true) {
-  for (const name of ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']) {
+  for (const name of ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_URL', 'SUPABASE_SECRET_KEY', 'SUPABASE_SERVICE_ROLE_KEY']) {
     const previous = process.env[name];
     t.after(() => previous === undefined ? delete process.env[name] : process.env[name] = previous);
     delete process.env[name];
@@ -35,12 +35,25 @@ test('admin respects persistent allow and denial results', async (t) => {
   assert.equal((await rateLimit(request)).success, true);
   const [url, options] = fetch.mock.calls[0].arguments;
   assert.equal(url, 'https://rate-limit.invalid/rest/v1/rpc/check_rate_limit');
+  assert.equal(options.headers.Authorization, 'Bearer test-only');
   assert.deepEqual(JSON.parse(options.body), { p_key: request.key, p_limit: 2, p_window_seconds: 60 });
   fetch.mock.mockImplementation(async () => Response.json([{ allowed: false, remaining: 0, reset_at: resetAt }]));
   const denied = await rateLimit(request);
   assert.equal(denied.success, false);
   assert.equal(denied.unavailable, undefined);
   assert.equal(rateLimitResponse(denied.resetTime).status, 429);
+});
+
+test('persistent rate limiting prefers the integration URL and secret over legacy values', async (t) => {
+  const { rateLimit } = await setup(t);
+  process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://retired-project.invalid';
+  process.env.SUPABASE_SECRET_KEY = 'sb_secret_test_only';
+  const fetch = t.mock.method(globalThis, 'fetch', async () => Response.json([{ allowed: true, remaining: 1, reset_at: resetAt }]));
+  assert.equal((await rateLimit(request)).success, true);
+  const [url, options] = fetch.mock.calls[0].arguments;
+  assert.equal(url, 'https://rate-limit.invalid/rest/v1/rpc/check_rate_limit');
+  assert.equal(options.headers.apikey, 'sb_secret_test_only');
+  assert.equal(options.headers.Authorization, undefined);
 });
 
 for (const failure of ['network', 'http', 'invalid', 'string-boolean', 'bad-date']) {

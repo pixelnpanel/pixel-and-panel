@@ -8,8 +8,9 @@ Monitor registry usage as it grows and extend the format before it runs low.
 
 ## Before activation
 
-1. Verify Vercel production's `SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_URL` and
-   server-only `SUPABASE_SERVICE_ROLE_KEY` point to the same Supabase project.
+1. Verify Vercel production's `SUPABASE_URL` and server-only
+   `SUPABASE_SECRET_KEY` point to the same Supabase project. Legacy setups can
+   fall back to `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
    The supported project is `svpjxtdpptfvsrdylccs`. If it has the legacy
    `order_updates` schema, apply the order compatibility migration under
    `supabase/migrations` and [the rate-limiter SQL](rate-limit-supabase.sql).
