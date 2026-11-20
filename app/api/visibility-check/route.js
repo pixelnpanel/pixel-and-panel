@@ -1,7 +1,8 @@
 import { cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 import { leadSuccessCopy } from "@/lib/lead-request";
-import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
+import { logLeadFailure } from "@/lib/lead-delivery";
+import { deliverWebsiteLead } from "@/lib/website-lead-delivery";
 
 export const runtime = "nodejs";
 
@@ -320,7 +321,7 @@ export async function POST(request) {
   };
 
   try {
-    const reference = await deliverLead("visibility", request, [details, isCampaignSubmission], async (ref) => {
+    const reference = await deliverWebsiteLead("visibility", request, [details, isCampaignSubmission], async (ref) => {
       const { text, html } = buildInternalEmail({ ...details, submittedAt });
       const recipient = process.env.VISIBILITY_CHECK_TO_EMAIL || "hello@pixelnpanel.com";
       const spanish = language === "Spanish";

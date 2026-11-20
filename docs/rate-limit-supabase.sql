@@ -13,8 +13,9 @@ create index if not exists rate_limits_reset_at_idx on public.rate_limits(reset_
 
 alter table public.rate_limits enable row level security;
 
+revoke all on public.rate_limits from public, anon, authenticated;
 grant usage on schema public to service_role;
-grant all privileges on table public.rate_limits to service_role;
+grant select, insert, update, delete on table public.rate_limits to service_role;
 
 create or replace function public.check_rate_limit(
   p_key text,
@@ -105,5 +106,5 @@ begin
 end;
 $$;
 
-revoke all on function public.check_rate_limit(text, integer, integer) from public;
+revoke all on function public.check_rate_limit(text, integer, integer) from public, anon, authenticated;
 grant execute on function public.check_rate_limit(text, integer, integer) to service_role;

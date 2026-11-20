@@ -1,7 +1,8 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
 import { quoteSelectionLines, validReplyPhone } from "@/lib/quote-selection";
-import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
+import { logLeadFailure } from "@/lib/lead-delivery";
+import { deliverWebsiteLead } from "@/lib/website-lead-delivery";
 
 export const runtime = "nodejs";
 
@@ -240,7 +241,7 @@ export async function POST(request) {
   };
 
   try {
-    const reference = await deliverLead(
+    const reference = await deliverWebsiteLead(
       "quote", request, [details, attachments[0]?.filename, attachments[0]?.contentType],
       async (ref) => {
         const { text, html } = buildEmail(details);

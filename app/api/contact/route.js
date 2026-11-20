@@ -1,6 +1,7 @@
 import { cleanHeader, cleanText, emailPattern, escapeHtml, sendEmail } from "@/lib/email";
 import { getClientIp, rateLimit, rateLimitResponse } from "@/lib/rate-limit";
-import { deliverLead, logLeadFailure } from "@/lib/lead-delivery";
+import { logLeadFailure } from "@/lib/lead-delivery";
+import { deliverWebsiteLead } from "@/lib/website-lead-delivery";
 
 export const runtime = "nodejs";
 
@@ -131,7 +132,7 @@ export async function POST(request) {
   };
 
   try {
-    const reference = await deliverLead("contact", request, details, async (ref) => {
+    const reference = await deliverWebsiteLead("contact", request, details, async (ref) => {
       const { text, html } = buildEmail(details);
       const recipient = process.env.CONTACT_TO_EMAIL || "hello@pixelnpanel.com";
       const spanish = language === "Spanish";

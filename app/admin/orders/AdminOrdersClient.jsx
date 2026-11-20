@@ -27,6 +27,7 @@ import {
 
 const emptyOrder = {
   orderNumber: "",
+  inquiryReference: "",
   company: "",
   customerName: "",
   customerEmail: "",
@@ -105,6 +106,7 @@ const sections = [
     title: "Customer",
     fields: [
       { key: "orderNumber", label: "Order number", placeholder: "PNP-0245", required: true },
+      { key: "inquiryReference", label: "Inquiry reference", placeholder: "PNP-7G5L" },
       { key: "company", label: "Company", placeholder: "RoGo" },
       { key: "customerName", label: "Customer name", placeholder: "Rolando Gonzalez" },
       { key: "customerEmail", label: "Customer email", placeholder: "customer@email.com" },
@@ -245,6 +247,7 @@ function orderToForm(order) {
 
   return {
     orderNumber: order.orderNumber || "",
+    inquiryReference: order.inquiryReference || "",
     company: order.company || order.companyName || "",
     customerName: order.customerName || "",
     customerEmail: order.customerEmail || "",
@@ -298,13 +301,20 @@ function formatDateTime(value) {
   return date.toLocaleString();
 }
 
-function OrderFields({ form, onChange }) {
+function OrderFields({ form, onChange, showInquiryReference, creating = false }) {
   return (
     <>
       {sections.map((section) => (
         <Section key={section.title} title={section.title}>
+          {showInquiryReference && section.title === "Customer" && (
+            <p className="mb-3 text-sm text-slate-600">
+              {creating
+                ? "Enter the short reference from the inquiry email. Leave Order number blank to use that reference for the order."
+                : "Link the short reference from the inquiry email to keep the original request easy to find."}
+            </p>
+          )}
           <div style={formGridStyle}>
-            {section.fields.map((field) => (
+            {section.fields.filter((field) => showInquiryReference || field.key !== "inquiryReference").map((field) => (
               <Field key={field.key} label={field.label} wide={field.wide}>
                 {field.type === "select" ? (
                   <SelectInput
@@ -324,7 +334,7 @@ function OrderFields({ form, onChange }) {
                     min={field.min}
                     step={field.step}
                     list={field.list}
-                    required={field.required}
+                    required={field.required && !(creating && showInquiryReference && form.inquiryReference.trim())}
                     value={form[field.key]}
                     onChange={(value) => onChange(field.key, value)}
                     placeholder={field.placeholder}
@@ -339,7 +349,7 @@ function OrderFields({ form, onChange }) {
   );
 }
 
-export default function AdminOrdersClient() {
+export default function AdminOrdersClient({ showInquiryReference }) {
   const router = useRouter();
   const [orders, setOrders] = useState([]);
   const [configured, setConfigured] = useState(false);
@@ -718,7 +728,7 @@ export default function AdminOrdersClient() {
                     </div>
                   </div>
 
-                  <OrderFields form={editOrder} onChange={updateEditOrder} />
+                  <OrderFields form={editOrder} onChange={updateEditOrder} showInquiryReference={showInquiryReference} />
 
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "space-between" }}>
                     <button className="btn-amber" disabled={saving || !configured} type="submit">
@@ -849,7 +859,7 @@ export default function AdminOrdersClient() {
             Add a new manually managed order. A private tracking token is generated automatically in Supabase.
           </p>
           <form onSubmit={createOrder} style={{ display: "grid", gap: "1rem" }}>
-            <OrderFields form={newOrder} onChange={updateNewOrder} />
+            <OrderFields form={newOrder} onChange={updateNewOrder} showInquiryReference={showInquiryReference} creating />
             <div style={{ display: "flex", alignItems: "end" }}>
               <button className="btn-amber" disabled={saving || !configured} type="submit">
                 {saving ? <Loader2 size={15} /> : <Plus size={15} />}
